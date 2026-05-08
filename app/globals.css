@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --df-blue: #1901AD;
+  --df-blue-dark: #0F0078;
+  --df-gold: #FFBD59;
+  --df-cream: #FFF6E5;
+  --df-ink: #0A0A23;
+}
+
+html { scroll-behavior: smooth; }
+html, body { background: #fff; color: var(--df-ink); }
+body { font-family: var(--font-sans), system-ui, sans-serif; }
+
+::selection { background: var(--df-gold); color: var(--df-blue); }
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-df-blue transition hover:scale-105 hover:shadow-lg active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-df-blue px-6 py-3 font-bold text-df-blue transition hover:bg-df-blue hover:text-white;
+  }
+  .nav-link {
+    @apply font-display italic text-df-blue transition hover:text-df-gold;
+  }
+  .nav-link-active { @apply text-df-gold; }
+
+  .card-hover {
+    @apply transition-transform duration-300 will-change-transform hover:scale-[1.04] hover:shadow-2xl;
+  }
+
+  .gradient-papi    { background: linear-gradient(135deg, #2DB6FF 0%, #1901AD 100%); }
+  .gradient-louisia { background: linear-gradient(135deg, #FFBD59 0%, #FF7A00 100%); }
+  .gradient-ty      { background: linear-gradient(135deg, #8B5CF6 0%, #2DB6FF 100%); }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #1901AD 0%, #FFBD59 50%, #1901AD 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3s linear infinite;
+}

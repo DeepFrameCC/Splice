@@ -1,0 +1,72 @@
+"use client";
+
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  useEffect(() => {
+    console.error("[deepframe:error]", error);
+  }, [error]);
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
+      <Image src="/logo.svg" alt="DeepFrame" width={52} height={70} className="mb-10 opacity-30" />
+
+      <p
+        style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}
+        className="text-xs uppercase text-[#FFBD59] mb-4"
+      >
+        Quelque chose s&apos;est mal passé
+      </p>
+
+      <h2
+        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+        className="text-4xl md:text-6xl font-bold text-[#1901AD] leading-none mb-6"
+      >
+        Une erreur<br />est survenue.
+      </h2>
+
+      <p className="text-[#0A0A23]/60 text-lg max-w-md mb-10">
+        Ne t&apos;inquiète pas — ça arrive. Réessaie ou reviens à l&apos;accueil.
+      </p>
+
+      <div className="flex flex-wrap gap-3 justify-center">
+        <button
+          onClick={reset}
+          style={{
+            background: "#1901AD",
+            color: "#fff",
+            borderRadius: "999px",
+            fontFamily: "var(--font-montserrat)",
+            fontWeight: 600,
+            fontSize: 14,
+            padding: "14px 28px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Réessayer
+        </button>
+        <Link
+          href="/"
+          style={{
+            background: "transparent",
+            color: "#1901AD",
+            borderRadius: "999px",
+            fontFamily: "var(--font-montserrat)",
+            fontWeight: 600,
+            fontSize: 14,
+            padding: "14px 28px",
+            border: "1.5px solid #1901AD",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+          }}
+        >
+          Retour à l&apos;accueil
+        </Link>
+      </div>
+    </div>
+  );
+}

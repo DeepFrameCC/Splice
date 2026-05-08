@@ -1,0 +1,47 @@
+import Link from "next/link";
+import Image from "next/image";
+
+export default function NotFound() {
+  return (
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
+      <Image src="/logo.svg" alt="DeepFrame" width={52} height={70} className="mb-10 opacity-30" />
+
+      <p
+        style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}
+        className="text-xs uppercase text-[#FFBD59] mb-4"
+      >
+        Erreur 404
+      </p>
+
+      <h1
+        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+        className="text-5xl md:text-7xl font-bold text-[#1901AD] leading-none mb-6"
+      >
+        Page<br />introuvable.
+      </h1>
+
+      <p className="text-[#0A0A23]/60 text-lg max-w-md mb-10">
+        Cette page n&apos;existe pas ou a été déplacée. Retourne à l&apos;accueil pour reprendre là où tu en étais.
+      </p>
+
+      <Link
+        href="/"
+        style={{
+          background: "#FFBD59",
+          color: "#1A1408",
+          borderRadius: "999px",
+          fontFamily: "var(--font-montserrat)",
+          fontWeight: 600,
+          fontSize: 14,
+          padding: "14px 28px",
+          textDecoration: "none",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
+        Retour à l&apos;accueil →
+      </Link>
+    </div>
+  );
+}

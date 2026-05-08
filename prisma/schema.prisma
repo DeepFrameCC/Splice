@@ -1,0 +1,234 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+}
+
+enum Founder {
+  PAPI
+  LOUISIA
+  TY
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+enum DevisStatus {
+  ATTENTE
+  VALIDE
+  REFUSE
+  PAYE
+}
+
+enum FactureStatus {
+  EMISE
+  PAYEE
+  ANNULEE
+}
+
+enum ContratStatus {
+  A_VENIR
+  EN_COURS
+  FINI
+}
+
+enum CounterType {
+  DEVIS
+  FACTURE
+  CONTRAT
+}
+
+enum Pack {
+  BASIQUE
+  VISIBILITE
+  VISIBILITE_MIX
+  PREMIUM
+  INTRO_ANIMEE
+  SUR_MESURE
+}
+
+enum DureeTournage {
+  DEMI_JOURNEE
+  JOURNEE
+  DEUX_JOURNEES
+}
+
+enum UsageType {
+  ORGANIQUE
+  ADS_SOCIAL
+  ADS_GOOGLE
+}
+
+enum DelaiLivraison {
+  STANDARD
+  ETENDU
+  EXPRESS_48H
+}
+
+enum VilleDepart {
+  TOURS
+  ORLEANS
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  role          Role      @default(CLIENT)
+  pseudo        String    @unique
+  prenom        String?
+  nom           String?
+  nomEntreprise String?
+  adresse       String
+  codePostal    String?
+  ville         String?
+  pays          String    @default("France")
+  tel           String
+  age           Int
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  likes         Like[]
+  devis         Devis[]
+  factures      Facture[]
+  contrats      Contrat[]
+  mediasMontes  Media[]   @relation("Monteur")
+}
+
+model Media {
+  id           String    @id @default(cuid())
+  type         MediaType
+  url          String
+  thumbnailUrl String?
+  previewUrl   String?
+  title        String
+  description  String?
+  materiel     String[]
+  prixEstime   Int
+  owner        Founder
+  monteurId    String?
+  monteur      User?     @relation("Monteur", fields: [monteurId], references: [id])
+  published    Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+
+  likes        Like[]
+}
+
+model Like {
+  userId    String
+  mediaId   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@id([userId, mediaId])
+}
+
+model Counter {
+  annee        Int
+  type         CounterType
+  lastSequence Int         @default(0)
+
+  @@id([annee, type])
+}
+
+model Devis {
+  id              String         @id @default(cuid())
+  numero          String         @unique
+  annee           Int
+  sequence        Int
+  userId          String
+  user            User           @relation(fields: [userId], references: [id])
+  status          DevisStatus    @default(ATTENTE)
+  chefDeProjet    Founder
+  pack            Pack
+  duree           DureeTournage  @default(DEMI_JOURNEE)
+  usage           UsageType      @default(ORGANIQUE)
+  delai           DelaiLivraison @default(STANDARD)
+  villeDepart     VilleDepart    @default(TOURS)
+  distanceKm      Int            @default(0)
+  videosSupp      Int            @default(0)
+  videos3D        Int            @default(0)
+  motionDesign    Boolean        @default(false)
+  montageExpress  Boolean        @default(false)
+  introAnimeeSec  Int?
+  nbFormat916     Int            @default(0)
+  nbFormat169     Int            @default(0)
+  nomEntreprise   String
+  nomContact      String
+  emailContact    String
+  telContact      String
+  lieuTournage    String
+  dateTournage    DateTime?
+  remarques       String?
+  lines           Json
+  totalHT         Int
+  acompteRate     Int            @default(30)
+  acompteAmount   Int
+  acomptePaid     Boolean        @default(false)
+  pdfUrl          String?
+  stripeSession   String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  facture         Facture?
+  contrat         Contrat?
+}
+
+model Facture {
+  id        String        @id @default(cuid())
+  numero    String        @unique
+  devisId   String        @unique
+  devis     Devis         @relation(fields: [devisId], references: [id])
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+  status    FactureStatus @default(EMISE)
+  pdfUrl    String?
+  createdAt DateTime      @default(now())
+}
+
+model Contrat {
+  id        String        @id @default(cuid())
+  numero    String        @unique
+  annee     Int
+  sequence  Int
+  devisId   String        @unique
+  devis     Devis         @relation(fields: [devisId], references: [id])
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+  status    ContratStatus @default(A_VENIR)
+  pdfUrl    String?
+  dateDebut DateTime?
+  dateFin   DateTime?
+  createdAt DateTime      @default(now())
+}
+
+model Avis {
+  id         String   @id @default(cuid())
+  auteurNom  String
+  contenu    String
+  note       Int
+  approuve   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}

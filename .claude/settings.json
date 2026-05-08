@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx next:*)",
+      "Bash(cp components/dashboard/StatusPill.new.tsx components/dashboard/StatusPill.tsx)",
+      "Bash(cp app/profil/contrats/page.new.tsx app/profil/contrats/page.tsx)",
+      "Bash(cp app/profil/factures/page.new.tsx app/profil/factures/page.tsx)",
+      "Bash(cp app/profil/devis/page.new.tsx app/profil/devis/page.tsx)",
+      "Bash(cp app/profil/page.new.tsx app/profil/page.tsx)",
+      "Bash(node -e \"try { require\\('pdfkit'\\); console.log\\('pdfkit OK'\\); } catch\\(e\\) { console.log\\('pdfkit MISSING:', e.message\\); }\")",
+      "Bash(mkdir -p \"c:/Users/tracy/OneDrive/Documents/DeepFrame/public/fonts\")",
+      "Bash(curl -sL \"https://github.com/rsms/inter/raw/master/fonts/truetype/Inter-Regular.ttf\" -o Inter-Regular.ttf)",
+      "Bash(curl -sL \"https://github.com/rsms/inter/raw/master/fonts/truetype/Inter-Bold.ttf\" -o Inter-Bold.ttf)",
+      "Bash(ls -la *.ttf)",
+      "Bash(cp app/admin/layout.new.tsx app/admin/layout.tsx)",
+      "Bash(cp app/admin/page.new.tsx app/admin/page.tsx)",
+      "Bash(cp app/admin/devis/page.new.tsx app/admin/devis/page.tsx)",
+      "Bash(rm -f app/admin/layout.new.tsx app/admin/page.new.tsx app/admin/devis/page.new.tsx)"
+    ]
+  }
+}
