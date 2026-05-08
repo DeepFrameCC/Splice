@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat, Poppins, JetBrains_Mono } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+import ToasterClient from "@/components/layout/ToasterClient";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -37,12 +37,38 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.svg" },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "DeepFrame",
+  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc",
+  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"}/logo.svg`,
+  description:
+    "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
+  email: "contact@deepframe.cc",
+  areaServed: {
+    "@type": "Place",
+    name: "Centre-Val de Loire, France",
+  },
+  sameAs: [
+    "https://instagram.com/papiforcex",
+    "https://instagram.com/by.louisia",
+    "https://instagram.com/t.y97one",
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${sans.variable} ${montserrat.variable} ${poppins.variable} ${jetbrains.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-white text-df-ink antialiased">
         <main className="flex-1">{children}</main>
-        <Toaster position="bottom-right" toastOptions={{ style: { background: "#1901AD", color: "#fff" } }} />
+        <ToasterClient />
       </body>
     </html>
   );

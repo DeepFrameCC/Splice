@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Calculator, User } from "lucide-react";
-import { motion } from "framer-motion";
 
 const links = [
   { href: "/",        label: "Accueil" },
@@ -24,9 +23,7 @@ export default function Navbar() {
               <li key={l.href}>
                 <Link href={l.href} className={`nav-link relative ${active ? "nav-link-active" : ""}`}>
                   {l.label}
-                  {active && (
-                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-df-gold" />
-                  )}
+                  <span className={`absolute -bottom-1 left-0 right-0 h-0.5 bg-df-gold transition-transform duration-300 origin-left ${active ? "scale-x-100" : "scale-x-0"}`} />
                 </Link>
               </li>
             );

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, User } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+
 
 const founders = [
   { handle: "@papiforcex", role: "Réalisateur / Vidéaste", bio: "Captation événementielle, brand films, drone.", gradient: "gradient-papi" },

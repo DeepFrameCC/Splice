@@ -3,8 +3,6 @@ import { Heart, Lock } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
-import { motion } from "framer-motion";
-
 type Props = {
   id: string;
   src: string;
@@ -36,10 +34,8 @@ export default function MediaCard({ id, src, title, ownerHandle, prixEstime, mat
   };
 
   return (
-    <motion.figure
-      whileHover={{ scale: 1.04 }}
-      transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className="group relative overflow-hidden rounded-2xl bg-df-cream shadow-md ring-1 ring-df-blue/10"
+    <figure
+      className="group relative overflow-hidden rounded-2xl bg-df-cream shadow-md ring-1 ring-df-blue/10 transition-transform duration-300 ease-out hover:scale-[1.04]"
     >
       <Image src={src} alt={title} width={800} height={1000} className="h-auto w-full object-cover transition group-hover:brightness-105" />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-df-blue/90 via-df-blue/40 to-transparent p-4 text-white opacity-0 transition group-hover:opacity-100">
@@ -63,6 +59,6 @@ export default function MediaCard({ id, src, title, ownerHandle, prixEstime, mat
           ? <Heart className={`h-5 w-5 ${optimisticLiked ? "fill-df-gold text-df-gold" : "text-df-blue"}`} />
           : <Lock className="h-4 w-4 text-df-blue" />}
       </button>
-    </motion.figure>
+    </figure>
   );
 }

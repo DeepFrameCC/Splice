@@ -1,11 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
 
 export default function IntroLoader() {
   const [show, setShow] = useState(true);
   const [progress, setProgress] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -22,43 +25,53 @@ export default function IntroLoader() {
         clearInterval(id);
         setTimeout(() => {
           sessionStorage.setItem("df-intro-done", "1");
-          setShow(false);
+          // Fade out then hide
+          if (containerRef.current) {
+            gsap.to(containerRef.current, {
+              opacity: 0,
+              duration: 0.6,
+              onComplete: () => setShow(false),
+            });
+          } else {
+            setShow(false);
+          }
         }, 250);
       }
     }, 30);
     return () => clearInterval(id);
   }, []);
 
+  useGSAP(() => {
+    if (!show || !logoRef.current) return;
+    gsap.fromTo(
+      logoRef.current,
+      { opacity: 0, scale: 0.8, rotateY: -45 },
+      { opacity: 1, scale: 1, rotateY: 0, duration: 1.2, ease: "power2.out" },
+    );
+  }, { dependencies: [show] });
+
+  if (!show) return null;
+
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          key="intro"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6 } }}
-          className="fixed inset-0 z-[100] grid place-items-center bg-white"
+    <div
+      ref={containerRef}
+      className="fixed inset-0 z-[100] grid place-items-center bg-white"
+    >
+      <div className="flex flex-col items-center">
+        <div
+          ref={logoRef}
+          style={{ transformStyle: "preserve-3d", perspective: 1000, opacity: 0 }}
         >
-          <div className="flex flex-col items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              style={{ transformStyle: "preserve-3d", perspective: 1000 }}
-            >
-              <Image src="/logo.svg" alt="Deepframe" width={220} height={300} priority />
-            </motion.div>
-            <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-cream">
-              <motion.div
-                className="h-full bg-df-blue"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ ease: "linear" }}
-              />
-            </div>
-            <p className="mt-3 font-display italic text-df-blue/70 text-sm">{progress}%</p>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <Image src="/logo.svg" alt="Deepframe" width={220} height={300} priority />
+        </div>
+        <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-cream">
+          <div
+            className="h-full bg-df-blue transition-[width] duration-75 ease-linear"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="mt-3 font-display italic text-df-blue/70 text-sm">{progress}%</p>
+      </div>
+    </div>
   );
 }
