@@ -15,23 +15,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/devis`,       lastModified: new Date(), changeFrequency: "yearly",  priority: 0.8 },
   ];
 
-  let videoPages: MetadataRoute.Sitemap = [];
+  let dynamicPages: MetadataRoute.Sitemap = [];
   try {
-    const videos = await db.media.findMany({
-      where: { type: "VIDEO" },
-      select: { id: true, createdAt: true },
-      orderBy: { createdAt: "desc" },
-      take: 200,
-    });
-    videoPages = videos.map((v) => ({
-      url: `${base}/videos/${v.id}`,
-      lastModified: v.createdAt,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
+    const [videos, services] = await Promise.all([
+      db.media.findMany({
+        where: { type: "VIDEO" },
+        select: { id: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 200,
+      }),
+      db.service.findMany({
+        select: { slug: true, updatedAt: true },
+        orderBy: { publishedAt: "asc" },
+      }),
+    ]);
+
+    dynamicPages = [
+      // Services hub
+      ...(services.length > 0
+        ? [{ url: `${base}/services`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 }]
+        : []),
+      // Individual service pages
+      ...services.map((s) => ({
+        url: `${base}/services/${s.slug}`,
+        lastModified: s.updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      })),
+      // Video pages
+      ...videos.map((v) => ({
+        url: `${base}/videos/${v.id}`,
+        lastModified: v.createdAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      })),
+    ];
   } catch {
     // DB unavailable at build time — skip dynamic pages
   }
 
-  return [...staticPages, ...videoPages];
+  return [...staticPages, ...dynamicPages];
 }

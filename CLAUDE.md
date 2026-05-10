@@ -30,16 +30,21 @@ No formal test suite is currently configured. Testing is done manually via playg
 - **State**: Zustand for the quote wizard (`components/devis/store.ts`)
 - **Styling**: Tailwind CSS with custom `df-*` color tokens (blue `#1901AD`, gold `#FFBD59`, ink `#0A0A23`)
 - **PDF**: PDFKit generated server-side at `app/api/devis/[id]/pdf/route.ts`
-- **3D**: React Three Fiber / Drei (used in landing/intro)
-
 ### Route Structure
 
 ```
 app/
   page.tsx                   # Landing page
-  layout.tsx                 # Root layout (fonts, Toaster)
+  layout.tsx                 # Root layout (fonts, Toaster, JSON-LD)
   (auth)/                    # Auth group: login, register, forgot/reset-password
   devis/page.tsx             # Quote wizard (requires auth)
+  services/
+    page.tsx                 # Hub listing all services (RSC, ISR 1h)
+    layout.tsx               # Services layout with Nav
+    [slug]/
+      page.tsx               # Service detail (RSC, ISR 1h, JSON-LD, FAQ schema)
+      loading.tsx             # Skeleton
+      not-found.tsx           # 404
   videos/                    # Video gallery + detail [id]
   photos/page.tsx            # Photo gallery
   avis/page.tsx              # Reviews
@@ -56,6 +61,16 @@ app/
     devis/[id]/pdf/          # PDF generation endpoint
 ```
 
+### Services Architecture (SEO Elite)
+
+- **Pages services are pure RSC** — no `"use client"` in page.tsx or layout.tsx
+- **JSON-LD `@graph`**: ProfessionalService, Service, WebPage, BreadcrumbList, FAQPage
+- **Microdata breadcrumbs**: schema.org/BreadcrumbList (double signalement with JSON-LD)
+- **FAQ**: native `<details>/<summary>` (no JS), crawlable by search engines
+- **Semantic HTML**: H1 → H2 → H3 strict hierarchy, `aria-labelledby` on sections
+- **ISR**: `revalidate = 3600`, `dynamicParams = false`, `generateStaticParams`
+- **Key files**: `lib/services/queries.ts` (cached), `lib/services/schema-service.ts` (JSON-LD), `components/services/`
+
 ### Key Data Models (Prisma)
 
 - **User**: roles CLIENT | ADMIN, linked to Devis, Facture, Contrat, Like
@@ -64,6 +79,8 @@ app/
 - **Facture**: Linked 1:1 to Devis after payment
 - **Contrat**: Linked 1:1 to Devis, status A_VENIR → EN_COURS → FINI
 - **Counter**: Auto-incrementing sequence per year/type for human-readable numbers (e.g. `2025_001`)
+- **Service**: slug-based, JSON fields `features` and `faq`, linked to BlogPost via `relatedArticles`
+- **BlogPost**: slug-based, linked to parent Service for SEO silo structure
 
 ### Core Business Logic
 

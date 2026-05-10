@@ -232,3 +232,41 @@ model PasswordResetToken {
 
   @@index([email])
 }
+
+model Service {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  shortName       String
+  metaTitle       String
+  metaDescription String
+  h1              String
+  introParagraph  String   @db.Text
+  problemQuestion String
+  problemAnswer   String   @db.Text
+  features        Json
+  faq             Json
+  serviceType     String
+  priceRange      String   @default("$$$")
+  coverImageUrl   String
+  coverImageAlt   String
+  videoUrl        String?
+  publishedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  relatedArticles BlogPost[] @relation("ServiceArticles")
+
+  @@index([slug])
+}
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  excerpt         String
+  publishedAt     DateTime
+  parentService   Service? @relation("ServiceArticles", fields: [parentServiceId], references: [id])
+  parentServiceId String?
+
+  @@index([parentServiceId])
+}
