@@ -12,6 +12,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/avis`,                   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/contact`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.5 },
     { url: `${base}/devis`,                  lastModified: new Date(), changeFrequency: "yearly",  priority: 0.8 },
+    { url: `${base}/blog`,                   lastModified: new Date(), changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${base}/faq`,                    lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/mentions-legales`,       lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
     { url: `${base}/confidentialite`,        lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
     { url: `${base}/cookies`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
@@ -19,10 +21,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let dynamicPages: MetadataRoute.Sitemap = [];
   try {
-    const services = await db.service.findMany({
-      select: { slug: true, updatedAt: true },
-      orderBy: { publishedAt: "asc" },
-    });
+    const [services, blogPosts] = await Promise.all([
+      db.service.findMany({
+        select: { slug: true, updatedAt: true },
+        orderBy: { publishedAt: "asc" },
+      }),
+      db.blogPost.findMany({
+        select: { slug: true, publishedAt: true },
+        orderBy: { publishedAt: "desc" },
+      }),
+    ]);
 
     dynamicPages = [
       // Services hub
@@ -35,6 +43,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: s.updatedAt,
         changeFrequency: "monthly" as const,
         priority: 0.8,
+      })),
+      // Blog posts
+      ...blogPosts.map((p) => ({
+        url: `${base}/blog/${p.slug}`,
+        lastModified: p.publishedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
       })),
     ];
   } catch {

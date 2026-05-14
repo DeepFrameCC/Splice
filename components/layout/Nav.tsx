@@ -10,6 +10,8 @@ const NAV_LINKS = [
   { href: "/galerie",   label: "Galerie" },
   { href: "/equipe",    label: "Équipe" },
   { href: "/#pricing",  label: "Tarifs" },
+  { href: "/blog",      label: "Blog" },
+  { href: "/faq",       label: "FAQ" },
   { href: "/contact",   label: "Contact" },
 ];
 

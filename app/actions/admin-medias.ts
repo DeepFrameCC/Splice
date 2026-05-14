@@ -71,6 +71,50 @@ export async function toggleMediaPublished(mediaId: string) {
   revalidatePath("/photos");
 }
 
+const createMediaSchema = z.object({
+  type: z.enum(["PHOTO", "VIDEO"]),
+  url: z.string().min(1).max(2000),
+  thumbnailUrl: z.string().max(2000).optional(),
+  title: z.string().min(1).max(200),
+  description: z.string().max(1000).optional(),
+  category: z.string().max(100).optional(),
+  client: z.string().max(200).optional(),
+  owner: z.enum(["PAPI", "LOUISIA", "TY"]),
+  prixEstime: z.number().int().min(0),
+  published: z.boolean(),
+});
+
+export async function createMedia(data: z.infer<typeof createMediaSchema>) {
+  const adminId = await requireAdmin();
+  const validated = createMediaSchema.parse(data);
+
+  const media = await db.media.create({
+    data: {
+      type: validated.type,
+      url: validated.url,
+      thumbnailUrl: validated.thumbnailUrl || null,
+      title: validated.title,
+      description: validated.description || null,
+      category: validated.category || null,
+      client: validated.client || null,
+      owner: validated.owner,
+      prixEstime: validated.prixEstime,
+      published: validated.published,
+    },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: media.id,
+    metadata: { type: "media_created", title: validated.title },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}
+
 export async function deleteMedia(mediaId: string) {
   const adminId = await requireAdmin();
 

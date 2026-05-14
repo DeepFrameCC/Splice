@@ -2,6 +2,7 @@ import Image from "next/image";
 import { db } from "@/lib/db";
 import { Image as ImageIcon, Video, Eye, EyeOff, Heart } from "lucide-react";
 import { PublishToggle, DeleteMediaBtn } from "@/components/dashboard/MediaToggleBtn";
+import AddMediaForm from "@/components/dashboard/AddMediaForm";
 
 export const dynamic = "force-dynamic";
 
@@ -21,13 +22,16 @@ export default async function AdminMediasPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
-          Médias
-        </h1>
-        <p className="mt-1 text-sm text-df-ink/50">
-          {stats.total} médias — {stats.photos} photos, {stats.videos} vidéos · {stats.published} publiés, {stats.hidden} masqués
-        </p>
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+            Médias
+          </h1>
+          <p className="mt-1 text-sm text-df-ink/50">
+            {stats.total} médias — {stats.photos} photos, {stats.videos} vidéos · {stats.published} publiés, {stats.hidden} masqués
+          </p>
+        </div>
+        <AddMediaForm />
       </header>
 
       {/* Stats */}
@@ -53,6 +57,7 @@ export default async function AdminMediasPage() {
         <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-df-blue/10">
           <ImageIcon className="mx-auto h-10 w-10 text-df-blue/20" />
           <p className="mt-4 text-sm text-df-ink/40">Aucun média pour le moment.</p>
+          <p className="mt-1 text-xs text-df-ink/30">Utilisez le bouton &quot;Ajouter un média&quot; ci-dessus.</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

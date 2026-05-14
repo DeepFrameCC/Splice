@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { Heart, Lock, X } from "lucide-react";
+import { Heart, Lock, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 
@@ -79,7 +80,7 @@ function ProjectCard({
   liked,
   isAuthed,
   toggleLike,
-  onPlay,
+  onOpen,
 }: {
   media: MediaItem;
   index: number;
@@ -87,7 +88,7 @@ function ProjectCard({
   liked: boolean;
   isAuthed: boolean;
   toggleLike: (mediaId: string) => Promise<{ liked: boolean }>;
-  onPlay?: (media: MediaItem) => void;
+  onOpen: (media: MediaItem) => void;
 }) {
   const [optimisticLiked, setOptimisticLiked] = useState(liked);
   const [pending, start] = useTransition();
@@ -117,8 +118,23 @@ function ProjectCard({
     });
   };
 
-  const thumbContent = (
-    <>
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onOpen(media);
+    }
+  };
+
+  return (
+    <div
+      className="pj-card"
+      data-anim="project"
+      onClick={() => onOpen(media)}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`Ouvrir ${media.title}`}
+    >
       {/* Thumbnail */}
       <div
         className="pj-thumb"
@@ -180,16 +196,6 @@ function ProjectCard({
         <h3>{media.title}</h3>
         {media.client && <span className="pj-client">{media.client}</span>}
       </div>
-    </>
-  );
-
-  return (
-    <div
-      className="pj-card"
-      data-anim="project"
-      onClick={!isPhoto ? () => onPlay?.(media) : undefined}
-    >
-      {thumbContent}
     </div>
   );
 }
@@ -204,12 +210,12 @@ export default function ProjetsClient({
 }: ProjetsClientProps) {
   const [tab, setTab] = useState<"video" | "photo">("video");
   const [filter, setFilter] = useState("all");
-  const [activeVideo, setActiveVideo] = useState<MediaItem | null>(null);
+  const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
 
   const likedSet = useMemo(() => new Set(likedIds), [likedIds]);
 
-  const openVideo = useCallback((media: MediaItem) => setActiveVideo(media), []);
-  const closeVideo = useCallback(() => setActiveVideo(null), []);
+  const openMedia = useCallback((media: MediaItem) => setActiveMedia(media), []);
+  const closeMedia = useCallback(() => setActiveMedia(null), []);
 
   const isPhoto = tab === "photo";
   const filters = isPhoto ? PHOTO_FILTERS : VIDEO_FILTERS;
@@ -223,6 +229,31 @@ export default function ProjetsClient({
       .filter((m) => m.type === typeFilter)
       .filter((m) => filter === "all" || m.category === filter);
   }, [medias, isPhoto, filter]);
+
+  // Navigation in lightbox
+  const currentIndex = activeMedia
+    ? filtered.findIndex((m) => m.id === activeMedia.id)
+    : -1;
+  const canPrev = currentIndex > 0;
+  const canNext = currentIndex < filtered.length - 1;
+
+  const goPrev = useCallback(() => {
+    if (canPrev) setActiveMedia(filtered[currentIndex - 1] ?? null);
+  }, [canPrev, currentIndex, filtered]);
+
+  const goNext = useCallback(() => {
+    if (canNext) setActiveMedia(filtered[currentIndex + 1] ?? null);
+  }, [canNext, currentIndex, filtered]);
+
+  // Keyboard navigation in modal
+  const handleModalKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Escape") closeMedia();
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    },
+    [closeMedia, goPrev, goNext]
+  );
 
   const switchTab = (t: "video" | "photo") => {
     setTab(t);
@@ -250,6 +281,7 @@ export default function ProjetsClient({
       <div className="pj-tabs" role="tablist">
         <button
           role="tab"
+          aria-selected={tab === "video"}
           className={`pj-tab ${tab === "video" ? "on" : ""}`}
           onClick={() => switchTab("video")}
         >
@@ -257,6 +289,7 @@ export default function ProjetsClient({
         </button>
         <button
           role="tab"
+          aria-selected={tab === "photo"}
           className={`pj-tab ${tab === "photo" ? "on" : ""}`}
           onClick={() => switchTab("photo")}
         >
@@ -293,17 +326,31 @@ export default function ProjetsClient({
               liked={likedSet.has(m.id)}
               isAuthed={isAuthed}
               toggleLike={toggleLike}
-              onPlay={!isPhoto ? openVideo : undefined}
+              onOpen={openMedia}
             />
           ))
         )}
       </div>
 
-      {/* ── Video modal ───────────────────────────────────────────── */}
-      {activeVideo && (
+      {/* ── CTA vers devis ────────────────────────────────────────── */}
+      <div className="pj-cta-section">
+        <p className="pj-cta-text">Un projet en tête ? On en discute.</p>
+        <Link href="/devis" className="pj-cta-btn">
+          Demander un devis →
+        </Link>
+      </div>
+
+      {/* ── Media modal (photos + videos) ─────────────────────────── */}
+      {activeMedia && (
         <div
           className="pj-modal-overlay"
-          onClick={closeVideo}
+          onClick={closeMedia}
+          onKeyDown={handleModalKeyDown}
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeMedia.title}
+          tabIndex={-1}
+          ref={(el) => el?.focus()}
         >
           <div
             className="pj-modal"
@@ -311,27 +358,63 @@ export default function ProjetsClient({
           >
             <button
               className="pj-modal-close"
-              onClick={closeVideo}
+              onClick={closeMedia}
               aria-label="Fermer"
             >
               <X className="h-5 w-5" />
             </button>
-            <video
-              src={activeVideo.url}
-              poster={activeVideo.thumbnailUrl ?? undefined}
-              controls
-              autoPlay
-              className="pj-modal-video"
-            />
+
+            {/* Navigation arrows */}
+            {canPrev && (
+              <button
+                className="pj-modal-nav pj-modal-prev"
+                onClick={goPrev}
+                aria-label="Précédent"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+            )}
+            {canNext && (
+              <button
+                className="pj-modal-nav pj-modal-next"
+                onClick={goNext}
+                aria-label="Suivant"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            )}
+
+            {/* Media content */}
+            {activeMedia.type === "VIDEO" ? (
+              <video
+                src={activeMedia.url}
+                poster={activeMedia.thumbnailUrl ?? undefined}
+                controls
+                autoPlay
+                className="pj-modal-video"
+              />
+            ) : (
+              <div className="pj-modal-photo">
+                <Image
+                  src={activeMedia.url}
+                  alt={activeMedia.title}
+                  fill
+                  sizes="(max-width: 768px) 95vw, 900px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            )}
+
             <div className="pj-modal-info">
               <span className="pj-tag">
-                {activeVideo.category
-                  ? `${CATEGORY_LABELS[activeVideo.category] ?? activeVideo.category} · ${new Date(activeVideo.createdAt).getFullYear()}`
-                  : String(new Date(activeVideo.createdAt).getFullYear())}
+                {activeMedia.category
+                  ? `${CATEGORY_LABELS[activeMedia.category] ?? activeMedia.category} · ${new Date(activeMedia.createdAt).getFullYear()}`
+                  : String(new Date(activeMedia.createdAt).getFullYear())}
               </span>
-              <h3>{activeVideo.title}</h3>
-              {activeVideo.client && (
-                <span className="pj-client">{activeVideo.client}</span>
+              <h3>{activeMedia.title}</h3>
+              {activeMedia.client && (
+                <span className="pj-client">{activeMedia.client}</span>
               )}
             </div>
           </div>

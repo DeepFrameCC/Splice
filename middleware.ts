@@ -53,11 +53,11 @@ export default auth((req) => {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/`,
+    `script-src 'self' 'nonce-${nonce}' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://plausible.io`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https://*.supabase.co https://*.r2.dev https://utfs.io`,
-    `connect-src 'self' https://api.resend.com https://api.stripe.com https://www.google.com/recaptcha/`,
+    `connect-src 'self' https://api.resend.com https://api.stripe.com https://www.google.com/recaptcha/ https://plausible.io`,
     `frame-src https://js.stripe.com https://hooks.stripe.com https://www.google.com/recaptcha/`,
     `worker-src blob:`,
     `object-src 'none'`,

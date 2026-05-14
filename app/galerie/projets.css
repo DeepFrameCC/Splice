@@ -438,3 +438,78 @@
 .pj-modal-info .pj-client {
   color: rgba(255, 255, 255, 0.5);
 }
+
+/* ── Photo modal ──────────────────────────────────────────────── */
+.pj-modal-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #000;
+}
+
+/* ── Modal navigation arrows ─────────────────────────────────── */
+.pj-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s;
+}
+.pj-modal-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.pj-modal-prev {
+  left: -56px;
+}
+.pj-modal-next {
+  right: -56px;
+}
+@media (max-width: 1060px) {
+  .pj-modal-prev { left: 12px; }
+  .pj-modal-next { right: 12px; }
+}
+
+/* ── CTA section after gallery ───────────────────────────────── */
+.pj-cta-section {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  text-align: center;
+}
+.pj-cta-text {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1901AD;
+  margin-bottom: 18px;
+}
+.pj-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1901AD;
+  color: #fff;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 14px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.pj-cta-btn:hover {
+  background: #0f0075;
+  transform: translateY(-1px);
+}
