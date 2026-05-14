@@ -12,7 +12,7 @@ import { ServiceFAQ } from "@/components/services/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 import { ServiceReassurance } from "@/components/services/ServiceReassurance";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 export const revalidate = 3600;
 
 interface PageProps {

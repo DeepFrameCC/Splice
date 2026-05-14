@@ -1,6 +1,7 @@
 "use server";
 
 import { randomBytes } from "crypto";
+import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { sendMail } from "@/lib/mailer";
@@ -53,7 +54,7 @@ export async function sendVerificationEmail() {
   return { ok: true, message: "Email de vérification envoyé" };
 }
 
-/** Verify email with token */
+/** Verify email with token. Used internally by confirmEmailVerification. */
 export async function verifyEmailToken(token: string) {
   if (!token) return { ok: false, error: "Token manquant" };
 
@@ -76,4 +77,25 @@ export async function verifyEmailToken(token: string) {
   await audit({ action: "EMAIL_VERIFIED", userId: user.id, target: record.email });
 
   return { ok: true, message: "Email vérifié avec succès" };
+}
+
+/**
+ * Confirm an email verification from a POST/Server Action (user click).
+ * NEVER called on GET — this prevents email scanners (SafeLinks, Mimecast),
+ * browser prefetchers, or proxies from auto-consuming the token before the
+ * user actually clicks the confirmation button.
+ * Rate-limited per IP to prevent token brute-force.
+ */
+export async function confirmEmailVerification(token: string): Promise<void> {
+  const rl = await checkRateLimit(authLimiter);
+  if (!rl.success) {
+    redirect(`/verify-email?status=error&reason=${encodeURIComponent(rl.error ?? "Trop de tentatives")}`);
+  }
+
+  const result = await verifyEmailToken(token);
+  if (result.ok) {
+    redirect("/verify-email?status=ok");
+  } else {
+    redirect(`/verify-email?status=error&reason=${encodeURIComponent(result.error ?? "Erreur inconnue")}`);
+  }
 }
