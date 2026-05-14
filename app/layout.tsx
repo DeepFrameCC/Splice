@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, Montserrat, Poppins, JetBrains_Mono } from "next/font/google";
 import ToasterClient from "@/components/layout/ToasterClient";
+import CookieBanner from "@/components/layout/CookieBanner";
+import PlausibleScript from "@/components/layout/PlausibleScript";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -51,17 +54,22 @@ const jsonLd = {
     name: "Centre-Val de Loire, France",
   },
   sameAs: [
+    "https://www.instagram.com/deepframe.cc/",
+    "https://www.facebook.com/profile.php?id=61589292522120",
     "https://instagram.com/papiforcex",
     "https://instagram.com/by.louisia",
     "https://instagram.com/t.y97one",
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html lang="fr" className={`${sans.variable} ${montserrat.variable} ${poppins.variable} ${jetbrains.variable}`}>
       <head>
         <script
+          nonce={nonce}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
@@ -69,6 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen flex flex-col bg-white text-df-ink antialiased">
         <main className="flex-1">{children}</main>
         <ToasterClient />
+        <CookieBanner />
+        <PlausibleScript />
       </body>
     </html>
   );

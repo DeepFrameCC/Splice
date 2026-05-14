@@ -1,29 +1,54 @@
 import { db } from "@/lib/db";
-import { Star, AlertTriangle } from "lucide-react";
+import { Star, AlertTriangle, MessageSquare, Quote } from "lucide-react";
 import AvisForm from "@/components/gallery/AvisForm";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
+export const metadata: Metadata = {
+  title: "Avis clients",
+  description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Deepframe.",
+};
+
 export default async function AvisPage() {
-  let avis: any[] = [];
+  let avis: { id: string; auteurNom: string; contenu: string; note: number; featured: boolean; createdAt: Date }[] = [];
   let dbError = false;
 
   try {
-    avis = await db.avis.findMany({ where: { approuve: true }, orderBy: { createdAt: "desc" }, take: 24 });
+    avis = await db.avis.findMany({
+      where: { approuve: true },
+      orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+      take: 24,
+    });
   } catch (e) {
     console.error("[avis] DB error:", e);
     dbError = true;
   }
 
+  const noteMoyenne = avis.length > 0
+    ? (avis.reduce((sum, a) => sum + a.note, 0) / avis.length).toFixed(1)
+    : null;
+
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
-      <header className="mb-10 text-center">
-        <h1 className="font-display text-5xl italic text-df-blue md:text-6xl">Avis</h1>
-        <p className="mt-3 text-df-blue/70">Ce que nos clients disent de Deepframe.</p>
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <header className="mb-12 text-center">
+        <h1 className="font-display text-3xl font-bold text-df-ink sm:text-4xl lg:text-5xl">
+          Avis clients
+        </h1>
+        <p className="mt-3 text-sm text-df-ink/50">
+          Ce que nos clients disent de Deepframe.
+          {noteMoyenne && (
+            <span className="ml-2 inline-flex items-center gap-1">
+              <Star className="h-3.5 w-3.5 fill-df-gold text-df-gold" />
+              <span className="font-bold text-df-gold">{noteMoyenne}/5</span>
+              <span className="text-df-ink/30">({avis.length} avis)</span>
+            </span>
+          )}
+        </p>
       </header>
 
       {dbError ? (
-        <div className="flex items-center justify-center gap-3 rounded-xl bg-amber-50 p-6 text-amber-800">
+        <div className="flex items-center justify-center gap-3 rounded-2xl bg-amber-50 p-6 text-amber-800 ring-1 ring-amber-200">
           <AlertTriangle className="h-6 w-6 shrink-0" />
           <div>
             <p className="font-bold">Service temporairement indisponible</p>
@@ -33,26 +58,58 @@ export default async function AvisPage() {
       ) : (
         <>
           {avis.length === 0 ? (
-            <p className="rounded-xl bg-df-cream p-8 text-center text-df-blue/70">Soyez le premier à laisser un avis après votre prestation.</p>
+            <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-df-blue/10">
+              <MessageSquare className="mx-auto h-10 w-10 text-df-blue/20" />
+              <p className="mt-4 text-sm text-df-ink/40">
+                Soyez le premier à laisser un avis après votre prestation.
+              </p>
+            </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {avis.map((a) => (
-                <article key={a.id} className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-df-blue/10 transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="flex items-center gap-1">
+                <article
+                  key={a.id}
+                  className={`group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
+                    a.featured
+                      ? "ring-2 ring-df-gold/40"
+                      : "ring-1 ring-df-blue/10"
+                  }`}
+                >
+                  {a.featured && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-df-gold/10 px-2 py-0.5 text-[10px] font-bold text-df-gold">
+                      <Star className="h-2.5 w-2.5 fill-df-gold" /> En avant
+                    </span>
+                  )}
+                  <Quote className="absolute -right-2 -top-2 h-16 w-16 rotate-12 text-df-blue/[0.04]" />
+                  <div className="flex items-center gap-0.5">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`h-4 w-4 ${i < a.note ? "fill-df-gold text-df-gold" : "text-df-blue/20"}`} />
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < a.note ? "fill-df-gold text-df-gold" : "text-df-ink/15"
+                        }`}
+                      />
                     ))}
                   </div>
-                  <h3 className="mt-3 font-display text-2xl italic text-df-blue">{a.auteurNom}</h3>
-                  <p className="mt-2 text-sm text-df-ink/80">« {a.contenu} »</p>
+                  <p className="mt-4 text-sm leading-relaxed text-df-ink/70">
+                    «&nbsp;{a.contenu}&nbsp;»
+                  </p>
+                  <div className="mt-4 flex items-center justify-between border-t border-df-blue/5 pt-4">
+                    <p className="font-display text-sm font-bold text-df-ink">{a.auteurNom}</p>
+                    <p className="text-[10px] text-df-ink/30">
+                      {a.createdAt.toLocaleDateString("fr-FR")}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
           )}
 
-          {/* Formulaire d'avis */}
+          {/* Form */}
           <div className="mt-16">
-            <h2 className="mb-6 text-center font-display text-3xl italic text-df-blue">Laissez votre avis</h2>
+            <h2 className="mb-6 text-center font-display text-2xl font-bold text-df-ink">
+              Laissez votre avis
+            </h2>
             <AvisForm />
           </div>
         </>

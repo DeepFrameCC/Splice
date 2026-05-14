@@ -1,27 +1,66 @@
 "use client";
+
 import { useActionState } from "react";
 import Link from "next/link";
 import { forgotPasswordAction } from "@/app/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
 
 export default function ForgotPasswordPage() {
   const [state, action, pending] = useActionState(forgotPasswordAction, null as { ok: boolean; error?: string; message?: string } | null);
 
   return (
-    <section className="mx-auto max-w-md px-6 py-16">
-      <h1 className="font-display text-4xl italic text-df-blue">Mot de passe oublié</h1>
-      <p className="mt-2 text-df-blue/70">Saisis ton email, on t&apos;envoie un lien pour réinitialiser.</p>
+    <div className="flex min-h-screen items-center justify-center px-6 py-16">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Mot de passe oublié</CardTitle>
+          <CardDescription>
+            Saisis ton email, on t&apos;envoie un lien pour réinitialiser.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form action={action} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="prenom@email.com"
+                autoComplete="email"
+                className="h-12"
+              />
+            </div>
 
-      <form action={action} className="mt-8 space-y-4">
-        <input name="email" type="email" required placeholder="Email"
-          className="w-full rounded-xl border-2 border-df-blue/20 px-4 py-3 outline-none focus:border-df-blue" />
-        {state?.message && <p className="rounded-lg bg-green-50 p-3 text-sm text-green-700">{state.message}</p>}
-        {state?.error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>}
-        <button type="submit" disabled={pending} className="btn-primary w-full disabled:opacity-50">
-          {pending ? "Envoi…" : "Envoyer le lien"}
-        </button>
-      </form>
+            {state?.message && (
+              <div className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700">
+                {state.message}
+              </div>
+            )}
+            {state?.error && (
+              <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+                {state.error}
+              </div>
+            )}
 
-      <Link href="/login" className="mt-6 block text-center text-sm text-df-blue/70">Retour à la connexion</Link>
-    </section>
+            <Button type="submit" disabled={pending} size="lg" className="w-full">
+              {pending ? "Envoi…" : "Envoyer le lien"}
+            </Button>
+          </form>
+
+          <Link
+            href="/login"
+            className="mt-6 flex items-center justify-center gap-2 text-sm text-df-blue/60 hover:text-df-blue"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Retour à la connexion
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

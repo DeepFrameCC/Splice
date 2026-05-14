@@ -4,20 +4,24 @@ import { db } from "@/lib/db";
 import { sendMail } from "@/lib/mailer";
 import { nextNumero } from "@/lib/numbering";
 import { revalidatePath } from "next/cache";
+import { audit } from "@/lib/audit";
+import { notify } from "@/lib/notifications";
+import type { Role } from "@prisma/client";
 
 async function requireAdmin() {
   const session = await auth();
   const role = (session?.user as any)?.role as string | undefined;
   if (!isAdmin(role)) throw new Error("FORBIDDEN");
-  return session;
+  return (session?.user as any)?.id as string | undefined;
 }
 
 export async function validerDevis(devisId: string) {
-  await requireAdmin();
+  const adminId = await requireAdmin();
 
   // Transaction : valider le devis + créer facture + créer contrat
   const result = await db.$transaction(async (tx) => {
     const devis = await tx.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
+    if (!devis.userId) throw new Error("Impossible de valider un devis sans client associé.");
 
     // Créer la facture
     const factNum = await nextNumero("FACTURE", tx);
@@ -62,6 +66,18 @@ export async function validerDevis(devisId: string) {
       </div>`
   });
 
+  await audit({ action: "DEVIS_UPDATED", userId: adminId, target: devisId, metadata: { status: "VALIDE" } });
+
+  if (result.userId) {
+    await notify({
+      userId: result.userId,
+      type: "DEVIS_STATUS",
+      title: `Devis n°${result.numero} validé`,
+      message: `Votre devis de ${result.totalHT} € a été validé. Vous pouvez maintenant régler l'acompte.`,
+      href: `/profil/devis/${devisId}/payer`,
+    });
+  }
+
   revalidatePath("/admin/devis");
   revalidatePath("/admin/factures");
   revalidatePath("/admin/contrats");
@@ -69,7 +85,7 @@ export async function validerDevis(devisId: string) {
 }
 
 export async function refuserDevis(devisId: string) {
-  await requireAdmin();
+  const adminId = await requireAdmin();
   const devis = await db.devis.update({ where: { id: devisId }, data: { status: "REFUSE" } });
 
   await sendMail({
@@ -85,18 +101,41 @@ export async function refuserDevis(devisId: string) {
       </div>`
   });
 
+  await audit({ action: "DEVIS_UPDATED", userId: adminId, target: devisId, metadata: { status: "REFUSE" } });
+
+  if (devis.userId) {
+    await notify({
+      userId: devis.userId,
+      type: "DEVIS_STATUS",
+      title: `Devis n°${devis.numero} non retenu`,
+      message: "Votre devis n'a pas été retenu. Contactez-nous pour en discuter.",
+      href: `/profil/devis`,
+    });
+  }
+
   revalidatePath("/admin/devis");
 }
 
 export async function changerStatutContrat(contratId: string, status: "A_VENIR" | "EN_COURS" | "FINI") {
-  await requireAdmin();
+  const adminId = await requireAdmin();
   await db.contrat.update({ where: { id: contratId }, data: { status } });
+  await audit({ action: "CONTRAT_UPDATED", userId: adminId, target: contratId, metadata: { status } });
   revalidatePath("/admin/contrats");
 }
 
 export async function changerStatutFacture(factureId: string, status: "EMISE" | "PAYEE" | "ANNULEE") {
-  await requireAdmin();
+  const adminId = await requireAdmin();
   await db.facture.update({ where: { id: factureId }, data: { status } });
+  await audit({ action: "ADMIN_ACTION", userId: adminId, target: factureId, metadata: { type: "facture_status", status } });
   revalidatePath("/admin/factures");
   revalidatePath("/profil/factures");
+}
+
+export async function changerRoleUtilisateur(userId: string, role: Role) {
+  const adminId = await requireAdmin();
+  if (userId === adminId) throw new Error("Impossible de modifier votre propre rôle");
+
+  await db.user.update({ where: { id: userId }, data: { role } });
+  await audit({ action: "ADMIN_ACTION", userId: adminId, target: userId, metadata: { type: "role_change", role } });
+  revalidatePath("/admin/utilisateurs");
 }

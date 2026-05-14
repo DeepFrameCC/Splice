@@ -33,13 +33,13 @@ export default function Home() {
 
 function Showreel() {
   const clips: { tag: string; title: string; tc: string; ratio: number; src: string; type: "video" | "image"; credit?: string }[] = [
-    { tag: "Pub auto", title: "Porsche 911 — Pose PPF", tc: "00:40", ratio: 16 / 9, src: "/Le saviez-vous Le PPF (Paint Protection Film) est un film transparent appliqué sur la carrosseri.mp4", type: "video", credit: "papi" },
-    { tag: "Interview", title: "CKCLEANAUTO45", tc: "01:12", ratio: 4 / 3, src: "/Interview cklean auto.mp4", type: "video", credit: "by.louisia" },
-    { tag: "Shooting auto", title: "Porsche — Travail détail", tc: "00:38", ratio: 4 / 3, src: "/travail 4 porche.jpg", type: "image", credit: "by.louisia" },
-    { tag: "Présentation", title: "Par Louisia — CKClean", tc: "02:10", ratio: 16 / 9, src: "/Présentation (Par Louisia).mp4", type: "video", credit: "by.louisia" },
-    { tag: "Shooting auto", title: "CKClean — Session photo", tc: "00:20", ratio: 4 / 3, src: "/P7.jpg", type: "image", credit: "by.louisia" },
-    { tag: "Pub locale", title: "Bistrot de la Croix Morin", tc: "00:35", ratio: 9 / 16, src: "/Alerte Nouvelle Pépite ✨️Le Bistrot de la Croix Morin c'est lendroit parfait pour manger des pl.mp4", type: "video", credit: "by.louisia" },
-    { tag: "Clip", title: "Time — Par Fayad", tc: "01:30", ratio: 9 / 16, src: "/Time (Par Fayad).mp4", type: "video", credit: "papi" },
+    { tag: "Pub auto", title: "Porsche 911 — Pose PPF", tc: "00:36", ratio: 16 / 9, src: "/videos/ppf-cklean-auto.mp4", type: "video", credit: "papi" },
+    { tag: "Interview", title: "CKCLEANAUTO45", tc: "00:50", ratio: 4 / 3, src: "/videos/interview-cklean-auto.mp4", type: "video", credit: "by.louisia" },
+    { tag: "Shooting auto", title: "Porsche — Travail détail", tc: "00:38", ratio: 4 / 3, src: "/photos/travail-porsche.jpg", type: "image", credit: "by.louisia" },
+    { tag: "Présentation", title: "Par Louisia — CKClean", tc: "00:50", ratio: 16 / 9, src: "/videos/presentation-louisia.mp4", type: "video", credit: "by.louisia" },
+    { tag: "Shooting auto", title: "CKClean — Session photo", tc: "00:20", ratio: 4 / 3, src: "/photos/porsche-studio-1.jpg", type: "image", credit: "by.louisia" },
+    { tag: "Pub locale", title: "Bistrot de la Croix Morin", tc: "00:22", ratio: 9 / 16, src: "/videos/bistrot-orleans.mp4", type: "video", credit: "ty" },
+    { tag: "Clip", title: "Time — Par Fayad", tc: "00:23", ratio: 9 / 16, src: "/videos/time-fayad.mp4", type: "video", credit: "papi" },
   ];
   const loop = [...clips, ...clips];
 
@@ -112,7 +112,7 @@ function Hero() {
         <div className="df-hero-frame-inner">
           <video
             className="df-hero-video"
-            src="/Présentation (Par Louisia).mp4"
+            src="/videos/presentation-louisia.mp4"
             autoPlay
             muted
             loop
@@ -219,31 +219,14 @@ function Services() {
 }
 
 function GalleryTeaser() {
-  const photos = [
-    { src: "/P7.jpg", alt: "CKCleanAuto45 — détail carrosserie" },
-    { src: "/P18.jpg", alt: "CKCleanAuto45 — finition PPF" },
-    { src: "/P24.jpg", alt: "CKCleanAuto45 — résultat final" },
-    { src: "/travail 4 porche.jpg", alt: "Porsche — travail de détail" },
-  ];
-
   return (
     <section id="projects" className="df-section df-gallery-teaser">
       <div className="df-section-head">
-        <div className="df-eyebrow">Nos réalisations · CKCLEANAUTO45</div>
-        <h2 className="df-h2">Découvrez notre <em>univers</em>.</h2>
-        <p className="df-gallery-credit">Photos par <strong>@by.louisia</strong></p>
+        <div className="df-eyebrow">Nos réalisations</div>
+        <h2 className="df-h2">Le travail de <em>chacun</em>.</h2>
       </div>
 
-      <div className="df-gallery-grid">
-        {photos.map((p) => (
-          <div key={p.src} className="df-gallery-item">
-            <img src={p.src} alt={p.alt} loading="lazy" />
-            <span className="df-gallery-item-credit">@ by.louisia</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="df-teaser-grid" style={{ marginTop: "2rem" }}>
+      <div className="df-teaser-grid">
         <Link href="/galerie" className="df-teaser-card df-teaser-a">
           <div className="df-teaser-noise" />
           <div className="df-teaser-corners"><i /><i /><i /><i /></div>
@@ -251,7 +234,7 @@ function GalleryTeaser() {
             <span className="df-teaser-tag">Photos · Vidéos</span>
             <h3>Galerie complète</h3>
             <p>Toutes nos réalisations réunies en un seul endroit.</p>
-            <span className="df-teaser-cta">Explorer →</span>
+            <span className="df-teaser-cta">Explorer &rarr;</span>
           </div>
         </Link>
 
@@ -262,7 +245,7 @@ function GalleryTeaser() {
             <span className="df-teaser-tag">Papi · Louisia · Ty</span>
             <h3>Portfolios</h3>
             <p>L&apos;univers visuel de chaque membre de l&apos;équipe.</p>
-            <span className="df-teaser-cta">Découvrir →</span>
+            <span className="df-teaser-cta">Découvrir &rarr;</span>
           </div>
         </Link>
       </div>
@@ -273,21 +256,21 @@ function GalleryTeaser() {
 function Testimonials() {
   const items = [
     {
-      q: "On a doublé le taux de complétion sur nos reels Insta. Le passage chez DeepFrame a vraiment changé la donne.",
-      a: "Camille R.", r: "Directrice marketing — Maison Lalou",
+      q: "Équipe au top, dynamique et à l'écoute. Les vidéos sont tops et parfaitement adaptées pour notre compte Insta.",
+      a: "Kevin", r: "CKCleanAuto45 · Saran",
     },
     {
-      q: "Shooting auto livré en 5 jours, étalonnage parfait. C'est rare de voir autant de soin sur un format aussi rapide.",
-      a: "Julien M.", r: "Concession indépendante — Tours",
+      q: "Un rendu pro, livré rapidement. Ils ont su capter l'univers de notre marque dès la première session.",
+      a: "Clément", r: "Pixel 404 · Orléans",
     },
     {
-      q: "L'aftermovie a tourné en boucle sur nos comptes pendant deux semaines. Brief respecté à 100%.",
-      a: "Léa F.", r: "Métropole d'Orléans",
+      q: "Super expérience du début à la fin, le résultat reflète parfaitement l'ambiance de notre établissement.",
+      a: "Gérant(e)", r: "Bistrot Croix Morant · Orléans",
     },
   ];
   return (
     <section className="df-section df-testimonials">
-      <div className="df-eyebrow">Ils en parlent</div>
+      <div className="df-eyebrow">Ils nous ont fait confiance</div>
       <div className="df-testimonials-grid">
         {items.map((it, i) => (
           <figure key={i} className="df-testimonial">
@@ -456,7 +439,7 @@ function Footer() {
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>
         <div>
-          <h4>Navigation</h4>
+          <h3>Navigation</h3>
           <ul>
             <li><a href="#about">À propos</a></li>
             <li><a href="#services">Services</a></li>
@@ -465,26 +448,23 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h4>Contact</h4>
+          <h3>Contact</h3>
           <ul>
-            <li>hello@deepframe.fr</li>
-            <li>+33 2 38 00 00 00</li>
-            <li>Studio · 12 quai du Châtelet, Orléans</li>
+            <li>contact@deepframe.cc</li>
+            <li>Orléans, 45000</li>
           </ul>
         </div>
         <div>
-          <h4>Suivre</h4>
+          <h3>Suivre</h3>
           <ul>
-            <li>Instagram</li>
-            <li>Vimeo</li>
-            <li>YouTube</li>
-            <li>LinkedIn</li>
+            <li><a href="https://www.instagram.com/deepframe.cc/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61589292522120" target="_blank" rel="noopener noreferrer">Facebook</a></li>
           </ul>
         </div>
       </div>
       <div className="df-footer-bot">
         <span>© 2026 DeepFrame · Tous droits réservés</span>
-        <span>Mentions légales · Confidentialité</span>
+        <span><Link href="/mentions-legales">Mentions légales</Link> · <Link href="/confidentialite">Confidentialité</Link> · <Link href="/cookies">Cookies</Link></span>
       </div>
     </footer>
   );
@@ -530,7 +510,7 @@ function VideoReel() {
           On filme. On cadre.<br />
           <em>On sublime.</em>
         </h2>
-        <Link href="/videos" className="df-vr-btn">
+        <Link href="/galerie" className="df-vr-btn">
           <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
             <path d="M8 5v14l11-7z" />
           </svg>

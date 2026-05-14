@@ -1,30 +1,53 @@
 "use client";
 import { PACKS, DUREE_SUPPLEMENT, USAGE_PRICE_PER_VIDEO, DELAI } from "@/lib/pricing";
 import { useDevisForm } from "./store";
-import { Pack, DureeTournage, UsageType, DelaiLivraison, VilleDepart } from "@prisma/client";
+import type { Pack, DureeTournage, UsageType, DelaiLivraison, VilleDepart } from "@prisma/client";
 import { Check } from "lucide-react";
+import { useCallback } from "react";
+
+const PACK_ORDER: Pack[] = ["BASIQUE", "VISIBILITE", "VISIBILITE_MIX", "PREMIUM", "INTRO_ANIMEE", "SUR_MESURE"];
 
 export function Step1() {
-  const { pack, set, introAnimeeSec } = useDevisForm();
-  const order: Pack[] = ["BASIQUE", "VISIBILITE", "VISIBILITE_MIX", "PREMIUM", "INTRO_ANIMEE", "SUR_MESURE"];
+  const pack = useDevisForm((s) => s.pack);
+  const introAnimeeSec = useDevisForm((s) => s.introAnimeeSec);
+  const set = useDevisForm((s) => s.set);
+
+  const selectPack = useCallback((p: Pack) => {
+    set("pack", p);
+  }, [set]);
+
   return (
     <div>
       <h2 className="font-display text-3xl italic text-df-blue">Étape 1 — Quelle prestation ?</h2>
       <p className="mt-1 text-df-blue/70">Choisissez le pack qui correspond à votre besoin.</p>
       <div className="mt-6 grid gap-3 md:grid-cols-2">
-        {order.map((p) => {
+        {PACK_ORDER.map((p) => {
           const info = PACKS[p];
-          const active = pack === p;
+          const isActive = pack === p;
           return (
-            <button key={p} type="button" onClick={() => set("pack", p)}
-              className={`flex items-start justify-between gap-3 rounded-2xl border-2 p-4 text-left transition ${active ? "border-df-gold bg-df-cream" : "border-df-blue/15 hover:border-df-blue"}`}>
-              <div>
+            <button
+              key={p}
+              type="button"
+              onClick={() => selectPack(p)}
+              className={`relative flex items-start justify-between gap-3 rounded-2xl border-2 p-4 text-left transition-all duration-200 ${
+                isActive
+                  ? "border-df-gold bg-df-cream shadow-md ring-1 ring-df-gold/30"
+                  : "border-df-blue/15 hover:border-df-blue/40 hover:bg-df-cream/50"
+              }`}
+            >
+              <div className="min-w-0 flex-1">
                 <p className="font-display text-xl italic text-df-blue">{info.label}</p>
                 <p className="mt-1 text-sm text-df-blue/70">{info.description}</p>
               </div>
-              <div className="text-right">
-                <p className="font-bold text-df-blue">{info.price > 0 ? `${info.price} €` : "Sur devis"}</p>
-                {active && <Check className="ml-auto mt-2 h-5 w-5 text-df-gold" />}
+              <div className="flex flex-col items-end gap-1">
+                <p className="whitespace-nowrap text-lg font-bold text-df-blue">
+                  {info.price > 0 ? `${info.price} €` : "Sur devis"}
+                </p>
+                {isActive && (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-df-gold">
+                    <Check className="h-4 w-4 text-white" />
+                  </span>
+                )}
               </div>
             </button>
           );
@@ -53,7 +76,7 @@ export function Step2() {
         <div className="mt-2 grid gap-2 md:grid-cols-3">
           {(Object.keys(DUREE_SUPPLEMENT) as DureeTournage[]).map((d) => (
             <button type="button" key={d} onClick={() => f.set("duree", d)}
-              className={`rounded-xl border-2 p-3 text-sm font-bold ${f.duree === d ? "border-df-gold bg-df-cream text-df-blue" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 ${f.duree === d ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-1 ring-df-gold/30" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40"}`}>
               {DUREE_SUPPLEMENT[d].label}{DUREE_SUPPLEMENT[d].price > 0 && ` (+${DUREE_SUPPLEMENT[d].price} €)`}
             </button>
           ))}
@@ -114,7 +137,7 @@ export function Step3() {
         <div className="mt-2 grid gap-2 md:grid-cols-3">
           {(Object.keys(USAGE_PRICE_PER_VIDEO) as UsageType[]).map((u) => (
             <button type="button" key={u} onClick={() => f.set("usage", u)}
-              className={`rounded-xl border-2 p-3 text-sm font-bold ${f.usage === u ? "border-df-gold bg-df-cream text-df-blue" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 ${f.usage === u ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-1 ring-df-gold/30" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40"}`}>
               {USAGE_PRICE_PER_VIDEO[u].label}
               {USAGE_PRICE_PER_VIDEO[u].perVideo > 0 && <span className="block text-xs">+{USAGE_PRICE_PER_VIDEO[u].perVideo} €/vidéo</span>}
             </button>
@@ -127,7 +150,7 @@ export function Step3() {
         <div className="mt-2 grid gap-2 md:grid-cols-3">
           {(Object.keys(DELAI) as DelaiLivraison[]).map((d) => (
             <button type="button" key={d} onClick={() => f.set("delai", d)}
-              className={`rounded-xl border-2 p-3 text-sm font-bold ${f.delai === d ? "border-df-gold bg-df-cream text-df-blue" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 ${f.delai === d ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-1 ring-df-gold/30" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40"}`}>
               {DELAI[d].label}{DELAI[d].price > 0 && ` (+${DELAI[d].price} €)`}
             </button>
           ))}

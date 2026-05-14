@@ -35,7 +35,7 @@ export async function GET(
   try {
     facture = await db.facture.findUnique({
       where: { id },
-      include: { devis: { include: { user: true } }, user: true },
+      include: { devis: { include: { user: { include: { profile: true } } } }, user: { include: { profile: true } } },
     });
   } catch (err) {
     console.error("[facture-pdf] DB error:", err);
@@ -171,8 +171,8 @@ export async function GET(
         devis.nomContact,
         devis.emailContact,
         devis.telContact,
-        facture.user?.adresse,
-        [facture.user?.codePostal, facture.user?.ville]
+        facture.user?.profile?.adresse,
+        [facture.user?.profile?.codePostal, facture.user?.profile?.ville]
           .filter(Boolean)
           .join(" "),
       ].filter(Boolean);

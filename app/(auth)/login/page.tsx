@@ -1,15 +1,24 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { loginAction } from "@/app/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function LoginPage() {
   const [state, action, pending] = useActionState(
     loginAction,
-    null as { ok: boolean; error?: string } | null
+    null as { ok: boolean; error?: string; requires2FA?: boolean } | null
   );
+  const [show2FA, setShow2FA] = useState(false);
+
+  useEffect(() => {
+    if (state?.requires2FA) setShow2FA(true);
+  }, [state]);
 
   return (
     <div className="flex min-h-screen">
@@ -32,22 +41,13 @@ export default function LoginPage() {
         </Link>
 
         <div className="max-w-md">
-          <p
-            className="mb-3 text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: "#FFBD59" }}
-          >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-df-gold">
             Espace client
           </p>
-          <h1
-            className="text-4xl font-black leading-tight text-white"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
+          <h1 className="font-display text-4xl font-black leading-tight text-white">
             Suivez vos devis,
             <br />
-            <em className="italic" style={{ color: "#FFBD59" }}>
-              du brief au signé
-            </em>
-            .
+            <em className="italic text-df-gold">du brief au signé</em>.
           </h1>
           <p className="mt-5 leading-relaxed text-white/60">
             Connectez-vous pour accéder à vos devis, factures, contrats et
@@ -56,10 +56,7 @@ export default function LoginPage() {
           <ul className="mt-8 space-y-3 text-sm text-white/50">
             {["Suivi devis en temps réel", "Export PDF en un clic", "Factures & contrats centralisés"].map((feat) => (
               <li key={feat} className="flex items-center gap-3">
-                <span
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs"
-                  style={{ background: "rgba(255,189,89,.15)", color: "#FFBD59" }}
-                >
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-df-gold/15 text-xs text-df-gold">
                   ✓
                 </span>
                 {feat}
@@ -92,43 +89,38 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <h2
-            className="text-2xl font-black text-df-ink"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
+          <h2 className="font-display text-2xl font-black text-df-ink">
             Bon retour parmi nous.
           </h2>
           <p className="mt-1 text-sm text-df-ink/50">Identifiants DeepFrame.</p>
 
           <form action={action} className="mt-8 space-y-4">
-            <label className="block">
-              <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-df-blue/60">
-                Email
-              </span>
-              <input
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
                 name="email"
                 type="email"
                 required
                 placeholder="prenom@email.com"
                 autoComplete="email"
-                className="w-full rounded-xl border-2 border-df-blue/10 bg-white px-4 py-3 text-df-ink outline-none transition focus:border-df-blue"
+                className="h-12"
               />
-            </label>
+            </div>
 
-            <label className="block">
-              <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-df-blue/60">
-                Mot de passe
-              </span>
-              <input
+            <div className="space-y-1.5">
+              <Label htmlFor="password">Mot de passe</Label>
+              <Input
+                id="password"
                 name="password"
                 type="password"
                 required
                 minLength={8}
                 placeholder="••••••••"
                 autoComplete="current-password"
-                className="w-full rounded-xl border-2 border-df-blue/10 bg-white px-4 py-3 text-df-ink outline-none transition focus:border-df-blue"
+                className="h-12"
               />
-            </label>
+            </div>
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-df-blue/60">
@@ -140,20 +132,46 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            {state?.error && (
-              <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
-                {state.error}
+            {show2FA && (
+              <div className="space-y-1.5 rounded-lg border border-df-blue/20 bg-df-cream/50 p-4">
+                <Label htmlFor="totpCode" className="text-df-blue font-semibold">
+                  Code d&apos;authentification 2FA
+                </Label>
+                <p className="text-xs text-df-ink/50">
+                  Entrez le code à 6 chiffres de votre application d&apos;authentification.
+                </p>
+                <Input
+                  id="totpCode"
+                  name="totpCode"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]{6}"
+                  maxLength={6}
+                  placeholder="000000"
+                  autoComplete="one-time-code"
+                  className="h-12 text-center text-2xl tracking-[0.5em] font-mono"
+                  autoFocus
+                />
               </div>
             )}
 
-            <button
+            {state?.error && (
+              <Card className="border-red-200 bg-red-50 shadow-none ring-0">
+                <CardContent className="p-3 text-sm font-semibold text-red-700">
+                  {state.error}
+                </CardContent>
+              </Card>
+            )}
+
+            <Button
               type="submit"
               disabled={pending}
-              className="w-full rounded-xl py-3.5 text-center font-bold text-df-blue transition hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] disabled:opacity-50"
-              style={{ background: "#FFBD59" }}
+              variant="gold"
+              size="lg"
+              className="w-full"
             >
               {pending ? "Connexion…" : "Se connecter →"}
-            </button>
+            </Button>
           </form>
 
           <p className="mt-8 text-center text-sm text-df-ink/40">

@@ -7,6 +7,9 @@ import { nextNumero } from "@/lib/numbering";
 import { notifyFoundersNewDevis, sendMail } from "@/lib/mailer";
 import { Founder } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { devisLimiter, checkRateLimit } from "@/lib/rate-limit";
+import { audit } from "@/lib/audit";
+import { notify } from "@/lib/notifications";
 
 const founders: Founder[] = ["PAPI", "LOUISIA", "TY"];
 
@@ -17,7 +20,7 @@ async function pickChefDeProjet(): Promise<Founder> {
   );
   let min = Infinity, idx = 0;
   counts.forEach((c, i) => { if (c < min) { min = c; idx = i; } });
-  return founders[idx];
+  return founders[idx] ?? "PAPI";
 }
 
 const schema = z.object({
@@ -44,9 +47,11 @@ const schema = z.object({
 });
 
 export async function submitDevis(payload: z.infer<typeof schema>) {
+  const rl = await checkRateLimit(devisLimiter);
+  if (!rl.success) throw new Error(rl.error);
+
   const session = await auth();
   const userId = (session?.user as any)?.id as string | undefined;
-  if (!userId) throw new Error("UNAUTHORIZED");
 
   const data = schema.parse(payload);
   validateQuote(data as any);
@@ -57,7 +62,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     const { numero, annee, sequence } = await nextNumero("DEVIS", tx);
     return tx.devis.create({
       data: {
-        numero, annee, sequence, userId, chefDeProjet,
+        numero, annee, sequence, userId: userId ?? null, chefDeProjet,
         pack: data.pack, duree: data.duree, usage: data.usage, delai: data.delai,
         villeDepart: data.villeDepart, distanceKm: data.distanceKm,
         videosSupp: data.videosSupp, videos3D: data.videos3D,
@@ -91,10 +96,26 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         <p>Bonjour ${data.nomContact},</p>
         <p>Nous avons bien reçu votre demande de devis <strong>n°${devis.numero}</strong> pour un total estimatif de <strong>${devis.totalHT} €</strong>.</p>
         <p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>
-        <p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#FFBD59;color:#1901AD;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>
+        ${userId
+          ? `<p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#FFBD59;color:#1901AD;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>`
+          : `<p style="margin-top:20px;color:#555">Créez un compte sur <a href="${process.env.NEXT_PUBLIC_APP_URL}/register" style="color:#1901AD;font-weight:bold">deepframe.cc</a> pour suivre votre devis en ligne.</p>`
+        }
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`
   });
 
-  redirect(`/profil/devis/${devis.id}?nouveau=1`);
+  await audit({ action: "DEVIS_CREATED", userId, target: devis.id, metadata: { numero: devis.numero, pack: data.pack } });
+
+  if (userId) {
+    await notify({
+      userId,
+      type: "DEVIS_STATUS",
+      title: `Devis n°${devis.numero} envoyé`,
+      message: `Votre demande de devis (${devis.totalHT} € HT) a bien été enregistrée. Nous la traitons rapidement.`,
+      href: `/profil/devis/${devis.id}`,
+    });
+    redirect(`/profil/devis/${devis.id}?nouveau=1`);
+  } else {
+    redirect(`/devis/confirmation?numero=${devis.numero}&total=${devis.totalHT}`);
+  }
 }

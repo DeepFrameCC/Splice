@@ -1,31 +1,40 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { hash } from "@node-rs/argon2";
 
 const db = new PrismaClient();
 
 async function main() {
   // ── Admin ──────────────────────────────────────────────────────────
-  const adminEmail = "admin@deepframe.cc";
-  const adminPassword = "DeepFrame2026!";
+  const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@deepframe.cc";
+  const adminPassword = process.env.ADMIN_SEED_PASSWORD;
+  if (!adminPassword) {
+    throw new Error(
+      "ADMIN_SEED_PASSWORD is required. Set it in your .env file before running seed."
+    );
+  }
 
   const exists = await db.user.findUnique({ where: { email: adminEmail } });
   if (exists) {
     console.log("Admin existe deja:", exists.email);
   } else {
-    const passwordHash = await bcrypt.hash(adminPassword, 10);
+    const passwordHash = await hash(adminPassword);
     const admin = await db.user.create({
       data: {
         email: adminEmail,
         passwordHash,
         role: "ADMIN",
         pseudo: "admin",
-        prenom: "Admin",
-        nom: "DeepFrame",
-        adresse: "12 quai du Chatelet, Orleans",
-        codePostal: "45000",
-        ville: "Orleans",
-        tel: "+33238000000",
-        age: 25,
+        profile: {
+          create: {
+            prenom: "Admin",
+            nom: "DeepFrame",
+            adresse: "Orleans",
+            codePostal: "45000",
+            ville: "Orleans",
+            tel: "+33651109202",
+            age: 25,
+          },
+        },
       },
     });
     console.log("Compte admin cree:", admin.email);
@@ -270,6 +279,140 @@ async function main() {
       },
     });
     console.log("BlogPost:", bp.slug, "->", bp.serviceSlug);
+  }
+
+  // ── Médias (galerie) ────────────────────────────────────────────────
+  const medias = [
+    // Photos
+    {
+      type: "PHOTO" as const,
+      url: "/photos/porsche-hexlight.jpg",
+      thumbnailUrl: "/photos/porsche-hexlight.jpg",
+      title: "Porsche 911 — Lumière hexagonale",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      owner: "LOUISIA" as const,
+      prixEstime: 350,
+      materiel: ["Sony ZV-1", "Sigma 35mm f/1.4"],
+    },
+    {
+      type: "PHOTO" as const,
+      url: "/photos/porsche-studio-1.jpg",
+      thumbnailUrl: "/photos/porsche-studio-1.jpg",
+      title: "Porsche 911 — Studio shot",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      owner: "LOUISIA" as const,
+      prixEstime: 350,
+      materiel: ["Sony ZV-1", "Sigma 24-70mm f/2.8"],
+    },
+    {
+      type: "PHOTO" as const,
+      url: "/photos/porsche-studio-2.jpg",
+      thumbnailUrl: "/photos/porsche-studio-2.jpg",
+      title: "Porsche 911 — Détail carrosserie",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      owner: "LOUISIA" as const,
+      prixEstime: 350,
+      materiel: ["Sony ZV-1", "Sony 90mm Macro"],
+    },
+    {
+      type: "PHOTO" as const,
+      url: "/photos/travail-porsche.jpg",
+      thumbnailUrl: "/photos/travail-porsche.jpg",
+      title: "Travail de finition — Porsche",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      owner: "LOUISIA" as const,
+      prixEstime: 300,
+      materiel: ["Sony ZV-1", "Sigma 35mm f/1.4"],
+    },
+    // Vidéos
+    {
+      type: "VIDEO" as const,
+      url: "/videos/bistrot-orleans.mp4",
+      thumbnailUrl: "/videos/thumb-bistrot-orleans.jpg",
+      title: "Bistrot Orléans — Ambiance",
+      category: "reseaux-sociaux",
+      client: "Bistrot · Orléans",
+      duration: "00:00:22",
+      owner: "LOUISIA" as const,
+      prixEstime: 800,
+      materiel: ["Sony ZV-1", "DJI Mic"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/interview-cklean-auto.mp4",
+      thumbnailUrl: "/videos/thumb-interview-cklean-auto.jpg",
+      title: "Interview CKlean Auto — Passion détail",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      duration: "00:00:50",
+      owner: "LOUISIA" as const,
+      prixEstime: 1500,
+      materiel: ["Sony ZV-1", "Sigma 35mm f/1.4", "DJI RS3"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/ppf-cklean-auto.mp4",
+      thumbnailUrl: "/videos/thumb-ppf-cklean-auto.jpg",
+      title: "PPF — Protection carrosserie",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      duration: "00:00:36",
+      owner: "PAPI" as const,
+      prixEstime: 1200,
+      materiel: ["Sony ZV-1", "Sigma 24-70mm f/2.8"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/presentation-louisia.mp4",
+      thumbnailUrl: "/videos/thumb-presentation-louisia.jpg",
+      title: "Présentation — Par Louisia",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      duration: "00:00:50",
+      owner: "LOUISIA" as const,
+      prixEstime: 1000,
+      materiel: ["Sony ZV-1", "Sigma 16mm f/1.4"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/time-fayad.mp4",
+      thumbnailUrl: "/videos/thumb-time-fayad.jpg",
+      title: "Time — Par Fayad",
+      category: "automobile",
+      client: "CKlean Auto · Saran",
+      duration: "00:00:23",
+      owner: "LOUISIA" as const,
+      prixEstime: 600,
+      materiel: ["INSTA360", "DJI"],
+    },
+  ];
+
+  for (const m of medias) {
+    const data = {
+      type: m.type,
+      url: m.url,
+      thumbnailUrl: m.thumbnailUrl,
+      title: m.title,
+      category: m.category,
+      client: m.client,
+      duration: m.duration ?? null,
+      owner: m.owner,
+      prixEstime: m.prixEstime,
+      materiel: m.materiel,
+      published: true,
+    };
+    const existing = await db.media.findFirst({ where: { url: m.url } });
+    if (existing) {
+      await db.media.update({ where: { id: existing.id }, data });
+      console.log("Media mis a jour:", m.title);
+    } else {
+      await db.media.create({ data });
+      console.log("Media cree:", m.title);
+    }
   }
 
   console.log("Seed termine.");

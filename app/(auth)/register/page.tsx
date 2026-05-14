@@ -1,7 +1,13 @@
 "use client";
+
 import { useActionState, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { registerAction } from "@/app/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
 import Script from "next/script";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
@@ -22,38 +28,143 @@ export default function RegisterPage() {
   };
 
   return (
-    <section className="mx-auto max-w-2xl px-6 py-12">
-      {SITE_KEY && <Script src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`} />}
-      <h1 className="text-center font-display text-4xl italic text-df-blue">Créer mon compte</h1>
-      <p className="mt-2 text-center text-df-blue/70">Renseignez vos infos pour profiter des fonctionnalités client.</p>
+    <div className="flex min-h-screen">
+      {/* ── Panneau gauche : branding ─────────────────────────────── */}
+      <div
+        className="hidden w-1/2 flex-col justify-between p-10 lg:flex"
+        style={{ background: "linear-gradient(160deg, #0A0A23 0%, #1901AD 100%)" }}
+      >
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo.svg"
+            alt=""
+            width={26}
+            height={34}
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
+          <span className="text-sm font-bold tracking-[0.18em] text-white">
+            DEEPFRAME
+          </span>
+        </Link>
 
-      <form action={action} onSubmit={SITE_KEY ? onSubmit : undefined} className="mt-8 grid gap-4 md:grid-cols-2">
-        <input name="prenom" placeholder="Prénom" className="input" />
-        <input name="nom" placeholder="Nom" className="input" />
-        <input name="nomEntreprise" placeholder="Nom de l'entreprise (optionnel)" className="input md:col-span-2" />
-        <input name="pseudo" required placeholder="Pseudo (prénom.nom ou marque)" className="input md:col-span-2" />
-        <input name="email" type="email" required placeholder="Email pro ou perso" className="input md:col-span-2" />
-        <input name="password" type="password" required minLength={8} placeholder="Mot de passe (min 8)" className="input md:col-span-2" />
-        <input name="adresse" required placeholder="Adresse postale" className="input md:col-span-2" />
-        <input name="codePostal" placeholder="Code postal" className="input" />
-        <input name="ville" placeholder="Ville" className="input" />
-        <input name="tel" required placeholder="Téléphone" className="input" />
-        <input name="age" type="number" min={16} required placeholder="Âge" className="input" />
-        <input type="hidden" name="recaptcha" value={recaptchaToken} />
+        <div className="max-w-md">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-df-gold">
+            Rejoignez-nous
+          </p>
+          <h1 className="font-display text-4xl font-black leading-tight text-white">
+            Créez votre espace,
+            <br />
+            <em className="italic text-df-gold">lancez votre projet</em>.
+          </h1>
+          <p className="mt-5 leading-relaxed text-white/60">
+            Un compte suffit pour demander un devis, suivre vos projets et
+            accéder à tous vos documents.
+          </p>
+        </div>
 
-        {state?.error && <p className="md:col-span-2 rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>}
+        <p className="text-xs text-white/30">© 2026 DeepFrame · Tous droits réservés</p>
+      </div>
 
-        <button type="submit" disabled={pending} className="btn-primary md:col-span-2 disabled:opacity-50">
-          {pending ? "Création…" : "Créer mon compte"}
-        </button>
-      </form>
+      {/* ── Panneau droit : formulaire ────────────────────────────── */}
+      <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2">
+        <div className="w-full max-w-lg">
+          {SITE_KEY && <Script src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`} />}
 
-      <p className="mt-6 text-center text-sm text-df-blue/70">
-        Déjà un compte ? <Link href="/login" className="font-bold text-df-gold">Se connecter</Link>
-      </p>
+          {/* Logo mobile */}
+          <div className="mb-8 flex justify-center lg:hidden">
+            <Image src="/logo.svg" alt="Deepframe" width={60} height={80} />
+          </div>
 
-      <style jsx>{`.input { width: 100%; border: 2px solid rgba(25,1,173,.2); border-radius: 12px; padding: 12px 16px; outline: none; }
-        .input:focus { border-color: #1901AD; }`}</style>
-    </section>
+          {/* Tabs */}
+          <div className="mb-8 flex gap-1 rounded-xl bg-df-cream p-1">
+            <Link
+              href="/login"
+              className="flex-1 rounded-lg px-4 py-2.5 text-center text-sm font-bold text-df-blue/60 transition hover:text-df-blue"
+            >
+              Connexion
+            </Link>
+            <div className="flex-1 rounded-lg bg-df-blue px-4 py-2.5 text-center text-sm font-bold text-white">
+              Créer un compte
+            </div>
+          </div>
+
+          <h2 className="font-display text-2xl font-black text-df-ink">Créer mon compte</h2>
+          <p className="mt-1 text-sm text-df-ink/50">Renseignez vos infos pour profiter des fonctionnalités client.</p>
+
+          <form action={action} onSubmit={SITE_KEY ? onSubmit : undefined} className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="prenom">Prénom</Label>
+              <Input id="prenom" name="prenom" placeholder="Prénom" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="nom">Nom</Label>
+              <Input id="nom" name="nom" placeholder="Nom" />
+            </div>
+            <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="nomEntreprise">Entreprise (optionnel)</Label>
+              <Input id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise" />
+            </div>
+            <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="pseudo">Pseudo</Label>
+              <Input id="pseudo" name="pseudo" required placeholder="prenom.nom ou marque" />
+            </div>
+            <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" required placeholder="Email pro ou perso" autoComplete="email" />
+            </div>
+            <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="password">Mot de passe</Label>
+              <Input id="password" name="password" type="password" required minLength={8} placeholder="Min 8 caractères" autoComplete="new-password" />
+            </div>
+            <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="adresse">Adresse postale</Label>
+              <Input id="adresse" name="adresse" required placeholder="Adresse postale" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="codePostal">Code postal</Label>
+              <Input id="codePostal" name="codePostal" placeholder="Code postal" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="ville">Ville</Label>
+              <Input id="ville" name="ville" placeholder="Ville" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="tel">Téléphone</Label>
+              <Input id="tel" name="tel" required placeholder="Téléphone" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="age">Âge</Label>
+              <Input id="age" name="age" type="number" min={16} required placeholder="Âge" />
+            </div>
+            <input type="hidden" name="recaptcha" value={recaptchaToken} />
+
+            {state?.error && (
+              <Card className="border-red-200 bg-red-50 shadow-none ring-0 md:col-span-2">
+                <CardContent className="p-3 text-sm font-semibold text-red-700">
+                  {state.error}
+                </CardContent>
+              </Card>
+            )}
+
+            <Button
+              type="submit"
+              disabled={pending}
+              variant="gold"
+              size="lg"
+              className="w-full md:col-span-2"
+            >
+              {pending ? "Création…" : "Créer mon compte →"}
+            </Button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-df-ink/40">
+            Déjà un compte ?{" "}
+            <Link href="/login" className="font-bold text-df-blue hover:underline">
+              Se connecter
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

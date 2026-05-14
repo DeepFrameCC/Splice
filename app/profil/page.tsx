@@ -26,7 +26,7 @@ export default async function ProfilPage() {
 
   try {
     const [u, devisCount, facturesCount, contratsCount, likesCount] = await Promise.all([
-      db.user.findUnique({ where: { id: userId } }),
+      db.user.findUnique({ where: { id: userId }, include: { profile: true } }),
       db.devis.count({ where: { userId } }),
       db.facture.count({ where: { userId } }),
       db.contrat.count({ where: { userId } }),
@@ -53,7 +53,8 @@ export default async function ProfilPage() {
 
   if (!user) return null;
 
-  const displayName = user.nomEntreprise ?? (`${user.prenom ?? ""} ${user.nom ?? ""}`.trim() || user.pseudo);
+  const p = user.profile;
+  const displayName = p?.nomEntreprise ?? (`${p?.prenom ?? ""} ${p?.nom ?? ""}`.trim() || user.pseudo);
   const memberSince = user.createdAt
     ? new Date(user.createdAt).toLocaleDateString("fr-FR", { month: "long", year: "numeric" })
     : null;
@@ -71,7 +72,7 @@ export default async function ProfilPage() {
       <div className="rounded-2xl bg-gradient-to-br from-df-blue to-df-blue/90 p-6 text-white shadow-lg sm:p-8">
         <div className="flex flex-wrap items-center gap-5">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/15 text-2xl font-bold uppercase">
-            {(user.prenom?.[0] ?? user.pseudo?.[0] ?? "U")}
+            {(p?.prenom?.[0] ?? user.pseudo?.[0] ?? "U")}
           </div>
           <div className="flex-1">
             <h1 className="font-display text-3xl italic">{displayName}</h1>
@@ -112,9 +113,9 @@ export default async function ProfilPage() {
         <h2 className="mb-4 font-display text-xl font-bold text-df-blue">Informations personnelles</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <InfoRow icon={Mail} label="Email" value={user.email} />
-          <InfoRow icon={User} label="Nom / Entreprise" value={user.nomEntreprise ?? `${user.prenom ?? ""} ${user.nom ?? ""}`.trim()} />
-          <InfoRow icon={Phone} label="Telephone" value={user.tel} />
-          <InfoRow icon={MapPin} label="Adresse" value={[user.adresse, user.codePostal, user.ville].filter(Boolean).join(" - ")} />
+          <InfoRow icon={User} label="Nom / Entreprise" value={p?.nomEntreprise ?? `${p?.prenom ?? ""} ${p?.nom ?? ""}`.trim()} />
+          <InfoRow icon={Phone} label="Telephone" value={p?.tel ?? ""} />
+          <InfoRow icon={MapPin} label="Adresse" value={[p?.adresse, p?.codePostal, p?.ville].filter(Boolean).join(" - ")} />
         </div>
       </div>
 

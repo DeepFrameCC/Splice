@@ -1,384 +1,442 @@
 import Nav from "@/components/layout/Nav";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
-import { db } from "@/lib/db";
-import { auth } from "@/lib/auth";
-import { FOUNDER_LABEL } from "@/lib/pricing";
-import type { Founder } from "@prisma/client";
-import MediaCard from "@/components/gallery/MediaCard";
-import VideoCard from "@/components/gallery/VideoCard";
-import { toggleLike } from "@/app/actions/likes";
-import { Instagram, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import StaticGallery from "@/components/equipe/StaticGallery";
 import type { Metadata } from "next";
-
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Équipe",
   description:
-    "Découvrez les portfolios de Papi, Louisia et Ty — les trois fondateurs de DeepFrame.",
+    "Découvrez les portfolios de Fayad, Louisia et Tracy — les trois fondateurs de DeepFrame.",
 };
 
-const FOUNDERS: {
-  key: Founder;
+/* ── SVG icons ────────────────────────────────────────────────────────── */
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.4.6.2 1.1.5 1.6 1 .5.5.8 1 1 1.6.2.6.4 1.3.4 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.7-.4 2.3-.2.6-.5 1.1-1 1.6-.5.5-1 .8-1.6 1-.6.2-1.3.4-2.3.4-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.7-.2-2.3-.4-.6-.2-1.1-.5-1.6-1-.5-.5-.8-1-1-1.6-.2-.6-.4-1.3-.4-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c0-1 .2-1.7.4-2.3.2-.6.5-1.1 1-1.6.5-.5 1-.8 1.6-1 .6-.2 1.3-.4 2.3-.4C8.9 2 9.2 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm5.5-3a1.2 1.2 0 1 0 0 2.5 1.2 1.2 0 0 0 0-2.5z" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M19.5 6.5a5.5 5.5 0 0 1-3.5-1.2v9.4a6 6 0 1 1-6-6c.4 0 .7 0 1 .1v3a3 3 0 1 0 2 2.9V2h3a4 4 0 0 0 3.5 3.5v1z" />
+    </svg>
+  );
+}
+
+/* ── Noise texture SVG data URI ──────────────────────────────────────── */
+
+const NOISE_SVG = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`;
+
+/* ── Founders data ───────────────────────────────────────────────────── */
+
+interface FounderTag {
+  label: string;
+  variant: "primary" | "accent" | "neutral";
+}
+
+interface FounderData {
+  key: string;
   name: string;
   role: string;
-  handle: string;
-  insta: string;
-  gradient: string;
-  accentColor: string;
-  bio: string[];
-  specs: string[];
-  portfolio?: string;
-}[] = [
-    {
-      key: "PAPI",
-      name: "Papi",
-      role: "Réalisateur & DOP",
-      handle: "@papiforcex",
-      insta: "https://instagram.com/papiforcex",
-      portfolio: "https://papiforcex.com",
-      gradient: "linear-gradient(145deg, #FFE0B0 0%, #FFBD59 100%)",
-      accentColor: "#C48B00",
-      bio: [
-        "Réalisateur principal et directeur de la photographie, Papi est la colonne vertébrale créative de DeepFrame. Il conçoit et dirige chaque tournage avec une obsession pour la lumière et le cadre.",
-      ],
-      specs: ["Caméra 4K ", "Insta 360", "Rolling shot"],
-    },
-    {
-      key: "LOUISIA",
-      name: "Louisia",
-      role: "Productrice",
-      handle: "@by.louisia",
-      insta: "https://instagram.com/by.louisia",
-      gradient: "linear-gradient(145deg, #B7B0FF 0%, #1901AD 100%)",
-      accentColor: "#1901AD",
-      bio: [
-        "Productrice et photographe, Louisia orchestre les projets de A à Z — de la direction artistique à la logistique terrain. Elle garantit que chaque tournage se déroule dans les meilleures conditions.",
-        "Son œil photographique (portrait, mode, image de marque) nourrit la direction visuelle de tous les projets DeepFrame.",
-      ],
-      specs: ["Direction artistique", "Portrait", "Photographie", "Retouche avancée"],
-    },
-    {
-      key: "TY",
-      name: "Ty",
-      role: "Monteur · Étalonneur",
-      handle: "@t.y97one",
-      insta: "https://instagram.com/t.y97one",
-      gradient: "linear-gradient(145deg, #F2D8A8 0%, #5C3A1F 100%)",
-      accentColor: "#7A4F20",
-      bio: [
-        "Monteur et étalonneur, Ty est la dernière main sur chaque film. Il transforme les rushes bruts en un récit fluide et cohérent, avec un sens du rythme affûté.",
-        "Spécialisé dans les formats réseaux (Reels, TikTok) autant que dans les longs formats.",
-      ],
-      specs: ["Montage narratif", "Formats réseaux"],
-    },
-  ];
+  tag: string;
+  initial: string;
+  photoGradient: string;
+  bioOpener: string;
+  bioBody: string;
+  tags: FounderTag[];
+  setup: string;
+  soft: string;
+  instagram: string;
+  tiktok: string;
+  linktree: string;
+  thumbColors: number[];
+}
 
-const STATIC_PORTFOLIO: Record<string, { src: string; title: string; type: "video" | "image" }[]> = {
-  PAPI: [
-    { src: "/Le saviez-vous Le PPF (Paint Protection Film) est un film transparent appliqué sur la carrosseri.mp4", title: "Porsche 911 — Pose PPF", type: "video" },
-    { src: "/Time (Par Fayad).mp4", title: "Time — Clip", type: "video" },
-  ],
-  LOUISIA: [
-    { src: "/Alerte Nouvelle Pépite ✨️Le Bistrot de la Croix Morin c'est lendroit parfait pour manger des pl.mp4", title: "Alerte Nouvelle Pépite — Bistrot de la Croix Morin", type: "video" },
-    { src: "/Interview cklean auto.mp4", title: "Interview CKCleanAuto45", type: "video" },
-    { src: "/Présentation (Par Louisia).mp4", title: "Présentation CKCleanAuto45", type: "video" },
-    { src: "/P7.jpg", title: "CKCleanAuto45 — Session photo", type: "image" },
-    { src: "/P18.jpg", title: "CKCleanAuto45 — Finition PPF", type: "image" },
-    { src: "/P24.jpg", title: "CKCleanAuto45 — Résultat final", type: "image" },
-    { src: "/travail 4 porche.jpg", title: "Porsche — Travail de détail", type: "image" },
-  ],
-  TY: [],
+const FOUNDERS: FounderData[] = [
+  {
+    key: "PAPI",
+    name: "Fayad",
+    role: "Réalisateur · monteur",
+    tag: "FONDATEUR · 01",
+    initial: "F",
+    photoGradient:
+      "radial-gradient(ellipse at 30% 20%, rgba(255,189,89,.45), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(25,1,173,.55), transparent 65%), linear-gradient(160deg, #1B3A6B 0%, #0A0A23 100%)",
+    bioOpener: "Œil de réal, main de monteur.",
+    bioBody:
+      "Fayad capte la matière brute sur le terrain puis lui donne du rythme : montages After Effects dynamiques, motion intégré, coupes qui claquent. Le tempo des films, c\u2019est lui.",
+    tags: [
+      { label: "Prise de vue", variant: "primary" },
+      { label: "Montage", variant: "primary" },
+      { label: "After Effects", variant: "accent" },
+      { label: "Direction", variant: "neutral" },
+      { label: "Cadrage", variant: "neutral" },
+    ],
+    setup: "Insta360 · 24-70 GM",
+    soft: "Premiere · After Effects",
+    instagram: "https://instagram.com/papiforcex",
+    tiktok: "https://tiktok.com/@papiforcex",
+    linktree: "https://linktr.ee/papiforcex",
+    thumbColors: [0, 2, 4, 1, 3, 5],
+  },
+  {
+    key: "LOUISIA",
+    name: "Louisia",
+    role: "Photographe · voix-off",
+    tag: "FONDATRICE · 02",
+    initial: "L",
+    photoGradient:
+      "radial-gradient(ellipse at 70% 25%, rgba(255,189,89,.50), transparent 55%), radial-gradient(ellipse at 20% 100%, rgba(184,100,50,.45), transparent 65%), linear-gradient(160deg, #F2A93B 0%, #B86432 60%, #3D1F0F 100%)",
+    bioOpener: "L\u2019\u0153il et la voix.",
+    bioBody:
+      "Sony ZV1 en main, Louisia signe des images léchées et retouchées au cordeau. Elle pilote aussi les montages courts façon vitrine de magasin et pose sa voix-off pour donner du nerf à l\u2019ensemble.",
+    tags: [
+      { label: "Photographie", variant: "primary" },
+      { label: "Retouche", variant: "primary" },
+      { label: "Voix-off", variant: "accent" },
+      { label: "Montage présentation", variant: "neutral" },
+      { label: "Direction artistique", variant: "neutral" },
+    ],
+    setup: "Sony ZV1 · 20mm f/2",
+    soft: "Lightroom · CapCut Pro",
+    instagram: "https://instagram.com/by.louisia",
+    tiktok: "https://tiktok.com/@by.louisia",
+    linktree: "https://linktr.ee/by.louisia",
+    thumbColors: [4, 1, 3, 5, 0, 2],
+  },
+  {
+    key: "TY",
+    name: "Tracy",
+    role: "Motion · étalonneur",
+    tag: "FONDATEUR · 03",
+    initial: "T",
+    photoGradient:
+      "radial-gradient(ellipse at 30% 30%, rgba(255,189,89,.35), transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(25,1,173,.65), transparent 65%), linear-gradient(180deg, #4A2C7F 0%, #1901AD 60%, #0A0A23 100%)",
+    bioOpener: "Le finisseur.",
+    bioBody:
+      "Tracy maîtrise DaVinci Resolve sur le bout des doigts — étalonnage cinéma, motion design propre, sound design soigné. C\u2019est lui qui transforme un bon film en film qu\u2019on remarque.",
+    tags: [
+      { label: "Motion Design", variant: "primary" },
+      { label: "Montage", variant: "primary" },
+      { label: "DaVinci Resolve", variant: "accent" },
+      { label: "Étalonnage", variant: "neutral" },
+      { label: "Sound design", variant: "neutral" },
+    ],
+    setup: "Station Resolve · X-Touch",
+    soft: "DaVinci · Fusion",
+    instagram: "https://instagram.com/t.y97one",
+    tiktok: "https://tiktok.com/@t.y97one",
+    linktree: "https://linktr.ee/t.y97one",
+    thumbColors: [2, 0, 5, 4, 1, 3],
+  },
+];
+
+const THUMB_GRADIENTS = [
+  "linear-gradient(135deg, #1B3A6B, #0A0A23)",
+  "linear-gradient(135deg, #F2A93B, #B86432)",
+  "linear-gradient(135deg, #1901AD, #4A2C7F)",
+  "linear-gradient(135deg, #C8956D, #5C3A1F)",
+  "linear-gradient(135deg, #FFBD59, #FF8A00)",
+  "linear-gradient(135deg, #21C497, #0E8463)",
+];
+
+/* ── Social icon resolver ────────────────────────────────────────────── */
+
+function LinktreeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M7.95 2.71l3.47 3.47-3.47 3.47 1.41 1.42L12.83 7.6l3.47 3.47 1.42-1.42-3.48-3.47 3.48-3.47L16.3 1.29 12.83 4.76 9.36 1.29zM4.83 10.59l3.47 3.47H2v2h6.3l-3.47 3.47 1.42 1.41L12.83 14.36l6.58 6.58 1.42-1.41-3.48-3.47H24v-2h-6.3l3.48-3.47-1.42-1.42-6.93 6.93zM11.83 17v5h2v-5z" />
+    </svg>
+  );
+}
+
+/* ── Tag variant styles ──────────────────────────────────────────────── */
+
+const TAG_STYLES: Record<FounderTag["variant"], string> = {
+  primary:
+    "bg-[rgba(25,1,173,0.08)] border-[rgba(25,1,173,0.20)] text-df-blue font-semibold",
+  accent:
+    "bg-[rgba(255,189,89,0.20)] border-[rgba(255,189,89,0.40)] text-[#7A4500] font-semibold",
+  neutral:
+    "bg-[#FAF8F2] border-[rgba(10,10,35,0.10)] text-df-ink font-medium",
 };
 
-export default async function EquipePage() {
-  let allMedias: any[] = [];
-  let likedIds = new Set<string>();
-  let userId: string | undefined;
+/* ── Page ─────────────────────────────────────────────────────────────── */
 
-  try {
-    const session = await auth();
-    userId = (session?.user as any)?.id as string | undefined;
-
-    const [fetchedMedias, likes] = await Promise.all([
-      db.media.findMany({
-        where: { published: true },
-        include: { monteur: { select: { pseudo: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      userId
-        ? db.like.findMany({ where: { userId }, select: { mediaId: true } })
-        : Promise.resolve([]),
-    ]);
-
-    allMedias = fetchedMedias;
-    likedIds = new Set(likes.map((l) => l.mediaId));
-  } catch (e) {
-    console.error("[equipe] DB error:", e);
-  }
-
+export default function EquipePage() {
   return (
     <>
       <Nav />
       <EquipeAnimations />
 
-      {/* ── Hero ──────────────────────────────────────────────────────── */}
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section
-        style={{
-          background: "linear-gradient(160deg, #0A0A23 0%, #1901AD 100%)",
-          paddingTop: "calc(80px + 5rem)",
-          paddingBottom: "5rem",
-        }}
+        data-anim="hero"
+        className="mx-auto grid max-w-[1320px] items-end gap-8 px-6 pb-10 pt-20 md:px-10 lg:grid-cols-[1fr_auto]"
+        style={{ paddingTop: "calc(80px + 5rem)" }}
       >
-        <div className="mx-auto max-w-7xl px-6">
-          <Link
-            href="/"
-            className="mb-10 inline-flex items-center gap-2 text-sm font-semibold tracking-widest text-white/50 uppercase transition hover:text-white"
+        <div>
+          <span
+            className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.18em] text-df-blue"
+            data-anim="eyebrow"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Accueil
-          </Link>
-
-          <div
-            className="mb-3 h-px w-10"
-            style={{ background: "#FFBD59" }}
-          />
-          <p
-            className="mb-4 text-sm font-semibold uppercase tracking-[0.2em]"
-            style={{ color: "#FFBD59" }}
-          >
-            Équipe
-          </p>
+            <span className="inline-block h-px w-[22px] bg-current" />
+            L&apos;équipe · 3 fondateurs
+          </span>
           <h1
             data-anim="hero-title"
-            className="text-5xl font-black text-white md:text-7xl"
-            style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em", lineHeight: 1.05 }}
+            className="mt-4 text-df-blue"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 900,
+              fontSize: "clamp(56px, 8vw, 120px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.035em",
+            }}
           >
-            Trois{" "}
-            <em
-              className="italic"
-              style={{ color: "#FFBD59" }}
-            >
-              artisans
-            </em>
+            Trois <em className="italic font-extrabold text-df-gold">artisans</em>
             <br />
             de l&apos;image.
           </h1>
-          <p data-anim="hero-sub" className="mt-6 max-w-xl text-lg leading-relaxed text-white/60">
-            Une petite équipe, un grand matériel, de vraies idées. Chacun apporte
-            une expertise distincte — ensemble ils couvrent tout le spectre de
-            la production audiovisuelle.
-          </p>
-
-          {/* Ancres rapides */}
-          <div data-anim="hero-anchors" className="mt-10 flex flex-wrap gap-3">
-            {FOUNDERS.map((f) => (
-              <a
-                key={f.key}
-                href={`#${f.key.toLowerCase()}`}
-                className="rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white/70 transition hover:border-white/60 hover:text-white"
-              >
-                {f.name}
-              </a>
-            ))}
-          </div>
+        </div>
+        <div
+          data-anim="hero-meta"
+          className="text-right lg:text-right"
+          style={{
+            fontFamily: "var(--font-jetbrains)",
+            fontSize: "11px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "rgba(10,10,35,.6)",
+            lineHeight: 1.7,
+          }}
+        >
+          <b className="block text-[13px] text-df-blue">Studio · Orléans · Tours</b>
+          Réalisation · Photo · Vidéo · Montage Vidéo · Retouche Photo
+          <br />
+          Depuis 2026
         </div>
       </section>
 
-      {/* ── Fondateurs ────────────────────────────────────────────────── */}
-      <div className="mx-auto max-w-7xl px-6 py-20">
-        <div className="flex flex-col gap-28">
-          {FOUNDERS.map((founder) => {
-            const medias = allMedias.filter((m) => m.owner === founder.key);
+      {/* ── Team Grid ────────────────────────────────────────────────── */}
+      <main className="mx-auto max-w-[1320px] px-6 pb-20 pt-12 md:px-10">
+        <div className="grid gap-[18px] lg:grid-cols-3">
+          {FOUNDERS.map((founder) => (
+            <article
+              key={founder.key}
+              data-anim="member"
+              className="flex flex-col overflow-hidden rounded-[22px] border border-[rgba(10,10,35,0.10)] bg-white transition-[transform,box-shadow] duration-[350ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:-translate-y-1 hover:shadow-[0_32px_60px_-28px_rgba(10,10,35,0.22)]"
+            >
+              {/* Photo area */}
+              <div
+                className="relative isolate overflow-hidden"
+                style={{ aspectRatio: "4/5", background: founder.photoGradient }}
+              >
+                {/* Noise overlay */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    backgroundImage: NOISE_SVG,
+                    mixBlendMode: "overlay",
+                    opacity: 0.25,
+                  }}
+                />
 
-            return (
-              <section key={founder.key} id={founder.key.toLowerCase()} data-anim="founder-section">
-
-                {/* Carte fondateur */}
-                <div className="mb-12 grid gap-8 md:grid-cols-[1fr_auto] md:items-start">
-                  <div className="flex items-start gap-6">
-
-                    {/* Initiale avec gradient */}
-                    <div
-                      data-anim="founder-card"
-                      className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl text-4xl font-black text-white shadow-lg md:h-28 md:w-28 md:text-5xl"
-                      style={{ background: founder.gradient }}
-                    >
-                      {founder.name[0]}
-                    </div>
-
-                    <div data-anim="founder-info" className="pt-1">
-                      <h2
-                        className="text-3xl font-black text-df-ink md:text-4xl"
-                        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.025em" }}
-                      >
-                        {founder.name}
-                      </h2>
-                      <p
-                        className="mt-1 text-base font-semibold uppercase tracking-widest"
-                        style={{ color: founder.accentColor, fontSize: "0.75rem" }}
-                      >
-                        {founder.role}
-                      </p>
-
-                      {/* Specs */}
-                      <div data-anim="founder-specs" className="mt-4 flex flex-wrap gap-2">
-                        {founder.specs.map((s) => (
-                          <span
-                            key={s}
-                            className="rounded-full px-3 py-1 text-xs font-semibold"
-                            style={{ background: "#FFF6E5", color: founder.accentColor }}
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Instagram */}
-                  <a
-                    href={founder.insta}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-sm font-bold transition hover:opacity-70 md:mt-1"
-                    style={{ borderColor: founder.accentColor, color: founder.accentColor }}
-                  >
-                    <Instagram className="h-4 w-4" />
-                    {founder.handle}
-                  </a>
+                {/* Giant initial */}
+                <div
+                  className="absolute inset-0 grid select-none place-items-center"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 900,
+                    fontSize: "220px",
+                    letterSpacing: "-0.05em",
+                    color: "rgba(255,255,255,.18)",
+                    mixBlendMode: "overlay",
+                  }}
+                >
+                  {founder.initial}
                 </div>
 
-                {/* Bio */}
-                <div
-                  data-anim="founder-bio"
-                  className="mb-12 rounded-2xl p-6 md:p-8"
-                  style={{ background: "#F7F5FF", borderLeft: `4px solid ${founder.accentColor}` }}
+                {/* Corner brackets */}
+                <div aria-hidden="true">
+                  <i className="absolute left-3.5 top-3.5 h-3.5 w-3.5 border-l border-t border-white/50" />
+                  <i className="absolute right-3.5 top-3.5 h-3.5 w-3.5 border-r border-t border-white/50" />
+                  <i className="absolute bottom-3.5 left-3.5 h-3.5 w-3.5 border-b border-l border-white/50" />
+                  <i className="absolute bottom-3.5 right-3.5 h-3.5 w-3.5 border-b border-r border-white/50" />
+                </div>
+
+                {/* Founder tag */}
+                <span
+                  className="absolute left-3.5 top-3.5 z-[2] rounded px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white backdrop-blur-sm"
+                  style={{
+                    fontFamily: "var(--font-jetbrains)",
+                    background: "rgba(0,0,0,.55)",
+                  }}
                 >
-                  <div className="grid gap-4 md:grid-cols-2">
-                    {founder.bio.map((para, i) => (
-                      <p key={i} className="text-base leading-relaxed text-df-ink/70">
-                        {para}
-                      </p>
+                  {founder.tag}
+                </span>
+
+                {/* Bottom role + name overlay */}
+                <div className="absolute inset-x-0 bottom-0 z-[1] px-[22px] pb-[18px] pt-[30px] text-white" style={{ background: "linear-gradient(0deg, rgba(0,0,0,.78), transparent)" }}>
+                  <span
+                    className="text-[10.5px] uppercase tracking-[0.14em] text-df-gold"
+                    style={{ fontFamily: "var(--font-jetbrains)" }}
+                  >
+                    {founder.role}
+                  </span>
+                  <b
+                    className="block text-[26px] font-extrabold"
+                    style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
+                  >
+                    {founder.name}
+                  </b>
+                </div>
+              </div>
+
+              {/* Card body */}
+              <div className="flex flex-1 flex-col gap-[18px] p-[26px] pb-6">
+                {/* Bio */}
+                <p className="m-0 text-[14.5px] leading-[1.55] text-[rgba(10,10,35,0.6)]" style={{ textWrap: "pretty" }}>
+                  <em className="not-italic font-semibold text-df-ink">{founder.bioOpener}</em>{" "}
+                  {founder.bioBody}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5">
+                  {founder.tags.map((tag) => (
+                    <span
+                      key={tag.label}
+                      className={`rounded-full border px-2.5 py-1 text-[11px] tracking-[0.01em] ${TAG_STYLES[tag.variant]}`}
+                    >
+                      {tag.label}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Toolkit */}
+                <div className="flex flex-wrap gap-x-[22px] gap-y-3.5 border-y border-[rgba(10,10,35,0.10)] py-3.5">
+                  <div className="flex flex-col gap-0.5">
+                    <span
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]"
+                    >
+                      Setup
+                    </span>
+                    <b className="text-[13px] font-semibold text-df-ink">{founder.setup}</b>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <span
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]"
+                    >
+                      Soft
+                    </span>
+                    <b className="text-[13px] font-semibold text-df-ink">{founder.soft}</b>
+                  </div>
+                </div>
+
+                {/* Portfolio thumbs */}
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]">
+                    <span>Portfolio · 6 derniers</span>
+                    <Link
+                      href={`/photos?owner=${founder.key}`}
+                      className="font-bold text-df-blue hover:underline"
+                    >
+                      Voir tout →
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {founder.thumbColors.map((colorIdx, i) => (
+                      <div
+                        key={i}
+                        className="relative overflow-hidden rounded-lg border border-[rgba(10,10,35,0.10)]"
+                        style={{ aspectRatio: "1", background: THUMB_GRADIENTS[colorIdx] }}
+                      >
+                        <div
+                          className="pointer-events-none absolute inset-0"
+                          style={{
+                            backgroundImage: NOISE_SVG,
+                            mixBlendMode: "overlay",
+                            opacity: 0.3,
+                          }}
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Galerie */}
-                <div>
-                  <div data-anim="founder-gallery-title" className="mb-6 flex items-center gap-4">
-                    <h3
-                      className="text-xl font-bold text-df-ink"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      Réalisations
-                    </h3>
-                    {medias.length > 0 && (
-                      <span
-                        className="rounded-full px-3 py-1 text-xs font-semibold"
-                        style={{ background: founder.gradient, color: "#fff" }}
-                      >
-                        {medias.length} {medias.length === 1 ? "projet" : "projets"}
-                      </span>
-                    )}
-                    <div className="h-px flex-1" style={{ background: "#E8E5FF" }} />
-                  </div>
-
-                  {/* Portfolio externe */}
-                  {founder.portfolio && (
-                    <a
-                      href={founder.portfolio}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mb-6 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white transition hover:scale-[1.02] hover:shadow-lg"
-                      style={{ background: founder.gradient }}
-                    >
-                      Voir le portfolio complet → {founder.portfolio.replace("https://", "")}
-                    </a>
-                  )}
-
-                  {medias.length === 0 && (STATIC_PORTFOLIO[founder.key]?.length ?? 0) === 0 ? (
-                    <div
-                      className="rounded-2xl px-8 py-14 text-center"
-                      style={{ background: "#FAFAFA", border: "2px dashed #E5E0FF" }}
-                    >
-                      <p className="text-sm text-df-ink/40">
-                        Aucune réalisation publiée pour l&apos;instant — bientôt en ligne.
-                      </p>
-                    </div>
-                  ) : medias.length === 0 ? (
-                    <StaticGallery items={STATIC_PORTFOLIO[founder.key] ?? []} />
-                  ) : (
-                    <div data-anim="founder-gallery" className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                      {medias.map((m) =>
-                        m.type === "VIDEO" ? (
-                          <VideoCard
-                            key={m.id}
-                            id={m.id}
-                            src={m.url}
-                            thumbnail={m.thumbnailUrl ?? ""}
-                            preview={m.previewUrl ?? undefined}
-                            title={m.title}
-                            ownerHandle={FOUNDER_LABEL[m.owner as Founder]}
-                            prixEstime={m.prixEstime}
-                            materiel={m.materiel}
-                            monteur={m.monteur?.pseudo ?? null}
-                            liked={likedIds.has(m.id)}
-                            isAuthed={Boolean(userId)}
-                            toggleLike={toggleLike}
-                          />
-                        ) : (
-                          <MediaCard
-                            key={m.id}
-                            id={m.id}
-                            src={m.url}
-                            title={m.title}
-                            ownerHandle={FOUNDER_LABEL[m.owner as Founder]}
-                            prixEstime={m.prixEstime}
-                            materiel={m.materiel}
-                            monteur={m.monteur?.pseudo ?? null}
-                            liked={likedIds.has(m.id)}
-                            isAuthed={Boolean(userId)}
-                            toggleLike={toggleLike}
-                          />
-                        )
-                      )}
-                    </div>
-                  )}
+                {/* Social buttons */}
+                <div className="mt-auto flex gap-2">
+                  <a
+                    href={founder.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Instagram ${founder.name}`}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                  >
+                    <InstagramIcon className="h-3.5 w-3.5" />
+                    Instagram
+                  </a>
+                  <a
+                    href={founder.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`TikTok ${founder.name}`}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                  >
+                    <TikTokIcon className="h-3.5 w-3.5" />
+                    TikTok
+                  </a>
+                  <a
+                    href={founder.linktree}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Linktree ${founder.name}`}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                  >
+                    <LinktreeIcon className="h-3.5 w-3.5" />
+                    Linktree
+                  </a>
                 </div>
-              </section>
-            );
-          })}
+              </div>
+            </article>
+          ))}
         </div>
-      </div>
+      </main>
 
-      {/* ── CTA bas de page ───────────────────────────────────────────── */}
+      {/* ── CTA Band ─────────────────────────────────────────────────── */}
       <section
-        data-anim="cta"
-        className="mt-4 py-20 text-center"
-        style={{ background: "#FFF6E5" }}
+        data-anim="band"
+        className="mt-10 bg-df-ink px-6 py-14 text-white md:px-10"
       >
-        <p
-          className="mb-2 text-sm font-semibold uppercase tracking-widest"
-          style={{ color: "#FFBD59" }}
-        >
-          Travaillons ensemble
-        </p>
-        <h2
-          className="mb-6 text-3xl font-black text-df-ink md:text-4xl"
-          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.025em" }}
-        >
-          Un projet en tête&nbsp;?
-        </h2>
-        <Link
-          href="/devis"
-          className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-bold text-df-blue transition hover:scale-105 hover:shadow-lg active:scale-95"
-          style={{ background: "#FFBD59" }}
-        >
-          Demandez votre devis →
-        </Link>
+        <div className="mx-auto grid max-w-[1320px] items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2
+              className="m-0 text-white"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(28px, 3.4vw, 44px)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Une idée, un brief, une <em className="italic font-extrabold text-df-gold">envie</em>&nbsp;?
+            </h2>
+            <p className="mt-2.5 text-[15px] leading-[1.55] text-white/65">
+              On répond en moins de 24&nbsp;h. Pré-devis gratuit, sans engagement.
+            </p>
+          </div>
+          <div className="flex justify-start lg:justify-end">
+            <Link
+              href="/devis"
+              className="inline-flex items-center gap-2 rounded-full bg-df-gold px-5 py-2.5 text-[12.5px] font-bold text-[#1A1408] shadow-[0_8px_22px_-8px_rgba(255,189,89,0.7)] transition hover:scale-105 hover:shadow-lg active:scale-95"
+            >
+              Demandez votre devis →
+            </Link>
+          </div>
+        </div>
       </section>
     </>
   );

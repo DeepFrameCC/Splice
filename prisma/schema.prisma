@@ -7,8 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─── Enums ──────────────────────────────────────────────────
+
 enum Role {
   CLIENT
+  TEAM
   ADMIN
 }
 
@@ -80,31 +83,128 @@ enum VilleDepart {
   ORLEANS
 }
 
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  LOGIN_FAILED
+  PASSWORD_CHANGE
+  PASSWORD_RESET
+  EMAIL_VERIFIED
+  DEVIS_CREATED
+  DEVIS_UPDATED
+  DEVIS_DELETED
+  FACTURE_CREATED
+  CONTRAT_CREATED
+  CONTRAT_UPDATED
+  PAYMENT_SUCCESS
+  PAYMENT_FAILED
+  ADMIN_ACTION
+  SETTINGS_UPDATED
+  CONSENT_UPDATED
+}
+
+enum NotificationType {
+  DEVIS_STATUS
+  FACTURE_EMISE
+  CONTRAT_SIGNE
+  PAYMENT_CONFIRM
+  SYSTEM
+}
+
+enum ConsentType {
+  COOKIES_ESSENTIELS
+  COOKIES_ANALYTICS
+  NEWSLETTER
+  DONNEES_PERSONNELLES
+}
+
+// ─── User & Auth ────────────────────────────────────────────
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
   passwordHash  String
   role          Role      @default(CLIENT)
   pseudo        String    @unique
-  prenom        String?
-  nom           String?
-  nomEntreprise String?
-  adresse       String
-  codePostal    String?
-  ville         String?
-  pays          String    @default("France")
-  tel           String
-  age           Int
   emailVerified DateTime?
+  twoFactorEnabled Boolean @default(false)
+  twoFactorSecret  String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
+  profile       Profile?
+  sessions      Session[]
   likes         Like[]
   devis         Devis[]
   factures      Facture[]
   contrats      Contrat[]
-  mediasMontes  Media[]   @relation("Monteur")
+  mediasMontes  Media[]        @relation("Monteur")
+  auditLogs     AuditLog[]
+  notifications Notification[]
+  consents      ConsentLog[]
+  reviews       Review[]
+
+  @@index([email])
 }
+
+model Profile {
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prenom        String?
+  nom           String?
+  nomEntreprise String?
+  adresse       String?
+  codePostal    String?
+  ville         String?
+  pays          String  @default("France")
+  tel           String?
+  age           Int?
+  avatarUrl     String?
+  bio           String?
+
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  ipAddress    String?
+  userAgent    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+model EmailVerification {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([token])
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([token])
+}
+
+// ─── Media & Gallery ────────────────────────────────────────
 
 model Media {
   id           String    @id @default(cuid())
@@ -117,6 +217,9 @@ model Media {
   materiel     String[]
   prixEstime   Int
   owner        Founder
+  category     String?
+  client       String?
+  duration     String?
   monteurId    String?
   monteur      User?     @relation("Monteur", fields: [monteurId], references: [id])
   published    Boolean   @default(true)
@@ -135,6 +238,8 @@ model Like {
   @@id([userId, mediaId])
 }
 
+// ─── Business: Devis, Facture, Contrat ──────────────────────
+
 model Counter {
   annee        Int
   type         CounterType
@@ -148,8 +253,8 @@ model Devis {
   numero          String         @unique
   annee           Int
   sequence        Int
-  userId          String
-  user            User           @relation(fields: [userId], references: [id])
+  userId          String?
+  user            User?          @relation(fields: [userId], references: [id])
   status          DevisStatus    @default(ATTENTE)
   chefDeProjet    Founder
   pack            Pack
@@ -214,24 +319,83 @@ model Contrat {
   createdAt DateTime      @default(now())
 }
 
+// ─── Reviews & Avis ─────────────────────────────────────────
+
 model Avis {
   id         String   @id @default(cuid())
   auteurNom  String
   contenu    String
   note       Int
   approuve   Boolean  @default(false)
+  featured   Boolean  @default(false)
   createdAt  DateTime @default(now())
 }
 
-model PasswordResetToken {
+model Review {
   id        String   @id @default(cuid())
-  email     String
-  token     String   @unique
-  expires   DateTime
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contenu   String   @db.Text
+  note      Int
+  approuve  Boolean  @default(false)
+  reponse   String?  @db.Text
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([email])
+  @@index([userId])
 }
+
+// ─── Audit & Security ───────────────────────────────────────
+
+model AuditLog {
+  id        String      @id @default(cuid())
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    AuditAction
+  target    String?
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime    @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// ─── Notifications ──────────────────────────────────────────
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  title     String
+  message   String
+  read      Boolean          @default(false)
+  href      String?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, read])
+  @@index([createdAt])
+}
+
+// ─── RGPD Consent Tracking ──────────────────────────────────
+
+model ConsentLog {
+  id          String      @id @default(cuid())
+  userId      String?
+  user        User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  consentType ConsentType
+  granted     Boolean
+  ipAddress   String?
+  createdAt   DateTime    @default(now())
+
+  @@index([userId])
+  @@index([consentType])
+}
+
+// ─── CMS: Services & Blog ───────────────────────────────────
 
 model Service {
   id              String   @id @default(cuid())

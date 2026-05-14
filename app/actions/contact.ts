@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { sendMail, MAIL_FOUNDERS, MAIL_CONTACT } from "@/lib/mailer";
+import { contactLimiter, checkRateLimit } from "@/lib/rate-limit";
 
 /* ------------------------------------------------------------------ */
 /*  Validation                                                         */
@@ -24,6 +25,10 @@ export type ContactPayload = z.infer<typeof contactSchema>;
 export async function submitContact(
   payload: ContactPayload
 ): Promise<{ success: true } | { success: false; error: string }> {
+  // --- Rate limit ---
+  const rl = await checkRateLimit(contactLimiter);
+  if (!rl.success) return { success: false, error: rl.error ?? "Trop de requêtes" };
+
   // --- Validation Zod ---
   const parsed = contactSchema.safeParse(payload);
   if (!parsed.success) {

@@ -4,6 +4,8 @@ import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { nextNumero } from "@/lib/numbering";
 import { sendMail } from "@/lib/mailer";
+import { audit } from "@/lib/audit";
+import { notify } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
   if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
@@ -31,8 +33,10 @@ export async function POST(req: NextRequest) {
     const devis = await db.devis.findUnique({ where: { id: devisId } });
     if (!devis) return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
     if (devis.acomptePaid) return NextResponse.json({ received: true, info: "Déjà payé" });
+    if (!devis.userId) return NextResponse.json({ error: "Devis sans client associé" }, { status: 400 });
 
     // Transaction: update devis + create facture + create contrat
+    const userId = devis.userId;
     await db.$transaction(async (tx) => {
       await tx.devis.update({
         where: { id: devisId },
@@ -45,7 +49,7 @@ export async function POST(req: NextRequest) {
         data: {
           numero: `FA-${fNum.numero}`,
           devisId,
-          userId: devis.userId,
+          userId,
           status: "PAYEE",
           pdfUrl: null
         }
@@ -59,11 +63,21 @@ export async function POST(req: NextRequest) {
           annee: cNum.annee,
           sequence: cNum.sequence,
           devisId,
-          userId: devis.userId,
+          userId,
           status: "A_VENIR",
           pdfUrl: null
         }
       });
+    });
+
+    await audit({ action: "PAYMENT_SUCCESS", userId, target: devisId, metadata: { stripeSession: session.id, amount: devis.acompteAmount } });
+
+    await notify({
+      userId,
+      type: "PAYMENT_CONFIRM",
+      title: "Paiement confirmé",
+      message: `Votre acompte de ${devis.acompteAmount} € pour le devis n°${devis.numero} a bien été reçu.`,
+      href: `/profil/devis/${devisId}`,
     });
 
     // Send confirmation email

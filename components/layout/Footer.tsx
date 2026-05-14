@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Instagram, Mail } from "lucide-react";
+import { Instagram, Facebook, Mail } from "lucide-react";
 
 const founders = [
-  { handle: "@papiforcex", insta: "https://instagram.com/papiforcex", tiktok: "https://tiktok.com/@papiforcex" },
-  { handle: "@by.louisia", insta: "https://instagram.com/by.louisia", tiktok: "https://tiktok.com/@by.louisia" },
-  { handle: "@t.y97one",  insta: "https://instagram.com/t.y97one",  tiktok: "https://tiktok.com/@t.y97one" }
+  { handle: "@papiforcex", insta: "https://instagram.com/papiforcex" },
+  { handle: "@by.louisia", insta: "https://instagram.com/by.louisia" },
+  { handle: "@t.y97one",  insta: "https://instagram.com/t.y97one" },
 ];
 
 export default function Footer() {
@@ -17,18 +17,26 @@ export default function Footer() {
             Boîte de production audiovisuelle.
             On capte le meilleur de votre entreprise.
           </p>
+          <div className="mt-4 flex items-center gap-4">
+            <a href="https://www.instagram.com/deepframe.cc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram DeepFrame">
+              <Instagram className="h-5 w-5 opacity-80 hover:opacity-100 transition-opacity" />
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61589292522120" target="_blank" rel="noopener noreferrer" aria-label="Facebook DeepFrame">
+              <Facebook className="h-5 w-5 opacity-80 hover:opacity-100 transition-opacity" />
+            </a>
+          </div>
         </div>
         <div>
-          <h4 className="mb-3 font-bold text-df-gold">Navigation</h4>
+          <h3 className="mb-3 font-bold text-df-gold">Navigation</h3>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/photos">Photos</Link></li>
-            <li><Link href="/videos">Vidéos</Link></li>
-            <li><Link href="/avis">Avis</Link></li>
+            <li><Link href="/galerie">Galerie</Link></li>
+            <li><Link href="/services">Services</Link></li>
+            <li><Link href="/equipe">Équipe</Link></li>
             <li><Link href="/devis">Demander un devis</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="mb-3 font-bold text-df-gold">L&apos;équipe</h4>
+          <h3 className="mb-3 font-bold text-df-gold">L&apos;équipe</h3>
           <ul className="space-y-2 text-sm">
             {founders.map((f) => (
               <li key={f.handle} className="flex items-center gap-2">
@@ -38,11 +46,18 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="mb-3 font-bold text-df-gold">Contact</h4>
+          <h3 className="mb-3 font-bold text-df-gold">Contact</h3>
           <a href="mailto:contact@deepframe.cc" className="flex items-center gap-2 text-sm">
             <Mail className="h-4 w-4" /> contact@deepframe.cc
           </a>
-          <p className="mt-3 text-xs opacity-60">© {new Date().getFullYear()} Deepframe. Tous droits réservés.</p>
+          <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs opacity-60">
+            <Link href="/mentions-legales">Mentions légales</Link>
+            <span>·</span>
+            <Link href="/confidentialite">Confidentialité</Link>
+            <span>·</span>
+            <Link href="/cookies">Cookies</Link>
+          </div>
+          <p className="mt-2 text-xs opacity-60">© {new Date().getFullYear()} Deepframe. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

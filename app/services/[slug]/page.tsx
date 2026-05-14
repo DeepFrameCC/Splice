@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getServiceBySlug, getAllServiceSlugs, getRelatedArticles } from "@/lib/services/queries";
+import { getServiceBySlug, getAllServiceSlugs } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
 import type { ServiceFeature, FAQItem } from "@/lib/services/types";
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
@@ -62,13 +63,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [service, relatedArticles] = await Promise.all([
-    getServiceBySlug(slug),
-    getRelatedArticles(slug, 3),
-  ]);
+  const service = await getServiceBySlug(slug);
 
   if (!service) notFound();
 
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const jsonLd = buildServiceJsonLd(service);
   const features = service.features as unknown as ServiceFeature[];
   const faqItems = service.faq as unknown as FAQItem[];
@@ -76,6 +75,7 @@ export default async function ServicePage({ params }: PageProps) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -148,26 +148,8 @@ export default async function ServicePage({ params }: PageProps) {
             <ServiceFAQ items={faqItems} />
           </section>
 
-          {relatedArticles.length > 0 && (
-            <aside aria-labelledby="related-h2" className="mt-20">
-              <h2 id="related-h2" className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
-                Pour aller plus loin
-              </h2>
-              <ul className="mt-6 grid gap-4 md:grid-cols-3">
-                {relatedArticles.map((article) => (
-                  <li key={article.slug}>
-                    <Link
-                      href={`/blog/${article.slug}`}
-                      className="block rounded-xl border border-df-blue/10 p-5 transition hover:border-df-blue/30 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-df-blue"
-                    >
-                      <h3 className="font-medium text-df-ink">{article.title}</h3>
-                      <p className="mt-2 text-sm text-df-ink/60">{article.excerpt}</p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          )}
+          {/* Related articles section disabled — /blog/ route not yet implemented.
+             Uncomment when blog pages are created. */}
 
           <ServiceCTA variant="block" serviceName={service.shortName} />
         </article>

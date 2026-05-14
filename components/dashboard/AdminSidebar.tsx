@@ -7,6 +7,14 @@ import {
   FileText,
   Receipt,
   FileSignature,
+  Users,
+  MessageSquare,
+  Image as ImageIcon,
+  ScrollText,
+  BarChart3,
+  BookOpen,
+  UserCog,
+  Settings,
   LogOut,
   ChevronRight,
 } from "lucide-react";
@@ -19,6 +27,9 @@ type Props = {
     devis: number;
     factures: number;
     contrats: number;
+    utilisateurs: number;
+    medias: number;
+    avisEnAttente: number;
   };
 };
 
@@ -27,6 +38,14 @@ const navItems = [
   { href: "/admin/devis", label: "Devis", icon: FileText, countKey: "devis" as const },
   { href: "/admin/factures", label: "Factures", icon: Receipt, countKey: "factures" as const },
   { href: "/admin/contrats", label: "Contrats", icon: FileSignature, countKey: "contrats" as const },
+  { href: "/admin/utilisateurs", label: "Utilisateurs", icon: Users, countKey: "utilisateurs" as const },
+  { href: "/admin/medias", label: "Médias", icon: ImageIcon, countKey: "medias" as const },
+  { href: "/admin/avis", label: "Avis", icon: MessageSquare, countKey: "avisEnAttente" as const },
+  { href: "/admin/statistiques", label: "Statistiques", icon: BarChart3, countKey: null },
+  { href: "/admin/comptabilite", label: "Comptabilité", icon: BookOpen, countKey: null },
+  { href: "/admin/journal", label: "Journal", icon: ScrollText, countKey: null },
+  { href: "/admin/equipe", label: "Équipe", icon: UserCog, countKey: null },
+  { href: "/admin/parametres", label: "Paramètres", icon: Settings, countKey: null },
 ];
 
 export default function AdminSidebar({ userName, userRole, counts }: Props) {

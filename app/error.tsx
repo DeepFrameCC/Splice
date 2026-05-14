@@ -6,7 +6,12 @@ import Image from "next/image";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.error("[deepframe:error]", error);
+    // Forward to monitoring (Sentry when configured, console fallback)
+    import("@/lib/monitoring").then(({ captureException }) => {
+      captureException(error, { route: window.location.pathname });
+    }).catch(() => {
+      console.error("[deepframe:error]", error);
+    });
   }, [error]);
 
   return (

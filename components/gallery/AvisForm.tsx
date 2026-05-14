@@ -11,9 +11,11 @@ export default function AvisForm() {
   const [contenu, setContenu] = useState("");
   const [pending, start] = useTransition();
   const [success, setSuccess] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // Bot detected
     if (!nom.trim() || !contenu.trim()) { toast.error("Veuillez remplir tous les champs"); return; }
     start(async () => {
       try {
@@ -58,6 +60,18 @@ export default function AvisForm() {
         ))}
       </div>
       <p className="mt-1 text-center text-xs text-df-blue/60">{note}/5 étoile{note > 1 ? "s" : ""}</p>
+
+      {/* Honeypot — hidden from humans, filled by bots */}
+      <div aria-hidden="true" className="absolute -left-[9999px] opacity-0">
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
 
       <input
         type="text"
