@@ -9,8 +9,11 @@ import { notify } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
   if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
-    console.warn("[webhook] Stripe non configuré — requête ignorée");
-    return NextResponse.json({ received: true });
+    console.error("[webhook] Stripe non configuré — webhook rejeté (503)");
+    return NextResponse.json(
+      { error: "Stripe non configuré sur ce serveur" },
+      { status: 503 },
+    );
   }
 
   const body = await req.text();
@@ -35,39 +38,53 @@ export async function POST(req: NextRequest) {
     if (devis.acomptePaid) return NextResponse.json({ received: true, info: "Déjà payé" });
     if (!devis.userId) return NextResponse.json({ error: "Devis sans client associé" }, { status: 400 });
 
-    // Transaction: update devis + create facture + create contrat
+    // Idempotent: update devis + mark existing Facture as PAYEE (or create if missing).
+    // Facture/Contrat are normally created by validerDevis (admin). The webhook only
+    // creates them as a fallback to handle out-of-band payments. Facture.devisId is
+    // @unique so a duplicate insert would crash — we check existence first.
     const userId = devis.userId;
     await db.$transaction(async (tx) => {
       await tx.devis.update({
         where: { id: devisId },
-        data: { acomptePaid: true, status: "PAYE", stripeSession: session.id }
+        data: { acomptePaid: true, status: "PAYE", stripeSession: session.id },
       });
 
-      // Create Facture
-      const fNum = await nextNumero("FACTURE", tx);
-      await tx.facture.create({
-        data: {
-          numero: `FA-${fNum.numero}`,
-          devisId,
-          userId,
-          status: "PAYEE",
-          pdfUrl: null
+      const existingFacture = await tx.facture.findUnique({ where: { devisId } });
+      if (existingFacture) {
+        if (existingFacture.status !== "PAYEE") {
+          await tx.facture.update({
+            where: { id: existingFacture.id },
+            data: { status: "PAYEE" },
+          });
         }
-      });
+      } else {
+        const fNum = await nextNumero("FACTURE", tx);
+        await tx.facture.create({
+          data: {
+            numero: `F-${fNum.numero}`,
+            devisId,
+            userId,
+            status: "PAYEE",
+            pdfUrl: null,
+          },
+        });
+      }
 
-      // Create Contrat
-      const cNum = await nextNumero("CONTRAT", tx);
-      await tx.contrat.create({
-        data: {
-          numero: `CT-${cNum.numero}`,
-          annee: cNum.annee,
-          sequence: cNum.sequence,
-          devisId,
-          userId,
-          status: "A_VENIR",
-          pdfUrl: null
-        }
-      });
+      const existingContrat = await tx.contrat.findUnique({ where: { devisId } });
+      if (!existingContrat) {
+        const cNum = await nextNumero("CONTRAT", tx);
+        await tx.contrat.create({
+          data: {
+            numero: `C-${cNum.numero}`,
+            annee: cNum.annee,
+            sequence: cNum.sequence,
+            devisId,
+            userId,
+            status: "A_VENIR",
+            pdfUrl: null,
+          },
+        });
+      }
     });
 
     await audit({ action: "PAYMENT_SUCCESS", userId, target: devisId, metadata: { stripeSession: session.id, amount: devis.acompteAmount } });

@@ -7,7 +7,7 @@ import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { audit } from "@/lib/audit";
 import { authLimiter, checkRateLimit } from "@/lib/rate-limit";
-import { generateTOTPSecret, verifyTOTP, generateQRCodeDataURL } from "@/lib/totp";
+import { generateTOTPSecret, verifyTOTP, generateQRCodeDataURL, encryptTotpSecret } from "@/lib/totp";
 
 async function requireAuth() {
   const session = await auth();
@@ -117,10 +117,11 @@ export async function generate2FASetup() {
   const { secret, uri } = generateTOTPSecret(user.email);
   const qrDataUrl = await generateQRCodeDataURL(uri);
 
-  // Store secret temporarily (not yet enabled)
+  // Store secret encrypted at rest. The plaintext is returned to the client only
+  // so the user can paste it as a fallback to the QR code during setup.
   await db.user.update({
     where: { id: userId },
-    data: { twoFactorSecret: secret },
+    data: { twoFactorSecret: encryptTotpSecret(secret) },
   });
 
   return { secret, uri, qrDataUrl };

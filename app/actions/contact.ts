@@ -8,13 +8,35 @@ import { contactLimiter, checkRateLimit } from "@/lib/rate-limit";
 /*  Validation                                                         */
 /* ------------------------------------------------------------------ */
 
+const MEMBER_VALUES = ["all", "papi", "louisia", "ty"] as const;
+type MemberRoute = (typeof MEMBER_VALUES)[number];
+
 const contactSchema = z.object({
   nom: z.string().min(2, "Le nom doit contenir au moins 2 caracteres"),
   email: z.string().email("Adresse email invalide"),
   type: z.string().min(1, "Le type de projet est requis"),
   budget: z.string().min(1, "Le budget envisage est requis"),
   brief: z.string().min(10, "Le brief doit contenir au moins 10 caracteres"),
+  member: z.enum(MEMBER_VALUES).optional(),
 });
+
+/**
+ * Map a public member identifier to a server-side envelope recipient.
+ * Personal addresses are configured via environment variables
+ * (MAIL_FOUNDER_PAPI, MAIL_FOUNDER_LOUISIA, MAIL_FOUNDER_TY) and never
+ * exposed in the HTML rendered to the public.
+ */
+function resolveRecipients(member?: MemberRoute): string[] {
+  const fallback = MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT];
+  if (!member || member === "all") return fallback;
+  const map: Record<Exclude<MemberRoute, "all">, string | undefined> = {
+    papi: process.env.MAIL_FOUNDER_PAPI,
+    louisia: process.env.MAIL_FOUNDER_LOUISIA,
+    ty: process.env.MAIL_FOUNDER_TY,
+  };
+  const target = map[member];
+  return target ? [target] : fallback;
+}
 
 export type ContactPayload = z.infer<typeof contactSchema>;
 
@@ -36,13 +58,14 @@ export async function submitContact(
     return { success: false, error: firstError };
   }
 
-  const { nom, email, type, budget, brief } = parsed.data;
+  const { nom, email, type, budget, brief, member } = parsed.data;
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
+  const recipients = resolveRecipients(member);
 
   try {
     // --- Email fondateurs : notification interne ---
     await sendMail({
-      to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
+      to: recipients,
       subject: `[Deepframe] Nouveau pre-devis — ${nom}`,
       replyTo: email,
       html: `

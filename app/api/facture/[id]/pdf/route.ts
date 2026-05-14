@@ -74,7 +74,9 @@ export async function GET(
     const e = (amount: number | null | undefined) =>
       euro(amount, fonts.useCustom);
 
-    return new Promise<NextResponse>((resolve) => {
+    const PDF_TIMEOUT_MS = 20_000;
+
+    const generation = new Promise<NextResponse>((resolve) => {
       doc.on("error", (err) => {
         console.error("[facture-pdf] PDFKit stream error:", err);
         resolve(
@@ -274,6 +276,25 @@ export async function GET(
 
       doc.end();
     });
+
+    const timeout = new Promise<NextResponse>((resolve) => {
+      setTimeout(() => {
+        console.error("[facture-pdf] PDF generation timed out after", PDF_TIMEOUT_MS, "ms");
+        try {
+          doc.removeAllListeners();
+        } catch {
+          /* ignore */
+        }
+        resolve(
+          NextResponse.json(
+            { error: "PDF generation timeout" },
+            { status: 504 },
+          ),
+        );
+      }, PDF_TIMEOUT_MS);
+    });
+
+    return Promise.race([generation, timeout]);
   } catch (err) {
     console.error("[facture-pdf] Unexpected error:", err);
     return NextResponse.json(

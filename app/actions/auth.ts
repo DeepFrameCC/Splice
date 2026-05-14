@@ -29,11 +29,19 @@ const registerSchema = z.object({
 }).refine((d) => d.nomEntreprise || (d.prenom && d.nom), { message: "Nom/prénom OU nom d'entreprise requis", path: ["nom"] });
 
 async function verifyRecaptcha(token: string) {
-  if (!process.env.RECAPTCHA_SECRET_KEY) return true;
+  if (!process.env.RECAPTCHA_SECRET_KEY) {
+    // Fail-closed in production so a missing secret cannot silently disable
+    // bot protection. Dev / preview environments still bypass for ergonomics.
+    if (process.env.NODE_ENV === "production") {
+      console.error("[auth] RECAPTCHA_SECRET_KEY missing in production — registration refused");
+      return false;
+    }
+    return true;
+  }
   const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
+    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
   });
   const data = await res.json();
   return data.success === true && (data.score ?? 1) >= 0.5;

@@ -8,3 +8,5 @@ out
 *.log
 .vercel
 prisma/migrations/dev.db*
+tsconfig.tsbuildinfo
+*.tsbuildinfo

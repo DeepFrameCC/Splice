@@ -1,0 +1,138 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { submitContact } from "@/app/actions/contact";
+
+interface Props {
+  members: { id: string; name: string }[];
+}
+
+const TYPES = ["Clip", "Photo", "Mariage", "Entreprise", "Documentaire", "Autre"];
+const BUDGETS = ["< 1 000 €", "1 000 € – 3 000 €", "3 000 € – 8 000 €", "> 8 000 €", "À définir"];
+
+export default function ContactForm({ members }: Props) {
+  const [pending, startTransition] = useTransition();
+  const [status, setStatus] = useState<null | { ok: true } | { ok: false; error: string }>(null);
+
+  return (
+    <form
+      className="grid gap-4 rounded-2xl border border-df-blue/10 bg-white p-6 shadow-sm"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        const memberRaw = (fd.get("member") as string) || "all";
+        const payload = {
+          nom: (fd.get("nom") as string) ?? "",
+          email: (fd.get("email") as string) ?? "",
+          type: (fd.get("type") as string) ?? "",
+          budget: (fd.get("budget") as string) ?? "",
+          brief: (fd.get("brief") as string) ?? "",
+          member: memberRaw as "all" | "papi" | "louisia" | "ty",
+        };
+        startTransition(async () => {
+          const res = await submitContact(payload);
+          if (res.success) setStatus({ ok: true });
+          else setStatus({ ok: false, error: res.error });
+        });
+      }}
+    >
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+          Votre nom
+          <input
+            name="nom"
+            required
+            minLength={2}
+            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+          Email
+          <input
+            name="email"
+            type="email"
+            required
+            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+          Type de projet
+          <select
+            name="type"
+            required
+            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          >
+            <option value="">Choisir…</option>
+            {TYPES.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+          Budget envisagé
+          <select
+            name="budget"
+            required
+            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          >
+            <option value="">Choisir…</option>
+            {BUDGETS.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        Destinataire
+        <select
+          name="member"
+          className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          defaultValue="all"
+        >
+          <option value="all">Toute l&apos;équipe</option>
+          {members.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        Votre message
+        <textarea
+          name="brief"
+          required
+          minLength={10}
+          rows={6}
+          className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+        />
+      </label>
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="rounded-xl bg-df-blue px-6 py-3 text-sm font-bold text-white shadow-lg shadow-df-blue/25 transition hover:bg-df-blue/90 disabled:opacity-60"
+      >
+        {pending ? "Envoi en cours…" : "Envoyer le message"}
+      </button>
+
+      {status && status.ok && (
+        <p className="text-sm font-semibold text-emerald-600">
+          Message envoyé ! Nous revenons vers vous sous 48h.
+        </p>
+      )}
+      {status && !status.ok && (
+        <p className="text-sm font-semibold text-red-600">{status.error}</p>
+      )}
+    </form>
+  );
+}
