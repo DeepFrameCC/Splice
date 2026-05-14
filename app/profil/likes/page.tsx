@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { FOUNDER_LABEL } from "@/lib/pricing";
 import { Heart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +29,15 @@ export default async function MesLikes() {
             <Link key={m.id} href={m.type === "VIDEO" ? `/videos/${m.id}` : `/photos`}
               className="group overflow-hidden rounded-2xl bg-df-cream shadow-md ring-1 ring-df-blue/10 transition hover:scale-[1.03]">
               {m.type === "PHOTO" ? (
-                <img src={m.url} alt={m.title} className="aspect-square w-full object-cover" />
+                <div className="relative aspect-square w-full">
+                  <Image
+                    src={m.url}
+                    alt={m.title}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
               ) : (
                 <video src={m.url} poster={m.thumbnailUrl ?? undefined} muted className="aspect-[9/16] w-full object-cover" />
               )}

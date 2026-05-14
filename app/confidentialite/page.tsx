@@ -1,6 +1,7 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
@@ -13,14 +14,14 @@ export default function Confidentialite() {
       <Nav />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-df-blue">Politique de confidentialité</h1>
-        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : mai 2026</p>
+        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-df-ink/80">
           <div>
             <h2 className="text-lg font-bold text-df-ink">1. Responsable du traitement</h2>
             <ul className="mt-3 space-y-1">
               <li><strong>Dénomination :</strong> DeepFrame (micro-entreprise)</li>
-              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire</li>
+              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact@deepframe.cc</li>
               <li><strong>Email :</strong> contact@deepframe.cc</li>
             </ul>
           </div>
@@ -48,10 +49,11 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-df-ink">3. Finalités et bases légales</h2>
             <table className="mt-3 w-full text-left text-xs">
+              <caption className="sr-only">Finalités et bases légales du traitement</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
-                  <th className="py-2 pr-4 font-bold">Finalité</th>
-                  <th className="py-2 pr-4 font-bold">Base légale</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Finalité</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Base légale</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-df-ink/5">
@@ -110,8 +112,10 @@ export default function Confidentialite() {
             <h2 className="text-lg font-bold text-df-ink">7. Sécurité</h2>
             <p>
               DeepFrame met en oeuvre des mesures techniques et organisationnelles appropriées pour protéger
-              vos données : chiffrement des mots de passe (Argon2id), connexions HTTPS, accès restreint aux
-              bases de données, authentification par token JWT.
+              vos données : chiffrement des mots de passe (Argon2id), connexions HTTPS, en-têtes de
+              sécurité stricts (CSP, HSTS), authentification 2FA TOTP optionnelle, chiffrement AES-256-GCM
+              des secrets sensibles au repos, accès restreint à la base de données, journalisation des
+              actions sensibles.
             </p>
           </div>
 

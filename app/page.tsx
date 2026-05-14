@@ -67,7 +67,7 @@ function Showreel() {
                   loop
                   playsInline
                   preload="metadata"
-                  onMouseEnter={(e) => e.currentTarget.play()}
+                  onMouseEnter={(e) => { void e.currentTarget.play().catch(() => {}); }}
                   onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
                 />
               ) : (
@@ -117,6 +117,7 @@ function Hero() {
             muted
             loop
             playsInline
+            preload="metadata"
           />
         </div>
       </div>

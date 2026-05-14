@@ -126,8 +126,9 @@ export default function CookieBanner() {
               onClick={() => accept(false)}
               disabled={pending}
               className="rounded-xl border border-df-blue/20 px-5 py-2.5 text-sm font-bold text-df-ink transition hover:bg-df-cream"
+              aria-label="Refuser tous les cookies optionnels et n'autoriser que les cookies essentiels"
             >
-              Essentiels uniquement
+              Tout refuser
             </button>
             {showDetails ? (
               <button

@@ -1,6 +1,7 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de cookies",
@@ -13,7 +14,7 @@ export default function Cookies() {
       <Nav />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-df-blue">Politique de cookies</h1>
-        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : mai 2026</p>
+        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-df-ink/80">
           <div>
@@ -31,18 +32,19 @@ export default function Cookies() {
             <h3 className="mt-4 font-bold text-df-ink">2.1. Cookies strictement nécessaires</h3>
             <p>Ces cookies sont indispensables au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
             <table className="mt-3 w-full text-left text-xs">
+              <caption className="sr-only">Cookies strictement nécessaires</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
-                  <th className="py-2 pr-4 font-bold">Nom</th>
-                  <th className="py-2 pr-4 font-bold">Finalité</th>
-                  <th className="py-2 font-bold">Durée</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Nom</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Finalité</th>
+                  <th scope="col" className="py-2 font-bold">Durée</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-df-ink/5">
                 <tr>
                   <td className="py-2 pr-4 font-mono">authjs.session-token</td>
                   <td className="py-2 pr-4">Authentification utilisateur (NextAuth)</td>
-                  <td className="py-2">Session / 30 jours</td>
+                  <td className="py-2">Session / 7 jours</td>
                 </tr>
                 <tr>
                   <td className="py-2 pr-4 font-mono">authjs.csrf-token</td>
@@ -56,6 +58,13 @@ export default function Cookies() {
                 </tr>
               </tbody>
             </table>
+            <p className="mt-3 text-xs text-df-ink/60">
+              Note : le choix de consentement à la bannière cookies (clé{" "}
+              <span className="font-mono">df_consent</span>) est stocké dans le{" "}
+              <strong>localStorage</strong> de votre navigateur (pas un cookie HTTP) et n&apos;est
+              jamais transmis aux serveurs DeepFrame. Vous pouvez le réinitialiser en vidant le
+              stockage local du site.
+            </p>
 
             <h3 className="mt-6 font-bold text-df-ink">2.2. Cookies tiers — Paiement</h3>
             <p>
@@ -63,11 +72,12 @@ export default function Cookies() {
               de la transaction et la prévention de la fraude.
             </p>
             <table className="mt-3 w-full text-left text-xs">
+              <caption className="sr-only">Cookies tiers — paiement</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
-                  <th className="py-2 pr-4 font-bold">Fournisseur</th>
-                  <th className="py-2 pr-4 font-bold">Finalité</th>
-                  <th className="py-2 font-bold">Plus d&apos;infos</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Fournisseur</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Finalité</th>
+                  <th scope="col" className="py-2 font-bold">Plus d&apos;infos</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-df-ink/5">
