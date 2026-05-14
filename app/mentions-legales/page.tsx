@@ -1,6 +1,7 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
@@ -13,7 +14,7 @@ export default function MentionsLegales() {
       <Nav />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-df-blue">Mentions légales</h1>
-        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : mai 2026</p>
+        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-df-ink/80">
           <div>
@@ -21,10 +22,17 @@ export default function MentionsLegales() {
             <ul className="mt-3 space-y-1">
               <li><strong>Dénomination :</strong> DeepFrame</li>
               <li><strong>Statut juridique :</strong> Micro-entreprise (auto-entrepreneur)</li>
-              <li><strong>SIRET :</strong> <span className="text-df-gold font-semibold">[SIRET à renseigner]</span></li>
+              <li>
+                <strong>SIRET :</strong>{" "}
+                {process.env.NEXT_PUBLIC_LEGAL_SIRET ? (
+                  <span className="font-mono">{process.env.NEXT_PUBLIC_LEGAL_SIRET}</span>
+                ) : (
+                  <span className="text-df-ink/60 italic">communiqué sur demande à contact@deepframe.cc</span>
+                )}
+              </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
               <li><strong>TVA :</strong> TVA non applicable, art.&nbsp;293&nbsp;B du CGI (franchise en base)</li>
-              <li><strong>Siège social :</strong> Saint-Avertin (37550), Indre-et-Loire</li>
+              <li><strong>Siège social :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande</li>
               <li><strong>Email :</strong> contact@deepframe.cc</li>
             </ul>
           </div>

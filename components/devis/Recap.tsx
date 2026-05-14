@@ -1,18 +1,38 @@
 "use client";
 import { useDevisForm } from "./store";
-import { computeQuote, PricingError } from "@/lib/pricing";
+import { computeQuote, PricingError, type QuoteInput } from "@/lib/pricing";
 import { useMemo } from "react";
 
 export default function Recap() {
   const f = useDevisForm();
 
+  // Project only the fields computeQuote actually reads. This avoids the
+  // react-hooks/exhaustive-deps warning while keeping the memo correct: any
+  // unrelated state change (e.g. nomContact) won't recompute, and any pricing
+  // input change is captured because each one is listed in the deps array.
+  const pack = f.pack;
+  const duree = f.duree;
+  const usage = f.usage;
+  const delai = f.delai;
+  const villeDepart = f.villeDepart;
+  const distanceKm = f.distanceKm;
+  const videosSupp = f.videosSupp;
+  const videos3D = f.videos3D;
+  const motionDesign = f.motionDesign;
+  const montageExpress = f.montageExpress;
+  const introAnimeeSec = f.introAnimeeSec;
+
   const result = useMemo(() => {
+    const input: QuoteInput = {
+      pack, duree, usage, delai, villeDepart, distanceKm,
+      videosSupp, videos3D, motionDesign, montageExpress, introAnimeeSec,
+    };
     try {
-      return { quote: computeQuote(f), error: null as string | null };
+      return { quote: computeQuote(input), error: null as string | null };
     } catch (e) {
       return { quote: null, error: e instanceof PricingError ? e.message : "Erreur de calcul" };
     }
-  }, [f.pack, f.duree, f.usage, f.delai, f.villeDepart, f.distanceKm, f.videosSupp, f.videos3D, f.motionDesign, f.montageExpress, f.introAnimeeSec]);
+  }, [pack, duree, usage, delai, villeDepart, distanceKm, videosSupp, videos3D, motionDesign, montageExpress, introAnimeeSec]);
 
   return (
     <aside className="sticky top-24 rounded-3xl bg-gradient-to-br from-df-blue to-df-blue-dark p-6 text-white shadow-2xl">

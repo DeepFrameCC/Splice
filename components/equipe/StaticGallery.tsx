@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function StaticGallery({
   items,
 }: {
@@ -21,18 +23,19 @@ export default function StaticGallery({
               loop
               playsInline
               preload="metadata"
-              onMouseEnter={(e) => e.currentTarget.play()}
+              onMouseEnter={(e) => { void e.currentTarget.play().catch(() => {}); }}
               onMouseLeave={(e) => {
                 e.currentTarget.pause();
                 e.currentTarget.currentTime = 0;
               }}
             />
           ) : (
-            <img
-              className="h-full w-full object-cover transition group-hover:scale-105"
+            <Image
+              className="object-cover transition group-hover:scale-105"
               src={item.src}
               alt={item.title}
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           )}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-3 pt-8">

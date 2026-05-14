@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const DURATION = 2.8; // secondes
 
@@ -77,11 +78,14 @@ export default function IntroScreen() {
       `}</style>
 
       <div style={{ width: "min(38vw, 320px)", aspectRatio: "466 / 627", position: "relative" }}>
-        <img
+        <Image
           src="/logo.svg"
           alt="DeepFrame"
           className="df-intro-logo"
-          style={{ width: "100%", height: "100%", display: "block", objectFit: "contain" }}
+          fill
+          priority
+          sizes="(max-width: 768px) 38vw, 320px"
+          style={{ display: "block", objectFit: "contain" }}
         />
         {phase === "draw" && <div className="df-intro-shimmer" />}
       </div>

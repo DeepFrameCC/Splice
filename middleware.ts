@@ -8,11 +8,30 @@ const PROTECTED = [/^\/profil/, /^\/admin/, /^\/equipe-dashboard/];
 const ADMIN_ONLY = [/^\/admin/];
 const TEAM_OR_ADMIN = [/^\/admin/, /^\/equipe-dashboard/];
 
+// Private API endpoints — must not be indexed even if URLs leak.
+// /api/stripe/webhook is intentionally excluded: only Stripe's servers should reach it.
+const PRIVATE_API = [
+  /^\/api\/devis\//,
+  /^\/api\/facture\//,
+  /^\/api\/stripe\/checkout/,
+  /^\/api\/auth\//,
+];
+
 export default auth((req) => {
   const { pathname } = req.nextUrl;
   const role = (req.auth?.user as any)?.role as string | undefined;
 
-  // Auth checks
+  // API routes: only add noindex hint, skip CSP/nonce injection.
+  // CSP is meaningless on JSON responses and the nonce would never be consumed.
+  if (pathname.startsWith("/api/")) {
+    const apiRes = NextResponse.next({ request: { headers: new Headers(req.headers) } });
+    if (PRIVATE_API.some((p) => p.test(pathname))) {
+      apiRes.headers.set("X-Robots-Tag", "noindex, nofollow");
+    }
+    return apiRes;
+  }
+
+  // Auth checks (HTML routes)
   const isProtected = PROTECTED.some((p) => p.test(pathname));
   if (isProtected && !req.auth) {
     const url = req.nextUrl.clone();
@@ -63,4 +82,9 @@ export default auth((req) => {
   return res;
 });
 
-export const config = { matcher: ["/((?!api|_next|.*\\..*).*)"] };
+// Cover HTML routes and private API endpoints. Skip _next internals and static assets.
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|logo.svg|og-image.jpg|robots.txt|sitemap.xml|.*\\.(?:png|jpg|jpeg|gif|svg|webp|avif|ico|mp4|webm|woff|woff2|ttf)).*)",
+  ],
+};

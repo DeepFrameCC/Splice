@@ -9,14 +9,18 @@ export const runtime = "nodejs";
  * GET /api/health
  *
  * Returns:
- * - 200 with status "healthy" when all systems operational
- * - 503 with status "degraded" when database is unreachable
+ * - 200 with status "healthy" when the database is reachable.
+ * - 503 with status "degraded" when the database is unreachable.
+ *
+ * Optional dependencies (Stripe / Resend / Upstash) are reported as
+ * "configured" / "missing" only — we don't open external connections from a
+ * health probe because that would be both slow and abuse-prone if exposed.
  */
 export async function GET() {
-  const checks: Record<string, "ok" | "error"> = {};
+  const checks: Record<string, "ok" | "error" | "configured" | "missing"> = {};
   let healthy = true;
 
-  // Database check
+  // Database — hard dependency.
   try {
     await db.$queryRaw`SELECT 1`;
     checks.database = "ok";
@@ -25,6 +29,11 @@ export async function GET() {
     healthy = false;
   }
 
+  // Optional dependencies: presence-only checks.
+  checks.stripe = process.env.STRIPE_SECRET_KEY ? "configured" : "missing";
+  checks.resend = process.env.RESEND_API_KEY ? "configured" : "missing";
+  checks.upstash = process.env.UPSTASH_REDIS_REST_URL ? "configured" : "missing";
+
   const status = healthy ? "healthy" : "degraded";
   const code = healthy ? 200 : 503;
 
@@ -32,7 +41,6 @@ export async function GET() {
     {
       status,
       timestamp: new Date().toISOString(),
-      version: process.env.npm_package_version ?? "0.1.0",
       checks,
     },
     { status: code }

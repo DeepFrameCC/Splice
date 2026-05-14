@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { toggleLike } from "@/app/actions/likes";
+import { unstable_cache } from "next/cache";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import ProjetsClient from "@/components/gallery/ProjetsClient";
@@ -8,7 +9,18 @@ import GalerieAnimations from "@/components/gallery/GalerieAnimations";
 import type { Metadata } from "next";
 import "./projets.css";
 
-export const dynamic = "force-dynamic";
+// Reading the user's session forces dynamic rendering, but the public media
+// list is identical for everyone, so we cache it for 60s. likedIds is still
+// computed per-request.
+const getPublishedMedias = unstable_cache(
+  async () =>
+    db.media.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+    }),
+  ["galerie:published-medias"],
+  { revalidate: 60, tags: ["medias"] }
+);
 
 export const metadata: Metadata = {
   title: "Portfolio — DeepFrame",
@@ -27,10 +39,7 @@ export default async function GaleriePage() {
     isAuthed = Boolean(userId);
 
     const [fetchedMedias, likes] = await Promise.all([
-      db.media.findMany({
-        where: { published: true },
-        orderBy: { createdAt: "desc" },
-      }),
+      getPublishedMedias(),
       userId
         ? db.like.findMany({
             where: { userId },

@@ -80,14 +80,17 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     });
   });
 
-  await notifyFoundersNewDevis(devis.numero, {
+  // Emails are dispatched in parallel and never block the user flow. Resend latency
+  // can exceed Server Action timeouts and the devis is already persisted in DB,
+  // so a transient mail failure must not surface to the user. Errors are logged.
+  const founderMail = notifyFoundersNewDevis(devis.numero, {
     client: data.nomEntreprise || data.nomContact,
     total: devis.totalHT * 100,
     lieu: data.lieuTournage,
     pack: data.pack
   });
 
-  await sendMail({
+  const clientMail = sendMail({
     to: data.emailContact,
     subject: `Deepframe — Demande de devis ${devis.numero} bien reçue`,
     html: `
@@ -103,6 +106,13 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`
   });
+
+  const results = await Promise.allSettled([founderMail, clientMail]);
+  for (const [i, r] of results.entries()) {
+    if (r.status === "rejected") {
+      console.error(`[submitDevis] mail #${i} failed for devis ${devis.numero}:`, r.reason);
+    }
+  }
 
   await audit({ action: "DEVIS_CREATED", userId, target: devis.id, metadata: { numero: devis.numero, pack: data.pack } });
 

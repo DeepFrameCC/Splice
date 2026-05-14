@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { Image as ImageIcon, Video, Eye, EyeOff, Heart } from "lucide-react";
 import { PublishToggle, DeleteMediaBtn } from "@/components/dashboard/MediaToggleBtn";
@@ -65,18 +66,20 @@ export default async function AdminMediasPage() {
               {/* Thumbnail */}
               <div className="relative aspect-[4/3] bg-df-ink/5">
                 {m.thumbnailUrl ? (
-                  <img
+                  <Image
                     src={m.thumbnailUrl}
                     alt={m.title}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover"
                   />
                 ) : m.url ? (
-                  <img
+                  <Image
                     src={m.url}
                     alt={m.title}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover"
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center">
