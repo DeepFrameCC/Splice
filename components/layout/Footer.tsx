@@ -32,6 +32,8 @@ export default function Footer() {
             <li><Link href="/galerie">Galerie</Link></li>
             <li><Link href="/services">Services</Link></li>
             <li><Link href="/equipe">Équipe</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/faq">FAQ</Link></li>
             <li><Link href="/devis">Demander un devis</Link></li>
           </ul>
         </div>

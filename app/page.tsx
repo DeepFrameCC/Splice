@@ -71,7 +71,7 @@ function Showreel() {
                   onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }}
                 />
               ) : (
-                <img className="df-clip-media" src={c.src} alt={c.title} loading="lazy" />
+                <Image className="df-clip-media" src={c.src} alt={c.title} width={400} height={300} loading="lazy" unoptimized />
               )}
               <div className="df-clip-noise" />
               <div className="df-clip-corners"><i /><i /><i /><i /></div>
@@ -434,7 +434,7 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <Image src="/logo.svg" alt="" width={26} height={34} style={{ filter: "brightness(0) invert(1)" }} />
+            <Image src="/logo.svg" alt="DeepFrame" width={26} height={34} style={{ filter: "brightness(0) invert(1)" }} />
             <span>DEEPFRAME</span>
           </div>
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
@@ -446,6 +446,8 @@ function Footer() {
             <li><a href="#services">Services</a></li>
             <li><a href="#projects">Projets</a></li>
             <li><a href="#pricing">Tarifs</a></li>
+            <li><Link href="/blog">Blog</Link></li>
+            <li><Link href="/faq">FAQ</Link></li>
           </ul>
         </div>
         <div>

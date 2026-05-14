@@ -4,14 +4,14 @@ import { useDevisForm } from "./store";
 import { Step1, Step2, Step3, Step4 } from "./Steps";
 import Recap from "./Recap";
 import { submitDevis } from "@/app/actions/devis";
-import { ChevronLeft, ChevronRight, Send } from "lucide-react";
+import { ChevronLeft, ChevronRight, Send, Shield, Clock, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
 const steps = [
-  { n: 1, label: "Prestation" },
-  { n: 2, label: "Suppléments" },
-  { n: 3, label: "Diffusion" },
-  { n: 4, label: "Coordonnées" }
+  { n: 1, label: "Prestation", desc: "Choisissez votre pack" },
+  { n: 2, label: "Suppléments", desc: "Options & tournage" },
+  { n: 3, label: "Diffusion", desc: "Livraison & formats" },
+  { n: 4, label: "Coordonnées", desc: "Vos informations" },
 ];
 
 export default function Wizard() {
@@ -35,40 +35,124 @@ export default function Wizard() {
     });
   };
 
+  const progress = (f.step / 4) * 100;
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
       <div>
+        {/* Progress bar */}
+        <div className="mb-6">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-df-cream">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-df-blue to-df-gold transition-all duration-500 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="mt-2 text-right text-xs font-bold text-df-blue/50">
+            Étape {f.step} sur 4
+          </p>
+        </div>
+
+        {/* Steps indicator */}
         <ol className="mb-8 flex items-center justify-between gap-2">
           {steps.map((s, i) => (
             <li key={s.n} className="flex flex-1 items-center gap-2">
-              <span className={`grid h-8 w-8 place-items-center rounded-full text-sm font-bold ${f.step >= s.n ? "bg-df-blue text-white" : "bg-df-cream text-df-blue/50"}`}>{s.n}</span>
-              <span className={`hidden text-sm font-bold md:block ${f.step >= s.n ? "text-df-blue" : "text-df-blue/40"}`}>{s.label}</span>
-              {i < steps.length - 1 && <span className={`h-0.5 flex-1 ${f.step > s.n ? "bg-df-blue" : "bg-df-cream"}`} />}
+              <span
+                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-bold transition-all duration-300 ${
+                  f.step > s.n
+                    ? "bg-emerald-500 text-white"
+                    : f.step === s.n
+                    ? "bg-df-blue text-white shadow-md shadow-df-blue/30"
+                    : "bg-df-cream text-df-blue/50"
+                }`}
+              >
+                {f.step > s.n ? (
+                  <CheckCircle className="h-4 w-4" />
+                ) : (
+                  s.n
+                )}
+              </span>
+              <div className="hidden md:block">
+                <span
+                  className={`text-sm font-bold ${
+                    f.step >= s.n ? "text-df-blue" : "text-df-blue/40"
+                  }`}
+                >
+                  {s.label}
+                </span>
+                <span className="block text-[10px] text-df-blue/40">{s.desc}</span>
+              </div>
+              {i < steps.length - 1 && (
+                <span
+                  className={`h-0.5 flex-1 transition-colors duration-300 ${
+                    f.step > s.n ? "bg-emerald-500" : "bg-df-cream"
+                  }`}
+                />
+              )}
             </li>
           ))}
         </ol>
 
+        {/* Step content */}
         <div className="rounded-3xl bg-white p-6 shadow ring-1 ring-df-blue/10 md:p-8">
           {f.step === 1 && <Step1 />}
           {f.step === 2 && <Step2 />}
           {f.step === 3 && <Step3 />}
           {f.step === 4 && <Step4 />}
 
+          {/* Navigation buttons */}
           <div className="mt-8 flex items-center justify-between">
-            <button type="button" onClick={f.prev} disabled={f.step === 1}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-df-blue px-5 py-3 font-bold text-df-blue transition hover:bg-df-blue hover:text-white disabled:opacity-30">
+            <button
+              type="button"
+              onClick={f.prev}
+              disabled={f.step === 1}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-df-blue px-5 py-3 font-bold text-df-blue transition hover:bg-df-blue hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            >
               <ChevronLeft className="h-5 w-5" /> Retour
             </button>
             {f.step < 4 ? (
-              <button type="button" onClick={f.next} disabled={!canNext()} className="btn-primary disabled:opacity-50">
+              <button
+                type="button"
+                onClick={f.next}
+                disabled={!canNext()}
+                className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Suivant <ChevronRight className="h-5 w-5" />
               </button>
             ) : (
-              <button type="button" onClick={onSubmit} disabled={pending || !canNext()} className="btn-primary disabled:opacity-50">
-                {pending ? "Envoi…" : <>Envoyer le devis <Send className="h-5 w-5" /></>}
+              <button
+                type="button"
+                onClick={onSubmit}
+                disabled={pending || !canNext()}
+                className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {pending ? (
+                  <>
+                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Envoi en cours…
+                  </>
+                ) : (
+                  <>Envoyer le devis <Send className="h-5 w-5" /></>
+                )}
               </button>
             )}
           </div>
+        </div>
+
+        {/* Trust badges */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-df-blue/50">
+          <span className="flex items-center gap-1.5">
+            <Shield className="h-4 w-4 text-df-blue/30" />
+            Données sécurisées
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="h-4 w-4 text-df-blue/30" />
+            Réponse sous 24h
+          </span>
+          <span className="flex items-center gap-1.5">
+            <CheckCircle className="h-4 w-4 text-df-blue/30" />
+            Sans engagement
+          </span>
         </div>
       </div>
       <Recap />
