@@ -146,7 +146,7 @@ const TAG_STYLES: Record<FounderTag["variant"], string> = {
   primary:
     "bg-[rgba(243,107,31,0.08)] border-[rgba(243,107,31,0.20)] text-df-blue font-semibold",
   accent:
-    "bg-[rgba(255,189,89,0.20)] border-[rgba(255,189,89,0.40)] text-[#7A4500] font-semibold",
+    "bg-[rgba(243,107,31,0.15)] border-[rgba(243,107,31,0.40)] text-df-gold font-semibold",
   neutral:
     "bg-[#1A1A2E] border-[rgba(255,255,255,0.08)] text-white font-medium",
 };
