@@ -91,22 +91,6 @@ export default function ContactForm({ members }: Props) {
       </div>
 
       <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
-        Destinataire
-        <select
-          name="member"
-          className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
-          defaultValue="all"
-        >
-          <option value="all" className="bg-[#0E0E22] text-white">Toute l&apos;équipe</option>
-          {members.map((m) => (
-            <option key={m.id} value={m.id} className="bg-[#0E0E22] text-white">
-              {m.name}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
         Votre message
         <textarea
           name="brief"
