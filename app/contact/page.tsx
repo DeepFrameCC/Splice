@@ -62,7 +62,7 @@ export default function ContactPage() {
             On vous répond sous 24h
           </p>
           <h1
-            className="text-5xl font-bold leading-none text-df-blue md:text-7xl"
+            className="text-5xl font-bold leading-none text-white md:text-7xl"
             style={{
               fontFamily: "var(--font-display)",
               letterSpacing: "-0.03em",
@@ -72,7 +72,7 @@ export default function ContactPage() {
             <br />
             <em className="italic text-df-gold">votre projet.</em>
           </h1>
-          <p className="mt-5 max-w-xl text-df-blue/70">
+          <p className="mt-5 max-w-xl text-white/70">
             Un brief, une idée, un délai qui presse — écrivez-nous. Nous lisons
             tout et répondons sous 24 heures ouvrées.
           </p>
@@ -88,13 +88,13 @@ export default function ContactPage() {
               <Mail className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-df-blue/50">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
                 Email studio
               </p>
-              <p className="text-sm font-bold text-df-blue group-hover:text-df-blue/80">
+              <p className="text-sm font-bold text-white group-hover:text-df-gold">
                 contact@deepframe.cc
               </p>
-              <p className="mt-0.5 text-xs text-df-blue/50">
+              <p className="mt-0.5 text-xs text-white/50">
                 Réponse sous 24h
               </p>
             </div>
@@ -110,13 +110,13 @@ export default function ContactPage() {
               <MessageCircle className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-df-blue/50">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
                 WhatsApp
               </p>
-              <p className="text-sm font-bold text-df-blue group-hover:text-df-blue/80">
+              <p className="text-sm font-bold text-white group-hover:text-df-gold">
                 Écrivez-nous directement
               </p>
-              <p className="mt-0.5 text-xs text-df-blue/50">
+              <p className="mt-0.5 text-xs text-white/50">
                 Réponse rapide
               </p>
             </div>
@@ -127,13 +127,13 @@ export default function ContactPage() {
               <MapPin className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-df-blue/50">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
                 Zone d&apos;intervention
               </p>
-              <p className="text-sm font-bold text-df-blue">
+              <p className="text-sm font-bold text-white">
                 Orléans · Tours · Centre-Val de Loire
               </p>
-              <p className="mt-0.5 text-xs text-df-blue/50">
+              <p className="mt-0.5 text-xs text-white/50">
                 Déplacement 0,50 €/km A/R
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function ContactPage() {
         {/* ─── Formulaire + tips sidebar ──────────────── */}
         <section className="mb-14" id="form">
           <h2
-            className="mb-2 text-2xl font-bold text-df-blue"
+            className="mb-2 text-2xl font-bold text-white"
             style={{
               fontFamily: "var(--font-display)",
               letterSpacing: "-0.02em",
@@ -151,7 +151,7 @@ export default function ContactPage() {
           >
             Racontez-nous votre projet
           </h2>
-          <p className="mb-8 text-sm text-df-blue/70">
+          <p className="mb-8 text-sm text-white/60">
             Pas de longueur minimum. Le mieux, c&apos;est encore d&apos;écrire
             comme on parle, en glissant deux ou trois références si vous en avez.
           </p>
@@ -165,23 +165,23 @@ export default function ContactPage() {
               >
                 À glisser dans le message
               </p>
-              <ul className="space-y-4 text-sm text-df-blue/70">
+              <ul className="space-y-4 text-sm text-white/60">
                 <li className="border-t border-white/[0.08] pt-4">
-                  <span className="font-bold text-df-blue">Le contexte.</span>{" "}
+                  <span className="font-bold text-df-gold">Le contexte.</span>{" "}
                   Marque, produit, public visé, lieu de diffusion.
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
-                  <span className="font-bold text-df-blue">
+                  <span className="font-bold text-df-gold">
                     2-3 références.
                   </span>{" "}
                   Liens YouTube / Vimeo qui décrivent la vibe.
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
-                  <span className="font-bold text-df-blue">Un budget.</span>{" "}
+                  <span className="font-bold text-df-gold">Un budget.</span>{" "}
                   Même approximatif — nos packs démarrent à 140 € HT.
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
-                  <span className="font-bold text-df-blue">Une deadline.</span>{" "}
+                  <span className="font-bold text-df-gold">Une deadline.</span>{" "}
                   Date de diffusion, et si elle bouge ou non.
                 </li>
               </ul>
@@ -198,7 +198,7 @@ export default function ContactPage() {
         <section className="mb-14">
           <div className="mb-6 flex items-end justify-between">
             <h2
-              className="text-2xl font-bold text-df-blue"
+              className="text-2xl font-bold text-df-gold"
               style={{
                 fontFamily: "var(--font-display)",
                 letterSpacing: "-0.02em",
@@ -208,7 +208,7 @@ export default function ContactPage() {
             </h2>
             <Link
               href="/faq"
-              className="text-sm font-semibold text-df-gold hover:text-df-blue transition"
+              className="text-sm font-semibold text-df-gold hover:text-white transition"
             >
               Voir toute la FAQ →
             </Link>
@@ -220,13 +220,13 @@ export default function ContactPage() {
                 className="group rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]"
                 {...(i === 0 ? { open: true } : {})}
               >
-                <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-df-blue transition hover:bg-white/[0.04]">
+                <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-white transition hover:bg-white/[0.04]">
                   <span>{item.q}</span>
                   <span className="ml-4 shrink-0 text-df-gold transition-transform group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="px-5 pb-5 text-sm leading-relaxed text-df-blue/70">
+                <div className="px-5 pb-5 text-sm leading-relaxed text-white/60">
                   {item.a}
                 </div>
               </details>
@@ -240,7 +240,7 @@ export default function ContactPage() {
           className="flex items-center gap-5 rounded-2xl bg-df-blue p-7 transition hover:-translate-y-0.5 hover:shadow-xl"
         >
           <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-df-gold">
-            <Calculator className="h-6 w-6 text-df-blue" />
+            <Calculator className="h-6 w-6 text-white" />
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-white/50">

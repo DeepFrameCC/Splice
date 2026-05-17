@@ -37,7 +37,7 @@ export default function ContactForm({ members }: Props) {
       }}
     >
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
           Votre nom
           <input
             name="nom"
@@ -46,7 +46,7 @@ export default function ContactForm({ members }: Props) {
             className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           />
         </label>
-        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
           Email
           <input
             name="email"
@@ -58,7 +58,7 @@ export default function ContactForm({ members }: Props) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
           Type de projet
           <select
             name="type"
@@ -73,7 +73,7 @@ export default function ContactForm({ members }: Props) {
             ))}
           </select>
         </label>
-        <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+        <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
           Budget envisagé
           <select
             name="budget"
@@ -90,7 +90,7 @@ export default function ContactForm({ members }: Props) {
         </label>
       </div>
 
-      <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+      <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
         Destinataire
         <select
           name="member"
@@ -106,7 +106,7 @@ export default function ContactForm({ members }: Props) {
         </select>
       </label>
 
-      <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
+      <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
         Votre message
         <textarea
           name="brief"
