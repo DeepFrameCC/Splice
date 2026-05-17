@@ -609,7 +609,7 @@ img { display: block; max-width: 100%; }
   margin: 0 auto;
 }
 .df-section-head { margin-bottom: 56px; max-width: 920px; }
-.df-services > .df-section-head { margin-bottom: 96px; }
+.df-services > .df-section-head { margin-bottom: 128px; }
 
 @media (max-width: 820px) {
   .df-section { padding: 70px 22px; }
