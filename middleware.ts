@@ -51,9 +51,10 @@ export default auth((req) => {
 
   // CSP with dynamic nonce
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  const isDev = process.env.NODE_ENV === "development";
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}' https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://plausible.io`,
+    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://plausible.io`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https://*.supabase.co https://*.r2.dev https://utfs.io`,

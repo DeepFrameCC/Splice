@@ -1,8 +1,15 @@
-import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Nav from "@/components/layout/Nav";
+import Image from "next/image";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import BlogAuthorRow from "@/components/blog/BlogAuthorRow";
+import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
+import BlogTOC from "@/components/blog/BlogTOC";
+import BlogAdminBar from "@/components/blog/BlogAdminBar";
+import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
+import { buildBlogPostJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
+import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
 interface Props {
@@ -10,194 +17,232 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  try {
-    const posts = await db.blogPost.findMany({ select: { slug: true } });
-    return posts.map((p) => ({ slug: p.slug }));
-  } catch {
-    return [];
-  }
+  const slugs = await getAllPublishedSlugs();
+  return slugs.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  try {
-    const post = await db.blogPost.findUnique({
-      where: { slug },
-      select: { title: true, excerpt: true },
-    });
-    if (!post) return { title: "Article introuvable" };
-    return {
-      title: `${post.title} — Blog DeepFrame`,
-      description: post.excerpt,
-      openGraph: {
-        title: post.title,
-        description: post.excerpt,
-        type: "article",
-      },
-    };
-  } catch {
-    return { title: "Blog — DeepFrame" };
-  }
+  const post = await getPostBySlug(slug);
+
+  if (!post) return { title: "Article introuvable — DeepFrame" };
+
+  const title = post.metaTitle || `${post.title} — Blog DeepFrame`;
+  const description = post.metaDescription || post.excerpt;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: post.title,
+      description,
+      type: "article",
+      publishedTime: post.publishedAt.toISOString(),
+      ...(post.coverImageUrl ? { images: [{ url: post.coverImageUrl }] } : {}),
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  let post: {
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    publishedAt: Date;
-    parentService: { name: string; slug: string } | null;
-  } | null = null;
+  const post = await getPostBySlug(slug);
 
-  try {
-    post = await db.blogPost.findUnique({
-      where: { slug },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        excerpt: true,
-        publishedAt: true,
-        parentService: { select: { name: true, slug: true } },
-      },
-    });
-  } catch (e) {
-    console.error("[blog] DB error:", e);
-  }
+  if (!post || post.status !== "PUBLISHED") notFound();
 
-  if (!post) notFound();
+  // Check if current user is admin for inline actions
+  const session = await auth();
+  const userRole = session?.user?.role;
+  const showAdminBar = isAdmin(userRole);
 
-  // Get related posts
-  let relatedPosts: { slug: string; title: string; excerpt: string }[] = [];
-  try {
-    relatedPosts = await db.blogPost.findMany({
-      where: {
-        id: { not: post.id },
-        parentServiceId: post.parentService ? undefined : undefined,
-      },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-      select: { slug: true, title: true, excerpt: true },
-    });
-  } catch {
-    // Silently fail
-  }
+  const relatedPosts = await getRelatedPosts(
+    post.id,
+    post.parentService?.slug,
+  );
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.publishedAt.toISOString(),
-    author: {
-      "@type": "Organization",
-      name: "DeepFrame",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "DeepFrame",
-      logo: {
-        "@type": "ImageObject",
-        url: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"}/logo.svg`,
-      },
-    },
-  };
+  const jsonLd = buildBlogPostJsonLd({
+    title: post.title,
+    excerpt: post.excerpt,
+    slug: post.slug,
+    publishedAt: post.publishedAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+    coverImageUrl: post.coverImageUrl,
+    author: post.author,
+    parentService: post.parentService,
+  });
+
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Accueil", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.title, url: `/blog/${post.slug}` },
+  ]);
 
   return (
     <>
-      <Nav />
+      <NavWrapper />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className="mx-auto max-w-3xl px-6 pb-20" style={{ paddingTop: "calc(80px + 3rem)" }}>
-        {/* Breadcrumb */}
-        <nav className="mb-6 text-sm text-df-blue/50" aria-label="Fil d'Ariane">
-          <Link href="/" className="hover:text-df-blue">Accueil</Link>
-          <span className="mx-2">/</span>
-          <Link href="/blog" className="hover:text-df-blue">Blog</Link>
-          <span className="mx-2">/</span>
-          <span className="text-df-blue/70">{post.title}</span>
-        </nav>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
 
-        <header className="mb-8">
-          <div className="flex items-center gap-3 text-xs text-df-blue/50">
-            <time dateTime={post.publishedAt.toISOString()}>
-              {post.publishedAt.toLocaleDateString("fr-FR", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-            {post.parentService && (
+      <article
+        className="pb-16"
+        style={{ paddingTop: "calc(80px + 2rem)" }}
+      >
+        {/* ─── Admin bar ──────────────────────────────── */}
+        {showAdminBar && (
+          <BlogAdminBar
+            postId={post.id}
+            status={post.status}
+            editUrl={`/admin/blog/${post.id}/modifier`}
+          />
+        )}
+
+        {/* ─── Header ─────────────────────────────────── */}
+        <header className="mx-auto max-w-4xl px-6">
+          {/* Breadcrumb */}
+          <nav className="mb-6 text-sm text-white/50" aria-label="Fil d'Ariane">
+            <Link href="/" className="hover:text-white transition">Accueil</Link>
+            <span className="mx-2">/</span>
+            <Link href="/blog" className="hover:text-white transition">Blog</Link>
+            {post.categories.length > 0 && (
               <>
-                <span>·</span>
-                <Link
-                  href={`/services/${post.parentService.slug}`}
-                  className="rounded-full bg-df-blue/5 px-2 py-0.5 font-medium text-df-blue/70 hover:bg-df-blue/10"
-                >
-                  {post.parentService.name}
+                <span className="mx-2">/</span>
+                <Link href={`/blog?cat=${post.categories[0].slug}`} className="hover:text-white transition">
+                  {post.categories[0].name}
                 </Link>
               </>
             )}
-          </div>
-          <h1 className="mt-3 font-display text-3xl font-bold italic text-df-blue md:text-4xl">
-            {post.title}
-          </h1>
-          <p className="mt-4 text-lg text-df-blue/70 leading-relaxed">
-            {post.excerpt}
-          </p>
-        </header>
+            <span className="mx-2">/</span>
+            <span className="text-white/70">{post.title}</span>
+          </nav>
 
-        {/* Placeholder for full content */}
-        <div className="prose prose-lg max-w-none">
-          <div className="rounded-2xl bg-df-cream/50 p-8 text-center">
-            <p className="text-df-blue/60">
-              Le contenu complet de cet article sera bientôt disponible.
-            </p>
-            <p className="mt-2 text-sm text-df-blue/40">
-              En attendant, n&apos;hésitez pas à nous contacter pour toute question.
-            </p>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="mt-10 rounded-2xl bg-df-blue p-8 text-center text-white">
-          <h2 className="font-display text-2xl font-bold italic">Un projet en tête ?</h2>
-          <p className="mt-2 text-white/70">
-            On vous accompagne de A à Z. Devis gratuit, sans engagement.
-          </p>
-          <Link
-            href="/devis"
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-df-ink transition hover:bg-df-gold/90"
-          >
-            Demander un devis →
-          </Link>
-        </div>
-
-        {/* Related posts */}
-        {relatedPosts.length > 0 && (
-          <div className="mt-12">
-            <h2 className="font-display text-xl font-bold text-df-blue">Articles similaires</h2>
-            <div className="mt-4 grid gap-4">
-              {relatedPosts.map((rp) => (
+          {/* Categories */}
+          {post.categories.length > 0 && (
+            <div className="mb-4 flex flex-wrap gap-2">
+              {post.categories.map((cat) => (
                 <Link
-                  key={rp.slug}
-                  href={`/blog/${rp.slug}`}
-                  className="group block rounded-xl bg-white p-4 shadow-sm ring-1 ring-df-blue/10 transition hover:shadow-md"
+                  key={cat.id}
+                  href={`/blog?cat=${cat.slug}`}
+                  className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 transition hover:bg-white/20 hover:text-white"
                 >
-                  <h3 className="font-bold text-df-blue group-hover:text-df-blue/80">
-                    {rp.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-df-blue/50 line-clamp-1">{rp.excerpt}</p>
+                  {cat.name}
                 </Link>
               ))}
             </div>
+          )}
+
+          {/* Title */}
+          <h1 className="font-display text-3xl font-bold italic text-white md:text-4xl lg:text-5xl">
+            {post.title}
+          </h1>
+
+          {/* Excerpt / chapo */}
+          <p className="mt-5 text-lg leading-relaxed text-white/70 md:text-xl">
+            {post.excerpt}
+          </p>
+
+          {/* Author row */}
+          <div className="mt-6">
+            <BlogAuthorRow
+              author={post.author}
+              publishedAt={post.publishedAt}
+              readingTimeMin={post.readingTimeMin}
+            />
           </div>
-        )}
+
+          {/* Cover image */}
+          {post.coverImageUrl && (
+            <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-white/5">
+              <Image
+                src={post.coverImageUrl}
+                alt={post.coverImageAlt || post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 900px"
+                priority
+              />
+            </div>
+          )}
+        </header>
+
+        {/* ─── Content area with optional TOC ────────── */}
+        <div className="mx-auto mt-10 max-w-6xl px-6">
+          <div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
+            {/* Article body */}
+            <div className="mx-auto max-w-[700px] lg:mx-0">
+              {/* Mobile TOC */}
+              {post.content && (
+                <div className="mb-8 lg:hidden">
+                  <BlogTOC html={post.content} />
+                </div>
+              )}
+
+              {post.content ? (
+                <div
+                  className="prose prose-lg prose-deepframe max-w-none prose-headings:font-display prose-headings:italic"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
+              ) : (
+                <div className="rounded-2xl bg-white/5 p-8 text-center">
+                  <p className="text-white/60">
+                    Le contenu complet de cet article sera bientôt disponible.
+                  </p>
+                </div>
+              )}
+
+              {/* Tags */}
+              {post.tags.length > 0 && (
+                <div className="mt-10 flex flex-wrap gap-2 border-t border-white/10 pt-6">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/60"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop TOC sidebar */}
+            {post.content && (
+              <aside className="hidden lg:block">
+                <BlogTOC html={post.content} />
+              </aside>
+            )}
+          </div>
+        </div>
+
+        {/* ─── CTA ────────────────────────────────────── */}
+        <div className="mx-auto mt-16 max-w-4xl px-6">
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
+            <h2 className="font-display text-2xl font-bold italic md:text-3xl">
+              Un projet en tête ?
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-white/60">
+              On vous accompagne de A à Z. Devis gratuit, sans engagement.
+            </p>
+            <Link
+              href="/devis"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-white hover:text-black hover:scale-105"
+            >
+              Demander un devis →
+            </Link>
+          </div>
+        </div>
+
+        {/* ─── Related posts ──────────────────────────── */}
+        <div className="mx-auto max-w-6xl px-6">
+          <BlogRelatedPosts posts={relatedPosts} />
+        </div>
       </article>
+
       <Footer />
     </>
   );

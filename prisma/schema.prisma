@@ -118,6 +118,12 @@ enum ConsentType {
   DONNEES_PERSONNELLES
 }
 
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 // ─── User & Auth ────────────────────────────────────────────
 
 model User {
@@ -143,6 +149,7 @@ model User {
   notifications Notification[]
   consents      ConsentLog[]
   reviews       Review[]
+  blogPosts     BlogPost[] @relation("BlogAuthor")
 
   @@index([email])
 }
@@ -424,13 +431,39 @@ model Service {
 }
 
 model BlogPost {
-  id              String   @id @default(cuid())
-  slug            String   @unique
+  id              String         @id @default(cuid())
+  slug            String         @unique
   title           String
   excerpt         String
+  content         String         @default("") @db.Text
+  status          BlogPostStatus @default(DRAFT)
+  coverImageUrl   String?
+  coverImageAlt   String?
+  readingTimeMin  Int            @default(5)
+  metaTitle       String?
+  metaDescription String?
+  tags            String[]       @default([])
   publishedAt     DateTime
-  parentService   Service? @relation("ServiceArticles", fields: [parentServiceId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt @default(now())
+
+  author          User?          @relation("BlogAuthor", fields: [authorId], references: [id])
+  authorId        String?
+  parentService   Service?       @relation("ServiceArticles", fields: [parentServiceId], references: [id])
   parentServiceId String?
+  categories      BlogCategory[] @relation("PostCategories")
 
   @@index([parentServiceId])
+  @@index([authorId])
+  @@index([status])
+}
+
+model BlogCategory {
+  id    String     @id @default(cuid())
+  slug  String     @unique
+  name  String
+  color String?
+  posts BlogPost[] @relation("PostCategories")
+
+  @@index([slug])
 }

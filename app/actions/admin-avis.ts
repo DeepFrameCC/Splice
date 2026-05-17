@@ -7,9 +7,9 @@ import { audit } from "@/lib/audit";
 
 async function requireAdmin() {
   const session = await auth();
-  const role = (session?.user as any)?.role as string | undefined;
+  const role = session?.user?.role;
   if (!isAdmin(role)) throw new Error("FORBIDDEN");
-  return (session?.user as any)?.id as string | undefined;
+  return session?.user?.id;
 }
 
 export async function approuverAvis(avisId: string) {

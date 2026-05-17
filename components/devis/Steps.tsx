@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { PACKS, DUREE_SUPPLEMENT, USAGE_PRICE_PER_VIDEO, DELAI } from "@/lib/pricing";
 import { useDevisForm } from "./store";
 import type { Pack, DureeTournage, UsageType, DelaiLivraison, VilleDepart } from "@prisma/client";
@@ -32,8 +32,8 @@ export function Step1() {
               aria-pressed={isActive}
               className={`relative flex items-start justify-between gap-3 rounded-2xl border-2 p-4 text-left transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? "border-df-gold bg-df-cream shadow-md ring-2 ring-df-gold/40 scale-[1.01]"
-                  : "border-df-blue/15 hover:border-df-blue/40 hover:bg-df-cream/50 hover:shadow-sm"
+                  ? "border-df-gold bg-df-surface shadow-md ring-2 ring-df-gold/40 scale-[1.01]"
+                  : "border-white/10 hover:border-df-blue/40 hover:bg-white/[0.04] hover:shadow-sm"
               }`}
             >
               <div className="min-w-0 flex-1">
@@ -63,7 +63,7 @@ export function Step1() {
         <label className="mt-4 block">
           <span className="text-sm font-bold text-df-blue">Durée souhaitée (5 à 20s)</span>
           <input type="number" min={5} max={20} value={introAnimeeSec ?? ""} onChange={(e) => set("introAnimeeSec", e.target.value ? Number(e.target.value) : null)}
-            className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-4 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+            className="mt-1 w-full rounded-xl border-2 border-white/10 px-4 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           <p className="mt-1 text-xs text-df-blue/60">Tarif final ajusté selon complexité (100-400 €).</p>
         </label>
       )}
@@ -83,7 +83,7 @@ export function Step2() {
           {(Object.keys(DUREE_SUPPLEMENT) as DureeTournage[]).map((d) => (
             <button type="button" key={d} onClick={() => f.set("duree", d)}
               aria-pressed={f.duree === d}
-              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.duree === d ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.duree === d ? "border-df-gold bg-df-surface text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-white/10 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
               {DUREE_SUPPLEMENT[d].label}{DUREE_SUPPLEMENT[d].price > 0 && ` (+${DUREE_SUPPLEMENT[d].price} €)`}
             </button>
           ))}
@@ -96,7 +96,7 @@ export function Step2() {
           <label className="md:col-span-1">
             <span className="text-sm text-df-blue/70">Départ</span>
             <select value={f.villeDepart} onChange={(e) => f.set("villeDepart", e.target.value as VilleDepart)}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20 cursor-pointer">
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20 cursor-pointer">
               <option value="TOURS">Tours</option>
               <option value="ORLEANS">Orléans</option>
             </select>
@@ -104,7 +104,7 @@ export function Step2() {
           <label className="md:col-span-2">
             <span className="text-sm text-df-blue/70">Distance aller-retour (km) — 0,50 €/km</span>
             <input type="number" min={0} value={f.distanceKm} onChange={(e) => f.set("distanceKm", Math.max(0, Number(e.target.value) || 0))}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           </label>
         </div>
       </fieldset>
@@ -115,14 +115,14 @@ export function Step2() {
           <label>
             <span className="text-sm text-df-blue/70">Vidéos en plus (+90 €/u)</span>
             <input type="number" min={0} value={f.videosSupp} onChange={(e) => f.set("videosSupp", Math.max(0, Number(e.target.value) || 0))}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           </label>
           <label>
             <span className="text-sm text-df-blue/70">Vidéos avec 3D (+110 €/u)</span>
             <input type="number" min={0} value={f.videos3D} onChange={(e) => f.set("videos3D", Math.max(0, Number(e.target.value) || 0))}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           </label>
-          <label className="flex items-center gap-3 rounded-xl border-2 border-df-blue/15 p-3 cursor-pointer hover:bg-df-cream/50 transition">
+          <label className="flex items-center gap-3 rounded-xl border-2 border-white/10 p-3 cursor-pointer hover:bg-white/[0.04] transition">
             <input type="checkbox" checked={f.motionDesign} onChange={(e) => f.set("motionDesign", e.target.checked)} className="h-5 w-5 accent-df-blue cursor-pointer" />
             <span className="text-sm font-bold text-df-blue">Motion Design (+40 €)</span>
           </label>
@@ -145,7 +145,7 @@ export function Step3() {
           {(Object.keys(USAGE_PRICE_PER_VIDEO) as UsageType[]).map((u) => (
             <button type="button" key={u} onClick={() => f.set("usage", u)}
               aria-pressed={f.usage === u}
-              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.usage === u ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.usage === u ? "border-df-gold bg-df-surface text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-white/10 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
               {USAGE_PRICE_PER_VIDEO[u].label}
               {USAGE_PRICE_PER_VIDEO[u].perVideo > 0 && <span className="block text-xs">+{USAGE_PRICE_PER_VIDEO[u].perVideo} €/vidéo</span>}
             </button>
@@ -159,7 +159,7 @@ export function Step3() {
           {(Object.keys(DELAI) as DelaiLivraison[]).map((d) => (
             <button type="button" key={d} onClick={() => f.set("delai", d)}
               aria-pressed={f.delai === d}
-              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.delai === d ? "border-df-gold bg-df-cream text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-df-blue/15 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
+              className={`rounded-xl border-2 p-3 text-sm font-bold transition-all duration-200 cursor-pointer ${f.delai === d ? "border-df-gold bg-df-surface text-df-blue shadow-md ring-2 ring-df-gold/40" : "border-white/10 text-df-blue/70 hover:border-df-blue/40 hover:shadow-sm"}`}>
               {DELAI[d].label}{DELAI[d].price > 0 && ` (+${DELAI[d].price} €)`}
             </button>
           ))}
@@ -168,7 +168,7 @@ export function Step3() {
 
       <fieldset className="mt-6">
         <legend className="font-bold text-df-blue">Montage</legend>
-        <label className={`mt-2 flex items-center gap-3 rounded-xl border-2 p-3 transition ${incompatible ? "opacity-50 cursor-not-allowed border-df-blue/10" : "border-df-blue/15 cursor-pointer hover:bg-df-cream/50"}`}>
+        <label className={`mt-2 flex items-center gap-3 rounded-xl border-2 p-3 transition ${incompatible ? "opacity-50 cursor-not-allowed border-white/[0.08]" : "border-white/10 cursor-pointer hover:bg-white/[0.04]"}`}>
           <input type="checkbox" disabled={incompatible} checked={f.montageExpress && !incompatible}
             onChange={(e) => f.set("montageExpress", e.target.checked)} className={`h-5 w-5 accent-df-blue ${incompatible ? "cursor-not-allowed" : "cursor-pointer"}`} />
           <div>
@@ -184,12 +184,12 @@ export function Step3() {
           <label>
             <span className="text-sm text-df-blue/70">Nb format 9:16 (portrait)</span>
             <input type="number" min={0} value={f.nbFormat916 ?? 0} onChange={(e) => f.set("nbFormat916" as keyof typeof f, Math.max(0, Number(e.target.value) || 0) as never)}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           </label>
           <label>
             <span className="text-sm text-df-blue/70">Nb format 16:9 (paysage)</span>
             <input type="number" min={0} value={f.nbFormat169 ?? 0} onChange={(e) => f.set("nbFormat169" as keyof typeof f, Math.max(0, Number(e.target.value) || 0) as never)}
-              className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+              className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
           </label>
         </div>
       </fieldset>
@@ -212,17 +212,17 @@ export function Step4() {
         <label className="md:col-span-1">
           <span className="text-sm font-bold text-df-blue">Date du tournage</span>
           <input type="date" value={f.dateTournage} onChange={(e) => f.set("dateTournage", e.target.value)}
-            className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+            className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
         </label>
         <label className="md:col-span-2">
           <span className="text-sm font-bold text-df-blue">Remarques spécifiques</span>
           <textarea rows={4} value={f.remarques} onChange={(e) => f.set("remarques", e.target.value)}
-            className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+            className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
         </label>
       </div>
 
       {/* Trust elements */}
-      <div className="mt-6 rounded-xl bg-df-cream/50 p-4">
+      <div className="mt-6 rounded-xl bg-white/[0.04] p-4">
         <div className="flex items-start gap-3">
           <Info className="mt-0.5 h-5 w-5 shrink-0 text-df-blue/60" />
           <div className="text-sm text-df-blue/70">
@@ -240,7 +240,7 @@ function Field({ label, value, onChange, type = "text", required, className }: {
     <label className={className}>
       <span className="text-sm font-bold text-df-blue">{label}{required && <span className="text-df-gold"> *</span>}</span>
       <input type={type} value={value} required={required} onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full rounded-xl border-2 border-df-blue/20 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
+        className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 outline-none focus:border-df-blue focus:ring-2 focus:ring-df-blue/20" />
     </label>
   );
 }

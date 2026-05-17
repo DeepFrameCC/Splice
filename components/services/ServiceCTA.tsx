@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 interface Props {
   variant: "inline" | "block";
@@ -8,8 +8,8 @@ interface Props {
 export function ServiceCTA({ variant, serviceName }: Props) {
   if (variant === "inline") {
     return (
-      <div className="my-12 flex items-center gap-4 rounded-lg border border-df-gold/30 bg-df-cream/60 px-6 py-4">
-        <p className="text-sm text-df-ink/80">
+      <div className="my-12 flex items-center gap-4 rounded-lg border border-df-gold/30 bg-white/[0.05] px-6 py-4">
+        <p className="text-sm text-white/80">
           Un projet {serviceName} ? Obtenez votre devis en ligne en 2 minutes.
         </p>
         <Link
@@ -32,7 +32,7 @@ export function ServiceCTA({ variant, serviceName }: Props) {
       </p>
       <Link
         href="/devis"
-        className="mt-8 inline-block rounded-full bg-df-gold px-8 py-3 text-sm font-bold text-df-ink transition hover:bg-df-gold-soft"
+        className="mt-8 inline-block rounded-full bg-df-gold px-8 py-3 text-sm font-bold text-white transition hover:bg-df-gold-soft"
       >
         Obtenir mon devis gratuit
       </Link>

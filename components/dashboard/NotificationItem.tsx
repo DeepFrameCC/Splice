@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition } from "react";
 import Link from "next/link";
@@ -16,9 +16,9 @@ import type { NotificationType } from "@prisma/client";
 const TYPE_CONFIG: Record<NotificationType, { icon: typeof FileText; color: string; bg: string }> = {
   DEVIS_STATUS: { icon: FileText, color: "text-df-blue", bg: "bg-df-blue/10" },
   FACTURE_EMISE: { icon: Receipt, color: "text-df-gold", bg: "bg-df-gold/10" },
-  CONTRAT_SIGNE: { icon: FileSignature, color: "text-emerald-600", bg: "bg-emerald-50" },
-  PAYMENT_CONFIRM: { icon: CreditCard, color: "text-emerald-600", bg: "bg-emerald-50" },
-  SYSTEM: { icon: Info, color: "text-df-ink/60", bg: "bg-df-cream" },
+  CONTRAT_SIGNE: { icon: FileSignature, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+  PAYMENT_CONFIRM: { icon: CreditCard, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+  SYSTEM: { icon: Info, color: "text-white/50", bg: "bg-df-surface" },
 };
 
 type Props = {
@@ -46,8 +46,8 @@ export default function NotificationItem({ notification: n }: Props) {
 
   return (
     <div
-      className={`rounded-2xl bg-white p-4 shadow-sm ring-1 transition hover:shadow-md ${
-        n.read ? "ring-df-blue/5" : "ring-df-blue/15 bg-df-blue/[0.02]"
+      className={`rounded-2xl bg-df-surface p-4 shadow-sm ring-1 transition hover:shadow-md ${
+        n.read ? "ring-white/[0.06]" : "ring-df-blue/15 bg-df-blue/[0.02]"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -57,11 +57,11 @@ export default function NotificationItem({ notification: n }: Props) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             {!n.read && <span className="h-2 w-2 shrink-0 rounded-full bg-df-blue" />}
-            <p className="text-sm font-bold text-df-ink">{n.title}</p>
+            <p className="text-sm font-bold text-white">{n.title}</p>
           </div>
-          <p className="mt-1 text-sm text-df-ink/60">{n.message}</p>
+          <p className="mt-1 text-sm text-white/50">{n.message}</p>
           <div className="mt-2 flex items-center gap-4">
-            <span className="text-xs text-df-ink/30">
+            <span className="text-xs text-white/20">
               {new Date(n.createdAt).toLocaleDateString("fr-FR", {
                 day: "numeric",
                 month: "long",

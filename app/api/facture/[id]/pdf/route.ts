@@ -24,8 +24,8 @@ export async function GET(
 
   /* ── Auth ────────────────────────────────────────────────────────── */
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
-  const isAdmin = (session?.user as any)?.role === "ADMIN";
+  const userId = session?.user?.id;
+  const isAdmin = session?.user?.role === "ADMIN";
   if (!userId) {
     return NextResponse.json({ error: "Non autorise" }, { status: 401 });
   }

@@ -1,4 +1,4 @@
-import Nav from "@/components/layout/Nav";
+﻿import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 export default function Cookies() {
   return (
     <>
-      <Nav />
+      <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-df-blue">Politique de cookies</h1>
-        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
+        <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
-        <section className="mt-10 space-y-8 text-sm leading-relaxed text-df-ink/80">
+        <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
           <div>
-            <h2 className="text-lg font-bold text-df-ink">1. Qu&apos;est-ce qu&apos;un cookie ?</h2>
+            <h2 className="text-lg font-bold text-white">1. Qu&apos;est-ce qu&apos;un cookie ?</h2>
             <p>
               Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette, smartphone)
               lors de la visite d&apos;un site web. Il permet au site de mémoriser des informations sur votre
@@ -27,9 +27,9 @@ export default function Cookies() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">2. Cookies utilisés sur deepframe.cc</h2>
+            <h2 className="text-lg font-bold text-white">2. Cookies utilisés sur deepframe.cc</h2>
 
-            <h3 className="mt-4 font-bold text-df-ink">2.1. Cookies strictement nécessaires</h3>
+            <h3 className="mt-4 font-bold text-white">2.1. Cookies strictement nécessaires</h3>
             <p>Ces cookies sont indispensables au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
             <table className="mt-3 w-full text-left text-xs">
               <caption className="sr-only">Cookies strictement nécessaires</caption>
@@ -58,7 +58,7 @@ export default function Cookies() {
                 </tr>
               </tbody>
             </table>
-            <p className="mt-3 text-xs text-df-ink/60">
+            <p className="mt-3 text-xs text-white/50">
               Note : le choix de consentement à la bannière cookies (clé{" "}
               <span className="font-mono">df_consent</span>) est stocké dans le{" "}
               <strong>localStorage</strong> de votre navigateur (pas un cookie HTTP) et n&apos;est
@@ -66,7 +66,7 @@ export default function Cookies() {
               stockage local du site.
             </p>
 
-            <h3 className="mt-6 font-bold text-df-ink">2.2. Cookies tiers — Paiement</h3>
+            <h3 className="mt-6 font-bold text-white">2.2. Cookies tiers — Paiement</h3>
             <p>
               Lors du paiement d&apos;un devis, Stripe peut déposer des cookies pour la sécurisation
               de la transaction et la prévention de la fraude.
@@ -91,7 +91,7 @@ export default function Cookies() {
               </tbody>
             </table>
 
-            <h3 className="mt-6 font-bold text-df-ink">2.3. Cookies analytiques</h3>
+            <h3 className="mt-6 font-bold text-white">2.3. Cookies analytiques</h3>
             <p>
               Actuellement, deepframe.cc n&apos;utilise aucun cookie analytique (Google Analytics, Matomo, etc.).
               Si un outil d&apos;analyse venait à être mis en place, cette page serait mise à jour et votre
@@ -100,7 +100,7 @@ export default function Cookies() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">3. Gestion des cookies</h2>
+            <h2 className="text-lg font-bold text-white">3. Gestion des cookies</h2>
             <p>
               Vous pouvez à tout moment gérer vos préférences en matière de cookies via les paramètres
               de votre navigateur :
@@ -118,7 +118,7 @@ export default function Cookies() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">4. Base légale</h2>
+            <h2 className="text-lg font-bold text-white">4. Base légale</h2>
             <p>
               Conformément à l&apos;article 82 de la loi Informatique et Libertés et aux lignes directrices
               de la CNIL, les cookies strictement nécessaires au fonctionnement du site sont exemptés de
@@ -127,7 +127,7 @@ export default function Cookies() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">5. Contact</h2>
+            <h2 className="text-lg font-bold text-white">5. Contact</h2>
             <p>
               Pour toute question concernant notre utilisation des cookies, contactez-nous à{" "}
               <a href="mailto:contact@deepframe.cc" className="text-df-blue underline hover:text-df-gold transition-colors">contact@deepframe.cc</a>.

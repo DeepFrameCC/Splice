@@ -7,7 +7,7 @@ import { authLimiter, checkRateLimit } from "@/lib/rate-limit";
 
 async function requireAuth() {
   const session = await auth();
-  const userId = (session?.user as { id: string } | undefined)?.id;
+  const userId = session?.user?.id;
   if (!userId) throw new Error("NON_AUTHENTIFIE");
   return userId;
 }

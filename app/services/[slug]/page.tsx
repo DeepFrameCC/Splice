@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getServiceBySlug, getAllServiceSlugs } from "@/lib/services/queries";
+import { getServiceBySlug, getAllServiceSlugs, getRelatedArticles } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
 import type { ServiceFeature, FAQItem } from "@/lib/services/types";
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
@@ -71,6 +71,7 @@ export default async function ServicePage({ params }: PageProps) {
   const jsonLd = buildServiceJsonLd(service);
   const features = service.features as unknown as ServiceFeature[];
   const faqItems = service.faq as unknown as FAQItem[];
+  const relatedArticles = await getRelatedArticles(slug);
 
   return (
     <>
@@ -148,8 +149,29 @@ export default async function ServicePage({ params }: PageProps) {
             <ServiceFAQ items={faqItems} />
           </section>
 
-          {/* Related articles section disabled — /blog/ route not yet implemented.
-             Uncomment when blog pages are created. */}
+          {relatedArticles.length > 0 && (
+            <section className="mt-16">
+              <h2 className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+                Articles liés
+              </h2>
+              <div className="mt-6 grid gap-4 sm:grid-template-columns-2">
+                {relatedArticles.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/blog/${article.slug}`}
+                    className="group block rounded-xl bg-white p-5 shadow-sm ring-1 ring-df-blue/10 transition hover:shadow-md"
+                  >
+                    <h3 className="font-bold text-df-blue group-hover:text-df-gold transition">
+                      {article.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-df-blue/60 line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           <ServiceCTA variant="block" serviceName={service.shortName} />
         </article>

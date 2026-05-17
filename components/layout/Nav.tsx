@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import UserDropdown from "./UserDropdown";
 
 const NAV_LINKS = [
   { href: "/#about",    label: "À propos" },
@@ -15,7 +16,11 @@ const NAV_LINKS = [
   { href: "/contact",   label: "Contact" },
 ];
 
-export default function Nav() {
+interface NavProps {
+  user?: { name: string; role: string } | null;
+}
+
+export default function Nav({ user }: NavProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -42,8 +47,17 @@ export default function Nav() {
         </nav>
 
         <div className="df-nav-cta">
-          <Link href="/admin" className="df-nav-staff">Espace équipe →</Link>
-          <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demandez votre devis</Link>
+          {user ? (
+            <>
+              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demandez votre devis</Link>
+              <UserDropdown name={user.name} role={user.role} />
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="df-nav-staff">Connexion</Link>
+              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demandez votre devis</Link>
+            </>
+          )}
         </div>
 
         <button
@@ -85,14 +99,37 @@ export default function Nav() {
             >
               Demandez votre devis →
             </Link>
-            <Link
-              href="/admin"
-              className="df-nav-staff"
-              style={{ textAlign: "center", display: "block", marginTop: 14 }}
-              onClick={() => setOpen(false)}
-            >
-              Espace équipe →
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  href="/profil"
+                  className="df-nav-staff"
+                  style={{ textAlign: "center", display: "block", marginTop: 14 }}
+                  onClick={() => setOpen(false)}
+                >
+                  Mon profil →
+                </Link>
+                {(user.role === "ADMIN" || user.role === "TEAM") && (
+                  <Link
+                    href="/admin"
+                    className="df-nav-staff"
+                    style={{ textAlign: "center", display: "block", marginTop: 8 }}
+                    onClick={() => setOpen(false)}
+                  >
+                    Administration →
+                  </Link>
+                )}
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="df-nav-staff"
+                style={{ textAlign: "center", display: "block", marginTop: 14 }}
+                onClick={() => setOpen(false)}
+              >
+                Connexion
+              </Link>
+            )}
           </div>
         </div>
       </nav>

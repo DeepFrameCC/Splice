@@ -15,7 +15,19 @@
       "Bash(cp app/admin/layout.new.tsx app/admin/layout.tsx)",
       "Bash(cp app/admin/page.new.tsx app/admin/page.tsx)",
       "Bash(cp app/admin/devis/page.new.tsx app/admin/devis/page.tsx)",
-      "Bash(rm -f app/admin/layout.new.tsx app/admin/page.new.tsx app/admin/devis/page.new.tsx)"
+      "Bash(rm -f app/admin/layout.new.tsx app/admin/page.new.tsx app/admin/devis/page.new.tsx)",
+      "Bash(curl -s \"http://localhost:3000/_next/static/chunks/app/galerie/page.js\")",
+      "Bash(curl -s -D - http://localhost:3000/)",
+      "Bash(xargs grep:*)",
+      "Bash(find /c/Users/tracy/OneDrive/Documents/DeepFrame/lib -type f \\\\\\( -name \"*.ts\" -o -name \"*.tsx\" \\\\\\) -exec grep -l \"upload\\\\|storage\\\\|s3\\\\|r2\" {} \\\\;)",
+      "Bash(node -e ':*)",
+      "Bash(where ffmpeg:*)",
+      "Bash(ffmpeg -i \"c:/Users/tracy/OneDrive/Documents/DeepFrame/public/videos/jeanne-darc.mp4\" -ss 00:00:05 -frames:v 1 -q:v 2 \"c:/Users/tracy/OneDrive/Documents/DeepFrame/public/videos/thumb-jeanne-darc.jpg\" -y)",
+      "Bash(tasklist)",
+      "Bash(node scripts/update-blog-content.js)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\tracy\\OneDrive\\Documents\\DeepFrame\\public\\videos"
     ]
   }
 }

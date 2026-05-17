@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function toggleLike(mediaId: string) {
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
+  const userId = session?.user?.id;
   if (!userId) throw new Error("UNAUTHORIZED");
 
   const existing = await db.like.findUnique({ where: { userId_mediaId: { userId, mediaId } } });

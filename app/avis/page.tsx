@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { Star, AlertTriangle, MessageSquare, Quote } from "lucide-react";
 import AvisForm from "@/components/gallery/AvisForm";
 import type { Metadata } from "next";
@@ -32,23 +32,23 @@ export default async function AvisPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <header className="mb-12 text-center">
-        <h1 className="font-display text-3xl font-bold text-df-ink sm:text-4xl lg:text-5xl">
+        <h1 className="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
           Avis clients
         </h1>
-        <p className="mt-3 text-sm text-df-ink/50">
+        <p className="mt-3 text-sm text-white/40">
           Ce que nos clients disent de Deepframe.
           {noteMoyenne && (
             <span className="ml-2 inline-flex items-center gap-1">
               <Star className="h-3.5 w-3.5 fill-df-gold text-df-gold" />
               <span className="font-bold text-df-gold">{noteMoyenne}/5</span>
-              <span className="text-df-ink/30">({avis.length} avis)</span>
+              <span className="text-white/20">({avis.length} avis)</span>
             </span>
           )}
         </p>
       </header>
 
       {dbError ? (
-        <div className="flex items-center justify-center gap-3 rounded-2xl bg-amber-50 p-6 text-amber-800 ring-1 ring-amber-200">
+        <div className="flex items-center justify-center gap-3 rounded-2xl bg-amber-500/10 p-6 text-amber-800 ring-1 ring-amber-200">
           <AlertTriangle className="h-6 w-6 shrink-0" />
           <div>
             <p className="font-bold">Service temporairement indisponible</p>
@@ -58,9 +58,9 @@ export default async function AvisPage() {
       ) : (
         <>
           {avis.length === 0 ? (
-            <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-df-blue/10">
+            <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
               <MessageSquare className="mx-auto h-10 w-10 text-df-blue/20" />
-              <p className="mt-4 text-sm text-df-ink/40">
+              <p className="mt-4 text-sm text-white/30">
                 Soyez le premier à laisser un avis après votre prestation.
               </p>
             </div>
@@ -69,10 +69,10 @@ export default async function AvisPage() {
               {avis.map((a) => (
                 <article
                   key={a.id}
-                  className={`group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
+                  className={`group relative overflow-hidden rounded-2xl bg-df-surface p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
                     a.featured
                       ? "ring-2 ring-df-gold/40"
-                      : "ring-1 ring-df-blue/10"
+                      : "ring-1 ring-white/[0.08]"
                   }`}
                 >
                   {a.featured && (
@@ -91,12 +91,12 @@ export default async function AvisPage() {
                       />
                     ))}
                   </div>
-                  <p className="mt-4 text-sm leading-relaxed text-df-ink/70">
+                  <p className="mt-4 text-sm leading-relaxed text-white/70">
                     «&nbsp;{a.contenu}&nbsp;»
                   </p>
-                  <div className="mt-4 flex items-center justify-between border-t border-df-blue/5 pt-4">
-                    <p className="font-display text-sm font-bold text-df-ink">{a.auteurNom}</p>
-                    <p className="text-[10px] text-df-ink/30">
+                  <div className="mt-4 flex items-center justify-between border-t border-white/[0.06] pt-4">
+                    <p className="font-display text-sm font-bold text-white">{a.auteurNom}</p>
+                    <p className="text-[10px] text-white/20">
                       {a.createdAt.toLocaleDateString("fr-FR")}
                     </p>
                   </div>
@@ -107,7 +107,7 @@ export default async function AvisPage() {
 
           {/* Form */}
           <div className="mt-16">
-            <h2 className="mb-6 text-center font-display text-2xl font-bold text-df-ink">
+            <h2 className="mb-6 text-center font-display text-2xl font-bold text-white">
               Laissez votre avis
             </h2>
             <AvisForm />

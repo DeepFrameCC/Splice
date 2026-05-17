@@ -13,8 +13,7 @@ export type SearchResult = {
 
 export async function adminSearch(query: string): Promise<SearchResult[]> {
   const session = await auth();
-  const user = session?.user as { role?: string } | undefined;
-  if (user?.role !== "ADMIN" || !query || query.length < 2) return [];
+  if (session?.user?.role !== "ADMIN" || !query || query.length < 2) return [];
 
   const q = query.trim();
   const results: SearchResult[] = [];

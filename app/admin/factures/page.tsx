@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import FacturesTable from "@/components/dashboard/FacturesTable";
 import { Receipt } from "lucide-react";
 
@@ -34,18 +34,18 @@ export default async function AdminFacturesPage({
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Factures
         </h1>
-        <p className="mt-1 text-sm text-df-ink/50">
+        <p className="mt-1 text-sm text-white/40">
           {factures.length} facture{factures.length > 1 ? "s" : ""} au total
         </p>
       </header>
 
       {factures.length === 0 ? (
-        <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-df-blue/10">
+        <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
           <Receipt className="mx-auto h-10 w-10 text-df-blue/20" />
-          <p className="mt-4 text-sm text-df-ink/50">Aucune facture.</p>
+          <p className="mt-4 text-sm text-white/40">Aucune facture.</p>
         </div>
       ) : (
         <FacturesTable data={rows} initialStatus={statusParam} />

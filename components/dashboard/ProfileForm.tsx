@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState } from "react";
 import { updateProfileAction } from "@/app/actions/profile";
@@ -73,16 +73,16 @@ export default function ProfileForm({ profile }: Props) {
           rows={3}
           defaultValue={profile.bio}
           placeholder="Quelques mots sur vous ou votre activité..."
-          className="flex w-full rounded-xl border border-df-blue/20 bg-white px-4 py-3 text-sm text-df-ink ring-offset-white placeholder:text-df-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-df-blue focus-visible:ring-offset-2"
+          className="flex w-full rounded-xl border border-white/10 bg-df-surface px-4 py-3 text-sm text-white ring-offset-df-night placeholder:text-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-df-blue focus-visible:ring-offset-2"
         />
       </div>
 
       {/* Feedback */}
       {state?.error && (
-        <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{state.error}</p>
+        <p className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-medium text-red-600">{state.error}</p>
       )}
       {state?.ok && (
-        <p className="flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
+        <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-medium text-emerald-400">
           <CheckCircle className="h-4 w-4" /> {state.message}
         </p>
       )}

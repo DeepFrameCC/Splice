@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Inter, Montserrat, Poppins, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
 import "./globals.css";
 import "./prototype-styles.css";
 
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-display", display: "swap" });
+const display = Fraunces({ subsets: ["latin"], weight: ["300", "400", "500"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
+const sans = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
 
 export const metadata: Metadata = {
@@ -66,15 +65,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
-    <html lang="fr" className={`${sans.variable} ${montserrat.variable} ${poppins.variable} ${jetbrains.variable}`}>
+    <html lang="fr" className={`${display.variable} ${sans.variable} ${jetbrains.variable}`}>
       <head>
         <script
           nonce={nonce}
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white text-df-ink antialiased">
+      <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-md focus:bg-df-blue focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white focus:shadow-lg focus:outline focus:outline-2 focus:outline-df-gold"

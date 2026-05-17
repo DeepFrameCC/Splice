@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState } from "react";
 import { resetPasswordAction } from "@/app/actions/auth";
@@ -41,7 +41,7 @@ function ResetForm() {
             </div>
 
             {state?.error && (
-              <div className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+              <div className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-400">
                 {state.error}
               </div>
             )}

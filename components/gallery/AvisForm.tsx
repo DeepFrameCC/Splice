@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useTransition } from "react";
 import { Star, Send } from "lucide-react";
 import { submitAvis } from "@/app/actions/avis";
@@ -33,9 +33,9 @@ export default function AvisForm() {
 
   if (success) {
     return (
-      <div className="mx-auto max-w-lg rounded-3xl bg-emerald-50 p-8 text-center">
+      <div className="mx-auto max-w-lg rounded-3xl bg-emerald-500/10 p-8 text-center">
         <p className="font-display text-2xl italic text-emerald-800">Merci pour votre avis ! ✓</p>
-        <p className="mt-2 text-sm text-emerald-700">Votre avis sera publié après validation par notre équipe.</p>
+        <p className="mt-2 text-sm text-emerald-400">Votre avis sera publié après validation par notre équipe.</p>
         <button onClick={() => setSuccess(false)} className="mt-4 text-sm text-df-blue underline">
           Laisser un autre avis
         </button>
@@ -44,7 +44,7 @@ export default function AvisForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-lg rounded-3xl bg-white p-6 shadow-lg ring-1 ring-df-blue/10">
+    <form onSubmit={onSubmit} className="mx-auto max-w-lg rounded-3xl bg-df-surface p-6 shadow-lg ring-1 ring-white/[0.08]">
       <div className="flex items-center justify-center gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
           <button
@@ -79,7 +79,7 @@ export default function AvisForm() {
         onChange={(e) => setNom(e.target.value)}
         placeholder="Votre nom ou celui de votre entreprise"
         required
-        className="mt-4 w-full rounded-xl border-2 border-df-blue/15 px-4 py-3 text-sm outline-none transition focus:border-df-blue"
+        className="mt-4 w-full rounded-xl border-2 border-white/10 px-4 py-3 text-sm outline-none transition focus:border-df-blue"
       />
 
       <textarea
@@ -88,7 +88,7 @@ export default function AvisForm() {
         placeholder="Décrivez votre expérience avec Deepframe…"
         required
         rows={4}
-        className="mt-3 w-full rounded-xl border-2 border-df-blue/15 px-4 py-3 text-sm outline-none transition focus:border-df-blue"
+        className="mt-3 w-full rounded-xl border-2 border-white/10 px-4 py-3 text-sm outline-none transition focus:border-df-blue"
       />
 
       <button

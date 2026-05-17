@@ -1,22 +1,25 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import AdminSidebar from "@/components/dashboard/AdminSidebar";
 import NotificationBell from "@/components/dashboard/NotificationBell";
 import CommandSearch from "@/components/dashboard/CommandSearch";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
-  const user = session?.user as any;
-  if (user?.role !== "ADMIN") redirect("/profil");
+  if (session?.user?.role !== "ADMIN") redirect("/profil");
+  const user = session.user;
 
-  const [devisCount, facturesCount, contratsCount, utilisateursCount, mediasCount, avisEnAttenteCount, unreadCount, recentNotifs] = await Promise.all([
+  const [devisCount, facturesCount, contratsCount, utilisateursCount, mediasCount, avisEnAttenteCount, articlesCount, unreadCount, recentNotifs] = await Promise.all([
     db.devis.count(),
     db.facture.count(),
     db.contrat.count(),
     db.user.count(),
     db.media.count(),
     db.avis.count({ where: { approuve: false } }),
+    db.blogPost.count(),
     db.notification.count({ where: { userId: user.id, read: false } }),
     db.notification.findMany({
       where: { userId: user.id },
@@ -36,16 +39,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }));
 
   return (
-    <div className="min-h-screen bg-df-cream/30">
+    <div className="min-h-screen bg-df-night">
       {/* Topbar */}
-      <header className="sticky top-0 z-40 border-b border-df-blue/10 bg-df-ink/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-df-ink/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 md:px-6">
           <div className="flex items-center gap-3 md:hidden">
             <h2 className="font-display text-lg font-bold text-white">
               DEEP<span className="text-df-gold">FRAME</span>
             </h2>
           </div>
-          <div className="hidden md:block" />
+          <Link href="/" className="hidden items-center gap-1.5 text-sm text-white/50 transition hover:text-white md:flex">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Retour au site
+          </Link>
           <CommandSearch />
           <NotificationBell initialCount={unreadCount} recentNotifications={serializedNotifs} />
         </div>
@@ -56,9 +62,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="hidden md:block">
           <div className="sticky top-[4.5rem]">
             <AdminSidebar
-              userName={user.name ?? user.pseudo ?? "Admin"}
+              userName={user.name ?? "Admin"}
               userRole="Administrateur"
-              counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, utilisateurs: utilisateursCount, medias: mediasCount, avisEnAttente: avisEnAttenteCount }}
+              counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, utilisateurs: utilisateursCount, medias: mediasCount, avisEnAttente: avisEnAttenteCount, articles: articlesCount }}
             />
           </div>
         </div>
@@ -74,6 +80,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               { href: "/admin/utilisateurs", label: `Users (${utilisateursCount})` },
               { href: "/admin/medias", label: `Médias (${mediasCount})` },
               { href: "/admin/avis", label: `Avis (${avisEnAttenteCount})` },
+              { href: "/admin/blog", label: `Articles (${articlesCount})` },
               { href: "/admin/statistiques", label: "Stats" },
               { href: "/admin/comptabilite", label: "Compta" },
               { href: "/admin/journal", label: "Journal" },
@@ -83,7 +90,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <a
                 key={l.href}
                 href={l.href}
-                className="shrink-0 rounded-full border border-df-blue/15 px-4 py-2 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+                className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-bold text-white/60 transition hover:bg-df-blue hover:text-white"
               >
                 {l.label}
               </a>

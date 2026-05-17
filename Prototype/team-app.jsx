@@ -23,7 +23,7 @@ const SEED_QUOTES = [
 
 const STATUS_META = {
   brouillon: { label: "Brouillon", color: "#94A3B8", bg: "rgba(148,163,184,.12)" },
-  envoyé:    { label: "Envoyé",    color: "#1901AD", bg: "rgba(25,1,173,.10)"   },
+  envoyé:    { label: "Envoyé",    color: "#F36B1F", bg: "rgba(243,107,31,.10)"   },
   accepté:   { label: "Accepté",   color: "#1F8A5B", bg: "rgba(31,138,91,.12)"  },
   refusé:    { label: "Refusé",    color: "#B91C1C", bg: "rgba(185,28,28,.10)"  },
 };
@@ -749,33 +749,33 @@ function PdfPreview({ quote, client, onClose }) {
 
 const PDF_CSS = `
   .df-pdf-page { background: #fff; padding: 56px 64px; max-width: 800px; margin: 0 auto; }
-  .pdf-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 24px; border-bottom: 2px solid #1901AD; }
+  .pdf-head { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 24px; border-bottom: 2px solid #F36B1F; }
   .pdf-brand { display: flex; gap: 14px; align-items: center; }
   .pdf-brand img { width: 36px; height: 48px; }
-  .pdf-brand b { font-size: 14px; letter-spacing: 0.18em; color: #1901AD; }
+  .pdf-brand b { font-size: 14px; letter-spacing: 0.18em; color: #F36B1F; }
   .pdf-brand span { display: block; font-size: 11px; color: #555; }
   .pdf-meta { display: grid; grid-template-columns: 1fr; gap: 6px; text-align: right; font-size: 12px; }
   .pdf-meta span { color: #777; }
   .pdf-meta b { color: #0A0A23; font-weight: 600; }
   .pdf-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 28px 0; }
-  .pdf-parties h4 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #1901AD; }
+  .pdf-parties h4 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #F36B1F; }
   .pdf-parties p { margin: 0; font-size: 13px; line-height: 1.6; }
-  .pdf-project { margin: 8px 0 4px; font-family: 'Fraunces', Georgia, serif; font-size: 26px; color: #1901AD; font-weight: 500; }
+  .pdf-project { margin: 8px 0 4px; font-family: 'Fraunces', Georgia, serif; font-size: 26px; color: #F36B1F; font-weight: 500; }
   .pdf-type { display: inline-block; font-size: 11px; padding: 4px 10px; border-radius: 999px; background: #FFF1D6; color: #7A4500; }
   .pdf-table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 13px; }
   .pdf-table th { text-align: left; background: #FAF8F2; padding: 10px 12px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #555; }
   .pdf-table td { padding: 12px; border-bottom: 1px solid #EEE; }
   .pdf-table tfoot td { padding: 8px 12px; font-size: 13px; text-align: right; }
   .pdf-table tfoot td:first-child { text-align: right; font-weight: 500; }
-  .pdf-table tfoot .grand td { font-size: 18px; font-weight: 600; color: #1901AD; padding-top: 14px; border-top: 2px solid #1901AD; }
+  .pdf-table tfoot .grand td { font-size: 18px; font-weight: 600; color: #F36B1F; padding-top: 14px; border-top: 2px solid #F36B1F; }
   .pdf-terms { margin: 18px 0; padding: 16px 18px; background: #FAF8F2; border-radius: 8px; }
-  .pdf-terms h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #1901AD; }
+  .pdf-terms h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #F36B1F; }
   .pdf-terms p { margin: 0; font-size: 12px; line-height: 1.6; color: #444; }
   .pdf-sign { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 32px; }
   .pdf-sign > div:first-child { flex: 1; }
   .pdf-sign span { font-size: 11px; color: #777; }
   .pdf-sign-box { margin-top: 6px; height: 70px; border: 1px dashed #CCC; border-radius: 6px; max-width: 320px; }
-  .pdf-stamp { text-align: right; font-size: 11px; color: #1901AD; }
+  .pdf-stamp { text-align: right; font-size: 11px; color: #F36B1F; }
   .pdf-stamp i { display: block; }
   @media print { body { padding: 0 !important; } .df-pdf-page { padding: 30px !important; } }
 `;

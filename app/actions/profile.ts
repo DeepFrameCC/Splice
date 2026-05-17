@@ -11,7 +11,7 @@ import { generateTOTPSecret, verifyTOTP, generateQRCodeDataURL, encryptTotpSecre
 
 async function requireAuth() {
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
+  const userId = session?.user?.id;
   if (!userId) throw new Error("NON_AUTHENTIFIE");
   return userId;
 }

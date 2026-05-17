@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   }
 
   const session = await auth();
-  const userId = (session?.user as { id?: string } | undefined)?.id;
+  const userId = session?.user?.id;
   if (!userId) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
 
   const { devisId } = (await req.json()) as { devisId: string };

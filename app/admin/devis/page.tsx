@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { PACKS } from "@/lib/pricing";
 import DevisTableWrapper from "@/components/dashboard/DevisTableWrapper";
 import Link from "next/link";
@@ -37,10 +37,10 @@ export default async function AdminDevisPage({
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+          <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Devis
           </h1>
-          <p className="mt-1 text-sm text-df-ink/50">
+          <p className="mt-1 text-sm text-white/40">
             {devis.length} devis au total
           </p>
         </div>

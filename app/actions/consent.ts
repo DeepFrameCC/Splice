@@ -40,7 +40,7 @@ export async function saveConsent(
   for (const c of parsed.data.consents) deduped.set(c.type, c);
 
   const session = await auth();
-  const userId = (session?.user as { id?: string } | undefined)?.id ?? null;
+  const userId = session?.user?.id ?? null;
 
   const headerList = await headers();
   const ip = headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;

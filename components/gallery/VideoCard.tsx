@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Heart, Lock, Play } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -42,7 +42,7 @@ export default function VideoCard({ id, src, thumbnail, preview, title, ownerHan
     <div
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="group relative overflow-hidden rounded-2xl bg-black shadow-md ring-1 ring-df-blue/10 transition-transform duration-300 ease-out hover:scale-105"
+      className="group relative overflow-hidden rounded-2xl bg-black shadow-md ring-1 ring-white/[0.08] transition-transform duration-300 ease-out hover:scale-105"
     >
       <Link href={`/videos/${id}`} className="block">
         <video

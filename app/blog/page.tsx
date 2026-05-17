@@ -1,7 +1,17 @@
-import { db } from "@/lib/db";
+import { Suspense } from "react";
 import Link from "next/link";
-import Nav from "@/components/layout/Nav";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import BlogHero from "@/components/blog/BlogHero";
+import BlogFeaturedCard from "@/components/blog/BlogFeaturedCard";
+import BlogArticleCard from "@/components/blog/BlogArticleCard";
+import BlogCategoryFilter from "@/components/blog/BlogCategoryFilter";
+import BlogSearchBar from "@/components/blog/BlogSearchBar";
+import BlogPagination from "@/components/blog/BlogPagination";
+import BlogNewsletterCTA from "@/components/blog/BlogNewsletterCTA";
+import BlogAdminFAB from "@/components/blog/BlogAdminFAB";
+import { getPublishedPosts, getFeaturedPost, getAllCategories } from "@/lib/blog/queries";
+import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,98 +25,141 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BlogPage() {
-  let posts: {
-    slug: string;
-    title: string;
-    excerpt: string;
-    publishedAt: Date;
-    parentService: { name: string; slug: string } | null;
-  }[] = [];
+const POSTS_PER_PAGE = 9;
 
-  try {
-    posts = await db.blogPost.findMany({
-      orderBy: { publishedAt: "desc" },
-      select: {
-        slug: true,
-        title: true,
-        excerpt: true,
-        publishedAt: true,
-        parentService: { select: { name: true, slug: true } },
-      },
-    });
-  } catch (e) {
-    console.error("[blog] DB error:", e);
-  }
+interface Props {
+  searchParams: Promise<{ cat?: string; q?: string; page?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const categorySlug = sp.cat;
+  const search = sp.q;
+  const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
+
+  const isFiltered = !!(categorySlug || search);
+
+  const session = await auth();
+  const userRole = session?.user?.role;
+  const showAdminFAB = isAdmin(userRole);
+
+  const [{ posts, total }, featuredPost, categories] = await Promise.all([
+    getPublishedPosts({
+      categorySlug,
+      search,
+      page,
+      limit: POSTS_PER_PAGE,
+    }),
+    isFiltered ? Promise.resolve(null) : getFeaturedPost(),
+    getAllCategories(),
+  ]);
+
+  const totalPages = Math.ceil(total / POSTS_PER_PAGE);
+
+  // Exclude featured post from grid when on first unfiltered page
+  const gridPosts =
+    !isFiltered && page === 1 && featuredPost
+      ? posts.filter((p) => p.id !== featuredPost.id)
+      : posts;
 
   return (
     <>
-      <Nav />
-      <div className="mx-auto max-w-4xl px-6 pb-20" style={{ paddingTop: "calc(80px + 3rem)" }}>
-        <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-df-blue/60">Blog</p>
-          <h1 className="mt-2 font-display text-4xl font-bold italic text-df-blue md:text-5xl">
-            Nos articles & conseils
-          </h1>
-          <p className="mt-3 max-w-2xl text-df-blue/70">
-            Guides pratiques, retours d&apos;expérience et tendances du monde audiovisuel.
-          </p>
-        </header>
+      <NavWrapper />
+      <BlogHero />
 
-        {posts.length === 0 ? (
-          <div className="rounded-2xl bg-df-cream/50 p-12 text-center">
-            <p className="text-df-blue/50">Aucun article pour le moment. Revenez bientôt !</p>
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        {/* Featured post — only on unfiltered first page */}
+        {!isFiltered && page === 1 && featuredPost && (
+          <section className="mb-12">
+            <BlogFeaturedCard post={featuredPost} />
+          </section>
+        )}
+
+        {/* Filters bar */}
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <Suspense>
+            <BlogCategoryFilter categories={categories} activeSlug={categorySlug} />
+          </Suspense>
+          <div className="w-full md:w-72">
+            <Suspense>
+              <BlogSearchBar />
+            </Suspense>
+          </div>
+        </div>
+
+        {/* Search/filter feedback */}
+        {isFiltered && (
+          <p className="mb-6 text-sm text-white/50">
+            {total} résultat{total !== 1 ? "s" : ""}
+            {search && <> pour &ldquo;<span className="font-medium text-white">{search}</span>&rdquo;</>}
+            {categorySlug && (
+              <>
+                {" "}dans la catégorie{" "}
+                <span className="font-medium text-white">
+                  {categories.find((c) => c.slug === categorySlug)?.name || categorySlug}
+                </span>
+              </>
+            )}
+          </p>
+        )}
+
+        {/* Article grid */}
+        {gridPosts.length > 0 ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {gridPosts.map((post) => (
+              <BlogArticleCard key={post.id} post={post} />
+            ))}
           </div>
         ) : (
-          <div className="grid gap-6">
-            {posts.map((post) => (
+          <div className="rounded-2xl bg-white/[0.04] p-12 text-center">
+            <p className="text-white/50">
+              {isFiltered
+                ? "Aucun article ne correspond à votre recherche."
+                : "Aucun article pour le moment. Revenez bientôt !"}
+            </p>
+            {isFiltered && (
               <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group block rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10 transition hover:shadow-md hover:ring-df-blue/20"
+                href="/blog"
+                className="mt-3 inline-block text-sm font-bold text-white hover:text-df-gold transition"
               >
-                <div className="flex items-center gap-3 text-xs text-df-blue/50">
-                  <time dateTime={post.publishedAt.toISOString()}>
-                    {post.publishedAt.toLocaleDateString("fr-FR", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </time>
-                  {post.parentService && (
-                    <>
-                      <span>·</span>
-                      <span className="rounded-full bg-df-blue/5 px-2 py-0.5 font-medium text-df-blue/70">
-                        {post.parentService.name}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <h2 className="mt-2 font-display text-xl font-bold text-df-blue group-hover:text-df-blue/80">
-                  {post.title}
-                </h2>
-                <p className="mt-2 text-sm text-df-blue/60 line-clamp-2">
-                  {post.excerpt}
-                </p>
-                <span className="mt-3 inline-block text-sm font-bold text-df-gold group-hover:underline">
-                  Lire l&apos;article →
-                </span>
+                Voir tous les articles →
               </Link>
-            ))}
+            )}
           </div>
         )}
 
-        {/* CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-df-blue/60">Un projet en tête ?</p>
+        {/* Pagination */}
+        <div className="mt-10">
+          <BlogPagination
+            currentPage={page}
+            totalPages={totalPages}
+            searchParams={{ cat: categorySlug, q: search }}
+          />
+        </div>
+
+        {/* Newsletter CTA */}
+        <div className="mt-16">
+          <BlogNewsletterCTA />
+        </div>
+
+        {/* Devis CTA */}
+        <div className="mt-12 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
+          <h2 className="font-display text-2xl font-bold italic md:text-3xl">
+            Un projet en tête ?
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-white/60">
+            On vous accompagne de A à Z. Devis gratuit, sans engagement.
+          </p>
           <Link
             href="/devis"
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-df-blue px-6 py-3 font-bold text-white transition hover:bg-df-blue/90"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-white hover:text-black hover:scale-105"
           >
             Demander un devis →
           </Link>
         </div>
       </div>
+
+      {showAdminFAB && <BlogAdminFAB />}
       <Footer />
     </>
   );

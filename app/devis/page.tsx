@@ -1,4 +1,4 @@
-import Nav from "@/components/layout/Nav";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import Wizard from "@/components/devis/Wizard";
 import type { Metadata } from "next";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function DevisPage() {
   return (
     <>
-      <Nav />
+      <NavWrapper />
       <section className="mx-auto max-w-7xl px-6 pb-16" style={{ paddingTop: "calc(80px + 3rem)" }}>
         <header className="mb-10 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-df-blue/60">

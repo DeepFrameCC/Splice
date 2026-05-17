@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
@@ -33,8 +33,8 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
             {row.original.initial}
           </div>
           <div>
-            <p className="font-bold text-df-ink">{row.original.displayName}</p>
-            <p className="text-xs text-df-ink/40">@{row.original.pseudo}</p>
+            <p className="font-bold text-white">{row.original.displayName}</p>
+            <p className="text-xs text-white/30">@{row.original.pseudo}</p>
           </div>
         </div>
       ),
@@ -43,8 +43,8 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
       accessorKey: "email",
       header: "Email",
       cell: ({ row }) => (
-        <div className="flex items-center gap-1.5 text-df-ink/70">
-          <Mail className="h-3.5 w-3.5 text-df-ink/30" />
+        <div className="flex items-center gap-1.5 text-white/70">
+          <Mail className="h-3.5 w-3.5 text-white/20" />
           <span className="text-sm">{row.original.email}</span>
         </div>
       ),
@@ -68,7 +68,7 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
       accessorKey: "devisCount",
       header: "Devis",
       cell: ({ row }) => (
-        <span className="font-display font-bold text-df-ink">
+        <span className="font-display font-bold text-white">
           {row.original.devisCount}
         </span>
       ),
@@ -77,7 +77,7 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
       accessorKey: "createdAt",
       header: "Inscrit le",
       cell: ({ row }) => (
-        <div className="flex items-center gap-1.5 text-xs text-df-ink/50">
+        <div className="flex items-center gap-1.5 text-xs text-white/40">
           <Calendar className="h-3.5 w-3.5" />
           {new Date(row.original.createdAt).toLocaleDateString("fr-FR")}
         </div>
@@ -133,7 +133,7 @@ export default function UsersTable({ data, adminId }: Props) {
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-xl border-2 border-df-blue/15 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+          className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
         >
           {roleOptions.map((o) => (
             <option key={o.value} value={o.value}>

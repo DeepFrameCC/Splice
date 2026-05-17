@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { confirmEmailVerification } from "@/app/actions/email-verification";
 import Link from "next/link";
 import { CheckCircle, XCircle, MailCheck } from "lucide-react";
@@ -19,12 +19,12 @@ export default async function VerifyEmailPage({
   if (status === "ok") {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+        <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10">
             <CheckCircle className="h-8 w-8 text-emerald-500" />
           </div>
-          <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Email vérifié !</h1>
-          <p className="mt-2 text-sm text-df-ink/60">
+          <h1 className="mt-6 font-display text-2xl font-bold text-white">Email vérifié !</h1>
+          <p className="mt-2 text-sm text-white/50">
             Votre adresse email a bien été vérifiée. Votre compte est maintenant pleinement actif.
           </p>
           <Link
@@ -43,12 +43,12 @@ export default async function VerifyEmailPage({
       typeof sp.reason === "string" ? decodeURIComponent(sp.reason) : "Lien invalide ou expiré.";
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
+        <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
             <XCircle className="h-8 w-8 text-red-500" />
           </div>
-          <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Vérification échouée</h1>
-          <p className="mt-2 text-sm text-df-ink/60">{reason}</p>
+          <h1 className="mt-6 font-display text-2xl font-bold text-white">Vérification échouée</h1>
+          <p className="mt-2 text-sm text-white/50">{reason}</p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
               href="/profil/parametres"
@@ -58,7 +58,7 @@ export default async function VerifyEmailPage({
             </Link>
             <Link
               href="/"
-              className="inline-flex rounded-xl border border-df-blue/20 px-6 py-3 text-sm font-bold text-df-ink transition hover:bg-df-cream"
+              className="inline-flex rounded-xl border border-white/10 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/5"
             >
               Retour à l&apos;accueil
             </Link>
@@ -72,12 +72,12 @@ export default async function VerifyEmailPage({
   if (!token) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
+        <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
             <XCircle className="h-8 w-8 text-red-500" />
           </div>
-          <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Lien invalide</h1>
-          <p className="mt-2 text-sm text-df-ink/60">Aucun token fourni.</p>
+          <h1 className="mt-6 font-display text-2xl font-bold text-white">Lien invalide</h1>
+          <p className="mt-2 text-sm text-white/50">Aucun token fourni.</p>
         </div>
       </div>
     );
@@ -101,12 +101,12 @@ export default async function VerifyEmailPage({
   if (!tokenExists) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
+        <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
             <XCircle className="h-8 w-8 text-red-500" />
           </div>
-          <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Lien invalide</h1>
-          <p className="mt-2 text-sm text-df-ink/60">
+          <h1 className="mt-6 font-display text-2xl font-bold text-white">Lien invalide</h1>
+          <p className="mt-2 text-sm text-white/50">
             Ce lien de vérification est introuvable ou a déjà été utilisé.
           </p>
           <Link
@@ -123,12 +123,12 @@ export default async function VerifyEmailPage({
   if (tokenExpired) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
+        <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
             <XCircle className="h-8 w-8 text-red-500" />
           </div>
-          <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Lien expiré</h1>
-          <p className="mt-2 text-sm text-df-ink/60">
+          <h1 className="mt-6 font-display text-2xl font-bold text-white">Lien expiré</h1>
+          <p className="mt-2 text-sm text-white/50">
             Ce lien de vérification a expiré. Demandez un nouvel envoi depuis votre profil.
           </p>
           <Link
@@ -146,12 +146,12 @@ export default async function VerifyEmailPage({
   // Prevents email scanners / prefetchers from consuming the token.
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-lg ring-1 ring-df-blue/10">
+      <div className="w-full max-w-md rounded-2xl bg-df-surface p-8 text-center shadow-lg ring-1 ring-white/[0.08]">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-df-blue/10">
           <MailCheck className="h-8 w-8 text-df-blue" />
         </div>
-        <h1 className="mt-6 font-display text-2xl font-bold text-df-ink">Confirmer votre email</h1>
-        <p className="mt-2 text-sm text-df-ink/60">
+        <h1 className="mt-6 font-display text-2xl font-bold text-white">Confirmer votre email</h1>
+        <p className="mt-2 text-sm text-white/50">
           Cliquez sur le bouton ci-dessous pour confirmer la vérification de votre adresse email.
         </p>
         <VerifyEmailForm token={token} action={confirmEmailVerification} />

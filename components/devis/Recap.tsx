@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useDevisForm } from "./store";
 import { computeQuote, PricingError, type QuoteInput } from "@/lib/pricing";
 import { useMemo } from "react";
@@ -33,7 +33,7 @@ export default function Recap() {
 
   return (
     <aside className="sticky top-24 space-y-4">
-      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-[#0a0a23] p-6 text-white shadow-2xl">
+      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-[#0E0E22] p-6 text-white shadow-2xl shadow-black/40">
         <div className="flex items-center gap-2">
           <Receipt className="h-5 w-5 text-df-gold" />
           <p className="font-display text-sm italic text-df-gold">Récapitulatif</p>
@@ -81,7 +81,7 @@ export default function Recap() {
       </div>
 
       {/* Trust card */}
-      <div className="rounded-2xl bg-df-cream/50 p-4 text-center">
+      <div className="rounded-2xl bg-white/[0.04] p-4 text-center">
         <p className="text-xs font-bold text-df-blue">Devis gratuit · Sans engagement</p>
         <p className="mt-1 text-[11px] text-df-blue/50">
           Nous vous recontactons sous 24h avec un devis détaillé personnalisé.

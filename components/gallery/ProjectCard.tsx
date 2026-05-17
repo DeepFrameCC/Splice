@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Heart, Lock, Play } from "lucide-react";
 import Image from "next/image";
@@ -75,7 +75,7 @@ export default function ProjectCard({
   const card = (
     <article
       data-anim="project"
-      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/5 transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.06] transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
     >
       {/* ── Thumbnail area (4:3) ────────────────────────────────────── */}
       <div className="relative aspect-[4/3] overflow-hidden bg-df-blue/5">
@@ -99,7 +99,7 @@ export default function ProjectCard({
         </div>
 
         {/* Badge medium (Vidéo / Photo) */}
-        <span className="absolute left-3.5 top-3.5 z-[2] rounded-full bg-df-gold px-3 py-1 text-[11px] font-bold text-df-ink">
+        <span className="absolute left-3.5 top-3.5 z-[2] rounded-full bg-df-gold px-3 py-1 text-[11px] font-bold text-white">
           {isVideo ? "Vidéo" : "Photo"}
         </span>
 
@@ -108,7 +108,7 @@ export default function ProjectCard({
           onClick={onLike}
           disabled={pending}
           aria-label={optimisticLiked ? "Retirer le like" : "Liker"}
-          className="absolute right-3.5 top-3.5 z-[2] grid h-9 w-9 place-items-center rounded-full bg-white/85 backdrop-blur-sm transition hover:scale-110"
+          className="absolute right-3.5 top-3.5 z-[2] grid h-9 w-9 place-items-center rounded-full bg-df-night/90 backdrop-blur-sm transition hover:scale-110"
         >
           {isAuthed ? (
             <Heart
@@ -139,8 +139,8 @@ export default function ProjectCard({
         {/* Play button overlay (video only, on hover) */}
         {isVideo && (
           <div className="absolute inset-0 z-[1] grid place-items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="grid h-14 w-14 place-items-center rounded-full bg-white/90 backdrop-blur-sm shadow-lg">
-              <Play className="h-6 w-6 text-df-ink ml-0.5" fill="currentColor" />
+            <div className="grid h-14 w-14 place-items-center rounded-full bg-df-night/90 backdrop-blur-sm shadow-lg">
+              <Play className="h-6 w-6 text-white ml-0.5" fill="currentColor" />
             </div>
           </div>
         )}
@@ -157,7 +157,7 @@ export default function ProjectCard({
         </span>
 
         {/* Title */}
-        <h3 className="font-display text-base font-bold leading-tight text-df-ink line-clamp-2">
+        <h3 className="font-display text-base font-bold leading-tight text-white line-clamp-2">
           {title}
         </h3>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
@@ -32,7 +32,7 @@ export default function RegisterPage() {
       {/* ── Panneau gauche : branding ─────────────────────────────── */}
       <div
         className="hidden w-1/2 flex-col justify-between p-10 lg:flex"
-        style={{ background: "linear-gradient(160deg, #0A0A23 0%, #1901AD 100%)" }}
+        style={{ background: "linear-gradient(160deg, #0E0E22 0%, #F36B1F 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -76,7 +76,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Tabs */}
-          <div className="mb-8 flex gap-1 rounded-xl bg-df-cream p-1">
+          <div className="mb-8 flex gap-1 rounded-xl bg-df-surface p-1">
             <Link
               href="/login"
               className="flex-1 rounded-lg px-4 py-2.5 text-center text-sm font-bold text-df-blue/60 transition hover:text-df-blue"
@@ -88,8 +88,8 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <h2 className="font-display text-2xl font-black text-df-ink">Créer mon compte</h2>
-          <p className="mt-1 text-sm text-df-ink/50">Renseignez vos infos pour profiter des fonctionnalités client.</p>
+          <h2 className="font-display text-2xl font-black text-white">Créer mon compte</h2>
+          <p className="mt-1 text-sm text-white/40">Renseignez vos infos pour profiter des fonctionnalités client.</p>
 
           <form action={action} onSubmit={SITE_KEY ? onSubmit : undefined} className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
@@ -139,8 +139,8 @@ export default function RegisterPage() {
             <input type="hidden" name="recaptcha" value={recaptchaToken} />
 
             {state?.error && (
-              <Card className="border-red-200 bg-red-50 shadow-none ring-0 md:col-span-2">
-                <CardContent className="p-3 text-sm font-semibold text-red-700">
+              <Card className="border-red-500/20 bg-red-500/10 shadow-none ring-0 md:col-span-2">
+                <CardContent className="p-3 text-sm font-semibold text-red-400">
                   {state.error}
                 </CardContent>
               </Card>
@@ -157,7 +157,7 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-df-ink/40">
+          <p className="mt-6 text-center text-sm text-white/30">
             Déjà un compte ?{" "}
             <Link href="/login" className="font-bold text-df-blue hover:underline">
               Se connecter

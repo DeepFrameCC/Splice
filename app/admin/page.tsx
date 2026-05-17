@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { db } from "@/lib/db";
 import { PACKS } from "@/lib/pricing";
 import StatusPill from "@/components/dashboard/StatusPill";
@@ -133,8 +133,8 @@ export default async function AdminDashboard() {
       value: `${caMoisMontant.toLocaleString("fr-FR")} €`,
       sub: MONTH_LABELS[currentMonth],
       icon: TrendingUp,
-      color: "text-emerald-600",
-      bgIcon: "bg-emerald-50",
+      color: "text-emerald-400",
+      bgIcon: "bg-emerald-500/10",
     },
     {
       label: "CA YTD",
@@ -142,7 +142,7 @@ export default async function AdminDashboard() {
       sub: `${devisValides} devis validés`,
       icon: Receipt,
       color: "text-df-blue",
-      bgIcon: "bg-df-blue/5",
+      bgIcon: "bg-df-blue/10",
     },
     {
       label: "Taux conversion",
@@ -150,7 +150,7 @@ export default async function AdminDashboard() {
       sub: `${totalDevis} devis total`,
       icon: FileSignature,
       color: "text-purple-600",
-      bgIcon: "bg-purple-50",
+      bgIcon: "bg-purple-500/10",
     },
     {
       label: "Panier moyen",
@@ -158,7 +158,7 @@ export default async function AdminDashboard() {
       sub: `${totalFactures} factures · ${totalContrats} contrats`,
       icon: Users,
       color: "text-amber-600",
-      bgIcon: "bg-amber-50",
+      bgIcon: "bg-amber-500/10",
     },
   ];
 
@@ -166,19 +166,19 @@ export default async function AdminDashboard() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Tableau de bord
         </h1>
-        <p className="mt-1 text-sm text-df-ink/50">
+        <p className="mt-1 text-sm text-white/40">
           Vue d&apos;ensemble — {currentYear}
         </p>
       </div>
 
       {/* Urgent banner */}
       {devisUrgents > 0 && (
-        <div className="flex items-center gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-3">
+        <div className="flex items-center gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-3">
           <AlertTriangle className="h-5 w-5 shrink-0 text-red-500" />
-          <p className="text-sm font-bold text-red-800">
+          <p className="text-sm font-bold text-red-400">
             {devisUrgents} devis en attente depuis +48h
           </p>
           <Link
@@ -195,7 +195,7 @@ export default async function AdminDashboard() {
         {kpis.map((kpi) => (
           <div
             key={kpi.label}
-            className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10 transition hover:shadow-md"
+            className="group relative overflow-hidden rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08] transition hover:ring-white/[0.15]"
           >
             <div className="flex items-start justify-between">
               <div
@@ -204,13 +204,13 @@ export default async function AdminDashboard() {
                 <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
               </div>
             </div>
-            <p className="mt-4 font-display text-2xl font-bold text-df-ink">
+            <p className="mt-4 font-display text-2xl font-bold text-white">
               {kpi.value}
             </p>
-            <p className="mt-0.5 text-sm font-semibold text-df-ink/70">
+            <p className="mt-0.5 text-sm font-semibold text-white/70">
               {kpi.label}
             </p>
-            <p className="mt-1 text-xs text-df-ink/40">{kpi.sub}</p>
+            <p className="mt-1 text-xs text-white/30">{kpi.sub}</p>
           </div>
         ))}
       </div>
@@ -218,34 +218,34 @@ export default async function AdminDashboard() {
       {/* CA Chart + Top Clients */}
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         {/* CA 12 mois chart */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-          <h2 className="mb-4 font-display text-lg font-bold text-df-ink">
+        <div className="rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08]">
+          <h2 className="mb-4 font-display text-lg font-bold text-white">
             Chiffre d&apos;affaires {currentYear}
           </h2>
           <CAChart data={monthlyCA} />
         </div>
 
         {/* Top 5 clients */}
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="border-b border-df-blue/5 px-6 py-4">
-            <h2 className="font-display text-lg font-bold text-df-ink">
+        <div className="rounded-2xl bg-df-surface ring-1 ring-white/[0.08]">
+          <div className="border-b border-white/[0.06] px-6 py-4">
+            <h2 className="font-display text-lg font-bold text-white">
               Top clients
             </h2>
           </div>
           {topClients.length === 0 ? (
-            <p className="px-6 py-8 text-center text-sm text-df-ink/40">
+            <p className="px-6 py-8 text-center text-sm text-white/30">
               Aucun client encore.
             </p>
           ) : (
-            <div className="divide-y divide-df-blue/5">
+            <div className="divide-y divide-white/[0.06]">
               {topClients.map((c, i) => (
                 <div key={c.pseudo || i} className="flex items-center gap-3 px-6 py-3.5">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-df-blue/5 text-xs font-bold text-df-blue">
                     {i + 1}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-bold text-df-ink">{c.name}</p>
-                    <p className="text-xs text-df-ink/40">
+                    <p className="truncate text-sm font-bold text-white">{c.name}</p>
+                    <p className="text-xs text-white/30">
                       {c.count} devis · @{c.pseudo}
                     </p>
                   </div>
@@ -260,9 +260,9 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Recent Devis */}
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-        <div className="flex items-center justify-between border-b border-df-blue/5 px-6 py-4">
-          <h2 className="font-display text-lg font-bold text-df-ink">
+      <div className="rounded-2xl bg-df-surface ring-1 ring-white/[0.08]">
+        <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
+          <h2 className="font-display text-lg font-bold text-white">
             Devis récents
           </h2>
           <Link
@@ -274,20 +274,20 @@ export default async function AdminDashboard() {
         </div>
 
         {recentDevis.length === 0 ? (
-          <p className="px-6 py-8 text-center text-sm text-df-ink/40">
+          <p className="px-6 py-8 text-center text-sm text-white/30">
             Aucun devis pour le moment.
           </p>
         ) : (
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {recentDevis.map((d) => {
               const isUrgent = d.status === "ATTENTE" && d.createdAt < hours48ago;
               return (
                 <Link
                   key={d.id}
                   href={`/profil/devis/${d.id}`}
-                  className="flex items-center gap-4 px-6 py-4 transition hover:bg-df-cream/30"
+                  className="flex items-center gap-4 px-6 py-4 transition hover:bg-white/[0.04]"
                 >
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isUrgent ? "bg-red-50" : "bg-df-blue/5"}`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isUrgent ? "bg-red-500/10" : "bg-df-blue/10"}`}>
                     {isUrgent ? (
                       <Clock className="h-4 w-4 text-red-500" />
                     ) : (
@@ -296,28 +296,28 @@ export default async function AdminDashboard() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="truncate font-display text-sm font-bold text-df-ink">
+                      <p className="truncate font-display text-sm font-bold text-white">
                         {d.numero}
                       </p>
                       <StatusPill
                         status={d.status as "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE"}
                       />
                       {isUrgent && (
-                        <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-600">
+                        <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-600">
                           +48h
                         </span>
                       )}
                     </div>
-                    <p className="mt-0.5 truncate text-xs text-df-ink/50">
+                    <p className="mt-0.5 truncate text-xs text-white/40">
                       {d.nomEntreprise || d.nomContact} —{" "}
                       {PACKS[d.pack]?.label ?? d.pack}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="font-display text-sm font-bold text-df-ink">
+                    <p className="font-display text-sm font-bold text-white">
                       {d.totalHT.toLocaleString("fr-FR")} €
                     </p>
-                    <p className="flex items-center justify-end gap-1 text-[11px] text-df-ink/40">
+                    <p className="flex items-center justify-end gap-1 text-[11px] text-white/30">
                       <Calendar className="h-3 w-3" />
                       {d.createdAt.toLocaleDateString("fr-FR")}
                     </p>

@@ -7,7 +7,7 @@ import PayerClient from "@/components/devis/PayerClient";
 export default async function PayerPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await auth();
-  const userId = (session?.user as any)?.id as string;
+  const userId = session?.user?.id!;
 
   const devis = await db.devis.findUnique({ where: { id } });
   if (!devis || devis.userId !== userId) notFound();

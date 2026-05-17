@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState, useState, useEffect } from "react";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export default function LoginPage() {
       {/* ── Panneau gauche : branding ─────────────────────────────── */}
       <div
         className="hidden w-1/2 flex-col justify-between p-10 lg:flex"
-        style={{ background: "linear-gradient(160deg, #0A0A23 0%, #1901AD 100%)" }}
+        style={{ background: "linear-gradient(160deg, #0E0E22 0%, #F36B1F 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
           <Image
@@ -77,7 +77,7 @@ export default function LoginPage() {
           </div>
 
           {/* Tabs */}
-          <div className="mb-8 flex gap-1 rounded-xl bg-df-cream p-1">
+          <div className="mb-8 flex gap-1 rounded-xl bg-df-surface p-1">
             <div className="flex-1 rounded-lg bg-df-blue px-4 py-2.5 text-center text-sm font-bold text-white">
               Connexion
             </div>
@@ -89,10 +89,10 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <h2 className="font-display text-2xl font-black text-df-ink">
+          <h2 className="font-display text-2xl font-black text-white">
             Bon retour parmi nous.
           </h2>
-          <p className="mt-1 text-sm text-df-ink/50">Identifiants DeepFrame.</p>
+          <p className="mt-1 text-sm text-white/40">Identifiants DeepFrame.</p>
 
           <form action={action} className="mt-8 space-y-4">
             <div className="space-y-1.5">
@@ -124,7 +124,7 @@ export default function LoginPage() {
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-df-blue/60">
-                <input type="checkbox" defaultChecked className="rounded border-df-blue/20" />
+                <input type="checkbox" defaultChecked className="rounded border-white/10" />
                 Rester connecté
               </label>
               <Link href="/forgot-password" className="text-df-blue underline-offset-4 hover:underline">
@@ -133,11 +133,11 @@ export default function LoginPage() {
             </div>
 
             {show2FA && (
-              <div className="space-y-1.5 rounded-lg border border-df-blue/20 bg-df-cream/50 p-4">
+              <div className="space-y-1.5 rounded-lg border border-white/10 bg-white/[0.04] p-4">
                 <Label htmlFor="totpCode" className="text-df-blue font-semibold">
                   Code d&apos;authentification 2FA
                 </Label>
-                <p className="text-xs text-df-ink/50">
+                <p className="text-xs text-white/40">
                   Entrez le code à 6 chiffres de votre application d&apos;authentification.
                 </p>
                 <Input
@@ -156,8 +156,8 @@ export default function LoginPage() {
             )}
 
             {state?.error && (
-              <Card className="border-red-200 bg-red-50 shadow-none ring-0">
-                <CardContent className="p-3 text-sm font-semibold text-red-700">
+              <Card className="border-red-500/20 bg-red-500/10 shadow-none ring-0">
+                <CardContent className="p-3 text-sm font-semibold text-red-400">
                   {state.error}
                 </CardContent>
               </Card>
@@ -174,7 +174,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-df-ink/40">
+          <p className="mt-8 text-center text-sm text-white/30">
             Pas encore de compte ?{" "}
             <Link href="/register" className="font-bold text-df-blue hover:underline">
               Créer un compte

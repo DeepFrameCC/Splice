@@ -70,7 +70,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
               href={item.href}
               className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-all ${
                 active
-                  ? "bg-df-blue text-white shadow-lg shadow-df-blue/30"
+                  ? "bg-gradient-to-r from-df-blue to-[#0E0E22] text-white shadow-lg shadow-df-blue/20 ring-1 ring-df-blue/30"
                   : "text-white/60 hover:bg-white/5 hover:text-white"
               }`}
             >
@@ -84,7 +84,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
                 <span
                   className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold ${
                     active
-                      ? "bg-df-gold text-df-ink"
+                      ? "bg-df-gold text-white"
                       : "bg-white/10 text-white/70"
                   }`}
                 >
@@ -113,7 +113,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
 
       {/* User info + logout */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-df-blue text-sm font-bold text-white">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-df-blue to-[#0E0E22] text-sm font-bold text-white ring-1 ring-white/10">
           {userName.charAt(0).toUpperCase() || "U"}
         </div>
         <div className="min-w-0 flex-1">

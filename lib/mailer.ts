@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+﻿import { Resend } from "resend";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -26,12 +26,12 @@ export const notifyFoundersNewDevis = (numero: string, payload: { client: string
     to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
     subject: `[Deepframe] Nouveau devis ${numero} — ${payload.client}`,
     html: `
-      <div style="font-family:system-ui;color:#0A0A23">
-        <h2 style="color:#1901AD">Nouveau devis ${numero}</h2>
+      <div style="font-family:system-ui;color:#0E0E22">
+        <h2 style="color:#F36B1F">Nouveau devis ${numero}</h2>
         <p><strong>Client :</strong> ${payload.client}</p>
         <p><strong>Pack :</strong> ${payload.pack}</p>
         <p><strong>Lieu :</strong> ${payload.lieu}</p>
-        <p><strong>Total TTC :</strong> ${(payload.total / 100).toFixed(2)} €</p>
-        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/devis" style="background:#FFBD59;color:#1901AD;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold">Ouvrir l'admin</a>
+        <p><strong>Total HT :</strong> ${payload.total.toLocaleString("fr-FR")} €</p>
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/devis" style="background:#F36B1F;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold">Ouvrir l'admin</a>
       </div>`
   });

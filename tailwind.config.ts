@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
+import tailwindTypography from "@tailwindcss/typography";
 
 export default {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
@@ -7,13 +8,20 @@ export default {
     extend: {
       colors: {
         df: {
-          blue: "#1901AD",
-          "blue-dark": "#0F0078",
-          "blue-light": "#3B23E0",
-          gold: "#FFBD59",
-          "gold-soft": "#FFD89A",
-          cream: "#FFF6E5",
-          ink: "#0A0A23"
+          surface: "#1A1A2E",
+          "surface-alt": "#15152A",
+          blue: "#F36B1F",
+          "blue-dark": "#C4550A",
+          "blue-light": "#F9A06A",
+          gold: "#F36B1F",
+          "gold-soft": "#F9A06A",
+          cream: "#0A0A1C",
+          ink: "#0E0E22",
+          night: "#0E0E22",
+          glauque: "#2E4239",
+          "glauque-mid": "#6B8779",
+          "glauque-300": "#C4D2C5",
+          "glauque-500": "#9DB5A6"
         }
       },
       fontFamily: {
@@ -32,5 +40,5 @@ export default {
       }
     }
   },
-  plugins: [tailwindAnimate]
+  plugins: [tailwindAnimate, tailwindTypography]
 } satisfies Config;

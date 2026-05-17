@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 import { z } from "zod";
 import { hash, verify } from "@node-rs/argon2";
 import { db } from "@/lib/db";
@@ -87,17 +87,17 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     to: d.email,
     subject: "Deepframe — Vérifiez votre adresse email",
     html: `
-      <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-        <h2 style="color:#1901AD">Bienvenue sur Deepframe !</h2>
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Bienvenue sur Deepframe !</h2>
         <p>Cliquez ci-dessous pour vérifier votre email (valable 24h) :</p>
         <p style="margin-top:20px">
-          <a href="${verifyLink}" style="background:#1901AD;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
+          <a href="${verifyLink}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`,
   }).catch(() => {}); // fire-and-forget
 
-  await audit({ action: "LOGIN", target: d.email });
+  await audit({ action: "LOGIN", target: d.email, metadata: { type: "register" } });
   await signIn("credentials", { email: d.email, password: d.password, redirectTo: "/profil" });
   return { ok: true };
 }
@@ -171,7 +171,7 @@ export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
     await sendMail({
       to: email,
       subject: "Réinitialisation de votre mot de passe Deepframe",
-      html: `<p>Cliquez sur ce lien (valable 1h) :</p><p><a href="${link}" style="background:#1901AD;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none">Réinitialiser</a></p>`
+      html: `<p>Cliquez sur ce lien (valable 1h) :</p><p><a href="${link}" style="background:#F36B1F;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none">Réinitialiser</a></p>`
     });
   }
   return { ok: true, message: "Si un compte existe, un email a été envoyé." };
@@ -186,8 +186,11 @@ export async function resetPasswordAction(_prev: unknown, formData: FormData) {
   if (!t || t.expiresAt < new Date()) return { ok: false, error: "Lien expiré ou invalide" };
 
   const passwordHash = await hash(password);
-  const user = await db.user.update({ where: { email: t.email }, data: { passwordHash } });
-  await db.passwordReset.delete({ where: { token } });
+  const user = await db.$transaction(async (tx) => {
+    const updated = await tx.user.update({ where: { email: t.email }, data: { passwordHash } });
+    await tx.passwordReset.delete({ where: { token } });
+    return updated;
+  });
   await audit({ action: "PASSWORD_RESET", userId: user.id, target: t.email });
   redirect("/login?reset=1");
 }

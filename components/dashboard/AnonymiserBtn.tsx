@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition, useState } from "react";
 import { anonymiserUtilisateur } from "@/app/actions/admin-clients";
@@ -30,7 +30,7 @@ export default function AnonymiserBtn({ userId, pseudo }: { userId: string; pseu
         <button
           type="button"
           onClick={() => setShowConfirm(false)}
-          className="rounded-full bg-df-cream px-3 py-1 text-xs font-bold text-df-ink/60 transition hover:bg-df-ink/10"
+          className="rounded-full bg-df-surface px-3 py-1 text-xs font-bold text-white/50 transition hover:bg-white/[0.08]"
         >
           Annuler
         </button>
@@ -42,7 +42,7 @@ export default function AnonymiserBtn({ userId, pseudo }: { userId: string; pseu
     <button
       type="button"
       onClick={() => setShowConfirm(true)}
-      className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-100"
+      className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-500/15"
       aria-label={`Anonymiser ${pseudo}`}
     >
       <UserX className="h-3 w-3" /> RGPD

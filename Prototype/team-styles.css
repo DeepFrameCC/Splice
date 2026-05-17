@@ -11,8 +11,8 @@ body {
 }
 
 :root {
-  --df-blue: #1901AD;
-  --df-accent: #FFBD59;
+  --df-blue: #F36B1F;
+  --df-accent: #F36B1F;
   --df-ink: #0A0A23;
   --df-bg: #FFFFFF;
   --df-bg-soft: #FAF8F2;
@@ -35,7 +35,7 @@ a { color: inherit; }
 .df-login-left {
   background:
     radial-gradient(ellipse at 20% 0%, rgba(255,189,89,.18), transparent 55%),
-    radial-gradient(ellipse at 100% 100%, rgba(25,1,173,.55), transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(243,107,31,.55), transparent 60%),
     #0A0A23;
   color: #fff;
   padding: 40px 56px;
@@ -146,7 +146,7 @@ a { color: inherit; }
 .df-login-form input:focus {
   outline: none;
   border-color: var(--df-blue);
-  box-shadow: 0 0 0 4px rgba(25,1,173,.10);
+  box-shadow: 0 0 0 4px rgba(243,107,31,.10);
 }
 .df-login-row {
   flex-direction: row; align-items: center; justify-content: space-between;
@@ -437,8 +437,8 @@ a { color: inherit; }
   font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 26px; color: #fff;
   letter-spacing: -0.02em;
 }
-.df-client-av[data-i="0"] { background: linear-gradient(135deg, #1901AD, #2E1B7A); }
-.df-client-av[data-i="1"] { background: linear-gradient(135deg, #FFBD59, #FF8A00); color: #1A1408; }
+.df-client-av[data-i="0"] { background: linear-gradient(135deg, #F36B1F, #7A3B1A); }
+.df-client-av[data-i="1"] { background: linear-gradient(135deg, #F36B1F, #FF8A00); color: #1A1408; }
 .df-client-av[data-i="2"] { background: linear-gradient(135deg, #21C497, #0E8463); }
 .df-client-av[data-i="3"] { background: linear-gradient(135deg, #E94560, #8E1E2F); }
 .df-client-body h3 {
@@ -519,7 +519,7 @@ a { color: inherit; }
   min-height: 16px;
   position: relative;
 }
-.df-bar:nth-child(odd) { background: linear-gradient(180deg, var(--df-blue), #2E1B7A); }
+.df-bar:nth-child(odd) { background: linear-gradient(180deg, var(--df-blue), #7A3B1A); }
 .df-bar em {
   position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
   font-style: normal; font-size: 11px; color: var(--df-muted);
@@ -663,7 +663,7 @@ a { color: inherit; }
 .df-modal input:focus,
 .df-modal select:focus {
   outline: none; border-color: var(--df-blue);
-  box-shadow: 0 0 0 4px rgba(25,1,173,.10);
+  box-shadow: 0 0 0 4px rgba(243,107,31,.10);
 }
 .df-modal-row {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px;

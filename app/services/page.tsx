@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { db } from "@/lib/db";
@@ -30,7 +30,7 @@ export default async function ServicesHubPage() {
       <h1 className="text-3xl font-semibold tracking-tight text-df-blue md:text-5xl">
         Nos services audiovisuels
       </h1>
-      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-df-ink/70">
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
         De la captation au livrable final, DeepFrame prend en charge chaque etape de votre projet video.
       </p>
 
@@ -39,9 +39,9 @@ export default async function ServicesHubPage() {
           <Link
             key={s.slug}
             href={`/services/${s.slug}`}
-            className="group overflow-hidden rounded-2xl border border-df-blue/10 bg-white shadow-sm transition hover:shadow-md hover:border-df-blue/25"
+            className="group overflow-hidden rounded-2xl border border-white/[0.08] bg-df-surface shadow-sm transition hover:shadow-md hover:border-df-blue/25"
           >
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-df-cream">
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-df-surface">
               <Image
                 src={s.coverImageUrl}
                 alt={s.coverImageAlt}
@@ -51,10 +51,10 @@ export default async function ServicesHubPage() {
               />
             </div>
             <div className="p-5">
-              <h2 className="text-lg font-semibold text-df-ink group-hover:text-df-blue transition">
+              <h2 className="text-lg font-semibold text-white group-hover:text-df-blue transition">
                 {s.name}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-df-ink/60 line-clamp-3">
+              <p className="mt-2 text-sm leading-relaxed text-white/50 line-clamp-3">
                 {s.metaDescription}
               </p>
               <span className="mt-4 inline-block text-sm font-medium text-df-blue">
@@ -66,7 +66,7 @@ export default async function ServicesHubPage() {
       </div>
 
       {services.length === 0 && (
-        <p className="mt-12 text-center text-df-ink/50">Aucun service disponible pour le moment.</p>
+        <p className="mt-12 text-center text-white/40">Aucun service disponible pour le moment.</p>
       )}
     </main>
   );

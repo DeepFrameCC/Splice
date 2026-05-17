@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { Shield, Clock, User, Globe, AlertTriangle } from "lucide-react";
 import type { AuditAction } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
@@ -93,10 +93,10 @@ export default async function AdminJournalPage({
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+          <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Journal d&apos;audit
           </h1>
-          <p className="mt-1 text-sm text-df-ink/50">
+          <p className="mt-1 text-sm text-white/40">
             {logs.length} actions enregistrées
           </p>
         </div>
@@ -111,7 +111,7 @@ export default async function AdminJournalPage({
 
       {/* Alert sensitive actions */}
       {sensitiveCount > 0 && (
-        <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-3">
+        <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-500/10 px-5 py-3">
           <AlertTriangle className="h-5 w-5 shrink-0 text-amber-500" />
           <p className="text-sm font-bold text-amber-800">
             {sensitiveCount} action{sensitiveCount > 1 ? "s" : ""} sensible{sensitiveCount > 1 ? "s" : ""} dans les dernières 24h
@@ -119,16 +119,16 @@ export default async function AdminJournalPage({
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
+      <div className="overflow-x-auto rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-df-blue/10 text-left">
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">Date</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">Action</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">Utilisateur</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">Cible</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">Détails</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40">IP</th>
+            <tr className="border-b border-white/[0.08] text-left">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Date</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Action</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Utilisateur</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Cible</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Détails</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">IP</th>
             </tr>
           </thead>
           <tbody>
@@ -137,12 +137,12 @@ export default async function AdminJournalPage({
               return (
                 <tr
                   key={log.id}
-                  className={`border-b border-df-blue/5 transition hover:bg-df-cream/30 ${
-                    i % 2 === 0 ? "bg-white" : "bg-df-cream/10"
-                  } ${isSensitive ? "!bg-amber-50/50" : ""}`}
+                  className={`border-b border-white/[0.06] transition hover:bg-white/[0.04] ${
+                    i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"
+                  } ${isSensitive ? "!bg-amber-500/10/50" : ""}`}
                 >
                   <td className="px-5 py-3">
-                    <div className="flex items-center gap-1.5 text-xs text-df-ink/50">
+                    <div className="flex items-center gap-1.5 text-xs text-white/40">
                       <Clock className="h-3.5 w-3.5" />
                       <span>
                         {log.createdAt.toLocaleDateString("fr-FR")}{" "}
@@ -158,39 +158,39 @@ export default async function AdminJournalPage({
                   <td className="px-5 py-3">
                     {log.user ? (
                       <div className="flex items-center gap-1.5">
-                        <User className="h-3.5 w-3.5 text-df-ink/30" />
-                        <span className="font-medium text-df-ink">@{log.user.pseudo}</span>
+                        <User className="h-3.5 w-3.5 text-white/20" />
+                        <span className="font-medium text-white">@{log.user.pseudo}</span>
                       </div>
                     ) : (
-                      <span className="text-df-ink/30">—</span>
+                      <span className="text-white/20">—</span>
                     )}
                   </td>
                   <td className="px-5 py-3">
                     {log.target ? (
-                      <span className="font-mono text-xs text-df-ink/60">
+                      <span className="font-mono text-xs text-white/50">
                         {log.target.slice(0, 20)}{log.target.length > 20 ? "…" : ""}
                       </span>
                     ) : (
-                      <span className="text-df-ink/30">—</span>
+                      <span className="text-white/20">—</span>
                     )}
                   </td>
                   <td className="max-w-[200px] px-5 py-3">
                     {log.metadata ? (
-                      <span className="truncate text-[11px] text-df-ink/40">
+                      <span className="truncate text-[11px] text-white/30">
                         {JSON.stringify(log.metadata).slice(0, 60)}
                       </span>
                     ) : (
-                      <span className="text-df-ink/30">—</span>
+                      <span className="text-white/20">—</span>
                     )}
                   </td>
                   <td className="px-5 py-3">
                     {log.ipAddress ? (
-                      <div className="flex items-center gap-1.5 text-xs text-df-ink/40">
+                      <div className="flex items-center gap-1.5 text-xs text-white/30">
                         <Globe className="h-3.5 w-3.5" />
                         {log.ipAddress}
                       </div>
                     ) : (
-                      <span className="text-df-ink/30">—</span>
+                      <span className="text-white/20">—</span>
                     )}
                   </td>
                 </tr>
@@ -202,7 +202,7 @@ export default async function AdminJournalPage({
         {logs.length === 0 && (
           <div className="px-6 py-12 text-center">
             <Shield className="mx-auto h-10 w-10 text-df-blue/20" />
-            <p className="mt-4 text-sm text-df-ink/40">Aucune action enregistrée.</p>
+            <p className="mt-4 text-sm text-white/30">Aucune action enregistrée.</p>
           </div>
         )}
       </div>

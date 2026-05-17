@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -15,24 +15,24 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
       <Image src="/logo.svg" alt="DeepFrame" width={52} height={70} className="mb-10 opacity-30" />
 
       <p
         style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}
-        className="text-xs uppercase text-[#FFBD59] mb-4"
+        className="text-xs uppercase text-[#F36B1F] mb-4"
       >
         Quelque chose s&apos;est mal passé
       </p>
 
       <h2
         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-        className="text-4xl md:text-6xl font-bold text-[#1901AD] leading-none mb-6"
+        className="text-4xl md:text-6xl font-bold text-[#F36B1F] leading-none mb-6"
       >
         Une erreur<br />est survenue.
       </h2>
 
-      <p className="text-[#0A0A23]/60 text-lg max-w-md mb-10">
+      <p className="text-[#0E0E22]/60 text-lg max-w-md mb-10">
         Ne t&apos;inquiète pas — ça arrive. Réessaie ou reviens à l&apos;accueil.
       </p>
 
@@ -40,7 +40,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <button
           onClick={reset}
           style={{
-            background: "#1901AD",
+            background: "#F36B1F",
             color: "#fff",
             borderRadius: "999px",
             fontFamily: "var(--font-montserrat)",
@@ -57,13 +57,13 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           href="/"
           style={{
             background: "transparent",
-            color: "#1901AD",
+            color: "#F36B1F",
             borderRadius: "999px",
             fontFamily: "var(--font-montserrat)",
             fontWeight: 600,
             fontSize: 14,
             padding: "14px 28px",
-            border: "1.5px solid #1901AD",
+            border: "1.5px solid #F36B1F",
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",

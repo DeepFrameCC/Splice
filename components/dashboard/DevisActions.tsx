@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useTransition } from "react";
 import { CheckCircle, XCircle } from "lucide-react";
 import { validerDevis, refuserDevis } from "@/app/actions/admin";
@@ -10,7 +10,7 @@ export function ValiderBtn({ devisId }: { devisId: string }) {
     <button
       disabled={pending}
       onClick={() => start(async () => { await validerDevis(devisId); toast.success("Devis validé"); })}
-      className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-200 disabled:opacity-50"
+      className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-200 disabled:opacity-50"
     >
       <CheckCircle className="h-3.5 w-3.5" /> {pending ? "…" : "Valider"}
     </button>

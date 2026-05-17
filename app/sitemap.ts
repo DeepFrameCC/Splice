@@ -27,7 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         orderBy: { publishedAt: "asc" },
       }),
       db.blogPost.findMany({
-        select: { slug: true, publishedAt: true },
+        where: { status: "PUBLISHED" },
+        select: { slug: true, updatedAt: true },
         orderBy: { publishedAt: "desc" },
       }),
     ]);
@@ -47,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       // Blog posts
       ...blogPosts.map((p) => ({
         url: `${base}/blog/${p.slug}`,
-        lastModified: p.publishedAt,
+        lastModified: p.updatedAt,
         changeFrequency: "monthly" as const,
         priority: 0.7,
       })),

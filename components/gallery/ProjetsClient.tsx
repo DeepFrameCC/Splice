@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo, useCallback } from "react";
 import { Heart, Lock, X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -50,11 +50,11 @@ const PHOTO_FILTERS = [
 /* ── Gradient backgrounds (when no thumbnail) ───────────────────── */
 
 const GRADIENTS = [
-  "radial-gradient(ellipse at 70% 30%, rgba(255,189,89,.4), transparent 60%), linear-gradient(135deg, #1901AD 0%, #2E1B7A 60%, #0A0A23 100%)",
-  "radial-gradient(ellipse at 20% 80%, rgba(25,1,173,.45), transparent 65%), linear-gradient(160deg, #F2D8A8 0%, #C8956D 60%, #5C3A1F 100%)",
-  "radial-gradient(ellipse at 50% 50%, rgba(255,189,89,.35), transparent 60%), linear-gradient(210deg, #0A0A23 0%, #1901AD 100%)",
-  "linear-gradient(135deg, #FFBD59 0%, #FF7B00 60%, #B8501D 100%)",
-  "radial-gradient(ellipse at 80% 20%, rgba(255,189,89,.6), transparent 55%), linear-gradient(160deg, #1F0B5C 0%, #0A0A23 100%)",
+  "radial-gradient(ellipse at 70% 30%, rgba(243,107,31,.4), transparent 60%), linear-gradient(135deg, #F36B1F 0%, #7A3B1A 60%, #0E0E22 100%)",
+  "radial-gradient(ellipse at 20% 80%, rgba(243,107,31,.45), transparent 65%), linear-gradient(160deg, #F2D8A8 0%, #C8956D 60%, #5C3A1F 100%)",
+  "radial-gradient(ellipse at 50% 50%, rgba(243,107,31,.35), transparent 60%), linear-gradient(210deg, #0E0E22 0%, #F36B1F 100%)",
+  "linear-gradient(135deg, #F36B1F 0%, #FF7B00 60%, #B8501D 100%)",
+  "radial-gradient(ellipse at 80% 20%, rgba(243,107,31,.6), transparent 55%), linear-gradient(160deg, #1F0B5C 0%, #0E0E22 100%)",
   "linear-gradient(160deg, #2A1F12 0%, #6E4422 50%, #B57B3F 100%)",
 ];
 
@@ -179,7 +179,7 @@ function ProjectCard({
           {isAuthed ? (
             <Heart
               className={`h-4 w-4 ${
-                optimisticLiked ? "fill-[#FFBD59] text-[#FFBD59]" : "text-white"
+                optimisticLiked ? "fill-[#F36B1F] text-[#F36B1F]" : "text-white"
               }`}
             />
           ) : (

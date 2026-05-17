@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition } from "react";
 import { changerRoleUtilisateur } from "@/app/actions/admin";
@@ -11,7 +11,7 @@ const ROLE_LABELS: Record<Role, string> = {
 };
 
 const ROLE_COLORS: Record<Role, string> = {
-  CLIENT: "bg-df-cream text-df-ink",
+  CLIENT: "bg-df-surface text-white",
   TEAM: "bg-df-blue/10 text-df-blue",
   ADMIN: "bg-df-gold/20 text-df-gold",
 };

@@ -1,12 +1,12 @@
-import PDFDocument from "pdfkit";
+﻿import PDFDocument from "pdfkit";
 import path from "path";
 import fs from "fs";
 
 /* ── Couleurs DeepFrame ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
-  blue: "#1901AD",
-  gold: "#FFBD59",
-  ink: "#0A0A23",
+  blue: "#F36B1F",
+  gold: "#F36B1F",
+  ink: "#0E0E22",
   text: "#333333",
   muted: "#666666",
   light: "#999999",

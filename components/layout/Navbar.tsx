@@ -14,7 +14,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-df-blue/20 bg-white/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-df-night/90 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <ul className="flex items-center gap-6">
           {links.map((l) => {
@@ -31,7 +31,7 @@ export default function Navbar() {
         </ul>
         <div className="flex items-center gap-3">
           <Link href="/devis" aria-label="Demander un devis"
-            className="grid h-10 w-10 place-items-center rounded-full bg-df-cream transition hover:scale-110 hover:bg-df-gold">
+            className="grid h-10 w-10 place-items-center rounded-full bg-df-surface transition hover:scale-110 hover:bg-df-gold">
             <Calculator className="h-5 w-5 text-df-blue" />
           </Link>
           <Link href="/profil" aria-label="Mon profil"

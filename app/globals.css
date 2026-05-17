@@ -3,25 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --df-blue: #1901AD;
-  --df-blue-dark: #0F0078;
-  --df-gold: #FFBD59;
-  --df-cream: #FFF6E5;
-  --df-ink: #0A0A23;
+  --df-blue: #F36B1F;
+  --df-blue-dark: #C4550A;
+  --df-gold: #F36B1F;
+  --df-cream: #0A0A1C;
+  --df-ink: #0E0E22;
+  --df-surface: #1A1A2E;
+  --df-surface-alt: #15152A;
+  --df-border: rgba(255,255,255,0.08);
 }
 
 html { scroll-behavior: smooth; }
-html, body { background: #fff; color: var(--df-ink); }
+html, body { background: #0E0E22; color: #FFFFFF; }
 body { font-family: var(--font-sans), system-ui, sans-serif; }
 
-::selection { background: var(--df-gold); color: var(--df-blue); }
+::selection { background: rgba(243,107,31,.3); color: #fff; }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-df-blue transition hover:scale-105 hover:shadow-lg active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:scale-105 hover:shadow-lg active:scale-95;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-df-blue px-6 py-3 font-bold text-df-blue transition hover:bg-df-blue hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-df-gold px-6 py-3 font-bold text-df-gold transition hover:bg-df-gold hover:text-white;
   }
   .nav-link {
     @apply font-display italic text-df-blue transition hover:text-df-gold;
@@ -32,13 +35,61 @@ body { font-family: var(--font-sans), system-ui, sans-serif; }
     @apply transition-transform duration-300 will-change-transform hover:scale-[1.04] hover:shadow-2xl;
   }
 
-  .gradient-papi    { background: linear-gradient(135deg, #2DB6FF 0%, #1901AD 100%); }
-  .gradient-louisia { background: linear-gradient(135deg, #FFBD59 0%, #FF7A00 100%); }
+  .gradient-papi    { background: linear-gradient(135deg, #2DB6FF 0%, #F36B1F 100%); }
+  .gradient-louisia { background: linear-gradient(135deg, #F36B1F 0%, #FF7A00 100%); }
   .gradient-ty      { background: linear-gradient(135deg, #8B5CF6 0%, #2DB6FF 100%); }
 }
 
+/* ─── Blog prose overrides ─────────────────────────────── */
+.prose-deepframe {
+  --tw-prose-body: #C4D2C5;
+  --tw-prose-headings: #F36B1F;
+  --tw-prose-links: #F36B1F;
+  --tw-prose-bold: #F36B1F;
+  --tw-prose-quotes: #F36B1F;
+  --tw-prose-quote-borders: #F36B1F;
+}
+.prose-deepframe blockquote {
+  border-left-color: var(--df-gold);
+  background: var(--df-cream);
+  padding: 1rem 1.5rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  font-style: normal;
+}
+.prose-deepframe a {
+  color: var(--df-gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.prose-deepframe a:hover { color: var(--df-blue); }
+.prose-deepframe code {
+  font-family: "JetBrains Mono", monospace;
+  background: var(--df-cream);
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.prose-deepframe pre {
+  background: var(--df-ink);
+  border-radius: 0.75rem;
+}
+.prose-deepframe pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose-deepframe img {
+  border-radius: 1rem;
+}
+.prose-deepframe h2 {
+  scroll-margin-top: 5rem;
+}
+.prose-deepframe h3 {
+  scroll-margin-top: 5rem;
+}
+
 .shimmer-text {
-  background: linear-gradient(90deg, #1901AD 0%, #FFBD59 50%, #1901AD 100%);
+  background: linear-gradient(90deg, #F36B1F 0%, #F36B1F 50%, #F36B1F 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;

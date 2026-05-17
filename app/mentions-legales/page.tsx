@@ -1,4 +1,4 @@
-import Nav from "@/components/layout/Nav";
+﻿import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 export default function MentionsLegales() {
   return (
     <>
-      <Nav />
+      <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-df-blue">Mentions légales</h1>
-        <p className="mt-2 text-sm text-df-ink/50">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
+        <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
-        <section className="mt-10 space-y-8 text-sm leading-relaxed text-df-ink/80">
+        <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
           <div>
-            <h2 className="text-lg font-bold text-df-ink">1. Éditeur du site</h2>
+            <h2 className="text-lg font-bold text-white">1. Éditeur du site</h2>
             <ul className="mt-3 space-y-1">
               <li><strong>Dénomination :</strong> DeepFrame</li>
               <li><strong>Statut juridique :</strong> Micro-entreprise (auto-entrepreneur)</li>
@@ -27,7 +27,7 @@ export default function MentionsLegales() {
                 {process.env.NEXT_PUBLIC_LEGAL_SIRET ? (
                   <span className="font-mono">{process.env.NEXT_PUBLIC_LEGAL_SIRET}</span>
                 ) : (
-                  <span className="text-df-ink/60 italic">communiqué sur demande à contact@deepframe.cc</span>
+                  <span className="text-white/50 italic">communiqué sur demande à contact@deepframe.cc</span>
                 )}
               </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
@@ -38,12 +38,12 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">2. Directeur de la publication</h2>
+            <h2 className="text-lg font-bold text-white">2. Directeur de la publication</h2>
             <p>Le directeur de la publication est le responsable de la micro-entreprise DeepFrame.</p>
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">3. Hébergeur</h2>
+            <h2 className="text-lg font-bold text-white">3. Hébergeur</h2>
             <ul className="mt-3 space-y-1">
               <li><strong>Nom :</strong> Vercel Inc.</li>
               <li><strong>Adresse :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
@@ -52,7 +52,7 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">4. Propriété intellectuelle</h2>
+            <h2 className="text-lg font-bold text-white">4. Propriété intellectuelle</h2>
             <p>
               L&apos;ensemble du contenu du site deepframe.cc (textes, images, vidéos, logos, éléments graphiques,
               animations) est la propriété exclusive de DeepFrame ou de ses partenaires. Toute reproduction,
@@ -66,7 +66,7 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">5. Limitation de responsabilité</h2>
+            <h2 className="text-lg font-bold text-white">5. Limitation de responsabilité</h2>
             <p>
               DeepFrame s&apos;efforce de fournir sur le site des informations aussi précises que possible.
               Toutefois, il ne pourra être tenu responsable des omissions, des inexactitudes ou des carences
@@ -80,7 +80,7 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">6. Données personnelles</h2>
+            <h2 className="text-lg font-bold text-white">6. Données personnelles</h2>
             <p>
               Pour toute information relative à la collecte et au traitement de vos données personnelles,
               veuillez consulter notre{" "}
@@ -91,7 +91,7 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">7. Cookies</h2>
+            <h2 className="text-lg font-bold text-white">7. Cookies</h2>
             <p>
               Pour en savoir plus sur l&apos;utilisation des cookies sur ce site, consultez notre{" "}
               <a href="/cookies" className="text-df-blue underline hover:text-df-gold transition-colors">
@@ -101,7 +101,7 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-df-ink">8. Droit applicable</h2>
+            <h2 className="text-lg font-bold text-white">8. Droit applicable</h2>
             <p>
               Les présentes mentions légales sont régies par le droit français. En cas de litige,
               les tribunaux d&apos;Orléans seront seuls compétents.

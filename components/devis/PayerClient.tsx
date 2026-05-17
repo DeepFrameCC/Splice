@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useTransition } from "react";
 import { CreditCard, ShieldCheck, ArrowLeft, AlertCircle } from "lucide-react";
 import Link from "next/link";
@@ -44,7 +44,7 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
         <ArrowLeft className="h-4 w-4" /> Retour au devis
       </Link>
 
-      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-df-blue-dark p-8 text-white shadow-2xl">
+      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-df-blue-dark p-8 text-white shadow-2xl shadow-black/40">
         <div className="flex items-center gap-3">
           <ShieldCheck className="h-8 w-8 text-df-gold" />
           <div>

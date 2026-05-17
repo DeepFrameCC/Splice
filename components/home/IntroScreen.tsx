@@ -67,9 +67,9 @@ export default function IntroScreen() {
           position: absolute; inset: 0;
           background: linear-gradient(180deg,
             transparent 0%,
-            rgba(25,1,173,.12) 45%,
+            rgba(243,107,31,.12) 45%,
             rgba(255,189,89,.35) 50%,
-            rgba(25,1,173,.12) 55%,
+            rgba(243,107,31,.12) 55%,
             transparent 100%);
           mix-blend-mode: multiply;
           animation: df-intro-shimmer ${drawSec}s cubic-bezier(.65,.05,.36,1) forwards;

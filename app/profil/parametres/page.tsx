@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Settings, ShieldCheck } from "lucide-react";
 import ProfileForm from "@/components/dashboard/ProfileForm";
@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ParametresPage() {
   const session = await auth();
-  const userId = (session?.user as any)?.id as string;
+  const userId = session?.user?.id!;
 
   const user = await db.user.findUnique({
     where: { id: userId },
@@ -23,10 +23,10 @@ export default async function ParametresPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Paramètres
         </h1>
-        <p className="mt-1 text-sm text-df-ink/50">
+        <p className="mt-1 text-sm text-white/40">
           Gérez vos informations personnelles et la sécurité de votre compte
         </p>
       </header>
@@ -35,9 +35,9 @@ export default async function ParametresPage() {
       <EmailVerificationBanner verified={!!user.emailVerified} />
 
       {/* Profile Section */}
-      <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
-          <Settings className="h-5 w-5 text-df-blue" />
+      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
+        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
+          <Settings className="h-5 w-5 text-white" />
           Informations personnelles
         </h2>
         <ProfileForm
@@ -55,8 +55,8 @@ export default async function ParametresPage() {
       </section>
 
       {/* Password Section */}
-      <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
+      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
+        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
           <Settings className="h-5 w-5 text-df-gold" />
           Mot de passe
         </h2>
@@ -64,7 +64,7 @@ export default async function ParametresPage() {
       </section>
 
       {/* 2FA Section */}
-      <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
+      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
         <TwoFactorSection
           enabled={user.twoFactorEnabled}
           email={user.email}
@@ -72,9 +72,9 @@ export default async function ParametresPage() {
       </section>
 
       {/* RGPD Section */}
-      <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
-          <ShieldCheck className="h-5 w-5 text-emerald-600" />
+      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
+        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
+          <ShieldCheck className="h-5 w-5 text-emerald-400" />
           Vos données personnelles (RGPD)
         </h2>
         <RGPDSection />

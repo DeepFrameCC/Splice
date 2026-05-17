@@ -1,11 +1,11 @@
-export default function Loading() {
+﻿export default function Loading() {
   return (
-    <div style={{ background: "#fff", minHeight: "100vh", paddingTop: 80 }}>
+    <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "80px 40px 40px" }}>
         {/* Eyebrow */}
-        <div className="h-3 w-20 rounded bg-[#1901AD]/10 animate-pulse" />
+        <div className="h-3 w-20 rounded bg-[#F36B1F]/10 animate-pulse" />
         {/* Title */}
-        <div className="mt-5 h-20 w-[600px] max-w-full rounded-lg bg-[#1901AD]/8 animate-pulse" />
+        <div className="mt-5 h-20 w-[600px] max-w-full rounded-lg bg-[#F36B1F]/8 animate-pulse" />
         {/* Paragraph */}
         <div className="mt-5 h-5 w-96 max-w-full rounded bg-black/5 animate-pulse" />
       </div>

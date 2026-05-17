@@ -7,9 +7,8 @@ import { revalidatePath } from "next/cache";
 
 async function requireAdmin() {
   const session = await auth();
-  const user = session?.user as { id: string; role: string } | undefined;
-  if (!user || user.role !== "ADMIN") throw new Error("Non autorisé");
-  return user;
+  if (!session?.user || session.user.role !== "ADMIN") throw new Error("Non autorisé");
+  return session.user;
 }
 
 const settingsSchema = z.object({

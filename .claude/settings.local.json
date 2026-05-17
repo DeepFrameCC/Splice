@@ -104,7 +104,14 @@
       "Bash(npm -v)",
       "Bash(ls c:/Users/tracy/OneDrive/Documents/DeepFrame/public/og-image*)",
       "Bash(xargs ls:*)",
-      "Bash(grep -n \"auth\\(\\)\" /c/Users/tracy/OneDrive/Documents/DeepFrame/app/api/facture/[id]/pdf/route.ts)"
+      "Bash(grep -n \"auth\\(\\)\" /c/Users/tracy/OneDrive/Documents/DeepFrame/app/api/facture/[id]/pdf/route.ts)",
+      "Bash(grep -n \"sticky\\\\|fixed\\\\|absolute\\\\|z-index\\\\|overlay\\\\|modal\\\\|backdrop\" /c/Users/tracy/OneDrive/Documents/DeepFrame/components/devis/*.tsx)",
+      "Bash(ls -la /c/Users/tracy/OneDrive/Documents/DeepFrame/.env*)",
+      "Bash(rm -rf .next/cache)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/galerie)",
+      "Bash(curl -s http://localhost:3000/galerie)",
+      "Bash(npx kill-port:*)",
+      "WebFetch(domain:slice-template.webflow.io)"
     ],
     "additionalDirectories": [
       "c:\\Users\\tracy\\OneDrive\\Documents\\DeepFrame\\app\\services"

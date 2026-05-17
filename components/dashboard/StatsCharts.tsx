@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   BarChart,
@@ -16,20 +16,20 @@ import {
 type BarData = { label: string; value: number }[];
 type PieData = { name: string; value: number }[];
 
-const COLORS = ["#1901AD", "#FFBD59", "#10B981", "#8B5CF6", "#F43F5E", "#0EA5E9"];
+const COLORS = ["#F36B1F", "#F36B1F", "#10B981", "#8B5CF6", "#F43F5E", "#0EA5E9"];
 
 export function CABarChart({ data }: { data: BarData }) {
   return (
     <ResponsiveContainer width="100%" height={280}>
       <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#1901AD10" />
-        <XAxis dataKey="label" tick={{ fontSize: 11, fill: "#0A0A23", opacity: 0.5 }} tickLine={false} axisLine={false} />
-        <YAxis tick={{ fontSize: 11, fill: "#0A0A23", opacity: 0.5 }} tickLine={false} axisLine={false} tickFormatter={(v: number) => `${v}€`} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#F36B1F10" />
+        <XAxis dataKey="label" tick={{ fontSize: 11, fill: "#0E0E22", opacity: 0.5 }} tickLine={false} axisLine={false} />
+        <YAxis tick={{ fontSize: 11, fill: "#0E0E22", opacity: 0.5 }} tickLine={false} axisLine={false} tickFormatter={(v: number) => `${v}€`} />
         <Tooltip
-          contentStyle={{ background: "#0A0A23", border: "none", borderRadius: "12px", color: "#fff", fontSize: "13px" }}
+          contentStyle={{ background: "#0E0E22", border: "none", borderRadius: "12px", color: "#fff", fontSize: "13px" }}
           formatter={(value) => [`${Number(value).toLocaleString("fr-FR")} €`, "CA"]}
         />
-        <Bar dataKey="value" fill="#1901AD" radius={[6, 6, 0, 0]} />
+        <Bar dataKey="value" fill="#F36B1F" radius={[6, 6, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -55,7 +55,7 @@ export function FunnelPieChart({ data }: { data: PieData }) {
           ))}
         </Pie>
         <Tooltip
-          contentStyle={{ background: "#0A0A23", border: "none", borderRadius: "12px", color: "#fff", fontSize: "13px" }}
+          contentStyle={{ background: "#0E0E22", border: "none", borderRadius: "12px", color: "#fff", fontSize: "13px" }}
         />
       </PieChart>
     </ResponsiveContainer>

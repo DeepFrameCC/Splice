@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useTransition } from "react";
 import { submitContact } from "@/app/actions/contact";
@@ -16,7 +16,7 @@ export default function ContactForm({ members }: Props) {
 
   return (
     <form
-      className="grid gap-4 rounded-2xl border border-df-blue/10 bg-white p-6 shadow-sm"
+      className="grid gap-4 rounded-2xl border border-white/[0.08] bg-df-surface p-6 shadow-sm"
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -43,7 +43,7 @@ export default function ContactForm({ members }: Props) {
             name="nom"
             required
             minLength={2}
-            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm font-semibold text-df-blue">
@@ -52,7 +52,7 @@ export default function ContactForm({ members }: Props) {
             name="email"
             type="email"
             required
-            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           />
         </label>
       </div>
@@ -63,7 +63,7 @@ export default function ContactForm({ members }: Props) {
           <select
             name="type"
             required
-            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           >
             <option value="">Choisir…</option>
             {TYPES.map((t) => (
@@ -78,7 +78,7 @@ export default function ContactForm({ members }: Props) {
           <select
             name="budget"
             required
-            className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           >
             <option value="">Choisir…</option>
             {BUDGETS.map((b) => (
@@ -94,7 +94,7 @@ export default function ContactForm({ members }: Props) {
         Destinataire
         <select
           name="member"
-          className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
           defaultValue="all"
         >
           <option value="all">Toute l&apos;équipe</option>
@@ -113,7 +113,7 @@ export default function ContactForm({ members }: Props) {
           required
           minLength={10}
           rows={6}
-          className="rounded-lg border border-df-blue/20 px-3 py-2 text-base font-normal text-df-ink"
+          className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
         />
       </label>
 
@@ -126,7 +126,7 @@ export default function ContactForm({ members }: Props) {
       </button>
 
       {status && status.ok && (
-        <p className="text-sm font-semibold text-emerald-600">
+        <p className="text-sm font-semibold text-emerald-400">
           Message envoyé ! Nous revenons vers vous sous 48h.
         </p>
       )}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useTransition } from "react";
 import { useDevisForm } from "./store";
 import { Step1, Step2, Step3, Step4 } from "./Steps";
@@ -28,9 +28,13 @@ export default function Wizard() {
     start(async () => {
       try {
         await submitDevis({ ...f, dateTournage: f.dateTournage || undefined });
-      } catch (e: any) {
-        if (e?.digest?.includes?.("NEXT_REDIRECT")) throw e;
-        toast.error(e?.message ?? "Erreur lors de l'envoi");
+      } catch (e: unknown) {
+        if (e && typeof e === "object" && "digest" in e) {
+          const digest = (e as { digest?: string }).digest;
+          if (digest?.includes?.("NEXT_REDIRECT")) throw e;
+        }
+        const msg = e instanceof Error ? e.message : "Erreur lors de l'envoi";
+        toast.error(msg);
       }
     });
   };
@@ -42,7 +46,7 @@ export default function Wizard() {
       <div>
         {/* Progress bar */}
         <div className="mb-6">
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-df-cream">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-df-surface">
             <div
               className="h-full rounded-full bg-gradient-to-r from-df-blue to-df-gold transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -63,7 +67,7 @@ export default function Wizard() {
                     ? "bg-emerald-500 text-white"
                     : f.step === s.n
                     ? "bg-df-blue text-white shadow-md shadow-df-blue/30"
-                    : "bg-df-cream text-df-blue/50"
+                    : "bg-df-surface text-df-blue/50"
                 }`}
               >
                 {f.step > s.n ? (
@@ -85,7 +89,7 @@ export default function Wizard() {
               {i < steps.length - 1 && (
                 <span
                   className={`h-0.5 flex-1 transition-colors duration-300 ${
-                    f.step > s.n ? "bg-emerald-500" : "bg-df-cream"
+                    f.step > s.n ? "bg-emerald-500" : "bg-df-surface"
                   }`}
                 />
               )}
@@ -94,7 +98,7 @@ export default function Wizard() {
         </ol>
 
         {/* Step content */}
-        <div className="rounded-3xl bg-white p-6 shadow ring-1 ring-df-blue/10 md:p-8">
+        <div className="relative z-10 rounded-3xl bg-df-surface p-6 shadow ring-1 ring-white/[0.08] md:p-8">
           {f.step === 1 && <Step1 />}
           {f.step === 2 && <Step2 />}
           {f.step === 3 && <Step3 />}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useActionState } from "react";
 import { generate2FASetup, enable2FAAction, disable2FAAction } from "@/app/actions/profile";
@@ -37,20 +37,20 @@ export default function TwoFactorSection({ enabled, email }: Props) {
   if (enabled && !disableState?.ok) {
     return (
       <div>
-        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
+        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-white">
           <ShieldCheck className="h-5 w-5 text-emerald-500" />
           Double authentification
         </h2>
 
-        <div className="mb-6 flex items-center gap-3 rounded-xl bg-emerald-50 px-4 py-3">
+        <div className="mb-6 flex items-center gap-3 rounded-xl bg-emerald-500/10 px-4 py-3">
           <ShieldCheck className="h-5 w-5 text-emerald-500" />
-          <p className="text-sm font-medium text-emerald-700">
+          <p className="text-sm font-medium text-emerald-400">
             La double authentification est <span className="font-bold">activée</span> sur votre compte.
           </p>
         </div>
 
         <form action={disableAction} className="space-y-4">
-          <p className="text-sm text-df-ink/60">
+          <p className="text-sm text-white/50">
             Pour désactiver la 2FA, confirmez votre mot de passe.
           </p>
           <div className="max-w-xs space-y-2">
@@ -59,7 +59,7 @@ export default function TwoFactorSection({ enabled, email }: Props) {
           </div>
 
           {disableState?.error && (
-            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{disableState.error}</p>
+            <p className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-medium text-red-600">{disableState.error}</p>
           )}
 
           <Button type="submit" variant="destructive" disabled={disablePending}>
@@ -73,11 +73,11 @@ export default function TwoFactorSection({ enabled, email }: Props) {
   if (enableState?.ok || disableState?.ok) {
     return (
       <div>
-        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
+        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-white">
           <Shield className="h-5 w-5 text-df-blue" />
           Double authentification
         </h2>
-        <p className="flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
+        <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-medium text-emerald-400">
           <CheckCircle className="h-4 w-4" />
           {enableState?.ok ? enableState.message : disableState?.message}
         </p>
@@ -87,14 +87,14 @@ export default function TwoFactorSection({ enabled, email }: Props) {
 
   return (
     <div>
-      <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-df-ink">
+      <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-white">
         <ShieldOff className="h-5 w-5 text-amber-500" />
         Double authentification
       </h2>
 
       {!setupMode ? (
         <div>
-          <div className="mb-6 flex items-center gap-3 rounded-xl bg-amber-50 px-4 py-3">
+          <div className="mb-6 flex items-center gap-3 rounded-xl bg-amber-500/10 px-4 py-3">
             <ShieldOff className="h-5 w-5 text-amber-500" />
             <p className="text-sm font-medium text-amber-700">
               La double authentification n&apos;est <span className="font-bold">pas activée</span>.
@@ -107,19 +107,19 @@ export default function TwoFactorSection({ enabled, email }: Props) {
         </div>
       ) : (
         <div className="space-y-6">
-          <p className="text-sm text-df-ink/70">
+          <p className="text-sm text-white/70">
             Scannez ce QR code avec votre application d&apos;authentification
             (Google Authenticator, Authy, etc.) puis entrez le code à 6 chiffres.
           </p>
 
-          <div className="flex flex-col items-center gap-4 rounded-2xl bg-df-cream/50 p-6">
+          <div className="flex flex-col items-center gap-4 rounded-2xl bg-white/[0.04] p-6">
             {qrDataUrl && (
               <img src={qrDataUrl} alt="QR Code 2FA" width={200} height={200} className="rounded-xl" />
             )}
             {secret && (
               <div className="text-center">
-                <p className="text-xs text-df-ink/50">Clé manuelle :</p>
-                <code className="mt-1 block rounded-lg bg-white px-3 py-1.5 font-mono text-xs text-df-blue ring-1 ring-df-blue/10">
+                <p className="text-xs text-white/40">Clé manuelle :</p>
+                <code className="mt-1 block rounded-lg bg-df-surface px-3 py-1.5 font-mono text-xs text-df-blue ring-1 ring-white/[0.08]">
                   {secret}
                 </code>
               </div>
@@ -142,7 +142,7 @@ export default function TwoFactorSection({ enabled, email }: Props) {
             </div>
 
             {enableState?.error && (
-              <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{enableState.error}</p>
+              <p className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-medium text-red-600">{enableState.error}</p>
             )}
 
             <div className="flex gap-3">

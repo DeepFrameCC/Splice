@@ -1,4 +1,4 @@
-import Nav from "@/components/layout/Nav";
+﻿import NavWrapper from "@/components/layout/NavWrapper";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 import type { Metadata } from "next";
@@ -17,7 +17,7 @@ export default async function ConfirmationPage({
 
   return (
     <>
-      <Nav />
+      <NavWrapper />
       <section className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center px-6 py-20 text-center">
         <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
           <CheckCircle className="h-10 w-10 text-green-600" />
@@ -30,13 +30,13 @@ export default async function ConfirmationPage({
           Demande envoyée !
         </h1>
 
-        <p className="mt-4 text-lg leading-relaxed text-df-ink/70">
+        <p className="mt-4 text-lg leading-relaxed text-white/70">
           Votre demande de devis{numero ? <> <strong className="text-df-blue">n°{numero}</strong></> : ""}{" "}
           {total ? <>pour un total de <strong className="text-df-blue">{total} €</strong> </> : ""}
           a bien été enregistrée.
         </p>
 
-        <p className="mt-2 text-base text-df-ink/60">
+        <p className="mt-2 text-base text-white/50">
           Un email de confirmation vient de vous être envoyé. Notre équipe revient vers vous sous 48h.
         </p>
 
@@ -49,7 +49,7 @@ export default async function ConfirmationPage({
           </Link>
           <Link
             href="/register"
-            className="rounded-full bg-df-gold px-6 py-3 text-sm font-bold text-df-ink transition hover:scale-105 hover:shadow-lg"
+            className="rounded-full bg-df-gold px-6 py-3 text-sm font-bold text-white transition hover:scale-105 hover:shadow-lg"
           >
             Créer un compte pour suivre mon devis
           </Link>

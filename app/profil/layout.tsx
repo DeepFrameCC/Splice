@@ -1,13 +1,15 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { db } from "@/lib/db";
 import ProfilSidebar from "@/components/dashboard/ProfilSidebar";
 import NotificationBell from "@/components/dashboard/NotificationBell";
 
 export default async function ProfilLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
-  const user = session?.user as any;
-  if (!user?.id) redirect("/login");
+  if (!session?.user?.id) redirect("/login");
+  const user = session.user;
 
   const isAdmin = user.role === "ADMIN";
 
@@ -34,10 +36,17 @@ export default async function ProfilLayout({ children }: { children: React.React
     createdAt: n.createdAt.toISOString(),
   }));
 
-  const displayName = user.name ?? user.pseudo ?? "Utilisateur";
+  const displayName = user.name ?? "Utilisateur";
 
   return (
     <section className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-[1440px] gap-8 px-4 py-6 md:grid-cols-[280px_1fr] md:px-6 md:py-8">
+      {/* Retour au site — full-width above the grid */}
+      <div className="col-span-full">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-white/50 transition hover:text-white">
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Retour au site
+        </Link>
+      </div>
       {/* Desktop sidebar */}
       <div className="hidden md:block">
         <div className="sticky top-8">
@@ -55,10 +64,10 @@ export default async function ProfilLayout({ children }: { children: React.React
       {/* Mobile header + horizontal nav */}
       <div className="space-y-4 md:hidden">
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-xl font-bold text-df-ink">
+          <h2 className="font-display text-xl font-bold text-white">
             DEEP<span className="text-df-gold">FRAME</span>
           </h2>
-          <p className="text-xs font-medium text-df-blue/60">Mon espace</p>
+          <p className="text-xs font-medium text-white/60">Mon espace</p>
         </div>
         <nav className="flex gap-2 overflow-x-auto pb-2">
           {[
@@ -72,7 +81,7 @@ export default async function ProfilLayout({ children }: { children: React.React
             <a
               key={l.href}
               href={l.href}
-              className="shrink-0 rounded-full border border-df-blue/15 px-4 py-2 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+              className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-bold text-white/60 transition hover:bg-white/10 hover:text-white"
             >
               {l.label}
             </a>

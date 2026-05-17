@@ -6,21 +6,21 @@ import type { NextAuthConfig } from "next-auth";
  */
 export const authConfig = {
   pages: { signIn: "/login" },
-  session: { strategy: "jwt", maxAge: 7 * 24 * 60 * 60 },
+  session: { strategy: "jwt", maxAge: 7 * 24 * 60 * 60, updateAge: 24 * 60 * 60 },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = (user as any).id;
-        token.role = (user as any).role;
-        token.twoFactorEnabled = (user as any).twoFactorEnabled;
+        token.id = user.id!;
+        token.role = user.role;
+        token.twoFactorEnabled = user.twoFactorEnabled;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
-        (session.user as any).id = token.id;
-        (session.user as any).role = token.role;
-        (session.user as any).twoFactorEnabled = token.twoFactorEnabled;
+        session.user.id = token.id as string;
+        session.user.role = token.role as import("@prisma/client").Role;
+        session.user.twoFactorEnabled = token.twoFactorEnabled as boolean;
       }
       return session;
     },

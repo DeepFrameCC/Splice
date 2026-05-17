@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import {
@@ -63,7 +63,7 @@ export default function DataTable<T>({
             placeholder={searchPlaceholder}
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-56 rounded-xl border-2 border-df-blue/15 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
+            className="w-56 rounded-xl border-2 border-white/10 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
           />
         </div>
         {filterComponent}
@@ -79,23 +79,23 @@ export default function DataTable<T>({
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
+      <div className="overflow-x-auto rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
         <table className="w-full text-sm">
           <thead>
             {table.getHeaderGroups().map((hg) => (
-              <tr key={hg.id} className="border-b border-df-blue/10 text-left">
+              <tr key={hg.id} className="border-b border-white/[0.08] text-left">
                 {hg.headers.map((header) => {
                   const canSort = header.column.getCanSort();
                   const sorted = header.column.getIsSorted();
                   return (
                     <th
                       key={header.id}
-                      className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-df-ink/40"
+                      className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30"
                     >
                       {header.isPlaceholder ? null : (
                         <button
                           type="button"
-                          className={`inline-flex items-center gap-1.5 ${canSort ? "cursor-pointer select-none hover:text-df-ink" : ""}`}
+                          className={`inline-flex items-center gap-1.5 ${canSort ? "cursor-pointer select-none hover:text-white" : ""}`}
                           onClick={canSort ? header.column.getToggleSortingHandler() : undefined}
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
@@ -123,7 +123,7 @@ export default function DataTable<T>({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="px-5 py-12 text-center text-sm text-df-ink/40"
+                  className="px-5 py-12 text-center text-sm text-white/30"
                 >
                   Aucun résultat trouvé.
                 </td>
@@ -132,8 +132,8 @@ export default function DataTable<T>({
               table.getRowModel().rows.map((row, i) => (
                 <tr
                   key={row.id}
-                  className={`border-b border-df-blue/5 transition hover:bg-df-cream/30 ${
-                    i % 2 === 0 ? "bg-white" : "bg-df-cream/10"
+                  className={`border-b border-white/[0.06] transition hover:bg-white/[0.04] ${
+                    i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"
                   } ${row.getIsSelected() ? "!bg-df-blue/5" : ""}`}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -149,7 +149,7 @@ export default function DataTable<T>({
       </div>
 
       {/* Footer count */}
-      <p className="text-xs text-df-ink/40">
+      <p className="text-xs text-white/30">
         {table.getFilteredRowModel().rows.length} résultat
         {table.getFilteredRowModel().rows.length > 1 ? "s" : ""}
       </p>

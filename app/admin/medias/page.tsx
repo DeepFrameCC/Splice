@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import { db } from "@/lib/db";
 import { Image as ImageIcon, Video, Eye, EyeOff, Heart } from "lucide-react";
 import { PublishToggle, DeleteMediaBtn } from "@/components/dashboard/MediaToggleBtn";
@@ -24,10 +24,10 @@ export default async function AdminMediasPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+          <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Médias
           </h1>
-          <p className="mt-1 text-sm text-df-ink/50">
+          <p className="mt-1 text-sm text-white/40">
             {stats.total} médias — {stats.photos} photos, {stats.videos} vidéos · {stats.published} publiés, {stats.hidden} masqués
           </p>
         </div>
@@ -38,38 +38,38 @@ export default async function AdminMediasPage() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           { label: "Photos", value: stats.photos, icon: ImageIcon, color: "text-df-blue", bg: "bg-df-blue/5" },
-          { label: "Vidéos", value: stats.videos, icon: Video, color: "text-purple-600", bg: "bg-purple-50" },
-          { label: "Publiés", value: stats.published, icon: Eye, color: "text-emerald-600", bg: "bg-emerald-50" },
-          { label: "Masqués", value: stats.hidden, icon: EyeOff, color: "text-df-ink/40", bg: "bg-df-ink/5" },
+          { label: "Vidéos", value: stats.videos, icon: Video, color: "text-purple-600", bg: "bg-purple-500/10" },
+          { label: "Publiés", value: stats.published, icon: Eye, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+          { label: "Masqués", value: stats.hidden, icon: EyeOff, color: "text-white/30", bg: "bg-white/5" },
         ].map((s) => (
-          <div key={s.label} className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-df-blue/10">
+          <div key={s.label} className="rounded-2xl bg-df-surface p-4 shadow-sm ring-1 ring-white/[0.08]">
             <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${s.bg}`}>
               <s.icon className={`h-4 w-4 ${s.color}`} />
             </div>
-            <p className="mt-3 font-display text-2xl font-bold text-df-ink">{s.value}</p>
-            <p className="text-xs text-df-ink/50">{s.label}</p>
+            <p className="mt-3 font-display text-2xl font-bold text-white">{s.value}</p>
+            <p className="text-xs text-white/40">{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Media grid */}
       {medias.length === 0 ? (
-        <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-df-blue/10">
+        <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
           <ImageIcon className="mx-auto h-10 w-10 text-df-blue/20" />
-          <p className="mt-4 text-sm text-df-ink/40">Aucun média pour le moment.</p>
-          <p className="mt-1 text-xs text-df-ink/30">Utilisez le bouton &quot;Ajouter un média&quot; ci-dessus.</p>
+          <p className="mt-4 text-sm text-white/30">Aucun média pour le moment.</p>
+          <p className="mt-1 text-xs text-white/20">Utilisez le bouton &quot;Ajouter un média&quot; ci-dessus.</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {medias.map((m) => (
             <div
               key={m.id}
-              className={`group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 transition ${
-                m.published ? "ring-df-blue/10" : "ring-red-200/50 opacity-75"
+              className={`group overflow-hidden rounded-2xl bg-df-surface shadow-sm ring-1 transition ${
+                m.published ? "ring-white/[0.08]" : "ring-red-200/50 opacity-75"
               }`}
             >
               {/* Thumbnail */}
-              <div className="relative aspect-[4/3] bg-df-ink/5">
+              <div className="relative aspect-[4/3] bg-white/5">
                 {m.thumbnailUrl ? (
                   <Image
                     src={m.thumbnailUrl}
@@ -114,8 +114,8 @@ export default async function AdminMediasPage() {
 
               {/* Info */}
               <div className="p-4">
-                <p className="truncate font-bold text-df-ink">{m.title}</p>
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-df-ink/40">
+                <p className="truncate font-bold text-white">{m.title}</p>
+                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-white/30">
                   <span>{m.owner}</span>
                   {m.monteur && <span>· @{m.monteur.pseudo}</span>}
                   {m.category && <span>· {m.category}</span>}

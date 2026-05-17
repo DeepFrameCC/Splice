@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
@@ -102,13 +102,13 @@ export async function POST(req: NextRequest) {
       to: devis.emailContact,
       subject: `Deepframe — Paiement confirmé · Devis n°${devis.numero}`,
       html: `
-        <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-          <h2 style="color:#1901AD">Paiement reçu ✓</h2>
+        <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+          <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
           <p>Bonjour ${devis.nomContact},</p>
           <p>Votre acompte de <strong>${devis.acompteAmount} €</strong> pour le devis <strong>n°${devis.numero}</strong> a bien été réglé.</p>
           <p>Votre contrat est créé et votre prestation va être planifiée.</p>
           <p style="margin-top:20px">
-            <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#FFBD59;color:#1901AD;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
+            <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
           </p>
           <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
         </div>`

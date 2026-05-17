@@ -9,7 +9,7 @@ const founders = [
 
 export default function Footer() {
   return (
-    <footer className="mt-24 bg-df-blue text-white">
+    <footer className="mt-24 bg-[var(--bg-deep)] border-t border-white/[.08] text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-4">
         <div>
           <h3 className="font-display text-2xl italic">Deepframe</h3>

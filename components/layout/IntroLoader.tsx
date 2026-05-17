@@ -55,7 +55,7 @@ export default function IntroLoader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] grid place-items-center bg-white"
+      className="fixed inset-0 z-[100] grid place-items-center bg-df-night"
     >
       <div className="flex flex-col items-center">
         <div
@@ -64,7 +64,7 @@ export default function IntroLoader() {
         >
           <Image src="/logo.svg" alt="Deepframe" width={220} height={300} priority />
         </div>
-        <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-cream">
+        <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-surface">
           <div
             className="h-full bg-df-blue transition-[width] duration-75 ease-linear"
             style={{ width: `${progress}%` }}

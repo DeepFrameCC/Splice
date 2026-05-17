@@ -1,4 +1,4 @@
-import { CheckCircle, Clock, Clapperboard } from "lucide-react";
+﻿import { CheckCircle, Clock, Clapperboard } from "lucide-react";
 
 const steps = [
   { key: "A_VENIR",  label: "A venir",  icon: Clock },
@@ -22,7 +22,7 @@ export default function ContratTimeline({ status }: { status: ContratStatus }) {
               className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
                 done
                   ? "bg-df-blue text-white"
-                  : "bg-df-cream text-df-blue/40"
+                  : "bg-df-surface text-df-blue/40"
               }`}
             >
               <Icon className="h-3.5 w-3.5" />

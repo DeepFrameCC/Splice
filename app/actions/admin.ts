@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 import { auth, isAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { sendMail } from "@/lib/mailer";
@@ -10,9 +10,9 @@ import type { Role } from "@prisma/client";
 
 async function requireAdmin() {
   const session = await auth();
-  const role = (session?.user as any)?.role as string | undefined;
+  const role = session?.user?.role;
   if (!isAdmin(role)) throw new Error("FORBIDDEN");
-  return (session?.user as any)?.id as string | undefined;
+  return session?.user?.id;
 }
 
 export async function validerDevis(devisId: string) {
@@ -20,8 +20,10 @@ export async function validerDevis(devisId: string) {
 
   // Transaction : valider le devis + créer facture + créer contrat
   const result = await db.$transaction(async (tx) => {
-    const devis = await tx.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
+    const devis = await tx.devis.findUniqueOrThrow({ where: { id: devisId } });
+    if (devis.status !== "ATTENTE") throw new Error("Seul un devis en attente peut être validé.");
     if (!devis.userId) throw new Error("Impossible de valider un devis sans client associé.");
+    await tx.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
 
     // Créer la facture
     const factNum = await nextNumero("FACTURE", tx);
@@ -54,13 +56,13 @@ export async function validerDevis(devisId: string) {
     to: result.emailContact,
     subject: `Deepframe — Votre devis n°${result.numero} est validé`,
     html: `
-      <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-        <h2 style="color:#1901AD">Devis validé !</h2>
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Devis validé !</h2>
         <p>Bonjour ${result.nomContact},</p>
         <p>Votre devis <strong>n°${result.numero}</strong> d'un montant de <strong>${result.totalHT} €</strong> vient d'être validé par notre équipe.</p>
         <p>Une facture et un contrat ont été générés automatiquement. Vous pouvez maintenant régler l'acompte de <strong>${result.acompteAmount} €</strong> pour confirmer votre prestation.</p>
         <p style="margin-top:20px">
-          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#FFBD59;color:#1901AD;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
+          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`
@@ -86,14 +88,16 @@ export async function validerDevis(devisId: string) {
 
 export async function refuserDevis(devisId: string) {
   const adminId = await requireAdmin();
+  const existing = await db.devis.findUniqueOrThrow({ where: { id: devisId } });
+  if (existing.status !== "ATTENTE") throw new Error("Seul un devis en attente peut être refusé.");
   const devis = await db.devis.update({ where: { id: devisId }, data: { status: "REFUSE" } });
 
   await sendMail({
     to: devis.emailContact,
     subject: `Deepframe — Devis n°${devis.numero} non retenu`,
     html: `
-      <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-        <h2 style="color:#1901AD">Devis non retenu</h2>
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Devis non retenu</h2>
         <p>Bonjour ${devis.nomContact},</p>
         <p>Après examen, votre devis <strong>n°${devis.numero}</strong> n'a malheureusement pas été retenu.</p>
         <p>N'hésitez pas à nous contacter pour en discuter ou faire une nouvelle demande.</p>
@@ -116,8 +120,19 @@ export async function refuserDevis(devisId: string) {
   revalidatePath("/admin/devis");
 }
 
+const CONTRAT_TRANSITIONS: Record<string, string[]> = {
+  A_VENIR: ["EN_COURS"],
+  EN_COURS: ["FINI"],
+  FINI: [],
+};
+
 export async function changerStatutContrat(contratId: string, status: "A_VENIR" | "EN_COURS" | "FINI") {
   const adminId = await requireAdmin();
+  const contrat = await db.contrat.findUniqueOrThrow({ where: { id: contratId } });
+  const allowed = CONTRAT_TRANSITIONS[contrat.status] ?? [];
+  if (!allowed.includes(status)) {
+    throw new Error(`Transition ${contrat.status} → ${status} non autorisée.`);
+  }
   await db.contrat.update({ where: { id: contratId }, data: { status } });
   await audit({ action: "CONTRAT_UPDATED", userId: adminId, target: contratId, metadata: { status } });
   revalidatePath("/admin/contrats");
@@ -133,7 +148,9 @@ export async function changerStatutFacture(factureId: string, status: "EMISE" | 
 
 export async function changerRoleUtilisateur(userId: string, role: Role) {
   const adminId = await requireAdmin();
-  if (userId === adminId) throw new Error("Impossible de modifier votre propre rôle");
+  if (userId === adminId) throw new Error("Impossible de modifier votre propre rôle.");
+  const target = await db.user.findUniqueOrThrow({ where: { id: userId } });
+  if (target.role === "ADMIN") throw new Error("Impossible de modifier le rôle d'un autre administrateur.");
 
   await db.user.update({ where: { id: userId }, data: { role } });
   await audit({ action: "ADMIN_ACTION", userId: adminId, target: userId, metadata: { type: "role_change", role } });

@@ -1,4 +1,4 @@
-const GUARANTEES = [
+﻿const GUARANTEES = [
   {
     title: "Expertise audiovisuelle",
     description: "Trois fondateurs, trois specialites complementaires. Chaque projet est porte par le profil le plus adapte.",
@@ -21,9 +21,9 @@ export function ServiceReassurance() {
       </h2>
       <div className="mt-8 grid gap-6 md:grid-cols-3">
         {GUARANTEES.map((g) => (
-          <div key={g.title} className="rounded-xl border border-df-blue/10 bg-df-cream/40 p-6">
-            <h3 className="font-semibold text-df-ink">{g.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-df-ink/70">{g.description}</p>
+          <div key={g.title} className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-6">
+            <h3 className="font-semibold text-white">{g.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/70">{g.description}</p>
           </div>
         ))}
       </div>

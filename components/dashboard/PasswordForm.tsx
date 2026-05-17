@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useActionState } from "react";
 import { changePasswordAction } from "@/app/actions/profile";
@@ -29,10 +29,10 @@ export default function PasswordForm() {
       </div>
 
       {state?.error && (
-        <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{state.error}</p>
+        <p className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-medium text-red-600">{state.error}</p>
       )}
       {state?.ok && (
-        <p className="flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
+        <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-medium text-emerald-400">
           <CheckCircle className="h-4 w-4" /> {state.message}
         </p>
       )}

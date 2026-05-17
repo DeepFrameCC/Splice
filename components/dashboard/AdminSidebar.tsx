@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,6 +17,7 @@ import {
   Settings,
   LogOut,
   ChevronRight,
+  Newspaper,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
 
@@ -30,6 +31,7 @@ type Props = {
     utilisateurs: number;
     medias: number;
     avisEnAttente: number;
+    articles: number;
   };
 };
 
@@ -41,6 +43,7 @@ const navItems = [
   { href: "/admin/utilisateurs", label: "Utilisateurs", icon: Users, countKey: "utilisateurs" as const },
   { href: "/admin/medias", label: "Médias", icon: ImageIcon, countKey: "medias" as const },
   { href: "/admin/avis", label: "Avis", icon: MessageSquare, countKey: "avisEnAttente" as const },
+  { href: "/admin/blog", label: "Articles", icon: Newspaper, countKey: "articles" as const },
   { href: "/admin/statistiques", label: "Statistiques", icon: BarChart3, countKey: null },
   { href: "/admin/comptabilite", label: "Comptabilité", icon: BookOpen, countKey: null },
   { href: "/admin/journal", label: "Journal", icon: ScrollText, countKey: null },
@@ -94,7 +97,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
                 <span
                   className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold ${
                     active
-                      ? "bg-df-gold text-df-ink"
+                      ? "bg-df-gold text-white"
                       : "bg-white/10 text-white/70"
                   }`}
                 >

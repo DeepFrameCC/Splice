@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
@@ -87,7 +87,7 @@ export default function CommandSearch() {
       {/* Command Panel */}
       <div className="relative w-full max-w-lg animate-in fade-in slide-in-from-top-4 duration-200">
         <Command
-          className="overflow-hidden rounded-2xl border border-white/10 bg-df-ink shadow-2xl"
+          className="overflow-hidden rounded-2xl border border-white/10 bg-df-ink shadow-2xl shadow-black/40"
           shouldFilter={false}
         >
           <div className="flex items-center border-b border-white/10 px-4">

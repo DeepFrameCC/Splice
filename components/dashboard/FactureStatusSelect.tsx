@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useTransition } from "react";
 import { changerStatutFacture } from "@/app/actions/admin";
 import toast from "react-hot-toast";
@@ -23,7 +23,7 @@ export default function FactureStatusSelect({ factureId, current }: { factureId:
           toast.success("Statut mis a jour");
         });
       }}
-      className="rounded-lg border-2 border-df-blue/15 px-2 py-1 text-xs font-bold text-df-blue outline-none transition focus:border-df-blue disabled:opacity-50"
+      className="rounded-lg border-2 border-white/10 px-2 py-1 text-xs font-bold text-df-blue outline-none transition focus:border-df-blue disabled:opacity-50"
     >
       {STATUS_OPTIONS.map((o) => (
         <option key={o.value} value={o.value}>{o.label}</option>

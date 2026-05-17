@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { useCallback } from "react";
@@ -33,13 +33,13 @@ export default function AdminFilters({ statusOptions, currentStatus, currentSear
           placeholder="Rechercher…"
           defaultValue={currentSearch}
           onChange={(e) => updateParams("q", e.target.value)}
-          className="w-56 rounded-xl border-2 border-df-blue/15 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
+          className="w-56 rounded-xl border-2 border-white/10 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
         />
       </div>
       <select
         value={currentStatus}
         onChange={(e) => updateParams("status", e.target.value)}
-        className="rounded-xl border-2 border-df-blue/15 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+        className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
       >
         <option value="">Tous</option>
         {statusOptions.map((o) => (

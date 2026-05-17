@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 const tabs: { value?: string; label: string }[] = [
   { value: undefined, label: "Tous" },
@@ -28,7 +28,7 @@ export default function FilterTabs({
             key={t.label}
             href={href}
             className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-              active ? "bg-df-blue text-white" : "bg-df-cream text-df-blue hover:bg-df-gold"
+              active ? "bg-df-blue text-white" : "bg-df-surface text-df-blue hover:bg-df-gold"
             }`}
           >
             {t.label}

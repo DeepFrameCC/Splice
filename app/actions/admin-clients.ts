@@ -7,9 +7,9 @@ import { audit } from "@/lib/audit";
 
 async function requireAdmin() {
   const session = await auth();
-  const role = (session?.user as { role?: string } | undefined)?.role;
+  const role = session?.user?.role;
   if (!isAdmin(role)) throw new Error("FORBIDDEN");
-  return (session?.user as { id?: string } | undefined)?.id;
+  return session?.user?.id;
 }
 
 /**

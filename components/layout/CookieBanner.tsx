@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
@@ -55,7 +55,7 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-[100] p-4">
-      <div className="mx-auto max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-df-blue/10">
+      <div className="mx-auto max-w-2xl overflow-hidden rounded-2xl bg-df-surface shadow-2xl shadow-black/40 ring-1 ring-white/[0.08]">
         {/* Main banner */}
         <div className="p-5">
           <div className="flex items-start gap-3">
@@ -63,10 +63,10 @@ export default function CookieBanner() {
               <Cookie className="h-5 w-5 text-df-gold" />
             </div>
             <div className="flex-1">
-              <h3 className="font-display text-base font-bold text-df-ink">
+              <h3 className="font-display text-base font-bold text-white">
                 Nous respectons votre vie privée
               </h3>
-              <p className="mt-1 text-sm text-df-ink/60">
+              <p className="mt-1 text-sm text-white/50">
                 Ce site utilise des cookies essentiels au fonctionnement et,
                 avec votre accord, des cookies d&apos;analyse pour améliorer votre expérience.{" "}
                 <Link href="/cookies" className="font-medium text-df-blue hover:underline">
@@ -78,33 +78,33 @@ export default function CookieBanner() {
 
           {/* Detail panel */}
           {showDetails && (
-            <div className="mt-4 space-y-3 rounded-xl bg-df-cream/50 p-4">
+            <div className="mt-4 space-y-3 rounded-xl bg-white/[0.04] p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-bold text-df-ink">Cookies essentiels</p>
-                  <p className="text-xs text-df-ink/50">Authentification, sécurité, préférences</p>
+                  <p className="text-sm font-bold text-white">Cookies essentiels</p>
+                  <p className="text-xs text-white/40">Authentification, sécurité, préférences</p>
                 </div>
-                <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-600">
+                <span className="rounded-full bg-emerald-500/15 px-2.5 py-1 text-[10px] font-bold text-emerald-400">
                   Toujours actifs
                 </span>
               </div>
-              <div className="border-t border-df-blue/10" />
+              <div className="border-t border-white/[0.06]" />
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-bold text-df-ink">Cookies d&apos;analyse</p>
-                  <p className="text-xs text-df-ink/50">Statistiques anonymes (Plausible)</p>
+                  <p className="text-sm font-bold text-white">Cookies d&apos;analyse</p>
+                  <p className="text-xs text-white/40">Statistiques anonymes (Plausible)</p>
                 </div>
                 <button
                   onClick={() => setAnalytics((v) => !v)}
                   className={`relative h-6 w-11 rounded-full transition-colors ${
-                    analytics ? "bg-df-blue" : "bg-df-ink/20"
+                    analytics ? "bg-df-blue" : "bg-white/10"
                   }`}
                   role="switch"
                   aria-checked={analytics}
                   aria-label="Cookies d'analyse"
                 >
                   <span
-                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-df-surface shadow transition-transform ${
                       analytics ? "translate-x-5" : ""
                     }`}
                   />
@@ -125,7 +125,7 @@ export default function CookieBanner() {
             <button
               onClick={() => accept(false)}
               disabled={pending}
-              className="rounded-xl border border-df-blue/20 px-5 py-2.5 text-sm font-bold text-df-ink transition hover:bg-df-cream"
+              className="rounded-xl border border-white/10 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-white/5"
               aria-label="Refuser tous les cookies optionnels et n'autoriser que les cookies essentiels"
             >
               Tout refuser
@@ -134,7 +134,7 @@ export default function CookieBanner() {
               <button
                 onClick={() => accept(analytics)}
                 disabled={pending}
-                className="rounded-xl bg-df-gold px-5 py-2.5 text-sm font-bold text-df-ink transition hover:bg-df-gold/80"
+                className="rounded-xl bg-df-gold px-5 py-2.5 text-sm font-bold text-white transition hover:bg-df-gold/80"
               >
                 Confirmer mes choix
               </button>

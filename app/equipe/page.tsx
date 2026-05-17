@@ -1,4 +1,4 @@
-import Nav from "@/components/layout/Nav";
+import NavWrapper from "@/components/layout/NavWrapper";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -53,7 +53,6 @@ interface FounderData {
   instagram: string;
   tiktok: string;
   linktree: string;
-  thumbColors: number[];
 }
 
 const FOUNDERS: FounderData[] = [
@@ -64,7 +63,7 @@ const FOUNDERS: FounderData[] = [
     tag: "FONDATEUR · 01",
     initial: "F",
     photoGradient:
-      "radial-gradient(ellipse at 30% 20%, rgba(255,189,89,.45), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(25,1,173,.55), transparent 65%), linear-gradient(160deg, #1B3A6B 0%, #0A0A23 100%)",
+      "radial-gradient(ellipse at 30% 20%, rgba(255,189,89,.45), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(243,107,31,.55), transparent 65%), linear-gradient(160deg, #3A1B0A 0%, #0E0E22 100%)",
     bioOpener: "Œil de réal, main de monteur.",
     bioBody:
       "Fayad capte la matière brute sur le terrain puis lui donne du rythme : montages After Effects dynamiques, motion intégré, coupes qui claquent. Le tempo des films, c\u2019est lui.",
@@ -80,7 +79,6 @@ const FOUNDERS: FounderData[] = [
     instagram: "https://instagram.com/papiforcex",
     tiktok: "https://tiktok.com/@papiforcex",
     linktree: "https://linktr.ee/papiforcex",
-    thumbColors: [0, 2, 4, 1, 3, 5],
   },
   {
     key: "LOUISIA",
@@ -105,19 +103,18 @@ const FOUNDERS: FounderData[] = [
     instagram: "https://instagram.com/by.louisia",
     tiktok: "https://tiktok.com/@by.louisia",
     linktree: "https://linktr.ee/by.louisia",
-    thumbColors: [4, 1, 3, 5, 0, 2],
   },
   {
     key: "TY",
     name: "Tracy",
-    role: "Motion · étalonneur",
+    role: "Monteur · développeur",
     tag: "FONDATEUR · 03",
     initial: "T",
     photoGradient:
-      "radial-gradient(ellipse at 30% 30%, rgba(255,189,89,.35), transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(25,1,173,.65), transparent 65%), linear-gradient(180deg, #4A2C7F 0%, #1901AD 60%, #0A0A23 100%)",
-    bioOpener: "Le finisseur.",
+      "radial-gradient(ellipse at 30% 30%, rgba(255,189,89,.35), transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(243,107,31,.65), transparent 65%), linear-gradient(180deg, #7A3B1A 0%, #F36B1F 60%, #0E0E22 100%)",
+    bioOpener: "Le développeur, et monteur vidéo.",
     bioBody:
-      "Tracy maîtrise DaVinci Resolve sur le bout des doigts — étalonnage cinéma, motion design propre, sound design soigné. C\u2019est lui qui transforme un bon film en film qu\u2019on remarque.",
+      "Tracy maîtrise DaVinci Resolve sur le bout des doigts — étalonnage cinéma, motion design propre, sound design soigné. C\u2019est lui qui transforme un bon montage en montage percutant.",
     tags: [
       { label: "Motion Design", variant: "primary" },
       { label: "Montage", variant: "primary" },
@@ -128,19 +125,9 @@ const FOUNDERS: FounderData[] = [
     setup: "Station Resolve · X-Touch",
     soft: "DaVinci · Fusion",
     instagram: "https://instagram.com/t.y97one",
-    tiktok: "https://tiktok.com/@t.y97one",
-    linktree: "https://linktr.ee/t.y97one",
-    thumbColors: [2, 0, 5, 4, 1, 3],
+    tiktok: "https://tiktok.com/@itsty97one1",
+    linktree: "https://linktr.ee/itsty97one",
   },
-];
-
-const THUMB_GRADIENTS = [
-  "linear-gradient(135deg, #1B3A6B, #0A0A23)",
-  "linear-gradient(135deg, #F2A93B, #B86432)",
-  "linear-gradient(135deg, #1901AD, #4A2C7F)",
-  "linear-gradient(135deg, #C8956D, #5C3A1F)",
-  "linear-gradient(135deg, #FFBD59, #FF8A00)",
-  "linear-gradient(135deg, #21C497, #0E8463)",
 ];
 
 /* ── Social icon resolver ────────────────────────────────────────────── */
@@ -157,11 +144,11 @@ function LinktreeIcon({ className }: { className?: string }) {
 
 const TAG_STYLES: Record<FounderTag["variant"], string> = {
   primary:
-    "bg-[rgba(25,1,173,0.08)] border-[rgba(25,1,173,0.20)] text-df-blue font-semibold",
+    "bg-[rgba(243,107,31,0.08)] border-[rgba(243,107,31,0.20)] text-df-blue font-semibold",
   accent:
     "bg-[rgba(255,189,89,0.20)] border-[rgba(255,189,89,0.40)] text-[#7A4500] font-semibold",
   neutral:
-    "bg-[#FAF8F2] border-[rgba(10,10,35,0.10)] text-df-ink font-medium",
+    "bg-[#1A1A2E] border-[rgba(255,255,255,0.08)] text-white font-medium",
 };
 
 /* ── Page ─────────────────────────────────────────────────────────────── */
@@ -169,7 +156,7 @@ const TAG_STYLES: Record<FounderTag["variant"], string> = {
 export default function EquipePage() {
   return (
     <>
-      <Nav />
+      <NavWrapper />
       <EquipeAnimations />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -188,7 +175,7 @@ export default function EquipePage() {
           </span>
           <h1
             data-anim="hero-title"
-            className="mt-4 text-df-blue"
+            className="mt-4 text-white"
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 900,
@@ -209,8 +196,7 @@ export default function EquipePage() {
             fontFamily: "var(--font-jetbrains)",
             fontSize: "11px",
             letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(10,10,35,.6)",
+            color: "rgba(255,255,255,.5)",
             lineHeight: 1.7,
           }}
         >
@@ -228,7 +214,7 @@ export default function EquipePage() {
             <article
               key={founder.key}
               data-anim="member"
-              className="flex flex-col overflow-hidden rounded-[22px] border border-[rgba(10,10,35,0.10)] bg-white transition-[transform,box-shadow] duration-[350ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:-translate-y-1 hover:shadow-[0_32px_60px_-28px_rgba(10,10,35,0.22)]"
+              className="flex flex-col overflow-hidden rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-df-surface transition-[transform,box-shadow] duration-[350ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] hover:-translate-y-1 hover:shadow-[0_32px_60px_-28px_rgba(10,10,35,0.22)]"
             >
               {/* Photo area */}
               <div
@@ -269,15 +255,15 @@ export default function EquipePage() {
                 </div>
 
                 {/* Founder tag */}
-                <span
-                  className="absolute left-3.5 top-3.5 z-[2] rounded px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white backdrop-blur-sm"
+                <h2
+                  className="absolute left-3.5 top-3.5 z-[2] rounded border border-white/20 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-md"
                   style={{
                     fontFamily: "var(--font-jetbrains)",
-                    background: "rgba(0,0,0,.55)",
+                    background: "rgba(0,0,0,.65)",
                   }}
                 >
                   {founder.tag}
-                </span>
+                </h2>
 
                 {/* Bottom role + name overlay */}
                 <div className="absolute inset-x-0 bottom-0 z-[1] px-[22px] pb-[18px] pt-[30px] text-white" style={{ background: "linear-gradient(0deg, rgba(0,0,0,.78), transparent)" }}>
@@ -299,71 +285,40 @@ export default function EquipePage() {
               {/* Card body */}
               <div className="flex flex-1 flex-col gap-[18px] p-[26px] pb-6">
                 {/* Bio */}
-                <p className="m-0 text-[14.5px] leading-[1.55] text-[rgba(10,10,35,0.6)]" style={{ textWrap: "pretty" }}>
-                  <em className="not-italic font-semibold text-df-ink">{founder.bioOpener}</em>{" "}
+                <p className="m-0 text-[14.5px] leading-[1.55] text-white/70" style={{ textWrap: "pretty" }}>
+                  <em className="not-italic font-semibold text-white">{founder.bioOpener}</em>{" "}
                   {founder.bioBody}
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {founder.tags.map((tag) => (
-                    <span
+                    <h2
                       key={tag.label}
-                      className={`rounded-full border px-2.5 py-1 text-[11px] tracking-[0.01em] ${TAG_STYLES[tag.variant]}`}
+                      className={`rounded-full border px-3 py-1.5 text-xs tracking-[0.01em] shadow-sm ${TAG_STYLES[tag.variant]}`}
                     >
                       {tag.label}
-                    </span>
+                    </h2>
                   ))}
                 </div>
 
                 {/* Toolkit */}
-                <div className="flex flex-wrap gap-x-[22px] gap-y-3.5 border-y border-[rgba(10,10,35,0.10)] py-3.5">
+                <div className="flex flex-wrap gap-x-[22px] gap-y-3.5 border-y border-[rgba(255,255,255,0.08)] py-3.5">
                   <div className="flex flex-col gap-0.5">
                     <span
-                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]"
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/50"
                     >
                       Setup
                     </span>
-                    <b className="text-[13px] font-semibold text-df-ink">{founder.setup}</b>
+                    <b className="text-[13px] font-semibold text-white">{founder.setup}</b>
                   </div>
                   <div className="flex flex-col gap-0.5">
                     <span
-                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]"
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/50"
                     >
                       Soft
                     </span>
-                    <b className="text-[13px] font-semibold text-df-ink">{founder.soft}</b>
-                  </div>
-                </div>
-
-                {/* Portfolio thumbs */}
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-[rgba(10,10,35,0.6)]">
-                    <span>Portfolio · 6 derniers</span>
-                    <Link
-                      href={`/photos?owner=${founder.key}`}
-                      className="font-bold text-df-blue hover:underline"
-                    >
-                      Voir tout →
-                    </Link>
-                  </div>
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {founder.thumbColors.map((colorIdx, i) => (
-                      <div
-                        key={i}
-                        className="relative overflow-hidden rounded-lg border border-[rgba(10,10,35,0.10)]"
-                        style={{ aspectRatio: "1", background: THUMB_GRADIENTS[colorIdx] }}
-                      >
-                        <div
-                          className="pointer-events-none absolute inset-0"
-                          style={{
-                            backgroundImage: NOISE_SVG,
-                            mixBlendMode: "overlay",
-                            opacity: 0.3,
-                          }}
-                        />
-                      </div>
-                    ))}
+                    <b className="text-[13px] font-semibold text-white">{founder.soft}</b>
                   </div>
                 </div>
 
@@ -374,7 +329,7 @@ export default function EquipePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Instagram ${founder.name}`}
-                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[#1A1A2E] px-3 py-[11px] text-xs font-semibold text-white transition-colors duration-200 hover:border-df-ink hover:bg-white/10 hover:text-white"
                   >
                     <InstagramIcon className="h-3.5 w-3.5" />
                     Instagram
@@ -384,7 +339,7 @@ export default function EquipePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`TikTok ${founder.name}`}
-                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[#1A1A2E] px-3 py-[11px] text-xs font-semibold text-white transition-colors duration-200 hover:border-df-ink hover:bg-white/10 hover:text-white"
                   >
                     <TikTokIcon className="h-3.5 w-3.5" />
                     TikTok
@@ -394,7 +349,7 @@ export default function EquipePage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Linktree ${founder.name}`}
-                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(10,10,35,0.10)] bg-[#FAF8F2] px-3 py-[11px] text-xs font-semibold text-df-ink transition-colors duration-200 hover:border-df-ink hover:bg-df-ink hover:text-white"
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[#1A1A2E] px-3 py-[11px] text-xs font-semibold text-white transition-colors duration-200 hover:border-df-ink hover:bg-white/10 hover:text-white"
                   >
                     <LinktreeIcon className="h-3.5 w-3.5" />
                     Linktree

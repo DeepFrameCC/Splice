@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 
 import { randomBytes } from "crypto";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ export async function sendVerificationEmail() {
   if (!rl.success) return { ok: false, error: rl.error };
 
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
+  const userId = session?.user?.id;
   if (!userId) return { ok: false, error: "Non authentifié" };
 
   const user = await db.user.findUnique({ where: { id: userId }, select: { email: true, emailVerified: true } });
@@ -39,12 +39,12 @@ export async function sendVerificationEmail() {
     to: user.email,
     subject: "Deepframe — Vérifiez votre adresse email",
     html: `
-      <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-        <h2 style="color:#1901AD">Vérification de votre email</h2>
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Vérification de votre email</h2>
         <p>Bonjour,</p>
         <p>Cliquez sur le bouton ci-dessous pour vérifier votre adresse email (valable 24h) :</p>
         <p style="margin-top:20px">
-          <a href="${link}" style="background:#1901AD;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
+          <a href="${link}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Si vous n'avez pas demandé cette vérification, ignorez cet email.</p>
         <p style="font-size:12px;color:#777">Deepframe · contact@deepframe.cc</p>

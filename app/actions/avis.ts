@@ -20,7 +20,7 @@ export async function submitAvis(payload: z.infer<typeof schema>) {
   const data = schema.parse(payload);
 
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
+  const userId = session?.user?.id;
 
   await db.avis.create({
     data: {

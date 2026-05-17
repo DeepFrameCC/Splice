@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
@@ -48,10 +48,10 @@ const schema = z.object({
 
 export async function submitDevis(payload: z.infer<typeof schema>) {
   const rl = await checkRateLimit(devisLimiter);
-  if (!rl.success) throw new Error(rl.error);
+  if (!rl.success) return { ok: false as const, error: rl.error ?? "Trop de requêtes. Veuillez réessayer." };
 
   const session = await auth();
-  const userId = (session?.user as any)?.id as string | undefined;
+  const userId = session?.user?.id;
 
   const data = schema.parse(payload);
   validateQuote(data as any);
@@ -85,7 +85,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
   // so a transient mail failure must not surface to the user. Errors are logged.
   const founderMail = notifyFoundersNewDevis(devis.numero, {
     client: data.nomEntreprise || data.nomContact,
-    total: devis.totalHT * 100,
+    total: devis.totalHT,
     lieu: data.lieuTournage,
     pack: data.pack
   });
@@ -94,14 +94,14 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     to: data.emailContact,
     subject: `Deepframe — Demande de devis ${devis.numero} bien reçue`,
     html: `
-      <div style="font-family:system-ui;color:#0A0A23;max-width:600px">
-        <h2 style="color:#1901AD">Merci pour votre demande</h2>
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Merci pour votre demande</h2>
         <p>Bonjour ${data.nomContact},</p>
         <p>Nous avons bien reçu votre demande de devis <strong>n°${devis.numero}</strong> pour un total estimatif de <strong>${devis.totalHT} €</strong>.</p>
         <p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>
         ${userId
-          ? `<p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#FFBD59;color:#1901AD;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>`
-          : `<p style="margin-top:20px;color:#555">Créez un compte sur <a href="${process.env.NEXT_PUBLIC_APP_URL}/register" style="color:#1901AD;font-weight:bold">deepframe.cc</a> pour suivre votre devis en ligne.</p>`
+          ? `<p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>`
+          : `<p style="margin-top:20px;color:#555">Créez un compte sur <a href="${process.env.NEXT_PUBLIC_APP_URL}/register" style="color:#F36B1F;font-weight:bold">deepframe.cc</a> pour suivre votre devis en ligne.</p>`
         }
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`

@@ -12,7 +12,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 600;
-  color: #1901AD;
+  color: #F36B1F;
   margin-bottom: 22px;
   display: inline-flex;
   align-items: center;
@@ -32,17 +32,17 @@
   font-size: clamp(54px, 8vw, 110px);
   line-height: 0.92;
   letter-spacing: -0.035em;
-  color: #1901AD;
+  color: #ffffff;
   margin: 12px 0 18px;
 }
 .pj-hero h1 em {
   font-style: italic;
-  color: #FFBD59;
+  color: #F36B1F;
   font-weight: 800;
 }
 
 .pj-hero p {
-  color: rgba(10, 10, 35, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 18px;
   line-height: 1.55;
   max-width: 56ch;
@@ -57,7 +57,7 @@
   padding: 0 40px;
   display: flex;
   gap: 8px;
-  border-bottom: 1px solid rgba(10, 10, 35, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pj-tab {
@@ -68,7 +68,7 @@
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: rgba(10, 10, 35, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   position: relative;
   transition: color 0.2s;
@@ -79,17 +79,17 @@
 .pj-tab em {
   font-style: normal;
   font-size: 11px;
-  background: #FAF8F2;
-  color: rgba(10, 10, 35, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
   padding: 2px 8px;
   border-radius: 999px;
   font-weight: 600;
 }
 .pj-tab:hover {
-  color: #0A0A23;
+  color: #ffffff;
 }
 .pj-tab.on {
-  color: #1901AD;
+  color: #F36B1F;
 }
 .pj-tab.on::after {
   content: "";
@@ -98,11 +98,11 @@
   right: 14px;
   bottom: -1px;
   height: 3px;
-  background: #FFBD59;
+  background: #F36B1F;
   border-radius: 3px 3px 0 0;
 }
 .pj-tab.on em {
-  background: #1901AD;
+  background: #F36B1F;
   color: #fff;
 }
 
@@ -118,23 +118,24 @@
 }
 
 .pj-chip {
-  background: #fff;
-  border: 1px solid rgba(10, 10, 35, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   padding: 7px 14px;
   font-size: 12.5px;
   font-weight: 500;
-  color: rgba(10, 10, 35, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .pj-chip:hover {
-  color: #0A0A23;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .pj-chip.on {
-  background: #1901AD;
+  background: #F36B1F;
   color: #fff;
-  border-color: #1901AD;
+  border-color: #F36B1F;
 }
 
 /* ── Grid ────────────────────────────────────────────────────── */
@@ -239,7 +240,7 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   color: #1A1408;
-  background: #FFBD59;
+  background: #F36B1F;
   padding: 4px 8px;
   border-radius: 4px;
   text-transform: uppercase;
@@ -260,7 +261,7 @@
   place-items: center;
   opacity: 0;
   transition: opacity 0.25s, transform 0.25s;
-  color: #1901AD;
+  color: #F36B1F;
   font-size: 18px;
   z-index: 2;
 }
@@ -303,7 +304,7 @@
   font-family: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
   font-size: 10.5px;
   letter-spacing: 0.14em;
-  color: #FFBD59;
+  color: #F36B1F;
   text-transform: uppercase;
 }
 
@@ -314,13 +315,13 @@
   line-height: 1.25;
   letter-spacing: -0.015em;
   margin: 0;
-  color: #1901AD;
+  color: #ffffff;
 }
 
 .pj-client {
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 13px;
-  color: rgba(10, 10, 35, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Empty state */
@@ -433,7 +434,7 @@
   margin: 0;
 }
 .pj-modal-info .pj-tag {
-  color: #FFBD59;
+  color: #F36B1F;
 }
 .pj-modal-info .pj-client {
   color: rgba(255, 255, 255, 0.5);
@@ -491,14 +492,14 @@
   font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 22px;
   font-weight: 700;
-  color: #1901AD;
+  color: #F36B1F;
   margin-bottom: 18px;
 }
 .pj-cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #1901AD;
+  background: #F36B1F;
   color: #fff;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 14px;

@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { FOUNDER_LABEL } from "@/lib/pricing";
 import type { Founder } from "@prisma/client";
@@ -19,7 +19,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
 
   try {
     const session = await auth();
-    userId = (session?.user as any)?.id as string | undefined;
+    userId = session?.user?.id;
 
     const where: any = { type: "PHOTO", published: true };
     if (sp.owner === "PAPI" || sp.owner === "LOUISIA" || sp.owner === "TY") where.owner = sp.owner;
@@ -46,7 +46,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
       </header>
 
       {dbError ? (
-        <div className="flex items-center gap-3 rounded-xl bg-amber-50 p-6 text-amber-800">
+        <div className="flex items-center gap-3 rounded-xl bg-amber-500/10 p-6 text-amber-800">
           <AlertTriangle className="h-6 w-6 shrink-0" />
           <div>
             <p className="font-bold">Service temporairement indisponible</p>
@@ -54,7 +54,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
           </div>
         </div>
       ) : medias.length === 0 ? (
-        <p className="rounded-xl bg-df-cream p-8 text-center text-df-blue/70">Aucune photo pour l&apos;instant — bientôt en ligne.</p>
+        <p className="rounded-xl bg-df-surface p-8 text-center text-df-blue/70">Aucune photo pour l&apos;instant — bientôt en ligne.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {medias.map((m) => (

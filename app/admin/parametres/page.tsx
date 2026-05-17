@@ -1,4 +1,4 @@
-import { PACKS, DUREE_SUPPLEMENT, USAGE_PRICE_PER_VIDEO, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
+﻿import { PACKS, DUREE_SUPPLEMENT, USAGE_PRICE_PER_VIDEO, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
 import { Settings, CreditCard, FileText, Calculator, Truck, Clock, Package } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -9,42 +9,42 @@ export default function AdminParametresPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Paramètres
         </h1>
-        <p className="mt-1 text-sm text-df-ink/50">
+        <p className="mt-1 text-sm text-white/40">
           Tarifs, mentions légales et configuration
         </p>
       </header>
 
       {/* Tarifs Packs */}
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-        <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
+      <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+        <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
           <Package className="h-5 w-5 text-df-blue" />
           <div>
-            <h2 className="font-display text-lg font-bold text-df-ink">Tarifs des packs</h2>
-            <p className="text-xs text-df-ink/40">Modifiez dans lib/pricing.ts</p>
+            <h2 className="font-display text-lg font-bold text-white">Tarifs des packs</h2>
+            <p className="text-xs text-white/30">Modifiez dans lib/pricing.ts</p>
           </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-df-blue/10 text-left">
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-df-ink/40">Pack</th>
-                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-df-ink/40">Prix HT</th>
-                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-df-ink/40">Vidéos</th>
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-df-ink/40">Description</th>
+              <tr className="border-b border-white/[0.08] text-left">
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Pack</th>
+                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Prix HT</th>
+                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/30">Vidéos</th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Description</th>
               </tr>
             </thead>
             <tbody>
               {packs.map((p, i) => (
-                <tr key={p.code} className={`border-b border-df-blue/5 ${i % 2 === 0 ? "bg-white" : "bg-df-cream/10"}`}>
-                  <td className="px-5 py-3 font-display text-sm font-bold text-df-ink">{p.label}</td>
+                <tr key={p.code} className={`border-b border-white/[0.06] ${i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"}`}>
+                  <td className="px-5 py-3 font-display text-sm font-bold text-white">{p.label}</td>
                   <td className="px-5 py-3 text-right font-display font-bold text-df-blue">
                     {p.price > 0 ? `${p.price} €` : "Sur devis"}
                   </td>
-                  <td className="px-5 py-3 text-center text-df-ink/60">{p.videos || "—"}</td>
-                  <td className="px-5 py-3 text-xs text-df-ink/50">{p.description}</td>
+                  <td className="px-5 py-3 text-center text-white/50">{p.videos || "—"}</td>
+                  <td className="px-5 py-3 text-xs text-white/40">{p.description}</td>
                 </tr>
               ))}
             </tbody>
@@ -55,16 +55,16 @@ export default function AdminParametresPage() {
       {/* Suppléments */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Durée tournage */}
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
             <Clock className="h-5 w-5 text-purple-600" />
-            <h2 className="font-display text-lg font-bold text-df-ink">Durée tournage</h2>
+            <h2 className="font-display text-lg font-bold text-white">Durée tournage</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {Object.entries(DUREE_SUPPLEMENT).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
-                <span className="text-sm text-df-ink">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-600"}`}>
+                <span className="text-sm text-white">{val.label}</span>
+                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-400"}`}>
                   {val.price > 0 ? `+${val.price} €` : "Inclus"}
                 </span>
               </div>
@@ -73,16 +73,16 @@ export default function AdminParametresPage() {
         </div>
 
         {/* Délai livraison */}
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
             <Truck className="h-5 w-5 text-amber-600" />
-            <h2 className="font-display text-lg font-bold text-df-ink">Délai de livraison</h2>
+            <h2 className="font-display text-lg font-bold text-white">Délai de livraison</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {Object.entries(DELAI).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
-                <span className="text-sm text-df-ink">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-600"}`}>
+                <span className="text-sm text-white">{val.label}</span>
+                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-400"}`}>
                   {val.price > 0 ? `+${val.price} €` : "Inclus"}
                 </span>
               </div>
@@ -91,16 +91,16 @@ export default function AdminParametresPage() {
         </div>
 
         {/* Usage / droits */}
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
             <CreditCard className="h-5 w-5 text-df-gold" />
-            <h2 className="font-display text-lg font-bold text-df-ink">Droits d&apos;usage</h2>
+            <h2 className="font-display text-lg font-bold text-white">Droits d&apos;usage</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {Object.entries(USAGE_PRICE_PER_VIDEO).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
-                <span className="text-sm text-df-ink">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.perVideo > 0 ? "text-df-blue" : "text-emerald-600"}`}>
+                <span className="text-sm text-white">{val.label}</span>
+                <span className={`font-display text-sm font-bold ${val.perVideo > 0 ? "text-df-blue" : "text-emerald-400"}`}>
                   {val.perVideo > 0 ? `+${val.perVideo} €/vidéo` : "Inclus"}
                 </span>
               </div>
@@ -109,18 +109,18 @@ export default function AdminParametresPage() {
         </div>
 
         {/* Constantes */}
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
-            <Calculator className="h-5 w-5 text-emerald-600" />
-            <h2 className="font-display text-lg font-bold text-df-ink">Constantes</h2>
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
+            <Calculator className="h-5 w-5 text-emerald-400" />
+            <h2 className="font-display text-lg font-bold text-white">Constantes</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             <div className="flex items-center justify-between px-6 py-3.5">
-              <span className="text-sm text-df-ink">Prix au km</span>
+              <span className="text-sm text-white">Prix au km</span>
               <span className="font-display text-sm font-bold text-df-blue">{PRIX_KM} €/km</span>
             </div>
             <div className="flex items-center justify-between px-6 py-3.5">
-              <span className="text-sm text-df-ink">Taux d&apos;acompte</span>
+              <span className="text-sm text-white">Taux d&apos;acompte</span>
               <span className="font-display text-sm font-bold text-df-blue">{ACOMPTE_RATE}%</span>
             </div>
           </div>
@@ -128,17 +128,17 @@ export default function AdminParametresPage() {
       </div>
 
       {/* Mentions légales */}
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-        <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
-          <FileText className="h-5 w-5 text-df-ink/50" />
+      <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+        <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
+          <FileText className="h-5 w-5 text-white/40" />
           <div>
-            <h2 className="font-display text-lg font-bold text-df-ink">Mentions légales devis/factures</h2>
-            <p className="text-xs text-df-ink/40">Incluses automatiquement dans les PDFs</p>
+            <h2 className="font-display text-lg font-bold text-white">Mentions légales devis/factures</h2>
+            <p className="text-xs text-white/30">Incluses automatiquement dans les PDFs</p>
           </div>
         </div>
         <div className="px-6 py-4">
-          <div className="rounded-xl bg-df-cream/30 p-4 text-xs leading-relaxed text-df-ink/60">
-            <p className="font-bold text-df-ink/80">TVA non applicable, art. 293 B du CGI</p>
+          <div className="rounded-xl bg-white/[0.04] p-4 text-xs leading-relaxed text-white/50">
+            <p className="font-bold text-white/80">TVA non applicable, art. 293 B du CGI</p>
             <p className="mt-2">
               Auto-entrepreneur — Dispense d&apos;immatriculation au RCS.
               Conditions de paiement : {ACOMPTE_RATE}% d&apos;acompte à la commande, solde à réception.
@@ -152,12 +152,12 @@ export default function AdminParametresPage() {
       </div>
 
       {/* Configuration système */}
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-        <div className="flex items-center gap-3 border-b border-df-blue/5 px-6 py-4">
-          <Settings className="h-5 w-5 text-df-ink/50" />
-          <h2 className="font-display text-lg font-bold text-df-ink">Configuration système</h2>
+      <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+        <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
+          <Settings className="h-5 w-5 text-white/40" />
+          <h2 className="font-display text-lg font-bold text-white">Configuration système</h2>
         </div>
-        <div className="divide-y divide-df-blue/5">
+        <div className="divide-y divide-white/[0.06]">
           {[
             { label: "Hébergeur", value: "Vercel (Edge Network)" },
             { label: "Base de données", value: "Neon PostgreSQL (eu-central-1)" },
@@ -169,8 +169,8 @@ export default function AdminParametresPage() {
             { label: "Signature", value: "Yousign eIDAS (prévu)" },
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between px-6 py-3.5">
-              <span className="text-sm text-df-ink/60">{item.label}</span>
-              <span className="text-sm font-bold text-df-ink">{item.value}</span>
+              <span className="text-sm text-white/50">{item.label}</span>
+              <span className="text-sm font-bold text-white">{item.value}</span>
             </div>
           ))}
         </div>

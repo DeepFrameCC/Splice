@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition } from "react";
 import { approuverAvis, rejeterAvis, toggleFeaturedAvis } from "@/app/actions/admin-avis";
@@ -10,7 +10,7 @@ export function ApprouverBtn({ avisId }: { avisId: string }) {
     <button
       disabled={pending}
       onClick={() => startTransition(() => approuverAvis(avisId))}
-      className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-600 transition hover:bg-emerald-500 hover:text-white disabled:opacity-50"
+      className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-bold text-emerald-400 transition hover:bg-emerald-500 hover:text-white disabled:opacity-50"
     >
       <Check className="h-3 w-3" /> {pending ? "…" : "Approuver"}
     </button>
@@ -26,7 +26,7 @@ export function FeaturedToggle({ avisId, featured }: { avisId: string; featured:
       className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-bold transition disabled:opacity-50 ${
         featured
           ? "bg-df-gold/20 text-df-gold hover:bg-df-gold/30"
-          : "bg-df-ink/5 text-df-ink/40 hover:bg-df-ink/10"
+          : "bg-white/5 text-white/30 hover:bg-white/[0.08]"
       }`}
       aria-label={featured ? "Retirer de la mise en avant" : "Mettre en avant"}
     >
@@ -46,7 +46,7 @@ export function RejeterBtn({ avisId }: { avisId: string }) {
           startTransition(() => rejeterAvis(avisId));
         }
       }}
-      className="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-500 hover:text-white disabled:opacity-50"
+      className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-3 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-500 hover:text-white disabled:opacity-50"
     >
       <X className="h-3 w-3" /> {pending ? "…" : "Supprimer"}
     </button>

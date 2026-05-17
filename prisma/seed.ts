@@ -212,7 +212,25 @@ async function main() {
     console.log("Service:", s.slug);
   }
 
+  // ── Blog Categories ─────────────────────────────────────────────────
+  const blogCategories = [
+    { slug: "montage-video", name: "Montage vidéo", color: "#F36B1F" },
+    { slug: "production-corporate", name: "Production corporate", color: "#F36B1F" },
+    { slug: "motion-design", name: "Motion design", color: "#F36B1F" },
+  ];
+
+  for (const cat of blogCategories) {
+    await db.blogCategory.upsert({
+      where: { slug: cat.slug },
+      update: { name: cat.name, color: cat.color },
+      create: cat,
+    });
+    console.log("BlogCategory:", cat.slug);
+  }
+
   // ── Blog Posts (2 par service) ─────────────────────────────────────
+  const { blogContent } = await import("./blog-content");
+  const adminUser = await db.user.findUnique({ where: { email: adminEmail } });
   const blogPosts = [
     {
       slug: "5-erreurs-montage-video-reseaux-sociaux",
@@ -262,20 +280,30 @@ async function main() {
     const service = await db.service.findUnique({ where: { slug: bp.serviceSlug } });
     if (!service) continue;
 
+    const content = blogContent[bp.slug] ?? "";
+    const category = await db.blogCategory.findUnique({ where: { slug: bp.serviceSlug } });
+
+    const data = {
+      title: bp.title,
+      excerpt: bp.excerpt,
+      content,
+      status: "PUBLISHED" as const,
+      publishedAt: bp.publishedAt,
+      parentServiceId: service.id,
+      authorId: adminUser?.id ?? null,
+      readingTimeMin: Math.max(3, Math.round((content.replace(/<[^>]*>/g, "").split(/\s+/).length) / 200)),
+    };
+
     await db.blogPost.upsert({
       where: { slug: bp.slug },
       update: {
-        title: bp.title,
-        excerpt: bp.excerpt,
-        publishedAt: bp.publishedAt,
-        parentServiceId: service.id,
+        ...data,
+        categories: category ? { set: [{ id: category.id }] } : undefined,
       },
       create: {
         slug: bp.slug,
-        title: bp.title,
-        excerpt: bp.excerpt,
-        publishedAt: bp.publishedAt,
-        parentServiceId: service.id,
+        ...data,
+        categories: category ? { connect: [{ id: category.id }] } : undefined,
       },
     });
     console.log("BlogPost:", bp.slug, "->", bp.serviceSlug);
@@ -388,6 +416,18 @@ async function main() {
       owner: "LOUISIA" as const,
       prixEstime: 600,
       materiel: ["INSTA360", "DJI"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/jeanne-darc.mp4",
+      thumbnailUrl: "/videos/thumb-jeanne-darc.jpg",
+      title: "Fête de Jeanne d'Arc — Orléans 2025",
+      category: "evenementiel",
+      client: "Événement public · Orléans",
+      duration: "00:01:30",
+      owner: "PAPI" as const,
+      prixEstime: 0,
+      materiel: ["Sony ZV-1"],
     },
   ];
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTransition, useState } from "react";
 import { sendVerificationEmail } from "@/app/actions/email-verification";
@@ -12,9 +12,9 @@ export default function EmailVerificationBanner({ verified }: { verified: boolea
 
   if (verified) {
     return (
-      <div className="flex items-center gap-3 rounded-xl bg-emerald-50 px-4 py-3">
+      <div className="flex items-center gap-3 rounded-xl bg-emerald-500/10 px-4 py-3">
         <CheckCircle className="h-5 w-5 shrink-0 text-emerald-500" />
-        <p className="text-sm font-medium text-emerald-700">
+        <p className="text-sm font-medium text-emerald-400">
           Adresse email vérifiée
         </p>
       </div>
@@ -22,7 +22,7 @@ export default function EmailVerificationBanner({ verified }: { verified: boolea
   }
 
   return (
-    <div className="rounded-xl bg-amber-50 p-4">
+    <div className="rounded-xl bg-amber-500/10 p-4">
       <div className="flex items-start gap-3">
         <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
         <div className="flex-1">
@@ -34,7 +34,7 @@ export default function EmailVerificationBanner({ verified }: { verified: boolea
           </p>
 
           {sent ? (
-            <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-emerald-600">
+            <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-emerald-400">
               <Mail className="h-3.5 w-3.5" /> Email envoyé ! Vérifiez votre boîte de réception.
             </p>
           ) : (

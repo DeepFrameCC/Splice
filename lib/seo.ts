@@ -115,6 +115,10 @@ export function buildBlogPostJsonLd(post: {
   excerpt: string;
   slug: string;
   publishedAt: string;
+  updatedAt?: string;
+  coverImageUrl?: string | null;
+  author?: { pseudo: string } | null;
+  parentService?: { name: string } | null;
 }) {
   return {
     "@context": "https://schema.org",
@@ -123,10 +127,12 @@ export function buildBlogPostJsonLd(post: {
     description: post.excerpt,
     url: `${BASE_URL}/blog/${post.slug}`,
     datePublished: post.publishedAt,
-    author: {
-      "@type": "Organization",
-      name: "DeepFrame",
-    },
+    ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+    ...(post.coverImageUrl ? { image: post.coverImageUrl } : {}),
+    ...(post.parentService ? { articleSection: post.parentService.name } : {}),
+    author: post.author
+      ? { "@type": "Person", name: post.author.pseudo }
+      : { "@type": "Organization", name: "DeepFrame" },
     publisher: {
       "@type": "Organization",
       name: "DeepFrame",

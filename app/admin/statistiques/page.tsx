@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+﻿import { db } from "@/lib/db";
 import { PACKS, FOUNDER_LABEL } from "@/lib/pricing";
 import { CABarChart, FunnelPieChart, ExportCSVButton } from "@/components/dashboard/StatsCharts";
 import { TrendingUp, Target, ShoppingCart, Users, BarChart3 } from "lucide-react";
@@ -122,10 +122,10 @@ export default async function AdminStatsPage() {
     <div className="space-y-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold text-df-ink lg:text-4xl">
+          <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Statistiques
           </h1>
-          <p className="mt-1 text-sm text-df-ink/50">
+          <p className="mt-1 text-sm text-white/40">
             Analyse de performance — {currentYear}
           </p>
         </div>
@@ -135,17 +135,17 @@ export default async function AdminStatsPage() {
       {/* KPI Cards */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          { label: "CA YTD", value: `${caYTD.toLocaleString("fr-FR")} €`, icon: TrendingUp, color: "text-emerald-600", bg: "bg-emerald-50" },
+          { label: "CA YTD", value: `${caYTD.toLocaleString("fr-FR")} €`, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10" },
           { label: "Taux conversion", value: `${tauxConversion}%`, icon: Target, color: "text-df-blue", bg: "bg-df-blue/5" },
-          { label: "Panier moyen", value: `${panierMoyen.toLocaleString("fr-FR")} €`, icon: ShoppingCart, color: "text-purple-600", bg: "bg-purple-50" },
+          { label: "Panier moyen", value: `${panierMoyen.toLocaleString("fr-FR")} €`, icon: ShoppingCart, color: "text-purple-600", bg: "bg-purple-500/10" },
           { label: "Clients actifs", value: uniqueClients, icon: Users, color: "text-df-gold", bg: "bg-df-gold/10" },
         ].map((k) => (
-          <div key={k.label} className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-df-blue/10">
+          <div key={k.label} className="rounded-2xl bg-df-surface p-5 shadow-sm ring-1 ring-white/[0.08]">
             <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${k.bg}`}>
               <k.icon className={`h-4 w-4 ${k.color}`} />
             </div>
-            <p className="mt-3 font-display text-2xl font-bold text-df-ink">{k.value}</p>
-            <p className="text-xs text-df-ink/50">{k.label}</p>
+            <p className="mt-3 font-display text-2xl font-bold text-white">{k.value}</p>
+            <p className="text-xs text-white/40">{k.label}</p>
           </div>
         ))}
       </div>
@@ -153,41 +153,41 @@ export default async function AdminStatsPage() {
       {/* Charts row */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* CA mensuel */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-          <h2 className="mb-4 font-display text-lg font-bold text-df-ink">
+        <div className="rounded-2xl bg-df-surface p-6 shadow-sm ring-1 ring-white/[0.08]">
+          <h2 className="mb-4 font-display text-lg font-bold text-white">
             CA mensuel {currentYear}
           </h2>
           <CABarChart data={monthlyCA} />
         </div>
 
         {/* Funnel */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-df-blue/10">
-          <h2 className="mb-4 font-display text-lg font-bold text-df-ink">
+        <div className="rounded-2xl bg-df-surface p-6 shadow-sm ring-1 ring-white/[0.08]">
+          <h2 className="mb-4 font-display text-lg font-bold text-white">
             Funnel de conversion
           </h2>
           {funnelData.length > 0 ? (
             <FunnelPieChart data={funnelData} />
           ) : (
-            <p className="py-12 text-center text-sm text-df-ink/40">Pas de données.</p>
+            <p className="py-12 text-center text-sm text-white/30">Pas de données.</p>
           )}
         </div>
       </div>
 
       {/* CA by pack + CA by chef */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="border-b border-df-blue/5 px-6 py-4">
-            <h2 className="font-display text-lg font-bold text-df-ink">CA par service</h2>
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="border-b border-white/[0.06] px-6 py-4">
+            <h2 className="font-display text-lg font-bold text-white">CA par service</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {caByPack.map((p, i) => (
               <div key={p.label} className="flex items-center gap-3 px-6 py-3.5">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-df-blue/5 text-xs font-bold text-df-blue">
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-df-ink">{p.label}</p>
-                  <p className="text-xs text-df-ink/40">{p.count} devis</p>
+                  <p className="text-sm font-bold text-white">{p.label}</p>
+                  <p className="text-xs text-white/30">{p.count} devis</p>
                 </div>
                 <p className="font-display text-sm font-bold text-df-blue">
                   {p.value.toLocaleString("fr-FR")} €
@@ -195,24 +195,24 @@ export default async function AdminStatsPage() {
               </div>
             ))}
             {caByPack.length === 0 && (
-              <p className="px-6 py-8 text-center text-sm text-df-ink/40">Aucune donnée.</p>
+              <p className="px-6 py-8 text-center text-sm text-white/30">Aucune donnée.</p>
             )}
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-          <div className="border-b border-df-blue/5 px-6 py-4">
-            <h2 className="font-display text-lg font-bold text-df-ink">CA par monteur</h2>
+        <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+          <div className="border-b border-white/[0.06] px-6 py-4">
+            <h2 className="font-display text-lg font-bold text-white">CA par monteur</h2>
           </div>
-          <div className="divide-y divide-df-blue/5">
+          <div className="divide-y divide-white/[0.06]">
             {caByChef.map((c, i) => (
               <div key={c.label} className="flex items-center gap-3 px-6 py-3.5">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-df-gold/10 text-xs font-bold text-df-gold">
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-bold text-df-ink">{c.label}</p>
-                  <p className="text-xs text-df-ink/40">{c.count} devis</p>
+                  <p className="text-sm font-bold text-white">{c.label}</p>
+                  <p className="text-xs text-white/30">{c.count} devis</p>
                 </div>
                 <p className="font-display text-sm font-bold text-df-gold">
                   {c.value.toLocaleString("fr-FR")} €
@@ -220,31 +220,31 @@ export default async function AdminStatsPage() {
               </div>
             ))}
             {caByChef.length === 0 && (
-              <p className="px-6 py-8 text-center text-sm text-df-ink/40">Aucune donnée.</p>
+              <p className="px-6 py-8 text-center text-sm text-white/30">Aucune donnée.</p>
             )}
           </div>
         </div>
       </div>
 
       {/* Top clients */}
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-df-blue/10">
-        <div className="border-b border-df-blue/5 px-6 py-4">
-          <h2 className="font-display text-lg font-bold text-df-ink">Top 10 clients</h2>
+      <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
+        <div className="border-b border-white/[0.06] px-6 py-4">
+          <h2 className="font-display text-lg font-bold text-white">Top 10 clients</h2>
         </div>
-        <div className="divide-y divide-df-blue/5">
+        <div className="divide-y divide-white/[0.06]">
           {topClients.map((c, i) => (
             <div key={c.name + i} className="flex items-center gap-3 px-6 py-3.5">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-xs font-bold text-emerald-600">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-400">
                 {i + 1}
               </span>
-              <p className="min-w-0 flex-1 truncate text-sm font-bold text-df-ink">{c.name}</p>
-              <p className="font-display text-sm font-bold text-emerald-600">
+              <p className="min-w-0 flex-1 truncate text-sm font-bold text-white">{c.name}</p>
+              <p className="font-display text-sm font-bold text-emerald-400">
                 {c.total.toLocaleString("fr-FR")} €
               </p>
             </div>
           ))}
           {topClients.length === 0 && (
-            <p className="px-6 py-8 text-center text-sm text-df-ink/40">Aucun client.</p>
+            <p className="px-6 py-8 text-center text-sm text-white/30">Aucun client.</p>
           )}
         </div>
       </div>
