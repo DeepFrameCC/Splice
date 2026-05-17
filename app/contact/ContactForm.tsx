@@ -43,7 +43,7 @@ export default function ContactForm({ members }: Props) {
             name="nom"
             required
             minLength={2}
-            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+            className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm font-semibold text-df-gold">
@@ -52,7 +52,7 @@ export default function ContactForm({ members }: Props) {
             name="email"
             type="email"
             required
-            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+            className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
           />
         </label>
       </div>
@@ -63,11 +63,11 @@ export default function ContactForm({ members }: Props) {
           <select
             name="type"
             required
-            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+            className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
           >
-            <option value="">Choisir…</option>
+            <option value="" className="bg-[#0E0E22] text-white">Choisir…</option>
             {TYPES.map((t) => (
-              <option key={t} value={t}>
+              <option key={t} value={t} className="bg-[#0E0E22] text-white">
                 {t}
               </option>
             ))}
@@ -78,11 +78,11 @@ export default function ContactForm({ members }: Props) {
           <select
             name="budget"
             required
-            className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+            className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
           >
-            <option value="">Choisir…</option>
+            <option value="" className="bg-[#0E0E22] text-white">Choisir…</option>
             {BUDGETS.map((b) => (
-              <option key={b} value={b}>
+              <option key={b} value={b} className="bg-[#0E0E22] text-white">
                 {b}
               </option>
             ))}
@@ -94,12 +94,12 @@ export default function ContactForm({ members }: Props) {
         Destinataire
         <select
           name="member"
-          className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+          className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
           defaultValue="all"
         >
-          <option value="all">Toute l&apos;équipe</option>
+          <option value="all" className="bg-[#0E0E22] text-white">Toute l&apos;équipe</option>
           {members.map((m) => (
-            <option key={m.id} value={m.id}>
+            <option key={m.id} value={m.id} className="bg-[#0E0E22] text-white">
               {m.name}
             </option>
           ))}
@@ -113,7 +113,7 @@ export default function ContactForm({ members }: Props) {
           required
           minLength={10}
           rows={6}
-          className="rounded-lg border border-white/10 px-3 py-2 text-base font-normal text-white"
+          className="rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2 text-base font-normal text-white placeholder:text-white/30 focus:border-df-gold/50 focus:outline-none focus:ring-1 focus:ring-df-gold/20"
         />
       </label>
 
