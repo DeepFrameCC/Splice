@@ -147,13 +147,13 @@ export default function FAQPage() {
       />
       <div className="mx-auto max-w-3xl px-6 pb-20" style={{ paddingTop: "calc(80px + 3rem)" }}>
         <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-df-blue/60">
+          <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">
             FAQ
           </p>
-          <h1 className="mt-2 font-display text-4xl font-bold italic text-df-blue md:text-5xl">
+          <h1 className="mt-2 font-display text-4xl font-bold italic text-white md:text-5xl">
             Questions fréquentes
           </h1>
-          <p className="mt-3 text-df-blue/70">
+          <p className="mt-3 text-white/70">
             Tout ce que vous devez savoir avant de travailler avec nous.
           </p>
         </header>
@@ -161,7 +161,7 @@ export default function FAQPage() {
         <div className="space-y-10">
           {FAQ_SECTIONS.map((section) => (
             <div key={section.title}>
-              <h2 className="mb-4 font-display text-xl font-bold text-df-blue">
+              <h2 className="mb-4 font-display text-xl font-bold text-df-gold">
                 {section.title}
               </h2>
               <div className="space-y-3">
@@ -170,13 +170,13 @@ export default function FAQPage() {
                     key={item.q}
                     className="group rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]"
                   >
-                    <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-df-blue transition hover:bg-white/[0.04]">
+                    <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-white transition hover:bg-white/[0.04]">
                       <h3 className="text-[length:inherit] font-[weight:inherit] m-0 leading-[inherit]">{item.q}</h3>
                       <span className="ml-4 shrink-0 text-df-gold transition-transform group-open:rotate-45">
                         +
                       </span>
                     </summary>
-                    <div className="px-5 pb-5 text-sm leading-relaxed text-df-blue/70">
+                    <div className="px-5 pb-5 text-sm leading-relaxed text-white/70">
                       {item.rich}
                     </div>
                   </details>
