@@ -33,7 +33,7 @@ export default function Recap() {
 
   return (
     <aside className="sticky top-24 space-y-4">
-      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-[#0E0E22] p-6 text-white shadow-2xl shadow-black/40">
+      <div className="rounded-3xl bg-gradient-to-br from-df-glauque to-[#0E0E22] p-6 text-white shadow-2xl shadow-black/40 ring-1 ring-white/[0.08]">
         <div className="flex items-center gap-2">
           <Receipt className="h-5 w-5 text-df-gold" />
           <p className="font-display text-sm italic text-df-gold">Récapitulatif</p>
@@ -58,10 +58,10 @@ export default function Recap() {
               ))}
             </ul>
 
-            <div className="mt-4 rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+            <div className="mt-4 rounded-2xl bg-df-glauque-mid/30 p-4 backdrop-blur-sm ring-1 ring-df-glauque-500/20">
               <div className="flex justify-between text-xl">
                 <span className="font-display italic">Total HT</span>
-                <span className="font-bold text-df-gold">{result.quote.totalHT} €</span>
+                <span className="font-bold text-df-glauque-300">{result.quote.totalHT} €</span>
               </div>
               <div className="mt-2 space-y-1">
                 <div className="flex justify-between text-sm opacity-80">
@@ -81,9 +81,9 @@ export default function Recap() {
       </div>
 
       {/* Trust card */}
-      <div className="rounded-2xl bg-white/[0.04] p-4 text-center">
-        <p className="text-xs font-bold text-df-blue">Devis gratuit · Sans engagement</p>
-        <p className="mt-1 text-[11px] text-df-blue/50">
+      <div className="rounded-2xl bg-white/[0.04] p-5 text-center">
+        <p className="text-sm font-bold text-white">Devis gratuit · Sans engagement</p>
+        <p className="mt-1 text-xs text-white/50">
           Nous vous recontactons sous 24h avec un devis détaillé personnalisé.
         </p>
       </div>

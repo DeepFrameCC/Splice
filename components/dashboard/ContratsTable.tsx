@@ -27,7 +27,7 @@ const columns: ColumnDef<ContratRow, unknown>[] = [
     accessorKey: "numero",
     header: "N° Contrat",
     cell: ({ row }) => (
-      <span className="font-display text-sm font-bold text-df-blue">
+      <span className="font-display text-sm font-bold text-white">
         {row.original.numero}
       </span>
     ),
@@ -38,7 +38,7 @@ const columns: ColumnDef<ContratRow, unknown>[] = [
     cell: ({ row }) => (
       <Link
         href={`/profil/devis/${row.original.devisId}`}
-        className="text-xs text-df-blue underline-offset-4 hover:underline"
+        className="text-xs text-white/60 underline-offset-4 hover:underline hover:text-white"
       >
         {row.original.devisNumero}
       </Link>
@@ -128,7 +128,7 @@ export default function ContratsTable({ data, initialStatus }: Props) {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+          className="rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-bold text-white outline-none transition focus:border-white/20"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>

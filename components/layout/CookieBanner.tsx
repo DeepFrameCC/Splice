@@ -69,7 +69,7 @@ export default function CookieBanner() {
               <p className="mt-1 text-sm text-white/50">
                 Ce site utilise des cookies essentiels au fonctionnement et,
                 avec votre accord, des cookies d&apos;analyse pour améliorer votre expérience.{" "}
-                <Link href="/cookies" className="font-medium text-df-blue hover:underline">
+                <Link href="/cookies" className="font-medium text-df-gold hover:underline">
                   En savoir plus
                 </Link>
               </p>
@@ -141,7 +141,7 @@ export default function CookieBanner() {
             ) : (
               <button
                 onClick={() => setShowDetails(true)}
-                className="flex items-center gap-1.5 text-sm font-medium text-df-blue hover:underline"
+                className="flex items-center gap-1.5 text-sm font-medium text-df-gold hover:underline"
               >
                 <Settings className="h-3.5 w-3.5" /> Personnaliser
               </button>

@@ -34,7 +34,7 @@ export default function FoundersSlider() {
         <button onClick={prev} aria-label="Précédent" className="grid h-10 w-10 place-items-center rounded-full bg-df-blue text-white">
           <ChevronLeft className="h-5 w-5" />
         </button>
-        <span className="font-bold text-df-blue">{i + 1} / {founders.length}</span>
+        <span className="font-bold text-white/50">{i + 1} / {founders.length}</span>
         <button onClick={next} aria-label="Suivant" className="grid h-10 w-10 place-items-center rounded-full bg-df-blue text-white">
           <ChevronRight className="h-5 w-5" />
         </button>

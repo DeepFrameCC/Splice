@@ -16,7 +16,7 @@
 export function ServiceReassurance() {
   return (
     <section id="reassurance" aria-labelledby="reassurance-h2" className="mt-16 scroll-mt-24">
-      <h2 id="reassurance-h2" className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+      <h2 id="reassurance-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
         Nos engagements
       </h2>
       <div className="mt-8 grid gap-6 md:grid-cols-3">

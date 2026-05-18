@@ -69,7 +69,7 @@ export default async function ProfilPage() {
   return (
     <div className="space-y-8">
       {/* Profile header card */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-df-blue to-[#0E0E22] p-6 text-white shadow-lg ring-1 ring-white/10 sm:p-8">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-df-glauque to-[#0E0E22] p-6 text-white shadow-lg ring-1 ring-white/10 sm:p-8">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/5 blur-3xl" />
         <div className="relative flex flex-wrap items-center gap-5">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 text-2xl font-bold uppercase ring-2 ring-white/30 backdrop-blur-sm">
@@ -123,7 +123,7 @@ export default async function ProfilPage() {
       {/* CTA */}
       <div className="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10 sm:p-8">
         <p className="text-white/70">Un nouveau projet en tete ?</p>
-        <Link href="/devis" className="mt-4 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:scale-105 hover:bg-white hover:text-black">
+        <Link href="/devis" className="mt-4 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:scale-105 hover:bg-df-gold/90">
           <Calculator className="h-5 w-5" /> Demander un devis
         </Link>
       </div>

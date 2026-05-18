@@ -74,7 +74,7 @@ export default function TwoFactorSection({ enabled, email }: Props) {
     return (
       <div>
         <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold text-white">
-          <Shield className="h-5 w-5 text-df-blue" />
+          <Shield className="h-5 w-5 text-df-gold" />
           Double authentification
         </h2>
         <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-medium text-emerald-400">
@@ -119,7 +119,7 @@ export default function TwoFactorSection({ enabled, email }: Props) {
             {secret && (
               <div className="text-center">
                 <p className="text-xs text-white/40">Clé manuelle :</p>
-                <code className="mt-1 block rounded-lg bg-df-surface px-3 py-1.5 font-mono text-xs text-df-blue ring-1 ring-white/[0.08]">
+                <code className="mt-1 block rounded-lg bg-df-surface px-3 py-1.5 font-mono text-xs text-df-gold ring-1 ring-white/[0.08]">
                   {secret}
                 </code>
               </div>

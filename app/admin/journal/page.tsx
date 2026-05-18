@@ -201,7 +201,7 @@ export default async function AdminJournalPage({
 
         {logs.length === 0 && (
           <div className="px-6 py-12 text-center">
-            <Shield className="mx-auto h-10 w-10 text-df-blue/20" />
+            <Shield className="mx-auto h-10 w-10 text-white/20" />
             <p className="mt-4 text-sm text-white/30">Aucune action enregistrée.</p>
           </div>
         )}

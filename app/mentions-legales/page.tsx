@@ -13,7 +13,7 @@ export default function MentionsLegales() {
     <>
       <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
-        <h1 className="font-display text-4xl font-bold text-df-blue">Mentions légales</h1>
+        <h1 className="font-display text-4xl font-bold text-white">Mentions légales</h1>
         <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
@@ -84,7 +84,7 @@ export default function MentionsLegales() {
             <p>
               Pour toute information relative à la collecte et au traitement de vos données personnelles,
               veuillez consulter notre{" "}
-              <a href="/confidentialite" className="text-df-blue underline hover:text-df-gold transition-colors">
+              <a href="/confidentialite" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
                 politique de confidentialité
               </a>.
             </p>
@@ -94,7 +94,7 @@ export default function MentionsLegales() {
             <h2 className="text-lg font-bold text-white">7. Cookies</h2>
             <p>
               Pour en savoir plus sur l&apos;utilisation des cookies sur ce site, consultez notre{" "}
-              <a href="/cookies" className="text-df-blue underline hover:text-df-gold transition-colors">
+              <a href="/cookies" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
                 politique de cookies
               </a>.
             </p>

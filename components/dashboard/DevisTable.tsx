@@ -28,7 +28,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
         type="checkbox"
         checked={table.getIsAllPageRowsSelected()}
         onChange={table.getToggleAllPageRowsSelectedHandler()}
-        className="h-4 w-4 rounded accent-df-blue"
+        className="h-4 w-4 rounded accent-emerald-500"
         aria-label="Sélectionner tout"
       />
     ),
@@ -37,7 +37,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
         type="checkbox"
         checked={row.getIsSelected()}
         onChange={row.getToggleSelectedHandler()}
-        className="h-4 w-4 rounded accent-df-blue"
+        className="h-4 w-4 rounded accent-emerald-500"
         aria-label={`Sélectionner devis ${row.original.numero}`}
       />
     ),
@@ -49,7 +49,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
     cell: ({ row }) => (
       <Link
         href={`/profil/devis/${row.original.id}`}
-        className="font-display text-sm font-bold text-df-blue underline-offset-4 hover:underline"
+        className="font-display text-sm font-bold text-white underline-offset-4 hover:underline"
       >
         {row.original.numero}
       </Link>
@@ -79,7 +79,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
     accessorKey: "packLabel",
     header: "Pack",
     cell: ({ row }) => (
-      <span className="inline-flex rounded-full bg-df-blue/5 px-2.5 py-1 text-xs font-semibold text-df-blue">
+      <span className="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white">
         {row.original.packLabel}
       </span>
     ),
@@ -128,7 +128,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
         )}
         <Link
           href={`/profil/devis/${row.original.id}`}
-          className="inline-flex items-center gap-1 rounded-full bg-df-blue/5 px-2.5 py-1.5 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+          className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
           aria-label={`Voir le devis ${row.original.numero}`}
         >
           <Eye className="h-3 w-3" /> Voir
@@ -176,7 +176,7 @@ export default function DevisTable({ data, statusFilter, onStatusChange }: Props
         <select
           value={statusFilter}
           onChange={(e) => onStatusChange(e.target.value)}
-          className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+          className="rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-bold text-white outline-none transition focus:border-white/20"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>
@@ -188,7 +188,7 @@ export default function DevisTable({ data, statusFilter, onStatusChange }: Props
       bulkActions={(ids) => (
         <button
           type="button"
-          className="inline-flex items-center gap-1.5 rounded-full bg-df-blue/5 px-3 py-1.5 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+          className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
           onClick={() => {
             const nums = ids
               .map((id) => data.find((d) => d.id === id)?.numero)

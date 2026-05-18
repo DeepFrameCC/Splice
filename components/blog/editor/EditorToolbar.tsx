@@ -42,8 +42,8 @@ function ToolbarButton({
       title={title}
       className={`flex h-8 w-8 items-center justify-center rounded-lg transition ${
         active
-          ? "bg-df-blue text-white"
-          : "text-df-blue/60 hover:bg-df-blue/10 hover:text-df-blue"
+          ? "bg-df-gold text-white"
+          : "text-white/50 hover:bg-white/10 hover:text-white"
       } ${disabled ? "cursor-not-allowed opacity-30" : ""}`}
     >
       {children}
@@ -94,7 +94,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         <Underline className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-df-blue/10" />
+      <div className="mx-1 h-6 w-px bg-white/[0.08]" />
 
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -112,7 +112,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         <Heading3 className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-df-blue/10" />
+      <div className="mx-1 h-6 w-px bg-white/[0.08]" />
 
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
@@ -138,7 +138,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         <ListOrdered className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-df-blue/10" />
+      <div className="mx-1 h-6 w-px bg-white/[0.08]" />
 
       <ToolbarButton onClick={addLink} active={editor.isActive("link")} title="Lien">
         <LinkIcon className="h-4 w-4" />
@@ -155,7 +155,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         <Minus className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-df-blue/10" />
+      <div className="mx-1 h-6 w-px bg-white/[0.08]" />
 
       <ToolbarButton
         onClick={() => editor.chain().focus().undo().run()}

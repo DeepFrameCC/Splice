@@ -84,7 +84,7 @@ export default async function MesContrats() {
                 <div className="mt-4 flex flex-wrap gap-3 border-t border-white/[0.08] pt-4">
                   <Link
                     href={`/profil/devis/${c.devisId}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-4 py-1.5 text-xs font-bold text-white transition hover:bg-df-blue hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-4 py-1.5 text-xs font-bold text-white transition hover:bg-white/10"
                   >
                     <FileText className="h-3.5 w-3.5" />
                     Voir le devis

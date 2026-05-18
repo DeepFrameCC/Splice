@@ -19,20 +19,20 @@ export default async function ConfirmationPage({
     <>
       <NavWrapper />
       <section className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center px-6 py-20 text-center">
-        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-          <CheckCircle className="h-10 w-10 text-green-600" />
+        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/15">
+          <CheckCircle className="h-10 w-10 text-green-400" />
         </div>
 
         <h1
-          className="text-3xl font-black text-df-blue md:text-4xl"
+          className="text-3xl font-black text-white md:text-4xl"
           style={{ fontFamily: "var(--font-display)" }}
         >
           Demande envoyée !
         </h1>
 
         <p className="mt-4 text-lg leading-relaxed text-white/70">
-          Votre demande de devis{numero ? <> <strong className="text-df-blue">n°{numero}</strong></> : ""}{" "}
-          {total ? <>pour un total de <strong className="text-df-blue">{total} €</strong> </> : ""}
+          Votre demande de devis{numero ? <> <strong className="text-df-gold">n°{numero}</strong></> : ""}{" "}
+          {total ? <>pour un total de <strong className="text-df-gold">{total} €</strong> </> : ""}
           a bien été enregistrée.
         </p>
 
@@ -43,7 +43,7 @@ export default async function ConfirmationPage({
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="rounded-full border-2 border-df-blue px-6 py-3 text-sm font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+            className="rounded-full border-2 border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/[0.06]"
           >
             Retour à l&apos;accueil
           </Link>

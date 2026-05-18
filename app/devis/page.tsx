@@ -19,13 +19,13 @@ export default function DevisPage() {
       <NavWrapper />
       <section className="mx-auto max-w-7xl px-6 pb-16" style={{ paddingTop: "calc(80px + 3rem)" }}>
         <header className="mb-10 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-df-blue/60">
+          <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">
             Devis en ligne
           </p>
-          <h1 className="mt-2 font-display text-4xl italic text-df-blue md:text-5xl lg:text-6xl">
+          <h1 className="mt-2 font-display text-4xl italic text-white md:text-5xl lg:text-6xl">
             Demandez votre devis
           </h1>
-          <p className="mx-auto mt-3 max-w-lg text-df-blue/70">
+          <p className="mx-auto mt-3 max-w-lg text-white/70">
             4 étapes simples — récapitulatif en temps réel. Gratuit, sans engagement.
             Nous revenons vers vous sous 24h.
           </p>

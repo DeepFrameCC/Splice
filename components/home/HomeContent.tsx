@@ -176,13 +176,20 @@ function About() {
         </h2>
         <div className="df-about-copy">
           <p>
-            Basés à Orléans et Tours, on accompagne les marques de la région — et au-delà —
-            sur tout ce qui touche à l&apos;audiovisuel. Pubs sociales, shootings auto,
-            contenus de marque et intro personnalisées.
+            DeepFrame embellit les marques à Orléans avec des contenus visuels qui captivent et convertissent.
           </p>
           <p>
-            Petite équipe, matériel professionnel, idées claires. On écrit, on tourne, on monte,
-            on finalise — et on livre des réalisations qui font le job.
+            Spécialiste de la création audiovisuelle et digitale, DeepFrame accompagne les entreprises et
+            PME locales avec une offre complète : <strong>shootings automobile</strong>, <strong>photographie
+            professionnelle</strong>, et productions vidéo soignées pensées pour durer. Que ce soit pour Instagram,
+            TikTok, Facebook ou d&apos;autres plateformes sociales, chaque contenu est conçu pour capter
+            l&apos;attention dès les premières secondes et se regarder jusqu&apos;au bout.
+          </p>
+          <p>
+            DeepFrame donne aussi la parole aux acteurs économiques du territoire grâce à des <strong>interviews
+            mises en valeur</strong> et des <strong>présentations d&apos;entreprise</strong> sur-mesure — un outil
+            puissant pour les PME locales qui souhaitent renforcer leur visibilité, raconter leur histoire
+            et créer un lien authentique avec leur audience.
           </p>
         </div>
       </div>

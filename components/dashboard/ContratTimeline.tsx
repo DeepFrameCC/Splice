@@ -21,8 +21,8 @@ export default function ContratTimeline({ status }: { status: ContratStatus }) {
             <div
               className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${
                 done
-                  ? "bg-df-blue text-white"
-                  : "bg-df-surface text-df-blue/40"
+                  ? "bg-df-gold text-white"
+                  : "bg-df-surface text-white/40"
               }`}
             >
               <Icon className="h-3.5 w-3.5" />
@@ -31,7 +31,7 @@ export default function ContratTimeline({ status }: { status: ContratStatus }) {
             {i < steps.length - 1 && (
               <div
                 className={`h-0.5 w-4 rounded-full transition-colors ${
-                  i < currentIndex ? "bg-df-blue" : "bg-df-blue/15"
+                  i < currentIndex ? "bg-df-gold" : "bg-white/15"
                 }`}
               />
             )}

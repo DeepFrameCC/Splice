@@ -27,19 +27,19 @@ export default function AdminFilters({ statusOptions, currentStatus, currentSear
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-df-blue/40" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
         <input
           type="text"
           placeholder="Rechercher…"
           defaultValue={currentSearch}
           onChange={(e) => updateParams("q", e.target.value)}
-          className="w-56 rounded-xl border-2 border-white/10 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
+          className="w-56 rounded-xl border-2 border-white/10 bg-white/[0.06] py-2 pl-9 pr-3 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-white/20"
         />
       </div>
       <select
         value={currentStatus}
         onChange={(e) => updateParams("status", e.target.value)}
-        className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+        className="rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-bold text-white outline-none transition focus:border-white/20"
       >
         <option value="">Tous</option>
         {statusOptions.map((o) => (

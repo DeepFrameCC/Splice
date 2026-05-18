@@ -27,7 +27,7 @@ export default async function ServicesHubPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-20">
-      <h1 className="text-3xl font-semibold tracking-tight text-df-blue md:text-5xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
         Nos services audiovisuels
       </h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
@@ -39,7 +39,7 @@ export default async function ServicesHubPage() {
           <Link
             key={s.slug}
             href={`/services/${s.slug}`}
-            className="group overflow-hidden rounded-2xl border border-white/[0.08] bg-df-surface shadow-sm transition hover:shadow-md hover:border-df-blue/25"
+            className="group overflow-hidden rounded-2xl border border-white/[0.08] bg-df-surface shadow-sm transition hover:shadow-md hover:border-df-gold/25"
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-df-surface">
               <Image
@@ -51,13 +51,13 @@ export default async function ServicesHubPage() {
               />
             </div>
             <div className="p-5">
-              <h2 className="text-lg font-semibold text-white group-hover:text-df-blue transition">
+              <h2 className="text-lg font-semibold text-white group-hover:text-df-gold transition">
                 {s.name}
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-white/50 line-clamp-3">
                 {s.metaDescription}
               </p>
-              <span className="mt-4 inline-block text-sm font-medium text-df-blue">
+              <span className="mt-4 inline-block text-sm font-medium text-df-gold">
                 En savoir plus &rarr;
               </span>
             </div>

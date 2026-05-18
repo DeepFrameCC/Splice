@@ -15,10 +15,10 @@
         <div className="mb-12 overflow-hidden rounded-2xl bg-df-surface shadow-lg ring-1 ring-white/[0.08] md:grid md:grid-cols-2">
           <div className="aspect-video bg-df-surface md:aspect-auto md:min-h-[320px]" />
           <div className="space-y-4 p-8">
-            <div className="h-4 w-20 rounded bg-df-blue/10" />
-            <div className="h-8 w-3/4 rounded bg-df-blue/10" />
-            <div className="h-4 w-full rounded bg-df-blue/10" />
-            <div className="h-4 w-2/3 rounded bg-df-blue/10" />
+            <div className="h-4 w-20 rounded bg-white/10" />
+            <div className="h-8 w-3/4 rounded bg-white/10" />
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-2/3 rounded bg-white/10" />
           </div>
         </div>
 
@@ -28,9 +28,9 @@
             <div key={i} className="overflow-hidden rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
               <div className="aspect-video bg-df-surface" />
               <div className="space-y-3 p-5">
-                <div className="h-3 w-16 rounded bg-df-blue/10" />
-                <div className="h-5 w-3/4 rounded bg-df-blue/10" />
-                <div className="h-3 w-full rounded bg-df-blue/10" />
+                <div className="h-3 w-16 rounded bg-white/10" />
+                <div className="h-5 w-3/4 rounded bg-white/10" />
+                <div className="h-3 w-full rounded bg-white/10" />
               </div>
             </div>
           ))}

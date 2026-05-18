@@ -146,14 +146,14 @@ export default function BlogPostForm({
   return (
     <div>
       {/* Sticky action bar */}
-      <div className="sticky top-[3.5rem] z-30 -mx-4 mb-6 border-b border-white/[0.08] bg-white/95 px-4 py-3 backdrop-blur-sm md:-mx-0 md:rounded-xl md:border md:px-6">
+      <div className="sticky top-[3.5rem] z-30 -mx-4 mb-6 border-b border-white/[0.08] bg-df-night/95 px-4 py-3 backdrop-blur-sm md:-mx-0 md:rounded-xl md:border md:px-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleSaveDraft}
               disabled={isPending}
-              className="flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-df-blue transition hover:bg-df-blue/5 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/[0.06] disabled:opacity-50"
             >
               {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               Enregistrer
@@ -174,7 +174,7 @@ export default function BlogPostForm({
               href={`/blog/${slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm text-df-blue/50 hover:text-df-blue transition"
+              className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition"
             >
               <ExternalLink className="h-3.5 w-3.5" />
               Aperçu
@@ -193,7 +193,7 @@ export default function BlogPostForm({
         <div className="space-y-6">
           {/* Title */}
           <div>
-            <label htmlFor="title" className="mb-1.5 block text-sm font-bold text-df-blue/70">
+            <label htmlFor="title" className="mb-1.5 block text-sm font-bold text-white/70">
               Titre
             </label>
             <input
@@ -201,30 +201,30 @@ export default function BlogPostForm({
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
               placeholder="Le titre de votre article"
-              className="w-full rounded-xl border border-white/[0.08] bg-df-surface px-4 py-3 text-lg font-bold text-df-blue placeholder:text-df-blue/30 outline-none transition focus:border-df-blue/30 focus:ring-2 focus:ring-white/[0.08]"
+              className="w-full rounded-xl border border-white/[0.08] bg-df-surface px-4 py-3 text-lg font-bold text-white placeholder:text-white/30 outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/[0.08]"
             />
           </div>
 
           {/* Slug */}
           <div>
-            <label htmlFor="slug" className="mb-1.5 block text-sm font-bold text-df-blue/70">
+            <label htmlFor="slug" className="mb-1.5 block text-sm font-bold text-white/70">
               Slug (URL)
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-df-blue/40">/blog/</span>
+              <span className="text-sm text-white/40">/blog/</span>
               <input
                 id="slug"
                 value={slug}
                 onChange={(e) => handleSlugChange(e.target.value)}
                 placeholder="mon-article"
-                className="flex-1 rounded-xl border border-white/[0.08] bg-df-surface px-4 py-2 text-sm text-df-blue placeholder:text-df-blue/30 outline-none transition focus:border-df-blue/30 focus:ring-2 focus:ring-white/[0.08]"
+                className="flex-1 rounded-xl border border-white/[0.08] bg-df-surface px-4 py-2 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/[0.08]"
               />
             </div>
           </div>
 
           {/* Editor */}
           <div>
-            <label className="mb-1.5 block text-sm font-bold text-df-blue/70">
+            <label className="mb-1.5 block text-sm font-bold text-white/70">
               Contenu
             </label>
             <BlogEditor content={content} onChange={setContent} />
@@ -235,12 +235,12 @@ export default function BlogPostForm({
         <div className="space-y-6">
           {/* Cover image */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Image de couverture</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Image de couverture</label>
             <input
               value={coverImageUrl}
               onChange={(e) => setCoverImageUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
             />
             {coverImageUrl && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -254,25 +254,25 @@ export default function BlogPostForm({
               value={coverImageAlt}
               onChange={(e) => setCoverImageAlt(e.target.value)}
               placeholder="Texte alternatif"
-              className="mt-2 w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+              className="mt-2 w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
             />
           </div>
 
           {/* Excerpt */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Extrait</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Extrait</label>
             <textarea
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
               placeholder="Résumé court de l'article..."
               rows={3}
-              className="w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30 resize-none"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20 resize-none"
             />
           </div>
 
           {/* Categories */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Catégories</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Catégories</label>
             <div className="flex flex-wrap gap-2">
               {categories.map((cat) => (
                 <button
@@ -281,7 +281,7 @@ export default function BlogPostForm({
                   onClick={() => toggleCategory(cat.id)}
                   className={`rounded-full px-3 py-1 text-xs font-medium transition ${
                     categoryIds.includes(cat.id)
-                      ? "ring-2 ring-df-blue"
+                      ? "ring-2 ring-df-gold"
                       : "opacity-60 hover:opacity-100"
                   }`}
                   style={{
@@ -297,7 +297,7 @@ export default function BlogPostForm({
 
           {/* Tags */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Tags</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Tags</label>
             <div className="flex gap-2">
               <input
                 value={tagInput}
@@ -309,12 +309,12 @@ export default function BlogPostForm({
                   }
                 }}
                 placeholder="Ajouter un tag..."
-                className="flex-1 rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+                className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
               />
               <button
                 type="button"
                 onClick={handleAddTag}
-                className="rounded-lg bg-df-blue/10 px-3 py-2 text-sm font-bold text-df-blue hover:bg-df-blue/20 transition"
+                className="rounded-lg bg-white/10 px-3 py-2 text-sm font-bold text-white hover:bg-white/20 transition"
               >
                 +
               </button>
@@ -324,13 +324,13 @@ export default function BlogPostForm({
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center gap-1 rounded-full bg-df-blue/5 px-2.5 py-0.5 text-xs text-df-blue/70"
+                    className="flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-white/70"
                   >
                     #{tag}
                     <button
                       type="button"
                       onClick={() => handleRemoveTag(tag)}
-                      className="text-df-blue/40 hover:text-red-500"
+                      className="text-white/40 hover:text-red-500"
                     >
                       ×
                     </button>
@@ -342,15 +342,15 @@ export default function BlogPostForm({
 
           {/* Service parent */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Service parent</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Service parent</label>
             <select
               value={parentServiceId}
               onChange={(e) => setParentServiceId(e.target.value)}
-              className="w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
             >
-              <option value="">Aucun</option>
+              <option value="" className="bg-[#0E0E22] text-white">Aucun</option>
               {services.map((s) => (
-                <option key={s.id} value={s.id}>
+                <option key={s.id} value={s.id} className="bg-[#0E0E22] text-white">
                   {s.name}
                 </option>
               ))}
@@ -359,15 +359,15 @@ export default function BlogPostForm({
 
           {/* Author */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">Auteur</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">Auteur</label>
             <select
               value={authorId}
               onChange={(e) => setAuthorId(e.target.value)}
-              className="w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
             >
-              <option value="">Aucun</option>
+              <option value="" className="bg-[#0E0E22] text-white">Aucun</option>
               {authors.map((a) => (
-                <option key={a.id} value={a.id}>
+                <option key={a.id} value={a.id} className="bg-[#0E0E22] text-white">
                   {a.pseudo}
                 </option>
               ))}
@@ -376,13 +376,13 @@ export default function BlogPostForm({
 
           {/* SEO */}
           <div className="rounded-xl border border-white/[0.08] bg-df-surface p-4">
-            <label className="mb-2 block text-sm font-bold text-df-blue/70">SEO</label>
+            <label className="mb-2 block text-sm font-bold text-white/70">SEO</label>
             <input
               value={metaTitle}
               onChange={(e) => setMetaTitle(e.target.value)}
               placeholder="Meta title (max 70 car.)"
               maxLength={70}
-              className="w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20"
             />
             <textarea
               value={metaDescription}
@@ -390,9 +390,9 @@ export default function BlogPostForm({
               placeholder="Meta description (max 160 car.)"
               maxLength={160}
               rows={2}
-              className="mt-2 w-full rounded-lg border border-white/[0.08] px-3 py-2 text-sm outline-none focus:border-df-blue/30 resize-none"
+              className="mt-2 w-full rounded-lg border border-white/[0.08] bg-white/[0.06] px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20 resize-none"
             />
-            <p className="mt-1 text-xs text-df-blue/40">
+            <p className="mt-1 text-xs text-white/40">
               {metaTitle.length}/70 · {metaDescription.length}/160
             </p>
           </div>

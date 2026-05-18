@@ -78,7 +78,7 @@ export default function ProjectCard({
       className="group relative flex flex-col overflow-hidden rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.06] transition-all duration-300 hover:shadow-lg hover:scale-[1.03]"
     >
       {/* ── Thumbnail area (4:3) ────────────────────────────────────── */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-df-blue/5">
+      <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
         <Image
           src={imageSrc}
           alt={title}
@@ -115,11 +115,11 @@ export default function ProjectCard({
               className={`h-4 w-4 ${
                 optimisticLiked
                   ? "fill-df-gold text-df-gold"
-                  : "text-df-blue"
+                  : "text-white/40"
               }`}
             />
           ) : (
-            <Lock className="h-3.5 w-3.5 text-df-blue" />
+            <Lock className="h-3.5 w-3.5 text-white/40" />
           )}
         </button>
 
@@ -150,7 +150,7 @@ export default function ProjectCard({
       <div className="flex flex-1 flex-col gap-1.5 p-4 pt-3">
         {/* Category · Year tag */}
         <span
-          className="text-[11px] uppercase tracking-widest text-df-blue/50"
+          className="text-[11px] uppercase tracking-widest text-white/50"
           style={{ fontFamily: "var(--font-jetbrains)" }}
         >
           {categoryLabel ? `${categoryLabel} · ${year}` : String(year)}
@@ -163,7 +163,7 @@ export default function ProjectCard({
 
         {/* Client */}
         {client && (
-          <p className="text-sm text-df-blue/45">{client}</p>
+          <p className="text-sm text-white/45">{client}</p>
         )}
       </div>
     </article>

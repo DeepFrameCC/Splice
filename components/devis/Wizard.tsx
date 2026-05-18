@@ -48,11 +48,11 @@ export default function Wizard() {
         <div className="mb-6">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-df-surface">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-df-blue to-df-gold transition-all duration-500 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-df-glauque-mid to-df-gold transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="mt-2 text-right text-xs font-bold text-df-blue/50">
+          <p className="mt-2 text-right text-xs font-bold text-white/50">
             Étape {f.step} sur 4
           </p>
         </div>
@@ -66,8 +66,8 @@ export default function Wizard() {
                   f.step > s.n
                     ? "bg-emerald-500 text-white"
                     : f.step === s.n
-                    ? "bg-df-blue text-white shadow-md shadow-df-blue/30"
-                    : "bg-df-surface text-df-blue/50"
+                    ? "bg-df-glauque-mid text-white shadow-md shadow-df-glauque-mid/30"
+                    : "bg-df-surface text-white/50"
                 }`}
               >
                 {f.step > s.n ? (
@@ -79,12 +79,12 @@ export default function Wizard() {
               <div className="hidden md:block">
                 <span
                   className={`text-sm font-bold ${
-                    f.step >= s.n ? "text-df-blue" : "text-df-blue/40"
+                    f.step >= s.n ? "text-white" : "text-white/40"
                   }`}
                 >
                   {s.label}
                 </span>
-                <span className="block text-[10px] text-df-blue/40">{s.desc}</span>
+                <span className="block text-[10px] text-white/40">{s.desc}</span>
               </div>
               {i < steps.length - 1 && (
                 <span
@@ -110,7 +110,7 @@ export default function Wizard() {
               type="button"
               onClick={f.prev}
               disabled={f.step === 1}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-df-blue px-5 py-3 font-bold text-df-blue transition hover:bg-df-blue hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 px-5 py-3 font-bold text-white/70 transition hover:bg-white/[0.06] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="h-5 w-5" /> Retour
             </button>
@@ -144,17 +144,17 @@ export default function Wizard() {
         </div>
 
         {/* Trust badges */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-df-blue/50">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-white/50">
           <span className="flex items-center gap-1.5">
-            <Shield className="h-4 w-4 text-df-blue/30" />
+            <Shield className="h-4 w-4 text-df-glauque-300" />
             Données sécurisées
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4 text-df-blue/30" />
+            <Clock className="h-4 w-4 text-df-glauque-300" />
             Réponse sous 24h
           </span>
           <span className="flex items-center gap-1.5">
-            <CheckCircle className="h-4 w-4 text-df-blue/30" />
+            <CheckCircle className="h-4 w-4 text-df-glauque-300" />
             Sans engagement
           </span>
         </div>

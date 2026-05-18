@@ -1,0 +1,66 @@
+"use client";
+
+import { useActionState } from "react";
+import Link from "next/link";
+import { forgotPasswordAction } from "@/app/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+
+export default function ForgotPasswordPage() {
+  const [state, action, pending] = useActionState(forgotPasswordAction, null as { ok: boolean; error?: string; message?: string } | null);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center px-6 py-16">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Mot de passe oublié</CardTitle>
+          <CardDescription>
+            Saisis ton email, on t&apos;envoie un lien pour réinitialiser.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form action={action} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="prenom@email.com"
+                autoComplete="email"
+                className="h-12"
+              />
+            </div>
+
+            {state?.message && (
+              <div className="rounded-xl bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-400">
+                {state.message}
+              </div>
+            )}
+            {state?.error && (
+              <div className="rounded-xl bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-400">
+                {state.error}
+              </div>
+            )}
+
+            <Button type="submit" disabled={pending} size="lg" className="w-full">
+              {pending ? "Envoi…" : "Envoyer le lien"}
+            </Button>
+          </form>
+
+          <Link
+            href="/login"
+            className="mt-6 flex items-center justify-center gap-2 text-sm text-df-gold/60 hover:text-df-gold"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Retour à la connexion
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

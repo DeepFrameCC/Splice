@@ -24,7 +24,7 @@ const columns: ColumnDef<FactureRow, unknown>[] = [
     accessorKey: "numero",
     header: "N° Facture",
     cell: ({ row }) => (
-      <span className="font-display text-sm font-bold text-df-blue">
+      <span className="font-display text-sm font-bold text-white">
         {row.original.numero}
       </span>
     ),
@@ -131,7 +131,7 @@ export default function FacturesTable({ data, initialStatus }: Props) {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+          className="rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-bold text-white outline-none transition focus:border-white/20"
         >
           {statusOptions.map((o) => (
             <option key={o.value} value={o.value}>

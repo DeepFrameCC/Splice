@@ -44,7 +44,7 @@ export default async function AdminFacturesPage({
 
       {factures.length === 0 ? (
         <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-          <Receipt className="mx-auto h-10 w-10 text-df-blue/20" />
+          <Receipt className="mx-auto h-10 w-10 text-white/20" />
           <p className="mt-4 text-sm text-white/40">Aucune facture.</p>
         </div>
       ) : (

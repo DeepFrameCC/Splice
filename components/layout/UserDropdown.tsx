@@ -48,8 +48,8 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
         <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-xl border border-white/[0.08] bg-df-surface py-2 shadow-2xl shadow-black/40">
           {/* User info */}
           <div className="border-b border-white/[0.06] px-4 pb-2">
-            <p className="font-bold text-df-blue">{name}</p>
-            <p className={`text-xs font-medium ${isAdmin ? "text-df-gold" : "text-df-blue/50"}`}>
+            <p className="font-bold text-white">{name}</p>
+            <p className={`text-xs font-medium ${isAdmin ? "text-df-gold" : "text-white/50"}`}>
               {role}
             </p>
           </div>

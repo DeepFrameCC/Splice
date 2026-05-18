@@ -27,11 +27,11 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-white/[0.08] bg-white/[0.04]">
-            <th className="px-4 py-3 text-left font-bold text-df-blue/70">Titre</th>
-            <th className="hidden px-4 py-3 text-left font-bold text-df-blue/70 md:table-cell">Statut</th>
-            <th className="hidden px-4 py-3 text-left font-bold text-df-blue/70 lg:table-cell">Auteur</th>
-            <th className="hidden px-4 py-3 text-left font-bold text-df-blue/70 md:table-cell">Date</th>
-            <th className="px-4 py-3 text-right font-bold text-df-blue/70">Actions</th>
+            <th className="px-4 py-3 text-left font-bold text-white/50">Titre</th>
+            <th className="hidden px-4 py-3 text-left font-bold text-white/50 md:table-cell">Statut</th>
+            <th className="hidden px-4 py-3 text-left font-bold text-white/50 lg:table-cell">Auteur</th>
+            <th className="hidden px-4 py-3 text-left font-bold text-white/50 md:table-cell">Date</th>
+            <th className="px-4 py-3 text-right font-bold text-white/50">Actions</th>
           </tr>
         </thead>
         <tbody className={isPending ? "opacity-50" : ""}>
@@ -39,8 +39,8 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
             <tr key={post.id} className="border-b border-white/[0.06] last:border-0 hover:bg-df-cream/20 transition">
               <td className="px-4 py-3">
                 <div>
-                  <p className="font-bold text-df-blue line-clamp-1">{post.title}</p>
-                  <p className="text-xs text-df-blue/40 line-clamp-1">/blog/{post.slug}</p>
+                  <p className="font-bold text-white line-clamp-1">{post.title}</p>
+                  <p className="text-xs text-white/40 line-clamp-1">/blog/{post.slug}</p>
                   <div className="mt-1 md:hidden">
                     <BlogStatusBadge status={post.status} />
                   </div>
@@ -49,10 +49,10 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
               <td className="hidden px-4 py-3 md:table-cell">
                 <BlogStatusBadge status={post.status} />
               </td>
-              <td className="hidden px-4 py-3 text-df-blue/60 lg:table-cell">
+              <td className="hidden px-4 py-3 text-white/60 lg:table-cell">
                 {post.author?.pseudo || "—"}
               </td>
-              <td className="hidden px-4 py-3 text-df-blue/60 md:table-cell">
+              <td className="hidden px-4 py-3 text-white/60 md:table-cell">
                 {new Date(post.publishedAt).toLocaleDateString("fr-FR", {
                   day: "numeric",
                   month: "short",
@@ -65,7 +65,7 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
                     <Link
                       href={`/blog/${post.slug}`}
                       target="_blank"
-                      className="rounded-lg p-2 text-df-blue/40 hover:bg-df-blue/5 hover:text-df-blue transition"
+                      className="rounded-lg p-2 text-white/40 hover:bg-white/[0.06] hover:text-white transition"
                       title="Voir"
                     >
                       <Eye className="h-4 w-4" />
@@ -73,7 +73,7 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
                   )}
                   <Link
                     href={`/admin/blog/${post.id}/modifier`}
-                    className="rounded-lg p-2 text-df-blue/40 hover:bg-df-blue/5 hover:text-df-blue transition"
+                    className="rounded-lg p-2 text-white/40 hover:bg-white/[0.06] hover:text-white transition"
                     title="Modifier"
                   >
                     <Pencil className="h-4 w-4" />
@@ -82,7 +82,7 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
                   {/* Dropdown */}
                   <button
                     onClick={() => setOpenMenu(openMenu === post.id ? null : post.id)}
-                    className="rounded-lg p-2 text-df-blue/40 hover:bg-df-blue/5 hover:text-df-blue transition"
+                    className="rounded-lg p-2 text-white/40 hover:bg-white/[0.06] hover:text-white transition"
                   >
                     <MoreHorizontal className="h-4 w-4" />
                   </button>
@@ -108,7 +108,7 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
                       {post.status !== "ARCHIVED" && (
                         <button
                           onClick={() => handleAction(() => archiveBlogPost(post.id))}
-                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-df-blue/60 hover:bg-df-surface transition"
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-white/60 hover:bg-white/[0.06] transition"
                         >
                           Archiver
                         </button>
@@ -137,7 +137,7 @@ export default function BlogPostsTable({ posts }: BlogPostsTableProps) {
       </table>
 
       {posts.length === 0 && (
-        <div className="p-12 text-center text-df-blue/40">
+        <div className="p-12 text-center text-white/40">
           Aucun article trouvé.
         </div>
       )}

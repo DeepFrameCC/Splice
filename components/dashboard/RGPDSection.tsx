@@ -54,8 +54,8 @@ export default function RGPDSection() {
     <div className="space-y-6">
       {/* Data Export */}
       <div className="flex items-start gap-4 rounded-xl border border-white/[0.08] p-5">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-df-blue/5">
-          <Download className="h-5 w-5 text-df-blue" />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-df-gold/10">
+          <Download className="h-5 w-5 text-df-gold" />
         </div>
         <div className="flex-1">
           <h3 className="font-display text-sm font-bold text-white">

@@ -26,7 +26,7 @@ export default async function AdminBlogEditPage({ params }: Props) {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-2xl font-bold italic text-df-blue">
+      <h1 className="mb-6 font-display text-2xl font-bold italic text-white">
         Modifier l&apos;article
       </h1>
       <BlogPostForm

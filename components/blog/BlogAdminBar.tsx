@@ -39,13 +39,13 @@ export default function BlogAdminBar({ postId, status, editUrl }: BlogAdminBarPr
 
   return (
     <div className="mx-auto mb-6 max-w-4xl px-6">
-      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-white/[0.08] bg-df-cream/80 px-4 py-3">
+      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-white/[0.08] bg-df-surface px-4 py-3">
         <BlogStatusBadge status={status} />
 
         <div className="flex flex-1 items-center justify-end gap-2">
           <Link
             href={editUrl}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-df-surface px-3 py-1.5 text-xs font-bold text-df-blue transition hover:bg-df-blue/5"
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-df-surface px-3 py-1.5 text-xs font-bold text-df-gold transition hover:bg-white/5"
           >
             <Pencil className="h-3.5 w-3.5" />
             Modifier

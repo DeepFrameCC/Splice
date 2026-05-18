@@ -59,7 +59,7 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         rich: <>Notre <L href="/devis">configurateur en ligne</L> vous permet de choisir votre pack, vos options et vos coordonnées en 4 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
       },
       {
-        q: "Quels sont vos tarifs ?",
+        q: "Quels sont les tarifs de vos prestations ?",
         a: "Nos packs démarrent à 140 € HT (Pack Basique : 1 vidéo + 5 photos). Le Pack Visibilité est à 340 €, le Visibilité Mix à 420 € et le Premium à partir de 850 €. Les intros animées sont entre 100 et 400 € selon la complexité.",
         rich: <>Nos <L href="/services">packs</L> démarrent à 140 € HT (Pack Basique : 1 vidéo + 5 photos). Le Pack Visibilité est à 340 €, le Visibilité Mix à 420 € et le Premium à partir de 850 €. Les intros animées sont entre 100 et 400 € selon la complexité. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
       },

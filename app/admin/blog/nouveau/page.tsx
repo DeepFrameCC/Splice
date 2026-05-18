@@ -13,7 +13,7 @@ export default async function AdminBlogNewPage() {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-2xl font-bold italic text-df-blue">
+      <h1 className="mb-6 font-display text-2xl font-bold italic text-white">
         Nouvel article
       </h1>
       <BlogPostForm

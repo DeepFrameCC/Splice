@@ -57,20 +57,20 @@ export default function DataTable<T>({
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-df-blue/40" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
           <input
             type="text"
             placeholder={searchPlaceholder}
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-56 rounded-xl border-2 border-white/10 py-2 pl-9 pr-3 text-sm outline-none transition focus:border-df-blue"
+            className="w-56 rounded-xl border-2 border-white/10 py-2 pl-9 pr-3 text-sm outline-none transition bg-white/[0.06] text-white placeholder:text-white/30 focus:border-white/20"
           />
         </div>
         {filterComponent}
 
         {selectedIds.length > 0 && bulkActions && (
           <div className="ml-auto flex items-center gap-2">
-            <span className="rounded-full bg-df-blue/5 px-3 py-1 text-xs font-bold text-df-blue">
+            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
               {selectedIds.length} sélectionné{selectedIds.length > 1 ? "s" : ""}
             </span>
             {bulkActions(selectedIds)}
@@ -100,7 +100,7 @@ export default function DataTable<T>({
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
                           {canSort && (
-                            <span className="text-df-blue/30">
+                            <span className="text-white/30">
                               {sorted === "asc" ? (
                                 <ArrowUp className="h-3 w-3" />
                               ) : sorted === "desc" ? (
@@ -134,7 +134,7 @@ export default function DataTable<T>({
                   key={row.id}
                   className={`border-b border-white/[0.06] transition hover:bg-white/[0.04] ${
                     i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"
-                  } ${row.getIsSelected() ? "!bg-df-blue/5" : ""}`}
+                  } ${row.getIsSelected() ? "!bg-white/5" : ""}`}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-5 py-4">

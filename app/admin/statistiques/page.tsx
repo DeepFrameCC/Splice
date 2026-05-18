@@ -136,7 +136,7 @@ export default async function AdminStatsPage() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[
           { label: "CA YTD", value: `${caYTD.toLocaleString("fr-FR")} €`, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-          { label: "Taux conversion", value: `${tauxConversion}%`, icon: Target, color: "text-df-blue", bg: "bg-df-blue/5" },
+          { label: "Taux conversion", value: `${tauxConversion}%`, icon: Target, color: "text-white/70", bg: "bg-white/5" },
           { label: "Panier moyen", value: `${panierMoyen.toLocaleString("fr-FR")} €`, icon: ShoppingCart, color: "text-purple-600", bg: "bg-purple-500/10" },
           { label: "Clients actifs", value: uniqueClients, icon: Users, color: "text-df-gold", bg: "bg-df-gold/10" },
         ].map((k) => (
@@ -182,14 +182,14 @@ export default async function AdminStatsPage() {
           <div className="divide-y divide-white/[0.06]">
             {caByPack.map((p, i) => (
               <div key={p.label} className="flex items-center gap-3 px-6 py-3.5">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-df-blue/5 text-xs font-bold text-df-blue">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-df-gold/10 text-xs font-bold text-df-gold">
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-white">{p.label}</p>
                   <p className="text-xs text-white/30">{p.count} devis</p>
                 </div>
-                <p className="font-display text-sm font-bold text-df-blue">
+                <p className="font-display text-sm font-bold text-df-gold">
                   {p.value.toLocaleString("fr-FR")} €
                 </p>
               </div>

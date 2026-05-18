@@ -72,7 +72,7 @@ export default function NotificationBell({ initialCount, recentNotifications }: 
             <Link
               href="/profil/notifications"
               onClick={() => setOpen(false)}
-              className="text-xs font-medium text-df-blue hover:underline"
+              className="text-xs font-medium text-df-gold hover:underline"
             >
               Tout voir
             </Link>
@@ -80,7 +80,7 @@ export default function NotificationBell({ initialCount, recentNotifications }: 
 
           {recentNotifications.length === 0 ? (
             <div className="px-4 py-8 text-center">
-              <Bell className="mx-auto h-8 w-8 text-df-blue/20" />
+              <Bell className="mx-auto h-8 w-8 text-white/20" />
               <p className="mt-2 text-sm text-white/30">Aucune notification</p>
             </div>
           ) : (
@@ -88,11 +88,11 @@ export default function NotificationBell({ initialCount, recentNotifications }: 
               {recentNotifications.map((n) => (
                 <div
                   key={n.id}
-                  className={`px-4 py-3 transition hover:bg-white/[0.04] ${!n.read ? "bg-df-blue/[0.08]" : ""}`}
+                  className={`px-4 py-3 transition hover:bg-white/[0.04] ${!n.read ? "bg-df-gold/[0.06]" : ""}`}
                 >
                   <div className="flex items-start gap-2">
                     {!n.read && (
-                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-df-blue" />
+                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-df-gold" />
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-bold text-white">{n.title}</p>
@@ -105,7 +105,7 @@ export default function NotificationBell({ initialCount, recentNotifications }: 
                           <button
                             onClick={() => handleMarkRead(n.id)}
                             disabled={pending}
-                            className="text-[10px] font-medium text-df-blue hover:underline"
+                            className="text-[10px] font-medium text-df-gold hover:underline"
                           >
                             Marquer lu
                           </button>

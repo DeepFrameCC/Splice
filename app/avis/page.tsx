@@ -59,7 +59,7 @@ export default async function AvisPage() {
         <>
           {avis.length === 0 ? (
             <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-              <MessageSquare className="mx-auto h-10 w-10 text-df-blue/20" />
+              <MessageSquare className="mx-auto h-10 w-10 text-white/20" />
               <p className="mt-4 text-sm text-white/30">
                 Soyez le premier à laisser un avis après votre prestation.
               </p>
@@ -80,7 +80,7 @@ export default async function AvisPage() {
                       <Star className="h-2.5 w-2.5 fill-df-gold" /> En avant
                     </span>
                   )}
-                  <Quote className="absolute -right-2 -top-2 h-16 w-16 rotate-12 text-df-blue/[0.04]" />
+                  <Quote className="absolute -right-2 -top-2 h-16 w-16 rotate-12 text-white/[0.04]" />
                   <div className="flex items-center gap-0.5">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star

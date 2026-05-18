@@ -1,15 +1,15 @@
 ﻿const statusConfig: Record<string, { label: string; className: string }> = {
   DRAFT: {
     label: "Brouillon",
-    className: "bg-amber-500/15 text-amber-700",
+    className: "bg-amber-500/15 text-amber-400",
   },
   PUBLISHED: {
     label: "Publié",
-    className: "bg-green-100 text-green-700",
+    className: "bg-green-500/15 text-green-400",
   },
   ARCHIVED: {
     label: "Archivé",
-    className: "bg-gray-100 text-gray-600",
+    className: "bg-white/[0.08] text-white/50",
   },
 };
 

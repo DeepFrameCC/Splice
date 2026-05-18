@@ -13,7 +13,7 @@ export default function Cookies() {
     <>
       <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
-        <h1 className="font-display text-4xl font-bold text-df-blue">Politique de cookies</h1>
+        <h1 className="font-display text-4xl font-bold text-white">Politique de cookies</h1>
         <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
@@ -85,7 +85,7 @@ export default function Cookies() {
                   <td className="py-2 pr-4">Stripe</td>
                   <td className="py-2 pr-4">Sécurisation des paiements, détection de fraude</td>
                   <td className="py-2">
-                    <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener noreferrer" className="text-df-blue underline hover:text-df-gold transition-colors">stripe.com/privacy</a>
+                    <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">stripe.com/privacy</a>
                   </td>
                 </tr>
               </tbody>
@@ -130,7 +130,7 @@ export default function Cookies() {
             <h2 className="text-lg font-bold text-white">5. Contact</h2>
             <p>
               Pour toute question concernant notre utilisation des cookies, contactez-nous à{" "}
-              <a href="mailto:contact@deepframe.cc" className="text-df-blue underline hover:text-df-gold transition-colors">contact@deepframe.cc</a>.
+              <a href="mailto:contact@deepframe.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@deepframe.cc</a>.
             </p>
           </div>
         </section>

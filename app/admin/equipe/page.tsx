@@ -51,8 +51,8 @@ export default async function AdminEquipePage() {
           <p className="text-xs text-white/40">Administrateurs</p>
         </div>
         <div className="rounded-2xl bg-df-surface p-5 shadow-sm ring-1 ring-white/[0.08]">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-df-blue/5">
-            <Users className="h-4 w-4 text-df-blue" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10">
+            <Users className="h-4 w-4 text-white/50" />
           </div>
           <p className="mt-3 font-display text-2xl font-bold text-white">{team.length}</p>
           <p className="text-xs text-white/40">Membres équipe</p>
@@ -97,7 +97,7 @@ export default async function AdminEquipePage() {
         </h2>
         {serialized.length === 0 ? (
           <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-            <Users className="mx-auto h-10 w-10 text-df-blue/20" />
+            <Users className="mx-auto h-10 w-10 text-white/20" />
             <p className="mt-4 text-sm text-white/30">Aucun membre dans l&apos;équipe.</p>
           </div>
         ) : (

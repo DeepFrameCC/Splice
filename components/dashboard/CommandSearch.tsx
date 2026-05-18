@@ -55,7 +55,7 @@ export default function CommandSearch() {
   } as const;
 
   const colorMap = {
-    devis: "text-df-blue",
+    devis: "text-df-gold",
     facture: "text-df-gold",
     contrat: "text-emerald-500",
     user: "text-purple-500",

@@ -66,11 +66,11 @@ export default function IntroLoader() {
         </div>
         <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-surface">
           <div
-            className="h-full bg-df-blue transition-[width] duration-75 ease-linear"
+            className="h-full bg-df-gold transition-[width] duration-75 ease-linear"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-3 font-display italic text-df-blue/70 text-sm">{progress}%</p>
+        <p className="mt-3 font-display italic text-white/70 text-sm">{progress}%</p>
       </div>
     </div>
   );

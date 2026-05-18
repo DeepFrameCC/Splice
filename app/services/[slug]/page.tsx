@@ -86,13 +86,13 @@ export default async function ServicePage({ params }: PageProps) {
 
         <article>
           <header className="mb-10 md:mb-14">
-            <h1 className="text-balance text-3xl font-semibold tracking-tight text-df-blue md:text-5xl">
+            <h1 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl">
               {service.h1}
             </h1>
-            <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-df-ink/70 md:text-xl">
+            <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-white/70 md:text-xl">
               {service.introParagraph}
             </p>
-            <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl bg-df-cream">
+            <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl bg-white/5">
               <Image
                 src={service.coverImageUrl}
                 alt={service.coverImageAlt}
@@ -114,10 +114,10 @@ export default async function ServicePage({ params }: PageProps) {
           />
 
           <section id="problematique" aria-labelledby="problem-h2" className="mt-16 scroll-mt-24">
-            <h2 id="problem-h2" className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+            <h2 id="problem-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               {service.problemQuestion}
             </h2>
-            <p className="mt-4 max-w-3xl text-pretty leading-relaxed text-df-ink/70">
+            <p className="mt-4 max-w-3xl text-pretty leading-relaxed text-white/70">
               {service.problemAnswer}
             </p>
           </section>
@@ -125,14 +125,14 @@ export default async function ServicePage({ params }: PageProps) {
           <ServiceCTA variant="inline" serviceName={service.shortName} />
 
           <section id="prestation" aria-labelledby="prestation-h2" className="mt-16 scroll-mt-24">
-            <h2 id="prestation-h2" className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+            <h2 id="prestation-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               Prestations {service.shortName}
             </h2>
             <div className="mt-8 grid gap-10">
               {features.map((feature) => (
                 <div key={feature.h3}>
-                  <h3 className="text-xl font-semibold text-df-ink md:text-2xl">{feature.h3}</h3>
-                  <p className="mt-3 max-w-3xl leading-relaxed text-df-ink/70">{feature.content}</p>
+                  <h3 className="text-xl font-semibold text-white md:text-2xl">{feature.h3}</h3>
+                  <p className="mt-3 max-w-3xl leading-relaxed text-white/70">{feature.content}</p>
                 </div>
               ))}
             </div>
@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: PageProps) {
           <ServiceReassurance />
 
           <section id="faq" aria-labelledby="faq-h2" className="mt-16 scroll-mt-24">
-            <h2 id="faq-h2" className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+            <h2 id="faq-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               Questions frequentes
             </h2>
             <ServiceFAQ items={faqItems} />
@@ -151,7 +151,7 @@ export default async function ServicePage({ params }: PageProps) {
 
           {relatedArticles.length > 0 && (
             <section className="mt-16">
-              <h2 className="text-2xl font-semibold tracking-tight text-df-blue md:text-3xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
                 Articles liés
               </h2>
               <div className="mt-6 grid gap-4 sm:grid-template-columns-2">
@@ -159,12 +159,12 @@ export default async function ServicePage({ params }: PageProps) {
                   <Link
                     key={article.slug}
                     href={`/blog/${article.slug}`}
-                    className="group block rounded-xl bg-white p-5 shadow-sm ring-1 ring-df-blue/10 transition hover:shadow-md"
+                    className="group block rounded-xl bg-white/5 p-5 shadow-sm ring-1 ring-white/[0.08] transition hover:shadow-md"
                   >
-                    <h3 className="font-bold text-df-blue group-hover:text-df-gold transition">
+                    <h3 className="font-bold text-white group-hover:text-df-gold transition">
                       {article.title}
                     </h3>
-                    <p className="mt-2 text-sm text-df-blue/60 line-clamp-2">
+                    <p className="mt-2 text-sm text-white/60 line-clamp-2">
                       {article.excerpt}
                     </p>
                   </Link>

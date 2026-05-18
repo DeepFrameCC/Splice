@@ -37,7 +37,7 @@ export default async function AdminMediasPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
-          { label: "Photos", value: stats.photos, icon: ImageIcon, color: "text-df-blue", bg: "bg-df-blue/5" },
+          { label: "Photos", value: stats.photos, icon: ImageIcon, color: "text-white/70", bg: "bg-white/5" },
           { label: "Vidéos", value: stats.videos, icon: Video, color: "text-purple-600", bg: "bg-purple-500/10" },
           { label: "Publiés", value: stats.published, icon: Eye, color: "text-emerald-400", bg: "bg-emerald-500/10" },
           { label: "Masqués", value: stats.hidden, icon: EyeOff, color: "text-white/30", bg: "bg-white/5" },
@@ -55,7 +55,7 @@ export default async function AdminMediasPage() {
       {/* Media grid */}
       {medias.length === 0 ? (
         <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-          <ImageIcon className="mx-auto h-10 w-10 text-df-blue/20" />
+          <ImageIcon className="mx-auto h-10 w-10 text-white/20" />
           <p className="mt-4 text-sm text-white/30">Aucun média pour le moment.</p>
           <p className="mt-1 text-xs text-white/20">Utilisez le bouton &quot;Ajouter un média&quot; ci-dessus.</p>
         </div>
@@ -98,7 +98,7 @@ export default async function AdminMediasPage() {
 
                 {/* Type badge */}
                 <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                  m.type === "VIDEO" ? "bg-purple-500 text-white" : "bg-df-blue text-white"
+                  m.type === "VIDEO" ? "bg-purple-500 text-white" : "bg-df-gold text-white"
                 }`}>
                   {m.type}
                 </span>
@@ -120,7 +120,7 @@ export default async function AdminMediasPage() {
                   {m.monteur && <span>· @{m.monteur.pseudo}</span>}
                   {m.category && <span>· {m.category}</span>}
                 </div>
-                <p className="mt-1 text-xs font-bold text-df-blue">
+                <p className="mt-1 text-xs font-bold text-df-gold">
                   {m.prixEstime.toLocaleString("fr-FR")} €
                 </p>
 

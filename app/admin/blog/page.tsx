@@ -28,8 +28,8 @@ export default async function AdminBlogPage({ searchParams }: Props) {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-2xl font-bold italic text-df-blue">Articles</h1>
-          <p className="text-sm text-df-blue/50">{total} article{total !== 1 ? "s" : ""}</p>
+          <h1 className="font-display text-2xl font-bold italic text-white">Articles</h1>
+          <p className="text-sm text-white/50">{total} article{total !== 1 ? "s" : ""}</p>
         </div>
         <Link
           href="/admin/blog/nouveau"
@@ -49,8 +49,8 @@ export default async function AdminBlogPage({ searchParams }: Props) {
               href={`/admin/blog${tab.value !== "ALL" ? `?status=${tab.value}` : ""}`}
               className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
                 status === tab.value
-                  ? "bg-df-surface text-df-blue shadow-sm"
-                  : "text-df-blue/50 hover:text-df-blue"
+                  ? "bg-df-surface text-white shadow-sm"
+                  : "text-white/50 hover:text-white"
               }`}
             >
               {tab.label}
@@ -64,7 +64,7 @@ export default async function AdminBlogPage({ searchParams }: Props) {
             name="q"
             defaultValue={search}
             placeholder="Rechercher..."
-            className="w-full rounded-full border border-white/[0.08] bg-df-surface py-2 pl-4 pr-10 text-sm text-df-blue placeholder:text-df-blue/40 outline-none focus:border-df-blue/30 md:w-64"
+            className="w-full rounded-full border border-white/[0.08] bg-df-surface py-2 pl-4 pr-10 text-sm text-white placeholder:text-white/40 outline-none focus:border-df-gold/30 md:w-64"
           />
         </form>
       </div>
@@ -78,18 +78,18 @@ export default async function AdminBlogPage({ searchParams }: Props) {
           {page > 1 && (
             <Link
               href={`/admin/blog?status=${status}&page=${page - 1}${search ? `&q=${search}` : ""}`}
-              className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-df-blue/60 hover:bg-df-blue/5 transition"
+              className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-white/60 hover:bg-white/[0.06] transition"
             >
               ← Précédent
             </Link>
           )}
-          <span className="text-df-blue/50">
+          <span className="text-white/50">
             Page {page} / {totalPages}
           </span>
           {page < totalPages && (
             <Link
               href={`/admin/blog?status=${status}&page=${page + 1}${search ? `&q=${search}` : ""}`}
-              className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-df-blue/60 hover:bg-df-blue/5 transition"
+              className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-white/60 hover:bg-white/[0.06] transition"
             >
               Suivant →
             </Link>

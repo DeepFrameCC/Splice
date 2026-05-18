@@ -83,7 +83,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
               href={item.href}
               className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-all ${
                 active
-                  ? "bg-df-blue text-white shadow-lg shadow-df-blue/30"
+                  ? "bg-df-gold text-white shadow-lg shadow-df-gold/30"
                   : "text-white/60 hover:bg-white/5 hover:text-white"
               }`}
             >
@@ -117,7 +117,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
 
       {/* User info + logout */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-df-blue text-sm font-bold text-white">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-df-gold text-sm font-bold text-white">
           {userName.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">

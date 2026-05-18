@@ -17,10 +17,10 @@ export default function BlogNewsletterCTA() {
 
   return (
     <section className="rounded-2xl bg-df-surface px-6 py-10 text-center md:px-12 md:py-14">
-      <h2 className="font-display text-2xl font-bold italic text-df-blue md:text-3xl">
+      <h2 className="font-display text-2xl font-bold italic text-white md:text-3xl">
         Restez informés
       </h2>
-      <p className="mx-auto mt-3 max-w-lg text-df-blue/60">
+      <p className="mx-auto mt-3 max-w-lg text-white/60">
         Recevez nos derniers articles et conseils en production audiovisuelle directement dans votre boîte mail.
       </p>
 
@@ -39,7 +39,7 @@ export default function BlogNewsletterCTA() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="votre@email.com"
-            className="flex-1 rounded-full border border-white/[0.08] bg-df-surface px-4 py-2.5 text-sm text-df-blue placeholder:text-df-blue/40 outline-none focus:border-df-blue/30 focus:ring-2 focus:ring-white/[0.08]"
+            className="flex-1 rounded-full border border-white/[0.08] bg-df-surface px-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/20 focus:ring-2 focus:ring-white/[0.08]"
           />
           <button
             type="submit"

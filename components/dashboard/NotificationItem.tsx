@@ -14,7 +14,7 @@ import {
 import type { NotificationType } from "@prisma/client";
 
 const TYPE_CONFIG: Record<NotificationType, { icon: typeof FileText; color: string; bg: string }> = {
-  DEVIS_STATUS: { icon: FileText, color: "text-df-blue", bg: "bg-df-blue/10" },
+  DEVIS_STATUS: { icon: FileText, color: "text-df-gold", bg: "bg-df-gold/10" },
   FACTURE_EMISE: { icon: Receipt, color: "text-df-gold", bg: "bg-df-gold/10" },
   CONTRAT_SIGNE: { icon: FileSignature, color: "text-emerald-400", bg: "bg-emerald-500/10" },
   PAYMENT_CONFIRM: { icon: CreditCard, color: "text-emerald-400", bg: "bg-emerald-500/10" },
@@ -47,7 +47,7 @@ export default function NotificationItem({ notification: n }: Props) {
   return (
     <div
       className={`rounded-2xl bg-df-surface p-4 shadow-sm ring-1 transition hover:shadow-md ${
-        n.read ? "ring-white/[0.06]" : "ring-df-blue/15 bg-df-blue/[0.02]"
+        n.read ? "ring-white/[0.06]" : "ring-df-gold/15 bg-df-gold/[0.02]"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -56,7 +56,7 @@ export default function NotificationItem({ notification: n }: Props) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            {!n.read && <span className="h-2 w-2 shrink-0 rounded-full bg-df-blue" />}
+            {!n.read && <span className="h-2 w-2 shrink-0 rounded-full bg-df-gold" />}
             <p className="text-sm font-bold text-white">{n.title}</p>
           </div>
           <p className="mt-1 text-sm text-white/50">{n.message}</p>
@@ -74,7 +74,7 @@ export default function NotificationItem({ notification: n }: Props) {
               <button
                 onClick={handleMarkRead}
                 disabled={pending}
-                className="text-xs font-medium text-df-blue hover:underline"
+                className="text-xs font-medium text-df-gold hover:underline"
               >
                 Marquer comme lu
               </button>

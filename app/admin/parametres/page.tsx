@@ -20,7 +20,7 @@ export default function AdminParametresPage() {
       {/* Tarifs Packs */}
       <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
-          <Package className="h-5 w-5 text-df-blue" />
+          <Package className="h-5 w-5 text-df-gold" />
           <div>
             <h2 className="font-display text-lg font-bold text-white">Tarifs des packs</h2>
             <p className="text-xs text-white/30">Modifiez dans lib/pricing.ts</p>
@@ -40,7 +40,7 @@ export default function AdminParametresPage() {
               {packs.map((p, i) => (
                 <tr key={p.code} className={`border-b border-white/[0.06] ${i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"}`}>
                   <td className="px-5 py-3 font-display text-sm font-bold text-white">{p.label}</td>
-                  <td className="px-5 py-3 text-right font-display font-bold text-df-blue">
+                  <td className="px-5 py-3 text-right font-display font-bold text-df-gold">
                     {p.price > 0 ? `${p.price} €` : "Sur devis"}
                   </td>
                   <td className="px-5 py-3 text-center text-white/50">{p.videos || "—"}</td>
@@ -64,7 +64,7 @@ export default function AdminParametresPage() {
             {Object.entries(DUREE_SUPPLEMENT).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
                 <span className="text-sm text-white">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-400"}`}>
+                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-gold" : "text-emerald-400"}`}>
                   {val.price > 0 ? `+${val.price} €` : "Inclus"}
                 </span>
               </div>
@@ -82,7 +82,7 @@ export default function AdminParametresPage() {
             {Object.entries(DELAI).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
                 <span className="text-sm text-white">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-blue" : "text-emerald-400"}`}>
+                <span className={`font-display text-sm font-bold ${val.price > 0 ? "text-df-gold" : "text-emerald-400"}`}>
                   {val.price > 0 ? `+${val.price} €` : "Inclus"}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export default function AdminParametresPage() {
             {Object.entries(USAGE_PRICE_PER_VIDEO).map(([key, val]) => (
               <div key={key} className="flex items-center justify-between px-6 py-3.5">
                 <span className="text-sm text-white">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.perVideo > 0 ? "text-df-blue" : "text-emerald-400"}`}>
+                <span className={`font-display text-sm font-bold ${val.perVideo > 0 ? "text-df-gold" : "text-emerald-400"}`}>
                   {val.perVideo > 0 ? `+${val.perVideo} €/vidéo` : "Inclus"}
                 </span>
               </div>
@@ -117,11 +117,11 @@ export default function AdminParametresPage() {
           <div className="divide-y divide-white/[0.06]">
             <div className="flex items-center justify-between px-6 py-3.5">
               <span className="text-sm text-white">Prix au km</span>
-              <span className="font-display text-sm font-bold text-df-blue">{PRIX_KM} €/km</span>
+              <span className="font-display text-sm font-bold text-df-gold">{PRIX_KM} €/km</span>
             </div>
             <div className="flex items-center justify-between px-6 py-3.5">
               <span className="text-sm text-white">Taux d&apos;acompte</span>
-              <span className="font-display text-sm font-bold text-df-blue">{ACOMPTE_RATE}%</span>
+              <span className="font-display text-sm font-bold text-df-gold">{ACOMPTE_RATE}%</span>
             </div>
           </div>
         </div>

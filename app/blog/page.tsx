@@ -152,7 +152,7 @@ export default async function BlogPage({ searchParams }: Props) {
           </p>
           <Link
             href="/devis"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-white hover:text-black hover:scale-105"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-df-gold/90 hover:scale-105"
           >
             Demander un devis →
           </Link>

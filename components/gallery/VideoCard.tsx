@@ -72,7 +72,7 @@ export default function VideoCard({ id, src, thumbnail, preview, title, ownerHan
       </Link>
       <button onClick={onLike} disabled={pending} aria-label={optimisticLiked ? "Retirer le like" : "Liker"}
         className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/90 backdrop-blur transition hover:scale-110">
-        {isAuthed ? <Heart className={`h-5 w-5 ${optimisticLiked ? "fill-df-gold text-df-gold" : "text-df-blue"}`} /> : <Lock className="h-4 w-4 text-df-blue" />}
+        {isAuthed ? <Heart className={`h-5 w-5 ${optimisticLiked ? "fill-df-gold text-df-gold" : "text-white/40"}`} /> : <Lock className="h-4 w-4 text-white/40" />}
       </button>
     </div>
   );

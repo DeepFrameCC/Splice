@@ -23,8 +23,8 @@ export function InviteForm() {
   return (
     <div className="rounded-2xl bg-df-surface p-6 shadow-sm ring-1 ring-white/[0.08]">
       <div className="mb-4 flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-df-blue/5">
-          <UserPlus className="h-4 w-4 text-df-blue" />
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-df-gold/10">
+          <UserPlus className="h-4 w-4 text-df-gold" />
         </div>
         <div>
           <h2 className="font-display text-lg font-bold text-white">Promouvoir un utilisateur</h2>
@@ -43,7 +43,7 @@ export function InviteForm() {
             type="email"
             required
             placeholder="membre@email.com"
-            className="w-full rounded-xl border border-white/10 px-4 py-2.5 text-sm text-white outline-none transition focus:border-df-blue focus:ring-2 focus:ring-df-blue/20"
+            className="w-full rounded-xl border border-white/10 px-4 py-2.5 text-sm text-white outline-none transition bg-white/[0.06] focus:border-white/20 focus:ring-2 focus:ring-white/[0.08]"
           />
         </div>
         <div>
@@ -53,7 +53,7 @@ export function InviteForm() {
           <select
             id="invite-role"
             name="role"
-            className="rounded-xl border border-white/10 px-4 py-2.5 text-sm text-white outline-none transition focus:border-df-blue focus:ring-2 focus:ring-df-blue/20"
+            className="rounded-xl border border-white/10 px-4 py-2.5 text-sm text-white outline-none transition bg-white/[0.06] focus:border-white/20 focus:ring-2 focus:ring-white/[0.08]"
           >
             <option value="TEAM">Équipe</option>
             <option value="ADMIN">Admin</option>
@@ -119,7 +119,7 @@ export function TeamMemberCard({ member, isSelf }: { member: TeamMember; isSelf:
       )}
 
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-df-blue text-lg font-bold text-white">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-df-gold text-lg font-bold text-white">
           {member.pseudo.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0 flex-1">
@@ -138,9 +138,9 @@ export function TeamMemberCard({ member, isSelf }: { member: TeamMember; isSelf:
           {isAdmin ? (
             <Shield className="h-3.5 w-3.5 text-df-gold" />
           ) : (
-            <Users className="h-3.5 w-3.5 text-df-blue" />
+            <Users className="h-3.5 w-3.5 text-white/50" />
           )}
-          <span className={`text-xs font-bold ${isAdmin ? "text-df-gold" : "text-df-blue"}`}>
+          <span className={`text-xs font-bold ${isAdmin ? "text-df-gold" : "text-white/50"}`}>
             {isAdmin ? "Administrateur" : "Équipe"}
           </span>
         </div>
@@ -152,7 +152,7 @@ export function TeamMemberCard({ member, isSelf }: { member: TeamMember; isSelf:
                 type="button"
                 onClick={() => handleChangeRole("TEAM")}
                 disabled={isPending}
-                className="rounded-lg px-2.5 py-1 text-[11px] font-bold text-df-blue transition hover:bg-df-blue/5 disabled:opacity-50"
+                className="rounded-lg px-2.5 py-1 text-[11px] font-bold text-white/50 transition hover:bg-white/5 disabled:opacity-50"
               >
                 → Équipe
               </button>

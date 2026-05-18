@@ -13,7 +13,7 @@ export default function Confidentialite() {
     <>
       <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
-        <h1 className="font-display text-4xl font-bold text-df-blue">Politique de confidentialité</h1>
+        <h1 className="font-display text-4xl font-bold text-white">Politique de confidentialité</h1>
         <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
@@ -103,7 +103,7 @@ export default function Confidentialite() {
             </ul>
             <p className="mt-3">
               Pour exercer vos droits, envoyez un email à{" "}
-              <a href="mailto:contact@deepframe.cc" className="text-df-blue underline hover:text-df-gold transition-colors">contact@deepframe.cc</a>{" "}
+              <a href="mailto:contact@deepframe.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@deepframe.cc</a>{" "}
               en joignant une copie de votre pièce d&apos;identité. Nous répondons dans un délai maximum de 30 jours.
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function Confidentialite() {
             <ul className="mt-3 space-y-1">
               <li><strong>CNIL</strong> — Commission Nationale de l&apos;Informatique et des Libertés</li>
               <li>3 Place de Fontenoy, TSA 80715, 75334 Paris Cedex 07</li>
-              <li>Site : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-df-blue underline hover:text-df-gold transition-colors">www.cnil.fr</a></li>
+              <li>Site : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">www.cnil.fr</a></li>
             </ul>
           </div>
 

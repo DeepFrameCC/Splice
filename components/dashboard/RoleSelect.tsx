@@ -12,7 +12,7 @@ const ROLE_LABELS: Record<Role, string> = {
 
 const ROLE_COLORS: Record<Role, string> = {
   CLIENT: "bg-df-surface text-white",
-  TEAM: "bg-df-blue/10 text-df-blue",
+  TEAM: "bg-white/10 text-white",
   ADMIN: "bg-df-gold/20 text-df-gold",
 };
 

@@ -67,7 +67,7 @@ export default function BlogTOC({ html }: BlogTOCProps) {
         className="hidden lg:block sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto"
         aria-label="Table des matières"
       >
-        <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-df-blue/40">
+        <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-df-gold">
           <List className="h-3.5 w-3.5" />
           Sommaire
         </p>
@@ -80,8 +80,8 @@ export default function BlogTOC({ html }: BlogTOCProps) {
                   h.level === 3 ? "pl-6" : "pl-4"
                 } ${
                   activeId === h.id
-                    ? "border-df-gold font-medium text-df-blue"
-                    : "border-transparent text-df-blue/50 hover:border-white/10 hover:text-df-blue/70"
+                    ? "border-df-gold font-medium text-white"
+                    : "border-transparent text-white/50 hover:border-white/10 hover:text-white/70"
                 }`}
               >
                 {h.text}
@@ -95,7 +95,7 @@ export default function BlogTOC({ html }: BlogTOCProps) {
       <div className="lg:hidden rounded-xl border border-white/[0.08] bg-white/[0.04] p-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex w-full items-center justify-between text-sm font-bold text-df-blue"
+          className="flex w-full items-center justify-between text-sm font-bold text-white"
         >
           <span className="flex items-center gap-2">
             <List className="h-4 w-4" />
@@ -110,7 +110,7 @@ export default function BlogTOC({ html }: BlogTOCProps) {
                 <a
                   href={`#${h.id}`}
                   onClick={() => setIsOpen(false)}
-                  className={`block py-1 text-df-blue/60 hover:text-df-blue ${h.level === 3 ? "pl-6" : "pl-4"}`}
+                  className={`block py-1 text-white/50 hover:text-white ${h.level === 3 ? "pl-6" : "pl-4"}`}
                 >
                   {h.text}
                 </a>

@@ -32,10 +32,10 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <Link href="/devis" aria-label="Demander un devis"
             className="grid h-10 w-10 place-items-center rounded-full bg-df-surface transition hover:scale-110 hover:bg-df-gold">
-            <Calculator className="h-5 w-5 text-df-blue" />
+            <Calculator className="h-5 w-5 text-white" />
           </Link>
           <Link href="/profil" aria-label="Mon profil"
-            className="grid h-10 w-10 place-items-center rounded-full border-2 border-df-blue text-df-blue transition hover:bg-df-blue hover:text-white">
+            className="grid h-10 w-10 place-items-center rounded-full border-2 border-white/20 text-white transition hover:bg-white/[0.06]">
             <User className="h-5 w-5" />
           </Link>
         </div>

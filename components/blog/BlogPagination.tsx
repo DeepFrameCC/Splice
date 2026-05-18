@@ -35,13 +35,13 @@ export default function BlogPagination({
       {currentPage > 1 ? (
         <Link
           href={buildHref(basePath, currentPage - 1, searchParams)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-df-blue/60 transition hover:bg-df-blue/5 hover:text-df-blue"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-white/60 transition hover:bg-white/[0.06] hover:text-white"
           aria-label="Page précédente"
         >
           <ChevronLeft className="h-4 w-4" />
         </Link>
       ) : (
-        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.06] text-df-blue/20">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.06] text-white/20">
           <ChevronLeft className="h-4 w-4" />
         </span>
       )}
@@ -53,7 +53,7 @@ export default function BlogPagination({
           className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition ${
             page === currentPage
               ? "bg-df-blue text-white"
-              : "border border-white/[0.08] text-df-blue/60 hover:bg-df-blue/5 hover:text-df-blue"
+              : "border border-white/[0.08] text-white/60 hover:bg-white/[0.06] hover:text-white"
           }`}
           aria-current={page === currentPage ? "page" : undefined}
         >
@@ -64,13 +64,13 @@ export default function BlogPagination({
       {currentPage < totalPages ? (
         <Link
           href={buildHref(basePath, currentPage + 1, searchParams)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-df-blue/60 transition hover:bg-df-blue/5 hover:text-df-blue"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-white/60 transition hover:bg-white/[0.06] hover:text-white"
           aria-label="Page suivante"
         >
           <ChevronRight className="h-4 w-4" />
         </Link>
       ) : (
-        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.06] text-df-blue/20">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.06] text-white/20">
           <ChevronRight className="h-4 w-4" />
         </span>
       )}

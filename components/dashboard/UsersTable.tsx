@@ -29,7 +29,7 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
       header: "Utilisateur",
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-df-blue/10 text-xs font-bold text-df-blue">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-df-gold/10 text-xs font-bold text-df-gold">
             {row.original.initial}
           </div>
           <div>
@@ -91,7 +91,7 @@ function makeColumns(adminId: string): ColumnDef<UserRow, unknown>[] {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href={`/admin/utilisateurs/${row.original.id}`}
-            className="inline-flex items-center gap-1 rounded-full bg-df-blue/5 px-2.5 py-1.5 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+            className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
           >
             <Eye className="h-3 w-3" /> 360°
           </Link>
@@ -133,7 +133,7 @@ export default function UsersTable({ data, adminId }: Props) {
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-xl border-2 border-white/10 px-3 py-2 text-sm font-bold text-df-blue outline-none transition focus:border-df-blue"
+          className="rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-sm font-bold text-white outline-none transition focus:border-white/20"
         >
           {roleOptions.map((o) => (
             <option key={o.value} value={o.value}>

@@ -50,9 +50,9 @@ export default async function AdminUtilisateursPage() {
       {/* Stats cards */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
-          { label: "Total", value: stats.total, icon: Users, color: "text-df-blue", bg: "bg-df-blue/5" },
+          { label: "Total", value: stats.total, icon: Users, color: "text-white/70", bg: "bg-white/5" },
           { label: "Clients", value: stats.clients, icon: Users, color: "text-white", bg: "bg-df-surface" },
-          { label: "Équipe", value: stats.team, icon: Shield, color: "text-df-blue", bg: "bg-df-blue/10" },
+          { label: "Équipe", value: stats.team, icon: Shield, color: "text-white/70", bg: "bg-white/10" },
           { label: "Admins", value: stats.admins, icon: Shield, color: "text-df-gold", bg: "bg-df-gold/10" },
         ].map((s) => (
           <div key={s.label} className="rounded-2xl bg-df-surface p-4 shadow-sm ring-1 ring-white/[0.08]">

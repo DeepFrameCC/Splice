@@ -32,7 +32,7 @@ export default async function AdminAvisPage() {
         {[
           { label: "En attente", value: avisEnAttente.length, icon: Clock, color: "text-amber-600", bg: "bg-amber-500/10" },
           { label: "Approuvés", value: avisApprouves.length, icon: CheckCircle, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-          { label: "Total", value: totalAvis, icon: MessageSquare, color: "text-df-blue", bg: "bg-df-blue/5" },
+          { label: "Total", value: totalAvis, icon: MessageSquare, color: "text-white/70", bg: "bg-white/5" },
           { label: "Note moyenne", value: noteMoyenne, icon: Star, color: "text-df-gold", bg: "bg-df-gold/10" },
         ].map((s) => (
           <div key={s.label} className="rounded-2xl bg-df-surface p-4 shadow-sm ring-1 ring-white/[0.08]">
@@ -97,7 +97,7 @@ export default async function AdminAvisPage() {
         </h2>
         {avisApprouves.length === 0 ? (
           <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-            <MessageSquare className="mx-auto h-10 w-10 text-df-blue/20" />
+            <MessageSquare className="mx-auto h-10 w-10 text-white/20" />
             <p className="mt-4 text-sm text-white/30">Aucun avis publié pour le moment.</p>
           </div>
         ) : (

@@ -7,3 +7,8 @@ export interface FAQItem {
   question: string;
   answer: string;
 }
+
+export interface ServiceDeliverable {
+  label: string;
+  detail?: string;
+}

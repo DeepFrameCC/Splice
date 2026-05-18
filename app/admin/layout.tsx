@@ -90,7 +90,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <a
                 key={l.href}
                 href={l.href}
-                className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-bold text-white/60 transition hover:bg-df-blue hover:text-white"
+                className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-bold text-white/60 transition hover:bg-df-gold hover:text-white"
               >
                 {l.label}
               </a>

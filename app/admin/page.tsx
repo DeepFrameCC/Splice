@@ -141,8 +141,8 @@ export default async function AdminDashboard() {
       value: `${caYTDMontant.toLocaleString("fr-FR")} €`,
       sub: `${devisValides} devis validés`,
       icon: Receipt,
-      color: "text-df-blue",
-      bgIcon: "bg-df-blue/10",
+      color: "text-df-gold",
+      bgIcon: "bg-df-gold/10",
     },
     {
       label: "Taux conversion",
@@ -240,7 +240,7 @@ export default async function AdminDashboard() {
             <div className="divide-y divide-white/[0.06]">
               {topClients.map((c, i) => (
                 <div key={c.pseudo || i} className="flex items-center gap-3 px-6 py-3.5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-df-blue/5 text-xs font-bold text-df-blue">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-df-gold/10 text-xs font-bold text-df-gold">
                     {i + 1}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -249,7 +249,7 @@ export default async function AdminDashboard() {
                       {c.count} devis · @{c.pseudo}
                     </p>
                   </div>
-                  <p className="shrink-0 font-display text-sm font-bold text-df-blue">
+                  <p className="shrink-0 font-display text-sm font-bold text-df-gold">
                     {c.total.toLocaleString("fr-FR")} €
                   </p>
                 </div>
@@ -267,7 +267,7 @@ export default async function AdminDashboard() {
           </h2>
           <Link
             href="/admin/devis"
-            className="flex items-center gap-1 rounded-full bg-df-blue/5 px-3 py-1.5 text-xs font-bold text-df-blue transition hover:bg-df-blue hover:text-white"
+            className="flex items-center gap-1 rounded-full bg-white/5 px-3 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
           >
             Voir tout <ArrowUpRight className="h-3 w-3" />
           </Link>
@@ -287,11 +287,11 @@ export default async function AdminDashboard() {
                   href={`/profil/devis/${d.id}`}
                   className="flex items-center gap-4 px-6 py-4 transition hover:bg-white/[0.04]"
                 >
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isUrgent ? "bg-red-500/10" : "bg-df-blue/10"}`}>
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isUrgent ? "bg-red-500/10" : "bg-df-gold/10"}`}>
                     {isUrgent ? (
                       <Clock className="h-4 w-4 text-red-500" />
                     ) : (
-                      <FileText className="h-4 w-4 text-df-blue" />
+                      <FileText className="h-4 w-4 text-df-gold" />
                     )}
                   </div>
                   <div className="min-w-0 flex-1">

@@ -39,8 +39,8 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
     <section className="mx-auto max-w-7xl px-6 py-12">
       <header className="mb-8 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="font-display text-5xl italic text-df-blue">Photos</h1>
-          <p className="mt-2 text-df-blue/70">Survolez pour zoomer. Connectez-vous pour liker et voir l&apos;estimation.</p>
+          <h1 className="font-display text-5xl italic text-white">Photos</h1>
+          <p className="mt-2 text-white/70">Survolez pour zoomer. Connectez-vous pour liker et voir l&apos;estimation.</p>
         </div>
         <FilterTabs basePath="/photos" current={sp.owner} />
       </header>
@@ -54,7 +54,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
           </div>
         </div>
       ) : medias.length === 0 ? (
-        <p className="rounded-xl bg-df-surface p-8 text-center text-df-blue/70">Aucune photo pour l&apos;instant — bientôt en ligne.</p>
+        <p className="rounded-xl bg-df-surface p-8 text-center text-white/70">Aucune photo pour l&apos;instant — bientôt en ligne.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {medias.map((m) => (

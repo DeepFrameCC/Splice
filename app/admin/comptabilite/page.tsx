@@ -116,8 +116,8 @@ export default async function AdminComptabilitePage() {
         </div>
 
         <div className="rounded-2xl bg-df-surface p-5 shadow-sm ring-1 ring-white/[0.08]">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-df-blue/5">
-            <BookOpen className="h-4 w-4 text-df-blue" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-df-gold/10">
+            <BookOpen className="h-4 w-4 text-df-gold" />
           </div>
           <p className="mt-3 font-display text-2xl font-bold text-white">
             {revenuNet.toLocaleString("fr-FR")} €
@@ -156,7 +156,7 @@ export default async function AdminComptabilitePage() {
 
         {recettesAnnee.length === 0 ? (
           <div className="px-6 py-12 text-center">
-            <BookOpen className="mx-auto h-10 w-10 text-df-blue/20" />
+            <BookOpen className="mx-auto h-10 w-10 text-white/20" />
             <p className="mt-4 text-sm text-white/30">Aucun encaissement enregistré en {currentYear}.</p>
           </div>
         ) : (
@@ -182,7 +182,7 @@ export default async function AdminComptabilitePage() {
                       <td className="px-5 py-3 text-xs text-white/40">
                         {f.createdAt.toLocaleDateString("fr-FR")}
                       </td>
-                      <td className="px-5 py-3 font-display text-sm font-bold text-df-blue">
+                      <td className="px-5 py-3 font-display text-sm font-bold text-white">
                         {f.numero}
                       </td>
                       <td className="px-5 py-3 text-xs text-white/40">
@@ -207,7 +207,7 @@ export default async function AdminComptabilitePage() {
                     <td colSpan={4} className="px-5 py-3 text-sm font-bold text-white">
                       Total {currentYear}
                     </td>
-                    <td className="px-5 py-3 text-right font-display text-lg font-bold text-df-blue">
+                    <td className="px-5 py-3 text-right font-display text-lg font-bold text-df-gold">
                       {totalRecettes.toLocaleString("fr-FR")} €
                     </td>
                     <td />
