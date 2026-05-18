@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "@node-rs/argon2";
+import { SERVICES_CONTENT } from "./services-content";
 
 const db = new PrismaClient();
 
@@ -40,176 +41,40 @@ async function main() {
     console.log("Compte admin cree:", admin.email);
   }
 
-  // ── Services ───────────────────────────────────────────────────────
-  const services = [
-    {
-      slug: "montage-video",
-      name: "Montage video professionnel",
-      shortName: "Montage video",
-      metaTitle: "Montage video professionnel Orleans Tours | DeepFrame",
-      metaDescription:
-        "Montage video haut de gamme pour entreprises et marques. Post-production, etalonnage DaVinci, sound design. Livraison multi-format reseaux sociaux.",
-      h1: "Montage video professionnel — donnez du rythme a votre message",
-      introParagraph:
-        "Chaque seconde compte. Notre montage transforme vos rushes en contenus percutants, calibres pour capter l'attention sur chaque plateforme.",
-      problemQuestion:
-        "Pourquoi le montage fait la difference entre un contenu vu et un contenu ignore ?",
-      problemAnswer:
-        "Un tournage reussi ne garantit rien sans un montage precis. Le rythme, les coupes, les transitions, le sound design — tout conditionne l'engagement de votre audience. Chez DeepFrame, chaque montage est pense pour le format de diffusion cible : vertical TikTok, carre Instagram, 16:9 YouTube. L'etalonnage colorimetrique sur DaVinci Resolve Studio finalise l'image avec un rendu cinema qui distingue votre marque.",
-      features: [
-        {
-          h3: "Montage multi-format",
-          content:
-            "Un seul tournage, plusieurs declinaisons. On livre en 9:16, 1:1 et 16:9 pour couvrir TikTok, Instagram Reels, YouTube et LinkedIn sans ressource supplementaire.",
-        },
-        {
-          h3: "Etalonnage et color grading",
-          content:
-            "Etalonnage professionnel sur DaVinci Resolve Studio. LUTs personnalisees, skin tones naturels, ambiance visuelle coherente avec votre charte graphique.",
-        },
-        {
-          h3: "Sound design et mixage",
-          content:
-            "Nettoyage audio, sound design immersif, musique licensiee ou sur mesure. Le mix final respecte les normes LUFS de chaque plateforme.",
-        },
-      ],
-      faq: [
-        {
-          question: "Quel est le delai de livraison pour un montage video ?",
-          answer:
-            "Delai standard : 7 jours ouvrés apres reception des rushes. Option express 48h disponible avec supplement.",
-        },
-        {
-          question: "Combien de formats sont inclus dans une prestation montage ?",
-          answer:
-            "Chaque pack inclut au minimum 2 formats (vertical + horizontal). Des declinaisons supplementaires sont facturées a l'unite.",
-        },
-        {
-          question: "Puis-je fournir mes propres rushes pour le montage ?",
-          answer:
-            "Oui. Envoyez vos fichiers via notre plateforme de transfert securisee. Formats acceptes : ProRes, H.264, H.265, RAW (BRAW, R3D).",
-        },
-      ],
-      serviceType: "VideoEditingService",
-      priceRange: "$$$",
-      coverImageUrl: "/images/services/montage-video.jpg",
-      coverImageAlt: "Poste de montage video professionnel avec DaVinci Resolve — studio DeepFrame Orleans",
-    },
-    {
-      slug: "production-corporate",
-      name: "Production corporate et brand content",
-      shortName: "Production corporate",
-      metaTitle: "Production corporate et film de marque Orleans Tours | DeepFrame",
-      metaDescription:
-        "Films corporate, interviews dirigeants, brand content. Production audiovisuelle complete de la pre-production a la livraison finale.",
-      h1: "Production corporate — racontez votre marque en images",
-      introParagraph:
-        "Un film corporate ne se resume pas a un plan large sur vos locaux. C'est un outil strategique qui porte votre message aupres de vos clients, partenaires et talents.",
-      problemQuestion:
-        "Comment un film corporate transforme la perception de votre entreprise ?",
-      problemAnswer:
-        "80% des entreprises utilisent la video dans leur communication. La difference entre un film corporate efficace et un contenu generique tient a trois choses : une direction artistique assumee, un storytelling ancre dans votre realite metier, et une qualite technique irreprochable. Chez DeepFrame, on prend le temps de comprendre votre positionnement avant de tourner la premiere image.",
-      features: [
-        {
-          h3: "Film de presentation entreprise",
-          content:
-            "De 1 a 5 minutes, avec interviews dirigeants, plans d'activite et motion titrage. Ideal pour le site web, les salons et le recrutement.",
-        },
-        {
-          h3: "Interview et temoignage",
-          content:
-            "Setup multi-camera, eclairage portrait cinematographique, prompteur si necessaire. Montage dynamique avec habillage graphique integre.",
-        },
-        {
-          h3: "Brand content reseaux sociaux",
-          content:
-            "Series de contenus courts calibres pour vos reseaux. Formats verticaux, sous-titres graves, hooks visuels optimises pour l'algorithme.",
-        },
-      ],
-      faq: [
-        {
-          question: "Combien coute un film corporate ?",
-          answer:
-            "Le tarif depend de la duree, du nombre de jours de tournage et des besoins en post-production. Nos packs demarrent a partir de 1 500 euros HT. Devis gratuit en ligne.",
-        },
-        {
-          question: "Gerez-vous la pre-production (script, reperage) ?",
-          answer:
-            "Oui. Chaque projet inclut un brief creatif, une proposition de traitement, un script valide et un reperage des lieux avant tournage.",
-        },
-        {
-          question: "Peut-on tourner dans nos locaux ?",
-          answer:
-            "Absolument. On s'adapte a votre environnement. Notre materiel d'eclairage portable permet de transformer n'importe quel espace en plateau.",
-        },
-      ],
-      serviceType: "VideographyService",
-      priceRange: "$$$",
-      coverImageUrl: "/images/services/production-corporate.jpg",
-      coverImageAlt: "Tournage film corporate en entreprise — equipe DeepFrame avec camera cinema",
-    },
-    {
-      slug: "motion-design",
-      name: "Motion design et animation graphique",
-      shortName: "Motion design",
-      metaTitle: "Motion design et animation graphique Orleans Tours | DeepFrame",
-      metaDescription:
-        "Motion design sur mesure : intros animees, infographies video, habillage graphique, transitions. Animation 2D/3D pour marques exigeantes.",
-      h1: "Motion design — animez vos idees avec precision",
-      introParagraph:
-        "Le motion design rend tangible ce que la camera ne peut pas filmer. Donnees, processus, concepts abstraits : tout devient limpide en animation.",
-      problemQuestion:
-        "Quand le motion design devient-il indispensable a votre communication ?",
-      problemAnswer:
-        "Des que votre message depasse le champ visuel d'une camera. Expliquer un processus technique, animer des chiffres cles, habiller une video avec votre identite graphique — le motion design apporte une couche narrative impossible a obtenir en prise de vue reelle. Chez DeepFrame, chaque animation est construite sur mesure a partir de votre charte, pas d'un template generique.",
-      features: [
-        {
-          h3: "Intro et outro animees",
-          content:
-            "Logo reveal, generiques, bumpers. Animation fluide de votre identite visuelle pour ouvrir et fermer chaque video avec impact.",
-        },
-        {
-          h3: "Infographie et data visualization",
-          content:
-            "Transformation de vos donnees en sequences animees lisibles et memorables. Ideal pour les rapports d'activite, les pitchs investisseurs, les presentations internes.",
-        },
-        {
-          h3: "Habillage graphique video",
-          content:
-            "Lower thirds, titrages, transitions, call-to-action animes. Coherence graphique totale entre vos supports video et votre charte de marque.",
-        },
-      ],
-      faq: [
-        {
-          question: "Quelle est la difference entre motion design 2D et 3D ?",
-          answer:
-            "Le motion design 2D utilise des illustrations et typographies animees en plan. Le 3D ajoute de la profondeur avec des objets modeles. Le choix depend du rendu souhaite et du budget.",
-        },
-        {
-          question: "Fournissez-vous les fichiers sources ?",
-          answer:
-            "Sur demande et avec supplement. Les fichiers After Effects / Cinema 4D sont livres avec un guide de modification si vous avez les competences en interne.",
-        },
-        {
-          question: "Peut-on integrer du motion design dans une video filmee ?",
-          answer:
-            "C'est meme recommande. L'habillage graphique renforce le message de la prise de vue reelle. On gere le compositing pour un resultat homogene.",
-        },
-      ],
-      serviceType: "GraphicDesignService",
-      priceRange: "$$$",
-      coverImageUrl: "/images/services/motion-design.jpg",
-      coverImageAlt: "Animation motion design en cours de creation — interface After Effects studio DeepFrame",
-    },
-  ];
+  // ── Services (11 services depuis services-content.ts) ──────────────
+  for (const s of SERVICES_CONTENT) {
+    const data = {
+      name: s.name,
+      shortName: s.shortName,
+      metaTitle: s.metaTitle,
+      metaDescription: s.metaDescription,
+      h1: s.h1,
+      introParagraph: s.introParagraph,
+      problemQuestion: s.problemQuestion,
+      problemAnswer: s.problemAnswer,
+      features: s.features,
+      faq: s.faq,
+      serviceType: s.serviceType,
+      priceRange: s.priceRange,
+      coverImageUrl: s.coverImageUrl,
+      coverImageAlt: s.coverImageAlt,
+      videoUrl: s.videoUrl,
+      category: s.category,
+      sortOrder: s.sortOrder,
+      iconName: s.iconName,
+      teamMembers: s.teamMembers,
+      deliverables: s.deliverables,
+      zoneText: s.zoneText,
+      relatedSlugs: s.relatedSlugs,
+      isPublished: s.isPublished,
+    };
 
-  for (const s of services) {
     await db.service.upsert({
       where: { slug: s.slug },
-      update: s,
-      create: s,
+      update: data,
+      create: { slug: s.slug, ...data },
     });
-    console.log("Service:", s.slug);
+    console.log("Service:", s.slug, s.isPublished ? "(published)" : "(draft)");
   }
 
   // ── Blog Categories ─────────────────────────────────────────────────
@@ -217,6 +82,14 @@ async function main() {
     { slug: "montage-video", name: "Montage vidéo", color: "#F36B1F" },
     { slug: "production-corporate", name: "Production corporate", color: "#F36B1F" },
     { slug: "motion-design", name: "Motion design", color: "#F36B1F" },
+    { slug: "pub-reseaux-sociaux", name: "Publicité réseaux sociaux", color: "#F36B1F" },
+    { slug: "shooting-automobile", name: "Shooting automobile", color: "#F36B1F" },
+    { slug: "photographie-professionnelle", name: "Photographie professionnelle", color: "#F36B1F" },
+    { slug: "interview-temoignage", name: "Interview & témoignage", color: "#F36B1F" },
+    { slug: "voix-off-sound-design", name: "Voix-off & sound design", color: "#F36B1F" },
+    { slug: "presentation-entreprise", name: "Film d'entreprise", color: "#F36B1F" },
+    { slug: "clip-musical", name: "Clip musical", color: "#F36B1F" },
+    { slug: "drone-prise-de-vue-aerienne", name: "Drone & aérien", color: "#F36B1F" },
   ];
 
   for (const cat of blogCategories) {
@@ -228,7 +101,7 @@ async function main() {
     console.log("BlogCategory:", cat.slug);
   }
 
-  // ── Blog Posts (2 par service) ─────────────────────────────────────
+  // ── Blog Posts (2 par service pilier) ──────────────────────────────
   const { blogContent } = await import("./blog-content");
   const adminUser = await db.user.findUnique({ where: { email: adminEmail } });
   const blogPosts = [
