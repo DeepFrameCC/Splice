@@ -10,12 +10,16 @@ import {
   getRelatedServices,
 } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
-import type { ServiceFeature, FAQItem, ServiceDeliverable } from "@/lib/services/types";
+import type { ServiceFeature, FAQItem, ServiceDeliverable, Equipment } from "@/lib/services/types";
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
 import { ServiceTOC } from "@/components/services/ServiceTOC";
 import { ServiceFAQ } from "@/components/services/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 import { ServiceReassurance } from "@/components/services/ServiceReassurance";
+import { ServiceDeliverables } from "@/components/services/ServiceDeliverables";
+import { ServiceEquipment } from "@/components/services/ServiceEquipment";
+import { ServiceZone } from "@/components/services/ServiceZone";
+import { ServiceLocalLinks } from "@/components/services/ServiceLocalLinks";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -33,9 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return {};
-
   const url = `https://deepframe.cc/services/${slug}`;
-
   return {
     title: service.metaTitle,
     description: service.metaDescription,
@@ -47,14 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "DeepFrame",
       locale: "fr_FR",
       type: "article",
-      images: [
-        {
-          url: service.coverImageUrl,
-          width: 1200,
-          height: 630,
-          alt: service.coverImageAlt,
-        },
-      ],
+      images: [{ url: service.coverImageUrl, width: 1200, height: 630, alt: service.coverImageAlt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -65,9 +60,79 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+const EQUIPMENT_BY_SERVICE: Record<string, Equipment[]> = {
+  "montage-video": [
+    { name: "Premiere Pro CC" },
+    { name: "DaVinci Resolve Studio" },
+    { name: "After Effects" },
+    { name: "Logic Pro X" },
+    { name: "Audition CC" },
+  ],
+  "production-corporate": [
+    { name: "Sony FX3 / FX6" },
+    { name: "Blackmagic Pocket 6K" },
+    { name: "Optiques Sigma Art", detail: "24-70mm, 85mm" },
+    { name: "Ronin RS3 Pro" },
+    { name: "Éclairage Aputure", detail: "300X + LS 600D" },
+  ],
+  "motion-design": [
+    { name: "After Effects" },
+    { name: "Cinema 4D" },
+    { name: "Illustrator" },
+    { name: "Lottie" },
+  ],
+  "pub-reseaux-sociaux": [
+    { name: "Sony ZV-E1" },
+    { name: "iPhone Pro", detail: "Tournage vertical natif" },
+    { name: "DJI OM6" },
+    { name: "Premiere Pro" },
+  ],
+  "shooting-automobile": [
+    { name: "Sony A7R V" },
+    { name: "Sigma Art", detail: "35mm f/1.4 + 90mm Macro" },
+    { name: "Hexlight LED" },
+    { name: "Véhicule suiveur", detail: "Équipé RS3" },
+  ],
+  "photographie-professionnelle": [
+    { name: "Sony A7R V" },
+    { name: "Sigma Art", detail: "24-70mm + 85mm" },
+    { name: "Godox AD400 Pro" },
+    { name: "Calibration X-Rite" },
+  ],
+  "interview-temoignage": [
+    { name: "Setup 2-3 caméras", detail: "Sony FX3" },
+    { name: "Éclairage Aputure" },
+    { name: "Prompteur" },
+    { name: "Micro-cravate DPA 4060" },
+  ],
+  "voix-off-sound-design": [
+    { name: "Studio traité acoustiquement" },
+    { name: "Neumann TLM 103" },
+    { name: "Apollo Twin MKII" },
+    { name: "Logic Pro X" },
+  ],
+  "presentation-entreprise": [
+    { name: "Sony FX6" },
+    { name: "Ronin RS3 Pro" },
+    { name: "Drone", detail: "Option" },
+    { name: "Éclairage Aputure complet" },
+  ],
+};
+
+const DELIVERY_BY_SERVICE: Record<string, { delay: string; priceFrom: string; express?: string }> = {
+  "montage-video": { delay: "7 jours ouvrés", priceFrom: "À partir de 500 € HT", express: "Option express 48h" },
+  "production-corporate": { delay: "3 à 6 semaines", priceFrom: "À partir de 1 500 € HT" },
+  "motion-design": { delay: "2 à 4 semaines", priceFrom: "À partir de 800 € HT" },
+  "pub-reseaux-sociaux": { delay: "5 à 7 jours ouvrés", priceFrom: "À partir de 400 € HT", express: "Option express 48h" },
+  "shooting-automobile": { delay: "5 à 7 jours ouvrés", priceFrom: "À partir de 350 € HT", express: "Option express 48h" },
+  "photographie-professionnelle": { delay: "5 à 7 jours ouvrés", priceFrom: "À partir de 250 € HT", express: "Livraison express 48h" },
+  "interview-temoignage": { delay: "1 à 2 semaines", priceFrom: "À partir de 800 € HT" },
+  "voix-off-sound-design": { delay: "Quelques jours à 2 semaines", priceFrom: "À partir de 300 € HT" },
+  "presentation-entreprise": { delay: "4 à 8 semaines", priceFrom: "À partir de 2 000 € HT" },
+};
+
 export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
-
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
@@ -78,34 +143,20 @@ export default async function ServicePage({ params }: PageProps) {
   const faqItems = service.faq as unknown as FAQItem[];
   const deliverables = (service.deliverables as unknown as ServiceDeliverable[]) ?? [];
   const relatedSlugs = (service.relatedSlugs as unknown as string[]) ?? [];
+  const equipment = EQUIPMENT_BY_SERVICE[slug] ?? [];
+  const delivery = DELIVERY_BY_SERVICE[slug];
 
   const [relatedArticles, relatedServices] = await Promise.all([
     getRelatedArticles(slug),
     getRelatedServices(relatedSlugs),
   ]);
 
-  const tocSections = [
-    { id: "problematique", label: "Notre approche" },
-    { id: "prestation", label: "Prestations" },
-    ...(deliverables.length > 0 ? [{ id: "livrables", label: "Livrables" }] : []),
-    { id: "reassurance", label: "Engagements" },
-    { id: "faq", label: "FAQ" },
-    ...(service.zoneText ? [{ id: "zone", label: "Zone d'intervention" }] : []),
-  ];
-
   return (
     <>
-      <script
-        nonce={nonce}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-12">
         <ServiceBreadcrumb serviceName={service.shortName} slug={slug} />
-
         <article>
-          {/* ── Hero ───────────────────────────────────────────────── */}
           <header className="mb-10 md:mb-14">
             <h1 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl">
               {service.h1}
@@ -125,9 +176,19 @@ export default async function ServicePage({ params }: PageProps) {
             </div>
           </header>
 
-          <ServiceTOC sections={tocSections} />
+          <ServiceTOC
+            sections={[
+              { id: "problematique", label: "Notre approche" },
+              { id: "prestation", label: "Prestations" },
+              { id: "equipement", label: "Équipement" },
+              { id: "delais", label: "Délais & tarifs" },
+              { id: "zone", label: "Zone d'intervention" },
+              { id: "reassurance", label: "Engagements" },
+              { id: "rdv", label: "Rendez-vous" },
+              { id: "faq", label: "FAQ" },
+            ]}
+          />
 
-          {/* ── Problématique ─────────────────────────────────────── */}
           <section id="problematique" aria-labelledby="problem-h2" className="mt-16 scroll-mt-24">
             <h2 id="problem-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               {service.problemQuestion}
@@ -139,7 +200,6 @@ export default async function ServicePage({ params }: PageProps) {
 
           <ServiceCTA variant="inline" serviceName={service.shortName} />
 
-          {/* ── Prestations ───────────────────────────────────────── */}
           <section id="prestation" aria-labelledby="prestation-h2" className="mt-16 scroll-mt-24">
             <h2 id="prestation-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               Prestations {service.shortName}
@@ -154,39 +214,67 @@ export default async function ServicePage({ params }: PageProps) {
             </div>
           </section>
 
-          <ServiceCTA variant="inline" serviceName={service.shortName} />
+          <ServiceEquipment items={equipment} />
 
-          {/* ── Livrables ─────────────────────────────────────────── */}
-          {deliverables.length > 0 && (
-            <section id="livrables" aria-labelledby="livrables-h2" className="mt-16 scroll-mt-24">
-              <h2 id="livrables-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Ce que vous recevez
+          {delivery && (
+            <section id="delais" aria-labelledby="delais-h2" className="mt-16 scroll-mt-24">
+              <h2 id="delais-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+                Délais & tarifs
               </h2>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                {deliverables.map((d) => (
-                  <li
-                    key={d.label}
-                    className="flex items-start gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-4"
-                  >
-                    <span className="mt-0.5 text-df-gold" aria-hidden="true">
-                      ✓
-                    </span>
-                    <span>
-                      <span className="font-medium text-white">{d.label}</span>
-                      {d.detail && (
-                        <span className="ml-1 text-sm text-white/50">— {d.detail}</span>
-                      )}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-white/[0.08] bg-df-surface p-5">
+                  <p className="text-xs uppercase tracking-widest text-white/40">Délai standard</p>
+                  <p className="mt-2 text-lg font-semibold text-white">{delivery.delay}</p>
+                </div>
+                <div className="rounded-xl border border-white/[0.08] bg-df-surface p-5">
+                  <p className="text-xs uppercase tracking-widest text-white/40">Budget indicatif</p>
+                  <p className="mt-2 text-lg font-semibold text-df-gold">{delivery.priceFrom}</p>
+                </div>
+                <div className="rounded-xl border border-white/[0.08] bg-df-surface p-5">
+                  <p className="text-xs uppercase tracking-widest text-white/40">Option express</p>
+                  <p className="mt-2 text-lg font-semibold text-white">{delivery.express ?? "Sur demande"}</p>
+                </div>
+              </div>
+              <div className="mt-6">
+                <Link
+                  href="/devis"
+                  className="inline-flex items-center justify-center rounded-full bg-df-gold px-6 py-3 text-sm font-semibold text-black transition hover:bg-df-gold/90"
+                >
+                  Demander un devis gratuit
+                </Link>
+              </div>
             </section>
           )}
 
-          {/* ── Réassurance ───────────────────────────────────────── */}
+          <ServiceDeliverables items={deliverables} />
+
+          <ServiceZone text={(service.zoneText as string) ?? ""} serviceName={service.shortName} />
+
           <ServiceReassurance />
 
-          {/* ── FAQ ───────────────────────────────────────────────── */}
+          <section id="rdv" aria-labelledby="rdv-h2" className="mt-16 scroll-mt-24 rounded-2xl bg-df-surface border border-white/[0.08] p-8 md:p-12">
+            <h2 id="rdv-h2" className="text-2xl font-semibold text-white">Prendre rendez-vous</h2>
+            <p className="mt-3 text-white/70 max-w-2xl">
+              Discutons de votre projet. Répondez à quelques questions sur votre besoin, et recevez un devis
+              personnalisé sous 24h.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/devis"
+                className="inline-flex items-center justify-center rounded-full bg-df-gold px-6 py-3 text-sm font-semibold text-black transition hover:bg-df-gold/90"
+              >
+                Demander un devis gratuit
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40"
+              >
+                Nous contacter directement
+              </Link>
+            </div>
+            <p className="mt-4 text-sm text-white/40">Réponse garantie sous 24h ouvrées · Devis sans engagement</p>
+          </section>
+
           <section id="faq" aria-labelledby="faq-h2" className="mt-16 scroll-mt-24">
             <h2 id="faq-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
               Questions fréquentes
@@ -194,24 +282,9 @@ export default async function ServicePage({ params }: PageProps) {
             <ServiceFAQ items={faqItems} />
           </section>
 
-          {/* ── Zone d'intervention ───────────────────────────────── */}
-          {service.zoneText && (
-            <section id="zone" aria-labelledby="zone-h2" className="mt-16 scroll-mt-24">
-              <h2 id="zone-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Zone d&apos;intervention
-              </h2>
-              <p className="mt-4 max-w-3xl leading-relaxed text-white/70">
-                {service.zoneText as string}
-              </p>
-            </section>
-          )}
-
-          {/* ── Articles liés ─────────────────────────────────────── */}
           {relatedArticles.length > 0 && (
             <section className="mt-16">
-              <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Articles liés
-              </h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Articles liés</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {relatedArticles.map((article) => (
                   <Link
@@ -219,9 +292,7 @@ export default async function ServicePage({ params }: PageProps) {
                     href={`/blog/${article.slug}`}
                     className="group block rounded-xl bg-white/5 p-5 ring-1 ring-white/[0.08] transition hover:ring-df-gold/25"
                   >
-                    <h3 className="font-semibold text-white group-hover:text-df-gold transition">
-                      {article.title}
-                    </h3>
+                    <h3 className="font-semibold text-white group-hover:text-df-gold transition">{article.title}</h3>
                     <p className="mt-2 text-sm text-white/60 line-clamp-2">{article.excerpt}</p>
                   </Link>
                 ))}
@@ -229,12 +300,9 @@ export default async function ServicePage({ params }: PageProps) {
             </section>
           )}
 
-          {/* ── Services liés ─────────────────────────────────────── */}
           {relatedServices.length > 0 && (
             <section className="mt-16">
-              <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Services complémentaires
-              </h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Services complémentaires</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedServices.map((rs) => (
                   <Link
@@ -242,12 +310,8 @@ export default async function ServicePage({ params }: PageProps) {
                     href={`/services/${rs.slug}`}
                     className="group relative overflow-hidden rounded-xl border border-white/[0.08] bg-df-surface p-5 transition hover:border-df-gold/25"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-widest text-df-gold/70">
-                      {rs.category}
-                    </p>
-                    <h3 className="mt-1 font-semibold text-white group-hover:text-df-gold transition">
-                      {rs.shortName}
-                    </h3>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-df-gold/70">{rs.category}</p>
+                    <h3 className="mt-1 font-semibold text-white group-hover:text-df-gold transition">{rs.shortName}</h3>
                     <p className="mt-2 text-sm text-white/50 line-clamp-2">{rs.metaDescription}</p>
                   </Link>
                 ))}
@@ -256,6 +320,7 @@ export default async function ServicePage({ params }: PageProps) {
           )}
 
           <ServiceCTA variant="block" serviceName={service.shortName} />
+          <ServiceLocalLinks serviceSlug={slug} />
         </article>
       </main>
     </>

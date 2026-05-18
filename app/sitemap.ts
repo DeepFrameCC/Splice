@@ -3,6 +3,17 @@ import { db } from "@/lib/db";
 
 const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
 
+const LOCAL_SLUGS = [
+  "pub-reseaux-sociaux",
+  "photographie-professionnelle",
+  "shooting-automobile",
+  "production-corporate",
+  "motion-design",
+  "presentation-entreprise",
+];
+
+const LOCAL_VILLES = ["orleans", "tours", "centre-val-de-loire", "loiret"];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: base,                             lastModified: new Date(), changeFrequency: "weekly",  priority: 1.0 },
@@ -19,12 +30,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/cookies`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
   ];
 
+  const localPages: MetadataRoute.Sitemap = LOCAL_SLUGS.flatMap((slug) =>
+    LOCAL_VILLES.map((ville) => ({
+      url: `${base}/services/${slug}/${ville}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }))
+  );
+
   let dynamicPages: MetadataRoute.Sitemap = [];
   try {
     const [services, blogPosts] = await Promise.all([
       db.service.findMany({
+        where: { isPublished: true },
         select: { slug: true, updatedAt: true },
-        orderBy: { publishedAt: "asc" },
+        orderBy: { sortOrder: "asc" },
       }),
       db.blogPost.findMany({
         where: { status: "PUBLISHED" },
@@ -34,18 +55,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     dynamicPages = [
-      // Services hub
       ...(services.length > 0
         ? [{ url: `${base}/services`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 }]
         : []),
-      // Individual service pages
       ...services.map((s) => ({
         url: `${base}/services/${s.slug}`,
         lastModified: s.updatedAt,
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
-      // Blog posts
       ...blogPosts.map((p) => ({
         url: `${base}/blog/${p.slug}`,
         lastModified: p.updatedAt,
@@ -57,5 +75,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB unavailable at build time — skip dynamic pages
   }
 
-  return [...staticPages, ...dynamicPages];
+  return [...staticPages, ...dynamicPages, ...localPages];
 }
