@@ -1,17 +1,16 @@
-﻿"use client";
+"use client";
 import { useTransition } from "react";
 import { useDevisForm } from "./store";
-import { Step1, Step2, Step3, Step4 } from "./Steps";
+import { Step1, Step2Abonnement, Step2PackParticulier, Step3 } from "./Steps";
 import Recap from "./Recap";
 import { submitDevis } from "@/app/actions/devis";
 import { ChevronLeft, ChevronRight, Send, Shield, Clock, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
-const steps = [
-  { n: 1, label: "Prestation", desc: "Choisissez votre pack" },
-  { n: 2, label: "Suppléments", desc: "Options & tournage" },
-  { n: 3, label: "Diffusion", desc: "Livraison & formats" },
-  { n: 4, label: "Coordonnées", desc: "Vos informations" },
+const STEP_META = [
+  { n: 1, label: "Prestation", desc: "Type de prestation" },
+  { n: 2, label: "Configuration", desc: "Plan & options" },
+  { n: 3, label: "Coordonnées", desc: "Vos informations" },
 ];
 
 export default function Wizard() {
@@ -19,15 +18,44 @@ export default function Wizard() {
   const [pending, start] = useTransition();
 
   const canNext = () => {
-    if (f.step === 1) return Boolean(f.pack);
-    if (f.step === 4) return f.nomContact && f.emailContact && f.telContact && f.lieuTournage;
+    if (f.step === 1) return Boolean(f.mode);
+    if (f.step === 2) {
+      if (f.mode === "ABONNEMENT") return Boolean(f.planId);
+      // Pack Particulier: at least videos or photos selected
+      return (f.nbVideos !== null && f.nbVideos > 0) || (f.nbPhotos !== null && f.nbPhotos > 0);
+    }
+    if (f.step === 3) {
+      return Boolean(f.nomContact && f.emailContact && f.telContact && f.lieuTournage);
+    }
     return true;
   };
 
   const onSubmit = () => {
     start(async () => {
       try {
-        await submitDevis({ ...f, dateTournage: f.dateTournage || undefined });
+        const payload = {
+          mode: f.mode,
+          planId: f.planId,
+          billingCycle: f.billingCycle,
+          useLaunchPrice: f.useLaunchPrice,
+          nbVideos: f.nbVideos,
+          nbPhotos: f.nbPhotos,
+          banniere: f.banniere,
+          villeDepart: f.villeDepart,
+          distanceKm: f.distanceKm,
+          delai: f.delai,
+          duree: f.duree,
+          options: f.options,
+          nomEntreprise: f.nomEntreprise,
+          nomContact: f.nomContact,
+          emailContact: f.emailContact,
+          telContact: f.telContact,
+          lieuTournage: f.lieuTournage,
+          dateTournage: f.dateTournage || undefined,
+          remarques: f.remarques,
+        };
+        // Runtime value satisfies the discriminated union; TS needs the cast
+        await submitDevis(payload as Parameters<typeof submitDevis>[0]);
       } catch (e: unknown) {
         if (e && typeof e === "object" && "digest" in e) {
           const digest = (e as { digest?: string }).digest;
@@ -39,7 +67,7 @@ export default function Wizard() {
     });
   };
 
-  const progress = (f.step / 4) * 100;
+  const progress = (f.step / 3) * 100;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
@@ -53,13 +81,13 @@ export default function Wizard() {
             />
           </div>
           <p className="mt-2 text-right text-xs font-bold text-white/50">
-            Étape {f.step} sur 4
+            Étape {f.step} sur 3
           </p>
         </div>
 
         {/* Steps indicator */}
         <ol className="mb-8 flex items-center justify-between gap-2">
-          {steps.map((s, i) => (
+          {STEP_META.map((s, i) => (
             <li key={s.n} className="flex flex-1 items-center gap-2">
               <span
                 className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-bold transition-all duration-300 ${
@@ -70,11 +98,7 @@ export default function Wizard() {
                     : "bg-df-surface text-white/50"
                 }`}
               >
-                {f.step > s.n ? (
-                  <CheckCircle className="h-4 w-4" />
-                ) : (
-                  s.n
-                )}
+                {f.step > s.n ? <CheckCircle className="h-4 w-4" /> : s.n}
               </span>
               <div className="hidden md:block">
                 <span
@@ -86,7 +110,7 @@ export default function Wizard() {
                 </span>
                 <span className="block text-[10px] text-white/40">{s.desc}</span>
               </div>
-              {i < steps.length - 1 && (
+              {i < STEP_META.length - 1 && (
                 <span
                   className={`h-0.5 flex-1 transition-colors duration-300 ${
                     f.step > s.n ? "bg-emerald-500" : "bg-df-surface"
@@ -100,9 +124,9 @@ export default function Wizard() {
         {/* Step content */}
         <div className="relative z-10 rounded-3xl bg-df-surface p-6 shadow ring-1 ring-white/[0.08] md:p-8">
           {f.step === 1 && <Step1 />}
-          {f.step === 2 && <Step2 />}
+          {f.step === 2 && f.mode === "ABONNEMENT" && <Step2Abonnement />}
+          {f.step === 2 && f.mode === "PACK_PARTICULIER" && <Step2PackParticulier />}
           {f.step === 3 && <Step3 />}
-          {f.step === 4 && <Step4 />}
 
           {/* Navigation buttons */}
           <div className="mt-8 flex items-center justify-between">
@@ -114,7 +138,7 @@ export default function Wizard() {
             >
               <ChevronLeft className="h-5 w-5" /> Retour
             </button>
-            {f.step < 4 ? (
+            {f.step < 3 ? (
               <button
                 type="button"
                 onClick={f.next}
@@ -136,7 +160,9 @@ export default function Wizard() {
                     Envoi en cours…
                   </>
                 ) : (
-                  <>Envoyer le devis <Send className="h-5 w-5" /></>
+                  <>
+                    Envoyer le devis <Send className="h-5 w-5" />
+                  </>
                 )}
               </button>
             )}

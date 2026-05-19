@@ -12,3 +12,8 @@ export interface ServiceDeliverable {
   label: string;
   detail?: string;
 }
+
+export interface EquipmentItem {
+  name: string;
+  detail?: string;
+}

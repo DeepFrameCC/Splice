@@ -1,10 +1,10 @@
-﻿import { PACKS, DUREE_SUPPLEMENT, USAGE_PRICE_PER_VIDEO, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
+﻿import { SUBSCRIPTION_PLANS, PLAN_IDS, OPTIONS_A_LA_CARTE, DUREE_SUPPLEMENT, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
 import { Settings, CreditCard, FileText, Calculator, Truck, Clock, Package } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export default function AdminParametresPage() {
-  const packs = Object.values(PACKS);
+  const plans = PLAN_IDS.map((id) => SUBSCRIPTION_PLANS[id]);
 
   return (
     <div className="space-y-8">
@@ -17,12 +17,12 @@ export default function AdminParametresPage() {
         </p>
       </header>
 
-      {/* Tarifs Packs */}
+      {/* Tarifs Abonnements */}
       <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
           <Package className="h-5 w-5 text-df-gold" />
           <div>
-            <h2 className="font-display text-lg font-bold text-white">Tarifs des packs</h2>
+            <h2 className="font-display text-lg font-bold text-white">Tarifs des abonnements</h2>
             <p className="text-xs text-white/30">Modifiez dans lib/pricing.ts</p>
           </div>
         </div>
@@ -30,21 +30,25 @@ export default function AdminParametresPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/[0.08] text-left">
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Pack</th>
-                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Prix HT</th>
-                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/30">Vidéos</th>
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Description</th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Plan</th>
+                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Mensuel</th>
+                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Annuel /mois</th>
+                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/30">Vidéos /mois</th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Tagline</th>
               </tr>
             </thead>
             <tbody>
-              {packs.map((p, i) => (
-                <tr key={p.code} className={`border-b border-white/[0.06] ${i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"}`}>
+              {plans.map((p, i) => (
+                <tr key={p.id} className={`border-b border-white/[0.06] ${i % 2 === 0 ? "bg-df-surface" : "bg-white/[0.02]"}`}>
                   <td className="px-5 py-3 font-display text-sm font-bold text-white">{p.label}</td>
                   <td className="px-5 py-3 text-right font-display font-bold text-df-gold">
-                    {p.price > 0 ? `${p.price} €` : "Sur devis"}
+                    {p.launchMonthly} €
                   </td>
-                  <td className="px-5 py-3 text-center text-white/50">{p.videos || "—"}</td>
-                  <td className="px-5 py-3 text-xs text-white/40">{p.description}</td>
+                  <td className="px-5 py-3 text-right font-display font-bold text-df-gold">
+                    {p.launchAnnualMonthly} €
+                  </td>
+                  <td className="px-5 py-3 text-center text-white/50">{p.videosPerMonth}</td>
+                  <td className="px-5 py-3 text-xs text-white/40">{p.tagline}</td>
                 </tr>
               ))}
             </tbody>
@@ -90,18 +94,18 @@ export default function AdminParametresPage() {
           </div>
         </div>
 
-        {/* Usage / droits */}
+        {/* Options à la carte */}
         <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
           <div className="flex items-center gap-3 border-b border-white/[0.06] px-6 py-4">
             <CreditCard className="h-5 w-5 text-df-gold" />
-            <h2 className="font-display text-lg font-bold text-white">Droits d&apos;usage</h2>
+            <h2 className="font-display text-lg font-bold text-white">Options à la carte</h2>
           </div>
           <div className="divide-y divide-white/[0.06]">
-            {Object.entries(USAGE_PRICE_PER_VIDEO).map(([key, val]) => (
-              <div key={key} className="flex items-center justify-between px-6 py-3.5">
-                <span className="text-sm text-white">{val.label}</span>
-                <span className={`font-display text-sm font-bold ${val.perVideo > 0 ? "text-df-gold" : "text-emerald-400"}`}>
-                  {val.perVideo > 0 ? `+${val.perVideo} €/vidéo` : "Inclus"}
+            {OPTIONS_A_LA_CARTE.map((opt) => (
+              <div key={opt.key} className="flex items-center justify-between px-6 py-3.5">
+                <span className="text-sm text-white">{opt.label}</span>
+                <span className="font-display text-sm font-bold text-df-gold">
+                  +{opt.price} € {opt.unit}
                 </span>
               </div>
             ))}

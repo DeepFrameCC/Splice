@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,12 +10,19 @@ import {
   getRelatedServices,
 } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
-import type { ServiceFeature, FAQItem, ServiceDeliverable } from "@/lib/services/types";
+import type { ServiceFeature, FAQItem, ServiceDeliverable, EquipmentItem } from "@/lib/services/types";
+import { VILLES, SERVICES_LOCAL_SLUGS, type LocalServiceSlug } from "@/lib/services/local-seo";
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
 import { ServiceTOC } from "@/components/services/ServiceTOC";
 import { ServiceFAQ } from "@/components/services/ServiceFAQ";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 import { ServiceReassurance } from "@/components/services/ServiceReassurance";
+import { ServiceTeam } from "@/components/services/ServiceTeam";
+import { ServiceEquipment } from "@/components/services/ServiceEquipment";
+import { ServicePricing } from "@/components/services/ServicePricing";
+import { ServiceAppointment } from "@/components/services/ServiceAppointment";
+import { ServiceDeliverables } from "@/components/services/ServiceDeliverables";
+import { ServiceZone } from "@/components/services/ServiceZone";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -71,12 +78,12 @@ export default async function ServicePage({ params }: PageProps) {
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const jsonLd = buildServiceJsonLd(service);
 
   const features = service.features as unknown as ServiceFeature[];
   const faqItems = service.faq as unknown as FAQItem[];
   const deliverables = (service.deliverables as unknown as ServiceDeliverable[]) ?? [];
+  const equipment = (service.equipment as unknown as EquipmentItem[]) ?? [];
   const relatedSlugs = (service.relatedSlugs as unknown as string[]) ?? [];
 
   const [relatedArticles, relatedServices] = await Promise.all([
@@ -87,16 +94,19 @@ export default async function ServicePage({ params }: PageProps) {
   const tocSections = [
     { id: "problematique", label: "Notre approche" },
     { id: "prestation", label: "Prestations" },
+    ...(equipment.length > 0 ? [{ id: "equipement", label: "Équipement" }] : []),
     ...(deliverables.length > 0 ? [{ id: "livrables", label: "Livrables" }] : []),
-    { id: "reassurance", label: "Engagements" },
-    { id: "faq", label: "FAQ" },
+    { id: "delais", label: "Délais et tarifs" },
+    ...(service.teamMembers.length > 0 ? [{ id: "equipe", label: "Équipe" }] : []),
     ...(service.zoneText ? [{ id: "zone", label: "Zone d'intervention" }] : []),
+    { id: "reassurance", label: "Engagements" },
+    { id: "rdv", label: "Rendez-vous" },
+    { id: "faq", label: "FAQ" },
   ];
 
   return (
     <>
       <script
-        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -114,14 +124,20 @@ export default async function ServicePage({ params }: PageProps) {
               {service.introParagraph}
             </p>
             <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl bg-white/5">
-              <Image
-                src={service.coverImageUrl}
-                alt={service.coverImageAlt}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 1024px"
-                className="object-cover"
-              />
+              {service.coverImageUrl ? (
+                <Image
+                  src={service.coverImageUrl}
+                  alt={service.coverImageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 1024px"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center">
+                  <span className="font-display text-6xl italic text-white/10">DF</span>
+                </div>
+              )}
             </div>
           </header>
 
@@ -154,37 +170,21 @@ export default async function ServicePage({ params }: PageProps) {
             </div>
           </section>
 
-          <ServiceCTA variant="inline" serviceName={service.shortName} />
+          <ServiceEquipment items={equipment} />
 
-          {/* ── Livrables ─────────────────────────────────────────── */}
-          {deliverables.length > 0 && (
-            <section id="livrables" aria-labelledby="livrables-h2" className="mt-16 scroll-mt-24">
-              <h2 id="livrables-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Ce que vous recevez
-              </h2>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                {deliverables.map((d) => (
-                  <li
-                    key={d.label}
-                    className="flex items-start gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-4"
-                  >
-                    <span className="mt-0.5 text-df-gold" aria-hidden="true">
-                      ✓
-                    </span>
-                    <span>
-                      <span className="font-medium text-white">{d.label}</span>
-                      {d.detail && (
-                        <span className="ml-1 text-sm text-white/50">— {d.detail}</span>
-                      )}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          <ServiceDeliverables items={deliverables} />
+
+          <ServicePricing priceRange={service.priceRange} />
+
+          {/* ── Équipe ──────────────────────────────────────────── */}
+          {service.teamMembers.length > 0 && (
+            <ServiceTeam members={service.teamMembers} />
           )}
 
           {/* ── Réassurance ───────────────────────────────────────── */}
           <ServiceReassurance />
+
+          <ServiceAppointment />
 
           {/* ── FAQ ───────────────────────────────────────────────── */}
           <section id="faq" aria-labelledby="faq-h2" className="mt-16 scroll-mt-24">
@@ -195,14 +195,25 @@ export default async function ServicePage({ params }: PageProps) {
           </section>
 
           {/* ── Zone d'intervention ───────────────────────────────── */}
-          {service.zoneText && (
-            <section id="zone" aria-labelledby="zone-h2" className="mt-16 scroll-mt-24">
-              <h2 id="zone-h2" className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-                Zone d&apos;intervention
+          <ServiceZone text={(service.zoneText as string) ?? ""} />
+
+          {/* ── Aussi disponible à ─────────────────────────────────── */}
+          {SERVICES_LOCAL_SLUGS.includes(slug as LocalServiceSlug) && (
+            <section className="mt-16">
+              <h2 className="text-lg font-semibold text-white">
+                Aussi disponible à
               </h2>
-              <p className="mt-4 max-w-3xl leading-relaxed text-white/70">
-                {service.zoneText as string}
-              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {VILLES.map((v) => (
+                  <Link
+                    key={v.slug}
+                    href={`/services/${slug}/${v.slug}`}
+                    className="rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-sm text-white/70 transition hover:border-df-gold/30 hover:text-white"
+                  >
+                    {service.shortName} à {v.name}
+                  </Link>
+                ))}
+              </div>
             </section>
           )}
 

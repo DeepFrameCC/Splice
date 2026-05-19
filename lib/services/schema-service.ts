@@ -1,5 +1,6 @@
 import type { Service } from "@prisma/client";
 import type { FAQItem } from "./types";
+import type { Ville } from "./local-seo";
 
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
 const ORG_ID = `${SITE_URL}/#organization`;
@@ -21,7 +22,8 @@ export function buildServiceJsonLd(service: Service) {
         priceRange: service.priceRange,
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Orleans",
+          addressLocality: "Orléans",
+          postalCode: "45000",
           addressRegion: "Centre-Val de Loire",
           addressCountry: "FR",
         },
@@ -33,7 +35,12 @@ export function buildServiceJsonLd(service: Service) {
         serviceType: service.serviceType,
         description: service.metaDescription,
         provider: { "@id": ORG_ID },
-        areaServed: { "@type": "Country", name: "France" },
+        areaServed: [
+          { "@type": "City", name: "Orléans" },
+          { "@type": "City", name: "Tours" },
+          { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
+          { "@type": "Country", name: "France" },
+        ],
         url,
       },
       {
@@ -65,6 +72,127 @@ export function buildServiceJsonLd(service: Service) {
             },
           ]
         : []),
+    ],
+  };
+}
+
+/**
+ * JSON-LD for the /services hub page.
+ * Includes LocalBusiness (2 addresses) + OfferCatalog listing published services.
+ */
+export function buildServicesHubJsonLd(
+  services: Pick<Service, "slug" | "name" | "metaDescription" | "serviceType" | "priceRange">[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+        ],
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": ORG_ID,
+        name: "DeepFrame",
+        description:
+          "Agence de production audiovisuelle à Orléans et Tours. Vidéo corporate, montage, motion design, photographie professionnelle.",
+        image: `${SITE_URL}/logo.svg`,
+        url: SITE_URL,
+        telephone: "+33651109202",
+        address: [
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Orléans",
+            postalCode: "45000",
+            addressRegion: "Centre-Val de Loire",
+            addressCountry: "FR",
+          },
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Tours",
+            postalCode: "37000",
+            addressRegion: "Centre-Val de Loire",
+            addressCountry: "FR",
+          },
+        ],
+        areaServed: [
+          { "@type": "City", name: "Orléans" },
+          { "@type": "City", name: "Tours" },
+          { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
+          { "@type": "Country", name: "France" },
+        ],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Services audiovisuels DeepFrame",
+          itemListElement: services.map((s) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: s.name,
+              description: s.metaDescription,
+              serviceType: s.serviceType,
+              url: `${SITE_URL}/services/${s.slug}`,
+            },
+          })),
+        },
+      },
+    ],
+  };
+}
+
+/**
+ * JSON-LD for a geo-local service page (/services/[slug]/[ville]).
+ */
+export function buildLocalServiceJsonLd(opts: {
+  serviceName: string;
+  serviceSlug: string;
+  ville: Ville;
+  description: string;
+  priceRange: string;
+  parentServiceSlug: string;
+}) {
+  const url = `${SITE_URL}/services/${opts.serviceSlug}/${opts.ville.slug}`;
+  const parentUrl = `${SITE_URL}/services/${opts.parentServiceSlug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+          { "@type": "ListItem", position: 3, name: opts.serviceName, item: parentUrl },
+          { "@type": "ListItem", position: 4, name: opts.ville.name, item: url },
+        ],
+      },
+      {
+        "@type": "Service",
+        name: opts.serviceName,
+        description: opts.description,
+        url,
+        provider: {
+          "@type": "LocalBusiness",
+          "@id": ORG_ID,
+          name: "DeepFrame",
+          url: SITE_URL,
+        },
+        areaServed: {
+          "@type": opts.ville.departmentCode ? "City" : "AdministrativeArea",
+          name: opts.ville.name,
+        },
+        offers: {
+          "@type": "Offer",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "EUR",
+          },
+          description: opts.priceRange,
+        },
+      },
     ],
   };
 }

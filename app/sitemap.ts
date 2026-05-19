@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
+import { VILLES, SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
 
 const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
 
@@ -11,6 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/equipe`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/avis`,                   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/contact`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.5 },
+    { url: `${base}/tarifs`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/devis`,                  lastModified: new Date(), changeFrequency: "yearly",  priority: 0.8 },
     { url: `${base}/blog`,                   lastModified: new Date(), changeFrequency: "weekly",  priority: 0.8 },
     { url: `${base}/faq`,                    lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -19,10 +21,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/cookies`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
   ];
 
+  // Geo-local service pages (static, no DB dependency)
+  const localPages: MetadataRoute.Sitemap = SERVICES_LOCAL_SLUGS.flatMap((slug) =>
+    VILLES.map((v) => ({
+      url: `${base}/services/${slug}/${v.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }))
+  );
+
   let dynamicPages: MetadataRoute.Sitemap = [];
   try {
     const [services, blogPosts] = await Promise.all([
       db.service.findMany({
+        where: { isPublished: true },
         select: { slug: true, updatedAt: true },
         orderBy: { publishedAt: "asc" },
       }),
@@ -57,5 +70,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB unavailable at build time — skip dynamic pages
   }
 
-  return [...staticPages, ...dynamicPages];
+  return [...staticPages, ...localPages, ...dynamicPages];
 }

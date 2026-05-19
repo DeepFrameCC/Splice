@@ -12,7 +12,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (session?.user?.role !== "ADMIN") redirect("/profil");
   const user = session.user;
 
-  const [devisCount, facturesCount, contratsCount, utilisateursCount, mediasCount, avisEnAttenteCount, articlesCount, unreadCount, recentNotifs] = await Promise.all([
+  const [devisCount, facturesCount, contratsCount, utilisateursCount, mediasCount, avisEnAttenteCount, articlesCount, servicesCount, unreadCount, recentNotifs] = await Promise.all([
     db.devis.count(),
     db.facture.count(),
     db.contrat.count(),
@@ -20,6 +20,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     db.media.count(),
     db.avis.count({ where: { approuve: false } }),
     db.blogPost.count(),
+    db.service.count(),
     db.notification.count({ where: { userId: user.id, read: false } }),
     db.notification.findMany({
       where: { userId: user.id },
@@ -64,7 +65,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <AdminSidebar
               userName={user.name ?? "Admin"}
               userRole="Administrateur"
-              counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, utilisateurs: utilisateursCount, medias: mediasCount, avisEnAttente: avisEnAttenteCount, articles: articlesCount }}
+              counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, utilisateurs: utilisateursCount, medias: mediasCount, avisEnAttente: avisEnAttenteCount, articles: articlesCount, services: servicesCount }}
             />
           </div>
         </div>
@@ -81,6 +82,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               { href: "/admin/medias", label: `Médias (${mediasCount})` },
               { href: "/admin/avis", label: `Avis (${avisEnAttenteCount})` },
               { href: "/admin/blog", label: `Articles (${articlesCount})` },
+              { href: "/admin/services", label: `Services (${servicesCount})` },
               { href: "/admin/statistiques", label: "Stats" },
               { href: "/admin/comptabilite", label: "Compta" },
               { href: "/admin/journal", label: "Journal" },

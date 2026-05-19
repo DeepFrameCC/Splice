@@ -55,13 +55,13 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Comment fonctionne la demande de devis ?",
-        a: "Notre configurateur en ligne vous permet de choisir votre pack, vos options et vos coordonnées en 4 étapes. Vous recevez un devis détaillé par email sous 24h. C'est gratuit et sans engagement.",
-        rich: <>Notre <L href="/devis">configurateur en ligne</L> vous permet de choisir votre pack, vos options et vos coordonnées en 4 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
+        a: "Notre configurateur en ligne vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h. C'est gratuit et sans engagement.",
+        rich: <>Notre <L href="/devis">configurateur en ligne</L> vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
       },
       {
         q: "Quels sont les tarifs de vos prestations ?",
-        a: "Nos packs démarrent à 140 € HT (Pack Basique : 1 vidéo + 5 photos). Le Pack Visibilité est à 340 €, le Visibilité Mix à 420 € et le Premium à partir de 850 €. Les intros animées sont entre 100 et 400 € selon la complexité.",
-        rich: <>Nos <L href="/services">packs</L> démarrent à 140 € HT (Pack Basique : 1 vidéo + 5 photos). Le Pack Visibilité est à 340 €, le Visibilité Mix à 420 € et le Premium à partir de 850 €. Les intros animées sont entre 100 et 400 € selon la complexité. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
+        a: "Nos abonnements démarrent à 49 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo.",
+        rich: <>Nos <L href="/tarifs">abonnements</L> démarrent à 49 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
       },
       {
         q: "Faut-il payer un acompte ?",
@@ -80,8 +80,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Combien de temps dure un tournage ?",
-        a: "La durée dépend du pack choisi. Une demi-journée suffit pour les packs Basique et Visibilité. Les projets Premium peuvent nécessiter une journée complète ou deux jours.",
-        rich: <>La durée dépend du <L href="/services">pack choisi</L>. Une demi-journée suffit pour les packs Basique et Visibilité. Les projets Premium peuvent nécessiter une journée complète ou deux jours.</>,
+        a: "La durée dépend de la formule choisie. Une demi-journée suffit pour la plupart des projets. Les tournages plus ambitieux peuvent nécessiter une journée complète ou deux jours.",
+        rich: <>La durée dépend de la <L href="/tarifs">formule choisie</L>. Une demi-journée suffit pour la plupart des projets. Les tournages plus ambitieux peuvent nécessiter une journée complète ou deux jours.</>,
       },
       {
         q: "Quel matériel utilisez-vous ?",
@@ -100,8 +100,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Quels sont les délais de livraison ?",
-        a: "Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une option express 48h (+55 €) pour les projets urgents.",
-        rich: <>Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <L href="/devis">option express 48h</L> (+55 €) pour les projets urgents.</>,
+        a: "Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une option express 48h (+50 €) pour les projets urgents.",
+        rich: <>Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <L href="/devis">option express 48h</L> (+50 €) pour les projets urgents.</>,
       },
       {
         q: "Dans quels formats sont livrées les vidéos ?",
@@ -110,8 +110,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Puis-je demander des modifications après livraison ?",
-        a: "Une révision est incluse dans chaque pack. Les modifications supplémentaires sont facturées selon leur complexité. Nous vous en informons toujours avant.",
-        rich: <>Une révision est incluse dans chaque pack. Les modifications supplémentaires sont facturées selon leur complexité. <L href="/contact">Contactez-nous</L> pour en discuter.</>,
+        a: "Deux allers-retours de modifications mineures sont inclus. Les modifications supplémentaires sont facturées au tarif horaire de 50 €/h. Nous vous en informons toujours avant.",
+        rich: <>Deux allers-retours de modifications mineures sont inclus. Les modifications supplémentaires sont facturées au tarif horaire de 50 €/h. <L href="/contact">Contactez-nous</L> pour en discuter.</>,
       },
       {
         q: "Les vidéos sont-elles optimisées pour les réseaux sociaux ?",

@@ -2,17 +2,16 @@ import { MapPin } from "lucide-react";
 
 interface Props {
   text: string;
-  serviceName: string;
 }
 
-export function ServiceZone({ text, serviceName }: Props) {
+export function ServiceZone({ text }: Props) {
   if (!text) return null;
 
   return (
     <section id="zone" aria-labelledby="zone-h2" className="mt-16 scroll-mt-24">
       <h2
         id="zone-h2"
-        className="font-display text-2xl font-bold text-white"
+        className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
       >
         Zone d&apos;intervention
       </h2>

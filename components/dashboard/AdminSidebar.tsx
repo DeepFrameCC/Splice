@@ -18,6 +18,7 @@ import {
   LogOut,
   ChevronRight,
   Newspaper,
+  Clapperboard,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
 
@@ -32,6 +33,7 @@ type Props = {
     medias: number;
     avisEnAttente: number;
     articles: number;
+    services: number;
   };
 };
 
@@ -44,6 +46,7 @@ const navItems = [
   { href: "/admin/medias", label: "Médias", icon: ImageIcon, countKey: "medias" as const },
   { href: "/admin/avis", label: "Avis", icon: MessageSquare, countKey: "avisEnAttente" as const },
   { href: "/admin/blog", label: "Articles", icon: Newspaper, countKey: "articles" as const },
+  { href: "/admin/services", label: "Services", icon: Clapperboard, countKey: "services" as const },
   { href: "/admin/statistiques", label: "Statistiques", icon: BarChart3, countKey: null },
   { href: "/admin/comptabilite", label: "Comptabilité", icon: BookOpen, countKey: null },
   { href: "/admin/journal", label: "Journal", icon: ScrollText, countKey: null },

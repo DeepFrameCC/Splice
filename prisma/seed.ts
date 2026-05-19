@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { hash } from "@node-rs/argon2";
 import { SERVICES_CONTENT } from "./services-content";
 
@@ -52,8 +52,8 @@ async function main() {
       introParagraph: s.introParagraph,
       problemQuestion: s.problemQuestion,
       problemAnswer: s.problemAnswer,
-      features: s.features,
-      faq: s.faq,
+      features: s.features as unknown as Prisma.InputJsonValue,
+      faq: s.faq as unknown as Prisma.InputJsonValue,
       serviceType: s.serviceType,
       priceRange: s.priceRange,
       coverImageUrl: s.coverImageUrl,
@@ -63,7 +63,8 @@ async function main() {
       sortOrder: s.sortOrder,
       iconName: s.iconName,
       teamMembers: s.teamMembers,
-      deliverables: s.deliverables,
+      deliverables: s.deliverables as unknown as Prisma.InputJsonValue,
+      equipment: s.equipment as unknown as Prisma.InputJsonValue,
       zoneText: s.zoneText,
       relatedSlugs: s.relatedSlugs,
       isPublished: s.isPublished,

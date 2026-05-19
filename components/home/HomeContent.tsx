@@ -244,6 +244,9 @@ function Services() {
           </article>
         ))}
       </div>
+      <Link href="/services" className="df-services-link">
+        Découvrir tous nos services →
+      </Link>
     </section>
   );
 }
@@ -319,57 +322,48 @@ function Testimonials() {
 function Pricing() {
   const plans = [
     {
-      name: "Basique", price: "140 €",
-      pitch: "L'essentiel pour démarrer votre présence visuelle.",
-      feats: ["1 vidéo courte (90 €)", "5 photos retouchées (50 €)"],
-      cta: "Demander un devis",
+      name: "Standard", price: "49 €", unit: "/mois",
+      pitch: "Pour démarrer sans gros budget.",
+      feats: ["2 vidéos sources / mois", "Recyclage multi-réseaux", "Formats 9:16 + 16:9"],
     },
     {
-      name: "Visibilité", price: "340 €",
-      pitch: "4 réels pour booster vos réseaux.",
-      feats: ["4 réels courts", "Montage + étalonnage", "Formats 9:16 optimisés", "– 20 € pack"],
-      cta: "Demander un devis",
-    },
-    {
-      name: "Visibilité Mix", price: "420 €",
-      pitch: "Vidéo + photo, le combo idéal pour une campagne complète.",
-      feats: ["4 réels courts", "10 photos retouchées", "Montage + étalonnage", "– 40 € pack"],
-      cta: "Demander un devis",
+      name: "Pro", price: "99 €", unit: "/mois",
+      pitch: "Pour publier toutes les semaines.",
+      feats: ["5 vidéos sources / mois", "Recyclage multi-réseaux", "2 podcasts courts / mois"],
       featured: true,
     },
     {
-      name: "Premium", price: "850 — 920 €",
-      pitch: "Le pack complet pour une visibilité maximale.",
-      feats: ["8 vidéos courtes", "20 photos retouchées", "Montage + étalonnage", "Jusqu'à – 70 € pack"],
-      cta: "Réserver une date",
-    },
-    {
-      name: "Intro animée", price: "100 — 400 €",
-      pitch: "Une introduction animée sur mesure pour votre marque.",
-      feats: ["Durée 5 à 20 secondes", "Motion design personnalisé", "Format adapté à vos supports"],
-      cta: "Parlons-en",
+      name: "Premium", price: "189 €", unit: "/mois",
+      pitch: "Pour une présence quasi quotidienne.",
+      feats: ["8 vidéos sources / mois", "Recyclage multi-réseaux", "4 podcasts courts / mois"],
     },
   ];
   return (
     <section id="pricing" className="df-section df-pricing">
       <div className="df-section-head">
         <div className="df-eyebrow">Tarifs</div>
-        <h2 className="df-h2">Cinq formules, <em>une exigence</em>.</h2>
+        <h2 className="df-h2">Trois formules, <em>une exigence</em>.</h2>
       </div>
       <div className="df-pricing-grid">
         {plans.map((p) => (
           <div key={p.name} className={"df-plan" + (p.featured ? " df-plan-featured" : "")}>
-            {p.featured && <div className="df-plan-badge">Le plus demandé</div>}
+            {p.featured && <div className="df-plan-badge">Recommandé</div>}
             <h3>{p.name}</h3>
-            <div className="df-plan-price">{p.price}</div>
+            <div className="df-plan-price">{p.price}<span className="df-plan-unit">{p.unit}</span></div>
             <p className="df-plan-pitch">{p.pitch}</p>
             <ul>
               {p.feats.map((f) => <li key={f}>{f}</li>)}
             </ul>
-            <Link href="/devis" className={"df-btn " + (p.featured ? "df-btn-primary" : "df-btn-outline")}>{p.cta}</Link>
+            <Link href="/devis" className={"df-btn " + (p.featured ? "df-btn-primary" : "df-btn-outline")}>Demander un devis</Link>
           </div>
         ))}
       </div>
+      <p className="df-pricing-extra">
+        <strong>Pack Particulier dès 29 €</strong> — Vidéos & photos à la carte pour un besoin ponctuel.
+      </p>
+      <Link href="/tarifs" className="df-services-link">
+        Voir tous les tarifs →
+      </Link>
     </section>
   );
 }
@@ -464,13 +458,13 @@ function Quote() {
           <details className="df-faq-block-item">
             <summary><h2>Comment fonctionne la demande de devis ?</h2></summary>
             <p>
-              Notre <Link href="/devis" className="df-faq-block-link">configurateur en ligne</Link> vous permet de choisir votre pack, vos options et vos coordonnées en 4 étapes. Vous recevez un devis détaillé par email sous 24h — c&apos;est gratuit et sans engagement.
+              Notre <Link href="/devis" className="df-faq-block-link">configurateur en ligne</Link> vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h — c&apos;est gratuit et sans engagement.
             </p>
           </details>
           <details className="df-faq-block-item">
             <summary><h2>Quels sont vos tarifs ?</h2></summary>
             <p>
-              Nos <Link href="/services" className="df-faq-block-link">packs</Link> démarrent à 140 € HT (Pack Basique). Consultez notre <Link href="/faq" className="df-faq-block-link">page FAQ</Link> pour le détail complet des tarifs et options disponibles.
+              Nos <Link href="/tarifs" className="df-faq-block-link">abonnements</Link> démarrent à 49 €/mois (formule Standard). Pack Particulier dès 29 €. Consultez notre <Link href="/tarifs" className="df-faq-block-link">page Tarifs</Link> pour le détail complet.
             </p>
           </details>
           <details className="df-faq-block-item">
@@ -512,7 +506,7 @@ function Footer() {
             <li><a href="#about">À propos</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#projects">Projets</a></li>
-            <li><a href="#pricing">Tarifs</a></li>
+            <li><Link href="/tarifs">Tarifs</Link></li>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
           </ul>

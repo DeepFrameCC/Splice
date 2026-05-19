@@ -1,15 +1,15 @@
-﻿const GUARANTEES = [
+const GUARANTEES = [
   {
     title: "Expertise audiovisuelle",
-    description: "Trois fondateurs, trois specialites complementaires. Chaque projet est porte par le profil le plus adapte.",
+    description: "Trois fondateurs, trois spécialités complémentaires. Chaque projet est porté par le profil le plus adapté.",
   },
   {
-    title: "Delais tenus",
-    description: "Planning cale en amont, livraison a la date convenue. Express 48h disponible sur demande.",
+    title: "Délais tenus",
+    description: "Planning calé en amont, livraison à la date convenue. Express 48h disponible sur demande.",
   },
   {
-    title: "Qualite cinema",
-    description: "Materiel professionnel, etalonnage DaVinci, master 4K. Le rendu final se distingue des productions generiques.",
+    title: "Qualité cinéma",
+    description: "Matériel professionnel, étalonnage DaVinci, master 4K. Le rendu final se distingue des productions génériques.",
   },
 ];
 

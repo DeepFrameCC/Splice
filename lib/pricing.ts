@@ -1,104 +1,298 @@
-import { Pack, DureeTournage, UsageType, DelaiLivraison, VilleDepart, Founder } from "@prisma/client";
+import { DureeTournage, DelaiLivraison, VilleDepart, Founder } from "@prisma/client";
 
-export type PackInfo = { code: Pack; label: string; price: number; videos: number; description: string };
+// ─── Plan IDs ─────────────────────────────────────────────────────
 
-export const PACKS: Record<Pack, PackInfo> = {
-  BASIQUE:        { code: "BASIQUE",        label: "Pack Basique",        price: 140, videos: 1, description: "1 vidéo courte + 5 photos" },
-  VISIBILITE:     { code: "VISIBILITE",     label: "Pack Visibilité",     price: 340, videos: 4, description: "4 réels (économie pack -20€)" },
-  VISIBILITE_MIX: { code: "VISIBILITE_MIX", label: "Pack Visibilité Mix", price: 460, videos: 4, description: "4 réels + 10 photos (économie pack -40€)" },
-  PREMIUM:        { code: "PREMIUM",        label: "Pack Premium",        price: 850, videos: 8, description: "8 vidéos courtes + 20 photos" },
-  INTRO_ANIMEE:   { code: "INTRO_ANIMEE",   label: "Création intro animée", price: 250, videos: 1, description: "5 à 20s — devis sur mesure 100-400€" },
-  SUR_MESURE:     { code: "SUR_MESURE",     label: "Sur-mesure",          price: 0,   videos: 0, description: "Sur demande" }
+export type PlanId = "STANDARD" | "PRO" | "PREMIUM_ABO";
+export type BillingCycle = "MENSUEL" | "ANNUEL";
+export type DevisMode = "ABONNEMENT" | "PACK_PARTICULIER";
+
+// ─── Subscription Plans ───────────────────────────────────────────
+
+export interface SubscriptionPlan {
+  id: PlanId;
+  label: string;
+  tagline: string;
+  recommended?: boolean;
+  videosPerMonth: number;
+  // Launch prices (10 spots per plan)
+  launchMonthly: number;
+  launchAnnualMonthly: number;
+  launchAnnualTotal: number;
+  launchAnnualSaving: number;
+  // Standard prices (after launch)
+  stdMonthly: number;
+  stdAnnualMonthly: number;
+  stdAnnualTotal: number;
+  features: string[];
+}
+
+export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
+  STANDARD: {
+    id: "STANDARD",
+    label: "Standard",
+    tagline: "Pour démarrer sans gros budget",
+    videosPerMonth: 2,
+    launchMonthly: 49,
+    launchAnnualMonthly: 45,
+    launchAnnualTotal: 540,
+    launchAnnualSaving: 48,
+    stdMonthly: 79,
+    stdAnnualMonthly: 69,
+    stdAnnualTotal: 828,
+    features: [
+      "2 vidéos sources / mois",
+      "Recyclage multi-réseaux",
+      "Formats 9:16 + 16:9",
+      "Options à la carte disponibles",
+    ],
+  },
+  PRO: {
+    id: "PRO",
+    label: "Pro",
+    tagline: "Pour publier toutes les semaines",
+    recommended: true,
+    videosPerMonth: 5,
+    launchMonthly: 99,
+    launchAnnualMonthly: 89,
+    launchAnnualTotal: 1068,
+    launchAnnualSaving: 120,
+    stdMonthly: 149,
+    stdAnnualMonthly: 129,
+    stdAnnualTotal: 1548,
+    features: [
+      "5 vidéos sources / mois",
+      "Recyclage multi-réseaux",
+      "2 podcasts courts / mois",
+      "Options à la carte disponibles",
+    ],
+  },
+  PREMIUM_ABO: {
+    id: "PREMIUM_ABO",
+    label: "Premium",
+    tagline: "Pour une présence quasi quotidienne",
+    videosPerMonth: 8,
+    launchMonthly: 189,
+    launchAnnualMonthly: 169,
+    launchAnnualTotal: 2028,
+    launchAnnualSaving: 240,
+    stdMonthly: 279,
+    stdAnnualMonthly: 249,
+    stdAnnualTotal: 2988,
+    features: [
+      "8 vidéos sources / mois",
+      "Recyclage multi-réseaux",
+      "4 podcasts courts / mois",
+      "Options à la carte disponibles",
+    ],
+  },
 };
+
+export const PLAN_IDS: PlanId[] = ["STANDARD", "PRO", "PREMIUM_ABO"];
+
+// ─── Multi-network distribution volumes ───────────────────────────
+
+export interface NetworkVolume {
+  network: string;
+  standard: string;
+  pro: string;
+  premium: string;
+}
+
+export const NETWORK_VOLUMES: NetworkVolume[] = [
+  { network: "Instagram – Reels", standard: "2 Reels", pro: "5 Reels", premium: "8 Reels" },
+  { network: "Instagram – Stories", standard: "4–6 stories", pro: "10–15 stories", premium: "20–25 stories" },
+  { network: "Instagram – Carrousels", standard: "1 carrousel", pro: "3 carrousels", premium: "4–6 carrousels" },
+  { network: "TikTok", standard: "2 TikToks", pro: "5 TikToks", premium: "8 TikToks" },
+  { network: "YouTube Shorts", standard: "2 Shorts", pro: "5 Shorts", premium: "8 Shorts" },
+  { network: "Facebook (posts/Reels)", standard: "2 posts", pro: "5 posts", premium: "8 posts" },
+  { network: "Pinterest (pins)", standard: "4 pins", pro: "10 pins", premium: "16 pins" },
+  { network: "Google – posts", standard: "2–4 posts", pro: "5–8 posts", premium: "10–12 posts" },
+  { network: "Google – photos", standard: "5–8 photos", pro: "10–15 photos", premium: "20 photos" },
+];
+
+// ─── Pack Particulier ─────────────────────────────────────────────
+
+export interface PackVideoOption {
+  qty: number;
+  label: string;
+  price: number;
+  popular?: boolean;
+}
+
+export interface PackPhotoOption {
+  qty: number | null; // null = sur mesure
+  label: string;
+  price: number | null; // null = devis
+  popular?: boolean;
+}
+
+export const PACK_PARTICULIER_VIDEOS: PackVideoOption[] = [
+  { qty: 1, label: "Base solo", price: 29 },
+  { qty: 2, label: "Pack Duo", price: 55 },
+  { qty: 3, label: "Pack Trio", price: 79 },
+  { qty: 4, label: "Pack Complet", price: 99, popular: true },
+];
+
+export const PACK_PARTICULIER_PHOTOS: PackPhotoOption[] = [
+  { qty: 5, label: "Pack Essentiel", price: 15 },
+  { qty: 10, label: "Pack Standard", price: 28, popular: true },
+  { qty: 20, label: "Pack Pro", price: 50 },
+  { qty: null, label: "Pack Custom", price: null },
+];
+
+// ─── Options à la carte ───────────────────────────────────────────
+
+export type OptionKey =
+  | "voixOff"
+  | "sousTitres"
+  | "retourSupp"
+  | "creationBanniere"
+  | "montageExpress"
+  | "musiqueSurMesure"
+  | "adsReseaux";
+
+export interface OptionALaCarte {
+  key: OptionKey;
+  label: string;
+  price: number;
+  unit: string;
+}
+
+export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
+  { key: "voixOff", label: "Voix off", price: 12, unit: "/ vidéo" },
+  { key: "sousTitres", label: "Sous-titres", price: 12, unit: "/ vidéo" },
+  { key: "retourSupp", label: "Retour supplémentaire", price: 7, unit: "/ vidéo" },
+  { key: "creationBanniere", label: "Création de bannière", price: 20, unit: "/ bannière" },
+  { key: "montageExpress", label: "Montage express", price: 25, unit: "/ vidéo" },
+  { key: "musiqueSurMesure", label: "Musique sur mesure", price: 25, unit: "/ vidéo" },
+  { key: "adsReseaux", label: "Ads réseaux sociaux", price: 20, unit: "/ vidéo" },
+];
+
+// ─── Bannière Deepframe ───────────────────────────────────────────
+
+export type BanniereSize = "PETITE" | "MOYENNE" | "GRANDE";
+
+export const BANNIERE_DEEPFRAME: Record<BanniereSize, { label: string; pricePerMonth: number }> = {
+  PETITE: { label: "Bannière petite", pricePerMonth: 15 },
+  MOYENNE: { label: "Bannière moyenne", pricePerMonth: 20 },
+  GRANDE: { label: "Bannière grande", pricePerMonth: 30 },
+};
+
+// ─── Extra options ────────────────────────────────────────────────
+
+export const PRIX_VIDEO_SUPP = 29;
+export const PRIX_PODCAST_COURT = 29;
+export const PRIX_OPTION_PHOTO_5 = 15;
+
+// ─── Preserved constants ──────────────────────────────────────────
 
 export const DUREE_SUPPLEMENT: Record<DureeTournage, { label: string; price: number }> = {
-  DEMI_JOURNEE:   { label: "4h (demi-journée)", price: 0 },
-  JOURNEE:        { label: "Journée entière",   price: 60 },
-  DEUX_JOURNEES:  { label: "2 journées entières", price: 120 }
-};
-
-export const USAGE_PRICE_PER_VIDEO: Record<UsageType, { label: string; perVideo: number }> = {
-  ORGANIQUE:   { label: "Réseaux sociaux organique", perVideo: 0 },
-  ADS_SOCIAL:  { label: "Ads Réseaux Sociaux (Insta/TikTok/FB)", perVideo: 60 },
-  ADS_GOOGLE:  { label: "Google Ads / YouTube Ads", perVideo: 80 }
+  DEMI_JOURNEE: { label: "4h (demi-journée)", price: 0 },
+  JOURNEE: { label: "Journée entière", price: 60 },
+  DEUX_JOURNEES: { label: "2 journées entières", price: 120 },
 };
 
 export const DELAI: Record<DelaiLivraison, { label: string; price: number }> = {
-  STANDARD:    { label: "Standard (7 à 10 jours ouvrés)", price: 0 },
-  ETENDU:      { label: "Jusqu'à 15 jours ouvrés (4 à 8 vidéos)", price: 0 },
-  EXPRESS_48H: { label: "Express 48h", price: 50 }
+  STANDARD: { label: "Standard (7 à 10 jours ouvrés)", price: 0 },
+  ETENDU: { label: "Jusqu'à 15 jours ouvrés (4 à 8 vidéos)", price: 0 },
+  EXPRESS_48H: { label: "Express 48h", price: 50 },
 };
 
 export const PRIX_KM = 0.5;
 export const ACOMPTE_RATE = 30;
 
-export const VILLE_DEPART_LABEL: Record<VilleDepart, string> = { TOURS: "Tours", ORLEANS: "Orléans" };
+export const VILLE_DEPART_LABEL: Record<VilleDepart, string> = {
+  TOURS: "Tours",
+  ORLEANS: "Orléans",
+};
 
 export const FOUNDER_LABEL: Record<Founder, string> = {
-  PAPI:    "@papiforcex",
+  PAPI: "@papiforcex",
   LOUISIA: "@by.louisia",
-  TY:      "@t.y97one"
+  TY: "@t.y97one",
 };
 
-export type QuoteInput = {
-  pack: Pack;
-  duree: DureeTournage;
-  usage: UsageType;
-  delai: DelaiLivraison;
-  villeDepart: VilleDepart;
-  distanceKm: number;
-  videosSupp: number;
-  videos3D: number;
-  motionDesign: boolean;
-  montageExpress: boolean;
-  introAnimeeSec?: number | null;
-};
+// ─── Quote types ──────────────────────────────────────────────────
 
 export type QuoteLine = { label: string; qty?: number; unit?: number; total: number };
 export type Quote = { lines: QuoteLine[]; totalHT: number; acompte: number; solde: number };
 
 export class PricingError extends Error {}
 
-export function validateQuote(input: QuoteInput) {
-  if (input.montageExpress && (input.pack === "PREMIUM" || input.videos3D > 0)) {
-    throw new PricingError("Le montage express 48h n'est pas cumulable avec le Pack Premium ou les options 3D.");
-  }
-  if (input.distanceKm < 0) throw new PricingError("Distance invalide.");
-  if (input.videosSupp < 0 || input.videos3D < 0) throw new PricingError("Quantités invalides.");
+// ─── Pack Particulier quote ───────────────────────────────────────
+
+export interface PackParticulierInput {
+  nbVideos: number | null;
+  nbPhotos: number | null;
+  options: Partial<Record<OptionKey, boolean>>;
+  banniere: BanniereSize | null;
+  villeDepart: VilleDepart;
+  distanceKm: number;
+  delai: DelaiLivraison;
 }
 
-export function computeQuote(input: QuoteInput): Quote {
-  validateQuote(input);
+export function computePackParticulierQuote(input: PackParticulierInput): Quote {
+  if (input.distanceKm < 0) throw new PricingError("Distance invalide.");
 
   const lines: QuoteLine[] = [];
-  const pack = PACKS[input.pack];
-  lines.push({ label: pack.label + " — " + pack.description, total: pack.price });
 
-  const duree = DUREE_SUPPLEMENT[input.duree];
-  if (duree.price > 0) lines.push({ label: "Durée : " + duree.label, total: duree.price });
+  // Videos
+  if (input.nbVideos && input.nbVideos > 0) {
+    const videoOption = PACK_PARTICULIER_VIDEOS.find((v) => v.qty === input.nbVideos);
+    if (videoOption) {
+      lines.push({
+        label: `${videoOption.qty} vidéo${videoOption.qty > 1 ? "s" : ""} — ${videoOption.label}`,
+        total: videoOption.price,
+      });
+    }
+  }
 
+  // Photos
+  if (input.nbPhotos && input.nbPhotos > 0) {
+    const photoOption = PACK_PARTICULIER_PHOTOS.find((p) => p.qty === input.nbPhotos);
+    if (photoOption && photoOption.price !== null) {
+      lines.push({
+        label: `${photoOption.qty} photos — ${photoOption.label}`,
+        total: photoOption.price,
+      });
+    }
+  }
+
+  // Options à la carte (per video)
+  const videoCount = input.nbVideos ?? 0;
+  for (const opt of OPTIONS_A_LA_CARTE) {
+    if (input.options[opt.key] && videoCount > 0) {
+      lines.push({
+        label: opt.label,
+        qty: videoCount,
+        unit: opt.price,
+        total: opt.price * videoCount,
+      });
+    }
+  }
+
+  // Bannière
+  if (input.banniere) {
+    const ban = BANNIERE_DEEPFRAME[input.banniere];
+    lines.push({ label: ban.label, total: ban.pricePerMonth });
+  }
+
+  // Travel
   if (input.distanceKm > 0) {
     const km = Math.round(input.distanceKm);
     const kmTotal = Math.round(km * PRIX_KM);
-    lines.push({ label: `Frais de déplacement (${km} km A/R depuis ${VILLE_DEPART_LABEL[input.villeDepart]})`, qty: km, unit: PRIX_KM, total: kmTotal });
+    lines.push({
+      label: `Frais de déplacement (${km} km A/R depuis ${VILLE_DEPART_LABEL[input.villeDepart]})`,
+      qty: km,
+      unit: PRIX_KM,
+      total: kmTotal,
+    });
   }
 
-  const totalVideosForUsage = pack.videos + input.videosSupp + input.videos3D;
-  const usage = USAGE_PRICE_PER_VIDEO[input.usage];
-  if (usage.perVideo > 0 && totalVideosForUsage > 0) {
-    lines.push({ label: `Usage : ${usage.label}`, qty: totalVideosForUsage, unit: usage.perVideo, total: usage.perVideo * totalVideosForUsage });
-  }
-
-  if (input.videosSupp > 0)   lines.push({ label: "Vidéo supplémentaire", qty: input.videosSupp, unit: 90,  total: 90  * input.videosSupp });
-  if (input.videos3D > 0)     lines.push({ label: "Option 3D",            qty: input.videos3D,   unit: 110, total: 110 * input.videos3D });
-  if (input.motionDesign)     lines.push({ label: "Motion Design",        total: 40 });
-  if (input.montageExpress)   lines.push({ label: "Montage express (48h)", total: 55 });
-
+  // Delivery delay
   const delai = DELAI[input.delai];
-  if (delai.price > 0) lines.push({ label: "Délai : " + delai.label, total: delai.price });
-
-  if (input.pack === "INTRO_ANIMEE" && input.introAnimeeSec) {
-    lines.push({ label: `Durée intro : ${input.introAnimeeSec}s`, total: 0 });
+  if (delai.price > 0) {
+    lines.push({ label: "Délai : " + delai.label, total: delai.price });
   }
 
   const totalHT = lines.reduce((s, l) => s + l.total, 0);
@@ -108,11 +302,88 @@ export function computeQuote(input: QuoteInput): Quote {
   return { lines, totalHT, acompte, solde };
 }
 
+// ─── Abonnement quote ─────────────────────────────────────────────
+
+export interface AbonnementInput {
+  planId: PlanId;
+  billingCycle: BillingCycle;
+  useLaunchPrice: boolean;
+  options: Partial<Record<OptionKey, boolean>>;
+}
+
+export function computeAbonnementQuote(input: AbonnementInput): Quote {
+  const plan = SUBSCRIPTION_PLANS[input.planId];
+  const lines: QuoteLine[] = [];
+
+  // Monthly price
+  let monthlyPrice: number;
+  let lineLabel: string;
+
+  if (input.useLaunchPrice) {
+    if (input.billingCycle === "ANNUEL") {
+      monthlyPrice = plan.launchAnnualMonthly;
+      lineLabel = `${plan.label} — Annuel (offre de lancement)`;
+      lines.push({ label: lineLabel, total: plan.launchAnnualTotal });
+      lines.push({ label: `Économie : ${plan.launchAnnualSaving} € / an`, total: 0 });
+    } else {
+      monthlyPrice = plan.launchMonthly;
+      lineLabel = `${plan.label} — Mensuel (offre de lancement, engagement 3 mois)`;
+      lines.push({ label: lineLabel, total: monthlyPrice });
+    }
+  } else {
+    if (input.billingCycle === "ANNUEL") {
+      monthlyPrice = plan.stdAnnualMonthly;
+      lineLabel = `${plan.label} — Annuel`;
+      lines.push({ label: lineLabel, total: plan.stdAnnualTotal });
+    } else {
+      monthlyPrice = plan.stdMonthly;
+      lineLabel = `${plan.label} — Mensuel (engagement 3 mois)`;
+      lines.push({ label: lineLabel, total: monthlyPrice });
+    }
+  }
+
+  // Options à la carte (per video count)
+  const videoCount = plan.videosPerMonth;
+  for (const opt of OPTIONS_A_LA_CARTE) {
+    if (input.options[opt.key]) {
+      lines.push({
+        label: opt.label,
+        qty: videoCount,
+        unit: opt.price,
+        total: opt.price * videoCount,
+      });
+    }
+  }
+
+  const totalHT = lines.reduce((s, l) => s + l.total, 0);
+  const acompte = Math.round((totalHT * ACOMPTE_RATE) / 100);
+  const solde = totalHT - acompte;
+
+  return { lines, totalHT, acompte, solde };
+}
+
+// ─── Legacy backward compat ───────────────────────────────────────
+
+export const LEGACY_PACK_LABELS: Record<string, string> = {
+  BASIQUE: "Pack Basique",
+  VISIBILITE: "Pack Visibilité",
+  VISIBILITE_MIX: "Pack Visibilité Mix",
+  PREMIUM: "Pack Premium",
+  INTRO_ANIMEE: "Création intro animée",
+  SUR_MESURE: "Sur-mesure",
+};
+
+export function resolvePackLabel(pack: string): string {
+  return LEGACY_PACK_LABELS[pack] ?? pack;
+}
+
+// ─── Mentions légales ─────────────────────────────────────────────
+
 export const MENTIONS_LEGALES = [
   "TVA non applicable, art. 293 B du CGI.",
   "Devis valable 30 jours à compter de sa date d'émission.",
   "Un acompte de 30 % est demandé à la validation du devis.",
   "Le tarif inclut deux allers-retours de modifications mineures sur le montage final. Toute modification supplémentaire sera facturée au tarif horaire de 50€/h.",
   "Les fichiers sont livrés après réception du solde. En cas d'annulation après validation, l'acompte reste acquis.",
-  "Les droits d'auteur sur les images restent la propriété du chef de projet jusqu'au paiement intégral."
+  "Les droits d'auteur sur les images restent la propriété du chef de projet jusqu'au paiement intégral.",
 ];

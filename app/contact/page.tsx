@@ -21,15 +21,15 @@ const MEMBERS = [
 const FAQ_ITEMS: { q: string; rich: React.ReactNode }[] = [
   {
     q: "Comment fonctionne la demande de devis ?",
-    rich: <>Notre <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">configurateur en ligne</Link> vous permet de choisir votre pack, vos options et vos coordonnées en 4 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
+    rich: <>Notre <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">configurateur en ligne</Link> vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
   },
   {
     q: "Quels sont les tarifs de vos prestations ?",
-    rich: <>Nos <Link href="/services" className="font-semibold text-df-gold underline underline-offset-2">packs</Link> démarrent à 140 € HT (Pack Basique : 1 vidéo + 5 photos). Le Pack Visibilité est à 340 €, le Visibilité Mix à 420 € et le Premium à partir de 850 €. Les intros animées sont entre 100 et 400 € selon la complexité. <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">Demandez un devis</Link> pour un tarif personnalisé.</>,
+    rich: <>Nos <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2">abonnements</Link> démarrent à 49 €/mois (formule Standard : 2 vidéos + recyclage multi-réseaux). Pack Particulier dès 29 € la vidéo. <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2">Voir tous les tarifs</Link>.</>,
   },
   {
     q: "Quels sont les délais de livraison ?",
-    rich: <>Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">option express 48h</Link> (+55 €) pour les projets urgents.</>,
+    rich: <>Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">option express 48h</Link> (+50 €) pour les projets urgents.</>,
   },
   {
     q: "Faut-il payer un acompte ?",
@@ -171,7 +171,7 @@ export default function ContactPage() {
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
                   <span className="font-bold text-df-gold">Un budget.</span>{" "}
-                  Même approximatif — nos packs démarrent à 140 € HT.
+                  Même approximatif — nos abonnements démarrent à 49 €/mois.
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
                   <span className="font-bold text-df-gold">Une deadline.</span>{" "}
@@ -246,7 +246,7 @@ export default function ContactPage() {
               Demandez votre devis en ligne →
             </p>
             <p className="mt-0.5 text-sm text-white/60">
-              Configurateur en 4 étapes · Gratuit, sans engagement
+              Configurateur en 3 étapes · Gratuit, sans engagement
             </p>
           </div>
         </Link>

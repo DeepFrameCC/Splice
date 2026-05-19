@@ -1,5 +1,5 @@
 ﻿import { db } from "@/lib/db";
-import { PACKS } from "@/lib/pricing";
+import { resolvePackLabel } from "@/lib/pricing";
 import DevisTableWrapper from "@/components/dashboard/DevisTableWrapper";
 import Link from "next/link";
 import { Plus } from "lucide-react";
@@ -27,7 +27,7 @@ export default async function AdminDevisPage({
     nomEntreprise: d.nomEntreprise,
     pseudo: d.user?.pseudo ?? "",
     pack: d.pack,
-    packLabel: PACKS[d.pack]?.label ?? d.pack,
+    packLabel: resolvePackLabel(d.pack),
     totalHT: d.totalHT,
     status: d.status,
     createdAt: d.createdAt.toISOString(),

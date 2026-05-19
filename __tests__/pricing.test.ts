@@ -1,142 +1,140 @@
 import { describe, it, expect } from "vitest";
 import {
-  computeQuote,
-  validateQuote,
+  computePackParticulierQuote,
+  computeAbonnementQuote,
   PricingError,
-  PACKS,
+  SUBSCRIPTION_PLANS,
   ACOMPTE_RATE,
   PRIX_KM,
+  resolvePackLabel,
 } from "@/lib/pricing";
-import type { QuoteInput } from "@/lib/pricing";
+import type { PackParticulierInput, AbonnementInput } from "@/lib/pricing";
 
-const BASE_INPUT: QuoteInput = {
-  pack: "BASIQUE",
-  duree: "DEMI_JOURNEE",
-  usage: "ORGANIQUE",
-  delai: "STANDARD",
+const BASE_PACK_INPUT: PackParticulierInput = {
+  nbVideos: 1,
+  nbPhotos: null,
+  options: {},
+  banniere: null,
   villeDepart: "TOURS",
   distanceKm: 0,
-  videosSupp: 0,
-  videos3D: 0,
-  motionDesign: false,
-  montageExpress: false,
+  delai: "STANDARD",
 };
 
-describe("computeQuote", () => {
-  it("returns base pack price for minimal input", () => {
-    const quote = computeQuote(BASE_INPUT);
-    expect(quote.totalHT).toBe(PACKS.BASIQUE.price);
+const BASE_ABO_INPUT: AbonnementInput = {
+  planId: "STANDARD",
+  billingCycle: "MENSUEL",
+  useLaunchPrice: true,
+  options: {},
+};
+
+describe("computePackParticulierQuote", () => {
+  it("returns base video price for 1 video", () => {
+    const quote = computePackParticulierQuote(BASE_PACK_INPUT);
+    expect(quote.totalHT).toBe(29);
     expect(quote.lines.length).toBe(1);
-    expect(quote.acompte).toBe(Math.round((140 * ACOMPTE_RATE) / 100));
+    expect(quote.acompte).toBe(Math.round((29 * ACOMPTE_RATE) / 100));
     expect(quote.solde).toBe(quote.totalHT - quote.acompte);
   });
 
-  it("adds durée supplement for JOURNEE", () => {
-    const quote = computeQuote({ ...BASE_INPUT, duree: "JOURNEE" });
-    expect(quote.totalHT).toBe(140 + 60);
+  it("returns pack price for 4 videos", () => {
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, nbVideos: 4 });
+    expect(quote.totalHT).toBe(99);
   });
 
-  it("adds durée supplement for DEUX_JOURNEES", () => {
-    const quote = computeQuote({ ...BASE_INPUT, duree: "DEUX_JOURNEES" });
-    expect(quote.totalHT).toBe(140 + 120);
+  it("adds photo pack price", () => {
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, nbVideos: 2, nbPhotos: 10 });
+    expect(quote.totalHT).toBe(55 + 28);
   });
 
   it("calculates frais de déplacement correctly", () => {
-    const quote = computeQuote({ ...BASE_INPUT, distanceKm: 100 });
-    expect(quote.totalHT).toBe(140 + 100 * PRIX_KM);
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, distanceKm: 100 });
+    expect(quote.totalHT).toBe(29 + 100 * PRIX_KM);
     const kmLine = quote.lines.find((l) => l.label.includes("déplacement"));
     expect(kmLine).toBeDefined();
     expect(kmLine?.qty).toBe(100);
     expect(kmLine?.unit).toBe(PRIX_KM);
   });
 
-  it("adds usage surcharge per video", () => {
-    const quote = computeQuote({ ...BASE_INPUT, usage: "ADS_SOCIAL" });
-    // BASIQUE has 1 video, ADS_SOCIAL is 60€/video
-    expect(quote.totalHT).toBe(140 + 60);
-  });
-
-  it("includes supplementary videos in usage calculation", () => {
-    const quote = computeQuote({ ...BASE_INPUT, usage: "ADS_GOOGLE", videosSupp: 2 });
-    // 1 pack video + 2 supp = 3 videos, ADS_GOOGLE = 80€/video
-    // Pack 140 + usage 240 + 2*90 supp = 140 + 240 + 180 = 560
-    expect(quote.totalHT).toBe(140 + 80 * 3 + 90 * 2);
-  });
-
-  it("adds videos 3D with correct unit price", () => {
-    const quote = computeQuote({ ...BASE_INPUT, videos3D: 2 });
-    expect(quote.totalHT).toBe(140 + 110 * 2);
-  });
-
-  it("adds motion design option", () => {
-    const quote = computeQuote({ ...BASE_INPUT, motionDesign: true });
-    expect(quote.totalHT).toBe(140 + 40);
-  });
-
-  it("adds montage express option", () => {
-    const quote = computeQuote({ ...BASE_INPUT, montageExpress: true });
-    expect(quote.totalHT).toBe(140 + 55);
-  });
-
   it("adds express delivery supplement", () => {
-    const quote = computeQuote({ ...BASE_INPUT, delai: "EXPRESS_48H" });
-    expect(quote.totalHT).toBe(140 + 50);
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, delai: "EXPRESS_48H" });
+    expect(quote.totalHT).toBe(29 + 50);
   });
 
-  it("computes acompte at 30%", () => {
-    const quote = computeQuote({ ...BASE_INPUT, pack: "PREMIUM" });
-    expect(quote.acompte).toBe(Math.round((850 * 30) / 100));
-    expect(quote.solde).toBe(850 - quote.acompte);
-  });
-
-  it("handles VISIBILITE pack with all options", () => {
-    const quote = computeQuote({
-      ...BASE_INPUT,
-      pack: "VISIBILITE",
-      duree: "JOURNEE",
-      usage: "ADS_SOCIAL",
-      delai: "EXPRESS_48H",
-      distanceKm: 50,
-      videosSupp: 1,
-      motionDesign: true,
+  it("adds options per video", () => {
+    const quote = computePackParticulierQuote({
+      ...BASE_PACK_INPUT,
+      nbVideos: 2,
+      options: { voixOff: true, sousTitres: true },
     });
-    // Pack: 340, Durée: +60, Deplacement: 25, Usage: 60*(4+1)=300, VideoSupp: 90, Motion: 40, Express: 50
-    const expected = 340 + 60 + 25 + 300 + 90 + 40 + 50;
-    expect(quote.totalHT).toBe(expected);
+    // 2 videos pack (55) + voixOff 12*2 + sousTitres 12*2 = 55 + 24 + 24 = 103
+    expect(quote.totalHT).toBe(55 + 12 * 2 + 12 * 2);
   });
 
-  it("returns SUR_MESURE at 0€ base", () => {
-    const quote = computeQuote({ ...BASE_INPUT, pack: "SUR_MESURE" });
-    expect(quote.totalHT).toBe(0);
-  });
-});
-
-describe("validateQuote", () => {
-  it("throws PricingError for montageExpress + PREMIUM", () => {
-    expect(() =>
-      validateQuote({ ...BASE_INPUT, pack: "PREMIUM", montageExpress: true })
-    ).toThrow(PricingError);
-  });
-
-  it("throws PricingError for montageExpress + 3D videos", () => {
-    expect(() =>
-      validateQuote({ ...BASE_INPUT, montageExpress: true, videos3D: 1 })
-    ).toThrow(PricingError);
+  it("adds bannière price", () => {
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, banniere: "PETITE" });
+    expect(quote.totalHT).toBe(29 + 15);
   });
 
   it("throws PricingError for negative distance", () => {
     expect(() =>
-      validateQuote({ ...BASE_INPUT, distanceKm: -10 })
+      computePackParticulierQuote({ ...BASE_PACK_INPUT, distanceKm: -10 })
     ).toThrow(PricingError);
   });
 
-  it("throws PricingError for negative video counts", () => {
-    expect(() =>
-      validateQuote({ ...BASE_INPUT, videosSupp: -1 })
-    ).toThrow(PricingError);
+  it("returns empty quote when no videos or photos selected", () => {
+    const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, nbVideos: null });
+    expect(quote.totalHT).toBe(0);
+    expect(quote.lines.length).toBe(0);
+  });
+});
+
+describe("computeAbonnementQuote", () => {
+  it("returns launch monthly price for Standard", () => {
+    const quote = computeAbonnementQuote(BASE_ABO_INPUT);
+    expect(quote.totalHT).toBe(49);
   });
 
-  it("allows valid inputs without throwing", () => {
-    expect(() => validateQuote(BASE_INPUT)).not.toThrow();
+  it("returns launch annual total for Standard annual", () => {
+    const quote = computeAbonnementQuote({ ...BASE_ABO_INPUT, billingCycle: "ANNUEL" });
+    expect(quote.totalHT).toBe(540);
+  });
+
+  it("returns standard monthly price when not launch", () => {
+    const quote = computeAbonnementQuote({ ...BASE_ABO_INPUT, useLaunchPrice: false });
+    expect(quote.totalHT).toBe(79);
+  });
+
+  it("adds options per video count", () => {
+    const quote = computeAbonnementQuote({
+      ...BASE_ABO_INPUT,
+      planId: "PRO",
+      options: { voixOff: true },
+    });
+    // PRO launch monthly 99 + voixOff 12 * 5 videos = 99 + 60 = 159
+    expect(quote.totalHT).toBe(99 + 12 * 5);
+  });
+
+  it("computes PRO annual with savings line", () => {
+    const quote = computeAbonnementQuote({
+      planId: "PRO",
+      billingCycle: "ANNUEL",
+      useLaunchPrice: true,
+      options: {},
+    });
+    expect(quote.totalHT).toBe(1068);
+    expect(quote.lines.some((l) => l.label.includes("Économie"))).toBe(true);
+  });
+});
+
+describe("resolvePackLabel", () => {
+  it("resolves legacy pack names", () => {
+    expect(resolvePackLabel("BASIQUE")).toBe("Pack Basique");
+    expect(resolvePackLabel("VISIBILITE")).toBe("Pack Visibilité");
+    expect(resolvePackLabel("PREMIUM")).toBe("Pack Premium");
+  });
+
+  it("returns new pack labels as-is", () => {
+    expect(resolvePackLabel("Abonnement Pro")).toBe("Abonnement Pro");
+    expect(resolvePackLabel("Pack Particulier")).toBe("Pack Particulier");
   });
 });

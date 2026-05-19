@@ -3,7 +3,7 @@
  * Used by prisma/seed.ts to populate the Service table.
  */
 
-import type { ServiceFeature, FAQItem, ServiceDeliverable } from "@/lib/services/types";
+import type { ServiceFeature, FAQItem, ServiceDeliverable, EquipmentItem } from "../lib/services/types";
 
 export interface ServiceContent {
   slug: string;
@@ -27,6 +27,7 @@ export interface ServiceContent {
   iconName: string;
   teamMembers: string[];
   deliverables: ServiceDeliverable[];
+  equipment: EquipmentItem[];
   zoneText: string;
   relatedSlugs: string[];
   isPublished: boolean;
@@ -136,6 +137,13 @@ const montageVideo: ServiceContent = {
     { label: "Sous-titres", detail: "Incrust\u00e9s ou fichiers SRT" },
     { label: "Exports multi-plateformes", detail: "TikTok, Instagram, YouTube, LinkedIn" },
   ],
+  equipment: [
+    { name: "Adobe Premiere Pro CC", detail: "Montage principal" },
+    { name: "DaVinci Resolve Studio", detail: "Etalonnage et color grading" },
+    { name: "After Effects", detail: "Motion titrage et habillage" },
+    { name: "Logic Pro X", detail: "Mixage audio" },
+    { name: "Adobe Audition CC", detail: "Nettoyage et sound design" },
+  ],
   zoneText: ZONE_REMOTE,
   relatedSlugs: ["production-corporate", "motion-design", "pub-reseaux-sociaux"],
   isPublished: true,
@@ -234,6 +242,13 @@ const productionCorporate: ServiceContent = {
     { label: "Sous-titres fran\u00e7ais", detail: "Incrust\u00e9s + fichier SRT" },
     { label: "Musique licenci\u00e9e" },
     { label: "Brief cr\u00e9atif et script valid\u00e9" },
+  ],
+  equipment: [
+    { name: "Sony FX3 / FX6", detail: "Camera cinema full-frame" },
+    { name: "Blackmagic Pocket 6K", detail: "Camera cinema compacte" },
+    { name: "Sigma Art 24-70mm f/2.8 + 85mm f/1.4", detail: "Optiques professionnelles" },
+    { name: "DJI Ronin RS3 Pro", detail: "Stabilisateur gimbale" },
+    { name: "Aputure 300X + LS 600D", detail: "Eclairage LED cinema" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["interview-temoignage", "presentation-entreprise", "montage-video"],
@@ -334,6 +349,12 @@ const motionDesign: ServiceContent = {
     { label: "2 allers-retours de corrections" },
     { label: "D\u00e9clinaisons formats", detail: "Carr\u00e9, vertical, horizontal" },
   ],
+  equipment: [
+    { name: "After Effects", detail: "Animation, compositing, expressions" },
+    { name: "Cinema 4D", detail: "3D modélisation et rendu" },
+    { name: "Illustrator", detail: "Création d’assets vectoriels" },
+    { name: "Lottie", detail: "Export animations légères pour le web" },
+  ],
   zoneText: ZONE_REMOTE,
   relatedSlugs: ["montage-video", "pub-reseaux-sociaux", "presentation-entreprise"],
   isPublished: true,
@@ -432,6 +453,12 @@ const pubReseauxSociaux: ServiceContent = {
     { label: "Sous-titres anim\u00e9s int\u00e9gr\u00e9s" },
     { label: "Variantes A/B", detail: "Hooks et dur\u00e9es alternatives" },
     { label: "Exports optimis\u00e9s par plateforme" },
+  ],
+  equipment: [
+    { name: "Sony ZV-E1", detail: "Captation vidéo compacte full frame" },
+    { name: "iPhone Pro", detail: "Contenus authentiques et spontanés" },
+    { name: "DJI OM6", detail: "Stabilisateur smartphone" },
+    { name: "Premiere Pro", detail: "Montage et export multi-formats" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["montage-video", "photographie-professionnelle", "production-corporate"],
@@ -532,6 +559,13 @@ const shootingAutomobile: ServiceContent = {
     { label: "Galerie en ligne priv\u00e9e" },
     { label: "Exports web + print", detail: "JPEG, TIFF, PNG" },
   ],
+  equipment: [
+    { name: "Sony A7R V", detail: "61 MP, autofocus IA" },
+    { name: "Sigma Art 35mm f/1.4", detail: "Optique prime grand angle" },
+    { name: "Sigma Art 90mm Macro", detail: "Détails et textures" },
+    { name: "Hexlight LED", detail: "Éclairage studio hexagonal" },
+    { name: "DJI RS3", detail: "Véhicule suiveur stabilisé" },
+  ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["photographie-professionnelle", "pub-reseaux-sociaux", "production-corporate"],
   isPublished: true,
@@ -619,6 +653,13 @@ const photographieProfessionnelle: ServiceContent = {
     { label: "Galerie en ligne priv\u00e9e", detail: "T\u00e9l\u00e9chargement s\u00e9curis\u00e9" },
     { label: "Exports web + print", detail: "JPEG, TIFF, PNG" },
     { label: "D\u00e9tourage produits", detail: "Pour packshots e-commerce" },
+  ],
+  equipment: [
+    { name: "Sony A7R V", detail: "61 MP, autofocus IA" },
+    { name: "Sigma Art 24-70mm f/2.8", detail: "Polyvalence studio et reportage" },
+    { name: "Sigma Art 85mm f/1.4", detail: "Portrait et bokeh" },
+    { name: "Godox AD400 Pro", detail: "Flash studio portable" },
+    { name: "X-Rite ColorChecker", detail: "Calibration couleur fidèle" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["shooting-automobile", "pub-reseaux-sociaux", "production-corporate"],
@@ -708,6 +749,12 @@ const interviewTemoignage: ServiceContent = {
     { label: "Sous-titres int\u00e9gr\u00e9s", detail: "Fran\u00e7ais + option anglais" },
     { label: "Habillage graphique", detail: "Titrages, lower thirds" },
   ],
+  equipment: [
+    { name: "Setup 2-3 caméras Sony FX3", detail: "Multi-angle cinéma" },
+    { name: "Aputure 300X + LS 600D", detail: "Éclairage interview doux" },
+    { name: "Prompteur", detail: "Confort pour les intervenants" },
+    { name: "DPA 4060", detail: "Micro-cravate broadcast" },
+  ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["production-corporate", "presentation-entreprise", "voix-off-sound-design"],
   isPublished: true,
@@ -795,6 +842,12 @@ const voixOffSoundDesign: ServiceContent = {
     { label: "Sound design complet", detail: "Ambiances, bruitages, effets" },
     { label: "Mixage et mastering", detail: "Normes LUFS par plateforme" },
     { label: "Musique licenci\u00e9e", detail: "Droits inclus" },
+  ],
+  equipment: [
+    { name: "Studio traité acoustiquement", detail: "Isolation et absorption" },
+    { name: "Neumann TLM 103", detail: "Micro condensateur broadcast" },
+    { name: "Universal Audio Apollo Twin MKII", detail: "Interface audio et préamplis" },
+    { name: "Logic Pro X", detail: "Mixage, mastering et sound design" },
   ],
   zoneText: ZONE_REMOTE,
   relatedSlugs: ["montage-video", "production-corporate", "interview-temoignage"],
@@ -896,6 +949,12 @@ const presentationEntreprise: ServiceContent = {
     { label: "Script et storyboard valid\u00e9s" },
     { label: "Musique licenci\u00e9e" },
   ],
+  equipment: [
+    { name: "Sony FX6", detail: "Caméra cinéma full frame" },
+    { name: "DJI RS3 Pro", detail: "Stabilisateur professionnel" },
+    { name: "Drone DJI (option)", detail: "Plans aériens d’ouverture" },
+    { name: "Aputure kit complet", detail: "300X, LS 600D, panneaux LED" },
+  ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["production-corporate", "interview-temoignage", "motion-design"],
   isPublished: true,
@@ -985,6 +1044,7 @@ const clipMusical: ServiceContent = {
     { label: "Concept cr\u00e9atif et moodboard" },
     { label: "Behind the scenes", detail: "Photos + vid\u00e9o (option)" },
   ],
+  equipment: [],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["montage-video", "motion-design", "voix-off-sound-design"],
   isPublished: false,
@@ -1073,6 +1133,7 @@ const dronePriseDeVue: ServiceContent = {
     { label: "Autorisations de vol", detail: "D\u00e9clarations DGAC incluses" },
     { label: "Int\u00e9gration montage", detail: "Si coupl\u00e9 \u00e0 une production vid\u00e9o" },
   ],
+  equipment: [],
   zoneText:
     "Nous r\u00e9alisons des prises de vue a\u00e9riennes \u00e0 Orl\u00e9ans, Tours et dans tout le Centre-Val de Loire (Loiret, Indre-et-Loire, Loir-et-Cher). Les vols en zone urbaine n\u00e9cessitent des autorisations sp\u00e9cifiques que nous g\u00e9rons int\u00e9gralement. D\u00e9placements possibles dans toute la France.",
   relatedSlugs: ["production-corporate", "shooting-automobile", "presentation-entreprise"],

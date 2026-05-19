@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound, redirect } from "next/navigation";
-import { PACKS } from "@/lib/pricing";
+import { resolvePackLabel } from "@/lib/pricing";
 import PayerClient from "@/components/devis/PayerClient";
 
 export default async function PayerPage({ params }: { params: Promise<{ id: string }> }) {
@@ -23,7 +23,7 @@ export default async function PayerPage({ params }: { params: Promise<{ id: stri
       totalHT={devis.totalHT}
       acompteRate={devis.acompteRate}
       acompteAmount={devis.acompteAmount}
-      pack={PACKS[devis.pack]?.label ?? devis.pack}
+      pack={resolvePackLabel(devis.pack)}
     />
   );
 }

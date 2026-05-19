@@ -51,13 +51,9 @@ enum CounterType {
   CONTRAT
 }
 
-enum Pack {
-  BASIQUE
-  VISIBILITE
-  VISIBILITE_MIX
-  PREMIUM
-  INTRO_ANIMEE
-  SUR_MESURE
+enum DevisType {
+  ABONNEMENT
+  PACK_PARTICULIER
 }
 
 enum DureeTournage {
@@ -264,7 +260,10 @@ model Devis {
   user            User?          @relation(fields: [userId], references: [id])
   status          DevisStatus    @default(ATTENTE)
   chefDeProjet    Founder
-  pack            Pack
+  devisType       DevisType      @default(PACK_PARTICULIER)
+  pack            String
+  planAbonnement  String?
+  billingCycle    String?
   duree           DureeTournage  @default(DEMI_JOURNEE)
   usage           UsageType      @default(ORGANIQUE)
   delai           DelaiLivraison @default(STANDARD)
@@ -427,6 +426,7 @@ model Service {
   iconName        String?
   teamMembers     String[] @default([])
   deliverables    Json?
+  equipment       Json?
   zoneText        String?  @db.Text
   relatedSlugs    String[] @default([])
   isPublished     Boolean  @default(true)

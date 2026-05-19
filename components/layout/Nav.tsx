@@ -7,10 +7,10 @@ import UserDropdown from "./UserDropdown";
 
 const NAV_LINKS = [
   { href: "/#about",    label: "À propos" },
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
   { href: "/galerie",   label: "Galerie" },
   { href: "/equipe",    label: "Équipe" },
-  { href: "/#pricing",  label: "Tarifs" },
+  { href: "/tarifs",    label: "Tarifs" },
   { href: "/blog",      label: "Blog" },
   { href: "/faq",       label: "FAQ" },
   { href: "/contact",   label: "Contact" },

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { MENTIONS_LEGALES, FOUNDER_LABEL, PACKS } from "@/lib/pricing";
+import { MENTIONS_LEGALES, FOUNDER_LABEL, resolvePackLabel } from "@/lib/pricing";
 import {
   createPdfDoc,
   drawHeader,
@@ -193,9 +193,8 @@ export async function GET(
         .text("PRESTATION", 300, 150);
 
       doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      const packLabel =
-        devis.pack && PACKS[devis.pack]
-          ? PACKS[devis.pack].label
+      const packLabel = devis.pack
+          ? resolvePackLabel(devis.pack)
           : safe(devis.pack, "Pack");
       doc.text(s(`Pack : ${packLabel}`), 300, 167);
 

@@ -1,8 +1,8 @@
 ﻿import { db } from "@/lib/db";
-import { PACKS, FOUNDER_LABEL } from "@/lib/pricing";
+import { resolvePackLabel, FOUNDER_LABEL } from "@/lib/pricing";
 import { CABarChart, FunnelPieChart, ExportCSVButton } from "@/components/dashboard/StatsCharts";
 import { TrendingUp, Target, ShoppingCart, Users, BarChart3 } from "lucide-react";
-import type { Pack, Founder } from "@prisma/client";
+import type { Founder } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +59,7 @@ export default async function AdminStatsPage() {
 
   // CA by pack
   const caByPack = devisByPack.map((d) => ({
-    label: PACKS[d.pack]?.label ?? d.pack,
+    label: resolvePackLabel(d.pack),
     value: d._sum.totalHT ?? 0,
     count: d._count.id,
   })).sort((a, b) => b.value - a.value);

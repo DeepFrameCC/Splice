@@ -16,7 +16,7 @@ export function ServiceDeliverables({ items }: Props) {
     <section id="livrables" aria-labelledby="livrables-h2" className="mt-16 scroll-mt-24">
       <h2
         id="livrables-h2"
-        className="font-display text-2xl font-bold text-white"
+        className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
       >
         Ce que vous recevez
       </h2>
@@ -27,8 +27,8 @@ export function ServiceDeliverables({ items }: Props) {
             key={item.label}
             className="flex items-start gap-3 rounded-xl border border-white/[0.08] bg-white/[0.04] p-4"
           >
-            <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-emerald-500/10">
-              <Check className="h-3.5 w-3.5 text-emerald-400" />
+            <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-df-gold/10">
+              <Check className="h-3.5 w-3.5 text-df-gold" />
             </span>
 
             <div>

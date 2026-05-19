@@ -39,6 +39,8 @@ export const getAllServices = cache(async () => {
         category: true,
         sortOrder: true,
         iconName: true,
+        serviceType: true,
+        priceRange: true,
       },
     });
   } catch (err) {

@@ -1,6 +1,6 @@
 ﻿import Link from "next/link";
 import { db } from "@/lib/db";
-import { PACKS } from "@/lib/pricing";
+import { resolvePackLabel } from "@/lib/pricing";
 import StatusPill from "@/components/dashboard/StatusPill";
 import CAChart from "@/components/dashboard/CAChart";
 import {
@@ -310,7 +310,7 @@ export default async function AdminDashboard() {
                     </div>
                     <p className="mt-0.5 truncate text-xs text-white/40">
                       {d.nomEntreprise || d.nomContact} —{" "}
-                      {PACKS[d.pack]?.label ?? d.pack}
+                      {resolvePackLabel(d.pack)}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
