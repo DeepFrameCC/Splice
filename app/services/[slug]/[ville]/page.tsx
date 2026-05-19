@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { headers } from "next/headers";
 
 import {
   VILLES,
@@ -14,6 +15,7 @@ import { buildLocalServiceJsonLd } from "@/lib/services/schema-service";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 
 export const dynamicParams = false;
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string; ville: string }>;
@@ -70,6 +72,8 @@ export default async function LocalServicePage({ params }: PageProps) {
   const data = LOCAL_SERVICE_DATA[slug as LocalServiceSlug];
   if (!ville || !data) notFound();
 
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   const h1 = fillTemplate(data.h1Template, ville);
   const intro = fillTemplate(data.introTemplate, ville);
 
@@ -85,6 +89,7 @@ export default async function LocalServicePage({ params }: PageProps) {
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

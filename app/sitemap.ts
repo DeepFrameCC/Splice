@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       db.service.findMany({
         where: { isPublished: true },
         select: { slug: true, updatedAt: true },
-        orderBy: { publishedAt: "asc" },
+        orderBy: { sortOrder: "asc" },
       }),
       db.blogPost.findMany({
         where: { status: "PUBLISHED" },
@@ -47,18 +47,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     dynamicPages = [
-      // Services hub
       ...(services.length > 0
         ? [{ url: `${base}/services`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 }]
         : []),
-      // Individual service pages
       ...services.map((s) => ({
         url: `${base}/services/${s.slug}`,
         lastModified: s.updatedAt,
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
-      // Blog posts
       ...blogPosts.map((p) => ({
         url: `${base}/blog/${p.slug}`,
         lastModified: p.updatedAt,
@@ -70,5 +67,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB unavailable at build time — skip dynamic pages
   }
 
-  return [...staticPages, ...localPages, ...dynamicPages];
+  return [...staticPages, ...dynamicPages, ...localPages];
 }

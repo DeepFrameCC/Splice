@@ -17,3 +17,5 @@ export interface EquipmentItem {
   name: string;
   detail?: string;
 }
+
+export type Equipment = EquipmentItem;
