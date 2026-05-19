@@ -90,6 +90,7 @@ export default async function LocalServicePage({ params }: PageProps) {
     <>
       <script
         nonce={nonce}
+        suppressHydrationWarning
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

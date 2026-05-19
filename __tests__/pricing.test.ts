@@ -70,6 +70,26 @@ describe("computePackParticulierQuote", () => {
     expect(quote.totalHT).toBe(55 + 12 * 2 + 12 * 2);
   });
 
+  it("adds options with specific numeric quantities", () => {
+    const quote = computePackParticulierQuote({
+      ...BASE_PACK_INPUT,
+      nbVideos: 4,
+      options: { voixOff: 2, sousTitres: 1 },
+    });
+    // 4 videos pack (99) + voixOff 12*2 + sousTitres 12*1 = 99 + 24 + 12 = 135
+    expect(quote.totalHT).toBe(99 + 12 * 2 + 12 * 1);
+  });
+
+  it("caps numeric options quantity to the selected video count", () => {
+    const quote = computePackParticulierQuote({
+      ...BASE_PACK_INPUT,
+      nbVideos: 2,
+      options: { voixOff: 5 }, // 5 is capped to videoCount 2
+    });
+    // 2 videos pack (55) + voixOff 12*2 = 55 + 24 = 79
+    expect(quote.totalHT).toBe(55 + 12 * 2);
+  });
+
   it("adds bannière price", () => {
     const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, banniere: "PETITE" });
     expect(quote.totalHT).toBe(29 + 15);

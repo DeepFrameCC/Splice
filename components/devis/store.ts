@@ -1,11 +1,12 @@
 "use client";
 import { create } from "zustand";
-import type {
-  PlanId,
-  BillingCycle,
-  DevisMode,
-  OptionKey,
-  BanniereSize,
+import {
+  SUBSCRIPTION_PLANS,
+  type PlanId,
+  type BillingCycle,
+  type DevisMode,
+  type OptionKey,
+  type BanniereSize,
 } from "@/lib/pricing";
 import type { DureeTournage, DelaiLivraison, VilleDepart } from "@prisma/client";
 
@@ -28,7 +29,7 @@ export interface DevisFormState {
   duree: DureeTournage;
 
   // Shared options
-  options: Partial<Record<OptionKey, boolean>>;
+  options: Partial<Record<OptionKey, number>>;
 
   // Coordonnées (Step 3)
   nomEntreprise: string;
@@ -44,6 +45,7 @@ export interface DevisFormState {
   prev: () => void;
   set: <K extends keyof DevisFormState>(k: K, v: DevisFormState[K]) => void;
   toggleOption: (key: OptionKey) => void;
+  setOptionQty: (key: OptionKey, qty: number) => void;
   reset: () => void;
 }
 
@@ -63,7 +65,7 @@ const initial = {
   delai: "STANDARD" as DelaiLivraison,
   duree: "DEMI_JOURNEE" as DureeTournage,
 
-  options: {} as Partial<Record<OptionKey, boolean>>,
+  options: {} as Partial<Record<OptionKey, number>>,
 
   nomEntreprise: "",
   nomContact: "",
@@ -82,8 +84,29 @@ export const useDevisForm = create<DevisFormState>((set) => ({
     set((s) => ({ step: Math.max(1, s.step - 1) as 1 | 2 | 3 })),
   set: (k, v) => set({ [k]: v } as Partial<DevisFormState>),
   toggleOption: (key) =>
+    set((s) => {
+      const current = s.options[key];
+      if (current && current > 0) {
+        const nextOptions = { ...s.options };
+        delete nextOptions[key];
+        return { options: nextOptions };
+      } else {
+        let defaultQty = 1;
+        if (key !== "creationBanniere") {
+          if (s.mode === "ABONNEMENT") {
+            defaultQty = SUBSCRIPTION_PLANS[s.planId]?.videosPerMonth ?? 1;
+          } else {
+            defaultQty = s.nbVideos ?? 1;
+          }
+        }
+        return {
+          options: { ...s.options, [key]: defaultQty },
+        };
+      }
+    }),
+  setOptionQty: (key, qty) =>
     set((s) => ({
-      options: { ...s.options, [key]: !s.options[key] },
+      options: { ...s.options, [key]: qty },
     })),
   reset: () => set(initial),
 }));

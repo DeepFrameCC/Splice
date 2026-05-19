@@ -77,17 +77,30 @@ export default function IntroScreen() {
         }
       `}</style>
 
-      <div style={{ width: "min(38vw, 320px)", aspectRatio: "466 / 627", position: "relative" }}>
-        <Image
-          src="/logo.svg"
-          alt="DeepFrame"
-          className="df-intro-logo"
-          fill
-          priority
-          sizes="(max-width: 768px) 38vw, 320px"
-          style={{ display: "block", objectFit: "contain" }}
-        />
-        {phase === "draw" && <div className="df-intro-shimmer" />}
+      <div className="flex flex-col items-center gap-6" style={{ width: "min(38vw, 320px)", position: "relative" }}>
+        <div className="relative w-36 h-36">
+          <Image
+            src="/LogoNoir.svg"
+            alt="DeepFrame"
+            className="df-intro-logo"
+            fill
+            priority
+            sizes="(max-width: 768px) 38vw, 144px"
+            style={{ display: "block", objectFit: "contain" }}
+          />
+          {phase === "draw" && <div className="df-intro-shimmer rounded-xl" />}
+        </div>
+        <div className="relative w-64 h-12">
+          <Image
+            src="/NomNoir.svg"
+            alt="DEEPFRAME"
+            className="df-intro-logo"
+            fill
+            priority
+            sizes="(max-width: 768px) 38vw, 256px"
+            style={{ display: "block", objectFit: "contain" }}
+          />
+        </div>
       </div>
     </div>
   );

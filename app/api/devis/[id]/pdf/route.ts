@@ -5,12 +5,16 @@ import { MENTIONS_LEGALES, FOUNDER_LABEL, resolvePackLabel } from "@/lib/pricing
 import {
   createPdfDoc,
   drawHeader,
+  drawInfoBlock,
+  drawPartiesBlock,
   drawTableHeader,
   drawTableRow,
+  drawTotalsBlock,
+  drawReglementBlock,
+  drawMentionsLegales,
   sanitize,
   safe,
   euro,
-  PDF_COLORS,
 } from "@/lib/pdf";
 
 export const runtime = "nodejs";
@@ -96,153 +100,77 @@ export async function GET(
       });
 
       /* ── Header ──────────────────────────────────────────────────── */
-      drawHeader(doc, fonts, s);
+      drawHeader(doc, fonts, s, "DEVIS");
 
-      /* ── Devis info ──────────────────────────────────────────────── */
-      doc
-        .font(fonts.bold)
-        .fontSize(14)
-        .fillColor(PDF_COLORS.blue)
-        .text(s(`DEVIS N${fonts.useCustom ? "\u00b0" : "o"} ${devis.numero}`), 350, 50, {
-          align: "right",
-        });
+      /* ── Info block (date, numero) ───────────────────────────────── */
+      const dateStr = devis.createdAt.toLocaleDateString("fr-FR");
+      const echeanceDate = new Date(devis.createdAt);
+      echeanceDate.setDate(echeanceDate.getDate() + 30);
+      const echeanceStr = echeanceDate.toLocaleDateString("fr-FR");
 
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      doc.text(
-        s(`Date : ${devis.createdAt.toLocaleDateString("fr-FR")}`),
-        350,
-        72,
-        { align: "right" },
-      );
+      drawInfoBlock(doc, fonts, s, {
+        date: dateStr,
+        echeance: echeanceStr,
+        numero: safe(devis.numero),
+        docType: "DEVIS",
+      });
 
+      /* ── Prestataire / Destinataire ──────────────────────────────── */
       const chefLabel =
         devis.chefDeProjet && FOUNDER_LABEL[devis.chefDeProjet]
           ? FOUNDER_LABEL[devis.chefDeProjet]
           : safe(devis.chefDeProjet, "Non assigne");
-      doc.text(s(`Chef de projet : ${chefLabel}`), 350, 86, {
-        align: "right",
-      });
 
-      /* ── Client info ─────────────────────────────────────────────── */
-      doc
-        .moveTo(50, 120)
-        .lineTo(545, 120)
-        .strokeColor(PDF_COLORS.border)
-        .stroke();
-      doc
-        .font(fonts.bold)
-        .fontSize(11)
-        .fillColor(PDF_COLORS.blue)
-        .text("CLIENT", 50, 135);
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      const clientLines = [
+      const destinataireLines = [
         devis.nomEntreprise || "",
         devis.nomContact,
-        devis.emailContact,
         devis.telContact,
-        devis.lieuTournage,
-      ].filter(Boolean);
+        devis.emailContact,
+        devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
+        devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
+      ].filter(Boolean) as string[];
 
-      let cy = 152;
-      for (const cl of clientLines) {
-        doc.text(s(safe(cl)), 50, cy);
-        cy += 14;
-      }
-
-      /* ── Pack info ───────────────────────────────────────────────── */
-      doc
-        .font(fonts.bold)
-        .fontSize(11)
-        .fillColor(PDF_COLORS.blue)
-        .text("PRESTATION", 300, 135);
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      const packLabel = devis.pack
-          ? resolvePackLabel(devis.pack)
-          : safe(devis.pack, "Pack");
-      doc.text(s(`Pack : ${packLabel}`), 300, 152);
-
-      if (devis.dateTournage) {
-        doc.text(
-          s(
-            `Date de tournage : ${devis.dateTournage.toLocaleDateString("fr-FR")}`,
-          ),
-          300,
-          166,
-        );
-      }
+      const afterParties = drawPartiesBlock(
+        doc, fonts, s,
+        {
+          entreprise: s(`Prenom Nom (${chefLabel})`),
+          adresse: "adresse:",
+          email: "contact@deepframe.cc",
+          siret: s("En cours d'immatriculation"),
+        },
+        destinataireLines,
+      );
 
       /* ── Table ───────────────────────────────────────────────────── */
-      const tableTop = Math.max(cy, 200) + 20;
+      const tableTop = Math.max(afterParties, 210);
       drawTableHeader(doc, fonts, s, tableTop);
 
-      let y = tableTop + 32;
+      let y = tableTop + 28;
       for (const line of lines) {
         y = drawTableRow(doc, fonts, s, e, line, y);
-        if (y > 720) {
+        if (y > 680) {
           doc.addPage();
           y = 50;
         }
       }
 
-      /* ── Total ───────────────────────────────────────────────────── */
-      doc
-        .moveTo(350, y + 5)
-        .lineTo(545, y + 5)
-        .strokeColor(PDF_COLORS.blue)
-        .lineWidth(1)
-        .stroke();
+      /* ── Totals ──────────────────────────────────────────────────── */
+      const afterTotals = drawTotalsBlock(doc, fonts, s, e, {
+        totalHT: devis.totalHT,
+        acompteRate: devis.acompteRate,
+        acompteAmount: devis.acompteAmount,
+        solde: devis.totalHT - devis.acompteAmount,
+      }, y + 8);
 
-      doc
-        .font(fonts.bold)
-        .fontSize(12)
-        .fillColor(PDF_COLORS.blue)
-        .text("Total HT", 350, y + 14);
-      doc
-        .font(fonts.bold)
-        .fontSize(14)
-        .fillColor(PDF_COLORS.blue)
-        .text(e(devis.totalHT), 470, y + 12, { width: 75, align: "right" });
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.muted);
-      doc.text(
-        s(`Acompte ${devis.acompteRate}% : ${e(devis.acompteAmount)}`),
-        350,
-        y + 34,
-        { width: 195, align: "right" },
+      /* ── Reglement ───────────────────────────────────────────────── */
+      const afterReglement = drawReglementBlock(
+        doc, fonts, s, afterTotals + 8,
+        s("Delais de livraison : ........."),
       );
-      doc.text(
-        s(`Solde a la livraison : ${e(devis.totalHT - devis.acompteAmount)}`),
-        350,
-        y + 48,
-        { width: 195, align: "right" },
-      );
-
-      /* ── Remarques ───────────────────────────────────────────────── */
-      if (devis.remarques) {
-        const ry = y + 75;
-        doc
-          .font(fonts.bold)
-          .fontSize(10)
-          .fillColor(PDF_COLORS.blue)
-          .text("Remarques", 50, ry);
-        doc
-          .font(fonts.main)
-          .fontSize(8)
-          .fillColor(PDF_COLORS.text)
-          .text(s(devis.remarques), 50, ry + 16, { width: 300 });
-      }
 
       /* ── Mentions legales ────────────────────────────────────────── */
-      const mlY = Math.min(y + 120, 680);
-      doc.font(fonts.main).fontSize(7).fillColor(PDF_COLORS.light);
-      doc.text("Conditions :", 50, mlY);
-      for (let i = 0; i < MENTIONS_LEGALES.length; i++) {
-        doc.text(s(`${i + 1}. ${MENTIONS_LEGALES[i]}`), 50, mlY + 12 + i * 10, {
-          width: 480,
-        });
-      }
+      const mentionsY = Math.min(afterReglement + 8, 720);
+      drawMentionsLegales(doc, fonts, s, MENTIONS_LEGALES, mentionsY);
 
       doc.end();
     });

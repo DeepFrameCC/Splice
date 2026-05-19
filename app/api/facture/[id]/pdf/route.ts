@@ -5,8 +5,13 @@ import { MENTIONS_LEGALES, FOUNDER_LABEL, resolvePackLabel } from "@/lib/pricing
 import {
   createPdfDoc,
   drawHeader,
+  drawInfoBlock,
+  drawPartiesBlock,
   drawTableHeader,
   drawTableRow,
+  drawTotalsBlock,
+  drawReglementBlock,
+  drawMentionsLegales,
   sanitize,
   safe,
   euro,
@@ -102,176 +107,86 @@ export async function GET(
       });
 
       /* ── Header ──────────────────────────────────────────────────── */
-      drawHeader(doc, fonts, s);
+      drawHeader(doc, fonts, s, "FACTURE");
 
-      /* ── Facture info ────────────────────────────────────────────── */
-      doc
-        .font(fonts.bold)
-        .fontSize(14)
-        .fillColor(PDF_COLORS.blue)
-        .text(
-          s(
-            `FACTURE N${fonts.useCustom ? "\u00b0" : "o"} ${facture.numero}`,
-          ),
-          350,
-          50,
-          { align: "right" },
-        );
+      /* ── Info block (date, numero) ───────────────────────────────── */
+      const dateStr = facture.createdAt.toLocaleDateString("fr-FR");
+      const echeanceDate = new Date(facture.createdAt);
+      echeanceDate.setDate(echeanceDate.getDate() + 30);
+      const echeanceStr = echeanceDate.toLocaleDateString("fr-FR");
 
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      doc.text(
-        s(`Date : ${facture.createdAt.toLocaleDateString("fr-FR")}`),
-        350,
-        72,
-        { align: "right" },
-      );
-      doc.text(s(`Devis associe : ${safe(devis.numero)}`), 350, 86, {
-        align: "right",
+      drawInfoBlock(doc, fonts, s, {
+        date: dateStr,
+        echeance: echeanceStr,
+        numero: safe(facture.numero),
+        docType: "FACTURE",
       });
 
+      /* ── Prestataire / Destinataire ──────────────────────────────── */
       const chefLabel =
         devis.chefDeProjet && FOUNDER_LABEL[devis.chefDeProjet]
           ? FOUNDER_LABEL[devis.chefDeProjet]
           : safe(devis.chefDeProjet, "Non assigne");
-      doc.text(s(`Chef de projet : ${chefLabel}`), 350, 100, {
-        align: "right",
-      });
 
-      /* ── Status badge ────────────────────────────────────────────── */
-      const statusMap: Record<string, { label: string; color: string }> = {
-        PAYEE: { label: "PAYEE", color: PDF_COLORS.green },
-        ANNULEE: { label: "ANNULEE", color: PDF_COLORS.red },
-        EMISE: { label: "EMISE", color: PDF_COLORS.gold },
-      };
-      const statusInfo = statusMap[facture.status] ?? {
-        label: facture.status,
-        color: PDF_COLORS.muted,
-      };
-      doc
-        .font(fonts.bold)
-        .fontSize(10)
-        .fillColor(statusInfo.color)
-        .text(s(`Statut : ${statusInfo.label}`), 350, 114, {
-          align: "right",
-        });
-
-      /* ── Client info ─────────────────────────────────────────────── */
-      doc
-        .moveTo(50, 135)
-        .lineTo(545, 135)
-        .strokeColor(PDF_COLORS.border)
-        .stroke();
-      doc
-        .font(fonts.bold)
-        .fontSize(11)
-        .fillColor(PDF_COLORS.blue)
-        .text("CLIENT", 50, 150);
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      const clientLines = [
+      const destinataireLines = [
         devis.nomEntreprise || "",
         devis.nomContact,
-        devis.emailContact,
         devis.telContact,
+        devis.emailContact,
         facture.user?.profile?.adresse,
         [facture.user?.profile?.codePostal, facture.user?.profile?.ville]
           .filter(Boolean)
           .join(" "),
-      ].filter(Boolean);
+        devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
+        devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
+      ].filter(Boolean) as string[];
 
-      let cy = 167;
-      for (const cl of clientLines) {
-        doc.text(s(safe(cl)), 50, cy);
-        cy += 14;
-      }
-
-      /* ── Prestation info ─────────────────────────────────────────── */
-      doc
-        .font(fonts.bold)
-        .fontSize(11)
-        .fillColor(PDF_COLORS.blue)
-        .text("PRESTATION", 300, 150);
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-      const packLabel = devis.pack
-          ? resolvePackLabel(devis.pack)
-          : safe(devis.pack, "Pack");
-      doc.text(s(`Pack : ${packLabel}`), 300, 167);
-
-      if (devis.dateTournage) {
-        doc.text(
-          s(
-            `Date de tournage : ${devis.dateTournage.toLocaleDateString("fr-FR")}`,
-          ),
-          300,
-          181,
-        );
-      }
+      const afterParties = drawPartiesBlock(
+        doc, fonts, s,
+        {
+          entreprise: s(`Prenom Nom (${chefLabel})`),
+          adresse: "adresse:",
+          email: "contact@deepframe.cc",
+          siret: s("En cours d'immatriculation"),
+        },
+        destinataireLines,
+      );
 
       /* ── Table ───────────────────────────────────────────────────── */
-      const tableTop = Math.max(cy, 220) + 20;
+      const tableTop = Math.max(afterParties, 220);
       drawTableHeader(doc, fonts, s, tableTop);
 
-      let y = tableTop + 32;
+      let y = tableTop + 28;
       for (const line of lines) {
         y = drawTableRow(doc, fonts, s, e, line, y);
-        if (y > 720) {
+        if (y > 680) {
           doc.addPage();
           y = 50;
         }
       }
 
-      /* ── Total ───────────────────────────────────────────────────── */
-      doc
-        .moveTo(350, y + 5)
-        .lineTo(545, y + 5)
-        .strokeColor(PDF_COLORS.blue)
-        .lineWidth(1)
-        .stroke();
+      /* ── Totals ──────────────────────────────────────────────────── */
+      const afterTotals = drawTotalsBlock(doc, fonts, s, e, {
+        totalHT: devis.totalHT,
+        acompteRate: devis.acompteRate,
+        acompteAmount: devis.acompteAmount,
+        solde: devis.totalHT - devis.acompteAmount,
+      }, y + 8);
 
-      doc
-        .font(fonts.bold)
-        .fontSize(12)
-        .fillColor(PDF_COLORS.blue)
-        .text("Total HT", 350, y + 14);
-      doc
-        .font(fonts.bold)
-        .fontSize(14)
-        .fillColor(PDF_COLORS.blue)
-        .text(e(devis.totalHT), 470, y + 12, { width: 75, align: "right" });
-
-      doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.muted);
-      const paidSuffix = devis.acomptePaid
-        ? s(" (regle)")
-        : s(" (a regler)");
-      doc.text(
-        s(`Acompte ${devis.acompteRate}% : ${e(devis.acompteAmount)}`) +
-          paidSuffix,
-        350,
-        y + 34,
-        { width: 195, align: "right" },
-      );
-      doc.text(
-        s(
-          `Solde a la livraison : ${e(devis.totalHT - devis.acompteAmount)}`,
-        ),
-        350,
-        y + 48,
-        { width: 195, align: "right" },
+      /* ── Reglement ───────────────────────────────────────────────── */
+      const livraisonInfo = s("Livre le :");
+      const afterReglement = drawReglementBlock(
+        doc, fonts, s, afterTotals + 8,
+        livraisonInfo,
       );
 
       /* ── Mentions legales ────────────────────────────────────────── */
-      const mlY = Math.min(y + 80, 680);
-      doc.font(fonts.main).fontSize(7).fillColor(PDF_COLORS.light);
-      doc.text("Conditions :", 50, mlY);
-      for (let i = 0; i < MENTIONS_LEGALES.length; i++) {
-        doc.text(
-          s(`${i + 1}. ${MENTIONS_LEGALES[i]}`),
-          50,
-          mlY + 12 + i * 10,
-          { width: 480 },
-        );
-      }
+      const factureMentions = [
+        "TVA non applicable, art. 293 B du CGI.",
+        "Les fichiers sont livres apres reception du solde.",
+      ];
+      const mentionsY = Math.min(afterReglement + 8, 720);
+      drawMentionsLegales(doc, fonts, s, factureMentions, mentionsY);
 
       doc.end();
     });

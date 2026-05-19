@@ -1,18 +1,22 @@
-﻿import PDFDocument from "pdfkit";
+import PDFDocument from "pdfkit";
 import path from "path";
 import fs from "fs";
 
 /* ── Couleurs DeepFrame ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
-  blue: "#F36B1F",
-  gold: "#F36B1F",
+  orange: "#F36B1F",
+  orangeDark: "#C4550A",
+  gold: "#FFB800",
+  teal: "#1A2E35",
   ink: "#0E0E22",
   text: "#333333",
   muted: "#666666",
   light: "#999999",
-  border: "#E5E5E5",
+  border: "#E0E0E0",
   green: "#16a34a",
   red: "#dc2626",
+  white: "#FFFFFF",
+  lightGray: "#F5F5F5",
 } as const;
 
 /* ── Polices ─────────────────────────────────────────────────────────── */
@@ -105,7 +109,7 @@ export function safe(val: unknown, fallback = ""): string {
 export function euro(amount: number | null | undefined, useCustom: boolean): string {
   const val = amount ?? 0;
   const symbol = useCustom ? "\u20ac" : "EUR";
-  return `${val} ${symbol}`;
+  return `${val}${symbol}`;
 }
 
 /**
@@ -126,12 +130,12 @@ export function createPdfDoc(): {
 
   if (hasCustom) {
     const bufs = loadFontBuffers();
-    doc = new PDFDocument({ size: "A4", margin: 50, font: bufs.regular as any });
+    doc = new PDFDocument({ size: "A4", margin: 0, font: bufs.regular as any });
     doc.registerFont("main", bufs.regular);
     doc.registerFont("bold", bufs.bold);
     fonts = { main: "main", bold: "bold", useCustom: true };
   } else {
-    doc = new PDFDocument({ size: "A4", margin: 50 });
+    doc = new PDFDocument({ size: "A4", margin: 0 });
     fonts = { main: "Helvetica", bold: "Helvetica-Bold", useCustom: false };
   }
 
@@ -141,15 +145,172 @@ export function createPdfDoc(): {
   return { doc, fonts, chunks };
 }
 
-/** Draw the DeepFrame header block */
+/* ── Constants for layout ──────────────────────────────────────────── */
+const PAGE_W = 595.28; // A4 width
+const PAGE_H = 841.89; // A4 height
+const MARGIN_L = 50;
+const MARGIN_R = 545;
+const CONTENT_W = MARGIN_R - MARGIN_L;
+
+/* ── Decorative elements ───────────────────────────────────────────── */
+
+/** Draw the top gradient bar (orange → gold) */
+function drawTopGradient(doc: PDFKit.PDFDocument) {
+  const grad = (doc as any).linearGradient(0, 0, PAGE_W, 0);
+  grad.stop(0, PDF_COLORS.orange).stop(1, PDF_COLORS.gold);
+  doc.rect(0, 0, PAGE_W, 12).fill(grad);
+}
+
+/** Draw the bottom gradient bar (orange → gold) */
+function drawBottomGradient(doc: PDFKit.PDFDocument) {
+  const grad = (doc as any).linearGradient(0, 0, PAGE_W, 0);
+  grad.stop(0, PDF_COLORS.orange).stop(1, PDF_COLORS.gold);
+  doc.rect(0, PAGE_H - 12, PAGE_W, 12).fill(grad);
+}
+
+/** Draw the right teal vertical accent (top-right) */
+function drawRightTealAccent(doc: PDFKit.PDFDocument) {
+  doc.rect(PAGE_W - 18, 12, 18, 100).fill(PDF_COLORS.teal);
+}
+
+/** Draw the left teal vertical accent (bottom-left) */
+function drawLeftTealAccent(doc: PDFKit.PDFDocument) {
+  doc.rect(0, PAGE_H - 112, 18, 100).fill(PDF_COLORS.teal);
+}
+
+/** Draw all page decorations */
+function drawPageDecorations(doc: PDFKit.PDFDocument) {
+  drawTopGradient(doc);
+  drawBottomGradient(doc);
+  drawRightTealAccent(doc);
+  drawLeftTealAccent(doc);
+}
+
+/* ── Logo loading ──────────────────────────────────────────────────── */
+let _logoPngBuf: Buffer | null = null;
+let _nomPngBuf: Buffer | null = null;
+
+function loadLogoPng(): Buffer | null {
+  if (_logoPngBuf) return _logoPngBuf;
+  try {
+    const logoPath = path.join(process.cwd(), "public", "LogoNoir.png");
+    if (fs.existsSync(logoPath)) {
+      _logoPngBuf = fs.readFileSync(logoPath);
+      return _logoPngBuf;
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+function loadNomPng(): Buffer | null {
+  if (_nomPngBuf) return _nomPngBuf;
+  try {
+    const nomPath = path.join(process.cwd(), "public", "NomNoir.png");
+    if (fs.existsSync(nomPath)) {
+      _nomPngBuf = fs.readFileSync(nomPath);
+      return _nomPngBuf;
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
+/** Draw the DeepFrame header block with logo + document title */
 export function drawHeader(
   doc: PDFKit.PDFDocument,
   fonts: { main: string; bold: string; useCustom: boolean },
   s: (text: string) => string,
+  docType: "DEVIS" | "FACTURE",
 ) {
-  doc.font(fonts.bold).fontSize(24).fillColor(PDF_COLORS.blue).text("DEEPFRAME", 50, 50);
-  doc.font(fonts.main).fontSize(10).fillColor(PDF_COLORS.muted).text(s("Boite de production audiovisuelle"), 50, 80);
-  doc.text("contact@deepframe.cc", 50, 95);
+  // Page decorations
+  drawPageDecorations(doc);
+
+  // Logo
+  const logoBuf = loadLogoPng();
+  const nomBuf = loadNomPng();
+
+  if (logoBuf && nomBuf) {
+    doc.image(logoBuf, MARGIN_L, 28, { width: 32, height: 32 });
+    doc.image(nomBuf, MARGIN_L + 38, 32, { width: 110, height: 24 });
+  } else {
+    // Fallback text
+    doc.font(fonts.bold).fontSize(22).fillColor(PDF_COLORS.orange).text("DEEPFRAME", MARGIN_L, 32);
+  }
+
+  // Document type title (DEVIS or FACTURE) on the right
+  doc.font(fonts.bold).fontSize(32).fillColor(PDF_COLORS.ink).text(docType, 350, 30, {
+    width: MARGIN_R - 350,
+    align: "right",
+  });
+}
+
+/** Draw the date/number info block */
+export function drawInfoBlock(
+  doc: PDFKit.PDFDocument,
+  fonts: { main: string; bold: string; useCustom: boolean },
+  s: (text: string) => string,
+  info: {
+    date: string;
+    echeance?: string;
+    numero: string;
+    docType: "DEVIS" | "FACTURE";
+  },
+) {
+  const y = 75;
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+
+  // Left: dates
+  doc.text(s(`DATE : ${info.date}`), MARGIN_L, y);
+  if (info.echeance) {
+    doc.text(s(`ECHEANCE : ${info.echeance}`), MARGIN_L, y + 12);
+  }
+
+  // Right: document number in an orange-bordered box
+  const numText = `${info.docType} N° : ${info.numero}`;
+  const numW = 140;
+  const numX = MARGIN_R - numW;
+  doc.roundedRect(numX, y - 2, numW, 18, 3).strokeColor(PDF_COLORS.orange).lineWidth(1).stroke();
+  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.orange).text(numText, numX, y + 2, {
+    width: numW,
+    align: "center",
+  });
+}
+
+/** Draw the prestataire / destinataire info columns */
+export function drawPartiesBlock(
+  doc: PDFKit.PDFDocument,
+  fonts: { main: string; bold: string; useCustom: boolean },
+  s: (text: string) => string,
+  prestataire: { entreprise: string; adresse?: string; email: string; siret: string },
+  destinataire: string[],
+) {
+  const y = 108;
+  const colW = CONTENT_W / 2;
+
+  // Left: Prestataire
+  doc.font(fonts.bold).fontSize(9).fillColor(PDF_COLORS.ink).text("PRESTATAIRE", MARGIN_L, y);
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  let py = y + 16;
+  doc.text(s(`entreprise: ${prestataire.entreprise}`), MARGIN_L, py); py += 12;
+  if (prestataire.adresse) {
+    doc.text(s(`adresse: ${prestataire.adresse}`), MARGIN_L, py); py += 12;
+  }
+  doc.text(s(prestataire.email), MARGIN_L, py); py += 12;
+  doc.text(s(`Siret: ${prestataire.siret}`), MARGIN_L, py);
+
+  // Right: Destinataire
+  const rightX = MARGIN_L + colW + 10;
+  doc.font(fonts.bold).fontSize(9).fillColor(PDF_COLORS.ink).text("DESTINATAIRE", rightX, y, {
+    width: colW - 10,
+    align: "right",
+  });
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  let dy = y + 16;
+  for (const line of destinataire) {
+    doc.text(s(safe(line)), rightX, dy, { width: colW - 10, align: "right" });
+    dy += 12;
+  }
+
+  return Math.max(py, dy) + 12;
 }
 
 /** Draw table header row */
@@ -159,13 +320,16 @@ export function drawTableHeader(
   s: (text: string) => string,
   tableTop: number,
 ) {
-  doc.moveTo(50, tableTop).lineTo(545, tableTop).strokeColor(PDF_COLORS.blue).lineWidth(1).stroke();
-  doc.font(fonts.bold).fontSize(9).fillColor(PDF_COLORS.blue);
-  doc.text(s("Designation"), 50, tableTop + 8);
-  doc.text(s("Qte"), 360, tableTop + 8, { width: 50, align: "center" });
-  doc.text("P.U.", 410, tableTop + 8, { width: 60, align: "center" });
-  doc.text("Total", 470, tableTop + 8, { width: 75, align: "right" });
-  doc.moveTo(50, tableTop + 24).lineTo(545, tableTop + 24).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
+  // Thin border line
+  doc.moveTo(MARGIN_L, tableTop).lineTo(MARGIN_R, tableTop).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
+
+  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.ink);
+  doc.text(s("Description :"), MARGIN_L, tableTop + 6);
+  doc.text(s("Prix Unitaire :"), 310, tableTop + 6, { width: 80, align: "center" });
+  doc.text(s("Quantite :"), 390, tableTop + 6, { width: 70, align: "center" });
+  doc.text("Total :", 460, tableTop + 6, { width: 85, align: "right" });
+
+  doc.moveTo(MARGIN_L, tableTop + 22).lineTo(MARGIN_R, tableTop + 22).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
 }
 
 /** Draw a single table row and return new Y position */
@@ -177,10 +341,107 @@ export function drawTableRow(
   line: { label: string; qty?: number; unit?: number; total: number },
   y: number,
 ): number {
-  doc.font(fonts.main).fontSize(9).fillColor(PDF_COLORS.text);
-  doc.text(s(safe(line.label, "-")), 50, y, { width: 300 });
-  doc.text(line.qty ? String(line.qty) : "-", 360, y, { width: 50, align: "center" });
-  doc.text(line.unit ? e(line.unit) : "-", 410, y, { width: 60, align: "center" });
-  doc.text(e(line.total), 470, y, { width: 75, align: "right" });
-  return y + 18;
+  // Light separator
+  doc.moveTo(MARGIN_L, y).lineTo(MARGIN_R, y).strokeColor(PDF_COLORS.border).lineWidth(0.3).stroke();
+
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  doc.text(s(safe(line.label, "-")), MARGIN_L + 4, y + 6, { width: 250 });
+  doc.text(line.unit ? `+${e(line.unit)}` : "-", 310, y + 6, { width: 80, align: "center" });
+  doc.text(line.qty ? String(line.qty) : "-", 390, y + 6, { width: 70, align: "center" });
+  doc.text(e(line.total), 460, y + 6, { width: 85, align: "right" });
+  return y + 24;
+}
+
+/** Draw totals block with orange acompte/solde boxes */
+export function drawTotalsBlock(
+  doc: PDFKit.PDFDocument,
+  fonts: { main: string; bold: string; useCustom: boolean },
+  s: (text: string) => string,
+  e: (amount: number | null | undefined) => string,
+  totals: {
+    totalHT: number;
+    acompteRate: number;
+    acompteAmount: number;
+    solde: number;
+  },
+  y: number,
+): number {
+  // Total HT line
+  doc.moveTo(350, y).lineTo(MARGIN_R, y).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
+
+  doc.font(fonts.bold).fontSize(10).fillColor(PDF_COLORS.ink);
+  doc.text("TOTAL HT :", 350, y + 8, { width: 110, align: "right" });
+  doc.font(fonts.bold).fontSize(12).fillColor(PDF_COLORS.ink);
+  doc.text(e(totals.totalHT), 470, y + 6, { width: 75, align: "right" });
+
+  // Orange block: Acompte
+  const orangeY = y + 30;
+  const orangeW = 200;
+  const orangeX = MARGIN_R - orangeW;
+
+  const grad1 = (doc as any).linearGradient(orangeX, orangeY, orangeX + orangeW, orangeY);
+  grad1.stop(0, PDF_COLORS.orange).stop(1, "#E05A10");
+  doc.roundedRect(orangeX, orangeY, orangeW, 20, 2).fill(grad1);
+  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.white);
+  doc.text(s(`ACOMPTE (${totals.acompteRate}%) :`), orangeX + 6, orangeY + 5, { width: 130 });
+  doc.text(e(totals.acompteAmount), orangeX + 136, orangeY + 5, { width: 58, align: "right" });
+
+  // Orange block: Solde
+  const soldeY = orangeY + 22;
+  const grad2 = (doc as any).linearGradient(orangeX, soldeY, orangeX + orangeW, soldeY);
+  grad2.stop(0, "#E05A10").stop(1, PDF_COLORS.orangeDark);
+  doc.roundedRect(orangeX, soldeY, orangeW, 20, 2).fill(grad2);
+  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.white);
+  doc.text(s("SOLDE A LA LIVRAISON :"), orangeX + 6, soldeY + 5, { width: 130 });
+  doc.text(e(totals.solde), orangeX + 136, soldeY + 5, { width: 58, align: "right" });
+
+  return soldeY + 30;
+}
+
+/** Draw the "Reglement" (payment) section */
+export function drawReglementBlock(
+  doc: PDFKit.PDFDocument,
+  fonts: { main: string; bold: string; useCustom: boolean },
+  s: (text: string) => string,
+  y: number,
+  deliveryInfo?: string,
+) {
+  // Left side: Reglement
+  doc.font(fonts.bold).fontSize(10).fillColor(PDF_COLORS.ink).text(s("REGLEMENT :"), MARGIN_L, y);
+
+  if (deliveryInfo) {
+    doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.muted).text(deliveryInfo, 280, y + 2, { width: 265, align: "right" });
+  }
+
+  const payY = y + 18;
+  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.text).text("Par virement bancaire :", MARGIN_L, payY);
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  doc.text(s("Titulaire du compte :"), MARGIN_L, payY + 14);
+  doc.text("IBAN:", MARGIN_L, payY + 28);
+  doc.text("BIC:", MARGIN_L, payY + 42);
+
+  // Right side: Signature area
+  const sigX = 340;
+  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  doc.text(s('Signatures suivie de la'), sigX, payY + 8, { width: MARGIN_R - sigX, align: "center" });
+  doc.text(s('mention "bon pour accord"'), sigX, payY + 20, { width: MARGIN_R - sigX, align: "center" });
+
+  return payY + 60;
+}
+
+/** Draw mentions legales */
+export function drawMentionsLegales(
+  doc: PDFKit.PDFDocument,
+  fonts: { main: string; bold: string; useCustom: boolean },
+  s: (text: string) => string,
+  mentions: string[],
+  y: number,
+) {
+  doc.font(fonts.bold).fontSize(7).fillColor(PDF_COLORS.light).text("Mentions legales :", MARGIN_L, y);
+  doc.font(fonts.main).fontSize(6).fillColor(PDF_COLORS.light);
+  let my = y + 12;
+  for (const mention of mentions) {
+    doc.text(s(mention), MARGIN_L, my, { width: CONTENT_W });
+    my += 9;
+  }
 }

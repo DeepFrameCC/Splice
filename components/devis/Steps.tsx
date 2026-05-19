@@ -402,30 +402,94 @@ export function Step2PackParticulier() {
 function OptionsSection() {
   const options = useDevisForm((s) => s.options);
   const toggleOption = useDevisForm((s) => s.toggleOption);
+  const setOptionQty = useDevisForm((s) => s.setOptionQty);
+
+  const mode = useDevisForm((s) => s.mode);
+  const planId = useDevisForm((s) => s.planId);
+  const nbVideos = useDevisForm((s) => s.nbVideos);
+
+  const maxVideos = mode === "ABONNEMENT" ? SUBSCRIPTION_PLANS[planId].videosPerMonth : (nbVideos ?? 0);
 
   return (
     <fieldset className="mt-6">
       <legend className="font-bold text-white">Options à la carte</legend>
-      <div className="mt-2 grid gap-2 md:grid-cols-2">
-        {OPTIONS_A_LA_CARTE.map((opt) => (
-          <label
-            key={opt.key}
-            className="flex items-center gap-3 rounded-xl border-2 border-white/10 p-3 cursor-pointer transition hover:bg-white/[0.04]"
-          >
-            <input
-              type="checkbox"
-              checked={!!options[opt.key]}
-              onChange={() => toggleOption(opt.key)}
-              className="h-5 w-5 accent-emerald-500 cursor-pointer"
-            />
-            <div className="flex-1">
-              <p className="text-sm font-bold text-white">{opt.label}</p>
-              <p className="text-xs text-white/50">
-                {opt.price} € {opt.unit}
-              </p>
+      {mode === "PACK_PARTICULIER" && maxVideos === 0 && (
+        <p className="mt-2 text-xs text-white/40">
+          Sélectionnez d&apos;abord le nombre de vidéos pour pouvoir ajouter des options.
+        </p>
+      )}
+      <div className="mt-3 grid gap-3 md:grid-cols-2">
+        {OPTIONS_A_LA_CARTE.map((opt) => {
+          const limit = opt.key === "creationBanniere" ? 20 : maxVideos;
+          const isDisabled = opt.key !== "creationBanniere" && maxVideos === 0;
+          const rawQty = options[opt.key] ?? 0;
+          const isActive = rawQty > 0 && !isDisabled;
+          const qty = Math.min(rawQty, limit);
+
+          return (
+            <div
+              key={opt.key}
+              className={`flex items-center justify-between gap-3 rounded-xl border-2 p-3.5 transition duration-200 select-none ${
+                isActive
+                  ? "border-df-gold bg-df-gold/5 shadow-[0_0_15px_rgba(243,107,31,0.05)]"
+                  : isDisabled
+                  ? "border-white/5 opacity-30 cursor-not-allowed"
+                  : "border-white/10 hover:border-white/20 hover:bg-white/[0.04] cursor-pointer"
+              }`}
+              onClick={() => {
+                if (!isDisabled) {
+                  toggleOption(opt.key);
+                }
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  disabled={isDisabled}
+                  checked={isActive}
+                  onChange={() => {}} // controlled by container onClick
+                  className="h-5 w-5 accent-df-gold cursor-pointer"
+                />
+                <div>
+                  <p className="text-sm font-bold text-white">{opt.label}</p>
+                  <p className="text-xs text-white/50">
+                    {opt.price} € {opt.unit}
+                  </p>
+                </div>
+              </div>
+              {isActive && (
+                <div
+                  className="flex items-center gap-2"
+                  onClick={(e) => e.stopPropagation()} // prevent toggleOption trigger
+                >
+                  <button
+                    type="button"
+                    disabled={qty <= 1}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOptionQty(opt.key, qty - 1);
+                    }}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white font-bold cursor-pointer transition text-xs"
+                  >
+                    -
+                  </button>
+                  <span className="w-6 text-center text-sm font-bold text-df-gold">{qty}</span>
+                  <button
+                    type="button"
+                    disabled={qty >= limit}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOptionQty(opt.key, qty + 1);
+                    }}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10 text-white font-bold cursor-pointer transition text-xs"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
             </div>
-          </label>
-        ))}
+          );
+        })}
       </div>
     </fieldset>
   );

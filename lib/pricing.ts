@@ -188,8 +188,8 @@ export const PRIX_OPTION_PHOTO_5 = 15;
 
 export const DUREE_SUPPLEMENT: Record<DureeTournage, { label: string; price: number }> = {
   DEMI_JOURNEE: { label: "4h (demi-journée)", price: 0 },
-  JOURNEE: { label: "Journée entière", price: 60 },
-  DEUX_JOURNEES: { label: "2 journées entières", price: 120 },
+  JOURNEE: { label: "Journée entière", price: 30 },
+  DEUX_JOURNEES: { label: "2 journées entières", price: 70 },
 };
 
 export const DELAI: Record<DelaiLivraison, { label: string; price: number }> = {
@@ -224,7 +224,7 @@ export class PricingError extends Error {}
 export interface PackParticulierInput {
   nbVideos: number | null;
   nbPhotos: number | null;
-  options: Partial<Record<OptionKey, boolean>>;
+  options: Partial<Record<OptionKey, boolean | number>>;
   banniere: BanniereSize | null;
   villeDepart: VilleDepart;
   distanceKm: number;
@@ -258,16 +258,23 @@ export function computePackParticulierQuote(input: PackParticulierInput): Quote 
     }
   }
 
-  // Options à la carte (per video)
+  // Options à la carte
   const videoCount = input.nbVideos ?? 0;
   for (const opt of OPTIONS_A_LA_CARTE) {
-    if (input.options[opt.key] && videoCount > 0) {
-      lines.push({
-        label: opt.label,
-        qty: videoCount,
-        unit: opt.price,
-        total: opt.price * videoCount,
-      });
+    const val = input.options[opt.key];
+    if (val) {
+      let qty = typeof val === "number" ? val : (opt.key === "creationBanniere" ? 1 : videoCount);
+      if (opt.key !== "creationBanniere") {
+        qty = Math.min(qty, videoCount);
+      }
+      if (qty > 0) {
+        lines.push({
+          label: opt.label,
+          qty,
+          unit: opt.price,
+          total: opt.price * qty,
+        });
+      }
     }
   }
 
@@ -308,7 +315,7 @@ export interface AbonnementInput {
   planId: PlanId;
   billingCycle: BillingCycle;
   useLaunchPrice: boolean;
-  options: Partial<Record<OptionKey, boolean>>;
+  options: Partial<Record<OptionKey, boolean | number>>;
 }
 
 export function computeAbonnementQuote(input: AbonnementInput): Quote {
@@ -342,16 +349,23 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
     }
   }
 
-  // Options à la carte (per video count)
+  // Options à la carte
   const videoCount = plan.videosPerMonth;
   for (const opt of OPTIONS_A_LA_CARTE) {
-    if (input.options[opt.key]) {
-      lines.push({
-        label: opt.label,
-        qty: videoCount,
-        unit: opt.price,
-        total: opt.price * videoCount,
-      });
+    const val = input.options[opt.key];
+    if (val) {
+      let qty = typeof val === "number" ? val : (opt.key === "creationBanniere" ? 1 : videoCount);
+      if (opt.key !== "creationBanniere") {
+        qty = Math.min(qty, videoCount);
+      }
+      if (qty > 0) {
+        lines.push({
+          label: opt.label,
+          qty,
+          unit: opt.price,
+          total: opt.price * qty,
+        });
+      }
     }
   }
 

@@ -12,7 +12,7 @@ export function buildOrganizationJsonLd() {
     name: "DeepFrame",
     alternateName: "Deepframe",
     url: BASE_URL,
-    logo: `${BASE_URL}/logo.svg`,
+    logo: `${BASE_URL}/LogoNoir.svg`,
     description:
       "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies.",
     email: "contact@deepframe.cc",
@@ -42,7 +42,7 @@ export function buildLocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     name: "DeepFrame",
     url: BASE_URL,
-    logo: `${BASE_URL}/logo.svg`,
+    logo: `${BASE_URL}/LogoNoir.svg`,
     description:
       "Boîte de production audiovisuelle basée à Orléans et Tours.",
     email: "contact@deepframe.cc",
@@ -138,7 +138,7 @@ export function buildBlogPostJsonLd(post: {
       name: "DeepFrame",
       logo: {
         "@type": "ImageObject",
-        url: `${BASE_URL}/logo.svg`,
+        url: `${BASE_URL}/LogoNoir.svg`,
       },
     },
   };

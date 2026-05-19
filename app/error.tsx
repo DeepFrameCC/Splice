@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -16,7 +16,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <Image src="/logo.svg" alt="DeepFrame" width={52} height={70} className="mb-10 opacity-30" />
+      <Image src="/LogoNoir.svg" alt="DeepFrame" width={52} height={52} className="mb-10 opacity-30" />
 
       <p
         style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}

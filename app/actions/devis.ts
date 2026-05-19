@@ -54,7 +54,7 @@ const optionKeysEnum = z.enum([
 ]);
 
 const optionsSchema = z
-  .record(optionKeysEnum, z.boolean().optional())
+  .record(optionKeysEnum, z.union([z.boolean(), z.number()]).optional())
   .optional()
   .default({});
 

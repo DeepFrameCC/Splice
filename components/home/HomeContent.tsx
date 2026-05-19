@@ -324,18 +324,39 @@ function Pricing() {
     {
       name: "Standard", price: "49 €", unit: "/mois",
       pitch: "Pour démarrer sans gros budget.",
-      feats: ["2 vidéos sources / mois", "Recyclage multi-réseaux", "Formats 9:16 + 16:9"],
+      feats: [
+        { name: "2 vidéos sources / mois", active: true },
+        { name: "Recyclage multi-réseaux", active: true },
+        { name: "Formats 9:16 + 16:9", active: true },
+        { name: "Podcasts courts / mois", active: false },
+        { name: "Cadrage stratégique mensuel", active: false },
+        { name: "Option express 48h", active: false },
+      ],
     },
     {
       name: "Pro", price: "99 €", unit: "/mois",
       pitch: "Pour publier toutes les semaines.",
-      feats: ["5 vidéos sources / mois", "Recyclage multi-réseaux", "2 podcasts courts / mois"],
+      feats: [
+        { name: "5 vidéos sources / mois", active: true },
+        { name: "Recyclage multi-réseaux", active: true },
+        { name: "Formats 9:16 + 16:9", active: true },
+        { name: "2 podcasts courts / mois", active: true },
+        { name: "Cadrage stratégique mensuel", active: true },
+        { name: "Option express 48h", active: false },
+      ],
       featured: true,
     },
     {
       name: "Premium", price: "189 €", unit: "/mois",
       pitch: "Pour une présence quasi quotidienne.",
-      feats: ["8 vidéos sources / mois", "Recyclage multi-réseaux", "4 podcasts courts / mois"],
+      feats: [
+        { name: "8 vidéos sources / mois", active: true },
+        { name: "Recyclage multi-réseaux", active: true },
+        { name: "Formats 9:16 + 16:9", active: true },
+        { name: "4 podcasts courts / mois", active: true },
+        { name: "Cadrage stratégique mensuel", active: true },
+        { name: "Option express 48h", active: true },
+      ],
     },
   ];
   return (
@@ -351,16 +372,26 @@ function Pricing() {
             <h3>{p.name}</h3>
             <div className="df-plan-price">{p.price}<span className="df-plan-unit">{p.unit}</span></div>
             <p className="df-plan-pitch">{p.pitch}</p>
-            <ul>
-              {p.feats.map((f) => <li key={f}>{f}</li>)}
+            <ul className="df-plan-feats">
+              {p.feats.map((f) => (
+                <li key={f.name} className={f.active ? "feat-active" : "feat-inactive"}>
+                  <span className={"feat-icon " + (f.active ? "active-icon" : "inactive-icon")}>
+                    {f.active ? "✓" : "✕"}
+                  </span>
+                  <span>{f.name}</span>
+                </li>
+              ))}
             </ul>
             <Link href="/devis" className={"df-btn " + (p.featured ? "df-btn-primary" : "df-btn-outline")}>Demander un devis</Link>
           </div>
         ))}
       </div>
-      <p className="df-pricing-extra">
-        <strong>Pack Particulier dès 29 €</strong> — Vidéos & photos à la carte pour un besoin ponctuel.
-      </p>
+      <div className="df-pricing-extra-card">
+        <div className="df-pricing-extra-badge">Prestations à la carte</div>
+        <p className="df-pricing-extra-text">
+          <strong>Besoin ponctuel ?</strong> Découvrez notre <span>Pack Particulier dès 29 €</span> — des réalisations photos et vidéos sur-mesure adaptées à vos besoins spécifiques.
+        </p>
+      </div>
       <Link href="/tarifs" className="df-services-link">
         Voir tous les tarifs →
       </Link>
@@ -495,8 +526,8 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <Image src="/logo.svg" alt="DeepFrame" width={26} height={34} style={{ filter: "brightness(0) invert(1)" }} />
-            <span>DEEPFRAME</span>
+            <Image src="/LogoBlanc.svg" alt="DeepFrame" width={26} height={26} />
+            <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={100} height={20} className="h-4 w-auto object-contain" />
           </div>
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>

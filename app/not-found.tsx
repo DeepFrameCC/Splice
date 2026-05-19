@@ -1,10 +1,10 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <Image src="/logo.svg" alt="DeepFrame" width={52} height={70} className="mb-10 opacity-30" />
+      <Image src="/LogoNoir.svg" alt="DeepFrame" width={52} height={52} className="mb-10 opacity-30" />
 
       <p
         style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}

@@ -17,7 +17,7 @@ export function buildServiceJsonLd(service: Service) {
         "@id": ORG_ID,
         name: "DeepFrame",
         description: "Agence de production audiovisuelle à Orléans et Tours — vidéo corporate, photographie, motion design, pub réseaux sociaux.",
-        image: `${SITE_URL}/logo.svg`,
+        image: `${SITE_URL}/LogoNoir.svg`,
         url: SITE_URL,
         priceRange: service.priceRange,
         address: {
@@ -98,7 +98,7 @@ export function buildServicesHubJsonLd(
         name: "DeepFrame",
         description:
           "Agence de production audiovisuelle à Orléans et Tours. Vidéo corporate, montage, motion design, photographie professionnelle.",
-        image: `${SITE_URL}/logo.svg`,
+        image: `${SITE_URL}/LogoNoir.svg`,
         url: SITE_URL,
         telephone: "+33651109202",
         address: [

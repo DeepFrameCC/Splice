@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
-  icons: { icon: "/logo.svg" },
+  icons: { icon: "/LogoNoir.svg" },
 };
 
 const jsonLd = {
@@ -44,7 +44,7 @@ const jsonLd = {
   "@type": "Organization",
   name: "DeepFrame",
   url: process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc",
-  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"}/logo.svg`,
+  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"}/LogoNoir.svg`,
   description:
     "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
   email: "contact@deepframe.cc",

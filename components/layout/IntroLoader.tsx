@@ -60,13 +60,15 @@ export default function IntroLoader() {
       <div className="flex flex-col items-center">
         <div
           ref={logoRef}
+          className="flex flex-col items-center gap-4"
           style={{ transformStyle: "preserve-3d", perspective: 1000, opacity: 0 }}
         >
-          <Image src="/logo.svg" alt="Deepframe" width={220} height={300} priority />
+          <Image src="/LogoBlanc.svg" alt="DeepFrame" width={100} height={100} priority />
+          <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={200} height={40} priority />
         </div>
-        <div className="mt-10 h-1 w-56 overflow-hidden rounded-full bg-df-surface">
+        <div className="mt-10 h-1.5 w-64 overflow-hidden rounded-full bg-df-surface border border-white/5 shadow-inner">
           <div
-            className="h-full bg-df-gold transition-[width] duration-75 ease-linear"
+            className="h-full bg-gradient-to-r from-[#F36B1F] via-[#FF7A00] to-[#FFB800] transition-[width] duration-75 ease-linear shadow-[0_0_8px_#F36B1F]"
             style={{ width: `${progress}%` }}
           />
         </div>

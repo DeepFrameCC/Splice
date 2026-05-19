@@ -681,7 +681,9 @@ img { display: block; max-width: 100%; }
 .df-pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .df-plan {
   background: var(--df-bg-card);
@@ -706,23 +708,41 @@ img { display: block; max-width: 100%; }
 .df-plan-pitch {
   margin: 0; color: var(--df-muted); font-size: 14px; line-height: 1.5;
 }
-.df-plan ul {
+.df-plan-feats {
   list-style: none; padding: 0; margin: 0 0 12px;
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex; flex-direction: column; gap: 12px;
   font-size: 14px;
   border-top: 1px solid var(--df-line);
   padding-top: 18px;
 }
-.df-plan li {
+.df-plan-feats li {
   display: flex; gap: 10px; align-items: flex-start;
-  color: var(--df-ink);
 }
-.df-plan li::before {
-  content: ""; width: 18px; height: 18px; flex-shrink: 0;
-  background: var(--df-accent);
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/></svg>") center/contain no-repeat;
-          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/></svg>") center/contain no-repeat;
+.df-plan-feats li::before {
+  display: none !important;
+}
+.feat-icon {
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
   margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.active-icon {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+}
+.inactive-icon {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+}
+.feat-inactive {
+  opacity: 0.45;
 }
 .df-plan-featured {
   background: var(--df-blue);
@@ -743,6 +763,58 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 820px) {
   .df-pricing-grid { grid-template-columns: 1fr; }
+}
+
+.df-pricing-extra-card {
+  max-width: 800px;
+  margin: 48px auto 0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.df-pricing-extra-badge {
+  background: rgba(243, 107, 31, 0.12);
+  border: 1px solid rgba(243, 107, 31, 0.25);
+  color: var(--brand-orange, #F36B1F);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.df-pricing-extra-text {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+.df-pricing-extra-text strong {
+  color: #fff;
+  font-weight: 600;
+}
+.df-pricing-extra-text span {
+  color: var(--brand-orange, #F36B1F);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .df-pricing-extra-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 12px;
+    margin-top: 32px;
+  }
 }
 
 /* ── Team ───────────────────────────────────────────────────────── */
