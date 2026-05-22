@@ -112,7 +112,7 @@ export function Step1() {
                 </span>
               </div>
               <p className="mt-1 text-sm text-white/60">
-                {FORMULE_BIENVENUE.tagline} — {FORMULE_BIENVENUE.features.slice(0, 2).join(", ")}.
+                {FORMULE_BIENVENUE.tagline} : {FORMULE_BIENVENUE.features.slice(0, 2).join(", ")}.
               </p>
             </div>
           </div>

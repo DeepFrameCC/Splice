@@ -24,6 +24,7 @@ export interface SubscriptionPlan {
   stdAnnualMonthly: number;
   stdAnnualTotal: number;
   features: string[];
+  excludedFeatures: string[];
 }
 
 export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
@@ -45,6 +46,10 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "Formats 9:16 + 16:9",
       "Options à la carte disponibles",
     ],
+    excludedFeatures: [
+      "Création de podcasts",
+      "Volume supérieur (5+ vidéos)",
+    ],
   },
   PRO: {
     id: "PRO",
@@ -65,6 +70,10 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "2 podcasts courts / mois",
       "Options à la carte disponibles",
     ],
+    excludedFeatures: [
+      "Volume maximum (8 vidéos)",
+      "Podcasts supplémentaires (4/mois)",
+    ],
   },
   PREMIUM_ABO: {
     id: "PREMIUM_ABO",
@@ -84,6 +93,7 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "4 podcasts courts / mois",
       "Options à la carte disponibles",
     ],
+    excludedFeatures: [],
   },
 };
 
@@ -100,6 +110,12 @@ export const FORMULE_BIENVENUE = {
     "5 photos offertes",
     "Découverte de notre univers",
     "Sans engagement",
+  ],
+  excludedFeatures: [
+    "Vidéos sources récurrentes",
+    "Recyclage multi-réseaux",
+    "Création de podcasts",
+    "Options à la carte",
   ],
 } as const;
 

@@ -1,5 +1,5 @@
 import type { SubscriptionPlan, BillingCycle } from "@/lib/pricing";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import Link from "next/link";
 
 interface PlanCardProps {
@@ -75,6 +75,15 @@ export default function PlanCard({
             className="flex items-start gap-2 text-sm text-white/70"
           >
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+            {feat}
+          </li>
+        ))}
+        {plan.excludedFeatures.map((feat) => (
+          <li
+            key={feat}
+            className="flex items-start gap-2 text-sm text-white/30 line-through decoration-white/10"
+          >
+            <X className="mt-0.5 h-4 w-4 shrink-0 text-white/20" />
             {feat}
           </li>
         ))}

@@ -18,7 +18,7 @@ import {
 import BillingToggle from "./BillingToggle";
 import PlanCard from "./PlanCard";
 import Link from "next/link";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, X } from "lucide-react";
 
 export default function PricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>("MENSUEL");
@@ -60,6 +60,12 @@ export default function PricingSection() {
               {FORMULE_BIENVENUE.features.map((f) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-white/70">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  {f}
+                </li>
+              ))}
+              {FORMULE_BIENVENUE.excludedFeatures.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-white/30 line-through decoration-white/10">
+                  <X className="mt-0.5 h-4 w-4 shrink-0 text-white/20" />
                   {f}
                 </li>
               ))}
