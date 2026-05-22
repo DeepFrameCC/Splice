@@ -19,7 +19,7 @@ export default async function MesContrats() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="font-display text-4xl italic text-white">Mes contrats</h1>
+        <h1 className="font-display text-4xl uppercase tracking-tight text-white">Mes contrats</h1>
         <p className="mt-1 text-sm text-white/60">
           {contrats.length} contrat{contrats.length !== 1 ? "s" : ""}
         </p>

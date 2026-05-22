@@ -1,4 +1,4 @@
-﻿import NavWrapper from "@/components/layout/NavWrapper";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -60,8 +60,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Quels sont les tarifs de vos prestations ?",
-        a: "Nos abonnements démarrent à 49 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo.",
-        rich: <>Nos <L href="/tarifs">abonnements</L> démarrent à 49 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
+        a: "Nos abonnements démarrent à 45 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo.",
+        rich: <>Nos <L href="/tarifs">abonnements</L> démarrent à 45 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
       },
       {
         q: "Faut-il payer un acompte ?",
@@ -150,7 +150,7 @@ export default function FAQPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">
             FAQ
           </p>
-          <h1 className="mt-2 font-display text-4xl font-bold italic text-white md:text-5xl">
+          <h1 className="mt-2 font-display text-4xl uppercase tracking-tight text-white md:text-5xl">
             Questions fréquentes
           </h1>
           <p className="mt-3 text-white/70">
@@ -188,7 +188,7 @@ export default function FAQPage() {
 
         {/* CTA */}
         <div className="mt-12 rounded-2xl bg-df-blue p-8 text-center text-white">
-          <h2 className="font-display text-2xl font-bold italic">
+          <h2 className="font-display text-2xl uppercase tracking-tight">
             Vous avez d&apos;autres questions ?
           </h2>
           <p className="mt-2 text-white/70">

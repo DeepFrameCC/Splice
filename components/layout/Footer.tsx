@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="mt-24 bg-[var(--bg-deep)] border-t border-white/[.08] text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-4">
         <div>
-          <h3 className="font-display text-2xl italic">Deepframe</h3>
+          <h3 className="font-display text-2xl uppercase tracking-tight">Deepframe</h3>
           <p className="mt-3 text-sm opacity-80">
             Boîte de production audiovisuelle.
             On capte le meilleur de votre entreprise.

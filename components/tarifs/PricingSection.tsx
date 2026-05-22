@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   SUBSCRIPTION_PLANS,
   PLAN_IDS,
+  FORMULE_BIENVENUE,
   PACK_PARTICULIER_VIDEOS,
   PACK_PARTICULIER_PHOTOS,
   OPTIONS_A_LA_CARTE,
@@ -30,7 +31,7 @@ export default function PricingSection() {
           <span className="inline-block rounded-full bg-df-gold/20 px-4 py-1 text-xs font-bold text-df-gold">
             Offre de lancement — 10 places par formule
           </span>
-          <h2 className="mt-4 font-display text-4xl italic text-white md:text-5xl">
+          <h2 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-5xl">
             Nos abonnements
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-white/60">
@@ -43,7 +44,34 @@ export default function PricingSection() {
           <BillingToggle onChange={setCycle} />
         </div>
 
-        <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Formule Bienvenue */}
+          <div className="relative flex flex-col rounded-3xl border-2 border-df-gold/40 bg-df-gold/[0.06] p-6">
+            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-df-gold px-4 py-1 text-xs font-bold text-white shadow">
+              Gratuit
+            </span>
+            <p className="font-display text-2xl uppercase tracking-tight text-white">{FORMULE_BIENVENUE.label}</p>
+            <p className="mt-1 text-sm text-white/50">{FORMULE_BIENVENUE.tagline}</p>
+            <div className="mt-5">
+              <span className="text-4xl font-bold text-white">0 €</span>
+            </div>
+            <p className="mt-1 text-xs text-white/40">1 par client · Places limitées</p>
+            <ul className="mt-4 flex-1 space-y-2">
+              {FORMULE_BIENVENUE.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-white/70">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/devis"
+              className="mt-6 block rounded-full border-2 border-df-gold py-3 text-center text-sm font-bold text-df-gold transition hover:bg-df-gold hover:text-white"
+            >
+              Demander ma formule
+            </Link>
+          </div>
+
           {PLAN_IDS.map((id) => (
             <PlanCard
               key={id}
@@ -55,46 +83,9 @@ export default function PricingSection() {
         </div>
       </section>
 
-      {/* ── Tarifs standards ────────────────────────────────── */}
-      <section className="mt-20">
-        <h3 className="text-center font-display text-2xl italic text-white/60">
-          Tarifs standards (après lancement)
-        </h3>
-        <div className="mx-auto mt-6 max-w-4xl overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-white/10 text-white/40">
-                <th className="px-4 py-3 font-bold">Formule</th>
-                <th className="px-4 py-3 font-bold">Mensuel</th>
-                <th className="px-4 py-3 font-bold">Annuel/mois</th>
-                <th className="px-4 py-3 font-bold">Annuel total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {PLAN_IDS.map((id) => {
-                const p = SUBSCRIPTION_PLANS[id];
-                return (
-                  <tr
-                    key={id}
-                    className="border-b border-white/[0.06] text-white/70"
-                  >
-                    <td className="px-4 py-3 font-bold text-white">
-                      {p.label}
-                    </td>
-                    <td className="px-4 py-3">{p.stdMonthly} €</td>
-                    <td className="px-4 py-3">{p.stdAnnualMonthly} €</td>
-                    <td className="px-4 py-3">{p.stdAnnualTotal} €</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
       {/* ── Volumes multi-réseaux ───────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl italic text-white">
+        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
           Volume de contenus par formule
         </h2>
         <p className="mt-2 text-center text-white/50">
@@ -131,7 +122,7 @@ export default function PricingSection() {
 
       {/* ── Pack Particulier ────────────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl italic text-white">
+        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
           Pack Particulier — À la carte
         </h2>
         <p className="mt-2 text-center text-white/50">
@@ -141,7 +132,7 @@ export default function PricingSection() {
         <div className="mx-auto mt-8 grid max-w-4xl gap-8 md:grid-cols-2">
           {/* Vidéos */}
           <div className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.08]">
-            <h3 className="font-display text-xl italic text-white">Vidéos</h3>
+            <h3 className="font-display text-xl uppercase tracking-tight text-white">Vidéos</h3>
             <ul className="mt-4 space-y-3">
               {PACK_PARTICULIER_VIDEOS.map((v) => (
                 <li
@@ -164,7 +155,7 @@ export default function PricingSection() {
 
           {/* Photos */}
           <div className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.08]">
-            <h3 className="font-display text-xl italic text-white">Photos</h3>
+            <h3 className="font-display text-xl uppercase tracking-tight text-white">Photos</h3>
             <ul className="mt-4 space-y-3">
               {PACK_PARTICULIER_PHOTOS.map((p, i) => (
                 <li
@@ -192,7 +183,7 @@ export default function PricingSection() {
 
       {/* ── Options à la carte ──────────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl italic text-white">
+        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
           Options à la carte
         </h2>
         <p className="mt-2 text-center text-white/50">
@@ -236,7 +227,7 @@ export default function PricingSection() {
         </div>
 
         {/* Bannières */}
-        <h3 className="mt-10 text-center font-display text-xl italic text-white">
+        <h3 className="mt-10 text-center font-display text-xl uppercase tracking-tight text-white">
           Bannière Deepframe
         </h3>
         <div className="mx-auto mt-4 grid max-w-3xl gap-3 md:grid-cols-3">
@@ -260,7 +251,7 @@ export default function PricingSection() {
       {/* ── CTA ─────────────────────────────────────────────── */}
       <section className="mt-20 text-center">
         <div className="mx-auto max-w-xl rounded-3xl bg-gradient-to-br from-df-glauque to-df-surface p-8 ring-1 ring-white/[0.08]">
-          <h2 className="font-display text-3xl italic text-white">
+          <h2 className="font-display text-3xl uppercase tracking-tight text-white">
             Prêt à vous lancer ?
           </h2>
           <p className="mt-2 text-white/60">

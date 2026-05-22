@@ -1,5 +1,6 @@
 /**
  * Complete service content for all 11 DeepFrame services.
+ * Refactored for UX writing: 50%+ text reduction, clear client benefits, structured visual blocks.
  * Used by prisma/seed.ts to populate the Service table.
  */
 
@@ -38,103 +39,83 @@ export interface ServiceContent {
 // ---------------------------------------------------------------------------
 
 const ZONE_ORLEANS_TOURS =
-  "Nous intervenons principalement sur Orl\u00e9ans, Tours et l\u2019ensemble de la r\u00e9gion Centre-Val de Loire. Que vous soyez bas\u00e9 dans le Loiret (45), en Indre-et-Loire (37) ou dans un d\u00e9partement voisin, notre \u00e9quipe se d\u00e9place pour chaque projet. Des d\u00e9placements en \u00cele-de-France et dans le reste de la France sont \u00e9galement possibles sur devis.";
+  "Nous intervenons principalement sur Orléans, Tours et l'ensemble de la région Centre-Val de Loire. Que vous soyez basé dans le Loiret (45), en Indre-et-Loire (37) ou dans un département voisin, notre équipe se déplace pour chaque projet.";
 
 const ZONE_REMOTE =
-  "Bas\u00e9s entre Orl\u00e9ans et Tours, nous travaillons aussi bien en pr\u00e9sentiel qu\u2019\u00e0 distance. Les \u00e9changes de fichiers, la validation et les retours se font via notre plateforme s\u00e9curis\u00e9e, o\u00f9 que vous soyez en France ou \u00e0 l\u2019international. Pour les prestations n\u00e9cessitant un tournage, nous intervenons sur toute la r\u00e9gion Centre-Val de Loire et au-del\u00e0.";
+  "Basés entre Orléans et Tours, nous travaillons aussi bien en présentiel qu'à distance. Les échanges de fichiers, la validation et les retours se font via notre plateforme sécurisée, où que vous soyez en France ou à l'international. Pour les prestations nécessitant un tournage, nous intervenons sur toute la région Centre-Val de Loire et au-delà.";
 
 // ---------------------------------------------------------------------------
-// 1. Montage vid\u00e9o
+// 1. Montage vidéo
 // ---------------------------------------------------------------------------
 
 const montageVideo: ServiceContent = {
   slug: "montage-video",
-  name: "Montage vid\u00e9o professionnel",
-  shortName: "Montage vid\u00e9o",
-  metaTitle: "Montage vid\u00e9o professionnel Orl\u00e9ans Tours | DeepFrame",
+  name: "Montage vidéo professionnel",
+  shortName: "Montage vidéo",
+  metaTitle: "Montage vidéo professionnel Orléans Tours | DeepFrame",
   metaDescription:
-    "Montage vid\u00e9o haut de gamme pour entreprises et marques \u00e0 Orl\u00e9ans et Tours. Post-production, \u00e9talonnage DaVinci, sound design. Livraison multi-format.",
-  h1: "Montage vid\u00e9o professionnel \u2014 donnez du rythme \u00e0 votre message",
+    "Montage vidéo haut de gamme pour entreprises à Orléans et Tours. Post-production, étalonnage DaVinci, sound design. Livraison multi-format rapide.",
+  h1: "Des montages vidéo rythmés qui captent et retiennent l'attention",
   introParagraph:
-    "Chaque seconde compte. Notre montage transforme vos rushes en contenus percutants, calibr\u00e9s pour capter l\u2019attention sur chaque plateforme. Bas\u00e9s \u00e0 Orl\u00e9ans et Tours, nous accompagnons les entreprises de la r\u00e9gion Centre-Val de Loire dans leur communication vid\u00e9o.",
+    "Nous transformons vos rushes bruts en contenus percutants et optimisés pour toutes vos plateformes de diffusion.",
   problemQuestion:
-    "Pourquoi le montage fait la diff\u00e9rence entre un contenu vu et un contenu ignor\u00e9 ?",
+    "Pourquoi le montage fait-il la différence entre une vidéo vue et un contenu ignoré ?",
   problemAnswer:
-    "Un tournage r\u00e9ussi ne garantit rien sans un montage pr\u00e9cis. Le rythme, les coupes, les transitions, le sound design \u2014 tout conditionne l\u2019engagement de votre audience. Chez DeepFrame, chaque montage est pens\u00e9 pour le format de diffusion cible : vertical TikTok, carr\u00e9 Instagram, 16:9 YouTube. L\u2019\u00e9talonnage colorim\u00e9trique sur DaVinci Resolve Studio finalise l\u2019image avec un rendu cin\u00e9ma qui distingue votre marque.",
+    "Un tournage réussi ne garantit rien sans un montage précis. Le rythme, l'étalonnage cinéma et le sound design conditionnent l'engagement de votre audience de façon mesurable sur chaque réseau social.",
   features: [
     {
-      h3: "Montage multi-format pour r\u00e9seaux sociaux",
+      h3: "Montage multi-format réseaux sociaux",
       content:
-        "Un seul tournage, plusieurs d\u00e9clinaisons. On livre en 9:16, 1:1 et 16:9 pour couvrir TikTok, Instagram Reels, YouTube et LinkedIn sans ressource suppl\u00e9mentaire.",
+        "Nous déclinons votre vidéo principale en formats natifs (9:16 vertical, 16:9 horizontal, 1:1 carré) pour couvrir TikTok, Reels, YouTube et LinkedIn.",
     },
     {
-      h3: "\u00c9talonnage et color grading DaVinci",
+      h3: "Étalonnage et color grading DaVinci",
       content:
-        "\u00c9talonnage professionnel sur DaVinci Resolve Studio. LUTs personnalis\u00e9es, skin tones naturels, ambiance visuelle coh\u00e9rente avec votre charte graphique.",
+        "Ajustement professionnel des teintes, lumières et contrastes sur DaVinci Resolve Studio pour un rendu cinéma haut de gamme adapté à votre charte.",
     },
     {
-      h3: "Sound design et mixage audio",
+      h3: "Sound design et mixage complet",
       content:
-        "Nettoyage audio, sound design immersif, musique licenci\u00e9e ou sur mesure. Le mix final respecte les normes LUFS de chaque plateforme.",
+        "Nettoyage des voix, effets sonores immersifs et calage du rythme sur des musiques libres de droits pour doubler le temps de visionnage.",
     },
     {
-      h3: "Sous-titrage professionnel et accessibilit\u00e9",
+      h3: "Sous-titrage et accessibilité",
       content:
-        "Sous-titres incrust\u00e9s ou fichiers SRT s\u00e9par\u00e9s, en fran\u00e7ais ou multilingue. Indispensable pour maximiser la port\u00e9e sur les r\u00e9seaux o\u00f9 85 % des vid\u00e9os sont vues sans le son.",
-    },
-    {
-      h3: "Exports optimis\u00e9s par plateforme",
-      content:
-        "Chaque livrable est encod\u00e9 selon les sp\u00e9cifications exactes de la plateforme cible : codec, d\u00e9bit, r\u00e9solution, m\u00e9tadonn\u00e9es. Z\u00e9ro recompression, qualit\u00e9 maximale d\u00e8s le premier upload.",
-    },
+        "Incrustation de sous-titres dynamiques ou fichiers SRT pour capter les 85 % d'utilisateurs mobiles qui regardent des vidéos sans activer le son.",
+    }
   ],
   faq: [
     {
-      question: "Quel est le d\u00e9lai de livraison pour un montage vid\u00e9o ?",
+      question: "Quel est le délai de livraison standard ?",
       answer:
-        "D\u00e9lai standard : 7 jours ouvr\u00e9s apr\u00e8s r\u00e9ception des rushes. Option express 48h disponible avec suppl\u00e9ment.",
+        "Nous livrons votre premier montage sous 7 jours ouvrés après réception de vos fichiers. Une option express en 48h est également disponible.",
     },
     {
-      question: "Combien co\u00fbte un montage vid\u00e9o professionnel ?",
+      question: "Combien coûte une prestation de montage vidéo ?",
       answer:
-        "Le tarif d\u00e9pend de la dur\u00e9e finale, du nombre de formats et du niveau de post-production. Nos packs d\u00e9marrent \u00e0 partir de 500 \u20ac HT. Demandez un devis gratuit en ligne pour un chiffrage pr\u00e9cis.",
+        "Nos prestations de montage vidéo débutent à 29 € pour un pack individuel à l'unité, ou à partir de 45 €/mois via nos formules d'abonnement sans engagement. Retrouvez notre grille complète sur notre page de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Combien de formats sont inclus dans une prestation montage ?",
+      question: "Puis-je vous envoyer mes propres fichiers ?",
       answer:
-        "Chaque pack inclut au minimum 2 formats (vertical + horizontal). Des d\u00e9clinaisons suppl\u00e9mentaires sont factur\u00e9es \u00e0 l\u2019unit\u00e9.",
-    },
-    {
-      question: "Puis-je fournir mes propres rushes pour le montage ?",
-      answer:
-        "Oui. Envoyez vos fichiers via notre plateforme de transfert s\u00e9curis\u00e9e. Formats accept\u00e9s : ProRes, H.264, H.265, RAW (BRAW, R3D).",
-    },
-    {
-      question: "Proposez-vous du montage vid\u00e9o \u00e0 Orl\u00e9ans et Tours ?",
-      answer:
-        "Absolument. Notre studio est bas\u00e9 entre Orl\u00e9ans et Tours. Nous travaillons avec des entreprises de toute la r\u00e9gion Centre-Val de Loire, et le montage peut \u00e9galement se faire \u00e0 distance gr\u00e2ce \u00e0 notre plateforme de transfert.",
-    },
-    {
-      question: "Quels logiciels utilisez-vous pour le montage ?",
-      answer:
-        "Premiere Pro et DaVinci Resolve Studio pour le montage et l\u2019\u00e9talonnage, After Effects pour le motion titrage, et Audition ou Logic Pro pour le mixage audio.",
-    },
+        "Oui. Transmettez-nous vos fichiers bruts (caméra, smartphone, <a href=\"/services/drone-prise-de-vue-aerienne\" class=\"text-df-gold hover:underline\">drone</a>) via notre espace de transfert en ligne haut débit sécurisé.",
+    }
   ],
   serviceType: "VideoEditingService",
   priceRange: "$$$",
   coverImageUrl: "/images/services/montage-video.jpg",
   coverImageAlt:
-    "Poste de montage vid\u00e9o professionnel avec DaVinci Resolve \u2014 studio DeepFrame Orl\u00e9ans",
+    "Poste de montage vidéo professionnel avec DaVinci Resolve — studio DeepFrame Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 1,
   iconName: "scissors",
   teamMembers: ["TY", "PAPI"],
   deliverables: [
-    { label: "Vid\u00e9o mont\u00e9e HD/4K", detail: "Format principal + d\u00e9clinaisons" },
-    { label: "\u00c9talonnage colorim\u00e9trique", detail: "DaVinci Resolve Studio" },
+    { label: "Vidéo montée HD/4K", detail: "Format principal + déclinaisons" },
+    { label: "Étalonnage colorimétrique", detail: "DaVinci Resolve Studio" },
     { label: "Sound design et mixage" },
-    { label: "Sous-titres", detail: "Incrust\u00e9s ou fichiers SRT" },
+    { label: "Sous-titres", detail: "Incrustés ou fichiers SRT" },
     { label: "Exports multi-plateformes", detail: "TikTok, Instagram, YouTube, LinkedIn" },
   ],
   equipment: [
@@ -157,91 +138,66 @@ const productionCorporate: ServiceContent = {
   slug: "production-corporate",
   name: "Production corporate et brand content",
   shortName: "Production corporate",
-  metaTitle: "Production corporate film de marque Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Production corporate film de marque Orléans Tours | DeepFrame",
   metaDescription:
-    "Films corporate, interviews dirigeants, brand content \u00e0 Orl\u00e9ans et Tours. Production audiovisuelle compl\u00e8te de la pr\u00e9-production \u00e0 la livraison finale.",
-  h1: "Production corporate \u2014 racontez votre marque en images",
+    "Films corporate et interviews dirigeants à Orléans et Tours. Production audiovisuelle complète de la pré-production au montage final.",
+  h1: "Des films corporate mémorables qui valorisent votre marque",
   introParagraph:
-    "Un film corporate ne se r\u00e9sume pas \u00e0 un plan large sur vos locaux. C\u2019est un outil strat\u00e9gique qui porte votre message aupr\u00e8s de vos clients, partenaires et talents. DeepFrame accompagne les entreprises d\u2019Orl\u00e9ans, Tours et du Centre-Val de Loire dans la cr\u00e9ation de contenus vid\u00e9o \u00e0 forte valeur ajout\u00e9e.",
+    "Du script à la livraison, nous réalisons des vidéos d'entreprise stratégiques pour engager vos clients et partenaires.",
   problemQuestion:
-    "Comment un film corporate transforme la perception de votre entreprise ?",
+    "Comment un film d'entreprise transforme-t-il l'impact de votre communication ?",
   problemAnswer:
-    "80 % des entreprises utilisent la vid\u00e9o dans leur communication. La diff\u00e9rence entre un film corporate efficace et un contenu g\u00e9n\u00e9rique tient \u00e0 trois choses : une direction artistique assum\u00e9e, un storytelling ancr\u00e9 dans votre r\u00e9alit\u00e9 m\u00e9tier, et une qualit\u00e9 technique irr\u00e9prochable. Chez DeepFrame, on prend le temps de comprendre votre positionnement avant de tourner la premi\u00e8re image.",
+    "Une vidéo professionnelle humanise votre entreprise et valorise votre expertise. Nous prenons le temps de comprendre vos objectifs pour raconter votre histoire de façon authentique.",
   features: [
     {
-      h3: "Film de pr\u00e9sentation d\u2019entreprise",
+      h3: "Script et direction artistique",
       content:
-        "De 1 \u00e0 5 minutes, avec interviews dirigeants, plans d\u2019activit\u00e9 et motion titrage. Id\u00e9al pour le site web, les salons et le recrutement.",
+        "Nous concevons ensemble le message clé, rédigeons le script et créons un moodboard visuel complet avant d'allumer la caméra.",
     },
     {
-      h3: "Interview vid\u00e9o et t\u00e9moignage client",
+      h3: "Tournage cinéma dans vos locaux",
       content:
-        "Setup multi-cam\u00e9ra, \u00e9clairage portrait cin\u00e9matographique, prompteur si n\u00e9cessaire. Montage dynamique avec habillage graphique int\u00e9gr\u00e9.",
+        "Notre équipe se déplace avec un équipement cinéma 4K (Sony FX, Blackmagic) et des éclairages doux pour sublimer vos espaces et collaborateurs.",
     },
     {
-      h3: "Brand content r\u00e9seaux sociaux",
+      h3: "Post-production et habillage",
       content:
-        "S\u00e9ries de contenus courts calibr\u00e9s pour vos r\u00e9seaux. Formats verticaux, sous-titres grav\u00e9s, hooks visuels optimis\u00e9s pour l\u2019algorithme.",
-    },
-    {
-      h3: "Direction artistique et storytelling",
-      content:
-        "Brief cr\u00e9atif, moodboard, script valid\u00e9 et rep\u00e9rage des lieux avant le moindre plan. Votre histoire m\u00e9rite une narration sur mesure, pas un template.",
-    },
-    {
-      h3: "Captation multi-cam\u00e9ra 4K",
-      content:
-        "Tournage en cam\u00e9ra cin\u00e9ma (Sony FX, Blackmagic) avec optiques professionnelles, stabilisation gimbale et \u00e9clairage studio portable. Qualit\u00e9 cin\u00e9ma, m\u00eame dans vos locaux.",
-    },
+        "Montage rythmé, étalonnage des couleurs haut de gamme, habillage graphique et intégration des sous-titres pour une diffusion prête à l'emploi.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte un film corporate ?",
+      question: "Quel est le délai de production moyen ?",
       answer:
-        "Le tarif d\u00e9pend de la dur\u00e9e, du nombre de jours de tournage et des besoins en post-production. Nos packs d\u00e9marrent \u00e0 partir de 1 500 \u20ac HT. Devis gratuit en ligne.",
+        "Prévoyez 3 à 6 semaines entre le brief initial et la livraison de votre film finalisé, selon la logistique requise (nombre de jours de tournage).",
     },
     {
-      question: "G\u00e9rez-vous la pr\u00e9-production (script, rep\u00e9rage) ?",
+      question: "Combien coûte un film corporate complet ?",
       answer:
-        "Oui. Chaque projet inclut un brief cr\u00e9atif, une proposition de traitement, un script valid\u00e9 et un rep\u00e9rage des lieux avant tournage.",
+        "Nos prestations de post-production débutent à 29 € pour un montage simple. Pour un projet de tournage complet en entreprise, nous vous invitons à réaliser une simulation sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">simulateur de devis</a> ou à consulter notre page de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Peut-on tourner dans nos locaux \u00e0 Orl\u00e9ans ou Tours ?",
+      question: "Pouvez-vous tourner directement dans nos bureaux ?",
       answer:
-        "Absolument. On s\u2019adapte \u00e0 votre environnement. Notre mat\u00e9riel d\u2019\u00e9clairage portable permet de transformer n\u2019importe quel espace en plateau, que vous soyez \u00e0 Orl\u00e9ans, Tours ou ailleurs en Centre-Val de Loire.",
-    },
-    {
-      question: "Quel est le d\u00e9lai moyen pour un film d\u2019entreprise ?",
-      answer:
-        "Comptez 3 \u00e0 6 semaines entre le brief initial et la livraison finale, selon la complexit\u00e9 du projet. Un r\u00e9tro-planning d\u00e9taill\u00e9 vous est remis d\u00e8s la signature du devis.",
-    },
-    {
-      question: "Livrez-vous les rushes bruts ?",
-      answer:
-        "Les rushes bruts ne sont pas inclus par d\u00e9faut. Ils peuvent \u00eatre fournis sur demande, avec un suppl\u00e9ment couvrant le stockage et le transfert des fichiers volumineux.",
-    },
-    {
-      question: "Travaillez-vous avec des entreprises hors r\u00e9gion Centre-Val de Loire ?",
-      answer:
-        "Oui. Nous nous d\u00e9pla\u00e7ons r\u00e9guli\u00e8rement en \u00cele-de-France et dans toute la France. Les frais de d\u00e9placement sont int\u00e9gr\u00e9s au devis de mani\u00e8re transparente.",
-    },
+        "Oui. Nous adaptons notre éclairage et notre matériel pour transformer vos bureaux ou ateliers en un plateau de tournage de qualité.",
+    }
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
   coverImageUrl: "/images/services/production-corporate.jpg",
   coverImageAlt:
-    "Tournage film corporate en entreprise \u2014 \u00e9quipe DeepFrame avec cam\u00e9ra cin\u00e9ma",
+    "Tournage film corporate en entreprise — équipe DeepFrame avec caméra cinéma",
   videoUrl: null,
   category: "video",
   sortOrder: 2,
   iconName: "video",
   teamMembers: ["PAPI", "TY"],
   deliverables: [
-    { label: "Film mont\u00e9 HD/4K", detail: "Version longue + version courte" },
-    { label: "D\u00e9clinaisons r\u00e9seaux sociaux", detail: "3 \u00e0 5 formats" },
-    { label: "Sous-titres fran\u00e7ais", detail: "Incrust\u00e9s + fichier SRT" },
-    { label: "Musique licenci\u00e9e" },
-    { label: "Brief cr\u00e9atif et script valid\u00e9" },
+    { label: "Film monté HD/4K", detail: "Version longue + version courte" },
+    { label: "Déclinaisons réseaux sociaux", detail: "3 à 5 formats" },
+    { label: "Sous-titres français", detail: "Incrustés + fichier SRT" },
+    { label: "Musique licenciée" },
+    { label: "Brief créatif et script validé" },
   ],
   equipment: [
     { name: "Sony FX3 / FX6", detail: "Camera cinema full-frame" },
@@ -263,91 +219,66 @@ const motionDesign: ServiceContent = {
   slug: "motion-design",
   name: "Motion design et animation graphique",
   shortName: "Motion design",
-  metaTitle: "Motion design animation graphique Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Motion design animation graphique Orléans Tours | DeepFrame",
   metaDescription:
-    "Motion design sur mesure \u00e0 Orl\u00e9ans et Tours : intros anim\u00e9es, infographies vid\u00e9o, habillage graphique. Animation 2D/3D pour marques exigeantes.",
-  h1: "Motion design \u2014 animez vos id\u00e9es avec pr\u00e9cision",
+    "Motion design sur mesure à Orléans et Tours : vidéos explicatives, intros animées. Animation 2D/3D pour marques exigeantes.",
+  h1: "Vos idées complexes simplifiées grâce à l'animation graphique",
   introParagraph:
-    "Le motion design rend tangible ce que la cam\u00e9ra ne peut pas filmer. Donn\u00e9es, processus, concepts abstraits : tout devient limpide en animation. Notre studio, bas\u00e9 entre Orl\u00e9ans et Tours, con\u00e7oit des animations sur mesure pour les marques du Centre-Val de Loire et d\u2019ailleurs.",
+    "Nous concevons des vidéos animées 2D/3D sur mesure pour rendre vos messages clairs, ludiques et mémorables.",
   problemQuestion:
-    "Quand le motion design devient-il indispensable \u00e0 votre communication ?",
+    "Pourquoi choisir le motion design pour présenter votre activité ?",
   problemAnswer:
-    "D\u00e8s que votre message d\u00e9passe le champ visuel d\u2019une cam\u00e9ra. Expliquer un processus technique, animer des chiffres cl\u00e9s, habiller une vid\u00e9o avec votre identit\u00e9 graphique \u2014 le motion design apporte une couche narrative impossible \u00e0 obtenir en prise de vue r\u00e9elle. Chez DeepFrame, chaque animation est construite sur mesure \u00e0 partir de votre charte, pas d\u2019un template g\u00e9n\u00e9rique.",
+    "Le motion design rend visuel ce qu'une caméra ne peut filmer. Il permet d'expliquer un concept abstrait, une application web ou des données chiffrées en quelques secondes.",
   features: [
     {
-      h3: "Intro et outro anim\u00e9es",
+      h3: "Storyboard illustré étape par étape",
       content:
-        "Logo reveal, g\u00e9n\u00e9riques, bumpers. Animation fluide de votre identit\u00e9 visuelle pour ouvrir et fermer chaque vid\u00e9o avec impact.",
+        "Nous concevons ensemble le scénario et le storyboard dessiné pour valider la direction artistique avant d'entamer l'animation.",
     },
     {
-      h3: "Infographie anim\u00e9e et data visualization",
+      h3: "Animation 2D/3D personnalisée",
       content:
-        "Transformation de vos donn\u00e9es en s\u00e9quences anim\u00e9es lisibles et m\u00e9morables. Id\u00e9al pour les rapports d\u2019activit\u00e9, les pitchs investisseurs, les pr\u00e9sentations internes.",
+        "Création d'animations fluides de typographies, schémas, icônes ou modélisations 3D, calées à 100 % sur votre charte graphique de marque.",
     },
     {
-      h3: "Habillage graphique vid\u00e9o",
+      h3: "Sound design et voix-off pro",
       content:
-        "Lower thirds, titrages, transitions, call-to-action anim\u00e9s. Coh\u00e9rence graphique totale entre vos supports vid\u00e9o et votre charte de marque.",
-    },
-    {
-      h3: "Animation de personnages et mascottes",
-      content:
-        "Donnez vie \u00e0 vos personnages et mascottes de marque avec des animations 2D fluides. Id\u00e9al pour les vid\u00e9os explicatives, les r\u00e9seaux sociaux et les campagnes publicitaires.",
-    },
-    {
-      h3: "Animation 3D et compositing",
-      content:
-        "Mod\u00e9lisation et animation d\u2019objets 3D int\u00e9gr\u00e9s dans vos vid\u00e9os. Packshots produits anim\u00e9s, environnements virtuels, compositing r\u00e9aliste pour un rendu haut de gamme.",
-    },
+        "Enregistrement d'une voix narrative de qualité broadcast, synchronisée sur des effets sonores rythmés pour une immersion totale.",
+    }
   ],
   faq: [
     {
-      question: "Quelle est la diff\u00e9rence entre motion design 2D et 3D ?",
+      question: "Quel est le délai pour créer une animation ?",
       answer:
-        "Le motion design 2D utilise des illustrations et typographies anim\u00e9es en plan. Le 3D ajoute de la profondeur avec des objets mod\u00e9lis\u00e9s. Le choix d\u00e9pend du rendu souhait\u00e9 et du budget.",
+        "Il faut compter généralement 2 à 4 semaines selon la longueur de la vidéo et la complexité des graphismes à animer.",
     },
     {
-      question: "Combien co\u00fbte une vid\u00e9o en motion design ?",
+      question: "Quel est le budget de départ pour du motion design ?",
       answer:
-        "Le tarif d\u00e9pend de la dur\u00e9e, de la complexit\u00e9 graphique et du style (2D, 3D, mixte). Comptez \u00e0 partir de 800 \u20ac HT pour une animation courte. Devis gratuit en ligne.",
+        "Nos animations de motion design débutent à 29 € pour des habillages simples de <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montages vidéos</a>, ou s'intègrent dans nos abonnements mensuels dès 45 €/mois. Retrouvez tous nos détails sur notre grille de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
       question: "Fournissez-vous les fichiers sources After Effects ?",
       answer:
-        "Sur demande et avec suppl\u00e9ment. Les fichiers After Effects / Cinema 4D sont livr\u00e9s avec un guide de modification si vous avez les comp\u00e9tences en interne.",
-    },
-    {
-      question: "Peut-on int\u00e9grer du motion design dans une vid\u00e9o film\u00e9e ?",
-      answer:
-        "C\u2019est m\u00eame recommand\u00e9. L\u2019habillage graphique renforce le message de la prise de vue r\u00e9elle. On g\u00e8re le compositing pour un r\u00e9sultat homog\u00e8ne.",
-    },
-    {
-      question: "Faites-vous du motion design \u00e0 Orl\u00e9ans ?",
-      answer:
-        "Oui, notre studio est bas\u00e9 entre Orl\u00e9ans et Tours. Le motion design \u00e9tant un travail de post-production, nous pouvons \u00e9galement collaborer \u00e0 distance avec des clients partout en France.",
-    },
-    {
-      question: "Quel est le d\u00e9lai pour une animation motion design ?",
-      answer:
-        "Comptez 2 \u00e0 4 semaines selon la complexit\u00e9 et la dur\u00e9e de l\u2019animation. Chaque projet d\u00e9marre par un storyboard valid\u00e9 avant la phase d\u2019animation.",
-    },
+        "Oui, en option sur demande. Nous pouvons également livrer au format Lottie pour une intégration hyper légère sur votre site web.",
+    }
   ],
   serviceType: "GraphicDesignService",
   priceRange: "$$$",
   coverImageUrl: "/images/services/motion-design.jpg",
   coverImageAlt:
-    "Animation motion design en cours de cr\u00e9ation \u2014 interface After Effects studio DeepFrame",
+    "Animation motion design en cours de création — interface After Effects studio DeepFrame",
   videoUrl: null,
   category: "motion",
   sortOrder: 3,
   iconName: "palette",
   teamMembers: ["TY", "PAPI"],
   deliverables: [
-    { label: "Animation HD/4K", detail: "Dur\u00e9e selon brief" },
-    { label: "Fichiers export\u00e9s", detail: "MP4, MOV, GIF selon besoin" },
-    { label: "Storyboard illustr\u00e9" },
+    { label: "Animation HD/4K", detail: "Durée selon brief" },
+    { label: "Fichiers exportés", detail: "MP4, MOV, GIF selon besoin" },
+    { label: "Storyboard illustré" },
     { label: "2 allers-retours de corrections" },
-    { label: "D\u00e9clinaisons formats", detail: "Carr\u00e9, vertical, horizontal" },
+    { label: "Déclinaisons formats", detail: "Carré, vertical, horizontal" },
   ],
   equipment: [
     { name: "After Effects", detail: "Animation, compositing, expressions" },
@@ -361,98 +292,73 @@ const motionDesign: ServiceContent = {
 };
 
 // ---------------------------------------------------------------------------
-// 4. Publicit\u00e9 r\u00e9seaux sociaux
+// 4. Publicité réseaux sociaux
 // ---------------------------------------------------------------------------
 
 const pubReseauxSociaux: ServiceContent = {
   slug: "pub-reseaux-sociaux",
-  name: "Publicit\u00e9 r\u00e9seaux sociaux",
-  shortName: "Pubs r\u00e9seaux sociaux",
-  metaTitle: "Publicit\u00e9 vid\u00e9o r\u00e9seaux sociaux Orl\u00e9ans Tours | DeepFrame",
+  name: "Publicité réseaux sociaux",
+  shortName: "Pubs réseaux sociaux",
+  metaTitle: "Publicité vidéo réseaux sociaux Orléans Tours | DeepFrame",
   metaDescription:
-    "Cr\u00e9ation de publicit\u00e9s vid\u00e9o pour Instagram Reels, TikTok, Facebook Ads et YouTube Shorts \u00e0 Orl\u00e9ans et Tours. Hooks, rythme et formats verticaux.",
-  h1: "Publicit\u00e9 r\u00e9seaux sociaux \u2014 des vid\u00e9os qui convertissent",
+    "Création de publicités vidéo pour Reels, TikTok, Facebook Ads et YouTube Shorts. Hooks, rythme vertical et copywriting ROI.",
+  h1: "Des publicités vidéo percutantes qui multiplient vos conversions",
   introParagraph:
-    "Sur les r\u00e9seaux sociaux, vous avez moins de 3 secondes pour capter l\u2019attention. Nos publicit\u00e9s vid\u00e9o sont con\u00e7ues pour stopper le scroll, transmettre votre message et g\u00e9n\u00e9rer de l\u2019action. Instagram Reels, TikTok, Facebook Ads, YouTube Shorts \u2014 chaque format a ses r\u00e8gles, et on les ma\u00eetrise.",
+    "Nous concevons des vidéos mobiles au format vertical natif pour stopper le défilement et générer des ventes.",
   problemQuestion:
-    "Pourquoi vos publicit\u00e9s vid\u00e9o ne performent pas sur les r\u00e9seaux sociaux ?",
+    "Pourquoi vos vidéos de vente actuelles manquent-elles de performance ?",
   problemAnswer:
-    "Un contenu film\u00e9 pour la t\u00e9l\u00e9vision ou votre site web ne fonctionne pas sur TikTok ou Instagram. Les algorithmes favorisent les vid\u00e9os natives, verticales, avec un hook dans la premi\u00e8re seconde et un rythme soutenu. Chez DeepFrame, on pense chaque publicit\u00e9 pour la plateforme cible : format, dur\u00e9e, sous-titrage, call-to-action. R\u00e9sultat : des taux de compl\u00e9tion et de conversion mesurables.",
+    "Sur mobile, vous avez moins de 3 secondes pour capter l'intérêt. Nos formats intègrent des accroches visuelles et un rythme calibrés pour retenir l'attention.",
   features: [
     {
-      h3: "Hooks visuels et copywriting vid\u00e9o",
+      h3: "Copywriting vidéo orienté ROI",
       content:
-        "Chaque publicit\u00e9 d\u00e9marre par un hook visuel ou textuel test\u00e9 pour maximiser le taux de r\u00e9tention. On \u00e9crit et on monte pour l\u2019algorithme autant que pour votre audience.",
+        "Rdaction de scripts percutants axés sur la résolution des problèmes de votre cible pour inciter à l'action immédiate.",
     },
     {
-      h3: "Formats verticaux natifs 9:16",
+      h3: "Optimisation verticale mobile (9:16)",
       content:
-        "Tournage et montage pens\u00e9s en vertical d\u00e8s le d\u00e9part. Pas de recadrage approximatif \u2014 cadrage, typographie et animations sont optimis\u00e9s pour le mobile.",
+        "Tournages, cadrages et habillages pensés à 100 % pour le mobile pour occuper pleinement l'écran sur Instagram, TikTok et YouTube Shorts.",
     },
     {
-      h3: "Sous-titrage dynamique int\u00e9gr\u00e9",
+      h3: "Sous-titres dynamiques natifs",
       content:
-        "Sous-titres anim\u00e9s, synchronis\u00e9s mot par mot, dans le style natif de chaque plateforme. Indispensable quand 85 % des vid\u00e9os sont vues sans le son.",
-    },
-    {
-      h3: "D\u00e9clinaisons multi-plateformes",
-      content:
-        "Un tournage, plusieurs montages : Reels, TikTok, Stories, YouTube Shorts, Facebook Ads. Chaque version respecte les sp\u00e9cificit\u00e9s de la plateforme.",
-    },
-    {
-      h3: "Tests A/B et it\u00e9rations cr\u00e9atives",
-      content:
-        "On livre plusieurs variantes (hooks diff\u00e9rents, dur\u00e9es alternatives) pour que vous puissiez tester et optimiser vos campagnes publicitaires.",
-    },
+        "Intégration de sous-titres animés et rythmés, indispensables pour accrocher l'audience naviguant sans le son.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte une publicit\u00e9 vid\u00e9o pour les r\u00e9seaux sociaux ?",
+      question: "Quel est le tarif d'un pack publicitaire ?",
       answer:
-        "Nos packs publicit\u00e9 d\u00e9marrent \u00e0 partir de 400 \u20ac HT pour un contenu court mont\u00e9. Le tarif varie selon le nombre de d\u00e9clinaisons et le besoin en tournage. Devis gratuit en ligne.",
+        "Nos offres de publicité vidéo démarrent à 29 € pour le <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage</a> d'un format court à l'unité, ou à 45 €/mois via nos abonnements. Pour un projet complet incluant un tournage de <a href=\"/services/production-corporate\" class=\"text-df-gold hover:underline\">film corporate</a>, consultez notre grille de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Quelle est la dur\u00e9e id\u00e9ale pour une pub vid\u00e9o Instagram ou TikTok ?",
+      question: "Quelle est la durée idéale pour une publicité mobile ?",
       answer:
-        "Entre 15 et 30 secondes pour les Reels et TikTok, jusqu\u2019\u00e0 60 secondes pour les Facebook Ads. On adapte la dur\u00e9e \u00e0 votre objectif : notori\u00e9t\u00e9, consid\u00e9ration ou conversion.",
+        "Nous recommandons un format très dynamique compris entre 15 et 30 secondes pour maximiser le taux de complétion.",
     },
     {
-      question: "G\u00e9rez-vous le tournage ou uniquement le montage ?",
+      question: "Proposez-vous des variantes pour les tests A/B ?",
       answer:
-        "Les deux. On peut tourner le contenu de A \u00e0 Z ou travailler \u00e0 partir de vos rushes existants. Dans les deux cas, le montage est optimis\u00e9 pour le format publicitaire.",
-    },
-    {
-      question: "Faites-vous de la publicit\u00e9 vid\u00e9o \u00e0 Orl\u00e9ans et Tours ?",
-      answer:
-        "Oui, nous tournons r\u00e9guli\u00e8rement pour des marques et commerces d\u2019Orl\u00e9ans, Tours et de toute la r\u00e9gion Centre-Val de Loire. Notre \u00e9quipe se d\u00e9place \u00e9galement en \u00cele-de-France.",
-    },
-    {
-      question: "Peut-on commander un pack mensuel de contenus ?",
-      answer:
-        "Absolument. Nous proposons des formules r\u00e9currentes avec un volume de contenus d\u00e9fini par mois, id\u00e9ales pour maintenir une pr\u00e9sence r\u00e9guli\u00e8re sur vos r\u00e9seaux.",
-    },
-    {
-      question: "Incluez-vous la strat\u00e9gie publicitaire (ciblage, budget) ?",
-      answer:
-        "Notre expertise porte sur la cr\u00e9ation du contenu vid\u00e9o. Pour la strat\u00e9gie m\u00e9dia (ciblage, budget, diffusion), nous pouvons vous orienter vers des partenaires sp\u00e9cialis\u00e9s.",
-    },
+        "Oui. Nos packs publicitaires intègrent plusieurs introductions (hooks) alternatives pour optimiser les résultats de vos campagnes.",
+    }
   ],
   serviceType: "AdvertisingService",
   priceRange: "$$",
   coverImageUrl: "/images/services/pub-reseaux-sociaux.jpg",
   coverImageAlt:
-    "Tournage publicit\u00e9 vid\u00e9o verticale pour r\u00e9seaux sociaux \u2014 DeepFrame Orl\u00e9ans",
+    "Tournage publicité vidéo verticale pour réseaux sociaux — DeepFrame Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 4,
   iconName: "megaphone",
   teamMembers: ["LOUISIA"],
   deliverables: [
-    { label: "Vid\u00e9os publicitaires mont\u00e9es", detail: "1 \u00e0 5 d\u00e9clinaisons" },
+    { label: "Vidéos publicitaires montées", detail: "1 à 5 déclinaisons" },
     { label: "Formats 9:16, 1:1, 16:9" },
-    { label: "Sous-titres anim\u00e9s int\u00e9gr\u00e9s" },
-    { label: "Variantes A/B", detail: "Hooks et dur\u00e9es alternatives" },
-    { label: "Exports optimis\u00e9s par plateforme" },
+    { label: "Sous-titres animés intégrés" },
+    { label: "Variantes A/B", detail: "Hooks et durées alternatives" },
+    { label: "Exports optimisés par plateforme" },
   ],
   equipment: [
     { name: "Sony ZV-E1", detail: "Captation vidéo compacte full frame" },
@@ -471,92 +377,67 @@ const pubReseauxSociaux: ServiceContent = {
 
 const shootingAutomobile: ServiceContent = {
   slug: "shooting-automobile",
-  name: "Shooting photo & vid\u00e9o automobile",
-  shortName: "Shooting auto",
-  metaTitle: "Shooting photo vid\u00e9o automobile Orl\u00e9ans Tours | DeepFrame",
+  name: "Shooting photo & vidéo automobile",
+  shortName: "Shooting automobile",
+  metaTitle: "Shooting photo vidéo automobile Orléans Tours | DeepFrame",
   metaDescription:
-    "Shooting photo et vid\u00e9o automobile \u00e0 Orl\u00e9ans et Tours. Rolling shots, studio, \u00e9v\u00e9nementiel auto, concessions et collectionneurs. R\u00e9sultat haut de gamme.",
-  h1: "Shooting automobile \u2014 sublimez chaque courbe",
+    "Shooting photo et vidéo automobile à Orléans et Tours. Rolling shots, studio, concessions et collectionneurs. Rendu magazine.",
+  h1: "Sublimez chaque courbe de vos véhicules d'exception",
   introParagraph:
-    "La photographie et la vid\u00e9o automobile exigent un \u0153il technique et une sensibilit\u00e9 esth\u00e9tique particuli\u00e8re. Chez DeepFrame, on capture la personnalit\u00e9 de chaque v\u00e9hicule avec des images qui font tourner les t\u00eates. Rolling shots, photos studio, couverture \u00e9v\u00e9nementielle \u2014 notre \u00e9quipe intervient sur Orl\u00e9ans, Tours et dans toute la r\u00e9gion Centre-Val de Loire.",
+    "Nous réalisons des photos et vidéos haut de gamme pour les concessions, préparateurs et collectionneurs privés.",
   problemQuestion:
-    "Pourquoi un shooting automobile professionnel fait toute la diff\u00e9rence ?",
+    "Pourquoi faire appel à un photographe automobile professionnel ?",
   problemAnswer:
-    "Une photo prise au smartphone ne rend pas justice \u00e0 un v\u00e9hicule d\u2019exception. L\u2019\u00e9clairage, la composition, le choix du lieu et la post-production transforment une simple image en objet de d\u00e9sir. Que vous soyez concession, pr\u00e9parateur ou collectionneur priv\u00e9, un shooting professionnel valorise votre investissement et attire les bons acheteurs.",
+    "L'automobile exige une maîtrise technique des reflets, de la lumière et du mouvement. Nos visuels haut de gamme créent le coup de cœur immédiat.",
   features: [
     {
-      h3: "Rolling shots et vid\u00e9o dynamique",
+      h3: "Rolling shots et prises dynamiques",
       content:
-        "Prises de vue en mouvement depuis un v\u00e9hicule suiveur, avec stabilisation professionnelle. Le r\u00e9sultat : des images cin\u00e9matographiques qui transmettent la puissance et l\u2019\u00e9l\u00e9gance du v\u00e9hicule.",
+        "Photos spectaculaires prises en mouvement de voiture à voiture avec un système de stabilisation professionnel, pour un rendu cinéma.",
     },
     {
-      h3: "Shooting studio et \u00e9clairage cr\u00e9atif",
+      h3: "Shooting studio et light painting",
       content:
-        "S\u00e9ances en studio ou en ext\u00e9rieur avec \u00e9clairage professionnel (light painting, hexlight, n\u00e9ons). Chaque photo met en valeur les lignes, les mat\u00e9riaux et les d\u00e9tails de finition.",
+        "Création d'ambiances lumineuses de prestige (néons, reflets, peinture de lumière) pour souligner les lignes esthétiques du véhicule.",
     },
     {
-      h3: "Couverture \u00e9v\u00e9nements automobiles",
+      h3: "Retouche magazine et post-production",
       content:
-        "Reportage photo et vid\u00e9o sur les rassemblements, salons, courses et livraisons. Captation rapide, tri s\u00e9lectif, livraison express pour vos r\u00e9seaux sociaux.",
-    },
-    {
-      h3: "Photographie de d\u00e9tail et packshot v\u00e9hicule",
-      content:
-        "Gros plans sur les \u00e9l\u00e9ments distinctifs : jantes, sellerie, tableau de bord, finitions carrosserie. Id\u00e9al pour les annonces de vente et les catalogues.",
-    },
-    {
-      h3: "Retouche et post-production automobile",
-      content:
-        "Retouche avanc\u00e9e : nettoyage des reflets parasites, correction colorim\u00e9trique, remplacement de fond. Livraison en haute r\u00e9solution pour print et web.",
-    },
+        "Nettoyage minutieux des poussières, correction des reflets parasites sur la carrosserie et étalonnage précis des teintes de peinture.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte un shooting photo automobile ?",
+      question: "Quel est le tarif d'un shooting automobile ?",
       answer:
-        "Les tarifs d\u00e9pendent du type de shooting (studio, ext\u00e9rieur, rolling shots) et du nombre de v\u00e9hicules. Comptez \u00e0 partir de 350 \u20ac HT pour une s\u00e9ance photo d\u2019un v\u00e9hicule. Devis gratuit en ligne.",
+        "Nos prestations photo automobile débutent à seulement 15 € pour un pack de 5 photos essentielles, et à 29 € pour les montages vidéo. Pour estimer précisément votre projet (avec roulage, rolling shots, etc.), configurez votre demande sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">simulateur de devis</a> ou consultez nos <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Faites-vous des shootings auto \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Combien de photos retouchées livrez-vous ?",
       answer:
-        "Oui, nous connaissons les meilleurs spots de la r\u00e9gion. Nous intervenons r\u00e9guli\u00e8rement \u00e0 Orl\u00e9ans, Tours, en Sologne et dans l\u2019ensemble du Centre-Val de Loire pour des shootings automobiles.",
+        "Vous recevez entre 20 et 50 clichés haute résolution optimisés pour le web et l'impression, livrés via une galerie privée.",
     },
     {
-      question: "Proposez-vous des rolling shots ?",
+      question: "Quelle est la durée à prévoir pour la séance ?",
       answer:
-        "Absolument. Nous r\u00e9alisons des rolling shots depuis un v\u00e9hicule suiveur \u00e9quip\u00e9, avec stabilisation gimbale professionnelle. R\u00e9sultat : des images dynamiques et cin\u00e9matographiques.",
-    },
-    {
-      question: "Peut-on combiner photo et vid\u00e9o lors d\u2019un m\u00eame shooting ?",
-      answer:
-        "C\u2019est m\u00eame recommand\u00e9. On optimise la s\u00e9ance pour capturer photos et vid\u00e9os simultan\u00e9ment, ce qui r\u00e9duit les co\u00fbts et assure une coh\u00e9rence visuelle.",
-    },
-    {
-      question: "Quel mat\u00e9riel utilisez-vous pour les shootings automobile ?",
-      answer:
-        "Appareils Sony (A7, ZV-1), optiques Sigma Art (35mm, 24-70mm, 90mm Macro), \u00e9clairages LED portables, gimbale DJI RS3. Pour les rolling shots : v\u00e9hicule suiveur avec setup stabilis\u00e9.",
-    },
-    {
-      question: "En combien de temps recevrai-je les photos ?",
-      answer:
-        "Livraison sous 5 \u00e0 7 jours ouvr\u00e9s apr\u00e8s le shooting, avec retouche compl\u00e8te. Option express 48h disponible pour les urgences.",
-    },
+        "Prévoyez 2 à 4 heures de tournage/prise de vue pour capter parfaitement toutes les configurations du véhicule et faire les roulages.",
+    }
   ],
   serviceType: "PhotographyService",
   priceRange: "$$",
   coverImageUrl: "/images/services/shooting-automobile.jpg",
   coverImageAlt:
-    "Shooting photo automobile Porsche en studio \u2014 \u00e9clairage cr\u00e9atif DeepFrame",
+    "Shooting photo automobile Porsche en studio — éclairage créatif DeepFrame",
   videoUrl: null,
   category: "photo",
   sortOrder: 5,
   iconName: "car",
   teamMembers: ["PAPI"],
   deliverables: [
-    { label: "Photos HD retouch\u00e9es", detail: "20 \u00e0 50 clich\u00e9s selon le pack" },
-    { label: "Vid\u00e9o teaser", detail: "30 \u00e0 60 secondes (option)" },
-    { label: "Rolling shots", detail: "Photo et/ou vid\u00e9o" },
-    { label: "Galerie en ligne priv\u00e9e" },
+    { label: "Photos HD retouchées", detail: "20 à 50 clichés selon le pack" },
+    { label: "Vidéo teaser", detail: "30 à 60 secondes (option)" },
+    { label: "Rolling shots", detail: "Photo et/ou vidéo" },
+    { label: "Galerie en ligne privée" },
     { label: "Exports web + print", detail: "JPEG, TIFF, PNG" },
   ],
   equipment: [
@@ -579,80 +460,65 @@ const photographieProfessionnelle: ServiceContent = {
   slug: "photographie-professionnelle",
   name: "Photographie professionnelle",
   shortName: "Photographie pro",
-  metaTitle: "Photographe professionnel Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Photographe professionnel Orléans Tours | DeepFrame",
   metaDescription:
-    "Photographe professionnel \u00e0 Orl\u00e9ans et Tours. Portraits corporate, \u00e9v\u00e9nementiel, packshots produits, immobilier. Photos retouch\u00e9es haute qualit\u00e9.",
-  h1: "Photographie professionnelle \u2014 des images qui parlent pour vous",
+    "Photographe d'entreprise à Orléans et Tours. Portraits corporate, reportages industriels, packshots produits et immobilier.",
+  h1: "Valorisez votre entreprise avec des visuels authentiques",
   introParagraph:
-    "Une image professionnelle inspire confiance avant m\u00eame le premier mot. Portraits de dirigeants, couverture \u00e9v\u00e9nementielle, packshots produits ou photos immobili\u00e8res \u2014 notre photographe capte l\u2019essentiel de votre activit\u00e9 avec un regard artistique et technique. Bas\u00e9s \u00e0 Orl\u00e9ans et Tours, nous intervenons dans tout le Centre-Val de Loire.",
+    "Portraits d'équipe, reportages industriels, packshots produits ou immobilier : inspirez confiance au premier regard.",
   problemQuestion:
-    "Pourquoi investir dans un photographe professionnel pour votre entreprise ?",
+    "Pourquoi investir dans des photos sur mesure plutôt qu'en banque d'images ?",
   problemAnswer:
-    "Les visuels g\u00e9n\u00e9riques de banques d\u2019images ne trompent personne. Vos clients, partenaires et candidats veulent voir la r\u00e9alit\u00e9 de votre entreprise, vos \u00e9quipes, vos produits. Un reportage photo professionnel cr\u00e9e des visuels authentiques, r\u00e9utilisables sur votre site, vos r\u00e9seaux, vos plaquettes et vos annonces de recrutement.",
+    "Vos prospects veulent voir la réalité de votre activité, vos collaborateurs et vos locaux. Des images réelles renforcent votre marque employeur et vos ventes.",
   features: [
     {
-      h3: "Portrait corporate et \u00e9quipe",
+      h3: "Portraits corporate soignés",
       content:
-        "Portraits individuels et de groupe pour votre site web, LinkedIn et communications internes. \u00c9clairage studio ou lumi\u00e8re naturelle, selon l\u2019ambiance souhait\u00e9e.",
+        "Photos individuelles ou de groupe en studio mobile ou lumière naturelle, idéales pour LinkedIn et votre communication d'entreprise.",
     },
     {
-      h3: "Reportage \u00e9v\u00e9nementiel",
+      h3: "Reportage métier sur site",
       content:
-        "Couverture photo de vos \u00e9v\u00e9nements d\u2019entreprise : s\u00e9minaires, inaugurations, soir\u00e9es, salons. Livraison rapide pour une diffusion imm\u00e9diate sur vos r\u00e9seaux.",
+        "Immersion dans vos ateliers ou bureaux pour photographier vos gestes techniques et documenter votre savoir-faire de façon authentique.",
     },
     {
-      h3: "Packshot produit e-commerce",
+      h3: "Packshots produits e-commerce",
       content:
-        "Photos produits sur fond blanc ou en situation (lifestyle). Retouch\u00e9es et d\u00e9tour\u00e9es, pr\u00eates \u00e0 l\u2019int\u00e9gration sur votre boutique en ligne ou vos marketplaces.",
-    },
-    {
-      h3: "Photographie immobili\u00e8re et architecture",
-      content:
-        "Photos grand angle, lumi\u00e8re ma\u00eetris\u00e9e, retouche perspective. Id\u00e9al pour les agences immobili\u00e8res, les promoteurs et les architectes du Loiret et d\u2019Indre-et-Loire.",
-    },
+        "Photographies produits d'une netteté absolue, sur fond neutre ou en ambiance, prêtes à l'intégration pour votre boutique en ligne.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte une s\u00e9ance photo professionnelle ?",
+      question: "Quel est le coût d'un reportage photo ?",
       answer:
-        "Nos tarifs d\u00e9pendent du type de prestation et de la dur\u00e9e. Comptez \u00e0 partir de 250 \u20ac HT pour une s\u00e9ance portrait et \u00e0 partir de 500 \u20ac HT pour un reportage \u00e9v\u00e9nementiel. Devis gratuit en ligne.",
+        "Nos forfaits photo débutent à 15 € pour un pack de 5 photos. Pour des projets événementiels ou portraits d'équipe sur mesure, consultez notre grille complète de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>. Si vous possédez un véhicule d'exception, découvrez notre offre de <a href=\"/services/shooting-automobile\" class=\"text-df-gold hover:underline\">shooting automobile</a>.",
     },
     {
-      question: "Combien de photos retouch\u00e9es sont livr\u00e9es ?",
+      question: "Sous quel délai livrez-vous les clichés ?",
       answer:
-        "Le nombre d\u00e9pend du pack choisi. En g\u00e9n\u00e9ral, 15 \u00e0 30 photos retouch\u00e9es pour un portrait corporate, 50 \u00e0 100+ pour un reportage \u00e9v\u00e9nementiel.",
+        "Toutes les photos sélectionnées et retouchées vous sont remises sous 5 à 7 jours ouvrés après la sance via une galerie en ligne.",
     },
     {
-      question: "Intervenez-vous \u00e0 Orl\u00e9ans et Tours pour des s\u00e9ances photo ?",
+      question: "Proposez-vous des collaborations régulières ?",
       answer:
-        "Oui, nous sommes bas\u00e9s entre Orl\u00e9ans et Tours et nous nous d\u00e9pla\u00e7ons dans l\u2019ensemble de la r\u00e9gion Centre-Val de Loire : Loiret, Indre-et-Loire, Loir-et-Cher et au-del\u00e0.",
-    },
-    {
-      question: "En combien de temps recevrai-je mes photos ?",
-      answer:
-        "D\u00e9lai standard : 5 \u00e0 7 jours ouvr\u00e9s avec retouche compl\u00e8te. Livraison express 48h disponible pour les \u00e9v\u00e9nements avec diffusion imm\u00e9diate.",
-    },
-    {
-      question: "Proposez-vous des abonnements photo pour entreprises ?",
-      answer:
-        "Oui. Nous proposons des formules r\u00e9currentes (mensuelle ou trimestrielle) incluant un volume de s\u00e9ances fix\u00e9, id\u00e9ales pour alimenter vos r\u00e9seaux et votre site r\u00e9guli\u00e8rement.",
-    },
+        "Oui, nos formules d'abonnement (mensuel ou trimestriel) vous permettent d'alimenter vos canaux de communication en contenus frais.",
+    }
   ],
   serviceType: "PhotographyService",
   priceRange: "$$",
   coverImageUrl: "/images/services/photographie-professionnelle.jpg",
   coverImageAlt:
-    "S\u00e9ance photo portrait corporate en entreprise \u2014 photographe DeepFrame Orl\u00e9ans",
+    "Séance photo portrait corporate en entreprise — photographe DeepFrame Orléans",
   videoUrl: null,
   category: "photo",
   sortOrder: 6,
   iconName: "camera",
   teamMembers: ["LOUISIA"],
   deliverables: [
-    { label: "Photos HD retouch\u00e9es", detail: "S\u00e9lection + retouche compl\u00e8te" },
-    { label: "Galerie en ligne priv\u00e9e", detail: "T\u00e9l\u00e9chargement s\u00e9curis\u00e9" },
+    { label: "Photos HD retouchées", detail: "Sélection + retouche complète" },
+    { label: "Galerie en ligne privée", detail: "Téléchargement sécurisé" },
     { label: "Exports web + print", detail: "JPEG, TIFF, PNG" },
-    { label: "D\u00e9tourage produits", detail: "Pour packshots e-commerce" },
+    { label: "Détourage produits", detail: "Pour packshots e-commerce" },
   ],
   equipment: [
     { name: "Sony A7R V", detail: "61 MP, autofocus IA" },
@@ -667,86 +533,71 @@ const photographieProfessionnelle: ServiceContent = {
 };
 
 // ---------------------------------------------------------------------------
-// 7. Interview et t\u00e9moignage d'entreprise
+// 7. Interview et témoignage d'entreprise
 // ---------------------------------------------------------------------------
 
 const interviewTemoignage: ServiceContent = {
   slug: "interview-temoignage",
-  name: "Interview et t\u00e9moignage d\u2019entreprise",
-  shortName: "Interview & t\u00e9moignage",
-  metaTitle: "Interview vid\u00e9o t\u00e9moignage entreprise Orl\u00e9ans | DeepFrame",
+  name: "Interview et témoignage d’entreprise",
+  shortName: "Interview & témoignage",
+  metaTitle: "Interview vidéo témoignage entreprise Orléans Tours | DeepFrame",
   metaDescription:
-    "Interviews vid\u00e9o professionnelles \u00e0 Orl\u00e9ans et Tours. T\u00e9moignages clients, portraits dirigeants, interviews collaborateurs. Tournage multi-cam\u00e9ra.",
-  h1: "Interview et t\u00e9moignage \u2014 la parole qui cr\u00e9e la confiance",
+    "Interviews vidéo professionnelles à Orléans et Tours. Témoignages clients, portraits dirigeants, équipement multi-caméras.",
+  h1: "Créez une confiance immédiate avec le témoignage client",
   introParagraph:
-    "Rien ne vaut un t\u00e9moignage authentique pour convaincre. Interviews de clients satisfaits, portraits de dirigeants, paroles de collaborateurs \u2014 la vid\u00e9o donne un visage et une voix \u00e0 votre cr\u00e9dibilit\u00e9. Notre \u00e9quipe met en confiance les intervenants et assure un rendu cin\u00e9matographique professionnel, \u00e0 Orl\u00e9ans, Tours et dans le Centre-Val de Loire.",
+    "Donnez la parole à vos clients satisfaits et à vos collaborateurs à travers des formats d'interviews dynamiques.",
   problemQuestion:
-    "Pourquoi les t\u00e9moignages vid\u00e9o sont-ils si puissants pour votre marque ?",
+    "Pourquoi la vidéo témoignage est-elle le meilleur outil de conversion ?",
   problemAnswer:
-    "Un avis \u00e9crit peut \u00eatre ignor\u00e9. Un t\u00e9moignage vid\u00e9o, avec le visage et la voix d\u2019un vrai client, cr\u00e9e un lien \u00e9motionnel imm\u00e9diat. C\u2019est la preuve sociale la plus convaincante. Chez DeepFrame, on g\u00e8re tout : la mise en confiance des intervenants, le tournage multi-cam\u00e9ra, l\u2019\u00e9clairage portrait et le montage dynamique.",
+    "Un avis écrit peut être mis en doute. Un client qui parle sincèrement de son expérience face caméra constitue la preuve sociale la plus rassurante.",
   features: [
     {
-      h3: "T\u00e9moignage client vid\u00e9o",
+      h3: "Interviews clients naturelles",
       content:
-        "Vos meilleurs clients partagent leur exp\u00e9rience face cam\u00e9ra. On guide l\u2019entretien pour obtenir des r\u00e9ponses naturelles, sinc\u00e8res et exploitables en marketing.",
+        "Nous guidons l'entretien avec empathie pour obtenir un discours fluide et convaincant, sans aspect récité.",
     },
     {
-      h3: "Portrait vid\u00e9o de dirigeant",
+      h3: "Valorisation marque employeur",
       content:
-        "Mettez en avant votre leadership avec un portrait vid\u00e9o soign\u00e9. \u00c9clairage cin\u00e9matographique, fond professionnel, montage valorisant. Id\u00e9al pour le site web et LinkedIn.",
+        "Filmez vos collaborateurs pour exprimer les valeurs de votre entreprise et dynamiser vos recrutements (RH).",
     },
     {
-      h3: "Interview collaborateur et marque employeur",
+      h3: "Technique haut de gamme & prompteur",
       content:
-        "Vos \u00e9quipes sont votre meilleur argument de recrutement. On filme leurs t\u00e9moignages pour alimenter votre marque employeur et vos campagnes RH.",
-    },
-    {
-      h3: "Tournage multi-cam\u00e9ra et prompteur",
-      content:
-        "Setup 2 \u00e0 3 cam\u00e9ras pour un montage dynamique avec changements d\u2019angle. Prompteur disponible pour les intervenants moins \u00e0 l\u2019aise avec l\u2019exercice.",
-    },
+        "Setup multi-caméras 4K, micros cravates professionnels et prompteur de lecture pour mettre vos collaborateurs en confiance.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte une interview vid\u00e9o professionnelle ?",
+      question: "Comment rassurez-vous les personnes devant la caméra ?",
       answer:
-        "Le tarif d\u00e9pend du nombre d\u2019intervenants et de la dur\u00e9e souhait\u00e9e. Comptez \u00e0 partir de 800 \u20ac HT pour une interview mont\u00e9e d\u2019un intervenant. Devis gratuit en ligne.",
+        "Nous échangeons de façon conviviale avant d'enregistrer et pouvons utiliser un prompteur pour sécuriser la prise de parole.",
     },
     {
-      question: "Comment mettez-vous les intervenants \u00e0 l\u2019aise ?",
+      question: "Combien coûte une interview d'entreprise ?",
       answer:
-        "On prend le temps d\u2019un \u00e9change informel avant le tournage. Pas de script fig\u00e9 : on guide la conversation avec des questions ouvertes. Le prompteur est disponible en option pour ceux qui le souhaitent.",
+        "Nos prestations d'interviews débutent à 29 € pour la partie <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage</a>. Pour y ajouter le tournage de <a href=\"/services/production-corporate\" class=\"text-df-gold hover:underline\">film corporate</a>, vous pouvez estimer votre budget via notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">simulateur de devis</a> ou consulter nos <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Filmez-vous des interviews \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Gérez-vous la trame éditoriale des questions ?",
       answer:
-        "Oui, c\u2019est notre zone d\u2019intervention principale. Nous nous d\u00e9pla\u00e7ons dans vos locaux, o\u00f9 que vous soyez dans le Loiret, l\u2019Indre-et-Loire ou le reste du Centre-Val de Loire.",
-    },
-    {
-      question: "Peut-on d\u00e9cliner l\u2019interview en plusieurs formats ?",
-      answer:
-        "Bien s\u00fbr. \u00c0 partir d\u2019un seul entretien, on monte une version longue (site web), une version courte (r\u00e9seaux sociaux) et des extraits pour vos campagnes publicitaires.",
-    },
-    {
-      question: "Faut-il pr\u00e9parer un script pour l\u2019interview ?",
-      answer:
-        "Non. Nous pr\u00e9parons une trame de questions en amont, valid\u00e9e avec vous. L\u2019objectif est d\u2019obtenir des r\u00e9ponses spontan\u00e9es, pas un discours r\u00e9cit\u00e9.",
-    },
+        "Oui. Nous validons ensemble les questions et l'angle stratégique du message en amont du tournage.",
+    }
   ],
   serviceType: "VideographyService",
   priceRange: "$$",
   coverImageUrl: "/images/services/interview-temoignage.jpg",
   coverImageAlt:
-    "Tournage interview vid\u00e9o en entreprise \u2014 setup multi-cam\u00e9ra DeepFrame",
+    "Tournage interview vidéo en entreprise — setup multi-caméra DeepFrame",
   videoUrl: null,
   category: "video",
   sortOrder: 7,
   iconName: "user",
   teamMembers: ["LOUISIA"],
   deliverables: [
-    { label: "Interview mont\u00e9e HD/4K", detail: "Version longue + courte" },
-    { label: "D\u00e9clinaisons r\u00e9seaux sociaux", detail: "Extraits 30s \u00e0 60s" },
-    { label: "Sous-titres int\u00e9gr\u00e9s", detail: "Fran\u00e7ais + option anglais" },
+    { label: "Interview montée HD/4K", detail: "Version longue + courte" },
+    { label: "Déclinaisons réseaux sociaux", detail: "Extraits 30s à 60s" },
+    { label: "Sous-titres intégrés", detail: "Français + option anglais" },
     { label: "Habillage graphique", detail: "Titrages, lower thirds" },
   ],
   equipment: [
@@ -768,70 +619,55 @@ const voixOffSoundDesign: ServiceContent = {
   slug: "voix-off-sound-design",
   name: "Voix-off et sound design",
   shortName: "Voix-off & sound design",
-  metaTitle: "Voix-off sound design Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Voix-off sound design Orléans Tours | DeepFrame",
   metaDescription:
-    "Enregistrement voix-off, sound design et mixage audio \u00e0 Orl\u00e9ans et Tours. Narration professionnelle, musique d\u2019illustration, habillage sonore pour vid\u00e9os.",
-  h1: "Voix-off et sound design \u2014 le son qui donne vie \u00e0 l\u2019image",
+    "Enregistrement voix-off et mixage audio à Orléans et Tours. Voix-off narrative professionnelle et design sonore premium.",
+  h1: "Donnez une voix et une identité sonore à votre marque",
   introParagraph:
-    "Une vid\u00e9o sans un son soign\u00e9 perd la moiti\u00e9 de son impact. Voix-off narrative, sound design immersif, musique d\u2019illustration \u2014 nous donnons une dimension suppl\u00e9mentaire \u00e0 vos contenus audiovisuels. Notre studio, situ\u00e9 entre Orl\u00e9ans et Tours, dispose de l\u2019\u00e9quipement n\u00e9cessaire pour un rendu broadcast.",
+    "Enregistrements de voix-off narratives et habillages sonores pour captiver votre audience à 100%.",
   problemQuestion:
-    "Pourquoi le son est-il l\u2019\u00e9l\u00e9ment le plus sous-estim\u00e9 de votre vid\u00e9o ?",
+    "Pourquoi la qualité audio de votre vidéo est-elle primordiale ?",
   problemAnswer:
-    "Votre audience tol\u00e8re une image moyenne mais coupe imm\u00e9diatement une vid\u00e9o au son m\u00e9diocre. Une voix-off pos\u00e9e, un sound design pr\u00e9cis et un mixage calibr\u00e9 transforment un contenu correct en exp\u00e9rience engageante. Chez DeepFrame, chaque projet audio est trait\u00e9 avec le m\u00eame niveau d\u2019exigence que l\u2019image.",
+    "Une audience tolère une image moyenne mais quitte instantanément une vidéo dont le son grésille ou est inaudible. L'audio double l'impact perçu.",
   features: [
     {
-      h3: "Enregistrement voix-off professionnel",
+      h3: "Enregistrement voix professionnelle",
       content:
-        "Direction artistique, choix de la voix (homme/femme, ton, rythme), enregistrement en environnement trait\u00e9 acoustiquement. Livraison en qualit\u00e9 broadcast.",
+        "Accès à un large catalogue de voix masculines/féminines enregistrées dans notre studio isolé acoustiquement pour une clarté absolue.",
     },
     {
-      h3: "Sound design et habillage sonore",
+      h3: "Habillage sonore & bruitage",
       content:
-        "Cr\u00e9ation d\u2019ambiances, bruitages, effets sonores et transitions audio sur mesure. Chaque \u00e9l\u00e9ment renforce la narration visuelle de votre contenu.",
+        "Création d'effets sonores, de transitions et d'ambiances acoustiques uniques pour donner du relief à vos visuels.",
     },
     {
-      h3: "Mixage et mastering audio",
+      h3: "Mixage et mastering plateforme",
       content:
-        "Mixage professionnel respectant les normes LUFS de chaque plateforme (YouTube, TV, cin\u00e9ma). \u00c9quilibrage voix, musique, effets pour une \u00e9coute optimale sur tous les supports.",
-    },
-    {
-      h3: "Musique d\u2019illustration et licensing",
-      content:
-        "S\u00e9lection et licensing de musiques adapt\u00e9es \u00e0 votre projet, ou composition sur mesure. Droits d\u2019utilisation clairs et inclus dans le devis.",
-    },
+        "Traitement des voix et égalisation des volumes audio conformes aux exigences techniques (LUFS) des réseaux et de la TV.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte un enregistrement voix-off ?",
+      question: "Quel est le coût d'un enregistrement voix-off ?",
       answer:
-        "Le tarif d\u00e9pend de la dur\u00e9e du texte et de la voix choisie. Comptez \u00e0 partir de 300 \u20ac HT pour une voix-off de moins de 2 minutes. Devis gratuit en ligne.",
+        "Nos options de voix-off professionnelle débutent à seulement 12 € par vidéo en option à la carte, ou à 29 € pour un pack de montage complet. Tous les prix sont détaillés sur notre page de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Proposez-vous des voix-off en plusieurs langues ?",
+      question: "Proposez-vous des voix en langues étrangères ?",
       answer:
-        "Oui. Nous travaillons avec un r\u00e9seau de com\u00e9diens voix fran\u00e7ais et anglophones. D\u2019autres langues sont disponibles sur demande.",
+        "Oui, nous disposons de comédiens voix natifs français, anglais et dans d'autres langues pour vos projets internationaux.",
     },
     {
-      question: "Faites-vous du sound design \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Le sound design est-il inclus par défaut ?",
       answer:
-        "Oui, notre studio est bas\u00e9 entre Orl\u00e9ans et Tours. Le sound design \u00e9tant un travail de post-production, nous collaborons aussi \u00e0 distance avec des clients de toute la France.",
-    },
-    {
-      question: "Puis-je fournir ma propre musique ?",
-      answer:
-        "Bien s\u00fbr. Si vous disposez de musiques avec les droits n\u00e9cessaires, nous les int\u00e9grons dans le mixage. Sinon, nous vous proposons des alternatives licenci\u00e9es.",
-    },
-    {
-      question: "Le sound design est-il inclus dans vos prestations vid\u00e9o ?",
-      answer:
-        "Un sound design de base est inclus dans nos packs montage et production. Pour un habillage sonore avanc\u00e9 (bruitages custom, ambiances sur mesure), un compl\u00e9ment est \u00e0 pr\u00e9voir.",
-    },
+        "Un design sonore standard est inclus dans nos offres de <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage vidéo</a>. Les créations complexes font l'objet d'un chiffrage spécifique.",
+    }
   ],
   serviceType: "AudioService",
   priceRange: "$$",
   coverImageUrl: "/images/services/voix-off-sound-design.jpg",
   coverImageAlt:
-    "Studio d\u2019enregistrement voix-off et sound design \u2014 DeepFrame Orl\u00e9ans",
+    "Studio d’enregistrement voix-off et sound design — DeepFrame Orléans",
   videoUrl: null,
   category: "audio",
   sortOrder: 8,
@@ -841,7 +677,7 @@ const voixOffSoundDesign: ServiceContent = {
     { label: "Fichier voix-off", detail: "WAV 48kHz/24bit" },
     { label: "Sound design complet", detail: "Ambiances, bruitages, effets" },
     { label: "Mixage et mastering", detail: "Normes LUFS par plateforme" },
-    { label: "Musique licenci\u00e9e", detail: "Droits inclus" },
+    { label: "Musique licenciée", detail: "Droits inclus" },
   ],
   equipment: [
     { name: "Studio traité acoustiquement", detail: "Isolation et absorption" },
@@ -855,99 +691,74 @@ const voixOffSoundDesign: ServiceContent = {
 };
 
 // ---------------------------------------------------------------------------
-// 9. Film de pr\u00e9sentation d'entreprise
+// 9. Film de présentation d'entreprise
 // ---------------------------------------------------------------------------
 
 const presentationEntreprise: ServiceContent = {
   slug: "presentation-entreprise",
-  name: "Film de pr\u00e9sentation d\u2019entreprise",
-  shortName: "Film d\u2019entreprise",
-  metaTitle: "Film pr\u00e9sentation entreprise Orl\u00e9ans Tours | DeepFrame",
+  name: "Film de présentation d’entreprise",
+  shortName: "Film d’entreprise",
+  metaTitle: "Film présentation entreprise Orléans Tours | DeepFrame",
   metaDescription:
-    "Film de pr\u00e9sentation d\u2019entreprise \u00e0 Orl\u00e9ans et Tours. Film vitrine, visite virtuelle, pr\u00e9sentation d\u2019activit\u00e9. Production audiovisuelle compl\u00e8te.",
-  h1: "Film d\u2019entreprise \u2014 votre meilleur ambassadeur en 3 minutes",
+    "Film vitrine de présentation d'entreprise à Orléans et Tours. Racontez votre expertise en vidéo de prestige.",
+  h1: "Votre meilleur ambassadeur commercial en 3 minutes",
   introParagraph:
-    "Un film de pr\u00e9sentation est la pi\u00e8ce ma\u00eetresse de votre communication audiovisuelle. En quelques minutes, il transmet votre identit\u00e9, vos valeurs et votre savoir-faire. Chez DeepFrame, nous r\u00e9alisons des films d\u2019entreprise pour les soci\u00e9t\u00e9s d\u2019Orl\u00e9ans, Tours et du Centre-Val de Loire, de la conception \u00e0 la livraison.",
+    "Un film vitrine haut de gamme qui transmet vos valeurs et votre savoir-faire pour séduire prospects et partenaires.",
   problemQuestion:
-    "Pourquoi votre entreprise a besoin d\u2019un film de pr\u00e9sentation ?",
+    "Pourquoi chaque entreprise a-t-elle besoin d'un film vitrine ?",
   problemAnswer:
-    "Votre site web, vos r\u00e9seaux sociaux, vos salons professionnels \u2014 partout, la vid\u00e9o capte l\u2019attention mieux que n\u2019importe quel texte. Un film de pr\u00e9sentation bien r\u00e9alis\u00e9 humanise votre marque, cr\u00e9dibilise votre offre et reste dans les m\u00e9moires. C\u2019est un investissement durable qui travaille pour vous 24h/24.",
+    "Un film de présentation est le moyen le plus rapide d'humaniser votre marque, de marquer durablement les esprits et de devancer vos concurrents.",
   features: [
     {
-      h3: "Film vitrine et identit\u00e9 de marque",
+      h3: "Scénarisation et concept uniques",
       content:
-        "Un film de 2 \u00e0 5 minutes qui raconte qui vous \u00eates, ce que vous faites et pourquoi vous le faites. Narration, interviews, plans d\u2019activit\u00e9 et motion design combin\u00e9s.",
+        "Nous construisons un récit captivant adapté à vos objectifs commerciaux et à votre charte d'entreprise.",
     },
     {
-      h3: "Visite virtuelle vid\u00e9o",
+      h3: "Tournage soigné & plans drone",
       content:
-        "Faites d\u00e9couvrir vos locaux, vos ateliers ou vos espaces de travail avec une visite vid\u00e9o immersive. Id\u00e9al pour le recrutement, l\u2019accueil de nouveaux clients ou la communication interne.",
+        "Prises de vue terrestres cinématiques 4K complétées par des survols aériens spectaculaires de vos infrastructures.",
     },
     {
-      h3: "Pr\u00e9sentation d\u2019activit\u00e9 et savoir-faire",
+      h3: "Habillage de marque sur mesure",
       content:
-        "Mettez en lumi\u00e8re vos processus, votre expertise et vos \u00e9quipes. Chaque plan est pens\u00e9 pour valoriser votre m\u00e9tier avec authenticit\u00e9.",
-    },
-    {
-      h3: "Sc\u00e9narisation et direction artistique",
-      content:
-        "Script, storyboard, rep\u00e9rage, casting interne \u2014 on structure votre film comme un vrai projet cin\u00e9matographique, avec un fil narratif clair et un rendu professionnel.",
-    },
-    {
-      h3: "D\u00e9clinaisons multi-supports",
-      content:
-        "Version longue pour le site web, version courte pour les r\u00e9seaux sociaux, version sous-titr\u00e9e pour l\u2019international. Un seul tournage, plusieurs exploitations.",
-    },
+        "Intégration d'animations graphiques stylisées pour valoriser vos chiffres clés et vos éléments textuels.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte un film de pr\u00e9sentation d\u2019entreprise ?",
+      question: "Quelle est la durée idéale d'un film vitrine ?",
       answer:
-        "Le tarif d\u00e9pend de la dur\u00e9e, du nombre de lieux de tournage et du niveau de post-production. Nos films d\u00e9marrent \u00e0 partir de 2 000 \u20ac HT. Devis gratuit en ligne.",
+        "Nous recommandons un format équilibré de 2 à 3 minutes pour retenir l'attention de vos prospects du début à la fin.",
     },
     {
-      question: "R\u00e9alisez-vous des films d\u2019entreprise \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Quel budget faut-il prévoir pour un film complet ?",
       answer:
-        "C\u2019est notre sp\u00e9cialit\u00e9. Nous accompagnons les entreprises d\u2019Orl\u00e9ans, Tours et du Centre-Val de Loire dans la cr\u00e9ation de leur film de pr\u00e9sentation, de la conception au montage final.",
+        "Le <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage</a> d'un film de présentation débute à 29 €. Pour une production complète incluant le tournage terrestre et par <a href=\"/services/drone-prise-de-vue-aerienne\" class=\"text-df-gold hover:underline\">drone</a>, estimez votre budget sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">générateur de devis</a> ou sur notre page <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
-      question: "Quelle est la dur\u00e9e id\u00e9ale pour un film d\u2019entreprise ?",
+      question: "Pouvons-nous décliner le film principal ?",
       answer:
-        "Entre 2 et 4 minutes pour un film de pr\u00e9sentation g\u00e9n\u00e9ral. Au-del\u00e0, l\u2019attention diminue. Pour les r\u00e9seaux sociaux, on d\u00e9cline en versions de 30 \u00e0 90 secondes.",
-    },
-    {
-      question: "Nos collaborateurs doivent-ils passer devant la cam\u00e9ra ?",
-      answer:
-        "Ce n\u2019est pas obligatoire, mais fortement recommand\u00e9. Les visages humains cr\u00e9ent un lien \u00e9motionnel. On met les intervenants \u00e0 l\u2019aise et on guide la prise de parole.",
-    },
-    {
-      question: "Combien de temps dure la production compl\u00e8te ?",
-      answer:
-        "Comptez 4 \u00e0 8 semaines entre le brief initial et la livraison finale, selon la complexit\u00e9 du projet. Un calendrier d\u00e9taill\u00e9 est fourni d\u00e8s la validation du devis.",
-    },
-    {
-      question: "Peut-on mettre \u00e0 jour le film plus tard ?",
-      answer:
-        "Oui. Nous conservons les fichiers projet et pouvons r\u00e9aliser des mises \u00e0 jour (nouveau plan, changement de texte, ajout d\u2019interview) \u00e0 un tarif pr\u00e9f\u00e9rentiel.",
-    },
+        "Absolument, nous extrayons des formats courts de 30 secondes pour alimenter vos réseaux et vos campagnes publicitaires.",
+    }
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
   coverImageUrl: "/images/services/presentation-entreprise.jpg",
   coverImageAlt:
-    "Tournage film de pr\u00e9sentation d\u2019entreprise \u2014 \u00e9quipe DeepFrame en action",
+    "Tournage film de présentation d’entreprise — équipe DeepFrame en action",
   videoUrl: null,
   category: "video",
   sortOrder: 9,
   iconName: "building",
   teamMembers: ["PAPI", "LOUISIA", "TY"],
   deliverables: [
-    { label: "Film mont\u00e9 HD/4K", detail: "Version longue (2-5 min)" },
-    { label: "Version courte r\u00e9seaux sociaux", detail: "30 \u00e0 90 secondes" },
-    { label: "Sous-titres", detail: "Fran\u00e7ais + anglais (option)" },
-    { label: "Motion design int\u00e9gr\u00e9", detail: "Titrages, transitions, g\u00e9n\u00e9rique" },
-    { label: "Script et storyboard valid\u00e9s" },
-    { label: "Musique licenci\u00e9e" },
+    { label: "Film monté HD/4K", detail: "Version longue (2-5 min)" },
+    { label: "Version courte réseaux sociaux", detail: "30 à 90 secondes" },
+    { label: "Sous-titres", detail: "Français + anglais (option)" },
+    { label: "Motion design intégré", detail: "Titrages, transitions, générique" },
+    { label: "Script et storyboard validés" },
+    { label: "Musique licenciée" },
   ],
   equipment: [
     { name: "Sony FX6", detail: "Caméra cinéma full frame" },
@@ -966,83 +777,68 @@ const presentationEntreprise: ServiceContent = {
 
 const clipMusical: ServiceContent = {
   slug: "clip-musical",
-  name: "Clip musical et vid\u00e9oclip",
+  name: "Clip musical et vidéoclip",
   shortName: "Clip musical",
-  metaTitle: "Clip musical vid\u00e9oclip Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Clip musical vidéoclip Orléans Tours | DeepFrame",
   metaDescription:
-    "R\u00e9alisation de clips musicaux et vid\u00e9oclips \u00e0 Orl\u00e9ans et Tours. Direction artistique, tournage cin\u00e9ma, montage cr\u00e9atif. Artistes et labels ind\u00e9pendants.",
-  h1: "Clip musical \u2014 donnez une image \u00e0 votre son",
+    "Réalisation de clips musicaux artistiques à Orléans et Tours. Univers cinématographique de haute qualité pour artistes.",
+  h1: "Donnez une dimension cinématographique à votre musique",
   introParagraph:
-    "Un clip musical est bien plus qu\u2019une vid\u00e9o : c\u2019est une \u0153uvre visuelle qui prolonge votre univers artistique. Chez DeepFrame, nous r\u00e9alisons des clips pour les artistes et labels ind\u00e9pendants avec une approche cin\u00e9matographique, de la direction artistique au montage final. Bient\u00f4t disponible \u00e0 Orl\u00e9ans, Tours et dans toute la France.",
+    "Nous traduisons votre univers artistique en une œuvre visuelle unique conçue pour marquer les esprits.",
   problemQuestion:
-    "Pourquoi un clip professionnel change la trajectoire d\u2019un artiste ?",
+    "Pourquoi un clip professionnel est-il crucial pour votre sortie ?",
   problemAnswer:
-    "Dans un march\u00e9 musical satur\u00e9, l\u2019image fait la diff\u00e9rence. Un clip professionnel, avec une direction artistique forte et un rendu cin\u00e9ma, capte l\u2019attention des playlisters, des m\u00e9dias et du public. Il transforme un morceau en exp\u00e9rience compl\u00e8te et multiplie sa port\u00e9e sur YouTube, Spotify et les r\u00e9seaux sociaux.",
+    "Dans un marché saturé, l'image est indispensable pour capter l'intérêt des médias et étendre votre audience sur YouTube et les réseaux sociaux.",
   features: [
     {
-      h3: "Direction artistique et concept cr\u00e9atif",
+      h3: "Direction artistique & Concept",
       content:
-        "On d\u00e9veloppe un concept visuel coh\u00e9rent avec votre univers musical. Moodboard, traitement visuel, casting, rep\u00e9rage de lieux \u2014 chaque d\u00e9tail est pens\u00e9 avant le tournage.",
+        "Création de concepts visuels et de scénarios en harmonie avec le style de votre morceau et vos influences.",
     },
     {
-      h3: "Tournage cin\u00e9ma et \u00e9clairage cr\u00e9atif",
+      h3: "Esthétique cinéma & Lumières",
       content:
-        "Cam\u00e9ras cin\u00e9ma, optiques professionnelles, \u00e9clairage d\u2019ambiance. On tourne avec le m\u00eame mat\u00e9riel et la m\u00eame exigence que pour un court-m\u00e9trage.",
+        "Utilisation de caméras cinéma grand capteur et de configurations d'éclairages élaborées pour un look authentique.",
     },
     {
-      h3: "Montage et \u00e9talonnage clip",
+      h3: "Post-production & Color grading",
       content:
-        "Montage rythm\u00e9 au tempo du morceau, transitions cr\u00e9atives, \u00e9talonnage color grading pour une ambiance visuelle unique. Chaque clip a son identit\u00e9.",
-    },
-    {
-      h3: "Effets visuels et motion design",
-      content:
-        "Int\u00e9gration d\u2019effets sp\u00e9ciaux, de titrages anim\u00e9s ou de s\u00e9quences en motion design pour enrichir le clip sans le surcharger.",
-    },
+        "Montage rythmé au tempo de votre titre et étalonnage poussé des couleurs pour signer l'esthétique du clip.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte la r\u00e9alisation d\u2019un clip musical ?",
+      question: "Quel budget faut-il prévoir pour un clip ?",
       answer:
-        "Le budget d\u00e9pend de l\u2019ambition cr\u00e9ative : nombre de lieux, figurants, effets visuels. Nos clips d\u00e9marrent \u00e0 partir de 1 500 \u20ac HT. Contactez-nous pour un devis personnalis\u00e9.",
+        "Le montage de clip musical débute à 29 € à l'unité. Pour une réalisation complète (tournage, éclairages) avec intégration de <a href=\"/services/motion-design\" class=\"text-df-gold hover:underline\">motion design</a>, consultez nos <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a> ou faites une simulation de devis.",
     },
     {
-      question: "R\u00e9alisez-vous des clips \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Combien de temps dure la production ?",
       answer:
-        "Oui, c\u2019est notre base d\u2019op\u00e9rations. Nous connaissons les lieux les plus photog\u00e9niques de la r\u00e9gion. Nous nous d\u00e9pla\u00e7ons \u00e9galement partout en France selon les besoins du projet.",
+        "Comptez entre 3 et 6 semaines. La phase d'écriture et de repérage des spots prend la plus grande partie du calendrier.",
     },
     {
-      question: "Travaillez-vous avec des artistes ind\u00e9pendants ?",
+      question: "Travaillez-vous avec des artistes indépendants ?",
       answer:
-        "Absolument. La majorit\u00e9 de nos clips sont r\u00e9alis\u00e9s pour des artistes ind\u00e9pendants et des labels \u00e9mergents. On s\u2019adapte \u00e0 votre budget sans sacrifier la qualit\u00e9.",
-    },
-    {
-      question: "Quel est le d\u00e9lai pour un clip musical ?",
-      answer:
-        "Comptez 3 \u00e0 6 semaines entre le premier \u00e9change et la livraison, selon la complexit\u00e9 du concept. La pr\u00e9-production (concept, rep\u00e9rage) repr\u00e9sente une part importante du planning.",
-    },
-    {
-      question: "Peut-on tourner un clip en une seule journ\u00e9e ?",
-      answer:
-        "Oui, pour les concepts les plus simples. La plupart des clips n\u00e9cessitent 1 \u00e0 2 jours de tournage, mais nous optimisons chaque minute sur le plateau.",
-    },
+        "Absolument, nous aimons collaborer avec la scène émergente et concevons des projets ambitieux adaptés à vos moyens.",
+    }
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
   coverImageUrl: "/images/services/clip-musical.jpg",
   coverImageAlt:
-    "Tournage clip musical en ext\u00e9rieur \u2014 r\u00e9alisation cin\u00e9ma DeepFrame",
+    "Tournage clip musical en extérieur — réalisation cinéma DeepFrame",
   videoUrl: null,
   category: "video",
   sortOrder: 10,
   iconName: "music",
   teamMembers: ["PAPI", "TY"],
   deliverables: [
-    { label: "Clip mont\u00e9 HD/4K", detail: "Dur\u00e9e du morceau" },
-    { label: "Teaser promotionnel", detail: "15 \u00e0 30 secondes" },
-    { label: "\u00c9talonnage cin\u00e9ma", detail: "Color grading sur mesure" },
-    { label: "Concept cr\u00e9atif et moodboard" },
-    { label: "Behind the scenes", detail: "Photos + vid\u00e9o (option)" },
+    { label: "Clip monté HD/4K", detail: "Durée du morceau" },
+    { label: "Teaser promotionnel", detail: "15 à 30 secondes" },
+    { label: "Étalonnage cinéma", detail: "Color grading sur mesure" },
+    { label: "Concept créatif et moodboard" },
+    { label: "Behind the scenes", detail: "Photos + vidéo (option)" },
   ],
   equipment: [],
   zoneText: ZONE_ORLEANS_TOURS,
@@ -1051,91 +847,76 @@ const clipMusical: ServiceContent = {
 };
 
 // ---------------------------------------------------------------------------
-// 11. Drone et prise de vue a\u00e9rienne (COMING SOON)
+// 11. Drone et prise de vue aérienne (COMING SOON)
 // ---------------------------------------------------------------------------
 
 const dronePriseDeVue: ServiceContent = {
   slug: "drone-prise-de-vue-aerienne",
-  name: "Drone et prise de vue a\u00e9rienne",
+  name: "Drone et prise de vue aérienne",
   shortName: "Prise de vue drone",
-  metaTitle: "Drone prise de vue a\u00e9rienne Orl\u00e9ans Tours | DeepFrame",
+  metaTitle: "Drone prise de vue aérienne Orléans Tours | DeepFrame",
   metaDescription:
-    "Prise de vue a\u00e9rienne par drone \u00e0 Orl\u00e9ans et Tours. Vid\u00e9o et photo a\u00e9rienne pour immobilier, \u00e9v\u00e9nementiel, corporate. Pilote certifi\u00e9 DGAC.",
-  h1: "Drone et prise de vue a\u00e9rienne \u2014 une perspective unique",
+    "Prises de vues aériennes par drone à Orléans et Tours. Vidéo 4K et photos certifiées DGAC pour l'immobilier et le corporate.",
+  h1: "Prenez de la hauteur avec des prises de vue spectaculaires",
   introParagraph:
-    "Les images a\u00e9riennes ajoutent une dimension spectaculaire \u00e0 vos projets vid\u00e9o et photo. Survols d\u2019architecture, immobilier, \u00e9v\u00e9nements en plein air, plans d\u2019ouverture cin\u00e9matographiques \u2014 le drone ouvre des angles impossibles depuis le sol. Bient\u00f4t disponible \u00e0 Orl\u00e9ans, Tours et en Centre-Val de Loire avec pilote certifi\u00e9.",
+    "Valorisez vos chantiers, vos bâtiments et vos événements sous un angle unique grâce au drone 4K.",
   problemQuestion:
-    "Quand la prise de vue a\u00e9rienne par drone est-elle pertinente ?",
+    "Quand faut-il intégrer des images par drone dans votre communication ?",
   problemAnswer:
-    "D\u00e8s que vous avez besoin de montrer l\u2019ampleur d\u2019un lieu, d\u2019un \u00e9v\u00e9nement ou d\u2019un projet. En immobilier, le drone r\u00e9v\u00e8le l\u2019environnement du bien. En corporate, il donne une dimension \u00e9pique \u00e0 votre film. En \u00e9v\u00e9nementiel, il capture l\u2019\u00e9nergie de la foule vue du ciel. Chez DeepFrame, chaque vol est pr\u00e9par\u00e9 dans le respect strict de la r\u00e9glementation DGAC.",
+    "Le survol aérien est idéal pour témoigner de l'ampleur d'un site industriel, d'un domaine ou pour donner du souffle et du prestige à un film.",
   features: [
     {
-      h3: "Vid\u00e9o a\u00e9rienne 4K stabilis\u00e9e",
+      h3: "Vidéo 4K stable et fluide",
       content:
-        "Plans a\u00e9riens fluides en 4K avec nacelle stabilis\u00e9e 3 axes. Mouvements de cam\u00e9ra cin\u00e9matographiques : travellings, r\u00e9v\u00e9lations, orbitales.",
+        "Mouvements de caméras lents et cinématiques (orbitales, travellings) sur nacelle stabilisée 3 axes pour un rendu parfait.",
     },
     {
-      h3: "Photo a\u00e9rienne haute r\u00e9solution",
+      h3: "Photos haute résolution",
       content:
-        "Photos a\u00e9riennes en haute r\u00e9solution pour l\u2019immobilier, l\u2019urbanisme, l\u2019agriculture ou la communication corporate. Livr\u00e9es retouch\u00e9es et g\u00e9or\u00e9f\u00e9renc\u00e9es sur demande.",
+        "Photographies aériennes haute définition pour valoriser un patrimoine immobilier, guider un suivi de chantier ou l'architecture.",
     },
     {
-      h3: "Pilotage certifi\u00e9 et autorisations",
+      h3: "Pilote agréé et conformité DGAC",
       content:
-        "Pilote certifi\u00e9 DGAC, assurance RC professionnelle, d\u00e9clarations de vol et demandes d\u2019autorisation pr\u00e9fectorale incluses. On g\u00e8re toute la partie administrative.",
-    },
-    {
-      h3: "Int\u00e9gration dans vos productions vid\u00e9o",
-      content:
-        "Les plans drone s\u2019int\u00e8grent naturellement dans vos films corporate, clips, reportages ou contenus r\u00e9seaux sociaux. On g\u00e8re le montage et l\u2019\u00e9talonnage pour une coh\u00e9rence parfaite.",
-    },
+        "Le respect strict des règles de sécurité de l'espace aérien et la gestion intégrale des demandes d'autorisation préfectorales.",
+    }
   ],
   faq: [
     {
-      question: "Combien co\u00fbte une prestation drone ?",
+      question: "Quel est le tarif d'une mission de vol drone ?",
       answer:
-        "Les tarifs d\u00e9pendent de la dur\u00e9e du vol, du nombre de lieux et du type de livrable (vid\u00e9o, photo, les deux). Comptez \u00e0 partir de 500 \u20ac HT pour une demi-journ\u00e9e. Devis gratuit en ligne.",
+        "Nos prises de vue aériennes débutent à 15 € pour un pack de 5 photos et à 29 € pour le montage vidéo. Pour des vols nécessitant des autorisations spécifiques, découvrez tous nos packs sur notre page de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>, et associez-les à nos <a href=\"/services/presentation-entreprise\" class=\"text-df-gold hover:underline\">films de présentation d'entreprise</a> ou à nos <a href=\"/services/shooting-automobile\" class=\"text-df-gold hover:underline\">shootings automobile</a>.",
     },
     {
-      question: "Faites-vous du drone \u00e0 Orl\u00e9ans et Tours ?",
+      question: "Que se passe-t-il en cas de mauvaise météo ?",
       answer:
-        "Oui, sous r\u00e9serve des autorisations de vol (certaines zones urbaines sont soumises \u00e0 restrictions). Nous g\u00e9rons les demandes d\u2019autorisation pr\u00e9fectorale pour vous.",
+        "En cas de conditions de sécurité compromises (pluie, vent fort), la mission est reportée sans aucun frais pour vous.",
     },
     {
-      question: "Votre pilote est-il certifi\u00e9 ?",
+      question: "Qu'en est-il du survol en agglomération ?",
       answer:
-        "Oui, notre pilote dispose de l\u2019attestation de comp\u00e9tences DGAC (cat\u00e9gorie ouverte et sp\u00e9cifique) et d\u2019une assurance RC professionnelle.",
-    },
-    {
-      question: "Peut-on combiner drone et tournage au sol ?",
-      answer:
-        "Absolument. C\u2019est m\u00eame le sc\u00e9nario le plus courant. Les plans drone enrichissent un tournage classique avec des angles et perspectives impossibles depuis le sol.",
-    },
-    {
-      question: "Quelles sont les conditions m\u00e9t\u00e9o requises pour un vol drone ?",
-      answer:
-        "Pas de pluie, vent mod\u00e9r\u00e9 (<40 km/h), visibilit\u00e9 suffisante. En cas de m\u00e9t\u00e9o d\u00e9favorable, nous reprogrammons le vol sans frais suppl\u00e9mentaires.",
-    },
+        "Nous prenons en charge toutes les demandes d'autorisation spécifiques auprès de la préfecture de la région concernée.",
+    }
   ],
   serviceType: "VideographyService",
   priceRange: "$$",
   coverImageUrl: "/images/services/drone-prise-de-vue-aerienne.jpg",
   coverImageAlt:
-    "Prise de vue a\u00e9rienne par drone au-dessus de la Loire \u2014 DeepFrame Orl\u00e9ans",
+    "Prise de vue aérienne par drone au-dessus de la Loire — DeepFrame Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 11,
   iconName: "plane",
   teamMembers: ["PAPI"],
   deliverables: [
-    { label: "Vid\u00e9o a\u00e9rienne 4K", detail: "Plans stabilis\u00e9s" },
-    { label: "Photos a\u00e9riennes HD", detail: "Retouch\u00e9es et calibr\u00e9es" },
-    { label: "Autorisations de vol", detail: "D\u00e9clarations DGAC incluses" },
-    { label: "Int\u00e9gration montage", detail: "Si coupl\u00e9 \u00e0 une production vid\u00e9o" },
+    { label: "Vidéo aérienne 4K", detail: "Plans stabilisés" },
+    { label: "Photos aériennes HD", detail: "Retouchées et calibrées" },
+    { label: "Autorisations de vol", detail: "Déclarations DGAC incluses" },
+    { label: "Intégration montage", detail: "Si couplé à une production vidéo" },
   ],
   equipment: [],
   zoneText:
-    "Nous r\u00e9alisons des prises de vue a\u00e9riennes \u00e0 Orl\u00e9ans, Tours et dans tout le Centre-Val de Loire (Loiret, Indre-et-Loire, Loir-et-Cher). Les vols en zone urbaine n\u00e9cessitent des autorisations sp\u00e9cifiques que nous g\u00e9rons int\u00e9gralement. D\u00e9placements possibles dans toute la France.",
+    "Nous réalisons des prises de vue aériennes à Orléans, Tours et dans tout le Centre-Val de Loire (Loiret, Indre-et-Loire, Loir-et-Cher). Les vols en zone urbaine nécessitent des autorisations spécifiques que nous gérons intégralement. Déplacements possibles dans toute la France.",
   relatedSlugs: ["production-corporate", "shooting-automobile", "presentation-entreprise"],
   isPublished: false,
 };

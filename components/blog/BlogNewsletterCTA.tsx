@@ -17,7 +17,7 @@ export default function BlogNewsletterCTA() {
 
   return (
     <section className="rounded-2xl bg-df-surface px-6 py-10 text-center md:px-12 md:py-14">
-      <h2 className="font-display text-2xl font-bold italic text-white md:text-3xl">
+      <h2 className="font-display text-2xl uppercase tracking-tight text-white md:text-3xl">
         Restez informés
       </h2>
       <p className="mx-auto mt-3 max-w-lg text-white/60">

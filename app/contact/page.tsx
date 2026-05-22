@@ -1,4 +1,3 @@
-﻿import React from "react";
 import { Mail, MapPin, Calculator, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import NavWrapper from "@/components/layout/NavWrapper";
@@ -18,25 +17,6 @@ const MEMBERS = [
   { id: "ty", name: "Tracy" },
 ] as const;
 
-const FAQ_ITEMS: { q: string; rich: React.ReactNode }[] = [
-  {
-    q: "Comment fonctionne la demande de devis ?",
-    rich: <>Notre <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">configurateur en ligne</Link> vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
-  },
-  {
-    q: "Quels sont les tarifs de vos prestations ?",
-    rich: <>Nos <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2">abonnements</Link> démarrent à 49 €/mois (formule Standard : 2 vidéos + recyclage multi-réseaux). Pack Particulier dès 29 € la vidéo. <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2">Voir tous les tarifs</Link>.</>,
-  },
-  {
-    q: "Quels sont les délais de livraison ?",
-    rich: <>Le délai standard est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">option express 48h</Link> (+50 €) pour les projets urgents.</>,
-  },
-  {
-    q: "Faut-il payer un acompte ?",
-    rich: <>Oui, un acompte de 30&nbsp;% est demandé à la validation du <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2">devis</Link> pour confirmer la réservation de la date de tournage. Le solde est réglé à la livraison. Paiement par carte bancaire (Stripe) ou virement.</>,
-  },
-];
-
 export default function ContactPage() {
   return (
     <>
@@ -50,7 +30,7 @@ export default function ContactPage() {
         <header className="mb-14">
           <p
             className="mb-3 text-xs font-semibold uppercase tracking-widest text-df-gold"
-            style={{ fontFamily: "var(--font-jetbrains)" }}
+            style={{ fontFamily: "var(--font-sans)" }}
           >
             On vous répond sous 24h
           </p>
@@ -154,7 +134,7 @@ export default function ContactPage() {
             <aside className="hidden lg:block">
               <p
                 className="mb-4 text-xs font-semibold uppercase tracking-widest text-df-gold"
-                style={{ fontFamily: "var(--font-jetbrains)" }}
+                style={{ fontFamily: "var(--font-sans)" }}
               >
                 À glisser dans le message
               </p>
@@ -171,7 +151,7 @@ export default function ContactPage() {
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
                   <span className="font-bold text-df-gold">Un budget.</span>{" "}
-                  Même approximatif — nos abonnements démarrent à 49 €/mois.
+                  Même approximatif — nos abonnements démarrent à 45 €/mois.
                 </li>
                 <li className="border-t border-white/[0.08] pt-4">
                   <span className="font-bold text-df-gold">Une deadline.</span>{" "}
@@ -187,44 +167,17 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* ─── FAQ ───────────────────────────────────── */}
-        <section className="mb-14">
-          <div className="mb-6 flex items-end justify-between">
-            <h2
-              className="text-2xl font-bold text-df-gold"
-              style={{
-                fontFamily: "var(--font-display)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Questions fréquentes
-            </h2>
-            <Link
-              href="/faq"
-              className="text-sm font-semibold text-df-gold hover:text-white transition"
-            >
-              Voir toute la FAQ →
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {FAQ_ITEMS.map((item, i) => (
-              <details
-                key={item.q}
-                className="group rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]"
-                {...(i === 0 ? { open: true } : {})}
-              >
-                <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-white transition hover:bg-white/[0.04]">
-                  <span>{item.q}</span>
-                  <span className="ml-4 shrink-0 text-df-gold transition-transform group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <div className="px-5 pb-5 text-sm leading-relaxed text-white/60">
-                  {item.rich}
-                </div>
-              </details>
-            ))}
-          </div>
+        {/* ─── Lien FAQ ──────────────────────────────── */}
+        <section className="mb-14 flex items-center justify-between rounded-2xl border border-white/[0.08] bg-df-surface p-5">
+          <p className="text-sm text-white/70">
+            <span className="font-semibold text-white">Une question fréquente ?</span> Consultez notre FAQ complète.
+          </p>
+          <Link
+            href="/faq"
+            className="text-sm font-semibold text-df-gold transition hover:text-white"
+          >
+            Voir la FAQ →
+          </Link>
         </section>
 
         {/* ─── CTA devis ─────────────────────────────── */}
@@ -240,10 +193,10 @@ export default function ContactPage() {
               Le plus complet
             </p>
             <p
-              className="text-xl font-bold text-white"
+              className="text-xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Demandez votre devis en ligne →
+              Demander un devis en ligne →
             </p>
             <p className="mt-0.5 text-sm text-white/60">
               Configurateur en 3 étapes · Gratuit, sans engagement

@@ -386,7 +386,7 @@ export const blogContent: Record<string, string> = {
   <li>Les <strong>témoignages clients</strong> et interviews</li>
   <li>Les <strong>films de marque</strong> et vidéos institutionnelles</li>
   <li>Les <strong>aftermovies</strong> d'événements</li>
-  <li>Les <strong>shooting auto</strong> et présentations produit</li>
+  <li>Les <strong>shootings automobile</strong> et présentations produit</li>
 </ul>
 
 <h3>Le motion design : la clarté</h3>

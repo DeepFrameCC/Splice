@@ -25,7 +25,7 @@ export default function BlogArticleCard({ post }: BlogArticleCardProps) {
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-white/5">
-            <span className="font-display text-4xl italic text-white/10">DF</span>
+            <span className="font-display text-4xl uppercase tracking-tight text-white/10">DF</span>
           </div>
         )}
       </div>
@@ -46,7 +46,7 @@ export default function BlogArticleCard({ post }: BlogArticleCardProps) {
           </div>
         )}
 
-        <h3 className="font-display text-lg font-bold italic text-white transition-colors group-hover:text-white/80 line-clamp-2">
+        <h3 className="font-display text-lg uppercase tracking-tight text-white transition-colors group-hover:text-white/80 line-clamp-2">
           {post.title}
         </h3>
 

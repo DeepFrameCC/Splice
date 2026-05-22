@@ -59,7 +59,7 @@ export default function VideoCard({ id, src, thumbnail, preview, title, ownerHan
           <Play className="h-14 w-14 text-white drop-shadow-lg" />
         </div>
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4 text-white">
-          <p className="font-display italic text-df-gold text-sm">{ownerHandle}</p>
+          <p className="font-display uppercase tracking-wider text-df-gold text-sm">{ownerHandle}</p>
           <h3 className="text-sm font-bold">{title}</h3>
           {reveal && isAuthed && (
             <div className="mt-2 space-y-1 text-xs">

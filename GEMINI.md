@@ -1,0 +1,339 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev          # Start dev server
+npm run build        # Production build
+npm run lint         # ESLint
+npm run db:push      # Push Prisma schema to DB (no migration file)
+npm run db:generate  # Regenerate Prisma client after schema changes
+npm run db:studio    # Open Prisma Studio
+npm run db:seed      # Run prisma/seed.ts
+```
+
+No formal test suite is currently configured (Vitest + Playwright planned Phase 16).
+
+## Architecture
+
+**DeepFrame** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+
+The platform handles: public showcase, client authentication (CLIENT / TEAM / ADMIN), quote wizard, payment via Stripe, PDF invoices, electronic contracts, and a full admin dashboard.
+
+### Stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 15 (App Router, RSC, Server Actions) |
+| Language | TypeScript strict |
+| Database | Neon PostgreSQL (eu-central-1) via Prisma |
+| Auth | Auth.js v5 (JWT strategy currently, migrating to DB sessions + Argon2id + 2FA TOTP) |
+| Payments | Stripe Checkout + webhooks |
+| Email | Resend + React Email |
+| Storage | Cloudflare R2 (planned, currently local public/) |
+| Signature | Yousign eIDAS (planned) |
+| Cache/RL | Upstash Redis (planned) |
+| Styling | Tailwind CSS + shadcn/ui (mobile-first) |
+| Animations | GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) |
+| State | Zustand (quote wizard) |
+| Forms | React Hook Form + Zod |
+| PDF | PDFKit server-side |
+| Monitoring | Sentry + Plausible (planned) |
+
+### Team
+
+- **t.y97one** — ADMIN (monteur / motion designer)
+- **papiforcex** — TEAM (vidéaste / réalisateur)
+- **by.louisia** — TEAM (photographe)
+
+### Route Structure
+
+```
+app/
+  page.tsx                   # Landing page ("use client", styles in prototype-styles.css)
+  layout.tsx                 # Root layout (fonts, Toaster, JSON-LD)
+  (auth)/                    # Auth group: login, register, forgot/reset-password
+  devis/page.tsx             # Quote wizard (requires auth)
+  galerie/page.tsx           # Gallery (photos + videos, inline video modal)
+  equipe/page.tsx            # Team page
+  services/                  # Service pages (RSC, ISR 1h, JSON-LD, FAQ)
+  contact/page.tsx
+  mentions-legales/page.tsx  # Legal notices (LCEN)
+  confidentialite/page.tsx   # Privacy policy (RGPD)
+  cookies/page.tsx           # Cookie policy
+  profil/                    # Client dashboard (auth-protected)
+  admin/                     # Admin dashboard (ADMIN role only)
+  api/
+    auth/[...nextauth]/      # NextAuth handler
+    devis/[id]/pdf/          # PDF generation endpoint
+    stripe/webhook/          # Stripe webhook
+```
+
+### Key Data Models (Prisma)
+
+- **User**: roles CLIENT | ADMIN (migrating to CLIENT | TEAM | ADMIN)
+- **Media**: PHOTO | VIDEO with owner (Founder enum: PAPI | LOUISIA | TY), category, client, duration
+- **Devis**: Full quote with computed `lines` (JSON), `totalHT`, `acompteAmount` (30%)
+- **Facture**: Linked 1:1 to Devis after payment
+- **Contrat**: Linked 1:1 to Devis
+- **Counter**: Auto-incrementing sequence per year/type for human-readable numbers
+- **Service**: slug-based, JSON fields `features` and `faq`, linked to BlogPost
+- **BlogPost**: slug-based, linked to parent Service for SEO silo
+
+### Core Business Logic
+
+- **Pricing** (`lib/pricing.ts`): `computeQuote(input)` builds line items. All prices in euros (integers). `MENTIONS_LEGALES` embedded in PDFs.
+- **Quote numbering** (`lib/numbering.ts`): `nextNumero(type, tx)` — MUST be called inside `db.$transaction()`, never outside.
+- **Fiscal rule**: TVA non applicable, art. 293 B du CGI. Mention obligatoire sur devis et factures.
+- **Numbering**: Sequential, no gaps allowed (L123-22 Code commerce). Format: `{YYYY}_{seq:03d}`.
+
+### Server Actions
+
+All mutations use `"use server"`:
+- `app/actions/auth.ts` — register, password reset
+- `app/actions/devis.ts` — `submitDevis` (validates, computes, creates, sends emails)
+- `app/actions/admin.ts` — admin status updates
+- `app/actions/likes.ts` — toggle like
+- `app/actions/contact.ts` — contact form submission
+
+## Agent Orchestration Protocol (Context-Engineering)
+
+Cette section impose les règles de coordination entre l'orchestrateur (moi, Claude principal) et les 7 sub-agents projet. Elle dérive directement des skills `multi-agent-patterns` et `tool-design`.
+
+**Pattern utilisé** : supervisor/orchestrator avec `forward_message` discipline. Je décompose, route vers les specialists, et **forwarde** leurs artefacts littéralement quand ils sont finaux (copy, JSON-LD, mention PDF, message d'email).
+
+### Règles d'invocation (hard rules)
+
+1. **Cap de parallélisme** : maximum **3 sub-agents en parallèle** par feature. Au-delà → batch en deux vagues séquentielles. Raison : coordination overhead > gain au-delà de 3-5 workers (cf. multi-agent-patterns gotcha #1).
+2. **Ne pas déléguer pour les single-file edits triviaux** (un import à ajouter, un typo, un toast à changer). Coût ~15× tokens vs édit inline (cf. multi-agent-patterns token economics).
+3. **Contexte minimal** : à chaque invocation, passer **uniquement** le contexte nécessaire au sub-agent (chemins de fichier + intent + contraintes). Ne jamais dumper toute la conversation. Sub-agent = contexte propre par design.
+4. **Filesystem-as-shared-state** : si deux sub-agents doivent partager un état, écrire dans un fichier du repo (commentaire, JSON, ou code source). Pas de message-passing entre agents — risque téléphone.
+5. **Validation systématique** : avant d'accepter l'output d'un sub-agent, vérifier l'Output Contract — les `Files changed` existent vraiment (Read), le build passe si annoncé, les handoffs listés sont traités.
+6. **Forward-message pour artefacts finaux** : copy utilisateur, contenu d'email Resend, texte de MENTIONS_LEGALES PDF, JSON-LD, descriptions metadata — je les **forwarde littéralement** depuis le sub-agent vers l'utilisateur, jamais paraphrasé.
+7. **Pas de sycophantic consensus** : si deux sub-agents donnent des avis contradictoires (ex. `security` veut un CSP strict, `seo-performance` veut autoriser un domaine d'image), je tranche en remontant la contrainte la plus stricte par défaut, et je documente le trade-off dans la sortie.
+
+### Routing table (decision tree)
+
+| Tâche | Agent principal | Chain si nécessaire |
+|-------|-----------------|---------------------|
+| Nouvelle page `/services/[slug]` | `backend-api` (fetch) | → `design-frontend` (JSX) → `seo-performance` (metadata + JSON-LD) |
+| Tunnel devis (modif logique) | `backend-api` | → `security` (Zod + ownership) → `design-frontend` (UI feedback) |
+| Tunnel devis (modif UI seul) | `design-frontend` | — |
+| Animation hero/scroll | `gsap-animations` | → `design-frontend` (si markup) |
+| Galerie nouvelle fonctionnalité | `media-content` (data) | → `design-frontend` (cards) → `seo-performance` (OG par média) |
+| Mise en prod / pré-deploy audit | `devops-quality` | → `security` (audit OWASP) → `seo-performance` (Lighthouse) |
+| Nouveau type d'email (Resend) | `backend-api` (template + send) | → `stop-slop` skill final pass sur la copy |
+| Headers HTTP / CSP modifs | `security` | — |
+| Migration Prisma destructive | `devops-quality` (plan) | → `backend-api` (code consommateur) — requires user validation |
+| Bug TypeScript | l'agent owner du fichier en question | — |
+
+### Output Contract (imposé à tous les sub-agents)
+
+Tout sub-agent doit terminer son invocation par ce bloc :
+
+```
+### Files changed
+- <path> — <résumé 1 ligne>
+
+### Decisions
+- <choix non-évident>
+
+### Verified
+- <ce qui a été testé/buildé>
+
+### Handoff
+- @<sibling-agent> : <ce qui doit être traité ailleurs>
+```
+
+Si le bloc manque ou si une ligne ne correspond pas à la réalité (fichier non créé, build cassé alors qu'annoncé ok), je rejette l'output et redemande au sub-agent avec la finding spécifique.
+
+### Quand NE PAS invoquer un sub-agent
+
+- Édit single-file < 10 lignes → inline
+- Recherche / exploration / lecture sans modification → inline (Read/Grep/Glob)
+- Question conceptuelle de l'utilisateur → réponse directe
+- Tâche entièrement dans ma zone (réécrire ce fichier CLAUDE.md, gérer la mémoire) → inline
+
+### Quand chaîner vs paralléliser
+
+- **Séquentiel obligatoire** : data → UI → metadata → security audit. La sortie de l'un est l'input de l'autre.
+- **Parallèle OK** : audits indépendants (ex. `security` + `seo-performance` sur la même PR avant merge), ou refactors de domaines disjoints.
+
+## Agent Squad — Capabilities (Proactive Auto-Invocation)
+
+Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically based on task context, never wait for the user to name them.** Detect intent, call the Agent tool, then produce output. Chain selon la routing table ci-dessus. Respecter le cap de 3 agents parallèles.
+
+| Agent | Auto-invoke when the task involves… |
+|-------|-------------------------------------|
+| `design-frontend` | Any React component, page layout, Tailwind, shadcn/ui, responsive breakpoint, hover/focus state, form UI, mobile menu, modal, drawer, accessibility (WCAG/ARIA), or "make it look better" |
+| `backend-api` | Prisma schema/migration, Server Action, API route, Stripe checkout/webhook, Resend email, PDF generation, devis/facture/contrat logic, numbering, pricing computation, AuditLog |
+| `security` | Auth flow, NextAuth config, CSP/HTTP headers, rate limiting, CSRF, input validation, secret handling, OWASP concerns, password hashing, 2FA, session storage, encryption (AES-GCM) |
+| `seo-performance` | `<head>` metadata, OpenGraph, JSON-LD, sitemap.xml, robots.txt, image optimization (next/image), bundle size, Core Web Vitals (LCP/INP/CLS), lazy loading, RSC vs client split |
+| `media-content` | Gallery, photo/video upload, R2/Supabase storage, likes, reviews/avis, moderation, founder enum (PAPI/LOUISIA/TY), media metadata |
+| `devops-quality` | `error.tsx` / `not-found.tsx` / `loading.tsx`, global error handlers, TypeScript strict issues, environment variables, deployment config (Vercel), `next.config.mjs`, Sentry, monitoring |
+| `gsap-animations` | GSAP Timeline, ScrollTrigger, SplitText, DrawSVG, Flip, scroll-linked motion, text reveal, pinning, `useGSAP()`, `gsap.matchMedia()`, `prefers-reduced-motion` |
+
+**Chaining examples:**
+- Nouvelle page `/services/[slug]` SEO-optimisée → `seo-performance` (metadata, JSON-LD) + `design-frontend` (UI) + `backend-api` (data fetch)
+- Tunnel devis avec paiement Stripe → `backend-api` (Server Action, Stripe, Resend) + `design-frontend` (Wizard UI) + `security` (validation Zod, rate limit) + `devops-quality` (error boundary)
+- Animation hero landing → `gsap-animations` + `design-frontend` + `seo-performance` (vérifier LCP)
+- Refonte tarifs → `backend-api` (`lib/pricing.ts`) + `design-frontend` (PricingSection) + `seo-performance` (metadata)
+
+**Marketing skills auto-invocation** (depuis `~/.claude/skills/marketingskills/`) :
+- Copy des pages services / landing → `copywriting` + `cro`
+- Emails devis/onboarding/relance → `emails`
+- Page `/services/*` SEO → `seo-audit` + `ai-seo` + `schema`
+- Page `/tarifs` → `pricing` + `cro`
+- Galerie / showcase → `image` + `social`
+- Avis clients → `customer-research`
+- Lancement nouveau service → `launch` + `directory-submissions`
+
+**Exception — NE PAS auto-invoquer** : `higgsfield-generate`, `higgsfield-marketplace-cards`, `higgsfield-product-photoshoot`, `higgsfield-soul-id` (génération vidéo/photo payante — requiert demande explicite de l'utilisateur).
+
+## UI/UX Pro Max (nextlevelbuilder/ui-ux-pro-max-skill)
+
+Repo dans `~/.claude/skills/ui-ux-pro-max-skill/` (MIT, NextLevelBuilder). 7 skills jonctionnés dans `~/.claude/skills/` : `ui-ux-pro-max`, `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, `slides`. Base de données : 67 styles UI, 161 palettes, 57 pairings de fonts, 99 règles UX, 25 types de charts, 10 stacks.
+
+- **Repo** : https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+- **Auto-invocation** : MANDATORY avant toute tâche UI/UX/composant sur DeepFrame. Invoquer `ui-ux-pro-max` en amont pour pull style + palette + typo + règles UX, puis chaîner `design-frontend` (agent projet) pour l'implémentation React/Tailwind/shadcn.
+- **Cas DeepFrame** :
+  - Refonte composant existant (`components/services/*`, `components/devis/*`, `components/home/*`) → `ui-ux-pro-max` + `design-frontend`
+  - Nouveau token / variable CSS / palette (charte "Cinéma Studio") → `design-system` + `ui-styling`
+  - Bannière OG / hero / cover services / social → `banner-design`
+  - Refonte identité visuelle ou guidelines de tonalité → `brand`
+  - Présentation interne ou pitch → `slides`
+- **Compatibilité charte existante** : DeepFrame a déjà sa DA "Cinéma Studio" (cf. mémoire) — utiliser `ui-ux-pro-max` comme système de référence/checklist, sans écraser les tokens existants (`#0E0E22`, `#F36B1F`, Fraunces, Inter, JetBrains Mono).
+- **Update** : `cd ~/.claude/skills/ui-ux-pro-max-skill && git pull`
+
+## Impeccable — Design Engineering Workflow (pbakaus/impeccable)
+
+Installé via `npx skills add` (Apache 2.0, basé sur Anthropic frontend-design fork par Paul Bakaus). Skill **workflow complet** avec 24 sous-commandes, design laws strictes, et système de register brand/product.
+
+- **Repo** : https://github.com/pbakaus/impeccable
+- **Register DeepFrame** : `brand` (production audiovisuelle = design IS the product, pas un app UI)
+- **Setup recommandé** : créer `PRODUCT.md` à la racine du projet avec users (clients PME Centre-Val de Loire), brand (DeepFrame Cinéma Studio), tone (premium, sobre, direct), anti-references (templates SaaS génériques, fillers décoratifs), strategic principles. Optionnel : `DESIGN.md` avec palette `#0E0E22`/`#6B8779`/`#F36B1F`, fonts Anton/Poppins, charte DA Cinéma Studio. Sans ces fichiers le skill sera invité à invoquer `/impeccable teach` en premier.
+- **Sous-commandes** : `craft`, `shape`, `polish`, `critique`, `audit`, `bolder`, `quieter`, `distill`, `harden`, `onboard`, `animate`, `colorize`, `typeset`, `layout`, `delight`, `overdrive`, `clarify`, `adapt`, `optimize`, `live`, `extract`, `teach`, `document`.
+- **Design laws strictes** (impeccable applique partout) :
+  - OKLCH only, jamais `#000`/`#fff` purs, tinter les neutrals vers `#F36B1F` (chroma 0.005-0.01)
+  - Theme choisi par "scene sentence" (qui, où, dans quelle ambiance) — pas par défaut "dark cool"
+  - Typography : line-length 65-75ch body, hiérarchie ≥1.25 ratio
+  - Spacing varié pour le rythme, pas de padding uniforme
+  - **Bans absolus** : side-stripe borders >1px, gradient text, glassmorphism par défaut, hero-metric template SaaS, grilles de cards identiques, modal-first, em dashes (—) en français → utiliser virgules/parenthèses
+  - Motion : ease-out-quart/quint/expo, pas de bounce/elastic, ne jamais animer layout properties
+
+**Auto-invocation sur DeepFrame** :
+- Refonte d'une page entière → `impeccable shape` → `impeccable craft`
+- Polish d'un composant → `impeccable polish <fichier>`
+- Page trop fade → `impeccable bolder <fichier>`
+- Page trop chargée → `impeccable quieter <fichier>` ou `impeccable distill <fichier>`
+- Audit a11y/perf/responsive → `impeccable audit`
+- Critique UX heuristique → `impeccable critique`
+- Production-ready (errors, i18n, edge cases) → `impeccable harden`
+- First-run flows, empty states → `impeccable onboard`
+- UI performance → `impeccable optimize`
+
+**Complémentarité avec les autres design skills DeepFrame** :
+- `ui-ux-pro-max` = DB statique structurée (67 styles × 161 palettes × 57 fonts) — référentiel
+- `emil-design-eng` = sensibilité Emil Kowalski sur micro-interactions / feel
+- `impeccable` = **workflow opérationnel** avec laws + commandes + register
+- `design-frontend` (agent projet) = implémentation finale React/Tailwind/Framer Motion
+
+**Chaînage type pour grosse refonte sur DeepFrame** :
+```
+impeccable shape (plan)
+  → impeccable craft (build)
+  → emil-design-eng (polish/feel)
+  → impeccable critique + audit (eval)
+  → impeccable polish (final pass)
+  → design-frontend (implémentation finale si pas encore couverte)
+```
+
+**Update** : `npx skills add https://github.com/pbakaus/impeccable --skill impeccable`
+
+## Design Engineering (emilkowalski/skill)
+
+Cloné dans `~/.claude/skills/emil-skill/` (MIT, Emil Kowalski). Skill auto-découvert sous le nom `emil-design-eng` via jonction. Encode la philosophie design engineering : UI polish, micro-interactions, animation feel, détails invisibles qui font la différence entre une UI fonctionnelle et une UI premium.
+
+- **Repo** : https://github.com/emilkowalski/skill
+- **Auto-invocation** : MANDATORY en amont de `design-frontend` (agent projet) sur DeepFrame pour toute tâche UI sensible au "feel" — micro-interactions, hover/focus states, animation timing, polish de composants. Chaîner avec `ui-ux-pro-max` (DB styles/palettes) en parallèle pour couvrir système ET sensibilité.
+- **Cas DeepFrame** :
+  - Polish des transitions tunnel devis (`components/devis/Wizard.tsx`, `Steps.tsx`)
+  - Hover states galerie / showreel (`components/home/HomeContent.tsx` Showreel function)
+  - Animation feel des CTA primaires (df-btn-primary scale/translateY)
+  - Sortie d'erreurs/toasts (`react-hot-toast` timing)
+  - Subtilités d'apparition (IntersectionObserver dans About stats)
+- **Chaînage type** : `emil-design-eng` (philosophie/principes) → `ui-ux-pro-max` (DB styles si besoin de palette/font) → `design-frontend` (implémentation React/Tailwind/Framer Motion ou GSAP via `gsap-animations`).
+- **Update** : `cd ~/.claude/skills/emil-skill && git pull`
+
+## Anti-Slop Skill (hardikpandya/stop-slop)
+
+Cloné dans `~/.claude/skills/stop-slop/` (MIT, Hardik Pandya). Élimine les patterns d'écriture IA dans la prose : ouvertures bavardes, contrastes binaires ("c'est pas X, c'est Y"), béquilles d'emphase, voix passive, jargon corporate, fragmentation dramatique.
+
+- **Repo** : https://github.com/hardikpandya/stop-slop
+- **Auto-invocation** : MANDATORY en final pass après toute génération/édition de prose (copy services, emails devis, mentions légales, descriptions galerie, posts blog, OG/meta descriptions). Chaîner systématiquement après `copywriting`, `copy-editing`, `emails`, `cold-email`.
+- **Cas DeepFrame** : tout texte visible côté client (`prisma/services-content.ts`, `components/services/*`, `components/devis/*`, emails Resend, PDF mentions, hero/baseline) doit passer par `stop-slop` avant validation.
+- **Update** : `cd ~/.claude/skills/stop-slop && git pull`
+
+## Marketing Skills (coreyhaines31/marketingskills)
+
+Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ skills for technical marketers: conversion optimization, copywriting, SEO, ads, analytics, growth.
+
+- **Repo**: https://github.com/coreyhaines31/marketingskills
+- **Categories**: `cro`, `copywriting`, `emails`, `seo-audit`, `ai-seo`, `programmatic-seo`, `schema`, `ads`, `ad-creative`, `analytics`, `ab-testing`, `referrals`, `churn-prevention`, `onboarding`, `pricing`, `launch`, `popups`, `paywalls`, `signup`, `lead-magnets`, `cold-email`, `community-marketing`, `social`, `video`, `image`, `customer-research`, `competitor-profiling`, `marketing-psychology`, `product-marketing`, `sales-enablement`, `revops`, `content-strategy`, `aso`, `directory-submissions`, `site-architecture`, `free-tools`, `marketing-ideas`, `co-marketing`, `copy-editing` (full list in `~/.claude/skills/marketingskills/skills/`)
+- **Usage**: invoke via Skill tool by name (e.g. `cro`, `copywriting`, `emails`) when working on landing pages, devis emails, service SEO pages, or launch copy for DeepFrame
+- **Tool registry**: `~/.claude/skills/marketingskills/tools/REGISTRY.md` — integration guides for GA4, Stripe, Resend, Google Ads, Meta Ads, HubSpot, etc.
+- **Update**: `git pull` dans `~/.claude/skills/marketingskills/`
+
+## GSAP
+
+- Install: `npm install gsap @gsap/react`
+- Rule: always `useGSAP()` (never `useEffect`) in React
+- Global setup: `lib/gsap.ts` with `gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVG, Flip)`
+- GSAP components: must be `"use client"` or `dynamic(..., { ssr: false })`
+- `prefers-reduced-motion`: always handle via `gsap.matchMedia()`
+
+## Workflow Rules
+
+- **Double-check before validating**: Always verify every modification BEFORE declaring done. Re-read modified files, ensure imports are correct, CSS loads, paths exist. Never validate without complete verification.
+- **RSC by default**: `"use client"` only when immediate interactivity is required.
+- **No `any`**: Use `unknown` with narrowing if needed.
+- **Zod validation**: Client AND server, never trust frontend alone.
+- **AuditLog**: On every sensitive action (create/modify/delete docs and users).
+
+## Environment Variables Required
+
+```
+DATABASE_URL
+DIRECT_URL               # Neon direct connection (migrations)
+AUTH_SECRET
+STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET
+RESEND_API_KEY
+MAIL_FROM
+MAIL_FOUNDERS            # comma-separated founder emails
+NEXT_PUBLIC_APP_URL
+# Planned:
+# ENCRYPTION_KEY          # AES-256-GCM for PII
+# R2_ACCOUNT_ID / R2_ACCESS_KEY / R2_SECRET_KEY / R2_BUCKET
+# UPSTASH_REDIS_URL / UPSTASH_REDIS_TOKEN
+# YOUSIGN_API_KEY
+# SENTRY_DSN
+# PLAUSIBLE_DOMAIN
+```
+
+### Image Hosting
+
+`next.config.mjs` allows remote images from Supabase (`**.supabase.co`), Cloudflare R2 (`**.r2.dev`), and UploadThing (`utfs.io`).
+
+## Migration Roadmap (16 Phases)
+
+Currently between Phase 0 (existing site) and Phase 1. See prompt master document for full roadmap.
+
+### Immediate priorities:
+1. shadcn/ui setup + component library
+2. Prisma schema evolution (TEAM role, Profile, Session, AuditLog, etc.)
+3. Auth hardening (Argon2id, 2FA TOTP, DB sessions)
+4. Rate limiting (Upstash Redis)
+5. Encryption helpers (AES-256-GCM for PII)

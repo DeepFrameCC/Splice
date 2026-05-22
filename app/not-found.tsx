@@ -1,13 +1,13 @@
 import Link from "next/link";
-import Image from "next/image";
+
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <Image src="/LogoNoir.svg" alt="DeepFrame" width={52} height={52} className="mb-10 opacity-30" />
+      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-[#0E0E22]/30">DEEPFRAME</span>
 
       <p
-        style={{ fontFamily: "var(--font-jetbrains)", letterSpacing: "0.18em" }}
+        style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.18em" }}
         className="text-xs uppercase text-[#F36B1F] mb-4"
       >
         Erreur 404
@@ -30,7 +30,7 @@ export default function NotFound() {
           background: "#F36B1F",
           color: "#1A1408",
           borderRadius: "999px",
-          fontFamily: "var(--font-montserrat)",
+          fontFamily: "var(--font-sans)",
           fontWeight: 600,
           fontSize: 14,
           padding: "14px 28px",

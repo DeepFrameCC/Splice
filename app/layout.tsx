@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
 import "./globals.css";
 import "./prototype-styles.css";
 
-const display = Fraunces({ subsets: ["latin"], weight: ["300", "400", "500"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
-const sans = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
+const display = localFont({
+  src: "../public/fonts/Anton-Regular.ttf",
+  variable: "--font-display",
+  display: "swap",
+  weight: "400",
+});
+
+const sans = localFont({
+  src: [
+    { path: "../public/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/Poppins-Italic.ttf", weight: "400", style: "italic" },
+    { path: "../public/fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../public/fonts/Poppins-BoldItalic.ttf", weight: "700", style: "italic" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"),
@@ -65,7 +79,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
-    <html lang="fr" className={`${display.variable} ${sans.variable} ${jetbrains.variable}`}>
+    <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
         <script
           nonce={nonce}

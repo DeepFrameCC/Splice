@@ -41,7 +41,7 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
 
       <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl italic text-df-gold">Devis n°{devis.numero}</h1>
+          <h1 className="font-display text-3xl uppercase tracking-tight text-df-gold">Devis n°{devis.numero}</h1>
           <p className="text-sm text-white/60">Émis le {devis.createdAt.toLocaleDateString("fr-FR")}</p>
         </div>
         <StatusPill status={devis.status as any} />
@@ -59,7 +59,7 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
             ))}
           </tbody>
           <tfoot>
-            <tr><td className="pt-4 font-bold text-white">Total HT</td><td className="pt-4 text-right font-display text-2xl italic text-df-gold">{devis.totalHT} €</td></tr>
+            <tr><td className="pt-4 font-bold text-white">Total HT</td><td className="pt-4 text-right font-display text-2xl uppercase tracking-tight text-df-gold">{devis.totalHT} €</td></tr>
             <tr><td className="text-sm text-white/70">Acompte ({devis.acompteRate}%)</td><td className="text-right text-white/70">{devis.acompteAmount} €</td></tr>
             <tr><td className="text-sm text-white/70">Solde à la livraison</td><td className="text-right text-white/70">{devis.totalHT - devis.acompteAmount} €</td></tr>
           </tfoot>

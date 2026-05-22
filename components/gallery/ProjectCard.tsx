@@ -128,7 +128,7 @@ export default function ProjectCard({
           <span
             className="absolute bottom-3.5 right-3.5 z-[2] rounded px-2 py-0.5 text-[11px] text-white/90 backdrop-blur-sm"
             style={{
-              fontFamily: "var(--font-jetbrains)",
+              fontFamily: "var(--font-sans)",
               background: "rgba(0,0,0,.5)",
             }}
           >
@@ -151,7 +151,7 @@ export default function ProjectCard({
         {/* Category · Year tag */}
         <span
           className="text-[11px] uppercase tracking-widest text-white/50"
-          style={{ fontFamily: "var(--font-jetbrains)" }}
+          style={{ fontFamily: "var(--font-sans)" }}
         >
           {categoryLabel ? `${categoryLabel} · ${year}` : String(year)}
         </span>

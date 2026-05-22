@@ -27,6 +27,7 @@ export default function HomeContent({ user }: HomeContentProps) {
           <GalleryTeaser />
           <Testimonials />
           <Pricing />
+          <HomeFAQ />
           <Quote />
           <Footer />
         </div>
@@ -37,11 +38,11 @@ export default function HomeContent({ user }: HomeContentProps) {
 
 function Showreel() {
   const clips: { tag: string; title: string; tc: string; ratio: number; src: string; type: "video" | "image"; credit?: string }[] = [
-    { tag: "Pub auto", title: "Porsche 911 — Pose PPF", tc: "00:36", ratio: 16 / 9, src: "/videos/ppf-cklean-auto.mp4", type: "video", credit: "papi" },
+    { tag: "Pub automobile", title: "Alpine A110 — Lignes Bleues", tc: "00:33", ratio: 9 / 16, src: "/videos/AlpineA110.mp4", type: "video", credit: "papi" },
+    { tag: "Clip", title: "West Side — Vibe Urbaine", tc: "00:31", ratio: 9 / 16, src: "/videos/West Side.mp4", type: "video", credit: "ty" },
+    { tag: "Pub automobile", title: "Porsche 911 — Pose PPF", tc: "00:36", ratio: 16 / 9, src: "/videos/ppf-cklean-auto.mp4", type: "video", credit: "papi" },
     { tag: "Interview", title: "CKCLEANAUTO45", tc: "00:50", ratio: 4 / 3, src: "/videos/interview-cklean-auto.mp4", type: "video", credit: "by.louisia" },
-    { tag: "Shooting auto", title: "Porsche — Travail détail", tc: "00:38", ratio: 4 / 3, src: "/photos/travail-porsche.jpg", type: "image", credit: "by.louisia" },
-    { tag: "Présentation", title: "Par Louisia — CKClean", tc: "00:50", ratio: 16 / 9, src: "/videos/presentation-louisia.mp4", type: "video", credit: "by.louisia" },
-    { tag: "Shooting auto", title: "CKClean — Session photo", tc: "00:20", ratio: 4 / 3, src: "/photos/porsche-studio-1.jpg", type: "image", credit: "by.louisia" },
+    { tag: "Shooting automobile", title: "Porsche — Travail détail", tc: "00:38", ratio: 4 / 3, src: "/photos/travail-porsche.jpg", type: "image", credit: "by.louisia" },
     { tag: "Pub locale", title: "Bistrot de la Croix Morin", tc: "00:22", ratio: 9 / 16, src: "/videos/bistrot-orleans.mp4", type: "video", credit: "ty" },
     { tag: "Clip", title: "Time — Par Fayad", tc: "00:23", ratio: 9 / 16, src: "/videos/time-fayad.mp4", type: "video", credit: "papi" },
   ];
@@ -104,12 +105,11 @@ function Hero() {
         <em>On sublime.</em>
       </h1>
       <p className="df-hero-sub">
-        DeepFrame embellit les marques avec des publicités sociales, des shootings auto
-        et des contenus audiovisuels qui se regardent jusqu&apos;au bout.
+        Pubs sociales, shootings automobile, films de marque — production audiovisuelle complète à Orléans &amp; Tours.
       </p>
       <div className="df-hero-cta">
-        <Link href="/devis" className="df-btn df-btn-primary">Demandez votre devis →</Link>
-        <a href="#projects" className="df-btn df-btn-ghost">Voir les projets</a>
+        <Link href="/devis" className="df-btn df-btn-primary">Demander un devis →</Link>
+        <Link href="/galerie" className="df-btn df-btn-ghost">Voir les projets</Link>
       </div>
 
       <div className="df-hero-frame">
@@ -176,20 +176,7 @@ function About() {
         </h2>
         <div className="df-about-copy">
           <p>
-            DeepFrame embellit les marques à Orléans avec des contenus visuels qui captivent et convertissent.
-          </p>
-          <p>
-            Spécialiste de la création audiovisuelle et digitale, DeepFrame accompagne les entreprises et
-            PME locales avec une offre complète : <strong>shootings automobile</strong>, <strong>photographie
-            professionnelle</strong>, et productions vidéo soignées pensées pour durer. Que ce soit pour Instagram,
-            TikTok, Facebook ou d&apos;autres plateformes sociales, chaque contenu est conçu pour capter
-            l&apos;attention dès les premières secondes et se regarder jusqu&apos;au bout.
-          </p>
-          <p>
-            DeepFrame donne aussi la parole aux acteurs économiques du territoire grâce à des <strong>interviews
-            mises en valeur</strong> et des <strong>présentations d&apos;entreprise</strong> sur-mesure — un outil
-            puissant pour les PME locales qui souhaitent renforcer leur visibilité, raconter leur histoire
-            et créer un lien authentique avec leur audience.
+            On accompagne PME et entreprises du Centre-Val de Loire — pubs sociales, shootings automobile, films de marque, événementiel. Production complète, livrables qui se regardent jusqu&apos;au bout.
           </p>
         </div>
       </div>
@@ -365,7 +352,29 @@ function Pricing() {
         <div className="df-eyebrow">Tarifs</div>
         <h2 className="df-h2">Trois formules, <em>une exigence</em>.</h2>
       </div>
-      <div className="df-pricing-grid">
+      <div className="df-pricing-grid df-pricing-grid-4">
+        {/* Formule Bienvenue */}
+        <div className="df-plan df-plan-bienvenue">
+          <div className="df-plan-badge df-plan-badge-gold">Gratuit</div>
+          <h3>Bienvenue</h3>
+          <div className="df-plan-price">0 €</div>
+          <p className="df-plan-pitch">1 par client · Places limitées</p>
+          <ul className="df-plan-feats">
+            {[
+              "2 stories offertes",
+              "5 photos offertes",
+              "Découverte de notre univers",
+              "Sans engagement",
+            ].map((f) => (
+              <li key={f} className="feat-active">
+                <span className="feat-icon active-icon">✓</span>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/devis" className="df-btn df-btn-outline">Demander ma formule</Link>
+        </div>
+
         {plans.map((p) => (
           <div key={p.name} className={"df-plan" + (p.featured ? " df-plan-featured" : "")}>
             {p.featured && <div className="df-plan-badge">Recommandé</div>}
@@ -393,8 +402,95 @@ function Pricing() {
         </p>
       </div>
       <Link href="/tarifs" className="df-services-link">
-        Voir tous les tarifs →
+        Comparer toutes les formules →
       </Link>
+    </section>
+  );
+}
+
+function HomeFAQ() {
+  const faqs = [
+    {
+      q: "Quels sont vos tarifs et vos formules ?",
+      a: (
+        <>
+          Nos abonnements professionnels démarrent à{" "}
+          <Link href="/tarifs" className="text-df-gold hover:underline">
+            45 €/mois
+          </Link>{" "}
+          (formule Standard en engagement annuel). Pour des besoins plus ponctuels, nos packs de vidéos individuelles commencent à{" "}
+          <Link href="/tarifs" className="text-df-gold hover:underline">
+            29 €/vidéo
+          </Link>{" "}
+          et nos packs de photos à{" "}
+          <Link href="/tarifs" className="text-df-gold hover:underline">
+            15 €
+          </Link>
+          . Vous pouvez également simuler librement votre budget sur notre{" "}
+          <Link href="/devis" className="text-df-gold hover:underline">
+            générateur de devis
+          </Link>
+          .
+        </>
+      ),
+    },
+    {
+      q: "Dans quelle zone géographique intervenez-vous ?",
+      a: (
+        <>
+          Nous sommes basés entre Orléans et Tours, et nous nous déplaçons sur l&apos;ensemble de la région Centre-Val de Loire (Loiret, Indre-et-Loire, Loir-et-Cher, etc.) pour réaliser tous nos tournages et nos prises de vues par drone. Les frais de déplacement sont calculés de manière 100 % transparente à 0,50 €/km A/R.
+        </>
+      ),
+    },
+    {
+      q: "Quels sont les délais de livraison pour mes vidéos ?",
+      a: (
+        <>
+          Nous livrons généralement votre premier montage sous 7 à 10 jours ouvrés après le tournage ou la réception de vos rushes. Si vous êtes pressé par une deadline imminente ou le lancement d&apos;une campagne, nous proposons également une option de livraison express sous 48h.
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <section className="df-section df-home-faq max-w-4xl mx-auto px-6">
+      <div className="df-section-head text-center mb-10">
+        <div className="df-eyebrow">Des réponses à vos questions</div>
+        <h2 className="df-h2">Questions <em>fréquentes</em></h2>
+      </div>
+
+      <div className="space-y-4 mb-10">
+        {faqs.map((faq, idx) => (
+          <details
+            key={idx}
+            className="group rounded-2xl bg-white/[0.02] border border-white/[0.08] transition duration-300 hover:bg-white/[0.04]"
+          >
+            <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-white outline-none select-none">
+              <span className="text-base sm:text-lg">{faq.q}</span>
+              <span className="ml-4 text-df-gold transition-transform duration-300 group-open:rotate-45 text-xl">
+                +
+              </span>
+            </summary>
+            <div className="px-5 pb-5 text-sm sm:text-base leading-relaxed text-white/70 border-t border-white/[0.04] pt-4">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      {/* Banner */}
+      <div className="flex flex-col sm:flex-row items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 gap-4">
+        <p className="text-sm text-white/70 text-center sm:text-left">
+          <span className="font-semibold text-white">Une question fréquente ?</span> Consultez notre FAQ complète.
+        </p>
+        <Link
+          href="/faq"
+          className="text-sm font-semibold text-df-gold hover:text-white transition-colors flex items-center gap-1 group"
+        >
+          <span>Voir la FAQ</span>
+          <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+        </Link>
+      </div>
     </section>
   );
 }
@@ -433,9 +529,9 @@ function Quote() {
     <section id="quote" className="df-section df-quote">
       <div className="df-quote-card">
         <div>
-          <div className="df-eyebrow df-eyebrow-light">Demandez votre devis</div>
+          <div className="df-eyebrow df-eyebrow-light">Demander un devis</div>
           <h2 className="df-h2 df-h2-light">
-            On répond en <em>moins de 24h</em>.<br />
+            Réponse en <em>moins de 24h</em>.<br />
             Pré-devis gratuit, sans engagement.
           </h2>
           <p className="df-quote-sub">Dites-nous ce que vous avez en tête. On revient vers vous avec un plan, un budget et une date.</p>
@@ -481,41 +577,6 @@ function Quote() {
       </div>
     </section>
 
-    {/* ── FAQ rapide — bloc séparé ──────────────────────────────── */}
-    <section className="df-faq-section">
-      <div className="df-faq-block">
-        <h3 className="df-faq-block-title" style={{ color: "#F36B1F" }}>Questions fréquentes</h3>
-        <div className="df-faq-block-grid">
-          <details className="df-faq-block-item">
-            <summary><h2>Comment fonctionne la demande de devis ?</h2></summary>
-            <p>
-              Notre <Link href="/devis" className="df-faq-block-link">configurateur en ligne</Link> vous permet de choisir votre formule, vos options et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h — c&apos;est gratuit et sans engagement.
-            </p>
-          </details>
-          <details className="df-faq-block-item">
-            <summary><h2>Quels sont vos tarifs ?</h2></summary>
-            <p>
-              Nos <Link href="/tarifs" className="df-faq-block-link">abonnements</Link> démarrent à 49 €/mois (formule Standard). Pack Particulier dès 29 €. Consultez notre <Link href="/tarifs" className="df-faq-block-link">page Tarifs</Link> pour le détail complet.
-            </p>
-          </details>
-          <details className="df-faq-block-item">
-            <summary><h2>Quels sont les délais de livraison ?</h2></summary>
-            <p>
-              Le délai standard est de 7 à 10 jours ouvrés après le tournage. Une option express 48h est disponible. Découvrez nos <Link href="/galerie" className="df-faq-block-link">réalisations</Link> pour voir la qualité de nos livrables.
-            </p>
-          </details>
-          <details className="df-faq-block-item">
-            <summary><h2>Dans quelle zone intervenez-vous ?</h2></summary>
-            <p>
-              Nous intervenons principalement en Centre-Val de Loire (Orléans, Tours), mais nous nous déplaçons partout en France. <Link href="/contact" className="df-faq-block-link">Contactez-nous</Link> pour discuter de votre projet.
-            </p>
-          </details>
-        </div>
-        <p className="df-faq-block-more">
-          Plus de questions ? Consultez notre <Link href="/faq" className="df-faq-block-link">FAQ complète</Link>.
-        </p>
-      </div>
-    </section>
     </>
   );
 }
@@ -526,8 +587,7 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <Image src="/LogoBlanc.svg" alt="DeepFrame" width={26} height={26} />
-            <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={100} height={20} className="h-4 w-auto object-contain" />
+            <span className="font-display text-lg font-bold tracking-wide text-white">DEEP<span className="text-[#F36B1F]">FRAME</span></span>
           </div>
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>

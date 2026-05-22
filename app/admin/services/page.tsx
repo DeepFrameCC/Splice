@@ -46,7 +46,7 @@ export default async function AdminServicesPage({ searchParams }: Props) {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-2xl font-bold italic text-white">Services</h1>
+          <h1 className="font-display text-2xl uppercase tracking-tight text-white">Services</h1>
           <p className="text-sm text-white/50">{services.length} service{services.length !== 1 ? "s" : ""}</p>
         </div>
       </div>

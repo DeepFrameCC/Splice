@@ -193,7 +193,7 @@ export default function EquipePage() {
           data-anim="hero-meta"
           className="text-right lg:text-right"
           style={{
-            fontFamily: "var(--font-jetbrains)",
+            fontFamily: "var(--font-sans)",
             fontSize: "11px",
             letterSpacing: "0.14em",
             color: "rgba(255,255,255,.5)",
@@ -258,7 +258,7 @@ export default function EquipePage() {
                 <h2
                   className="absolute left-3.5 top-3.5 z-[2] rounded border border-white/20 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-md"
                   style={{
-                    fontFamily: "var(--font-jetbrains)",
+                    fontFamily: "var(--font-sans)",
                     background: "rgba(0,0,0,.65)",
                   }}
                 >
@@ -269,7 +269,7 @@ export default function EquipePage() {
                 <div className="absolute inset-x-0 bottom-0 z-[1] px-[22px] pb-[18px] pt-[30px] text-white" style={{ background: "linear-gradient(0deg, rgba(0,0,0,.78), transparent)" }}>
                   <span
                     className="text-[10.5px] uppercase tracking-[0.14em] text-df-gold"
-                    style={{ fontFamily: "var(--font-jetbrains)" }}
+                    style={{ fontFamily: "var(--font-sans)" }}
                   >
                     {founder.role}
                   </span>
@@ -388,7 +388,7 @@ export default function EquipePage() {
               href="/devis"
               className="inline-flex items-center gap-2 rounded-full bg-df-gold px-5 py-2.5 text-[12.5px] font-bold text-[#1A1408] shadow-[0_8px_22px_-8px_rgba(255,189,89,0.7)] transition hover:scale-105 hover:shadow-lg active:scale-95"
             >
-              Demandez votre devis →
+              Demander un devis →
             </Link>
           </div>
         </div>

@@ -54,6 +54,7 @@ enum CounterType {
 enum DevisType {
   ABONNEMENT
   PACK_PARTICULIER
+  FORMULE_BIENVENUE
 }
 
 enum DureeTournage {
@@ -131,6 +132,7 @@ model User {
   emailVerified DateTime?
   twoFactorEnabled Boolean @default(false)
   twoFactorSecret  String?
+  hasUsedFormuleBienvenue Boolean @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

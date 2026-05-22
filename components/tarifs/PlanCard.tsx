@@ -41,7 +41,7 @@ export default function PlanCard({
         </span>
       )}
 
-      <p className="font-display text-2xl italic text-white">{plan.label}</p>
+      <p className="font-display text-2xl uppercase tracking-tight text-white">{plan.label}</p>
       <p className="mt-1 text-sm text-white/50">{plan.tagline}</p>
 
       <div className="mt-5">

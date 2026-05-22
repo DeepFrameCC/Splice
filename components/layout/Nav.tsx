@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 import UserDropdown from "./UserDropdown";
 
 const NAV_LINKS = [
@@ -37,9 +37,8 @@ export default function Nav({ user }: NavProps) {
   return (
     <>
       <header className="df-nav">
-        <Link href="/" className="df-logo-mark flex items-center gap-2" aria-label="DeepFrame">
-          <Image src="/LogoBlanc.svg" alt="" width={28} height={28} />
-          <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={110} height={22} className="h-5 w-auto object-contain" />
+        <Link href="/" className="df-logo-mark flex items-center" aria-label="DeepFrame">
+          <span className="font-display text-lg font-bold tracking-wide text-white">DEEP<span className="text-[#F36B1F]">FRAME</span></span>
         </Link>
 
         <nav className="df-nav-links" aria-label="Navigation principale">
@@ -49,13 +48,13 @@ export default function Nav({ user }: NavProps) {
         <div className="df-nav-cta">
           {user ? (
             <>
-              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demandez votre devis</Link>
+              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demander un devis</Link>
               <UserDropdown name={user.name} role={user.role} />
             </>
           ) : (
             <>
               <Link href="/login" className="df-nav-staff">Connexion</Link>
-              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demandez votre devis</Link>
+              <Link href="/devis" className="df-btn df-btn-primary df-btn-sm">Demander un devis</Link>
             </>
           )}
         </div>
@@ -97,7 +96,7 @@ export default function Nav({ user }: NavProps) {
               style={{ width: "100%", justifyContent: "center" }}
               onClick={() => setOpen(false)}
             >
-              Demandez votre devis →
+              Demander un devis →
             </Link>
             {user ? (
               <>

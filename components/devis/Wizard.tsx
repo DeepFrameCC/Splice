@@ -1,11 +1,12 @@
 "use client";
-import { useTransition } from "react";
+import { useTransition, useEffect } from "react";
 import { useDevisForm } from "./store";
-import { Step1, Step2Abonnement, Step2PackParticulier, Step3 } from "./Steps";
+import { Step1, Step2Abonnement, Step2PackParticulier, Step2FormuleBienvenue, Step3 } from "./Steps";
 import Recap from "./Recap";
 import { submitDevis } from "@/app/actions/devis";
 import { ChevronLeft, ChevronRight, Send, Shield, Clock, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const STEP_META = [
   { n: 1, label: "Prestation", desc: "Type de prestation" },
@@ -13,15 +14,32 @@ const STEP_META = [
   { n: 3, label: "Coordonnées", desc: "Vos informations" },
 ];
 
-export default function Wizard() {
+interface WizardProps {
+  isAuthenticated?: boolean;
+  canUseFormuleBienvenue?: boolean;
+  userInfo?: { name: string; email: string } | null;
+}
+
+export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue = false, userInfo = null }: WizardProps) {
   const f = useDevisForm();
   const [pending, start] = useTransition();
+  const router = useRouter();
+
+  useEffect(() => {
+    f.set("isAuthenticated", isAuthenticated);
+    f.set("canUseFormuleBienvenue", canUseFormuleBienvenue);
+    if (userInfo) {
+      if (!f.nomContact) f.set("nomContact", userInfo.name);
+      if (!f.emailContact) f.set("emailContact", userInfo.email);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, canUseFormuleBienvenue]);
 
   const canNext = () => {
     if (f.step === 1) return Boolean(f.mode);
     if (f.step === 2) {
+      if (f.mode === "FORMULE_BIENVENUE") return true;
       if (f.mode === "ABONNEMENT") return Boolean(f.planId);
-      // Pack Particulier: at least videos or photos selected
       return (f.nbVideos !== null && f.nbVideos > 0) || (f.nbPhotos !== null && f.nbPhotos > 0);
     }
     if (f.step === 3) {
@@ -31,6 +49,12 @@ export default function Wizard() {
   };
 
   const onSubmit = () => {
+    if (!isAuthenticated) {
+      toast.error("Connectez-vous pour envoyer votre devis");
+      router.push("/login?callbackUrl=/devis");
+      return;
+    }
+
     start(async () => {
       try {
         const payload = {
@@ -54,7 +78,6 @@ export default function Wizard() {
           dateTournage: f.dateTournage || undefined,
           remarques: f.remarques,
         };
-        // Runtime value satisfies the discriminated union; TS needs the cast
         await submitDevis(payload as Parameters<typeof submitDevis>[0]);
       } catch (e: unknown) {
         if (e && typeof e === "object" && "digest" in e) {
@@ -126,6 +149,7 @@ export default function Wizard() {
           {f.step === 1 && <Step1 />}
           {f.step === 2 && f.mode === "ABONNEMENT" && <Step2Abonnement />}
           {f.step === 2 && f.mode === "PACK_PARTICULIER" && <Step2PackParticulier />}
+          {f.step === 2 && f.mode === "FORMULE_BIENVENUE" && <Step2FormuleBienvenue />}
           {f.step === 3 && <Step3 />}
 
           {/* Navigation buttons */}

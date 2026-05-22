@@ -24,7 +24,7 @@ export default async function MesFactures() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="font-display text-4xl italic text-df-gold">Mes factures</h1>
+        <h1 className="font-display text-4xl uppercase tracking-tight text-df-gold">Mes factures</h1>
         <p className="mt-1 text-sm text-white/60">
           {factures.length} facture{factures.length !== 1 ? "s" : ""}
         </p>

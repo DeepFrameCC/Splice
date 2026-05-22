@@ -34,7 +34,7 @@ export default function AvisForm() {
   if (success) {
     return (
       <div className="mx-auto max-w-lg rounded-3xl bg-emerald-500/10 p-8 text-center">
-        <p className="font-display text-2xl italic text-emerald-800">Merci pour votre avis ! ✓</p>
+        <p className="font-display text-2xl uppercase tracking-tight text-emerald-800">Merci pour votre avis ! ✓</p>
         <p className="mt-2 text-sm text-emerald-400">Votre avis sera publié après validation par notre équipe.</p>
         <button onClick={() => setSuccess(false)} className="mt-4 text-sm text-df-gold underline">
           Laisser un autre avis

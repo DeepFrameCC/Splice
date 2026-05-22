@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
 
 const VILLES = [
   { slug: "orleans", label: "Orléans" },
@@ -11,6 +12,10 @@ interface Props {
 }
 
 export function ServiceLocalLinks({ serviceSlug }: Props) {
+  // If the service doesn't have a configured local page, do not render links to prevent 404s
+  const isEligible = (SERVICES_LOCAL_SLUGS as string[]).includes(serviceSlug);
+  if (!isEligible) return null;
+
   return (
     <section className="mt-8 border-t border-white/[0.08] pt-8">
       <p className="text-sm text-white/40">Aussi disponible à :</p>

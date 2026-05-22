@@ -14,7 +14,7 @@ export default async function AdminServiceEditPage({ params }: Props) {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-2xl font-bold italic text-white">
+      <h1 className="mb-6 font-display text-2xl uppercase tracking-tight text-white">
         Modifier le service
       </h1>
       <ServiceForm

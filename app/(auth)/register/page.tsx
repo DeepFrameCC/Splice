@@ -35,8 +35,7 @@ export default function RegisterPage() {
         style={{ background: "linear-gradient(160deg, #0E0E22 0%, #F36B1F 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/LogoBlanc.svg" alt="" width={26} height={26} />
-          <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={100} height={20} className="h-4 w-auto object-contain" />
+          <span className="font-display text-lg font-bold tracking-wide text-white">DEEPFRAME</span>
         </Link>
 
         <div className="max-w-md">
@@ -64,7 +63,7 @@ export default function RegisterPage() {
 
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
-            <Image src="/LogoNoir.svg" alt="DeepFrame" width={60} height={60} />
+            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">DEEPFRAME</span>
           </div>
 
           {/* Tabs */}

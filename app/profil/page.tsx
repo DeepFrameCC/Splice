@@ -76,7 +76,7 @@ export default async function ProfilPage() {
             {(p?.prenom?.[0] ?? user.pseudo?.[0] ?? "U")}
           </div>
           <div className="flex-1">
-            <h1 className="font-display text-3xl italic">{displayName}</h1>
+            <h1 className="font-display text-3xl uppercase tracking-tight">{displayName}</h1>
             <p className="mt-0.5 text-sm text-white/70">@{user.pseudo}</p>
             {memberSince && (
               <p className="mt-1 flex items-center gap-1.5 text-xs text-white/50">

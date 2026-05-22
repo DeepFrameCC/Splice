@@ -48,8 +48,8 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
         <div className="flex items-center gap-3">
           <ShieldCheck className="h-8 w-8 text-df-gold" />
           <div>
-            <p className="font-display text-sm italic text-df-gold">Paiement sécurisé</p>
-            <h1 className="font-display text-3xl italic">Devis n°{numero}</h1>
+            <p className="font-display text-sm uppercase tracking-wider text-df-gold">Paiement sécurisé</p>
+            <h1 className="font-display text-3xl uppercase tracking-tight">Devis n°{numero}</h1>
           </div>
         </div>
 

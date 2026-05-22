@@ -39,7 +39,7 @@ export default function MediaCard({ id, src, title, ownerHandle, prixEstime, mat
     >
       <Image src={src} alt={title} width={800} height={1000} className="h-auto w-full object-cover transition group-hover:brightness-105" />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 text-white opacity-0 transition group-hover:opacity-100">
-        <p className="font-display italic text-df-gold">{ownerHandle}</p>
+        <p className="font-display uppercase tracking-wider text-df-gold">{ownerHandle}</p>
         <h3 className="text-sm font-bold">{title}</h3>
         {revealInfo && isAuthed && (
           <div className="mt-2 space-y-1 text-xs">

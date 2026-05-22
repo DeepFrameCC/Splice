@@ -18,7 +18,7 @@ export default async function MesLikes() {
 
   return (
     <div>
-      <h1 className="mb-2 font-display text-4xl italic text-df-gold">Mes likes / Inspirations</h1>
+      <h1 className="mb-2 font-display text-4xl uppercase tracking-tight text-df-gold">Mes likes / Inspirations</h1>
       <p className="mb-6 text-white/60">Photos et vidéos sauvegardées avec leur estimation.</p>
 
       {likes.length === 0 ? (
@@ -43,7 +43,7 @@ export default async function MesLikes() {
               )}
               <div className="p-3">
                 <div className="flex items-center justify-between">
-                  <p className="font-display italic text-df-gold text-sm">{FOUNDER_LABEL[m.owner]}</p>
+                  <p className="font-display uppercase tracking-wider text-df-gold text-sm">{FOUNDER_LABEL[m.owner]}</p>
                   <Heart className="h-4 w-4 fill-df-gold text-df-gold" />
                 </div>
                 <p className="text-xs font-bold text-white truncate group-hover:text-df-gold transition-colors">{m.title}</p>

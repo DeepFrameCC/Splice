@@ -1,4 +1,4 @@
-﻿import type { FAQItem } from "@/lib/services/types";
+import type { FAQItem } from "@/lib/services/types";
 
 interface Props {
   items: FAQItem[];
@@ -15,7 +15,10 @@ export function ServiceFAQ({ items }: Props) {
             {item.question}
             <span className="ml-4 shrink-0 text-df-gold/40 transition group-open:rotate-45">+</span>
           </summary>
-          <p className="mt-3 max-w-3xl leading-relaxed text-white/70">{item.answer}</p>
+          <p
+            className="mt-3 max-w-3xl leading-relaxed text-white/70"
+            dangerouslySetInnerHTML={{ __html: item.answer }}
+          />
         </details>
       ))}
     </div>

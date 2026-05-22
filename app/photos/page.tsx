@@ -39,7 +39,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
     <section className="mx-auto max-w-7xl px-6 py-12">
       <header className="mb-8 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="font-display text-5xl italic text-white">Photos</h1>
+          <h1 className="font-display text-5xl uppercase tracking-tight text-white">Photos</h1>
           <p className="mt-2 text-white/70">Survolez pour zoomer. Connectez-vous pour liker et voir l&apos;estimation.</p>
         </div>
         <FilterTabs basePath="/photos" current={sp.owner} />

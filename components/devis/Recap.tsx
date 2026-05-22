@@ -3,8 +3,10 @@ import { useDevisForm } from "./store";
 import {
   computeAbonnementQuote,
   computePackParticulierQuote,
+  computeFormuleBienvenueQuote,
   PricingError,
   SUBSCRIPTION_PLANS,
+  FORMULE_BIENVENUE,
 } from "@/lib/pricing";
 import { useMemo } from "react";
 import { Receipt, AlertCircle } from "lucide-react";
@@ -14,6 +16,10 @@ export default function Recap() {
 
   const result = useMemo(() => {
     try {
+      if (f.mode === "FORMULE_BIENVENUE") {
+        const quote = computeFormuleBienvenueQuote();
+        return { quote, error: null as string | null };
+      }
       if (f.mode === "ABONNEMENT") {
         const quote = computeAbonnementQuote({
           planId: f.planId,
@@ -23,7 +29,6 @@ export default function Recap() {
         });
         return { quote, error: null as string | null };
       }
-      // PACK_PARTICULIER
       const quote = computePackParticulierQuote({
         nbVideos: f.nbVideos,
         nbPhotos: f.nbPhotos,
@@ -55,7 +60,9 @@ export default function Recap() {
   ]);
 
   const modeLabel =
-    f.mode === "ABONNEMENT"
+    f.mode === "FORMULE_BIENVENUE"
+      ? FORMULE_BIENVENUE.label
+      : f.mode === "ABONNEMENT"
       ? `Abonnement ${SUBSCRIPTION_PLANS[f.planId].label}`
       : "Pack Particulier";
 
@@ -64,11 +71,11 @@ export default function Recap() {
       <div className="rounded-3xl bg-gradient-to-br from-df-glauque to-[#0E0E22] p-6 text-white shadow-2xl shadow-black/40 ring-1 ring-white/[0.08]">
         <div className="flex items-center gap-2">
           <Receipt className="h-5 w-5 text-df-gold" />
-          <p className="font-display text-sm italic text-df-gold">
+          <p className="font-display text-sm uppercase tracking-wider text-df-gold">
             Récapitulatif
           </p>
         </div>
-        <h3 className="mt-1 font-display text-3xl italic">Votre devis</h3>
+        <h3 className="mt-1 font-display text-3xl uppercase tracking-tight">Votre devis</h3>
         <p className="mt-1 text-xs text-white/50">{modeLabel}</p>
 
         {result.error && (
@@ -99,7 +106,7 @@ export default function Recap() {
 
             <div className="mt-4 rounded-2xl bg-df-glauque-mid/30 p-4 backdrop-blur-sm ring-1 ring-df-glauque-500/20">
               <div className="flex justify-between text-xl">
-                <span className="font-display italic">Total HT</span>
+                <span className="font-display uppercase tracking-wider">Total HT</span>
                 <span className="font-bold text-df-glauque-300">
                   {result.quote.totalHT} €
                 </span>
@@ -121,6 +128,11 @@ export default function Recap() {
                   {f.billingCycle === "ANNUEL"
                     ? "Facturé annuellement"
                     : "Engagement 3 mois minimum"}
+                </p>
+              )}
+              {f.mode === "FORMULE_BIENVENUE" && (
+                <p className="mt-2 text-xs text-white/50">
+                  Offre gratuite — sans engagement
                 </p>
               )}
             </div>

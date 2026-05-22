@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
+
 
 export default function IntroLoader() {
   const [show, setShow] = useState(true);
@@ -63,8 +63,7 @@ export default function IntroLoader() {
           className="flex flex-col items-center gap-4"
           style={{ transformStyle: "preserve-3d", perspective: 1000, opacity: 0 }}
         >
-          <Image src="/LogoBlanc.svg" alt="DeepFrame" width={100} height={100} priority />
-          <Image src="/NomBlanc.svg" alt="DEEPFRAME" width={200} height={40} priority />
+          <span className="font-display text-4xl font-bold tracking-wide text-white">DEEPFRAME</span>
         </div>
         <div className="mt-10 h-1.5 w-64 overflow-hidden rounded-full bg-df-surface border border-white/5 shadow-inner">
           <div
@@ -72,7 +71,7 @@ export default function IntroLoader() {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-3 font-display italic text-white/70 text-sm">{progress}%</p>
+        <p className="mt-3 font-display uppercase tracking-wider text-white/70 text-sm">{progress}%</p>
       </div>
     </div>
   );

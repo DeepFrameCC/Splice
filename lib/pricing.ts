@@ -4,7 +4,7 @@ import { DureeTournage, DelaiLivraison, VilleDepart, Founder } from "@prisma/cli
 
 export type PlanId = "STANDARD" | "PRO" | "PREMIUM_ABO";
 export type BillingCycle = "MENSUEL" | "ANNUEL";
-export type DevisMode = "ABONNEMENT" | "PACK_PARTICULIER";
+export type DevisMode = "ABONNEMENT" | "PACK_PARTICULIER" | "FORMULE_BIENVENUE";
 
 // ─── Subscription Plans ───────────────────────────────────────────
 
@@ -88,6 +88,20 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
 };
 
 export const PLAN_IDS: PlanId[] = ["STANDARD", "PRO", "PREMIUM_ABO"];
+
+// ─── Formule Bienvenue (gratuite, nouveaux clients) ──────────────
+
+export const FORMULE_BIENVENUE = {
+  label: "Formule Bienvenue",
+  tagline: "Réservée aux nouveaux clients",
+  price: 0,
+  features: [
+    "2 stories offertes",
+    "5 photos offertes",
+    "Découverte de notre univers",
+    "Sans engagement",
+  ],
+} as const;
 
 // ─── Multi-network distribution volumes ───────────────────────────
 
@@ -374,6 +388,16 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
   const solde = totalHT - acompte;
 
   return { lines, totalHT, acompte, solde };
+}
+
+// ─── Formule Bienvenue quote ─────────────────────────────────────
+
+export function computeFormuleBienvenueQuote(): Quote {
+  const lines: QuoteLine[] = [
+    { label: "2 stories offertes", total: 0 },
+    { label: "5 photos offertes", total: 0 },
+  ];
+  return { lines, totalHT: 0, acompte: 0, solde: 0 };
 }
 
 // ─── Legacy backward compat ───────────────────────────────────────

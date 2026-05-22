@@ -9,7 +9,7 @@ export default function BlogHero() {
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
           Blog &amp; Ressources
         </p>
-        <h1 className="mt-4 font-display text-4xl font-bold italic text-white md:text-6xl lg:text-7xl">
+        <h1 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-6xl lg:text-7xl">
           Nos articles &amp; conseils
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-white/60">

@@ -21,7 +21,7 @@ export default async function MesDevis() {
     <div>
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-4xl italic text-df-gold">Mes devis</h1>
+          <h1 className="font-display text-4xl uppercase tracking-tight text-df-gold">Mes devis</h1>
           <p className="mt-1 text-sm text-white/60">
             {devis.length} devis &middot; Ordre chronologique
           </p>

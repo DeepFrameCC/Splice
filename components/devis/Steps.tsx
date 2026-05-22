@@ -17,7 +17,8 @@ import {
   type BanniereSize,
 } from "@/lib/pricing";
 import type { DelaiLivraison, DureeTournage, VilleDepart } from "@prisma/client";
-import { Check, Info, Briefcase, User as UserIcon } from "lucide-react";
+import { FORMULE_BIENVENUE } from "@/lib/pricing";
+import { Check, Info, Briefcase, User as UserIcon, Gift, Lock } from "lucide-react";
 import { useCallback } from "react";
 
 // ─── Step 1 — Choix du mode ──────────────────────────────────────
@@ -25,6 +26,8 @@ import { useCallback } from "react";
 export function Step1() {
   const mode = useDevisForm((s) => s.mode);
   const set = useDevisForm((s) => s.set);
+  const canUseFormuleBienvenue = useDevisForm((s) => s.canUseFormuleBienvenue);
+  const isAuthenticated = useDevisForm((s) => s.isAuthenticated);
 
   const modes: { id: DevisMode; icon: typeof Briefcase; label: string; desc: string }[] = [
     {
@@ -41,9 +44,12 @@ export function Step1() {
     },
   ];
 
+  const bienvenueDisabled = !canUseFormuleBienvenue;
+  const bienvenueActive = mode === "FORMULE_BIENVENUE";
+
   return (
     <div>
-      <h2 className="font-display text-3xl italic text-white">
+      <h2 className="font-display text-3xl uppercase tracking-tight text-white">
         Étape 1 — Quel type de prestation ?
       </h2>
       <p className="mt-1 text-white/60">
@@ -66,7 +72,7 @@ export function Step1() {
             >
               <m.icon className={`h-8 w-8 ${active ? "text-df-gold" : "text-white/40"}`} />
               <div>
-                <p className="font-display text-xl italic text-white">{m.label}</p>
+                <p className="font-display text-xl uppercase tracking-tight text-white">{m.label}</p>
                 <p className="mt-1 text-sm text-white/60">{m.desc}</p>
               </div>
               {active && (
@@ -77,6 +83,53 @@ export function Step1() {
             </button>
           );
         })}
+      </div>
+
+      {/* Formule Bienvenue */}
+      <div className="mt-4">
+        <button
+          type="button"
+          onClick={() => {
+            if (!bienvenueDisabled) set("mode", "FORMULE_BIENVENUE");
+          }}
+          aria-pressed={bienvenueActive}
+          disabled={bienvenueDisabled}
+          className={`relative flex w-full flex-col items-start gap-3 rounded-2xl border-2 p-6 text-left transition-all duration-200 ${
+            bienvenueActive
+              ? "border-df-gold bg-df-gold/10 shadow-md ring-2 ring-df-gold/40 scale-[1.01]"
+              : bienvenueDisabled
+              ? "border-white/5 opacity-50 cursor-not-allowed"
+              : "border-df-gold/30 bg-df-gold/[0.04] hover:border-df-gold/50 hover:bg-df-gold/[0.08] cursor-pointer"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <Gift className={`h-8 w-8 ${bienvenueActive ? "text-df-gold" : bienvenueDisabled ? "text-white/30" : "text-df-gold/60"}`} />
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="font-display text-xl uppercase tracking-tight text-white">Formule Bienvenue</p>
+                <span className="rounded-full bg-df-gold px-3 py-0.5 text-[10px] font-bold text-white">
+                  Gratuit
+                </span>
+              </div>
+              <p className="mt-1 text-sm text-white/60">
+                {FORMULE_BIENVENUE.tagline} — {FORMULE_BIENVENUE.features.slice(0, 2).join(", ")}.
+              </p>
+            </div>
+          </div>
+          {bienvenueDisabled && (
+            <div className="flex items-center gap-2 text-xs text-white/40">
+              <Lock className="h-3.5 w-3.5" />
+              {!isAuthenticated
+                ? "Connectez-vous pour bénéficier de cette offre"
+                : "Vous avez déjà utilisé votre formule Bienvenue"}
+            </div>
+          )}
+          {bienvenueActive && (
+            <span className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center rounded-full bg-df-gold shadow-sm">
+              <Check className="h-4 w-4 text-white" />
+            </span>
+          )}
+        </button>
       </div>
     </div>
   );
@@ -94,7 +147,7 @@ export function Step2Abonnement() {
 
   return (
     <div>
-      <h2 className="font-display text-3xl italic text-white">
+      <h2 className="font-display text-3xl uppercase tracking-tight text-white">
         Étape 2 — Votre abonnement
       </h2>
       <p className="mt-1 text-white/60">Choisissez votre formule et vos options.</p>
@@ -152,7 +205,7 @@ export function Step2Abonnement() {
                   Recommandé
                 </span>
               )}
-              <p className="font-display text-xl italic text-white">{plan.label}</p>
+              <p className="font-display text-xl uppercase tracking-tight text-white">{plan.label}</p>
               <p className="mt-0.5 text-xs text-white/50">{plan.tagline}</p>
               <p className="mt-3 text-3xl font-bold text-white">
                 {price} €<span className="text-sm font-normal text-white/50">/mois</span>
@@ -208,7 +261,7 @@ export function Step2PackParticulier() {
 
   return (
     <div>
-      <h2 className="font-display text-3xl italic text-white">
+      <h2 className="font-display text-3xl uppercase tracking-tight text-white">
         Étape 2 — Votre pack à la carte
       </h2>
       <p className="mt-1 text-white/60">
@@ -397,6 +450,44 @@ export function Step2PackParticulier() {
   );
 }
 
+// ─── Step 2 — Formule Bienvenue ─────────────────────────────────
+
+export function Step2FormuleBienvenue() {
+  return (
+    <div>
+      <h2 className="font-display text-3xl uppercase tracking-tight text-white">
+        Étape 2 — Votre formule Bienvenue
+      </h2>
+      <p className="mt-1 text-white/60">
+        Offre gratuite réservée aux nouveaux clients. Voici ce qui est inclus :
+      </p>
+      <div className="mt-6 rounded-2xl border-2 border-df-gold/30 bg-df-gold/[0.06] p-6">
+        <div className="flex items-center gap-3">
+          <Gift className="h-8 w-8 text-df-gold" />
+          <div>
+            <p className="font-display text-2xl uppercase tracking-tight text-white">{FORMULE_BIENVENUE.label}</p>
+            <p className="text-sm text-white/50">{FORMULE_BIENVENUE.tagline}</p>
+          </div>
+        </div>
+        <ul className="mt-4 space-y-2">
+          {FORMULE_BIENVENUE.features.map((f) => (
+            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+              {f}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-4 text-3xl font-bold text-white">
+          0 € <span className="text-sm font-normal text-white/50">gratuit</span>
+        </div>
+        <p className="mt-1 text-xs text-white/40">
+          Offre unique — 1 par client, places limitées.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── Options à la carte (shared) ─────────────────────────────────
 
 function OptionsSection() {
@@ -502,7 +593,7 @@ export function Step3() {
 
   return (
     <div>
-      <h2 className="font-display text-3xl italic text-white">
+      <h2 className="font-display text-3xl uppercase tracking-tight text-white">
         Étape 3 — Vos coordonnées
       </h2>
       <p className="mt-1 text-white/60">

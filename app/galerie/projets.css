@@ -7,7 +7,7 @@
 }
 
 .pj-eyebrow {
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -27,7 +27,7 @@
 }
 
 .pj-hero h1 {
-  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 900;
   font-size: clamp(54px, 8vw, 110px);
   line-height: 0.92;
@@ -64,7 +64,7 @@
   background: transparent;
   border: 0;
   padding: 14px 22px 16px;
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -219,7 +219,7 @@
   position: absolute;
   left: 14px;
   bottom: 14px;
-  font-family: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-sans), ui-monospace, monospace;
   font-size: 10.5px;
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.85);
@@ -236,7 +236,7 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  font-family: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-sans), ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.14em;
   color: #1A1408;
@@ -301,7 +301,7 @@
 }
 
 .pj-tag {
-  font-family: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--font-sans), ui-monospace, monospace;
   font-size: 10.5px;
   letter-spacing: 0.14em;
   color: #F36B1F;
@@ -309,7 +309,7 @@
 }
 
 .pj-card h3 {
-  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 1.25;
@@ -319,7 +319,7 @@
 }
 
 .pj-client {
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -426,7 +426,7 @@
   gap: 4px;
 }
 .pj-modal-info h3 {
-  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 1.25;
@@ -489,7 +489,7 @@
   text-align: center;
 }
 .pj-cta-text {
-  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 22px;
   font-weight: 700;
   color: #F36B1F;
@@ -501,7 +501,7 @@
   gap: 8px;
   background: #F36B1F;
   color: #fff;
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;

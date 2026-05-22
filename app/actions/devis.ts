@@ -5,8 +5,10 @@ import { auth } from "@/lib/auth";
 import {
   computeAbonnementQuote,
   computePackParticulierQuote,
+  computeFormuleBienvenueQuote,
   ACOMPTE_RATE,
   SUBSCRIPTION_PLANS,
+  FORMULE_BIENVENUE,
   resolvePackLabel,
   type PlanId,
   type Quote,
@@ -108,11 +110,31 @@ const packParticulierSchema = z.object({
   ...contactFields,
 });
 
+// ─── Formule Bienvenue schema ────────────────────────────────────
+
+const formuleBienvenueSchema = z.object({
+  mode: z.literal("FORMULE_BIENVENUE"),
+  // Unused fields from form state
+  planId: z.any().optional(),
+  billingCycle: z.any().optional(),
+  useLaunchPrice: z.any().optional(),
+  nbVideos: z.any().optional(),
+  nbPhotos: z.any().optional(),
+  banniere: z.any().optional(),
+  villeDepart: z.any().optional(),
+  distanceKm: z.any().optional(),
+  delai: z.any().optional(),
+  duree: z.any().optional(),
+  options: z.any().optional(),
+  ...contactFields,
+});
+
 // ─── Discriminated union ─────────────────────────────────────────
 
 const schema = z.discriminatedUnion("mode", [
   abonnementSchema,
   packParticulierSchema,
+  formuleBienvenueSchema,
 ]);
 
 export async function submitDevis(payload: z.infer<typeof schema>) {
@@ -126,17 +148,29 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
   const session = await auth();
   const userId = session?.user?.id;
 
+  if (!userId) {
+    throw new Error("Vous devez être connecté pour envoyer un devis.");
+  }
+
   const data = schema.parse(payload);
   const chefDeProjet = await pickChefDeProjet();
 
   // Compute quote based on mode
   let quote: Quote;
   let packLabel: string;
-  let devisType: "ABONNEMENT" | "PACK_PARTICULIER";
+  let devisType: "ABONNEMENT" | "PACK_PARTICULIER" | "FORMULE_BIENVENUE";
   let planAbonnement: string | null = null;
   let billingCycle: string | null = null;
 
-  if (data.mode === "ABONNEMENT") {
+  if (data.mode === "FORMULE_BIENVENUE") {
+    const user = await db.user.findUniqueOrThrow({ where: { id: userId } });
+    if (user.hasUsedFormuleBienvenue) {
+      throw new Error("Vous avez déjà utilisé votre Formule Bienvenue.");
+    }
+    devisType = "FORMULE_BIENVENUE";
+    packLabel = FORMULE_BIENVENUE.label;
+    quote = computeFormuleBienvenueQuote();
+  } else if (data.mode === "ABONNEMENT") {
     devisType = "ABONNEMENT";
     planAbonnement = data.planId;
     billingCycle = data.billingCycle;
@@ -163,12 +197,12 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
 
   const devis = await db.$transaction(async (tx) => {
     const { numero, annee, sequence } = await nextNumero("DEVIS", tx);
-    return tx.devis.create({
+    const created = await tx.devis.create({
       data: {
         numero,
         annee,
         sequence,
-        userId: userId ?? null,
+        userId,
         chefDeProjet,
         devisType,
         pack: packLabel,
@@ -194,9 +228,17 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         acompteAmount: quote.acompte,
       },
     });
+
+    if (data.mode === "FORMULE_BIENVENUE") {
+      await tx.user.update({
+        where: { id: userId },
+        data: { hasUsedFormuleBienvenue: true },
+      });
+    }
+
+    return created;
   });
 
-  // Emails dispatched in parallel, never block user flow
   const founderMail = notifyFoundersNewDevis(devis.numero, {
     client: data.nomEntreprise || data.nomContact,
     total: devis.totalHT,
@@ -212,12 +254,11 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         <h2 style="color:#F36B1F">Merci pour votre demande</h2>
         <p>Bonjour ${data.nomContact},</p>
         <p>Nous avons bien reçu votre demande de devis <strong>n°${devis.numero}</strong> pour un total estimatif de <strong>${devis.totalHT} €</strong>.</p>
-        <p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>
-        ${
-          userId
-            ? `<p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>`
-            : `<p style="margin-top:20px;color:#555">Créez un compte sur <a href="${process.env.NEXT_PUBLIC_APP_URL}/register" style="color:#F36B1F;font-weight:bold">deepframe.cc</a> pour suivre votre devis en ligne.</p>`
+        ${devis.totalHT > 0
+          ? `<p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>`
+          : `<p>Notre équipe revient vers vous sous 48h pour organiser votre prestation gratuite.</p>`
         }
+        <p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>
         <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
       </div>`,
   });
@@ -239,16 +280,15 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     metadata: { numero: devis.numero, pack: packLabel, devisType },
   });
 
-  if (userId) {
-    await notify({
-      userId,
-      type: "DEVIS_STATUS",
-      title: `Devis n°${devis.numero} envoyé`,
-      message: `Votre demande de devis (${devis.totalHT} € HT) a bien été enregistrée. Nous la traitons rapidement.`,
-      href: `/profil/devis/${devis.id}`,
-    });
-    redirect(`/profil/devis/${devis.id}?nouveau=1`);
-  } else {
-    redirect(`/devis/confirmation?numero=${devis.numero}&total=${devis.totalHT}`);
-  }
+  await notify({
+    userId,
+    type: "DEVIS_STATUS",
+    title: `Devis n°${devis.numero} envoyé`,
+    message: devis.totalHT > 0
+      ? `Votre demande de devis (${devis.totalHT} € HT) a bien été enregistrée. Nous la traitons rapidement.`
+      : `Votre Formule Bienvenue a bien été enregistrée. Nous vous recontactons rapidement !`,
+    href: `/profil/devis/${devis.id}`,
+  });
+
+  redirect(`/profil/devis/${devis.id}?nouveau=1`);
 }

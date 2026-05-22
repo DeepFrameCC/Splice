@@ -22,6 +22,7 @@ const sensitiveAreaHeaders = [
 ];
 
 const nextConfig = {
+  outputFileTracingRoot: process.cwd(),
   poweredByHeader: false,
   async headers() {
     return [

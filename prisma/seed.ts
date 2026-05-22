@@ -303,6 +303,30 @@ async function main() {
       prixEstime: 0,
       materiel: ["Sony ZV-1"],
     },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/AlpineA110.mp4",
+      thumbnailUrl: "/videos/thumb-AlpineA110.jpg",
+      title: "Alpine A110 — Lignes Bleues",
+      category: "automobile",
+      client: "Alpine · Orléans & Tours",
+      duration: "00:00:33",
+      owner: "PAPI" as const,
+      prixEstime: 1500,
+      materiel: ["Sony FX3", "Sigma 24-70mm f/2.8", "DJI RS3 Pro"],
+    },
+    {
+      type: "VIDEO" as const,
+      url: "/videos/West Side.mp4",
+      thumbnailUrl: "/videos/thumb-West-Side.jpg",
+      title: "West Side — Vibe Urbaine",
+      category: "reseaux-sociaux",
+      client: "Session Street · Tours",
+      duration: "00:00:31",
+      owner: "TY" as const,
+      prixEstime: 900,
+      materiel: ["Sony ZV-E1", "Sony 20mm f/1.8", "DJI Mic"],
+    },
   ];
 
   for (const m of medias) {

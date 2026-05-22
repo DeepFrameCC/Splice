@@ -31,6 +31,10 @@ export interface DevisFormState {
   // Shared options
   options: Partial<Record<OptionKey, number>>;
 
+  // Auth / eligibility (set from server props)
+  isAuthenticated: boolean;
+  canUseFormuleBienvenue: boolean;
+
   // Coordonnées (Step 3)
   nomEntreprise: string;
   nomContact: string;
@@ -66,6 +70,9 @@ const initial = {
   duree: "DEMI_JOURNEE" as DureeTournage,
 
   options: {} as Partial<Record<OptionKey, number>>,
+
+  isAuthenticated: false,
+  canUseFormuleBienvenue: false,
 
   nomEntreprise: "",
   nomContact: "",
