@@ -153,7 +153,8 @@
       "Bash(sort -k6)",
       "Bash([ -d \"$HOME/.claude/skills/$s\" ])",
       "PowerShell($skills = @\\('brandkit','design-taste-frontend','full-output-enforcement','gpt-taste','high-end-visual-design','image-to-code','imagegen-frontend-mobile','imagegen-frontend-web','industrial-brutalist-ui','minimalist-ui','redesign-existing-projects','stitch-design-taste'\\); $created = 0; $skipped = 0; foreach \\($s in $skills\\) { $target = \"$env:USERPROFILE\\\\.claude\\\\skills\\\\.agents\\\\skills\\\\$s\"; $link = \"$env:USERPROFILE\\\\.claude\\\\skills\\\\$s\"; if \\(-not \\(Test-Path $link\\) -and \\(Test-Path $target\\)\\) { New-Item -ItemType Junction -Path $link -Target $target | Out-Null; $created++ } else { $skipped++ } }; \"Created: $created`nSkipped: $skipped\")",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\tracy\\OneDrive\\Documents\\DeepFrame\\app\\services",
