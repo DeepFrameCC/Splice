@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useTransition } from "react";
 import { CreditCard, ShieldCheck, ArrowLeft, AlertCircle } from "lucide-react";
 import Link from "next/link";
@@ -40,38 +40,40 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
 
   return (
     <div className="mx-auto max-w-xl">
-      <Link href={`/profil/devis/${devisId}`} className="mb-6 inline-flex items-center gap-2 text-sm text-df-blue/70 hover:text-df-blue">
+      <Link href={`/profil/devis/${devisId}`} className="mb-6 inline-flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-df-gold">
         <ArrowLeft className="h-4 w-4" /> Retour au devis
       </Link>
 
-      <div className="rounded-3xl bg-gradient-to-br from-df-blue to-df-blue-dark p-8 text-white shadow-2xl shadow-black/40">
+      <div className="rounded-3xl border border-white/[0.08] bg-gradient-to-br from-df-ink to-df-surface p-8 text-white shadow-2xl shadow-black/60">
         <div className="flex items-center gap-3">
-          <ShieldCheck className="h-8 w-8 text-df-gold" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-df-gold/10">
+            <ShieldCheck className="h-6 w-6 text-df-gold" />
+          </div>
           <div>
-            <p className="font-display text-sm uppercase tracking-wider text-df-gold">Paiement sécurisé</p>
-            <h1 className="font-display text-3xl uppercase tracking-tight">Devis n°{numero}</h1>
+            <p className="font-display text-[10px] font-bold uppercase tracking-wider text-df-gold/80">Paiement sécurisé</p>
+            <h1 className="font-display text-2xl uppercase tracking-tight text-white">Devis n°{numero}</h1>
           </div>
         </div>
 
-        <div className="mt-6 space-y-3 rounded-2xl bg-white/10 p-5 backdrop-blur">
+        <div className="mt-6 space-y-4 rounded-2xl border border-white/[0.05] bg-white/[0.03] p-6">
           <Row label="Client" value={nomEntreprise || nomContact} />
           <Row label="Pack" value={pack} />
           <Row label="Total HT" value={`${totalHT} €`} />
-          <div className="border-t border-white/20 pt-3">
+          <div className="border-t border-white/[0.08] pt-3">
             <Row label={`Acompte (${acompteRate}%)`} value={`${acompteAmount} €`} bold />
           </div>
         </div>
 
         {error && (
-          <div className="mt-4 flex items-center gap-2 rounded-xl bg-red-500/30 p-3 text-sm">
-            <AlertCircle className="h-4 w-4 shrink-0" /> {error}
+          <div className="mt-4 flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 p-3.5 text-sm text-red-400">
+            <AlertCircle className="h-4 w-4 shrink-0 text-red-500" /> {error}
           </div>
         )}
 
         <button
           onClick={onPay}
           disabled={pending}
-          className="mt-6 flex w-full items-center justify-center gap-3 rounded-full bg-df-gold px-8 py-4 font-bold text-df-blue transition hover:scale-105 hover:shadow-lg active:scale-95 disabled:opacity-60"
+          className="mt-6 flex w-full items-center justify-center gap-3 rounded-xl bg-df-gold px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-df-gold/25 transition-all duration-300 hover:scale-[1.02] hover:bg-df-gold/90 hover:shadow-df-gold/45 active:scale-[0.98] disabled:opacity-60"
         >
           {pending ? (
             <span className="animate-pulse">Redirection vers Stripe…</span>
@@ -82,8 +84,9 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
           )}
         </button>
 
-        <p className="mt-4 text-center text-xs opacity-70">
-          Paiement sécurisé via Stripe. TVA non applicable, art. 293 B du CGI.
+        <p className="mt-5 text-center text-[10px] leading-relaxed text-white/30">
+          Paiement 100% sécurisé géré par notre prestataire de paiement agréé Stripe.<br />
+          TVA non applicable, art. 293 B du CGI.
         </p>
       </div>
     </div>
@@ -93,8 +96,8 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm opacity-80">{label}</span>
-      <span className={`text-sm ${bold ? "font-bold text-df-gold text-lg" : ""}`}>{value}</span>
+      <span className="text-sm text-white/50">{label}</span>
+      <span className={`text-sm ${bold ? "font-display text-xl font-bold text-df-gold" : "font-semibold text-white"}`}>{value}</span>
     </div>
   );
 }
