@@ -30,6 +30,7 @@ async function main() {
       data: {
         email: adminEmail,
         passwordHash,
+        emailVerified: new Date(),
         profile: {
           upsert: {
             create: {
@@ -57,6 +58,7 @@ async function main() {
         passwordHash,
         role: "ADMIN",
         pseudo: "admin",
+        emailVerified: new Date(),
         profile: {
           create: {
             prenom: "Admin",
