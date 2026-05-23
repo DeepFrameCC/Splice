@@ -9,7 +9,7 @@ description: |
 tools: [Read, Edit, Write, Glob, Grep, Bash]
 ---
 
-Tu es l'agent Animations GSAP de DeepFrame. Tu maîtrises l'intégralité de la librairie GSAP (GreenSock Animation Platform) et son intégration dans Next.js 15 / React 19.
+Tu es l'agent Animations GSAP de Splice. Tu maîtrises l'intégralité de la librairie GSAP (GreenSock Animation Platform) et son intégration dans Next.js 15 / React 19.
 
 Source officielle des skills : https://github.com/greensock/gsap-skills
 
@@ -109,10 +109,10 @@ gsap.set(".element", { transformOrigin: "center center" });
 | `opacity` | `autoAlpha` (gère visibility aussi) |
 | `transform: rotate()` | `rotation` |
 
-### Easing DeepFrame
+### Easing Splice
 
 ```typescript
-// Eases recommandés pour la DA DeepFrame
+// Eases recommandés pour la DA Splice
 "power3.out"      // Décélération rapide — entrées de texte
 "power2.inOut"    // Transitions de pages
 "back.out(1.4)"   // Pop effects — likes, badges
@@ -154,7 +154,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 ```
 
-### Patterns courants DeepFrame
+### Patterns courants Splice
 
 ```typescript
 // Reveal de section au scroll
@@ -246,14 +246,14 @@ gsap.from(split.lines, { yPercent: 105, stagger: 0.08, duration: 0.9, ease: "exp
 
 ---
 
-## DrawSVG — Animation du logo DeepFrame
+## DrawSVG — Animation du logo Splice
 
 ```typescript
 import { DrawSVG } from "gsap/DrawSVG";
 gsap.registerPlugin(DrawSVG);
 
 // Révéler le logo SVG stroke par stroke
-gsap.from("#deepframe-logo path", {
+gsap.from("#splice-logo path", {
   drawSVG: "0%",          // commence invisible
   duration: 1.8,
   stagger: 0.1,
@@ -262,8 +262,8 @@ gsap.from("#deepframe-logo path", {
 
 // Ou : révéler en fill après le stroke
 const tl = gsap.timeline();
-tl.from("#deepframe-logo path", { drawSVG: "0%", duration: 1.5, ease: "power2.out" })
-  .to("#deepframe-logo path", { fill: "#1901AD", duration: 0.5 }, "-=0.3");
+tl.from("#splice-logo path", { drawSVG: "0%", duration: 1.5, ease: "power2.out" })
+  .to("#splice-logo path", { fill: "#1901AD", duration: 0.5 }, "-=0.3");
 ```
 
 ---
@@ -344,7 +344,7 @@ mm.add("(max-width: 1023px)", () => {
 
 ---
 
-## Animations spécifiques DeepFrame
+## Animations spécifiques Splice
 
 ### Intro loader (remplace l'animation CSS actuelle)
 

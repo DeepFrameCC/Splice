@@ -13,7 +13,7 @@ export default function BlogHero() {
           Nos articles &amp; conseils
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-lg text-white/60">
-          Guides pratiques, retours d&apos;expérience et tendances du monde audiovisuel — par l&apos;équipe DeepFrame.
+          Guides pratiques, retours d&apos;expérience et tendances du monde audiovisuel — par l&apos;équipe Splice.
         </p>
       </div>
     </section>

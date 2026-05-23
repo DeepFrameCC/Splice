@@ -1,0 +1,21 @@
+{
+  "name": "Splice — Production audiovisuelle",
+  "short_name": "Splice",
+  "description": "Boîte de production audiovisuelle basée à Orléans et Tours.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0E22",
+  "theme_color": "#0E0E22",
+  "icons": [
+    {
+      "src": "/logo-1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-1.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

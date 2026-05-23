@@ -5,6 +5,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import ProjetsClient from "@/components/gallery/ProjetsClient";
 import GalerieAnimations from "@/components/gallery/GalerieAnimations";
+import { buildGalleryJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import "./projets.css";
 
@@ -15,10 +16,19 @@ async function getPublishedMedias() {
   });
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
 export const metadata: Metadata = {
-  title: "Portfolio — DeepFrame",
+  title: "Portfolio — Splice",
   description:
     "Découvrez nos réalisations vidéo et photo : automobile, films de marque, réseaux sociaux, événementiel, portrait, lifestyle.",
+  openGraph: {
+    title: "Portfolio — Splice",
+    description:
+      "Nos réalisations vidéo et photo en Centre-Val de Loire.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/galerie` },
 };
 
 export default async function GaleriePage() {
@@ -59,6 +69,11 @@ export default async function GaleriePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildGalleryJsonLd(medias.length)) }}
+      />
       <NavWrapper />
       <GalerieAnimations />
       <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>

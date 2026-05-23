@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
   const devis = await db.devis.findUnique({ where: { id: devisId } });
   if (!devis || devis.userId !== userId) return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
-  if (devis.status !== "VALIDE") return NextResponse.json({ error: "Le devis n'est pas encore validé par Deepframe" }, { status: 400 });
+  if (devis.status !== "VALIDE") return NextResponse.json({ error: "Le devis n'est pas encore validé par Splice" }, { status: 400 });
   if (devis.acomptePaid) return NextResponse.json({ error: "L'acompte a déjà été réglé" }, { status: 400 });
 
   if (!stripe) {

@@ -26,10 +26,10 @@ const sans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"),
   title: {
-    default: "Deepframe — Production audiovisuelle · Orléans & Tours",
-    template: "%s | Deepframe",
+    default: "Splice — Production audiovisuelle · Orléans & Tours",
+    template: "%s | Splice",
   },
   description:
     "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies. Devis en ligne.",
@@ -37,38 +37,39 @@ export const metadata: Metadata = {
     "production audiovisuelle", "vidéaste", "Orléans", "Tours",
     "pub réseaux sociaux", "shooting automobile", "film de marque", "aftermovie",
   ],
-  authors: [{ name: "Deepframe" }],
-  creator: "Deepframe",
+  authors: [{ name: "Splice" }],
+  creator: "Splice",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Deepframe",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Deepframe — Production audiovisuelle" }],
+    siteName: "Splice",
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
-  icons: { icon: "/LogoNoir.svg" },
+  icons: {
+    icon: "/logo-1.svg",
+    apple: "/logo-1.png",
+  },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "DeepFrame",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc",
-  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"}/LogoNoir.svg`,
+  name: "Splice",
+  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc",
+  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"}/logo-1.svg`,
   description:
     "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
-  email: "contact@deepframe.cc",
+  email: "contact@splice.cc",
   areaServed: {
     "@type": "Place",
     name: "Centre-Val de Loire, France",
   },
   sameAs: [
-    "https://www.instagram.com/deepframe.cc/",
-    "https://www.facebook.com/profile.php?id=61589292522120",
+    "https://www.instagram.com/splice.cc/",
+    "https://www.facebook.com/Splicecc/",
     "https://instagram.com/papiforcex",
     "https://instagram.com/by.louisia",
     "https://instagram.com/t.y97one",

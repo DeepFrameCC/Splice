@@ -42,9 +42,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = LOCAL_SERVICE_DATA[slug as LocalServiceSlug];
   if (!ville || !data) return {};
 
-  const title = fillTemplate(data.h1Template, ville) + " | DeepFrame";
+  const title = fillTemplate(data.h1Template, ville) + " | Splice";
   const description = fillTemplate(data.introTemplate, ville);
-  const url = `https://deepframe.cc/services/${slug}/${villeSlug}`;
+  const url = `https://splice.cc/services/${slug}/${villeSlug}`;
 
   return {
     title,
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       url,
-      siteName: "DeepFrame",
+      siteName: "Splice",
       locale: "fr_FR",
       type: "article",
     },
@@ -123,7 +123,7 @@ export default async function LocalServicePage({ params }: PageProps) {
           {/* Points cles */}
           <section className="mb-12">
             <h2 className="text-xl font-semibold text-white md:text-2xl">
-              Pourquoi choisir DeepFrame
+              Pourquoi choisir Splice
             </h2>
             <ul className="mt-6 grid gap-3">
               {data.points.map((point) => (
@@ -156,7 +156,7 @@ export default async function LocalServicePage({ params }: PageProps) {
               Zone d&apos;intervention
             </h2>
             <p className="mt-4 leading-relaxed text-white/70">
-              DeepFrame intervient à {ville.name}
+              Splice intervient à {ville.name}
               {ville.departmentCode ? ` (${ville.department}, ${ville.departmentCode})` : ` et dans toute la région ${ville.name}`}
               {" "}ainsi qu&apos;à Orléans, Tours, Blois, Chartres et Bourges.
             </p>

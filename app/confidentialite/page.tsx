@@ -5,7 +5,7 @@ import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
-  description: "Politique de confidentialité et protection des données personnelles — DeepFrame, conformément au RGPD.",
+  description: "Politique de confidentialité et protection des données personnelles — Splice, conformément au RGPD.",
 };
 
 export default function Confidentialite() {
@@ -20,15 +20,15 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">1. Responsable du traitement</h2>
             <ul className="mt-3 space-y-1">
-              <li><strong>Dénomination :</strong> DeepFrame (micro-entreprise)</li>
-              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact@deepframe.cc</li>
-              <li><strong>Email :</strong> contact@deepframe.cc</li>
+              <li><strong>Dénomination :</strong> Splice (micro-entreprise)</li>
+              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact@splice.cc</li>
+              <li><strong>Email :</strong> contact@splice.cc</li>
             </ul>
           </div>
 
           <div>
             <h2 className="text-lg font-bold text-white">2. Données collectées</h2>
-            <p>Dans le cadre de l&apos;utilisation du site deepframe.cc, nous collectons les données suivantes :</p>
+            <p>Dans le cadre de l&apos;utilisation du site splice.cc, nous collectons les données suivantes :</p>
 
             <h3 className="mt-4 font-bold text-white">2.1. Création de compte</h3>
             <p>Nom, prénom, pseudo, adresse email, mot de passe (hashé), adresse postale, code postal, ville, téléphone, âge.</p>
@@ -37,7 +37,7 @@ export default function Confidentialite() {
             <p>Type de projet, description du besoin, lieu de tournage, dates souhaitées, budget envisagé. Ces données sont liées à votre compte utilisateur.</p>
 
             <h3 className="mt-4 font-bold text-white">2.3. Paiement</h3>
-            <p>Les informations de paiement (carte bancaire) sont collectées et traitées directement par notre prestataire de paiement Stripe. DeepFrame ne stocke jamais vos données bancaires.</p>
+            <p>Les informations de paiement (carte bancaire) sont collectées et traitées directement par notre prestataire de paiement Stripe. Splice ne stocke jamais vos données bancaires.</p>
 
             <h3 className="mt-4 font-bold text-white">2.4. Navigation</h3>
             <p>Données de connexion (adresse IP, type de navigateur, pages visitées, date et heure de connexion) via les cookies essentiels au fonctionnement du site.</p>
@@ -103,7 +103,7 @@ export default function Confidentialite() {
             </ul>
             <p className="mt-3">
               Pour exercer vos droits, envoyez un email à{" "}
-              <a href="mailto:contact@deepframe.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@deepframe.cc</a>{" "}
+              <a href="mailto:contact@splice.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@splice.cc</a>{" "}
               en joignant une copie de votre pièce d&apos;identité. Nous répondons dans un délai maximum de 30 jours.
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">7. Sécurité</h2>
             <p>
-              DeepFrame met en oeuvre des mesures techniques et organisationnelles appropriées pour protéger
+              Splice met en oeuvre des mesures techniques et organisationnelles appropriées pour protéger
               vos données : chiffrement des mots de passe (Argon2id), connexions HTTPS, en-têtes de
               sécurité stricts (CSP, HSTS), authentification 2FA TOTP optionnelle, chiffrement AES-256-GCM
               des secrets sensibles au repos, accès restreint à la base de données, journalisation des
@@ -144,7 +144,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">10. Modifications</h2>
             <p>
-              DeepFrame se réserve le droit de modifier la présente politique de confidentialité à tout moment.
+              Splice se réserve le droit de modifier la présente politique de confidentialité à tout moment.
               La date de dernière mise à jour est indiquée en haut de cette page. Nous vous invitons à la
               consulter régulièrement.
             </p>

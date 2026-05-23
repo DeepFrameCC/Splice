@@ -21,7 +21,7 @@ export function ServiceCoverImage({ src, alt, priority = false }: Props) {
         
         <div className="flex flex-col items-center gap-3">
           <span className="font-display text-5xl font-bold tracking-wide text-white/15">
-            DEEP<span className="text-[#F36B1F]/25">FRAME</span>
+            SPL<span className="text-[#F36B1F]/25">ICE</span>
           </span>
           <div className="h-0.5 w-12 rounded-full bg-[#F36B1F]/20" />
           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/20">

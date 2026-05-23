@@ -5,14 +5,18 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { Metadata } from "next";
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
 export const metadata: Metadata = {
-  title: "Demander un devis — DeepFrame",
+  title: "Demander un devis — Splice",
   description:
     "Configurez votre projet audiovisuel en 3 étapes et recevez un devis détaillé sous 24h. Gratuit et sans engagement.",
   openGraph: {
-    title: "Demander un devis — DeepFrame",
+    title: "Demander un devis — Splice",
     description: "Configurez votre projet audiovisuel en 3 étapes.",
   },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/devis` },
 };
 
 export default async function DevisPage() {

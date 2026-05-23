@@ -2,12 +2,27 @@
 import { auth } from "@/lib/auth";
 import { FOUNDER_LABEL } from "@/lib/pricing";
 import type { Founder } from "@prisma/client";
+import type { Metadata } from "next";
 import MediaCard from "@/components/gallery/MediaCard";
 import { toggleLike } from "@/app/actions/likes";
 import FilterTabs from "@/components/gallery/FilterTabs";
 import { AlertTriangle } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
+export const metadata: Metadata = {
+  title: "Photos — Splice",
+  description:
+    "Galerie photo : portraits, automobile, lifestyle, événementiel. Par Louisia, Papi et Tracy.",
+  openGraph: {
+    title: "Photos — Splice",
+    description: "Nos réalisations photo en Centre-Val de Loire.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/photos` },
+};
 
 export default async function PhotosPage({ searchParams }: { searchParams: Promise<{ owner?: string }> }) {
   const sp = await searchParams;

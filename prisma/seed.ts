@@ -6,7 +6,7 @@ const db = new PrismaClient();
 
 async function main() {
   // ── Admin ──────────────────────────────────────────────────────────
-  const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@deepframe.cc";
+  const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@splice.cc";
   const adminPassword = process.env.ADMIN_SEED_PASSWORD;
   if (!adminPassword) {
     throw new Error(
@@ -14,9 +14,41 @@ async function main() {
     );
   }
 
-  const exists = await db.user.findUnique({ where: { email: adminEmail } });
+  const exists = await db.user.findFirst({
+    where: {
+      OR: [
+        { email: adminEmail },
+        { pseudo: "admin" }
+      ]
+    }
+  });
   if (exists) {
     console.log("Admin existe deja:", exists.email);
+    const passwordHash = await hash(adminPassword);
+    await db.user.update({
+      where: { id: exists.id },
+      data: {
+        email: adminEmail,
+        passwordHash,
+        profile: {
+          upsert: {
+            create: {
+              prenom: "Admin",
+              nom: "Splice",
+              adresse: "Orleans",
+              codePostal: "45000",
+              ville: "Orleans",
+              tel: "+33651109202",
+              age: 25,
+            },
+            update: {
+              nom: "Splice",
+            }
+          }
+        }
+      }
+    });
+    console.log("Compte admin mis a jour:", adminEmail);
   } else {
     const passwordHash = await hash(adminPassword);
     const admin = await db.user.create({
@@ -28,7 +60,7 @@ async function main() {
         profile: {
           create: {
             prenom: "Admin",
-            nom: "DeepFrame",
+            nom: "Splice",
             adresse: "Orleans",
             codePostal: "45000",
             ville: "Orleans",

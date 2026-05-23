@@ -248,7 +248,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
 
   const clientMail = sendMail({
     to: data.emailContact,
-    subject: `Deepframe — Demande de devis ${devis.numero} bien reçue`,
+    subject: `Splice — Demande de devis ${devis.numero} bien reçue`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Merci pour votre demande</h2>
@@ -259,7 +259,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
           : `<p>Notre équipe revient vers vous sous 48h pour organiser votre prestation gratuite.</p>`
         }
         <p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
       </div>`,
   });
 

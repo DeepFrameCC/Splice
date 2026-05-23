@@ -24,7 +24,7 @@ function createRateLimiter(
     redis: Redis.fromEnv(),
     limiter: Ratelimit.slidingWindow(requests, window),
     analytics: true,
-    prefix: "deepframe:rl",
+    prefix: "splice:rl",
   });
 }
 

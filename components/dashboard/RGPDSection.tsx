@@ -26,7 +26,7 @@ export default function RGPDSection() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `deepframe-mes-donnees-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `splice-mes-donnees-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       setSuccess("Export téléchargé.");

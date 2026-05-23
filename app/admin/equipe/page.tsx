@@ -70,7 +70,7 @@ export default async function AdminEquipePage() {
       <div className="rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
         <div className="border-b border-white/[0.06] px-6 py-4">
           <h2 className="font-display text-lg font-bold text-white">Fondateurs</h2>
-          <p className="mt-0.5 text-xs text-white/30">Comptes principaux de Deepframe</p>
+          <p className="mt-0.5 text-xs text-white/30">Comptes principaux de Splice</p>
         </div>
         <div className="grid gap-4 p-6 sm:grid-cols-3">
           {(Object.entries(FOUNDER_LABEL) as [string, string][]).map(([key, label]) => (

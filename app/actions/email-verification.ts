@@ -37,7 +37,7 @@ export async function sendVerificationEmail() {
 
   await sendMail({
     to: user.email,
-    subject: "Deepframe — Vérifiez votre adresse email",
+    subject: "Splice — Vérifiez votre adresse email",
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Vérification de votre email</h2>
@@ -47,7 +47,7 @@ export async function sendVerificationEmail() {
           <a href="${link}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Si vous n'avez pas demandé cette vérification, ignorez cet email.</p>
-        <p style="font-size:12px;color:#777">Deepframe · contact@deepframe.cc</p>
+        <p style="font-size:12px;color:#777">Splice · contact@splice.cc</p>
       </div>`,
   });
 

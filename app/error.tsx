@@ -10,13 +10,13 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
     import("@/lib/monitoring").then(({ captureException }) => {
       captureException(error, { route: window.location.pathname });
     }).catch(() => {
-      console.error("[deepframe:error]", error);
+      console.error("[splice:error]", error);
     });
   }, [error]);
 
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-[#0E0E22]/30">DEEPFRAME</span>
+      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-[#0E0E22]/30">SPLICE</span>
 
       <p
         style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.18em" }}

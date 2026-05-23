@@ -8,8 +8,8 @@ function getResend() {
   return _resend;
 }
 
-export const MAIL_FROM = process.env.MAIL_FROM ?? "Deepframe <contact@deepframe.cc>";
-export const MAIL_CONTACT = "contact@deepframe.cc";
+export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice <contact@splice.cc>";
+export const MAIL_CONTACT = "contact@splice.cc";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {
@@ -24,7 +24,7 @@ export async function sendMail(opts: { to: string | string[]; subject: string; h
 export const notifyFoundersNewDevis = (numero: string, payload: { client: string; total: number; lieu: string; pack: string }) =>
   sendMail({
     to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
-    subject: `[Deepframe] Nouveau devis ${numero} — ${payload.client}`,
+    subject: `[Splice] Nouveau devis ${numero} — ${payload.client}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22">
         <h2 style="color:#F36B1F">Nouveau devis ${numero}</h2>

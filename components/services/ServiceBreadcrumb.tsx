@@ -29,7 +29,7 @@ export function ServiceBreadcrumb({ serviceName, slug }: Props) {
         <li aria-hidden="true" className="text-white/30">/</li>
         <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" aria-current="page">
           <span itemProp="name" className="font-medium text-white/70">{serviceName}</span>
-          <meta itemProp="item" content={`https://deepframe.cc/services/${slug}`} />
+          <meta itemProp="item" content={`https://splice.cc/services/${slug}`} />
           <meta itemProp="position" content="3" />
         </li>
       </ol>

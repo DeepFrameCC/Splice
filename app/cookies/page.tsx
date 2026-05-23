@@ -5,7 +5,7 @@ import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de cookies",
-  description: "Politique de cookies du site DeepFrame — informations sur les cookies utilisés et comment les gérer.",
+  description: "Politique de cookies du site Splice — informations sur les cookies utilisés et comment les gérer.",
 };
 
 export default function Cookies() {
@@ -27,7 +27,7 @@ export default function Cookies() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-white">2. Cookies utilisés sur deepframe.cc</h2>
+            <h2 className="text-lg font-bold text-white">2. Cookies utilisés sur splice.cc</h2>
 
             <h3 className="mt-4 font-bold text-white">2.1. Cookies strictement nécessaires</h3>
             <p>Ces cookies sont indispensables au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
@@ -62,7 +62,7 @@ export default function Cookies() {
               Note : le choix de consentement à la bannière cookies (clé{" "}
               <span className="font-mono">df_consent</span>) est stocké dans le{" "}
               <strong>localStorage</strong> de votre navigateur (pas un cookie HTTP) et n&apos;est
-              jamais transmis aux serveurs DeepFrame. Vous pouvez le réinitialiser en vidant le
+              jamais transmis aux serveurs Splice. Vous pouvez le réinitialiser en vidant le
               stockage local du site.
             </p>
 
@@ -93,7 +93,7 @@ export default function Cookies() {
 
             <h3 className="mt-6 font-bold text-white">2.3. Cookies analytiques</h3>
             <p>
-              Actuellement, deepframe.cc n&apos;utilise aucun cookie analytique (Google Analytics, Matomo, etc.).
+              Actuellement, splice.cc n&apos;utilise aucun cookie analytique (Google Analytics, Matomo, etc.).
               Si un outil d&apos;analyse venait à être mis en place, cette page serait mise à jour et votre
               consentement serait recueilli préalablement.
             </p>
@@ -130,7 +130,7 @@ export default function Cookies() {
             <h2 className="text-lg font-bold text-white">5. Contact</h2>
             <p>
               Pour toute question concernant notre utilisation des cookies, contactez-nous à{" "}
-              <a href="mailto:contact@deepframe.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@deepframe.cc</a>.
+              <a href="mailto:contact@splice.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@splice.cc</a>.
             </p>
           </div>
         </section>

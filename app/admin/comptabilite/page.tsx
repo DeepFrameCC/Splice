@@ -71,7 +71,7 @@ export default async function AdminComptabilitePage() {
         </div>
         <ExportCSVButton
           data={csvLines}
-          filename={`deepframe-livre-recettes-${currentYear}.csv`}
+          filename={`splice-livre-recettes-${currentYear}.csv`}
         />
       </header>
 

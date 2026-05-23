@@ -1,5 +1,5 @@
 {
-  "name": "deepframe",
+  "name": "splice",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -28,6 +28,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-email/components": "^0.0.31",
+    "@sentry/nextjs": "^10.53.1",
     "@tailwindcss/typography": "^0.5.19",
     "@tanstack/react-table": "^8.21.3",
     "@tiptap/extension-image": "^3.23.4",

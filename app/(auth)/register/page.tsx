@@ -35,7 +35,7 @@ export default function RegisterPage() {
         style={{ background: "linear-gradient(160deg, #0E0E22 0%, #F36B1F 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
-          <span className="font-display text-lg font-bold tracking-wide text-white">DEEPFRAME</span>
+          <span className="font-display text-lg font-bold tracking-wide text-white">SPLICE</span>
         </Link>
 
         <div className="max-w-md">
@@ -53,7 +53,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <p className="text-xs text-white/30">© 2026 DeepFrame · Tous droits réservés</p>
+        <p className="text-xs text-white/30">© 2026 Splice · Tous droits réservés</p>
       </div>
 
       {/* ── Panneau droit : formulaire ────────────────────────────── */}
@@ -63,7 +63,7 @@ export default function RegisterPage() {
 
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
-            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">DEEPFRAME</span>
+            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">SPLICE</span>
           </div>
 
           {/* Tabs */}

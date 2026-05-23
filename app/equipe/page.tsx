@@ -1,12 +1,22 @@
 import NavWrapper from "@/components/layout/NavWrapper";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
 import Link from "next/link";
+import { buildTeamJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
+
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 
 export const metadata: Metadata = {
   title: "Équipe",
   description:
-    "Découvrez les portfolios de Fayad, Louisia et Tracy — les trois fondateurs de DeepFrame.",
+    "Découvrez les portfolios de Fayad, Louisia et Tracy — les trois fondateurs de Splice.",
+  openGraph: {
+    title: "L'équipe Splice",
+    description:
+      "Vidéaste, photographe, monteur. Trois regards, une seule direction créative.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/equipe` },
 };
 
 /* ── SVG icons ────────────────────────────────────────────────────────── */
@@ -156,6 +166,11 @@ const TAG_STYLES: Record<FounderTag["variant"], string> = {
 export default function EquipePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTeamJsonLd()) }}
+      />
       <NavWrapper />
       <EquipeAnimations />
 
@@ -175,16 +190,15 @@ export default function EquipePage() {
           </span>
           <h1
             data-anim="hero-title"
-            className="mt-4 text-white"
+            className="mt-4 text-white font-bold"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 900,
+              fontFamily: "var(--font-sans)",
               fontSize: "clamp(56px, 8vw, 120px)",
               lineHeight: 0.92,
               letterSpacing: "-0.035em",
             }}
           >
-            Trois <em className="italic font-extrabold text-df-gold">artisans</em>
+            Trois <em className="italic font-bold text-df-gold">artisans</em>
             <br />
             de l&apos;image.
           </h1>

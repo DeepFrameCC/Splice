@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Instagram, Facebook, Mail } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Mail } from "lucide-react";
+import CookieSettingsButton from "./CookieSettingsButton";
 
 const founders = [
   { handle: "@papiforcex", insta: "https://instagram.com/papiforcex" },
@@ -12,29 +13,29 @@ export default function Footer() {
     <footer className="mt-24 bg-[var(--bg-deep)] border-t border-white/[.08] text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-4">
         <div>
-          <h3 className="font-display text-2xl uppercase tracking-tight">Deepframe</h3>
+          <h3 className="font-display text-2xl uppercase tracking-tight">Splice</h3>
           <p className="mt-3 text-sm opacity-80">
             Boîte de production audiovisuelle.
             On capte le meilleur de votre entreprise.
           </p>
-          <div className="mt-4 flex items-center gap-4">
-            <a href="https://www.instagram.com/deepframe.cc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram DeepFrame">
-              <Instagram className="h-5 w-5 opacity-80 hover:opacity-100 transition-opacity" />
+          <div className="df-footer-socials">
+            <a href="https://www.facebook.com/Splicecc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Facebook">
+              <Facebook size={18} />
             </a>
-            <a href="https://www.facebook.com/profile.php?id=61589292522120" target="_blank" rel="noopener noreferrer" aria-label="Facebook DeepFrame">
-              <Facebook className="h-5 w-5 opacity-80 hover:opacity-100 transition-opacity" />
+            <a href="https://www.instagram.com/splice.cc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Instagram">
+              <Instagram size={18} />
             </a>
           </div>
         </div>
         <div>
           <h3 className="mb-3 font-bold text-df-gold">Navigation</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/galerie">Galerie</Link></li>
-            <li><Link href="/services">Services</Link></li>
-            <li><Link href="/equipe">Équipe</Link></li>
-            <li><Link href="/blog">Blog</Link></li>
-            <li><Link href="/faq">FAQ</Link></li>
-            <li><Link href="/devis">Demander un devis</Link></li>
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+            <li><Link href="/services" className="hover:text-df-gold transition-colors">Services</Link></li>
+            <li><Link href="/tarifs" className="hover:text-df-gold transition-colors">Tarifs</Link></li>
+            <li><Link href="/galerie" className="hover:text-df-gold transition-colors">Galerie</Link></li>
+            <li><Link href="/blog" className="hover:text-df-gold transition-colors">Blog</Link></li>
+            <li><Link href="/equipe" className="hover:text-df-gold transition-colors">Équipe</Link></li>
+            <li><Link href="/faq" className="hover:text-df-gold transition-colors">FAQ</Link></li>
           </ul>
         </div>
         <div>
@@ -49,8 +50,8 @@ export default function Footer() {
         </div>
         <div>
           <h3 className="mb-3 font-bold text-df-gold">Contact</h3>
-          <a href="mailto:contact@deepframe.cc" className="flex items-center gap-2 text-sm">
-            <Mail className="h-4 w-4" /> contact@deepframe.cc
+          <a href="mailto:contact@splice.cc" className="flex items-center gap-2 text-sm">
+            <Mail className="h-4 w-4" /> contact@splice.cc
           </a>
           <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs opacity-60">
             <Link href="/mentions-legales">Mentions légales</Link>
@@ -58,8 +59,10 @@ export default function Footer() {
             <Link href="/confidentialite">Confidentialité</Link>
             <span>·</span>
             <Link href="/cookies">Cookies</Link>
+            <span>·</span>
+            <CookieSettingsButton />
           </div>
-          <p className="mt-2 text-xs opacity-60">© {new Date().getFullYear()} Deepframe. Tous droits réservés.</p>
+          <p className="mt-2 text-xs opacity-60">© {new Date().getFullYear()} Splice. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

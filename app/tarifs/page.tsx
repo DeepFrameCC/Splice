@@ -2,16 +2,30 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PricingSection from "@/components/tarifs/PricingSection";
+import { buildPricingJsonLd } from "@/lib/seo";
+
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 
 export const metadata: Metadata = {
-  title: "Tarifs — Deepframe | Vidéo & Photo en Centre-Val de Loire",
+  title: "Tarifs — Splice | Vidéo & Photo en Centre-Val de Loire",
   description:
     "Tarifs transparents, zéro surprise. Abonnements vidéo dès 45 €/mois, Pack Particulier dès 29 €. Options à la carte, recyclage multi-réseaux inclus.",
-  alternates: { canonical: "/tarifs" },
+  openGraph: {
+    title: "Tarifs — Splice",
+    description: "Abonnements vidéo dès 45 €/mois, packs photo à la carte.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/tarifs` },
 };
 
 export default function TarifsPage() {
   return (
+    <>
+    <script
+      type="application/ld+json"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPricingJsonLd()) }}
+    />
     <main className="mx-auto max-w-6xl px-4 pb-20 pt-12 md:px-6">
       {/* Retour à l'accueil */}
       <Link
@@ -38,5 +52,6 @@ export default function TarifsPage() {
 
       <PricingSection />
     </main>
+    </>
   );
 }

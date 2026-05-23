@@ -36,7 +36,7 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
     editorProps: {
       attributes: {
         class:
-          "prose prose-lg prose-deepframe max-w-none min-h-[400px] px-6 py-4 outline-none focus:outline-none",
+          "prose prose-lg prose-splice max-w-none min-h-[400px] px-6 py-4 outline-none focus:outline-none",
       },
     },
   });

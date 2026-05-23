@@ -25,10 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
-  if (!post) return { title: "Article introuvable — DeepFrame" };
+  if (!post) return { title: "Article introuvable — Splice" };
 
-  const title = post.metaTitle || `${post.title} — Blog DeepFrame`;
+  const title = post.metaTitle || `${post.title} — Blog Splice`;
   const description = post.metaDescription || post.excerpt;
+
+  const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 
   return {
     title,
@@ -40,6 +42,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.publishedAt.toISOString(),
       ...(post.coverImageUrl ? { images: [{ url: post.coverImageUrl }] } : {}),
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      ...(post.coverImageUrl ? { images: [post.coverImageUrl] } : {}),
+    },
+    alternates: { canonical: `${BASE_URL}/blog/${slug}` },
   };
 }
 
@@ -184,7 +193,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {post.content ? (
                 <div
-                  className="prose prose-lg prose-deepframe max-w-none prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tight"
+                  className="prose prose-lg prose-splice max-w-none prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tight"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 />
               ) : (

@@ -102,7 +102,7 @@ export async function exportMyData(): Promise<{
     _meta: {
       exportDate: new Date().toISOString(),
       format: "RGPD Article 15/20 — Données personnelles",
-      service: "Deepframe",
+      service: "Splice",
     },
     compte: {
       email: user.email,

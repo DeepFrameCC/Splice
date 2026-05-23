@@ -1,13 +1,22 @@
 ﻿import { db } from "@/lib/db";
 import { Star, AlertTriangle, MessageSquare, Quote } from "lucide-react";
 import AvisForm from "@/components/gallery/AvisForm";
+import { buildAvisJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
 export const metadata: Metadata = {
   title: "Avis clients",
-  description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Deepframe.",
+  description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Splice.",
+  openGraph: {
+    title: "Avis clients — Splice",
+    description: "Les retours de nos clients sur nos prestations audiovisuelles.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/avis` },
 };
 
 export default async function AvisPage() {
@@ -30,13 +39,24 @@ export default async function AvisPage() {
     : null;
 
   return (
+    <>
+    <script
+      type="application/ld+json"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(buildAvisJsonLd(
+          noteMoyenne ? parseFloat(noteMoyenne) : null,
+          avis.length,
+        )),
+      }}
+    />
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <header className="mb-12 text-center">
         <h1 className="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
           Avis clients
         </h1>
         <p className="mt-3 text-sm text-white/40">
-          Ce que nos clients disent de Deepframe.
+          Ce que nos clients disent de Splice.
           {noteMoyenne && (
             <span className="ml-2 inline-flex items-center gap-1">
               <Star className="h-3.5 w-3.5 fill-df-gold text-df-gold" />
@@ -115,5 +135,6 @@ export default async function AvisPage() {
         </>
       )}
     </section>
+    </>
   );
 }

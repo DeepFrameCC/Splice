@@ -63,7 +63,7 @@ export default function IntroLoader() {
           className="flex flex-col items-center gap-4"
           style={{ transformStyle: "preserve-3d", perspective: 1000, opacity: 0 }}
         >
-          <span className="font-display text-4xl font-bold tracking-wide text-white">DEEPFRAME</span>
+          <span className="font-display text-4xl font-bold tracking-wide text-white">SPLICE</span>
         </div>
         <div className="mt-10 h-1.5 w-64 overflow-hidden rounded-full bg-df-surface border border-white/5 shadow-inner">
           <div

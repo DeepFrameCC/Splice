@@ -37,7 +37,7 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
             onCanPlay={(e) => {
               void e.currentTarget.play().catch(() => setAutoplayFailed(true));
             }}
-            aria-label="Aperçu studio DeepFrame en lecture"
+            aria-label="Aperçu studio Splice en lecture"
           />
 
           {autoplayFailed && (

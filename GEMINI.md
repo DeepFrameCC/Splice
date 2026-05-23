@@ -18,7 +18,7 @@ No formal test suite is currently configured (Vitest + Playwright planned Phase 
 
 ## Architecture
 
-**DeepFrame** is a Next.js 15 App Router application for a French audiovisual production company based in **Saint-Avertin (37)**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+**Splice** is a Next.js 15 App Router application for a French audiovisual production company based in **Saint-Avertin (37)**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
 
 The platform handles: public showcase, client authentication (CLIENT / TEAM / ADMIN), quote wizard, payment via Stripe, PDF invoices, electronic contracts, and a full admin dashboard.
 
@@ -197,14 +197,14 @@ Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically b
 Repo dans `~/.claude/skills/ui-ux-pro-max-skill/` (MIT, NextLevelBuilder). 7 skills jonctionnés dans `~/.claude/skills/` : `ui-ux-pro-max`, `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, `slides`. Base de données : 67 styles UI, 161 palettes, 57 pairings de fonts, 99 règles UX, 25 types de charts, 10 stacks.
 
 - **Repo** : https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- **Auto-invocation** : MANDATORY avant toute tâche UI/UX/composant sur DeepFrame. Invoquer `ui-ux-pro-max` en amont pour pull style + palette + typo + règles UX, puis chaîner `design-frontend` (agent projet) pour l'implémentation React/Tailwind/shadcn.
-- **Cas DeepFrame** :
+- **Auto-invocation** : MANDATORY avant toute tâche UI/UX/composant sur Splice. Invoquer `ui-ux-pro-max` en amont pour pull style + palette + typo + règles UX, puis chaîner `design-frontend` (agent projet) pour l'implémentation React/Tailwind/shadcn.
+- **Cas Splice** :
   - Refonte composant existant (`components/services/*`, `components/devis/*`, `components/home/*`) → `ui-ux-pro-max` + `design-frontend`
   - Nouveau token / variable CSS / palette (charte "Cinéma Studio") → `design-system` + `ui-styling`
   - Bannière OG / hero / cover services / social → `banner-design`
   - Refonte identité visuelle ou guidelines de tonalité → `brand`
   - Présentation interne ou pitch → `slides`
-- **Compatibilité charte existante** : DeepFrame a déjà sa DA "Cinéma Studio" (cf. mémoire) — utiliser `ui-ux-pro-max` comme système de référence/checklist, sans écraser les tokens existants (`#0E0E22`, `#F36B1F`, Fraunces, Inter, JetBrains Mono).
+- **Compatibilité charte existante** : Splice a déjà sa DA "Cinéma Studio" (cf. mémoire) — utiliser `ui-ux-pro-max` comme système de référence/checklist, sans écraser les tokens existants (`#0E0E22`, `#F36B1F`, Fraunces, Inter, JetBrains Mono).
 - **Update** : `cd ~/.claude/skills/ui-ux-pro-max-skill && git pull`
 
 ## Impeccable — Design Engineering Workflow (pbakaus/impeccable)
@@ -212,8 +212,8 @@ Repo dans `~/.claude/skills/ui-ux-pro-max-skill/` (MIT, NextLevelBuilder). 7 ski
 Installé via `npx skills add` (Apache 2.0, basé sur Anthropic frontend-design fork par Paul Bakaus). Skill **workflow complet** avec 24 sous-commandes, design laws strictes, et système de register brand/product.
 
 - **Repo** : https://github.com/pbakaus/impeccable
-- **Register DeepFrame** : `brand` (production audiovisuelle = design IS the product, pas un app UI)
-- **Setup recommandé** : créer `PRODUCT.md` à la racine du projet avec users (clients PME Centre-Val de Loire), brand (DeepFrame Cinéma Studio), tone (premium, sobre, direct), anti-references (templates SaaS génériques, fillers décoratifs), strategic principles. Optionnel : `DESIGN.md` avec palette `#0E0E22`/`#6B8779`/`#F36B1F`, fonts Anton/Poppins, charte DA Cinéma Studio. Sans ces fichiers le skill sera invité à invoquer `/impeccable teach` en premier.
+- **Register Splice** : `brand` (production audiovisuelle = design IS the product, pas un app UI)
+- **Setup recommandé** : créer `PRODUCT.md` à la racine du projet avec users (clients PME Centre-Val de Loire), brand (Splice Cinéma Studio), tone (premium, sobre, direct), anti-references (templates SaaS génériques, fillers décoratifs), strategic principles. Optionnel : `DESIGN.md` avec palette `#0E0E22`/`#6B8779`/`#F36B1F`, fonts Anton/Poppins, charte DA Cinéma Studio. Sans ces fichiers le skill sera invité à invoquer `/impeccable teach` en premier.
 - **Sous-commandes** : `craft`, `shape`, `polish`, `critique`, `audit`, `bolder`, `quieter`, `distill`, `harden`, `onboard`, `animate`, `colorize`, `typeset`, `layout`, `delight`, `overdrive`, `clarify`, `adapt`, `optimize`, `live`, `extract`, `teach`, `document`.
 - **Design laws strictes** (impeccable applique partout) :
   - OKLCH only, jamais `#000`/`#fff` purs, tinter les neutrals vers `#F36B1F` (chroma 0.005-0.01)
@@ -223,7 +223,7 @@ Installé via `npx skills add` (Apache 2.0, basé sur Anthropic frontend-design 
   - **Bans absolus** : side-stripe borders >1px, gradient text, glassmorphism par défaut, hero-metric template SaaS, grilles de cards identiques, modal-first, em dashes (—) en français → utiliser virgules/parenthèses
   - Motion : ease-out-quart/quint/expo, pas de bounce/elastic, ne jamais animer layout properties
 
-**Auto-invocation sur DeepFrame** :
+**Auto-invocation sur Splice** :
 - Refonte d'une page entière → `impeccable shape` → `impeccable craft`
 - Polish d'un composant → `impeccable polish <fichier>`
 - Page trop fade → `impeccable bolder <fichier>`
@@ -234,13 +234,13 @@ Installé via `npx skills add` (Apache 2.0, basé sur Anthropic frontend-design 
 - First-run flows, empty states → `impeccable onboard`
 - UI performance → `impeccable optimize`
 
-**Complémentarité avec les autres design skills DeepFrame** :
+**Complémentarité avec les autres design skills Splice** :
 - `ui-ux-pro-max` = DB statique structurée (67 styles × 161 palettes × 57 fonts) — référentiel
 - `emil-design-eng` = sensibilité Emil Kowalski sur micro-interactions / feel
 - `impeccable` = **workflow opérationnel** avec laws + commandes + register
 - `design-frontend` (agent projet) = implémentation finale React/Tailwind/Framer Motion
 
-**Chaînage type pour grosse refonte sur DeepFrame** :
+**Chaînage type pour grosse refonte sur Splice** :
 ```
 impeccable shape (plan)
   → impeccable craft (build)
@@ -257,8 +257,8 @@ impeccable shape (plan)
 Cloné dans `~/.claude/skills/emil-skill/` (MIT, Emil Kowalski). Skill auto-découvert sous le nom `emil-design-eng` via jonction. Encode la philosophie design engineering : UI polish, micro-interactions, animation feel, détails invisibles qui font la différence entre une UI fonctionnelle et une UI premium.
 
 - **Repo** : https://github.com/emilkowalski/skill
-- **Auto-invocation** : MANDATORY en amont de `design-frontend` (agent projet) sur DeepFrame pour toute tâche UI sensible au "feel" — micro-interactions, hover/focus states, animation timing, polish de composants. Chaîner avec `ui-ux-pro-max` (DB styles/palettes) en parallèle pour couvrir système ET sensibilité.
-- **Cas DeepFrame** :
+- **Auto-invocation** : MANDATORY en amont de `design-frontend` (agent projet) sur Splice pour toute tâche UI sensible au "feel" — micro-interactions, hover/focus states, animation timing, polish de composants. Chaîner avec `ui-ux-pro-max` (DB styles/palettes) en parallèle pour couvrir système ET sensibilité.
+- **Cas Splice** :
   - Polish des transitions tunnel devis (`components/devis/Wizard.tsx`, `Steps.tsx`)
   - Hover states galerie / showreel (`components/home/HomeContent.tsx` Showreel function)
   - Animation feel des CTA primaires (df-btn-primary scale/translateY)
@@ -273,7 +273,7 @@ Cloné dans `~/.claude/skills/stop-slop/` (MIT, Hardik Pandya). Élimine les pat
 
 - **Repo** : https://github.com/hardikpandya/stop-slop
 - **Auto-invocation** : MANDATORY en final pass après toute génération/édition de prose (copy services, emails devis, mentions légales, descriptions galerie, posts blog, OG/meta descriptions). Chaîner systématiquement après `copywriting`, `copy-editing`, `emails`, `cold-email`.
-- **Cas DeepFrame** : tout texte visible côté client (`prisma/services-content.ts`, `components/services/*`, `components/devis/*`, emails Resend, PDF mentions, hero/baseline) doit passer par `stop-slop` avant validation.
+- **Cas Splice** : tout texte visible côté client (`prisma/services-content.ts`, `components/services/*`, `components/devis/*`, emails Resend, PDF mentions, hero/baseline) doit passer par `stop-slop` avant validation.
 - **Update** : `cd ~/.claude/skills/stop-slop && git pull`
 
 ## Marketing Skills (coreyhaines31/marketingskills)
@@ -282,7 +282,7 @@ Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ 
 
 - **Repo**: https://github.com/coreyhaines31/marketingskills
 - **Categories**: `cro`, `copywriting`, `emails`, `seo-audit`, `ai-seo`, `programmatic-seo`, `schema`, `ads`, `ad-creative`, `analytics`, `ab-testing`, `referrals`, `churn-prevention`, `onboarding`, `pricing`, `launch`, `popups`, `paywalls`, `signup`, `lead-magnets`, `cold-email`, `community-marketing`, `social`, `video`, `image`, `customer-research`, `competitor-profiling`, `marketing-psychology`, `product-marketing`, `sales-enablement`, `revops`, `content-strategy`, `aso`, `directory-submissions`, `site-architecture`, `free-tools`, `marketing-ideas`, `co-marketing`, `copy-editing` (full list in `~/.claude/skills/marketingskills/skills/`)
-- **Usage**: invoke via Skill tool by name (e.g. `cro`, `copywriting`, `emails`) when working on landing pages, devis emails, service SEO pages, or launch copy for DeepFrame
+- **Usage**: invoke via Skill tool by name (e.g. `cro`, `copywriting`, `emails`) when working on landing pages, devis emails, service SEO pages, or launch copy for Splice
 - **Tool registry**: `~/.claude/skills/marketingskills/tools/REGISTRY.md` — integration guides for GA4, Stripe, Resend, Google Ads, Meta Ads, HubSpot, etc.
 - **Update**: `git pull` dans `~/.claude/skills/marketingskills/`
 
@@ -340,17 +340,17 @@ Currently between Phase 0 (existing site) and Phase 1. See prompt master documen
 
 ---
 
-# PRODUCT.md — DeepFrame
+# PRODUCT.md — Splice
 
 > Source de vérité pour `impeccable` et les sub-agents design. Tient lieu de brief produit/marque. À mettre à jour quand la stratégie évolue (`/impeccable teach` régénère depuis ici).
 
 ## Register
 
-**brand** — DeepFrame est une boîte de production audiovisuelle. Le site marketing **est** le produit : la qualité visuelle du site fait la première démonstration du savoir-faire. Pas d'app SaaS dashboard derrière (l'espace `/profil` est secondaire). Le design doit refléter l'identité studio créatif, pas la fonctionnalité.
+**brand** — Splice est une boîte de production audiovisuelle. Le site marketing **est** le produit : la qualité visuelle du site fait la première démonstration du savoir-faire. Pas d'app SaaS dashboard derrière (l'espace `/profil` est secondaire). Le design doit refléter l'identité studio créatif, pas la fonctionnalité.
 
 ## Product Purpose
 
-DeepFrame produit des contenus audiovisuels pour PME et entreprises du Centre-Val de Loire — pubs sociales, shootings automobile, films de marque, événementiel, intros animées. Le site sert à convertir un prospect en demande de devis qualifiée (tunnel `/devis` 4 étapes, paiement Stripe acompte 30%, livrables sous 14j en moyenne).
+Splice produit des contenus audiovisuels pour PME et entreprises du Centre-Val de Loire — pubs sociales, shootings automobile, films de marque, événementiel, intros animées. Le site sert à convertir un prospect en demande de devis qualifiée (tunnel `/devis` 4 étapes, paiement Stripe acompte 30%, livrables sous 14j en moyenne).
 
 ## Users
 
@@ -372,7 +372,7 @@ DeepFrame produit des contenus audiovisuels pour PME et entreprises du Centre-Va
 
 ## Brand
 
-**Nom :** DeepFrame
+**Nom :** Splice
 **Statut :** auto-entrepreneur (franchise TVA, art. 293 B CGI — non soumise TVA)
 **Localisation :** Orléans (45) + Tours (37), interventions Centre-Val de Loire
 **Identité visuelle :** "Cinéma Studio" — dark natif, frame cinéma, codes TC, orange brûlé, surfaces glauque/forêt, typographie display condensée.
@@ -407,7 +407,7 @@ Sites/aesthetics à NE PAS reproduire :
 - **Template SaaS B2B générique** (sidebar + cards + KPI tiles)
 - **Sites freelance "passion / votre projet est unique"** — agitation fluffy
 - **Agences communication régionales** typiques (carrousel témoignages, blocks "Nos valeurs")
-- **Wedding photographer "minimal pastel"** (DeepFrame n'est PAS un studio mariage)
+- **Wedding photographer "minimal pastel"** (Splice n'est PAS un studio mariage)
 - **Sites concession auto** — gris/bleu corporate
 - **Templates Webflow/Framer "café-blanc"** (blocs blanc-cassé identiques)
 
@@ -443,7 +443,7 @@ CSS : tokens Cinéma Studio dans `tailwind.config.ts` + classes legacy `df-*` da
 
 ---
 
-# DESIGN.md — DeepFrame Cinéma Studio
+# DESIGN.md — Splice Cinéma Studio
 
 > Source de vérité pour `impeccable` et les sub-agents design. Référence concrète des tokens, typographies, motion et composants. Compatible avec les laws `impeccable` (OKLCH, jamais `#000`/`#fff`, hiérarchie ≥1.25, etc.).
 
@@ -561,7 +561,7 @@ Container max-width : `1320px` (legacy) / `max-w-5xl` (1024px) / `max-w-6xl` (11
 
 ## Elevation (shadows)
 
-Très restreint — DeepFrame est dark, les shadows soft sur dark sont peu visibles.
+Très restreint — Splice est dark, les shadows soft sur dark sont peu visibles.
 
 - `--df-shadow-sm` : `0 1px 0 rgba(10,10,35,.04), 0 8px 24px -12px rgba(10,10,35,.10)`
 - `--df-shadow-md` : `0 1px 0 rgba(10,10,35,.06), 0 24px 60px -28px rgba(10,10,35,.18)`
@@ -649,7 +649,7 @@ Très restreint — DeepFrame est dark, les shadows soft sur dark sont peu visib
 - `components/layout/Nav.tsx` — nav pattern
 - `components/devis/Wizard.tsx` — pattern formulaire multi-step
 
-## Bans absolus (impeccable laws + DeepFrame)
+## Bans absolus (impeccable laws + Splice)
 
 1. `#000` / `#fff` purs — tint vers orange
 2. `border-left` / `border-right` >1px coloré en accent

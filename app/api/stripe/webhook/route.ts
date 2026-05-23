@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
     // Send confirmation email
     await sendMail({
       to: devis.emailContact,
-      subject: `Deepframe — Paiement confirmé · Devis n°${devis.numero}`,
+      subject: `Splice — Paiement confirmé · Devis n°${devis.numero}`,
       html: `
         <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
           <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
           <p style="margin-top:20px">
             <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
           </p>
-          <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
+          <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
         </div>`
     });
   }

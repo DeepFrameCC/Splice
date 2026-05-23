@@ -2,7 +2,7 @@ import type { Service } from "@prisma/client";
 import type { FAQItem } from "./types";
 import type { Ville } from "./local-seo";
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 const ORG_ID = `${SITE_URL}/#organization`;
 
 export function buildServiceJsonLd(service: Service) {
@@ -15,7 +15,7 @@ export function buildServiceJsonLd(service: Service) {
       {
         "@type": "ProfessionalService",
         "@id": ORG_ID,
-        name: "DeepFrame",
+        name: "Splice",
         description: "Agence de production audiovisuelle à Orléans et Tours — vidéo corporate, photographie, motion design, pub réseaux sociaux.",
         image: `${SITE_URL}/LogoNoir.svg`,
         url: SITE_URL,
@@ -95,7 +95,7 @@ export function buildServicesHubJsonLd(
       {
         "@type": "LocalBusiness",
         "@id": ORG_ID,
-        name: "DeepFrame",
+        name: "Splice",
         description:
           "Agence de production audiovisuelle à Orléans et Tours. Vidéo corporate, montage, motion design, photographie professionnelle.",
         image: `${SITE_URL}/LogoNoir.svg`,
@@ -125,7 +125,7 @@ export function buildServicesHubJsonLd(
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Services audiovisuels DeepFrame",
+          name: "Services audiovisuels Splice",
           itemListElement: services.map((s) => ({
             "@type": "Offer",
             itemOffered: {
@@ -176,7 +176,7 @@ export function buildLocalServiceJsonLd(opts: {
         provider: {
           "@type": "LocalBusiness",
           "@id": ORG_ID,
-          name: "DeepFrame",
+          name: "Splice",
           url: SITE_URL,
         },
         areaServed: {

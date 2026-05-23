@@ -135,7 +135,7 @@ export async function GET(
         {
           entreprise: s(`Prenom Nom (${chefLabel})`),
           adresse: "adresse:",
-          email: "contact@deepframe.cc",
+          email: "contact@splice.cc",
           siret: s("En cours d'immatriculation"),
         },
         destinataireLines,

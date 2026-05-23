@@ -59,14 +59,14 @@ export async function submitContact(
   }
 
   const { nom, email, type, budget, brief, member } = parsed.data;
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
   const recipients = resolveRecipients(member);
 
   try {
     // --- Email fondateurs : notification interne ---
     await sendMail({
       to: recipients,
-      subject: `[Deepframe] Nouveau pré-devis — ${nom}`,
+      subject: `[Splice] Nouveau pré-devis — ${nom}`,
       replyTo: email,
       html: `
         <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
@@ -105,7 +105,7 @@ export async function submitContact(
     // --- Email client : confirmation ---
     await sendMail({
       to: email,
-      subject: "Deepframe — Nous avons bien reçu votre demande",
+      subject: "Splice — Nous avons bien reçu votre demande",
       html: `
         <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
           <h2 style="color:#F36B1F">Merci ${escapeHtml(nom)} !</h2>
@@ -117,11 +117,11 @@ export async function submitContact(
           </ul>
           <p style="color:#666;font-size:14px;margin-top:24px">
             En attendant, n'hésitez pas à consulter nos réalisations sur
-            <a href="${appUrl}" style="color:#F36B1F">deepframe.cc</a>.
+            <a href="${appUrl}" style="color:#F36B1F">splice.cc</a>.
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
           <p style="color:#999;font-size:12px">
-            Cet email a été envoyé automatiquement par Deepframe.
+            Cet email a été envoyé automatiquement par Splice.
             Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer ce message.
           </p>
         </div>`,

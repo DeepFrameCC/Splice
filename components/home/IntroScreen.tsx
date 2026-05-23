@@ -81,7 +81,7 @@ export default function IntroScreen() {
         <div className="relative w-36 h-36">
           <Image
             src="/LogoNoir.svg"
-            alt="DeepFrame"
+            alt="Splice"
             className="df-intro-logo"
             fill
             priority
@@ -93,7 +93,7 @@ export default function IntroScreen() {
         <div className="relative w-64 h-12">
           <Image
             src="/NomNoir.svg"
-            alt="DEEPFRAME"
+            alt="SPLICE"
             className="df-intro-logo"
             fill
             priority

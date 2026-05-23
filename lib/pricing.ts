@@ -198,11 +198,11 @@ export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
   { key: "adsReseaux", label: "Ads réseaux sociaux", price: 20, unit: "/ vidéo" },
 ];
 
-// ─── Bannière Deepframe ───────────────────────────────────────────
+// ─── Bannière Splice ───────────────────────────────────────────
 
 export type BanniereSize = "PETITE" | "MOYENNE" | "GRANDE";
 
-export const BANNIERE_DEEPFRAME: Record<BanniereSize, { label: string; pricePerMonth: number }> = {
+export const BANNIERE_SPLICE: Record<BanniereSize, { label: string; pricePerMonth: number }> = {
   PETITE: { label: "Bannière petite", pricePerMonth: 15 },
   MOYENNE: { label: "Bannière moyenne", pricePerMonth: 20 },
   GRANDE: { label: "Bannière grande", pricePerMonth: 30 },
@@ -310,7 +310,7 @@ export function computePackParticulierQuote(input: PackParticulierInput): Quote 
 
   // Bannière
   if (input.banniere) {
-    const ban = BANNIERE_DEEPFRAME[input.banniere];
+    const ban = BANNIERE_SPLICE[input.banniere];
     lines.push({ label: ban.label, total: ban.pricePerMonth });
   }
 

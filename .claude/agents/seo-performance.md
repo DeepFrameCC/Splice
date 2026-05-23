@@ -9,7 +9,7 @@ description: |
 tools: [Read, Edit, Write, Glob, Grep, Bash]
 ---
 
-Tu es l'agent SEO & Performance de DeepFrame. Tu optimises la visibilité sur les moteurs de recherche et la vitesse de chargement du site pour maximiser l'expérience utilisateur et le référencement.
+Tu es l'agent SEO & Performance de Splice. Tu optimises la visibilité sur les moteurs de recherche et la vitesse de chargement du site pour maximiser l'expérience utilisateur et le référencement.
 
 ## Coordination Protocol
 
@@ -51,20 +51,20 @@ Implémenter le Metadata object complet :
 
 ```typescript
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"),
   title: {
-    default: "Deepframe — Production audiovisuelle · Orléans & Tours",
-    template: "%s | Deepframe",
+    default: "Splice — Production audiovisuelle · Orléans & Tours",
+    template: "%s | Splice",
   },
   description: "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies. Devis en ligne.",
   keywords: ["production audiovisuelle", "vidéaste", "Orléans", "Tours", "pub réseaux sociaux", "shooting automobile", "film de marque"],
-  authors: [{ name: "DeepFrame" }],
-  creator: "DeepFrame",
+  authors: [{ name: "Splice" }],
+  creator: "Splice",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Deepframe",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Deepframe — Production audiovisuelle" }],
+    siteName: "Splice",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Splice — Production audiovisuelle" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -87,7 +87,7 @@ Ajouter `robots: { index: false, follow: false }` pour éviter l'indexation des 
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
   return [
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${base}/photos`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
@@ -105,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://deepframe.cc";
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
   return {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/profil/", "/admin/", "/api/"] },
@@ -168,16 +168,16 @@ Ajouter sur la landing page pour le référencement local :
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Deepframe",
+  "name": "Splice",
   "description": "Boîte de production audiovisuelle",
-  "url": "https://deepframe.cc",
+  "url": "https://splice.cc",
   "telephone": "+33238000000",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Orléans",
     "addressCountry": "FR"
   },
-  "sameAs": ["https://www.instagram.com/deepframe"],
+  "sameAs": ["https://www.instagram.com/splice"],
   "priceRange": "€€"
 };
 ```

@@ -2,17 +2,17 @@
 description: Workspace to use for gemini
 ---
 
-# PRODUCT.md — DeepFrame
+# PRODUCT.md — Splice
 
 > Source de vérité pour `impeccable` et les sub-agents design. Tient lieu de brief produit/marque. À mettre à jour quand la stratégie évolue (`/impeccable teach` régénère depuis ici).
 
 ## Register
 
-**brand** — DeepFrame est une boîte de production audiovisuelle. Le site marketing **est** le produit : la qualité visuelle du site fait la première démonstration du savoir-faire. Pas d'app SaaS dashboard derrière (l'espace `/profil` est secondaire). Le design doit refléter l'identité studio créatif, pas la fonctionnalité.
+**brand** — Splice est une boîte de production audiovisuelle. Le site marketing **est** le produit : la qualité visuelle du site fait la première démonstration du savoir-faire. Pas d'app SaaS dashboard derrière (l'espace `/profil` est secondaire). Le design doit refléter l'identité studio créatif, pas la fonctionnalité.
 
 ## Product Purpose
 
-DeepFrame produit des contenus audiovisuels pour PME et entreprises du Centre-Val de Loire — pubs sociales, shootings automobile, films de marque, événementiel, intros animées. Le site sert à convertir un prospect en demande de devis qualifiée (tunnel `/devis` 4 étapes, paiement Stripe acompte 30%, livrables sous 14j en moyenne).
+Splice produit des contenus audiovisuels pour PME et entreprises du Centre-Val de Loire — pubs sociales, shootings automobile, films de marque, événementiel, intros animées. Le site sert à convertir un prospect en demande de devis qualifiée (tunnel `/devis` 4 étapes, paiement Stripe acompte 30%, livrables sous 14j en moyenne).
 
 ## Users
 
@@ -34,7 +34,7 @@ DeepFrame produit des contenus audiovisuels pour PME et entreprises du Centre-Va
 
 ## Brand
 
-**Nom :** DeepFrame
+**Nom :** Splice
 **Statut :** auto-entrepreneur (franchise TVA, art. 293 B CGI — non soumise TVA)
 **Localisation :** Orléans (45) + Tours (37), interventions Centre-Val de Loire
 **Identité visuelle :** "Cinéma Studio" — dark natif, frame cinéma, codes TC, orange brûlé, surfaces glauque/forêt, typographie display condensée.
@@ -69,7 +69,7 @@ Sites/aesthetics à NE PAS reproduire :
 - **Template SaaS B2B générique** (sidebar + cards + KPI tiles)
 - **Sites freelance "passion / votre projet est unique"** — agitation fluffy
 - **Agences communication régionales** typiques (carrousel témoignages, blocks "Nos valeurs")
-- **Wedding photographer "minimal pastel"** (DeepFrame n'est PAS un studio mariage)
+- **Wedding photographer "minimal pastel"** (Splice n'est PAS un studio mariage)
 - **Sites concession auto** — gris/bleu corporate
 - **Templates Webflow/Framer "café-blanc"** (blocs blanc-cassé identiques)
 

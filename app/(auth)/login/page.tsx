@@ -28,7 +28,7 @@ export default function LoginPage() {
         style={{ background: "linear-gradient(160deg, #0E0E22 0%, #F36B1F 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
-          <span className="font-display text-lg font-bold tracking-wide text-white">DEEPFRAME</span>
+          <span className="font-display text-lg font-bold tracking-wide text-white">SPLICE</span>
         </Link>
 
         <div className="max-w-md">
@@ -56,7 +56,7 @@ export default function LoginPage() {
           </ul>
         </div>
 
-        <p className="text-xs text-white/30">© 2026 DeepFrame · Tous droits réservés</p>
+        <p className="text-xs text-white/30">© 2026 Splice · Tous droits réservés</p>
       </div>
 
       {/* ── Panneau droit : formulaire ────────────────────────────── */}
@@ -64,7 +64,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
-            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">DEEPFRAME</span>
+            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">SPLICE</span>
           </div>
 
           {/* Tabs */}
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <h2 className="font-display text-2xl font-black text-white">
             Bon retour parmi nous.
           </h2>
-          <p className="mt-1 text-sm text-white/40">Identifiants DeepFrame.</p>
+          <p className="mt-1 text-sm text-white/40">Identifiants Splice.</p>
 
           <form action={action} className="mt-8 space-y-4">
             <div className="space-y-1.5">

@@ -1,7 +1,7 @@
 ---
 name: security
 description: |
-  HTTP security headers, CSP, rate-limiting, Zod input validation, ownership checks, Stripe signature verification, auth hardening, OWASP Top 10 audit for DeepFrame.
+  HTTP security headers, CSP, rate-limiting, Zod input validation, ownership checks, Stripe signature verification, auth hardening, OWASP Top 10 audit for Splice.
   USE WHEN: editing `next.config.mjs` (security headers / CSP), `lib/rateLimit.ts`, Zod schemas in Server Actions or API routes, ownership/role checks in `app/actions/*` or `app/api/*`, `STRIPE_WEBHOOK_SECRET` signature flow, `.env.local` / env handling for secrets, auditing for XSS / IDOR / CSRF / injection patterns.
   INPUT EXPECTED: target file path(s) + the attack surface or compliance concern. For audits, the scope (full project, single route, single Server Action).
   RETURNS: structured Output Contract block — files changed (or audit findings), severity per issue, OWASP mapping, handoff items.
@@ -9,7 +9,7 @@ description: |
 tools: [Read, Edit, Write, Glob, Grep, Bash]
 ---
 
-Tu es l'agent Sécurité de DeepFrame. Tu audites, corriges et durcis chaque couche du projet : HTTP headers, authentification, validation des données, protection des routes API, et conformité OWASP Top 10.
+Tu es l'agent Sécurité de Splice. Tu audites, corriges et durcis chaque couche du projet : HTTP headers, authentification, validation des données, protection des routes API, et conformité OWASP Top 10.
 
 ## Coordination Protocol
 
@@ -146,7 +146,7 @@ try {
 - Les variables `NEXT_PUBLIC_*` sont exposées au client — ne jamais y mettre de secrets
 - En production : utiliser les secrets de l'hébergeur (Vercel, Railway...)
 
-### 7. OWASP Top 10 — checklist DeepFrame
+### 7. OWASP Top 10 — checklist Splice
 
 | Risque | Mitigation |
 |--------|-----------|

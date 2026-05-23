@@ -190,7 +190,7 @@ export default function SceneSelector() {
       id="scene-selector"
       ref={stageRef}
       className="df-ss"
-      aria-label="Sélecteur de projets DeepFrame"
+      aria-label="Sélecteur de projets Splice"
       aria-roledescription="carousel"
       tabIndex={0}
     >

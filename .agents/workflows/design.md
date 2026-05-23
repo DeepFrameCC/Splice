@@ -2,7 +2,7 @@
 description: Design workflow for gemini to use
 ---
 
-# DESIGN.md — DeepFrame Cinéma Studio
+# DESIGN.md — Splice Cinéma Studio
 
 > Source de vérité pour `impeccable` et les sub-agents design. Référence concrète des tokens, typographies, motion et composants. Compatible avec les laws `impeccable` (OKLCH, jamais `#000`/`#fff`, hiérarchie ≥1.25, etc.).
 
@@ -120,7 +120,7 @@ Container max-width : `1320px` (legacy) / `max-w-5xl` (1024px) / `max-w-6xl` (11
 
 ## Elevation (shadows)
 
-Très restreint — DeepFrame est dark, les shadows soft sur dark sont peu visibles.
+Très restreint — Splice est dark, les shadows soft sur dark sont peu visibles.
 
 - `--df-shadow-sm` : `0 1px 0 rgba(10,10,35,.04), 0 8px 24px -12px rgba(10,10,35,.10)`
 - `--df-shadow-md` : `0 1px 0 rgba(10,10,35,.06), 0 24px 60px -28px rgba(10,10,35,.18)`
@@ -208,7 +208,7 @@ Très restreint — DeepFrame est dark, les shadows soft sur dark sont peu visib
 - `components/layout/Nav.tsx` — nav pattern
 - `components/devis/Wizard.tsx` — pattern formulaire multi-step
 
-## Bans absolus (impeccable laws + DeepFrame)
+## Bans absolus (impeccable laws + Splice)
 
 1. `#000` / `#fff` purs — tint vers orange
 2. `border-left` / `border-right` >1px coloré en accent

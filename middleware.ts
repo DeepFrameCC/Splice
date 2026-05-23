@@ -54,11 +54,11 @@ export default auth((req) => {
   const isDev = process.env.NODE_ENV === "development";
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://plausible.io`,
+    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://plausible.io https://*.sentry.io`,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https://*.supabase.co https://*.r2.dev https://utfs.io`,
-    `connect-src 'self' https://api.resend.com https://api.stripe.com https://www.google.com/recaptcha/ https://plausible.io`,
+    `connect-src 'self' https://api.resend.com https://api.stripe.com https://www.google.com/recaptcha/ https://plausible.io https://*.ingest.sentry.io`,
     `frame-src https://js.stripe.com https://hooks.stripe.com https://www.google.com/recaptcha/`,
     `worker-src blob:`,
     `object-src 'none'`,

@@ -1,4 +1,4 @@
-// DeepFrame — Espace équipe
+// Splice — Espace équipe
 // Login fictif → Dashboard (devis, clients, export PDF)
 
 const { useState, useEffect, useMemo, useRef } = React;
@@ -35,7 +35,7 @@ const fmtDate = (s) => new Date(s).toLocaleDateString("fr-FR", { day: "2-digit",
 // Login
 
 function Login({ onLogin }) {
-  const [email, setEmail] = useState("papi@deepframe.fr");
+  const [email, setEmail] = useState("papi@splice.fr");
   const [pw, setPw] = useState("••••••••");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
@@ -43,8 +43,8 @@ function Login({ onLogin }) {
   const submit = (e) => {
     e.preventDefault();
     setErr("");
-    if (!email.includes("@deepframe")) {
-      setErr("Compte réservé à l'équipe DeepFrame.");
+    if (!email.includes("@splice")) {
+      setErr("Compte réservé à l'équipe Splice.");
       return;
     }
     setLoading(true);
@@ -61,9 +61,9 @@ function Login({ onLogin }) {
   return (
     <div className="df-login">
       <div className="df-login-left">
-        <a href="DeepFrame Site.html" className="df-logo-mark df-logo-mark-light">
-          <img src="assets/deepframe-logo.svg" alt="" />
-          <span>DEEPFRAME</span>
+        <a href="Splice Site.html" className="df-logo-mark df-logo-mark-light">
+          <img src="assets/splice-logo.svg" alt="" />
+          <span>SPLICE</span>
         </a>
         <div className="df-login-hero">
           <div className="df-eyebrow df-eyebrow-light">Espace équipe</div>
@@ -76,7 +76,7 @@ function Login({ onLogin }) {
             <li><i /> Stats équipe</li>
           </ul>
         </div>
-        <div className="df-login-foot">© 2026 DeepFrame · Espace réservé</div>
+        <div className="df-login-foot">© 2026 Splice · Espace réservé</div>
       </div>
 
       <div className="df-login-right">
@@ -86,14 +86,14 @@ function Login({ onLogin }) {
             <button type="button" className="df-tab" onClick={() => setErr("Création de compte sur invitation uniquement.")}>Créer un compte</button>
           </div>
           <h2>Bon retour parmi nous.</h2>
-          <p className="df-login-sub">Identifiants équipe DeepFrame.</p>
+          <p className="df-login-sub">Identifiants équipe Splice.</p>
 
           <label>
             <span>Email pro</span>
             <input
               type="email" value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="prenom@deepframe.fr"
+              placeholder="prenom@splice.fr"
               autoFocus
             />
           </label>
@@ -115,8 +115,8 @@ function Login({ onLogin }) {
           </button>
 
           <div className="df-login-hint">
-            <b>Demo :</b> n'importe quel email <code>@deepframe.fr</code> fonctionne.<br/>
-            Suggestions : <code>papi@deepframe.fr</code>, <code>louisia@deepframe.fr</code>, <code>tracy@deepframe.fr</code>
+            <b>Demo :</b> n'importe quel email <code>@splice.fr</code> fonctionne.<br/>
+            Suggestions : <code>papi@splice.fr</code>, <code>louisia@splice.fr</code>, <code>tracy@splice.fr</code>
           </div>
         </form>
       </div>
@@ -150,9 +150,9 @@ function Dashboard({ user, onLogout }) {
   return (
     <div className="df-app">
       <aside className="df-side">
-        <a href="DeepFrame Site.html" className="df-logo-mark df-logo-mark-light">
-          <img src="assets/deepframe-logo.svg" alt="" />
-          <span>DEEPFRAME</span>
+        <a href="Splice Site.html" className="df-logo-mark df-logo-mark-light">
+          <img src="assets/splice-logo.svg" alt="" />
+          <span>SPLICE</span>
         </a>
         <nav className="df-side-nav">
           <button className={view === "devis" ? "on" : ""} onClick={() => setView("devis")}>
@@ -626,7 +626,7 @@ function PdfPreview({ quote, client, onClose }) {
     const w = window.open("", "_blank", "width=900,height=1200");
     w.document.write(`
       <!doctype html><html><head><meta charset="utf-8" />
-      <title>${quote.id} — DeepFrame</title>
+      <title>${quote.id} — Splice</title>
       <style>
         body { font-family: 'Inter', system-ui, sans-serif; margin: 0; padding: 40px; color: #0A0A23; }
         ${PDF_CSS}
@@ -666,9 +666,9 @@ function PdfPreview({ quote, client, onClose }) {
           <div className="df-pdf-page" ref={ref}>
             <div className="pdf-head">
               <div className="pdf-brand">
-                <img src="assets/deepframe-logo.svg" alt="" />
+                <img src="assets/splice-logo.svg" alt="" />
                 <div>
-                  <b>DEEPFRAME</b>
+                  <b>SPLICE</b>
                   <span>Boîte de production audiovisuelle</span>
                 </div>
               </div>
@@ -683,9 +683,9 @@ function PdfPreview({ quote, client, onClose }) {
               <div>
                 <h4>Émetteur</h4>
                 <p>
-                  <b>DeepFrame SAS</b><br/>
+                  <b>Splice SAS</b><br/>
                   12 quai du Châtelet, 45000 Orléans<br/>
-                  hello@deepframe.fr · +33 2 38 00 00 00<br/>
+                  hello@splice.fr · +33 2 38 00 00 00<br/>
                   SIRET 000 000 000 00000 · TVA FR00000000000
                 </p>
               </div>
@@ -735,7 +735,7 @@ function PdfPreview({ quote, client, onClose }) {
                 <div className="pdf-sign-box"></div>
               </div>
               <div className="pdf-stamp">
-                <span>DeepFrame</span>
+                <span>Splice</span>
                 <i>—</i>
                 <span>Orléans · Tours</span>
               </div>

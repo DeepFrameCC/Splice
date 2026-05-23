@@ -1,4 +1,4 @@
-// DeepFrame — sections du site
+// Splice — sections du site
 
 function Site() {
   return (
@@ -74,9 +74,9 @@ function Showreel() {
 function Nav() {
   return (
     <header className="df-nav">
-      <a href="#" className="df-logo-mark" aria-label="DeepFrame">
-        <img src="assets/deepframe-logo.svg" alt="" />
-        <span>DEEPFRAME</span>
+      <a href="#" className="df-logo-mark" aria-label="Splice">
+        <img src="assets/splice-logo.svg" alt="" />
+        <span>SPLICE</span>
       </a>
       <nav className="df-nav-links">
         <a href="#about">À propos</a>
@@ -104,7 +104,7 @@ function Hero() {
         <em>On sublime.</em>
       </h1>
       <p className="df-hero-sub">
-        DeepFrame embellit les marques avec des publicités sociales, des shootings auto
+        Splice embellit les marques avec des publicités sociales, des shootings auto
         et des contenus audiovisuels qui se regardent jusqu'au bout.
       </p>
       <div className="df-hero-cta">
@@ -261,7 +261,7 @@ function Projects() {
 function Testimonials() {
   const items = [
     {
-      q: "On a doublé le taux de complétion sur nos reels Insta. Le passage chez DeepFrame a vraiment changé la donne.",
+      q: "On a doublé le taux de complétion sur nos reels Insta. Le passage chez Splice a vraiment changé la donne.",
       a: "Camille R.", r: "Directrice marketing — Maison Lalou",
     },
     {
@@ -426,8 +426,8 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <img src="assets/deepframe-logo.svg" alt="" />
-            <span>DEEPFRAME</span>
+            <img src="assets/splice-logo.svg" alt="" />
+            <span>SPLICE</span>
           </div>
           <p>Boîte de production audiovisuelle.<br/>Orléans · Tours · partout en région.</p>
         </div>
@@ -444,7 +444,7 @@ function Footer() {
         <div>
           <h4>Contact</h4>
           <ul>
-            <li>hello@deepframe.fr</li>
+            <li>hello@splice.fr</li>
             <li>+33 2 38 00 00 00</li>
             <li>Studio · 12 quai du Châtelet, Orléans</li>
           </ul>
@@ -460,7 +460,7 @@ function Footer() {
         </div>
       </div>
       <div className="df-footer-bot">
-        <span>© 2026 DeepFrame · Tous droits réservés</span>
+        <span>© 2026 Splice · Tous droits réservés</span>
         <span>Mentions légales · Confidentialité</span>
       </div>
     </footer>

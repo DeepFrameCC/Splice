@@ -16,7 +16,7 @@ async function main() {
     process.exit(1);
   }
 
-  const admin = await db.user.findUnique({ where: { email: "admin@deepframe.cc" } });
+  const admin = await db.user.findUnique({ where: { email: "admin@splice.cc" } });
 
   if (!admin) {
     console.log("No admin account found in database.");
@@ -27,7 +27,7 @@ async function main() {
 
   const newHash = await hash(newPassword);
   await db.user.update({
-    where: { email: "admin@deepframe.cc" },
+    where: { email: "admin@splice.cc" },
     data: { passwordHash: newHash },
   });
   console.log("Admin password reset successfully.");

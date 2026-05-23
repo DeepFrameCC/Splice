@@ -1,5 +1,5 @@
 /**
- * Complete service content for all 11 DeepFrame services.
+ * Complete service content for all 11 Splice services.
  * Refactored for UX writing: 50%+ text reduction, clear client benefits, structured visual blocks.
  * Used by prisma/seed.ts to populate the Service table.
  */
@@ -52,7 +52,7 @@ const montageVideo: ServiceContent = {
   slug: "montage-video",
   name: "Montage vidéo professionnel",
   shortName: "Montage vidéo",
-  metaTitle: "Montage vidéo professionnel Orléans Tours | DeepFrame",
+  metaTitle: "Montage vidéo professionnel Orléans Tours | Splice",
   metaDescription:
     "Montage vidéo haut de gamme pour entreprises à Orléans et Tours. Post-production, étalonnage DaVinci, sound design. Livraison multi-format rapide.",
   h1: "Des montages vidéo rythmés qui captent et retiennent l'attention",
@@ -105,7 +105,7 @@ const montageVideo: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/montage-video.jpg",
   coverImageAlt:
-    "Poste de montage vidéo professionnel avec DaVinci Resolve — studio DeepFrame Orléans",
+    "Poste de montage vidéo professionnel avec DaVinci Resolve — studio Splice Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 1,
@@ -138,7 +138,7 @@ const productionCorporate: ServiceContent = {
   slug: "production-corporate",
   name: "Production corporate et brand content",
   shortName: "Production corporate",
-  metaTitle: "Production corporate film de marque Orléans Tours | DeepFrame",
+  metaTitle: "Production corporate film de marque Orléans Tours | Splice",
   metaDescription:
     "Films corporate et interviews dirigeants à Orléans et Tours. Production audiovisuelle complète de la pré-production au montage final.",
   h1: "Des films corporate mémorables qui valorisent votre marque",
@@ -186,7 +186,7 @@ const productionCorporate: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/production-corporate.jpg",
   coverImageAlt:
-    "Tournage film corporate en entreprise — équipe DeepFrame avec caméra cinéma",
+    "Tournage film corporate en entreprise — équipe Splice avec caméra cinéma",
   videoUrl: null,
   category: "video",
   sortOrder: 2,
@@ -219,7 +219,7 @@ const motionDesign: ServiceContent = {
   slug: "motion-design",
   name: "Motion design et animation graphique",
   shortName: "Motion design",
-  metaTitle: "Motion design animation graphique Orléans Tours | DeepFrame",
+  metaTitle: "Motion design animation graphique Orléans Tours | Splice",
   metaDescription:
     "Motion design sur mesure à Orléans et Tours : vidéos explicatives, intros animées. Animation 2D/3D pour marques exigeantes.",
   h1: "Vos idées complexes simplifiées grâce à l'animation graphique",
@@ -267,7 +267,7 @@ const motionDesign: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/motion-design.jpg",
   coverImageAlt:
-    "Animation motion design en cours de création — interface After Effects studio DeepFrame",
+    "Animation motion design en cours de création — interface After Effects studio Splice",
   videoUrl: null,
   category: "motion",
   sortOrder: 3,
@@ -299,7 +299,7 @@ const pubReseauxSociaux: ServiceContent = {
   slug: "pub-reseaux-sociaux",
   name: "Publicité réseaux sociaux",
   shortName: "Pubs réseaux sociaux",
-  metaTitle: "Publicité vidéo réseaux sociaux Orléans Tours | DeepFrame",
+  metaTitle: "Publicité vidéo réseaux sociaux Orléans Tours | Splice",
   metaDescription:
     "Création de publicités vidéo pour Reels, TikTok, Facebook Ads et YouTube Shorts. Hooks, rythme vertical et copywriting ROI.",
   h1: "Des publicités vidéo percutantes qui multiplient vos conversions",
@@ -347,7 +347,7 @@ const pubReseauxSociaux: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/pub-reseaux-sociaux.jpg",
   coverImageAlt:
-    "Tournage publicité vidéo verticale pour réseaux sociaux — DeepFrame Orléans",
+    "Tournage publicité vidéo verticale pour réseaux sociaux — Splice Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 4,
@@ -379,7 +379,7 @@ const shootingAutomobile: ServiceContent = {
   slug: "shooting-automobile",
   name: "Shooting photo & vidéo automobile",
   shortName: "Shooting automobile",
-  metaTitle: "Shooting photo vidéo automobile Orléans Tours | DeepFrame",
+  metaTitle: "Shooting photo vidéo automobile Orléans Tours | Splice",
   metaDescription:
     "Shooting photo et vidéo automobile à Orléans et Tours. Rolling shots, studio, concessions et collectionneurs. Rendu magazine.",
   h1: "Sublimez chaque courbe de vos véhicules d'exception",
@@ -427,7 +427,7 @@ const shootingAutomobile: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/shooting-automobile.jpg",
   coverImageAlt:
-    "Shooting photo automobile Porsche en studio — éclairage créatif DeepFrame",
+    "Shooting photo automobile Porsche en studio — éclairage créatif Splice",
   videoUrl: null,
   category: "photo",
   sortOrder: 5,
@@ -460,7 +460,7 @@ const photographieProfessionnelle: ServiceContent = {
   slug: "photographie-professionnelle",
   name: "Photographie professionnelle",
   shortName: "Photographie pro",
-  metaTitle: "Photographe professionnel Orléans Tours | DeepFrame",
+  metaTitle: "Photographe professionnel Orléans Tours | Splice",
   metaDescription:
     "Photographe d'entreprise à Orléans et Tours. Portraits corporate, reportages industriels, packshots produits et immobilier.",
   h1: "Valorisez votre entreprise avec des visuels authentiques",
@@ -508,7 +508,7 @@ const photographieProfessionnelle: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/photographie-professionnelle.jpg",
   coverImageAlt:
-    "Séance photo portrait corporate en entreprise — photographe DeepFrame Orléans",
+    "Séance photo portrait corporate en entreprise — photographe Splice Orléans",
   videoUrl: null,
   category: "photo",
   sortOrder: 6,
@@ -540,7 +540,7 @@ const interviewTemoignage: ServiceContent = {
   slug: "interview-temoignage",
   name: "Interview et témoignage d’entreprise",
   shortName: "Interview & témoignage",
-  metaTitle: "Interview vidéo témoignage entreprise Orléans Tours | DeepFrame",
+  metaTitle: "Interview vidéo témoignage entreprise Orléans Tours | Splice",
   metaDescription:
     "Interviews vidéo professionnelles à Orléans et Tours. Témoignages clients, portraits dirigeants, équipement multi-caméras.",
   h1: "Créez une confiance immédiate avec le témoignage client",
@@ -588,7 +588,7 @@ const interviewTemoignage: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/interview-temoignage.jpg",
   coverImageAlt:
-    "Tournage interview vidéo en entreprise — setup multi-caméra DeepFrame",
+    "Tournage interview vidéo en entreprise — setup multi-caméra Splice",
   videoUrl: null,
   category: "video",
   sortOrder: 7,
@@ -619,7 +619,7 @@ const voixOffSoundDesign: ServiceContent = {
   slug: "voix-off-sound-design",
   name: "Voix-off et sound design",
   shortName: "Voix-off & sound design",
-  metaTitle: "Voix-off sound design Orléans Tours | DeepFrame",
+  metaTitle: "Voix-off sound design Orléans Tours | Splice",
   metaDescription:
     "Enregistrement voix-off et mixage audio à Orléans et Tours. Voix-off narrative professionnelle et design sonore premium.",
   h1: "Donnez une voix et une identité sonore à votre marque",
@@ -667,7 +667,7 @@ const voixOffSoundDesign: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/voix-off-sound-design.jpg",
   coverImageAlt:
-    "Studio d’enregistrement voix-off et sound design — DeepFrame Orléans",
+    "Studio d’enregistrement voix-off et sound design — Splice Orléans",
   videoUrl: null,
   category: "audio",
   sortOrder: 8,
@@ -698,7 +698,7 @@ const presentationEntreprise: ServiceContent = {
   slug: "presentation-entreprise",
   name: "Film de présentation d’entreprise",
   shortName: "Film d’entreprise",
-  metaTitle: "Film présentation entreprise Orléans Tours | DeepFrame",
+  metaTitle: "Film présentation entreprise Orléans Tours | Splice",
   metaDescription:
     "Film vitrine de présentation d'entreprise à Orléans et Tours. Racontez votre expertise en vidéo de prestige.",
   h1: "Votre meilleur ambassadeur commercial en 3 minutes",
@@ -746,7 +746,7 @@ const presentationEntreprise: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/presentation-entreprise.jpg",
   coverImageAlt:
-    "Tournage film de présentation d’entreprise — équipe DeepFrame en action",
+    "Tournage film de présentation d’entreprise — équipe Splice en action",
   videoUrl: null,
   category: "video",
   sortOrder: 9,
@@ -779,7 +779,7 @@ const clipMusical: ServiceContent = {
   slug: "clip-musical",
   name: "Clip musical et vidéoclip",
   shortName: "Clip musical",
-  metaTitle: "Clip musical vidéoclip Orléans Tours | DeepFrame",
+  metaTitle: "Clip musical vidéoclip Orléans Tours | Splice",
   metaDescription:
     "Réalisation de clips musicaux artistiques à Orléans et Tours. Univers cinématographique de haute qualité pour artistes.",
   h1: "Donnez une dimension cinématographique à votre musique",
@@ -827,7 +827,7 @@ const clipMusical: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/clip-musical.jpg",
   coverImageAlt:
-    "Tournage clip musical en extérieur — réalisation cinéma DeepFrame",
+    "Tournage clip musical en extérieur — réalisation cinéma Splice",
   videoUrl: null,
   category: "video",
   sortOrder: 10,
@@ -854,7 +854,7 @@ const dronePriseDeVue: ServiceContent = {
   slug: "drone-prise-de-vue-aerienne",
   name: "Drone et prise de vue aérienne",
   shortName: "Prise de vue drone",
-  metaTitle: "Drone prise de vue aérienne Orléans Tours | DeepFrame",
+  metaTitle: "Drone prise de vue aérienne Orléans Tours | Splice",
   metaDescription:
     "Prises de vues aériennes par drone à Orléans et Tours. Vidéo 4K et photos certifiées DGAC pour l'immobilier et le corporate.",
   h1: "Prenez de la hauteur avec des prises de vue spectaculaires",
@@ -902,7 +902,7 @@ const dronePriseDeVue: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/drone-prise-de-vue-aerienne.jpg",
   coverImageAlt:
-    "Prise de vue aérienne par drone au-dessus de la Loire — DeepFrame Orléans",
+    "Prise de vue aérienne par drone au-dessus de la Loire — Splice Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 11,

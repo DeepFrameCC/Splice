@@ -89,7 +89,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Montage vidéo",
       h1Template: "Montage vidéo professionnel à {ville}",
       introTemplate:
-        "Vous cherchez un monteur vidéo à {ville} ({department}) ? DeepFrame réalise le montage de vos contenus vidéo avec un rendu professionnel adapté à chaque plateforme. Du montage corporate au contenu réseaux sociaux, nous intervenons rapidement dans tout le {department}.",
+        "Vous cherchez un monteur vidéo à {ville} ({department}) ? Splice réalise le montage de vos contenus vidéo avec un rendu professionnel adapté à chaque plateforme. Du montage corporate au contenu réseaux sociaux, nous intervenons rapidement dans tout le {department}.",
       points: [
         "Montage optimisé pour chaque plateforme (YouTube, Instagram, TikTok, LinkedIn)",
         "Sous-titres animés, étalonnage couleur et habillage graphique inclus",
@@ -105,7 +105,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Vidéo corporate",
       h1Template: "Production vidéo corporate à {ville}",
       introTemplate:
-        "DeepFrame accompagne les entreprises de {ville} et du {department} dans la création de films corporate sur mesure. Présentation d'entreprise, vidéo institutionnelle ou film de marque : chaque projet est pensé pour refléter votre identité et convaincre vos audiences.",
+        "Splice accompagne les entreprises de {ville} et du {department} dans la création de films corporate sur mesure. Présentation d'entreprise, vidéo institutionnelle ou film de marque : chaque projet est pensé pour refléter votre identité et convaincre vos audiences.",
       points: [
         "Pré-production complète : scénario, repérage, casting et planning de tournage",
         "Tournage en qualité cinéma avec matériel professionnel (4K, éclairage, son HF)",
@@ -121,7 +121,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Motion design",
       h1Template: "Motion design à {ville}",
       introTemplate:
-        "Besoin d'une animation percutante pour votre marque à {ville} ? DeepFrame conçoit des vidéos en motion design qui captent l'attention et simplifient vos messages. Basés en {department}, nous créons des animations 2D et 3D pour tous vos supports de communication.",
+        "Besoin d'une animation percutante pour votre marque à {ville} ? Splice conçoit des vidéos en motion design qui captent l'attention et simplifient vos messages. Basés en {department}, nous créons des animations 2D et 3D pour tous vos supports de communication.",
       points: [
         "Animations 2D et 3D personnalisées à votre charte graphique",
         "Infographies animées, explainers et habillages vidéo",
@@ -137,7 +137,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Pub réseaux sociaux",
       h1Template: "Publicité vidéo pour les réseaux sociaux à {ville}",
       introTemplate:
-        "Boostez votre visibilité à {ville} avec des publicités vidéo pensées pour les réseaux sociaux. DeepFrame produit des contenus courts et percutants pour Instagram, TikTok, Facebook et LinkedIn. Nous accompagnons les marques du {department} dans leur stratégie de contenu vidéo.",
+        "Boostez votre visibilité à {ville} avec des publicités vidéo pensées pour les réseaux sociaux. Splice produit des contenus courts et percutants pour Instagram, TikTok, Facebook et LinkedIn. Nous accompagnons les marques du {department} dans leur stratégie de contenu vidéo.",
       points: [
         "Formats courts optimisés pour chaque réseau (Reels, TikTok, Stories, Shorts)",
         "Scripts accrocheurs et direction artistique orientée conversion",
@@ -153,7 +153,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Photographie",
       h1Template: "Photographe professionnel à {ville}",
       introTemplate:
-        "DeepFrame propose des prestations de photographie professionnelle à {ville} et dans le {department}. Portraits corporate, shooting produit, couverture événementielle ou reportage : nous capturons l'image juste pour valoriser votre activité.",
+        "Splice propose des prestations de photographie professionnelle à {ville} et dans le {department}. Portraits corporate, shooting produit, couverture événementielle ou reportage : nous capturons l'image juste pour valoriser votre activité.",
       points: [
         "Shooting en studio ou en extérieur, matériel professionnel (flash, réflecteurs)",
         "Retouche avancée et livraison en haute définition pour print et web",
@@ -169,7 +169,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       shortName: "Interview vidéo",
       h1Template: "Interview et témoignage vidéo à {ville}",
       introTemplate:
-        "Donnez la parole à vos collaborateurs et clients grâce à des interviews vidéo réalisées par DeepFrame à {ville}. Les témoignages authentiques renforcent la crédibilité de votre marque. Nous nous déplaçons dans tout le {department} pour des tournages sur site.",
+        "Donnez la parole à vos collaborateurs et clients grâce à des interviews vidéo réalisées par Splice à {ville}. Les témoignages authentiques renforcent la crédibilité de votre marque. Nous nous déplaçons dans tout le {department} pour des tournages sur site.",
       points: [
         "Préparation éditoriale : brief, questions-guides et déroulé de l'entretien",
         "Tournage multicaméra avec son professionnel (micro-cravate HF)",

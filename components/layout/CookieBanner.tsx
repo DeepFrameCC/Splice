@@ -36,6 +36,13 @@ export default function CookieBanner() {
   useEffect(() => {
     const stored = getStoredConsent();
     if (!stored) setVisible(true);
+
+    function handleReopen() {
+      setVisible(true);
+      setShowDetails(true);
+    }
+    window.addEventListener("open-cookie-banner", handleReopen);
+    return () => window.removeEventListener("open-cookie-banner", handleReopen);
   }, []);
 
   function accept(analyticsAccepted: boolean) {

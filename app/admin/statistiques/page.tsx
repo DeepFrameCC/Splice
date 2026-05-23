@@ -129,7 +129,7 @@ export default async function AdminStatsPage() {
             Analyse de performance — {currentYear}
           </p>
         </div>
-        <ExportCSVButton data={csvData} filename={`deepframe-stats-${currentYear}.csv`} />
+        <ExportCSVButton data={csvData} filename={`splice-stats-${currentYear}.csv`} />
       </header>
 
       {/* KPI Cards */}

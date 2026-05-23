@@ -5,13 +5,13 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "FAQ — DeepFrame",
+  title: "FAQ — Splice",
   description:
     "Questions fréquentes sur nos services de production audiovisuelle : tarifs, délais, formats, tournage, livraison et plus.",
   openGraph: {
-    title: "FAQ — DeepFrame",
+    title: "FAQ — Splice",
     description:
-      "Réponses à vos questions sur la production audiovisuelle DeepFrame.",
+      "Réponses à vos questions sur la production audiovisuelle Splice.",
   },
 };
 
@@ -34,9 +34,9 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     title: "Général",
     items: [
       {
-        q: "Qu'est-ce que DeepFrame ?",
-        a: "DeepFrame est une boîte de production audiovisuelle basée à Orléans et Tours. Nous réalisons des vidéos publicitaires pour les réseaux sociaux, des shootings automobile, des films de marque, des aftermovies et des intros animées.",
-        rich: <>DeepFrame est une boîte de production audiovisuelle basée à Orléans et Tours. Nous réalisons des vidéos publicitaires pour les réseaux sociaux, des shootings automobile, des films de marque, des aftermovies et des intros animées. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
+        q: "Qu'est-ce que Splice ?",
+        a: "Splice est une boîte de production audiovisuelle basée à Orléans et Tours. Nous réalisons des vidéos publicitaires pour les réseaux sociaux, des shootings automobile, des films de marque, des aftermovies et des intros animées.",
+        rich: <>Splice est une boîte de production audiovisuelle basée à Orléans et Tours. Nous réalisons des vidéos publicitaires pour les réseaux sociaux, des shootings automobile, des films de marque, des aftermovies et des intros animées. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
       },
       {
         q: "Dans quelle zone géographique intervenez-vous ?",
@@ -45,8 +45,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Comment vous contacter ?",
-        a: "Vous pouvez nous écrire à contact@deepframe.cc, remplir le formulaire de contact sur notre site, ou directement demander un devis en ligne. Nous répondons sous 24h.",
-        rich: <>Vous pouvez nous écrire à contact@deepframe.cc, remplir notre <L href="/contact">formulaire de contact</L>, ou directement <L href="/devis">demander un devis en ligne</L>. Nous répondons sous 24h.</>,
+        a: "Vous pouvez nous écrire à contact@splice.cc, remplir le formulaire de contact sur notre site, ou directement demander un devis en ligne. Nous répondons sous 24h.",
+        rich: <>Vous pouvez nous écrire à contact@splice.cc, remplir notre <L href="/contact">formulaire de contact</L>, ou directement <L href="/devis">demander un devis en ligne</L>. Nous répondons sous 24h.</>,
       },
     ],
   },

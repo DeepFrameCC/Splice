@@ -37,8 +37,8 @@ export default function Nav({ user }: NavProps) {
   return (
     <>
       <header className="df-nav">
-        <Link href="/" className="df-logo-mark flex items-center" aria-label="DeepFrame">
-          <span className="font-display text-lg font-bold tracking-wide text-white">DEEP<span className="text-[#F36B1F]">FRAME</span></span>
+        <Link href="/" className="df-logo-mark flex items-center" aria-label="Splice">
+          <span className="font-display text-lg font-bold tracking-wide text-white">SPL<span className="text-[#F36B1F]">ICE</span></span>
         </Link>
 
         <nav className="df-nav-links" aria-label="Navigation principale">

@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Smoke tests — public pages", () => {
-  test("homepage loads and shows DeepFrame branding", async ({ page }) => {
+  test("homepage loads and shows Splice branding", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Deepframe/i);
+    await expect(page).toHaveTitle(/Splice/i);
   });
 
   test("galerie page loads", async ({ page }) => {

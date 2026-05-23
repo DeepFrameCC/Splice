@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return {};
-  const url = `https://deepframe.cc/services/${slug}`;
+  const url = `https://splice.cc/services/${slug}`;
   return {
     title: service.metaTitle,
     description: service.metaDescription,
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: service.metaTitle,
       description: service.metaDescription,
       url,
-      siteName: "DeepFrame",
+      siteName: "Splice",
       locale: "fr_FR",
       type: "article",
       images: [{ url: service.coverImageUrl, width: 1200, height: 630, alt: service.coverImageAlt }],

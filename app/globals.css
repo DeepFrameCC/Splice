@@ -41,7 +41,7 @@ body { font-family: var(--font-sans), system-ui, sans-serif; }
 }
 
 /* ─── Blog prose overrides ─────────────────────────────── */
-.prose-deepframe {
+.prose-splice {
   --tw-prose-body: #C4D2C5;
   --tw-prose-headings: #F36B1F;
   --tw-prose-links: #F36B1F;
@@ -49,42 +49,42 @@ body { font-family: var(--font-sans), system-ui, sans-serif; }
   --tw-prose-quotes: #F36B1F;
   --tw-prose-quote-borders: #F36B1F;
 }
-.prose-deepframe blockquote {
+.prose-splice blockquote {
   border-left-color: var(--df-gold);
   background: var(--df-cream);
   padding: 1rem 1.5rem;
   border-radius: 0 0.75rem 0.75rem 0;
   font-style: normal;
 }
-.prose-deepframe a {
+.prose-splice a {
   color: var(--df-gold);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s;
 }
-.prose-deepframe a:hover { color: var(--df-blue); }
-.prose-deepframe code {
+.prose-splice a:hover { color: var(--df-blue); }
+.prose-splice code {
   font-family: "JetBrains Mono", monospace;
   background: var(--df-cream);
   padding: 0.15em 0.35em;
   border-radius: 0.25rem;
   font-size: 0.9em;
 }
-.prose-deepframe pre {
+.prose-splice pre {
   background: var(--df-ink);
   border-radius: 0.75rem;
 }
-.prose-deepframe pre code {
+.prose-splice pre code {
   background: transparent;
   padding: 0;
 }
-.prose-deepframe img {
+.prose-splice img {
   border-radius: 1rem;
 }
-.prose-deepframe h2 {
+.prose-splice h2 {
   scroll-margin-top: 5rem;
 }
-.prose-deepframe h3 {
+.prose-splice h3 {
   scroll-margin-top: 5rem;
 }
 

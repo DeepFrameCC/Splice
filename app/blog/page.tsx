@@ -12,17 +12,22 @@ import BlogNewsletterCTA from "@/components/blog/BlogNewsletterCTA";
 import BlogAdminFAB from "@/components/blog/BlogAdminFAB";
 import { getPublishedPosts, getFeaturedPost, getAllCategories } from "@/lib/blog/queries";
 import { auth, isAdmin } from "@/lib/auth";
+import { buildBlogIndexJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
 export const metadata: Metadata = {
-  title: "Blog — DeepFrame",
+  title: "Blog — Splice",
   description:
     "Conseils, guides et actualités sur la production audiovisuelle, le montage vidéo, les réseaux sociaux et la photographie professionnelle.",
   openGraph: {
-    title: "Blog — DeepFrame",
+    title: "Blog — Splice",
     description:
       "Conseils, guides et actualités sur la production audiovisuelle.",
   },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/blog` },
 };
 
 const POSTS_PER_PAGE = 9;
@@ -64,6 +69,11 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBlogIndexJsonLd()) }}
+      />
       <NavWrapper />
       <BlogHero />
 

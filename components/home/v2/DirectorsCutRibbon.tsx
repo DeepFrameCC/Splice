@@ -81,7 +81,7 @@ export default function DirectorsCutRibbon() {
     <section
       ref={sectionRef}
       className="df-dcr"
-      aria-label="Travaux récents DeepFrame"
+      aria-label="Travaux récents Splice"
     >
       <div className="df-dcr-head df-dcr-anim">
         <span className="df-dcr-eyebrow">Travaux récents</span>

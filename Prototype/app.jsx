@@ -1,4 +1,4 @@
-// DeepFrame — Site prototype
+// Splice — Site prototype
 // Intro: logo qui se dessine puis fade, puis fade in du site.
 
 const { useState, useEffect, useRef, useMemo } = React;
@@ -109,8 +109,8 @@ function Intro({ style, duration, onDone }) {
 
       <div style={logoBox}>
         <img
-          src="assets/deepframe-logo.svg"
-          alt="DeepFrame"
+          src="assets/splice-logo.svg"
+          alt="Splice"
           className={
             style === "zoom" ? "df-logo-zoom" :
             style === "fadeOnly" ? "df-logo-fade" :

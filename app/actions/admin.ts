@@ -54,7 +54,7 @@ export async function validerDevis(devisId: string) {
 
   await sendMail({
     to: result.emailContact,
-    subject: `Deepframe — Votre devis n°${result.numero} est validé`,
+    subject: `Splice — Votre devis n°${result.numero} est validé`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis validé !</h2>
@@ -64,7 +64,7 @@ export async function validerDevis(devisId: string) {
         <p style="margin-top:20px">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
       </div>`
   });
 
@@ -94,14 +94,14 @@ export async function refuserDevis(devisId: string) {
 
   await sendMail({
     to: devis.emailContact,
-    subject: `Deepframe — Devis n°${devis.numero} non retenu`,
+    subject: `Splice — Devis n°${devis.numero} non retenu`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis non retenu</h2>
         <p>Bonjour ${devis.nomContact},</p>
         <p>Après examen, votre devis <strong>n°${devis.numero}</strong> n'a malheureusement pas été retenu.</p>
         <p>N'hésitez pas à nous contacter pour en discuter ou faire une nouvelle demande.</p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Deepframe · contact@deepframe.cc</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
       </div>`
   });
 

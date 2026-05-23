@@ -80,7 +80,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Ces cinq erreurs — hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme — expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. La bonne nouvelle : elles se corrigent toutes avec un montage professionnel et une vraie réflexion en amont.</p>
 
-<p>Chez DeepFrame, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
+<p>Chez Splice, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
 
 <p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h.</p>`,
 
@@ -195,9 +195,9 @@ export const blogContent: Record<string, string> = {
   <li><strong>Testez et itérez</strong> selon vos statistiques</li>
 </ul>
 
-<p>C'est l'approche que nous appliquons chez DeepFrame dans <a href="/services/montage-video">notre service de montage vidéo</a>. Vous pouvez voir des exemples dans <a href="/galerie">nos réalisations</a>.</p>
+<p>C'est l'approche que nous appliquons chez Splice dans <a href="/services/montage-video">notre service de montage vidéo</a>. Vous pouvez voir des exemples dans <a href="/galerie">nos réalisations</a>.</p>
 
-<p>Chez DeepFrame, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
+<p>Chez Splice, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
 
 <p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a> — nous vous répondons sous 48 h.</p>`,
 
@@ -220,7 +220,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Les grandes agences parisiennes facturent couramment entre 5 000 et 30 000 euros. Mais une <strong>réalisation vidéo PME pas cher</strong> ne signifie pas une réalisation au rabais.</p>
 
-<p>Chez DeepFrame, nos <strong>packs démarrent à partir de 140 euros</strong> et notre pack Premium à partir de 850 euros couvre les projets les plus ambitieux. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
+<p>Chez Splice, nos <strong>packs démarrent à partir de 140 euros</strong> et notre pack Premium à partir de 850 euros couvre les projets les plus ambitieux. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
 
 <h2>Quatre cas d'usage à fort ROI pour les PME</h2>
 
@@ -279,7 +279,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Avec une approche structurée — objectif clair, production soignée, diffusion stratégique et suivi des résultats — même un investissement modeste peut générer un retour significatif.</p>
 
-<p>Chez DeepFrame, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence.</p>`,
+<p>Chez Splice, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence.</p>`,
 
   "interview-dirigeant-reussie-7-conseils": `<h2>Pourquoi l'interview vidéo de dirigeant est un atout stratégique</h2>
 
@@ -368,7 +368,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Passez à l'action</h2>
 
-<p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez DeepFrame, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
+<p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez Splice, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
 
 <p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong></p>`,
 
@@ -452,7 +452,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Faites le bon choix</h2>
 
-<p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez DeepFrame, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
+<p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez Splice, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
 
 <p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une recommandation personnalisée sous 24 heures.</p>`,
 
@@ -530,7 +530,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Donnez à votre marque l'entrée en scène qu'elle mérite</h2>
 
-<p>Chaque vidéo publiée sans intro de marque est une occasion manquée. Chez DeepFrame, studio de <strong>production vidéo à Tours</strong> et en Centre-Val de Loire, nous créons des intros animées sur mesure à partir de 100 €.</p>
+<p>Chaque vidéo publiée sans intro de marque est une occasion manquée. Chez Splice, studio de <strong>production vidéo à Tours</strong> et en Centre-Val de Loire, nous créons des intros animées sur mesure à partir de 100 €.</p>
 
 <p><strong>Prêt à donner une signature visuelle à vos vidéos ?</strong> <a href="/devis">Demandez votre devis gratuit</a> et recevez une proposition créative sous 48 heures.</p>`,
 };

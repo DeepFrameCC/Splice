@@ -1,7 +1,7 @@
-# DeepFrame — Direction artistique 03 · Cinéma Studio
+# Splice — Direction artistique 03 · Cinéma Studio
 
 > Brief à transmettre à un développeur / Claude Code pour implémenter la direction
-> visuelle "Cinéma Studio" sur le site **DeepFrame** (studio image & son) et sur
+> visuelle "Cinéma Studio" sur le site **Splice** (studio image & son) et sur
 > la carte de présentation des services.
 
 ---
@@ -157,7 +157,7 @@ Format : **85 × 55 mm** (carte de visite standard européenne), recto/verso.
   > Films *vivants.*
 
   (le mot italique en orange `--brand-orange`)
-- **Haut gauche** : `DeepFrame` (mono, ls 0.22em, glauque)
+- **Haut gauche** : `Splice` (mono, ls 0.22em, glauque)
 - **Haut droite** : `2026` (mono, glauque)
 - **Bas gauche** : `Studio image & son`
 - **Bas droite** : `FR · Lyon`
@@ -172,7 +172,7 @@ Format : **85 × 55 mm** (carte de visite standard européenne), recto/verso.
 
   (un mot par carte en italique orange — à varier selon le tirage / l'interlocuteur)
 - **Bas** : coordonnées en mono 9pt blanc 85%
-  - `contact@deepframe.studio`
+  - `contact@splice.studio`
   - `+33 6 — — · LYON`
 
 ### 5.3 Production
@@ -235,4 +235,4 @@ Format : **85 × 55 mm** (carte de visite standard européenne), recto/verso.
 
 ---
 
-*Fin du brief — Direction 03 · Cinéma Studio · DeepFrame · 2026*
+*Fin du brief — Direction 03 · Cinéma Studio · Splice · 2026*

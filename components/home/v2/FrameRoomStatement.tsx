@@ -54,11 +54,11 @@ export default function FrameRoomStatement() {
     <section
       ref={sectionRef}
       className="df-frs"
-      aria-label="Manifeste DeepFrame"
+      aria-label="Manifeste Splice"
     >
       <div className="df-frs-inner">
         <span className="df-frs-eyebrow df-frs-anim">
-          Manifeste · DeepFrame
+          Manifeste · Splice
         </span>
 
         <h2 className="df-frs-headline df-frs-anim">
@@ -70,7 +70,7 @@ export default function FrameRoomStatement() {
         </h2>
 
         <p className="df-frs-stats df-frs-anim">
-          <em>30+</em> projets · <em>18</em> mois · <em>4K</em> rendu · <em>48h</em> express
+          <em>30+</em> projets · <em>4K</em> rendu · <em>48h</em> express
         </p>
 
         <span className="df-frs-sig df-frs-anim">

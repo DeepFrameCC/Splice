@@ -2,7 +2,7 @@ import PDFDocument from "pdfkit";
 import path from "path";
 import fs from "fs";
 
-/* ── Couleurs DeepFrame ─────────────────────────────────────────────── */
+/* ── Couleurs Splice ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
   orange: "#F36B1F",
   orangeDark: "#C4550A",
@@ -187,34 +187,21 @@ function drawPageDecorations(doc: PDFKit.PDFDocument) {
 }
 
 /* ── Logo loading ──────────────────────────────────────────────────── */
-let _logoPngBuf: Buffer | null = null;
-let _nomPngBuf: Buffer | null = null;
+let _logoSpliceBuf: Buffer | null = null;
 
-function loadLogoPng(): Buffer | null {
-  if (_logoPngBuf) return _logoPngBuf;
+function loadLogoSplice(): Buffer | null {
+  if (_logoSpliceBuf) return _logoSpliceBuf;
   try {
-    const logoPath = path.join(process.cwd(), "public", "LogoNoir.png");
+    const logoPath = path.join(process.cwd(), "public", "logo-1.png");
     if (fs.existsSync(logoPath)) {
-      _logoPngBuf = fs.readFileSync(logoPath);
-      return _logoPngBuf;
+      _logoSpliceBuf = fs.readFileSync(logoPath);
+      return _logoSpliceBuf;
     }
   } catch { /* ignore */ }
   return null;
 }
 
-function loadNomPng(): Buffer | null {
-  if (_nomPngBuf) return _nomPngBuf;
-  try {
-    const nomPath = path.join(process.cwd(), "public", "NomNoir.png");
-    if (fs.existsSync(nomPath)) {
-      _nomPngBuf = fs.readFileSync(nomPath);
-      return _nomPngBuf;
-    }
-  } catch { /* ignore */ }
-  return null;
-}
-
-/** Draw the DeepFrame header block with logo + document title */
+/** Draw the Splice header block with logo + document title */
 export function drawHeader(
   doc: PDFKit.PDFDocument,
   fonts: { main: string; bold: string; useCustom: boolean },
@@ -225,15 +212,13 @@ export function drawHeader(
   drawPageDecorations(doc);
 
   // Logo
-  const logoBuf = loadLogoPng();
-  const nomBuf = loadNomPng();
+  const logoBuf = loadLogoSplice();
 
-  if (logoBuf && nomBuf) {
-    doc.image(logoBuf, MARGIN_L, 28, { width: 32, height: 32 });
-    doc.image(nomBuf, MARGIN_L + 38, 32, { width: 110, height: 24 });
+  if (logoBuf) {
+    doc.image(logoBuf, MARGIN_L, 22, { width: 70, height: 39.375 });
   } else {
     // Fallback text
-    doc.font(fonts.bold).fontSize(22).fillColor(PDF_COLORS.orange).text("DEEPFRAME", MARGIN_L, 32);
+    doc.font(fonts.bold).fontSize(22).fillColor(PDF_COLORS.orange).text("SPLICE", MARGIN_L, 32);
   }
 
   // Document type title (DEVIS or FACTURE) on the right

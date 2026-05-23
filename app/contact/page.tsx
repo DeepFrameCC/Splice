@@ -3,12 +3,22 @@ import Link from "next/link";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import ContactForm from "./ContactForm";
+import { buildContactPageJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+
 export const metadata: Metadata = {
-  title: "Contact — DeepFrame",
+  title: "Contact — Splice",
   description:
-    "Contactez DeepFrame — boîte de production audiovisuelle à Orléans et Tours. Email, téléphone, Instagram, devis en ligne.",
+    "Contactez Splice — boîte de production audiovisuelle à Orléans et Tours. Email, téléphone, Instagram, devis en ligne.",
+  openGraph: {
+    title: "Contactez Splice",
+    description:
+      "Email, WhatsApp, formulaire en ligne. Réponse sous 24h. Orléans & Tours.",
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: `${BASE_URL}/contact` },
 };
 
 const MEMBERS = [
@@ -20,6 +30,11 @@ const MEMBERS = [
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildContactPageJsonLd()) }}
+      />
       <NavWrapper />
 
       <div
@@ -37,7 +52,7 @@ export default function ContactPage() {
           <h1
             className="text-5xl font-bold leading-none text-white md:text-7xl"
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "var(--font-sans)",
               letterSpacing: "-0.03em",
             }}
           >
@@ -54,7 +69,7 @@ export default function ContactPage() {
         {/* ─── Quick channels ────────────────────────── */}
         <section className="mb-14 grid gap-4 sm:grid-cols-3">
           <a
-            href="mailto:contact@deepframe.cc"
+            href="mailto:contact@splice.cc"
             className="group flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-df-surface p-6 transition hover:border-df-blue/30 hover:shadow-lg"
           >
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-df-blue text-white">
@@ -65,7 +80,7 @@ export default function ContactPage() {
                 Email studio
               </p>
               <p className="text-sm font-bold text-white group-hover:text-df-gold">
-                contact@deepframe.cc
+                contact@splice.cc
               </p>
               <p className="mt-0.5 text-xs text-white/50">
                 Réponse sous 24h
@@ -115,13 +130,7 @@ export default function ContactPage() {
 
         {/* ─── Formulaire + tips sidebar ──────────────── */}
         <section className="mb-14" id="form">
-          <h2
-            className="mb-2 text-2xl font-bold text-white"
-            style={{
-              fontFamily: "var(--font-display)",
-              letterSpacing: "-0.02em",
-            }}
-          >
+          <h2 className="mb-2 text-2xl font-semibold text-white">
             Racontez-nous votre projet
           </h2>
           <p className="mb-8 text-sm text-white/60">
@@ -192,10 +201,7 @@ export default function ContactPage() {
             <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
               Le plus complet
             </p>
-            <p
-              className="text-xl font-bold uppercase text-white"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
+            <p className="text-xl font-semibold uppercase text-white">
               Demander un devis en ligne →
             </p>
             <p className="mt-0.5 text-sm text-white/60">

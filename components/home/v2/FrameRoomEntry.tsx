@@ -72,7 +72,7 @@ export default function FrameRoomEntry() {
   );
 
   return (
-    <section ref={rootRef} className="df-fre" aria-label="Hero DeepFrame">
+    <section ref={rootRef} className="df-fre" aria-label="Hero Splice">
       <div className="df-fre-grid">
         <div className="df-fre-text">
           <div className="df-fre-eyebrow df-fre-anim">

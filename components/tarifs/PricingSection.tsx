@@ -7,7 +7,7 @@ import {
   PACK_PARTICULIER_VIDEOS,
   PACK_PARTICULIER_PHOTOS,
   OPTIONS_A_LA_CARTE,
-  BANNIERE_DEEPFRAME,
+  BANNIERE_SPLICE,
   NETWORK_VOLUMES,
   PRIX_VIDEO_SUPP,
   PRIX_PODCAST_COURT,
@@ -234,11 +234,11 @@ export default function PricingSection() {
 
         {/* Bannières */}
         <h3 className="mt-10 text-center font-display text-xl uppercase tracking-tight text-white">
-          Bannière Deepframe
+          Bannière Splice
         </h3>
         <div className="mx-auto mt-4 grid max-w-3xl gap-3 md:grid-cols-3">
-          {(Object.keys(BANNIERE_DEEPFRAME) as BanniereSize[]).map((key) => {
-            const b = BANNIERE_DEEPFRAME[key];
+          {(Object.keys(BANNIERE_SPLICE) as BanniereSize[]).map((key) => {
+            const b = BANNIERE_SPLICE[key];
             return (
               <div
                 key={key}
