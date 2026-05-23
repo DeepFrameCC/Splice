@@ -64,9 +64,11 @@ export async function checkRateLimit(
   identifier?: string
 ): Promise<{ success: boolean; error?: string }> {
   if (!limiter) {
-    // Fail-closed in production: block all requests when Redis is missing
+    // Temporarily disabled fail-closed in production for Vercel tests without Redis
     if (process.env.NODE_ENV === "production") {
-      return { success: false, error: "Service temporairement indisponible." };
+      console.warn(
+        "[rate-limit] WARNING: Redis is not configured. Rate limiting is temporarily bypassed."
+      );
     }
     return { success: true };
   }
