@@ -86,6 +86,6 @@ export default auth((req) => {
 // Cover HTML routes and private API endpoints. Skip _next internals and static assets.
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|logo.svg|og-image.jpg|robots.txt|sitemap.xml|.*\\.(?:png|jpg|jpeg|gif|svg|webp|avif|ico|mp4|webm|woff|woff2|ttf)).*)",
+    "/((?!monitoring|_next/static|_next/image|favicon.ico|logo.svg|og-image.jpg|robots.txt|sitemap.xml|.*\\.(?:png|jpg|jpeg|gif|svg|webp|avif|ico|mp4|webm|woff|woff2|ttf)).*)",
   ],
 };

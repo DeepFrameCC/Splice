@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 "use client";
 
+import * as Sentry from "@sentry/nextjs";
+import { useEffect } from "react";
+
 export default function GlobalError({
   error,
   reset,
@@ -8,6 +11,10 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
+
   return (
     <html lang="fr">
       <body

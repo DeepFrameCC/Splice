@@ -3,18 +3,24 @@
 import Script from "next/script";
 import { useEffect, useState } from "react";
 
-const PLAUSIBLE_DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
-
 /**
  * Plausible Analytics script loader.
- * Only loads if:
- * 1. NEXT_PUBLIC_PLAUSIBLE_DOMAIN env var is set
- * 2. User has consented to analytics cookies (localStorage: df_consent)
+ * Uses Plausible's unique script URL (domain encoded in the URL).
+ * Only loads after user consents to analytics (localStorage: df_consent).
  */
 export default function PlausibleScript() {
   const [consented, setConsented] = useState(false);
 
   useEffect(() => {
+    // Set up plausible queue shim immediately so calls before load are queued
+    window.plausible =
+      window.plausible ||
+      function (...args: unknown[]) {
+        (window.plausible as { q?: unknown[] }).q =
+          (window.plausible as { q?: unknown[] }).q || [];
+        (window.plausible as { q: unknown[] }).q.push(args);
+      };
+
     try {
       const raw = localStorage.getItem("df_consent");
       if (raw) {
@@ -27,7 +33,6 @@ export default function PlausibleScript() {
       // No consent = no analytics
     }
 
-    // Listen for consent changes from CookieBanner
     function handleStorage(e: StorageEvent) {
       if (e.key === "df_consent" && e.newValue) {
         try {
@@ -43,13 +48,12 @@ export default function PlausibleScript() {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  if (!PLAUSIBLE_DOMAIN || !consented) return null;
+  if (!consented) return null;
 
   return (
     <Script
-      defer
-      data-domain={PLAUSIBLE_DOMAIN}
-      src="https://plausible.io/js/script.js"
+      async
+      src="https://plausible.io/js/pa-PsFOerwMWgvz2ruO3jiu_.js"
       strategy="afterInteractive"
     />
   );
