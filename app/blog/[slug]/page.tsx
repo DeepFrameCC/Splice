@@ -146,7 +146,7 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           {/* Title */}
-          <h1 className="font-display text-3xl uppercase tracking-tight text-white md:text-4xl lg:text-5xl">
+          <h1 className="font-sans text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl leading-tight">
             {post.title}
           </h1>
 
@@ -193,7 +193,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {post.content ? (
                 <div
-                  className="prose prose-lg prose-splice max-w-none prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tight"
+                  className="prose prose-lg prose-splice max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight"
                   dangerouslySetInnerHTML={{ __html: post.content }}
                 />
               ) : (
@@ -231,7 +231,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* ─── CTA ────────────────────────────────────── */}
         <div className="mx-auto mt-16 max-w-4xl px-6">
           <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
-            <h2 className="font-display text-2xl uppercase tracking-tight md:text-3xl">
+            <h2 className="font-sans text-2xl font-extrabold tracking-tight md:text-3xl">
               Un projet en tête ?
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-white/60">

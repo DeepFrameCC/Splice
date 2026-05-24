@@ -1,4 +1,4 @@
-﻿import NavWrapper from "@/components/layout/NavWrapper";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
@@ -27,13 +27,13 @@ export default function MentionsLegales() {
                 {process.env.NEXT_PUBLIC_LEGAL_SIRET ? (
                   <span className="font-mono">{process.env.NEXT_PUBLIC_LEGAL_SIRET}</span>
                 ) : (
-                  <span className="text-white/50 italic">communiqué sur demande à contact@splice.cc</span>
+                  <span className="text-white/50 italic">communiqué sur demande à contact.splicestudio@gmail.com</span>
                 )}
               </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
               <li><strong>TVA :</strong> TVA non applicable, art.&nbsp;293&nbsp;B du CGI (franchise en base)</li>
               <li><strong>Siège social :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande</li>
-              <li><strong>Email :</strong> contact@splice.cc</li>
+              <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
             </ul>
           </div>
 

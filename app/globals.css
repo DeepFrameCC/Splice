@@ -42,25 +42,31 @@ body { font-family: var(--font-sans), system-ui, sans-serif; }
 
 /* ─── Blog prose overrides ─────────────────────────────── */
 .prose-splice {
-  --tw-prose-body: #C4D2C5;
-  --tw-prose-headings: #F36B1F;
+  --tw-prose-body: rgba(255, 255, 255, 0.85);
+  --tw-prose-headings: #FFFFFF;
   --tw-prose-links: #F36B1F;
-  --tw-prose-bold: #F36B1F;
-  --tw-prose-quotes: #F36B1F;
+  --tw-prose-bold: #FFFFFF;
+  --tw-prose-quotes: rgba(255, 255, 255, 0.95);
   --tw-prose-quote-borders: #F36B1F;
+  font-family: var(--font-sans), sans-serif;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
 }
 .prose-splice blockquote {
-  border-left-color: var(--df-gold);
-  background: var(--df-cream);
-  padding: 1rem 1.5rem;
-  border-radius: 0 0.75rem 0.75rem 0;
-  font-style: normal;
+  border-left: 4px solid var(--df-gold);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem 2rem;
+  border-radius: 0 1rem 1rem 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 2rem 0;
 }
 .prose-splice a {
   color: var(--df-gold);
   text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.2s;
+  text-underline-offset: 4px;
+  font-weight: 600;
+  transition: color 0.2s, text-decoration-color 0.2s;
 }
 .prose-splice a:hover { color: var(--df-blue); }
 .prose-splice code {

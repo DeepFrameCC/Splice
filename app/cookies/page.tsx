@@ -1,4 +1,4 @@
-﻿import NavWrapper from "@/components/layout/NavWrapper";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
@@ -130,7 +130,7 @@ export default function Cookies() {
             <h2 className="text-lg font-bold text-white">5. Contact</h2>
             <p>
               Pour toute question concernant notre utilisation des cookies, contactez-nous à{" "}
-              <a href="mailto:contact@splice.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@splice.cc</a>.
+              <a href="mailto:contact.splicestudio@gmail.com" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact.splicestudio@gmail.com</a>.
             </p>
           </div>
         </section>

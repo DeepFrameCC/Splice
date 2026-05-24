@@ -44,6 +44,10 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
+  "vars": {
+    "NEXT_PUBLIC_APP_URL": "https://splicestudio.fr",
+    "R2_PUBLIC_DOMAIN": "cdn.splicestudio.fr"
+  },
   "observability": {
     "enabled": true
   }

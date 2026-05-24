@@ -141,7 +141,15 @@ export function Step2Abonnement() {
   const f = useDevisForm();
 
   const selectPlan = useCallback(
-    (p: PlanId) => f.set("planId", p),
+    (p: PlanId) => {
+      f.set("planId", p);
+      if (p === "STANDARD") {
+        const nextOptions = { ...f.options };
+        delete nextOptions.musiqueSurMesure;
+        delete nextOptions.podcast;
+        f.set("options", nextOptions);
+      }
+    },
     [f]
   );
 
@@ -233,20 +241,22 @@ export function Step2Abonnement() {
       </div>
 
       {/* Launch price toggle */}
-      <label className="mt-6 flex items-center gap-3 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={f.useLaunchPrice}
-          onChange={(e) => f.set("useLaunchPrice", e.target.checked)}
-          className="h-5 w-5 accent-df-gold cursor-pointer"
-        />
-        <span className="text-sm font-bold text-white">
-          Offre de lancement
-          <span className="ml-1 text-xs font-normal text-white/50">
-            (10 places par formule)
+      {f.isAdmin && (
+        <label className="mt-6 flex items-center gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={f.useLaunchPrice}
+            onChange={(e) => f.set("useLaunchPrice", e.target.checked)}
+            className="h-5 w-5 accent-df-gold cursor-pointer"
+          />
+          <span className="text-sm font-bold text-white">
+            Offre de lancement
+            <span className="ml-1 text-xs font-normal text-white/50">
+              (10 places par formule)
+            </span>
           </span>
-        </span>
-      </label>
+        </label>
+      )}
 
       {/* Options */}
       <OptionsSection />
@@ -511,8 +521,9 @@ function OptionsSection() {
       )}
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {OPTIONS_A_LA_CARTE.map((opt) => {
+          const isBlockedByPlan = mode === "ABONNEMENT" && planId === "STANDARD" && (opt.key === "musiqueSurMesure" || opt.key === "podcast");
           const limit = opt.key === "creationBanniere" ? 20 : maxVideos;
-          const isDisabled = opt.key !== "creationBanniere" && maxVideos === 0;
+          const isDisabled = (opt.key !== "creationBanniere" && maxVideos === 0) || isBlockedByPlan;
           const rawQty = options[opt.key] ?? 0;
           const isActive = rawQty > 0 && !isDisabled;
           const qty = Math.min(rawQty, limit);
@@ -546,6 +557,11 @@ function OptionsSection() {
                   <p className="text-xs text-white/50">
                     {opt.price} € {opt.unit}
                   </p>
+                  {isBlockedByPlan && (
+                    <p className="mt-0.5 text-[10px] font-semibold text-red-400">
+                      Non disponible avec la formule Standard
+                    </p>
+                  )}
                 </div>
               </div>
               {isActive && (

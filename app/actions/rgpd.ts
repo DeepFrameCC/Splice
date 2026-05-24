@@ -196,8 +196,8 @@ export async function requestAccountDeletion(
   }
 
   // Verify password
-  const { verify } = await import("@node-rs/argon2");
-  const valid = await verify(user.passwordHash, password);
+  const { verifyPassword } = await import("@/lib/crypto/password");
+  const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) {
     return { success: false, error: "Mot de passe incorrect" };
   }

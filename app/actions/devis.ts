@@ -53,6 +53,7 @@ const optionKeysEnum = z.enum([
   "montageExpress",
   "musiqueSurMesure",
   "adsReseaux",
+  "podcast",
 ]);
 
 const optionsSchema = z
@@ -147,6 +148,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
 
   const session = await auth();
   const userId = session?.user?.id;
+  const userRole = session?.user?.role;
 
   if (!userId) {
     throw new Error("Vous devez être connecté pour envoyer un devis.");
@@ -175,10 +177,14 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     planAbonnement = data.planId;
     billingCycle = data.billingCycle;
     packLabel = `Abonnement ${SUBSCRIPTION_PLANS[data.planId as PlanId].label}`;
+
+    // Secure launch price: only allow admins to use it
+    const useLaunchPrice = userRole === "ADMIN" ? data.useLaunchPrice : false;
+
     quote = computeAbonnementQuote({
       planId: data.planId as PlanId,
       billingCycle: data.billingCycle,
-      useLaunchPrice: data.useLaunchPrice,
+      useLaunchPrice,
       options: data.options ?? {},
     });
   } else {
@@ -259,7 +265,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
           : `<p>Notre équipe revient vers vous sous 48h pour organiser votre prestation gratuite.</p>`
         }
         <p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
       </div>`,
   });
 

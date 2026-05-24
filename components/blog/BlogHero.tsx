@@ -7,13 +7,13 @@ export default function BlogHero() {
 
       <div className="relative mx-auto max-w-5xl px-6 text-center">
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
-          Blog &amp; Ressources
+          L&apos;Écho Créatif — Blog &amp; Insights
         </p>
-        <h1 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-6xl lg:text-7xl">
-          Nos articles &amp; conseils
+        <h1 className="mt-4 font-sans text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl leading-tight">
+          Nos ressources &amp; <em className="not-italic text-df-gold">conseils</em>
         </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-lg text-white/60">
-          Guides pratiques, retours d&apos;expérience et tendances du monde audiovisuel — par l&apos;équipe Splice.
+        <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70 leading-relaxed font-sans">
+          Découvrez nos guides pratiques, retours d&apos;expérience et analyses sur la production vidéo, le motion design et la stratégie digitale en Centre-Val de Loire.
         </p>
       </div>
     </section>

@@ -34,6 +34,7 @@ export interface DevisFormState {
   // Auth / eligibility (set from server props)
   isAuthenticated: boolean;
   canUseFormuleBienvenue: boolean;
+  isAdmin: boolean;
 
   // Coordonnées (Step 3)
   nomEntreprise: string;
@@ -73,6 +74,7 @@ const initial = {
 
   isAuthenticated: false,
   canUseFormuleBienvenue: false,
+  isAdmin: false,
 
   nomEntreprise: "",
   nomContact: "",

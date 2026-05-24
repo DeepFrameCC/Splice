@@ -179,7 +179,8 @@ export type OptionKey =
   | "creationBanniere"
   | "montageExpress"
   | "musiqueSurMesure"
-  | "adsReseaux";
+  | "adsReseaux"
+  | "podcast";
 
 export interface OptionALaCarte {
   key: OptionKey;
@@ -196,6 +197,7 @@ export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
   { key: "montageExpress", label: "Montage express", price: 25, unit: "/ vidéo" },
   { key: "musiqueSurMesure", label: "Musique sur mesure", price: 25, unit: "/ vidéo" },
   { key: "adsReseaux", label: "Ads réseaux sociaux", price: 20, unit: "/ vidéo" },
+  { key: "podcast", label: "Création de podcast", price: 29, unit: "/ podcast" },
 ];
 
 // ─── Bannière Splice ───────────────────────────────────────────
@@ -351,6 +353,16 @@ export interface AbonnementInput {
 export function computeAbonnementQuote(input: AbonnementInput): Quote {
   const plan = SUBSCRIPTION_PLANS[input.planId];
   const lines: QuoteLine[] = [];
+
+  // Enforce plan restrictions
+  if (input.planId === "STANDARD") {
+    if (input.options.musiqueSurMesure) {
+      throw new PricingError("L'option Musique sur mesure n'est pas disponible avec la formule Standard.");
+    }
+    if (input.options.podcast) {
+      throw new PricingError("L'option Podcast n'est pas disponible avec la formule Standard.");
+    }
+  }
 
   // Monthly price
   let monthlyPrice: number;

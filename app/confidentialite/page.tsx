@@ -1,4 +1,4 @@
-﻿import NavWrapper from "@/components/layout/NavWrapper";
+import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
@@ -21,8 +21,8 @@ export default function Confidentialite() {
             <h2 className="text-lg font-bold text-white">1. Responsable du traitement</h2>
             <ul className="mt-3 space-y-1">
               <li><strong>Dénomination :</strong> Splice (micro-entreprise)</li>
-              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact@splice.cc</li>
-              <li><strong>Email :</strong> contact@splice.cc</li>
+              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact.splicestudio@gmail.com</li>
+              <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
             </ul>
           </div>
 
@@ -103,7 +103,7 @@ export default function Confidentialite() {
             </ul>
             <p className="mt-3">
               Pour exercer vos droits, envoyez un email à{" "}
-              <a href="mailto:contact@splice.cc" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact@splice.cc</a>{" "}
+              <a href="mailto:contact.splicestudio@gmail.com" className="text-df-gold underline hover:text-df-gold/80 transition-colors">contact.splicestudio@gmail.com</a>{" "}
               en joignant une copie de votre pièce d&apos;identité. Nous répondons dans un délai maximum de 30 jours.
             </p>
           </div>

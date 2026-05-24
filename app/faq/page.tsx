@@ -45,8 +45,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Comment vous contacter ?",
-        a: "Vous pouvez nous écrire à contact@splice.cc, remplir le formulaire de contact sur notre site, ou directement demander un devis en ligne. Nous répondons sous 24h.",
-        rich: <>Vous pouvez nous écrire à contact@splice.cc, remplir notre <L href="/contact">formulaire de contact</L>, ou directement <L href="/devis">demander un devis en ligne</L>. Nous répondons sous 24h.</>,
+        a: "Vous pouvez nous écrire à contact.splicestudio@gmail.com, remplir le formulaire de contact sur notre site, ou directement demander un devis en ligne. Nous répondons sous 24h.",
+        rich: <>Vous pouvez nous écrire à contact.splicestudio@gmail.com, remplir notre <L href="/contact">formulaire de contact</L>, ou directement <L href="/devis">demander un devis en ligne</L>. Nous répondons sous 24h.</>,
       },
     ],
   },

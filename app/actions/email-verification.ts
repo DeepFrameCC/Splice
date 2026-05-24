@@ -1,4 +1,4 @@
-﻿"use server";
+"use server";
 
 import { randomBytes } from "crypto";
 import { redirect } from "next/navigation";
@@ -47,7 +47,7 @@ export async function sendVerificationEmail() {
           <a href="${link}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Si vous n'avez pas demandé cette vérification, ignorez cet email.</p>
-        <p style="font-size:12px;color:#777">Splice · contact@splice.cc</p>
+        <p style="font-size:12px;color:#777">Splice · contact.splicestudio@gmail.com</p>
       </div>`,
   });
 

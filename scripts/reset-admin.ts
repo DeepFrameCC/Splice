@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { hash } from "@node-rs/argon2";
+import { hashPassword } from "@/lib/crypto/password";
 
 const db = new PrismaClient();
 
@@ -25,7 +25,7 @@ async function main() {
 
   console.log("Admin found:", admin.email, "(role:", admin.role + ")");
 
-  const newHash = await hash(newPassword);
+  const newHash = await hashPassword(newPassword);
   await db.user.update({
     where: { email: "admin@splice.cc" },
     data: { passwordHash: newHash },

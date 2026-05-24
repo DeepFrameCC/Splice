@@ -1,16 +1,22 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeonHttp } from "@prisma/adapter-neon";
 
-const g = globalThis as unknown as { prisma?: PrismaClient };
+/**
+ * Create a Prisma client bound to the Neon HTTP driver.
+ * On Cloudflare Workers each request creates its own client — by design.
+ * Neon HTTP has no persistent connections so there is zero overhead.
+ */
+export function getDb(databaseUrl: string = process.env.DATABASE_URL!): PrismaClient {
+  const adapter = new PrismaNeonHttp(databaseUrl, { fullResults: false });
+  return new PrismaClient({ adapter });
+}
 
-export const db =
-  g.prisma ??
-  new PrismaClient({
-    // Surface slow-query / connection issues in prod logs without flooding
-    // them with successful queries. Dev gets the same baseline; bump locally
-    // by setting PRISMA_LOG_QUERIES=1 to add "query".
-    log: process.env.PRISMA_LOG_QUERIES === "1"
-      ? ["query", "warn", "error"]
-      : ["warn", "error"],
-  });
-
-if (process.env.NODE_ENV !== "production") g.prisma = db;
+/**
+ * Legacy alias — keeps all `import { db } from "@/lib/db"` working unchanged.
+ * Each property access creates a fresh client (Workers-safe, stateless).
+ */
+export const db = new Proxy({} as PrismaClient, {
+  get(_target, prop) {
+    return getDb()[prop as keyof PrismaClient];
+  },
+});

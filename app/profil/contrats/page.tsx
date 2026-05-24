@@ -1,4 +1,4 @@
-﻿import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import StatusPill from "@/components/dashboard/StatusPill";
@@ -19,7 +19,7 @@ export default async function MesContrats() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="font-display text-4xl uppercase tracking-tight text-white">Mes contrats</h1>
+        <h1 className="font-sans text-3xl font-extrabold tracking-tight text-white">Mes contrats</h1>
         <p className="mt-1 text-sm text-white/60">
           {contrats.length} contrat{contrats.length !== 1 ? "s" : ""}
         </p>
@@ -40,7 +40,7 @@ export default async function MesContrats() {
                 {/* Header row */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-display text-xl font-bold text-white">
+                    <p className="font-sans text-lg font-bold text-white">
                       Contrat n&deg;{c.numero}
                     </p>
                     <p className="mt-0.5 flex items-center gap-1.5 text-sm text-white/50">

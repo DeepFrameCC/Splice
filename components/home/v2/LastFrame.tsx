@@ -26,7 +26,7 @@ export default function LastFrame() {
         </Link>
 
         <div className="df-lf-meta">
-          <a href="mailto:contact@splice.cc" className="df-lf-meta-link">contact@splice.cc</a>
+          <a href="mailto:contact.splicestudio@gmail.com" className="df-lf-meta-link">contact.splicestudio@gmail.com</a>
           <span className="df-lf-sep">·</span>
           <a
             href="https://wa.me/33651109202"

@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 export default async function DevisPage() {
   const session = await auth();
   const userId = session?.user?.id;
+  const isAdmin = session?.user?.role === "ADMIN";
 
   let canUseFormuleBienvenue = false;
   let userInfo: { name: string; email: string } | null = null;
@@ -57,6 +58,7 @@ export default async function DevisPage() {
           isAuthenticated={Boolean(userId)}
           canUseFormuleBienvenue={canUseFormuleBienvenue}
           userInfo={userInfo}
+          isAdmin={isAdmin}
         />
       </section>
       <Footer />

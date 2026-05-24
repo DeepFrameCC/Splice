@@ -62,7 +62,7 @@ const jsonLd = {
   logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"}/logo-1.svg`,
   description:
     "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
-  email: "contact@splice.cc",
+  email: "contact.splicestudio@gmail.com",
   areaServed: {
     "@type": "Place",
     name: "Centre-Val de Loire, France",

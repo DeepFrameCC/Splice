@@ -1,9 +1,3 @@
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 /** @type {import('next').NextConfig} */
 
 
@@ -30,6 +24,7 @@ const sensitiveAreaHeaders = [
 
 const nextConfig = {
   outputFileTracingRoot: process.cwd(),
+  serverExternalPackages: ["@pdf-lib/fontkit"],
   poweredByHeader: false,
   async headers() {
     return [
@@ -50,25 +45,8 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
-      { protocol: "https", hostname: "**.supabase.co" },
       { protocol: "https", hostname: "**.r2.dev" },
-      { protocol: "https", hostname: "utfs.io" },
       { protocol: "https", hostname: "cdn.splicestudio.fr" },
-    ],
-  },
-  outputFileTracingExcludes: {
-    "*": [
-      "./node_modules/@node-rs/argon2/**/*",
-      "./node_modules/@node-rs/argon2-win32-x64-msvc/**/*",
-      "./node_modules/@node-rs/argon2-darwin-arm64/**/*",
-      "./node_modules/@node-rs/argon2-darwin-x64/**/*",
-      "./node_modules/@node-rs/argon2-linux-arm64-gnu/**/*",
-      "./node_modules/@node-rs/argon2-linux-x64-gnu/**/*",
-      "./node_modules/@node-rs/argon2-linux-x64-musl/**/*",
-      "./node_modules/pdfkit/**/*",
-      "./node_modules/fontkit/**/*",
-      "./node_modules/linebreak/**/*",
-      "./node_modules/png-js/**/*"
     ],
   },
   experimental: {
@@ -79,12 +57,6 @@ const nextConfig = {
       "zod",
       "zustand",
     ],
-  },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.resolve.alias["@node-rs/argon2"] = path.resolve(__dirname, "./lib/mocks/argon2.ts");
-    }
-    return config;
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,

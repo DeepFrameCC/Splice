@@ -26,7 +26,7 @@ export default function BlogFeaturedCard({ post }: BlogFeaturedCardProps) {
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-white/5">
-            <span className="font-display text-5xl uppercase tracking-tight text-white/20">DF</span>
+            <span className="font-sans text-5xl font-extrabold text-white/20">DF</span>
           </div>
         )}
       </div>
@@ -47,7 +47,7 @@ export default function BlogFeaturedCard({ post }: BlogFeaturedCardProps) {
           ))}
         </div>
 
-        <h2 className="mt-4 font-display text-2xl uppercase tracking-tight text-white transition-colors group-hover:text-white/80 md:text-3xl">
+        <h2 className="mt-4 font-sans text-xl font-bold text-white transition-colors group-hover:text-df-gold md:text-2xl leading-snug">
           {post.title}
         </h2>
 

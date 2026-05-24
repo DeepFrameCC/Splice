@@ -154,7 +154,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
         {/* Devis CTA */}
         <div className="mt-12 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
-          <h2 className="font-display text-2xl uppercase tracking-tight md:text-3xl">
+          <h2 className="font-sans text-2xl font-extrabold tracking-tight md:text-3xl">
             Un projet en tête ?
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-white/60">

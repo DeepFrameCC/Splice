@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { hash, verify } from "@node-rs/argon2";
+import { hashPassword, verifyPassword } from "@/lib/crypto/password";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
@@ -96,10 +96,10 @@ export async function changePasswordAction(_prev: unknown, formData: FormData) {
   const user = await db.user.findUnique({ where: { id: userId }, select: { passwordHash: true } });
   if (!user?.passwordHash) return { ok: false, error: "Compte sans mot de passe" };
 
-  const valid = await verify(user.passwordHash, currentPassword);
+  const valid = await verifyPassword(currentPassword, user.passwordHash);
   if (!valid) return { ok: false, error: "Mot de passe actuel incorrect" };
 
-  const newHash = await hash(newPassword);
+  const newHash = await hashPassword(newPassword);
   await db.user.update({ where: { id: userId }, data: { passwordHash: newHash } });
 
   await audit({ action: "PASSWORD_CHANGE", userId, target: userId });
@@ -168,7 +168,7 @@ export async function disable2FAAction(_prev: unknown, formData: FormData) {
   if (!user?.twoFactorEnabled) return { ok: false, error: "2FA n'est pas activé" };
   if (!user.passwordHash) return { ok: false, error: "Compte sans mot de passe" };
 
-  const valid = await verify(user.passwordHash, password);
+  const valid = await verifyPassword(password, user.passwordHash);
   if (!valid) return { ok: false, error: "Mot de passe incorrect" };
 
   await db.user.update({

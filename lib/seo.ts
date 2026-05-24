@@ -15,7 +15,7 @@ export function buildOrganizationJsonLd() {
     logo: `${BASE_URL}/logo-1.svg`,
     description:
       "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies.",
-    email: "contact@splice.cc",
+    email: "contact.splicestudio@gmail.com",
     areaServed: {
       "@type": "Place",
       name: "Centre-Val de Loire, France",
@@ -32,6 +32,11 @@ export function buildOrganizationJsonLd() {
       "Aftermovie",
       "Réseaux sociaux",
       "Montage vidéo",
+      "Production vidéo Orléans",
+      "Vidéaste Orléans",
+      "Podcast Orléans",
+      "Production audiovisuelle Loiret",
+      "Studio vidéo Centre-Val de Loire",
     ],
   };
 }
@@ -44,8 +49,8 @@ export function buildLocalBusinessJsonLd() {
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
     description:
-      "Boîte de production audiovisuelle basée à Orléans et Tours.",
-    email: "contact@splice.cc",
+      "Studio et boîte de production audiovisuelle à Orléans (Loiret) et Tours (Indre-et-Loire). Spécialiste en tournage, montage vidéo, motion design et création de podcast en Centre-Val de Loire.",
+    email: "contact.splicestudio@gmail.com",
     address: [
       {
         "@type": "PostalAddress",
@@ -173,7 +178,7 @@ export function buildContactPageJsonLd() {
     mainEntity: {
       "@type": "LocalBusiness",
       name: "Splice",
-      email: "contact@splice.cc",
+      email: "contact.splicestudio@gmail.com",
       telephone: "+33651109202",
       url: BASE_URL,
       address: [
@@ -252,7 +257,7 @@ export function buildBlogIndexJsonLd() {
     name: "Blog — Splice",
     url: `${BASE_URL}/blog`,
     description:
-      "Conseils, guides et actualités sur la production audiovisuelle.",
+      "Découvrez nos actualités, guides pratiques et conseils sur le montage vidéo, la production corporate et le podcast à Orléans, Tours et Centre-Val de Loire.",
     publisher: {
       "@type": "Organization",
       name: "Splice",
@@ -287,7 +292,7 @@ export function buildPricingJsonLd() {
     name: "Tarifs — Splice",
     url: `${BASE_URL}/tarifs`,
     description:
-      "Tarifs transparents pour la production audiovisuelle. Abonnements vidéo, packs photo, options à la carte.",
+      "Tarifs transparents de production vidéo et photographie à Orléans, Tours et Centre-Val de Loire. Abonnements vidéo pro, packs photo à la carte et création de podcast.",
     mainEntity: {
       "@type": "OfferCatalog",
       name: "Tarifs Splice",

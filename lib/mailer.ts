@@ -1,4 +1,4 @@
-﻿import { Resend } from "resend";
+import { Resend } from "resend";
 
 let _resend: Resend | null = null;
 function getResend() {
@@ -8,8 +8,8 @@ function getResend() {
   return _resend;
 }
 
-export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice <contact@splice.cc>";
-export const MAIL_CONTACT = "contact@splice.cc";
+export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice <contact.splicestudio@gmail.com>";
+export const MAIL_CONTACT = "contact.splicestudio@gmail.com";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {

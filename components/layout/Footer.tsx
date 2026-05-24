@@ -50,8 +50,8 @@ export default function Footer() {
         </div>
         <div>
           <h3 className="mb-3 font-bold text-df-gold">Contact</h3>
-          <a href="mailto:contact@splice.cc" className="flex items-center gap-2 text-sm">
-            <Mail className="h-4 w-4" /> contact@splice.cc
+          <a href="mailto:contact.splicestudio@gmail.com" className="flex items-center gap-2 text-sm">
+            <Mail className="h-4 w-4" /> contact.splicestudio@gmail.com
           </a>
           <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs opacity-60">
             <Link href="/mentions-legales">Mentions légales</Link>

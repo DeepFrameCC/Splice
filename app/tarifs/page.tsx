@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PricingSection from "@/components/tarifs/PricingSection";
 import { buildPricingJsonLd } from "@/lib/seo";
+import NavWrapper from "@/components/layout/NavWrapper";
+import Footer from "@/components/layout/Footer";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 
@@ -21,37 +23,39 @@ export const metadata: Metadata = {
 export default function TarifsPage() {
   return (
     <>
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPricingJsonLd()) }}
-    />
-    <main className="mx-auto max-w-6xl px-4 pb-20 pt-12 md:px-6">
-      {/* Retour à l'accueil */}
-      <Link
-        href="/"
-        className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/40 transition hover:text-df-gold"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" />
-        Retour à l&apos;accueil
-      </Link>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPricingJsonLd()) }}
+      />
+      <NavWrapper />
+      <main className="mx-auto max-w-6xl px-4 pb-20 md:px-6" style={{ paddingTop: "calc(80px + 3rem)" }}>
+        {/* Retour à l'accueil */}
+        <Link
+          href="/"
+          className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/40 transition hover:text-df-gold"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Retour à l&apos;accueil
+        </Link>
 
-      {/* Hero */}
-      <div className="text-center">
-        <h1 className="font-display text-5xl uppercase tracking-tight text-white md:text-7xl">
-          Tarifs fixes.<br />
-          Pas de <em className="not-italic text-df-gold">mauvaise surprise</em>.
-        </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
-          Abonnement mensuel pour les pros, pack à la carte pour les particuliers.
-        </p>
-        <p className="mx-auto mt-2 max-w-xl text-xs text-white/40">
-          TVA non applicable, art. 293 B du CGI.
-        </p>
-      </div>
+        {/* Hero */}
+        <div className="text-center">
+          <h1 className="font-display text-5xl uppercase tracking-tight text-white md:text-7xl">
+            Tarifs fixes.<br />
+            Pas de <em className="not-italic text-df-gold">mauvaise surprise</em>.
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
+            Abonnement mensuel pour les pros, pack à la carte pour les particuliers.
+          </p>
+          <p className="mx-auto mt-2 max-w-xl text-xs text-white/40">
+            TVA non applicable, art. 293 B du CGI.
+          </p>
+        </div>
 
-      <PricingSection />
-    </main>
+        <PricingSection />
+      </main>
+      <Footer />
     </>
   );
 }

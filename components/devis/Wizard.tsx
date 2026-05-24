@@ -17,10 +17,11 @@ const STEP_META = [
 interface WizardProps {
   isAuthenticated?: boolean;
   canUseFormuleBienvenue?: boolean;
+  isAdmin?: boolean;
   userInfo?: { name: string; email: string } | null;
 }
 
-export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue = false, userInfo = null }: WizardProps) {
+export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue = false, isAdmin = false, userInfo = null }: WizardProps) {
   const f = useDevisForm();
   const [pending, start] = useTransition();
   const router = useRouter();
@@ -28,12 +29,16 @@ export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue
   useEffect(() => {
     f.set("isAuthenticated", isAuthenticated);
     f.set("canUseFormuleBienvenue", canUseFormuleBienvenue);
+    f.set("isAdmin", isAdmin);
+    if (!isAdmin) {
+      f.set("useLaunchPrice", false);
+    }
     if (userInfo) {
       if (!f.nomContact) f.set("nomContact", userInfo.name);
       if (!f.emailContact) f.set("emailContact", userInfo.email);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, canUseFormuleBienvenue]);
+  }, [isAuthenticated, canUseFormuleBienvenue, isAdmin]);
 
   const canNext = () => {
     if (f.step === 1) return Boolean(f.mode);

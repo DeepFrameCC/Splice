@@ -65,7 +65,7 @@ function Footer() {
         <div>
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:contact@splice.cc">contact@splice.cc</a></li>
+            <li><a href="mailto:contact.splicestudio@gmail.com">contact.splicestudio@gmail.com</a></li>
             <li>Orléans, 45000</li>
           </ul>
         </div>

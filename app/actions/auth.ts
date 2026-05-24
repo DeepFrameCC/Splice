@@ -1,6 +1,6 @@
 "use server";
 import { z } from "zod";
-import { hash, verify } from "@node-rs/argon2";
+import { hashPassword, verifyPassword } from "@/lib/crypto/password";
 import { db } from "@/lib/db";
 import { signIn, signOut } from "@/lib/auth";
 import { sendMail } from "@/lib/mailer";
@@ -63,7 +63,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
   const exists = await db.user.findFirst({ where: { OR: [{ email: d.email }, { pseudo }] } });
   if (exists) return { ok: false, error: "Email ou pseudo déjà utilisé" };
 
-  const passwordHash = await hash(d.password);
+  const passwordHash = await hashPassword(d.password);
   await db.user.create({
     data: {
       email: d.email, passwordHash, pseudo,
@@ -93,7 +93,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
         <p style="margin-top:20px">
           <a href="${verifyLink}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact@splice.cc</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
       </div>`,
   }).catch(() => {}); // fire-and-forget
 
@@ -121,7 +121,7 @@ export async function loginAction(_prev: unknown, formData: FormData) {
     // Constant-time: always run Argon2 even when user not found (prevents timing oracle)
     const dummyHash = "$argon2id$v=19$m=65536,t=3,p=4$AAAAAAAAAAAAAAAAAAAAAA$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     let pwOk = false;
-    try { pwOk = await verify(user?.passwordHash ?? dummyHash, password); } catch { /* dummy hash rejection */ }
+    try { pwOk = await verifyPassword(password, user?.passwordHash ?? dummyHash); } catch { /* dummy hash rejection */ }
     if (!user || !pwOk) {
       // Fall through to signIn() which will reject with generic error
     } else if (user.twoFactorEnabled) {
@@ -185,7 +185,7 @@ export async function resetPasswordAction(_prev: unknown, formData: FormData) {
   const t = await db.passwordReset.findUnique({ where: { token } });
   if (!t || t.expiresAt < new Date()) return { ok: false, error: "Lien expiré ou invalide" };
 
-  const passwordHash = await hash(password);
+  const passwordHash = await hashPassword(password);
   const user = await db.$transaction(async (tx) => {
     const updated = await tx.user.update({ where: { email: t.email }, data: { passwordHash } });
     await tx.passwordReset.delete({ where: { token } });

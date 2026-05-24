@@ -1,4 +1,4 @@
-﻿import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -24,7 +24,7 @@ export default async function MesFactures() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="font-display text-4xl uppercase tracking-tight text-df-gold">Mes factures</h1>
+        <h1 className="font-sans text-3xl font-extrabold tracking-tight text-df-gold">Mes factures</h1>
         <p className="mt-1 text-sm text-white/60">
           {factures.length} facture{factures.length !== 1 ? "s" : ""}
         </p>
@@ -45,7 +45,7 @@ export default async function MesFactures() {
                 {/* Header row */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-display text-xl font-bold text-white">
+                    <p className="font-sans text-lg font-bold text-white">
                       Facture n&deg;{f.numero}
                     </p>
                     <p className="mt-0.5 text-sm text-white/50">
@@ -59,13 +59,13 @@ export default async function MesFactures() {
                 <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/[0.08] pt-4">
                   <div>
                     <p className="text-xs uppercase tracking-wide text-white/50">Montant HT</p>
-                    <p className="font-display text-lg font-bold text-white">
+                    <p className="font-sans text-base font-bold text-white">
                       {formatEuros(f.devis.totalHT)}
                     </p>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-wide text-white/50">Acompte ({f.devis.acompteRate}%)</p>
-                    <p className="font-display text-lg font-bold text-df-gold">
+                    <p className="font-sans text-base font-bold text-df-gold">
                       {formatEuros(f.devis.acompteAmount)}
                     </p>
                   </div>

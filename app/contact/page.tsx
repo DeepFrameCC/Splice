@@ -69,7 +69,7 @@ export default function ContactPage() {
         {/* ─── Quick channels ────────────────────────── */}
         <section className="mb-14 grid gap-4 sm:grid-cols-3">
           <a
-            href="mailto:contact@splice.cc"
+            href="mailto:contact.splicestudio@gmail.com"
             className="group flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-df-surface p-6 transition hover:border-df-blue/30 hover:shadow-lg"
           >
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-df-blue text-white">
@@ -80,7 +80,7 @@ export default function ContactPage() {
                 Email studio
               </p>
               <p className="text-sm font-bold text-white group-hover:text-df-gold">
-                contact@splice.cc
+                contact.splicestudio@gmail.com
               </p>
               <p className="mt-0.5 text-xs text-white/50">
                 Réponse sous 24h

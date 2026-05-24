@@ -167,9 +167,9 @@ export default function AdminParametresPage() {
             { label: "Base de données", value: "Neon PostgreSQL (eu-central-1)" },
             { label: "Paiements", value: "Stripe Checkout" },
             { label: "Emails", value: "Resend + React Email" },
-            { label: "PDF", value: "PDFKit (server-side)" },
+            { label: "PDF", value: "pdf-lib (server-side)" },
             { label: "Analytics", value: "Plausible (prévu)" },
-            { label: "Stockage médias", value: "Cloudflare R2 (prévu)" },
+            { label: "Stockage médias", value: "Cloudflare R2" },
             { label: "Signature", value: "Yousign eIDAS (prévu)" },
           ].map((item) => (
             <div key={item.label} className="flex items-center justify-between px-6 py-3.5">

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { verify } from "@node-rs/argon2";
+import { verifyPassword } from "@/lib/crypto/password";
 import { z } from "zod";
 import { db } from "./db";
 import { authConfig } from "./auth.config";
@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
         if (!user) return null;
 
-        const ok = await verify(user.passwordHash, parsed.data.password);
+        const ok = await verifyPassword(parsed.data.password, user.passwordHash);
         if (!ok) return null;
 
         // Enforce 2FA when enabled

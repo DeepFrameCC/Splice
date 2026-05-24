@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma } from "@prisma/client";
-import { hash } from "@node-rs/argon2";
+import { hashPassword } from "@/lib/crypto/password";
 import { SERVICES_CONTENT } from "./services-content";
 
 const db = new PrismaClient();
@@ -24,7 +24,7 @@ async function main() {
   });
   if (exists) {
     console.log("Admin existe deja:", exists.email);
-    const passwordHash = await hash(adminPassword);
+    const passwordHash = await hashPassword(adminPassword);
     await db.user.update({
       where: { id: exists.id },
       data: {
@@ -51,7 +51,7 @@ async function main() {
     });
     console.log("Compte admin mis a jour:", adminEmail);
   } else {
-    const passwordHash = await hash(adminPassword);
+    const passwordHash = await hashPassword(adminPassword);
     const admin = await db.user.create({
       data: {
         email: adminEmail,

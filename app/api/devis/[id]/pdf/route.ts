@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { MENTIONS_LEGALES, FOUNDER_LABEL, resolvePackLabel } from "@/lib/pricing";
+import { MENTIONS_LEGALES, FOUNDER_LABEL } from "@/lib/pricing";
 import {
-  createPdfDoc,
+  createPdfContext,
   drawHeader,
   drawInfoBlock,
   drawPartiesBlock,
@@ -12,12 +12,11 @@ import {
   drawTotalsBlock,
   drawReglementBlock,
   drawMentionsLegales,
-  sanitize,
+  addPage,
   safe,
   euro,
 } from "@/lib/pdf";
 
-export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(
@@ -66,133 +65,93 @@ export async function GET(
 
   /* ── Generate PDF ────────────────────────────────────────────────── */
   try {
-    const { doc, fonts, chunks } = createPdfDoc();
+    const { pdf, fonts, page } = await createPdfContext();
+    let currentPage = page;
 
-    // Shorthand helpers bound to this doc's font context
-    const s = (text: string) => sanitize(text, fonts.useCustom);
-    const e = (amount: number | null | undefined) => euro(amount, fonts.useCustom);
+    /* ── Header ──────────────────────────────────────────────────── */
+    drawHeader(currentPage, fonts, "DEVIS");
 
-    const PDF_TIMEOUT_MS = 20_000;
+    /* ── Info block (date, numero) ───────────────────────────────── */
+    const dateStr = devis.createdAt.toLocaleDateString("fr-FR");
+    const echeanceDate = new Date(devis.createdAt);
+    echeanceDate.setDate(echeanceDate.getDate() + 30);
+    const echeanceStr = echeanceDate.toLocaleDateString("fr-FR");
 
-    const generation = new Promise<NextResponse>((resolve) => {
-      doc.on("error", (err) => {
-        console.error("[devis-pdf] PDFKit stream error:", err);
-        resolve(
-          NextResponse.json(
-            { error: "PDF generation failed" },
-            { status: 500 },
-          ),
-        );
-      });
+    drawInfoBlock(currentPage, fonts, {
+      date: dateStr,
+      echeance: echeanceStr,
+      numero: safe(devis.numero),
+      docType: "DEVIS",
+    });
 
-      doc.on("end", () => {
-        const pdfBuffer = Buffer.concat(chunks);
-        resolve(
-          new NextResponse(pdfBuffer, {
-            status: 200,
-            headers: {
-              "Content-Type": "application/pdf",
-              "Content-Disposition": `inline; filename="devis-${devis.numero}.pdf"`,
-              "Cache-Control": "no-store",
-            },
-          }),
-        );
-      });
+    /* ── Prestataire / Destinataire ──────────────────────────────── */
+    const chefLabel =
+      devis.chefDeProjet && FOUNDER_LABEL[devis.chefDeProjet]
+        ? FOUNDER_LABEL[devis.chefDeProjet]
+        : safe(devis.chefDeProjet, "Non assigne");
 
-      /* ── Header ──────────────────────────────────────────────────── */
-      drawHeader(doc, fonts, s, "DEVIS");
+    const destinataireLines = [
+      devis.nomEntreprise || "",
+      devis.nomContact,
+      devis.telContact,
+      devis.emailContact,
+      devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
+      devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
+    ].filter(Boolean) as string[];
 
-      /* ── Info block (date, numero) ───────────────────────────────── */
-      const dateStr = devis.createdAt.toLocaleDateString("fr-FR");
-      const echeanceDate = new Date(devis.createdAt);
-      echeanceDate.setDate(echeanceDate.getDate() + 30);
-      const echeanceStr = echeanceDate.toLocaleDateString("fr-FR");
+    const afterParties = drawPartiesBlock(
+      currentPage, fonts,
+      {
+        entreprise: `Prenom Nom (${chefLabel})`,
+        adresse: "adresse:",
+        email: "contact.splicestudio@gmail.com",
+        siret: "En cours d'immatriculation",
+      },
+      destinataireLines,
+    );
 
-      drawInfoBlock(doc, fonts, s, {
-        date: dateStr,
-        echeance: echeanceStr,
-        numero: safe(devis.numero),
-        docType: "DEVIS",
-      });
+    /* ── Table ───────────────────────────────────────────────────── */
+    const tableTop = Math.max(afterParties, 210);
+    drawTableHeader(currentPage, fonts, tableTop);
 
-      /* ── Prestataire / Destinataire ──────────────────────────────── */
-      const chefLabel =
-        devis.chefDeProjet && FOUNDER_LABEL[devis.chefDeProjet]
-          ? FOUNDER_LABEL[devis.chefDeProjet]
-          : safe(devis.chefDeProjet, "Non assigne");
-
-      const destinataireLines = [
-        devis.nomEntreprise || "",
-        devis.nomContact,
-        devis.telContact,
-        devis.emailContact,
-        devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
-        devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
-      ].filter(Boolean) as string[];
-
-      const afterParties = drawPartiesBlock(
-        doc, fonts, s,
-        {
-          entreprise: s(`Prenom Nom (${chefLabel})`),
-          adresse: "adresse:",
-          email: "contact@splice.cc",
-          siret: s("En cours d'immatriculation"),
-        },
-        destinataireLines,
-      );
-
-      /* ── Table ───────────────────────────────────────────────────── */
-      const tableTop = Math.max(afterParties, 210);
-      drawTableHeader(doc, fonts, s, tableTop);
-
-      let y = tableTop + 28;
-      for (const line of lines) {
-        y = drawTableRow(doc, fonts, s, e, line, y);
-        if (y > 680) {
-          doc.addPage();
-          y = 50;
-        }
+    let y = tableTop + 28;
+    for (const line of lines) {
+      y = drawTableRow(currentPage, fonts, line, y);
+      if (y > 680) {
+        currentPage = addPage(pdf);
+        y = 50;
       }
+    }
 
-      /* ── Totals ──────────────────────────────────────────────────── */
-      const afterTotals = drawTotalsBlock(doc, fonts, s, e, {
-        totalHT: devis.totalHT,
-        acompteRate: devis.acompteRate,
-        acompteAmount: devis.acompteAmount,
-        solde: devis.totalHT - devis.acompteAmount,
-      }, y + 8);
+    /* ── Totals ──────────────────────────────────────────────────── */
+    const afterTotals = drawTotalsBlock(currentPage, fonts, {
+      totalHT: devis.totalHT,
+      acompteRate: devis.acompteRate,
+      acompteAmount: devis.acompteAmount,
+      solde: devis.totalHT - devis.acompteAmount,
+    }, y + 8);
 
-      /* ── Reglement ───────────────────────────────────────────────── */
-      const afterReglement = drawReglementBlock(
-        doc, fonts, s, afterTotals + 8,
-        s("Delais de livraison : ........."),
-      );
+    /* ── Reglement ───────────────────────────────────────────────── */
+    const afterReglement = drawReglementBlock(
+      currentPage, fonts, afterTotals + 8,
+      "Delais de livraison : .........",
+    );
 
-      /* ── Mentions legales ────────────────────────────────────────── */
-      const mentionsY = Math.min(afterReglement + 8, 720);
-      drawMentionsLegales(doc, fonts, s, MENTIONS_LEGALES, mentionsY);
+    /* ── Mentions legales ────────────────────────────────────────── */
+    const mentionsY = Math.min(afterReglement + 8, 720);
+    drawMentionsLegales(currentPage, fonts, MENTIONS_LEGALES, mentionsY);
 
-      doc.end();
+    /* ── Serialize ───────────────────────────────────────────────── */
+    const pdfBytes = await pdf.save();
+
+    return new NextResponse(pdfBytes.buffer as ArrayBuffer, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `inline; filename="devis-${devis.numero}.pdf"`,
+        "Cache-Control": "no-store",
+      },
     });
-
-    const timeout = new Promise<NextResponse>((resolve) => {
-      setTimeout(() => {
-        console.error("[devis-pdf] PDF generation timed out after", PDF_TIMEOUT_MS, "ms");
-        try {
-          doc.removeAllListeners();
-        } catch {
-          /* ignore */
-        }
-        resolve(
-          NextResponse.json(
-            { error: "PDF generation timeout" },
-            { status: 504 },
-          ),
-        );
-      }, PDF_TIMEOUT_MS);
-    });
-
-    return Promise.race([generation, timeout]);
   } catch (err) {
     console.error("[devis-pdf] Unexpected error:", err);
     return NextResponse.json(

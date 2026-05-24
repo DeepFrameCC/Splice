@@ -1,6 +1,5 @@
-import PDFDocument from "pdfkit";
-import path from "path";
-import fs from "fs";
+import { PDFDocument, PDFFont, PDFPage, rgb, StandardFonts } from "pdf-lib";
+import * as fontkit from "@pdf-lib/fontkit";
 
 /* ── Couleurs Splice ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
@@ -19,85 +18,97 @@ export const PDF_COLORS = {
   lightGray: "#F5F5F5",
 } as const;
 
-/* ── Polices ─────────────────────────────────────────────────────────── */
-const FONTS_DIR = path.join(process.cwd(), "public", "fonts");
-const INTER_REGULAR = path.join(FONTS_DIR, "Inter-Regular.ttf");
-const INTER_BOLD = path.join(FONTS_DIR, "Inter-Bold.ttf");
+/* ── Helpers: hex → rgb ──────────────────────────────────────────── */
+function hexToRgb(hex: string) {
+  const h = hex.replace("#", "");
+  return rgb(
+    parseInt(h.substring(0, 2), 16) / 255,
+    parseInt(h.substring(2, 4), 16) / 255,
+    parseInt(h.substring(4, 6), 16) / 255,
+  );
+}
 
-let _fontsAvailable: boolean | null = null;
-let _regularBuf: Buffer | null = null;
-let _boldBuf: Buffer | null = null;
+const C = {
+  orange: hexToRgb(PDF_COLORS.orange),
+  orangeDark: hexToRgb(PDF_COLORS.orangeDark),
+  gold: hexToRgb(PDF_COLORS.gold),
+  teal: hexToRgb(PDF_COLORS.teal),
+  ink: hexToRgb(PDF_COLORS.ink),
+  text: hexToRgb(PDF_COLORS.text),
+  muted: hexToRgb(PDF_COLORS.muted),
+  light: hexToRgb(PDF_COLORS.light),
+  border: hexToRgb(PDF_COLORS.border),
+  white: hexToRgb(PDF_COLORS.white),
+} as const;
 
-function fontsAvailable(): boolean {
-  if (_fontsAvailable === null) {
-    try {
-      _fontsAvailable =
-        fs.existsSync(INTER_REGULAR) && fs.existsSync(INTER_BOLD);
-    } catch {
-      _fontsAvailable = false;
+/* ── Constants for A4 layout ─────────────────────────────────────── */
+const PAGE_W = 595.28;
+const PAGE_H = 841.89;
+const MARGIN_L = 50;
+const MARGIN_R = 545;
+const CONTENT_W = MARGIN_R - MARGIN_L;
+
+/* ── Font loading ────────────────────────────────────────────────── */
+let _fontCache: { regular: Uint8Array; bold: Uint8Array } | null = null;
+
+async function loadFontBytes(): Promise<{ regular: Uint8Array; bold: Uint8Array } | null> {
+  if (_fontCache) return _fontCache;
+  try {
+    // On Workers/Edge, fetch from origin; on Node, read from FS
+    if (typeof globalThis.process !== "undefined" && typeof globalThis.process.cwd === "function") {
+      const fs = await import("fs");
+      const path = await import("path");
+      const fontsDir = path.join(process.cwd(), "public", "fonts");
+      const regularPath = path.join(fontsDir, "Poppins-Regular.ttf");
+      const boldPath = path.join(fontsDir, "Poppins-Bold.ttf");
+      if (fs.existsSync(regularPath) && fs.existsSync(boldPath)) {
+        _fontCache = {
+          regular: new Uint8Array(fs.readFileSync(regularPath)),
+          bold: new Uint8Array(fs.readFileSync(boldPath)),
+        };
+        return _fontCache;
+      }
     }
-  }
-  return _fontsAvailable;
+  } catch { /* fallback to standard fonts */ }
+  return null;
 }
 
-/** Load font files into Buffers (cached, one-time read) */
-function loadFontBuffers(): { regular: Buffer; bold: Buffer } {
-  if (!_regularBuf) {
-    _regularBuf = fs.readFileSync(INTER_REGULAR);
-    _boldBuf = fs.readFileSync(INTER_BOLD);
-  }
-  return { regular: _regularBuf, bold: _boldBuf! };
+/* ── PDF Document creation ───────────────────────────────────────── */
+export interface PdfFonts {
+  main: PDFFont;
+  bold: PDFFont;
+  useCustom: boolean;
 }
 
-/* ── Remplacement caracteres speciaux (fallback sans police custom) ── */
-const CHAR_MAP: Record<string, string> = {
-  "\u00e9": "e",  // e accent aigu
-  "\u00e8": "e",  // e accent grave
-  "\u00ea": "e",  // e accent circo
-  "\u00eb": "e",  // e trema
-  "\u00e0": "a",  // a accent grave
-  "\u00e2": "a",  // a accent circo
-  "\u00f4": "o",  // o accent circo
-  "\u00f9": "u",  // u accent grave
-  "\u00fb": "u",  // u accent circo
-  "\u00fc": "u",  // u trema
-  "\u00e7": "c",  // c cedille
-  "\u00ee": "i",  // i accent circo
-  "\u00ef": "i",  // i trema
-  "\u00c9": "E",  // E accent aigu
-  "\u00c8": "E",  // E accent grave
-  "\u00ca": "E",  // E accent circo
-  "\u00c0": "A",  // A accent grave
-  "\u00d4": "O",  // O accent circo
-  "\u00d9": "U",  // U accent grave
-  "\u00c7": "C",  // C cedille
-  "\u2019": "'",  // right single quote
-  "\u2018": "'",  // left single quote
-  "\u201c": '"',  // left double quote
-  "\u201d": '"',  // right double quote
-  "\u2013": "-",  // en-dash
-  "\u2014": "-",  // em-dash
-  "\u00ab": '"',  // guillemet ouvrant
-  "\u00bb": '"',  // guillemet fermant
-  "\u00b0": "o",  // degree symbol -> N degrees
-  "\u0153": "oe", // ligature oe
-  "\u00e6": "ae", // ligature ae
-};
-
-/**
- * Sanitize text for Helvetica (built-in PDFKit fonts that lack full Latin-1 support).
- * If custom fonts are registered, return text as-is since they support UTF-8.
- */
-export function sanitize(text: string, useCustom: boolean): string {
-  if (useCustom) return text;
-  let result = "";
-  for (const ch of text) {
-    result += CHAR_MAP[ch] ?? ch;
-  }
-  // Replace euro sign last (multi-char replacement)
-  result = result.replace(/\u20ac/g, "EUR");
-  return result;
+export interface PdfContext {
+  pdf: PDFDocument;
+  fonts: PdfFonts;
+  page: PDFPage;
 }
+
+export async function createPdfContext(): Promise<PdfContext> {
+  const pdf = await PDFDocument.create();
+  pdf.registerFontkit(fontkit);
+  pdf.setTitle("Splice Studio");
+  pdf.setProducer("Splice Studio");
+
+  let fonts: PdfFonts;
+  const fontBytes = await loadFontBytes();
+  if (fontBytes) {
+    const mainFont = await pdf.embedFont(fontBytes.regular, { subset: true });
+    const boldFont = await pdf.embedFont(fontBytes.bold, { subset: true });
+    fonts = { main: mainFont, bold: boldFont, useCustom: true };
+  } else {
+    const mainFont = await pdf.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdf.embedFont(StandardFonts.HelveticaBold);
+    fonts = { main: mainFont, bold: boldFont, useCustom: false };
+  }
+
+  const page = pdf.addPage([PAGE_W, PAGE_H]);
+  return { pdf, fonts, page };
+}
+
+/* ── Text utilities ──────────────────────────────────────────────── */
 
 /** Safe string: ensures we never print "undefined" or "null" */
 export function safe(val: unknown, fallback = ""): string {
@@ -106,327 +117,281 @@ export function safe(val: unknown, fallback = ""): string {
 }
 
 /** Format euro amount for PDF */
-export function euro(amount: number | null | undefined, useCustom: boolean): string {
+export function euro(amount: number | null | undefined): string {
   const val = amount ?? 0;
-  const symbol = useCustom ? "\u20ac" : "EUR";
-  return `${val}${symbol}`;
+  return `${val}\u20ac`;
 }
 
-/**
- * Create a PDFDocument with error handling and font registration.
- * Returns the doc + font info + a promise that resolves when the PDF is finished.
- */
-export function createPdfDoc(): {
-  doc: PDFKit.PDFDocument;
-  fonts: { main: string; bold: string; useCustom: boolean };
-  chunks: Buffer[];
-} {
-  // Load font buffers to avoid PDFKit trying to resolve file paths
-  // (which fails under Next.js webpack bundling)
-  const hasCustom = fontsAvailable();
-
-  let doc: PDFKit.PDFDocument;
-  let fonts: { main: string; bold: string; useCustom: boolean };
-
-  if (hasCustom) {
-    const bufs = loadFontBuffers();
-    doc = new PDFDocument({ size: "A4", margin: 0, font: bufs.regular as any });
-    doc.registerFont("main", bufs.regular);
-    doc.registerFont("bold", bufs.bold);
-    fonts = { main: "main", bold: "bold", useCustom: true };
-  } else {
-    doc = new PDFDocument({ size: "A4", margin: 0 });
-    fonts = { main: "Helvetica", bold: "Helvetica-Bold", useCustom: false };
-  }
-
-  const chunks: Buffer[] = [];
-  doc.on("data", (chunk: Buffer) => chunks.push(chunk));
-
-  return { doc, fonts, chunks };
+/* pdf-lib uses bottom-left origin, so we convert top-down Y to pdf-lib Y */
+function ty(topY: number): number {
+  return PAGE_H - topY;
 }
 
-/* ── Constants for layout ──────────────────────────────────────────── */
-const PAGE_W = 595.28; // A4 width
-const PAGE_H = 841.89; // A4 height
-const MARGIN_L = 50;
-const MARGIN_R = 545;
-const CONTENT_W = MARGIN_R - MARGIN_L;
+/* ── Drawing helpers ─────────────────────────────────────────────── */
 
-/* ── Decorative elements ───────────────────────────────────────────── */
-
-/** Draw the top gradient bar (orange → gold) */
-function drawTopGradient(doc: PDFKit.PDFDocument) {
-  const grad = (doc as any).linearGradient(0, 0, PAGE_W, 0);
-  grad.stop(0, PDF_COLORS.orange).stop(1, PDF_COLORS.gold);
-  doc.rect(0, 0, PAGE_W, 12).fill(grad);
-}
-
-/** Draw the bottom gradient bar (orange → gold) */
-function drawBottomGradient(doc: PDFKit.PDFDocument) {
-  const grad = (doc as any).linearGradient(0, 0, PAGE_W, 0);
-  grad.stop(0, PDF_COLORS.orange).stop(1, PDF_COLORS.gold);
-  doc.rect(0, PAGE_H - 12, PAGE_W, 12).fill(grad);
-}
-
-/** Draw the right teal vertical accent (top-right) */
-function drawRightTealAccent(doc: PDFKit.PDFDocument) {
-  doc.rect(PAGE_W - 18, 12, 18, 100).fill(PDF_COLORS.teal);
-}
-
-/** Draw the left teal vertical accent (bottom-left) */
-function drawLeftTealAccent(doc: PDFKit.PDFDocument) {
-  doc.rect(0, PAGE_H - 112, 18, 100).fill(PDF_COLORS.teal);
-}
-
-/** Draw all page decorations */
-function drawPageDecorations(doc: PDFKit.PDFDocument) {
-  drawTopGradient(doc);
-  drawBottomGradient(doc);
-  drawRightTealAccent(doc);
-  drawLeftTealAccent(doc);
-}
-
-/* ── Logo loading ──────────────────────────────────────────────────── */
-let _logoSpliceBuf: Buffer | null = null;
-
-function loadLogoSplice(): Buffer | null {
-  if (_logoSpliceBuf) return _logoSpliceBuf;
-  try {
-    const logoPath = path.join(process.cwd(), "public", "logo-1.png");
-    if (fs.existsSync(logoPath)) {
-      _logoSpliceBuf = fs.readFileSync(logoPath);
-      return _logoSpliceBuf;
-    }
-  } catch { /* ignore */ }
-  return null;
-}
-
-/** Draw the Splice header block with logo + document title */
-export function drawHeader(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
-  docType: "DEVIS" | "FACTURE",
+function drawText(
+  page: PDFPage,
+  text: string,
+  x: number,
+  topY: number,
+  font: PDFFont,
+  size: number,
+  color: ReturnType<typeof rgb>,
+  options?: { maxWidth?: number; align?: "left" | "right" | "center" },
 ) {
-  // Page decorations
-  drawPageDecorations(doc);
+  const textWidth = font.widthOfTextAtSize(text, size);
+  let drawX = x;
+  if (options?.align === "right" && options.maxWidth) {
+    drawX = x + options.maxWidth - textWidth;
+  } else if (options?.align === "center" && options.maxWidth) {
+    drawX = x + (options.maxWidth - textWidth) / 2;
+  }
+  page.drawText(text, { x: drawX, y: ty(topY + size), font, size, color });
+}
 
-  // Logo
-  const logoBuf = loadLogoSplice();
+function drawRect(
+  page: PDFPage,
+  x: number,
+  topY: number,
+  w: number,
+  h: number,
+  color: ReturnType<typeof rgb>,
+) {
+  page.drawRectangle({ x, y: ty(topY + h), width: w, height: h, color });
+}
 
-  if (logoBuf) {
-    doc.image(logoBuf, MARGIN_L, 22, { width: 70, height: 39.375 });
+function drawLine(
+  page: PDFPage,
+  x1: number,
+  topY: number,
+  x2: number,
+  color: ReturnType<typeof rgb>,
+  thickness = 0.5,
+) {
+  page.drawLine({
+    start: { x: x1, y: ty(topY) },
+    end: { x: x2, y: ty(topY) },
+    color,
+    thickness,
+  });
+}
+
+function drawRectOutline(
+  page: PDFPage,
+  x: number,
+  topY: number,
+  w: number,
+  h: number,
+  color: ReturnType<typeof rgb>,
+  thickness = 1,
+) {
+  page.drawRectangle({
+    x, y: ty(topY + h), width: w, height: h,
+    borderColor: color, borderWidth: thickness,
+  });
+}
+
+/* ── Page decorations ────────────────────────────────────────────── */
+
+function drawPageDecorations(page: PDFPage) {
+  // Top gradient bar (simplified as solid orange — pdf-lib has no gradients)
+  drawRect(page, 0, 0, PAGE_W, 12, C.orange);
+  // Bottom gradient bar
+  drawRect(page, 0, PAGE_H - 12, PAGE_W, 12, C.orange);
+  // Right teal accent
+  drawRect(page, PAGE_W - 18, 12, 18, 100, C.teal);
+  // Left teal accent
+  drawRect(page, 0, PAGE_H - 112, 18, 100, C.teal);
+}
+
+/* ── Exported drawing functions ──────────────────────────────────── */
+
+export function drawHeader(
+  page: PDFPage,
+  fonts: PdfFonts,
+  docType: "DEVIS" | "FACTURE",
+  logoBytes?: Uint8Array,
+) {
+  drawPageDecorations(page);
+
+  // Logo or fallback text
+  if (logoBytes) {
+    // Cannot easily embed PNG synchronously here — fallback to text
+    drawText(page, "SPLICE", MARGIN_L, 32, fonts.bold, 22, C.orange);
   } else {
-    // Fallback text
-    doc.font(fonts.bold).fontSize(22).fillColor(PDF_COLORS.orange).text("SPLICE", MARGIN_L, 32);
+    drawText(page, "SPLICE", MARGIN_L, 32, fonts.bold, 22, C.orange);
   }
 
-  // Document type title (DEVIS or FACTURE) on the right
-  doc.font(fonts.bold).fontSize(32).fillColor(PDF_COLORS.ink).text(docType, 350, 30, {
-    width: MARGIN_R - 350,
+  // Document type title (right-aligned)
+  drawText(page, docType, 350, 30, fonts.bold, 32, C.ink, {
+    maxWidth: MARGIN_R - 350,
     align: "right",
   });
 }
 
-/** Draw the date/number info block */
 export function drawInfoBlock(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
-  info: {
-    date: string;
-    echeance?: string;
-    numero: string;
-    docType: "DEVIS" | "FACTURE";
-  },
+  page: PDFPage,
+  fonts: PdfFonts,
+  info: { date: string; echeance?: string; numero: string; docType: "DEVIS" | "FACTURE" },
 ) {
   const y = 75;
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
 
   // Left: dates
-  doc.text(s(`DATE : ${info.date}`), MARGIN_L, y);
+  drawText(page, `DATE : ${info.date}`, MARGIN_L, y, fonts.main, 8, C.text);
   if (info.echeance) {
-    doc.text(s(`ECHEANCE : ${info.echeance}`), MARGIN_L, y + 12);
+    drawText(page, `ECHEANCE : ${info.echeance}`, MARGIN_L, y + 12, fonts.main, 8, C.text);
   }
 
-  // Right: document number in an orange-bordered box
-  const numText = `${info.docType} N° : ${info.numero}`;
+  // Right: document number in orange-bordered box
+  const numText = `${info.docType} N\u00b0 : ${info.numero}`;
   const numW = 140;
   const numX = MARGIN_R - numW;
-  doc.roundedRect(numX, y - 2, numW, 18, 3).strokeColor(PDF_COLORS.orange).lineWidth(1).stroke();
-  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.orange).text(numText, numX, y + 2, {
-    width: numW,
+  drawRectOutline(page, numX, y - 2, numW, 18, C.orange, 1);
+  drawText(page, numText, numX, y + 2, fonts.bold, 8, C.orange, {
+    maxWidth: numW,
     align: "center",
   });
 }
 
-/** Draw the prestataire / destinataire info columns */
 export function drawPartiesBlock(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
+  page: PDFPage,
+  fonts: PdfFonts,
   prestataire: { entreprise: string; adresse?: string; email: string; siret: string },
   destinataire: string[],
-) {
+): number {
   const y = 108;
   const colW = CONTENT_W / 2;
 
   // Left: Prestataire
-  doc.font(fonts.bold).fontSize(9).fillColor(PDF_COLORS.ink).text("PRESTATAIRE", MARGIN_L, y);
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
+  drawText(page, "PRESTATAIRE", MARGIN_L, y, fonts.bold, 9, C.ink);
   let py = y + 16;
-  doc.text(s(`entreprise: ${prestataire.entreprise}`), MARGIN_L, py); py += 12;
+  drawText(page, `entreprise: ${prestataire.entreprise}`, MARGIN_L, py, fonts.main, 8, C.text);
+  py += 12;
   if (prestataire.adresse) {
-    doc.text(s(`adresse: ${prestataire.adresse}`), MARGIN_L, py); py += 12;
+    drawText(page, `adresse: ${prestataire.adresse}`, MARGIN_L, py, fonts.main, 8, C.text);
+    py += 12;
   }
-  doc.text(s(prestataire.email), MARGIN_L, py); py += 12;
-  doc.text(s(`Siret: ${prestataire.siret}`), MARGIN_L, py);
+  drawText(page, prestataire.email, MARGIN_L, py, fonts.main, 8, C.text);
+  py += 12;
+  drawText(page, `Siret: ${prestataire.siret}`, MARGIN_L, py, fonts.main, 8, C.text);
 
   // Right: Destinataire
   const rightX = MARGIN_L + colW + 10;
-  doc.font(fonts.bold).fontSize(9).fillColor(PDF_COLORS.ink).text("DESTINATAIRE", rightX, y, {
-    width: colW - 10,
+  drawText(page, "DESTINATAIRE", rightX, y, fonts.bold, 9, C.ink, {
+    maxWidth: colW - 10,
     align: "right",
   });
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
   let dy = y + 16;
   for (const line of destinataire) {
-    doc.text(s(safe(line)), rightX, dy, { width: colW - 10, align: "right" });
+    drawText(page, safe(line), rightX, dy, fonts.main, 8, C.text, {
+      maxWidth: colW - 10,
+      align: "right",
+    });
     dy += 12;
   }
 
   return Math.max(py, dy) + 12;
 }
 
-/** Draw table header row */
-export function drawTableHeader(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
-  tableTop: number,
-) {
-  // Thin border line
-  doc.moveTo(MARGIN_L, tableTop).lineTo(MARGIN_R, tableTop).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
-
-  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.ink);
-  doc.text(s("Description :"), MARGIN_L, tableTop + 6);
-  doc.text(s("Prix Unitaire :"), 310, tableTop + 6, { width: 80, align: "center" });
-  doc.text(s("Quantite :"), 390, tableTop + 6, { width: 70, align: "center" });
-  doc.text("Total :", 460, tableTop + 6, { width: 85, align: "right" });
-
-  doc.moveTo(MARGIN_L, tableTop + 22).lineTo(MARGIN_R, tableTop + 22).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
+export function drawTableHeader(page: PDFPage, fonts: PdfFonts, tableTop: number) {
+  drawLine(page, MARGIN_L, tableTop, MARGIN_R, C.border);
+  drawText(page, "Description :", MARGIN_L, tableTop + 6, fonts.bold, 8, C.ink);
+  drawText(page, "Prix Unitaire :", 310, tableTop + 6, fonts.bold, 8, C.ink, { maxWidth: 80, align: "center" });
+  drawText(page, "Quantite :", 390, tableTop + 6, fonts.bold, 8, C.ink, { maxWidth: 70, align: "center" });
+  drawText(page, "Total :", 460, tableTop + 6, fonts.bold, 8, C.ink, { maxWidth: 85, align: "right" });
+  drawLine(page, MARGIN_L, tableTop + 22, MARGIN_R, C.border);
 }
 
-/** Draw a single table row and return new Y position */
 export function drawTableRow(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
-  e: (amount: number | null | undefined) => string,
+  page: PDFPage,
+  fonts: PdfFonts,
   line: { label: string; qty?: number; unit?: number; total: number },
   y: number,
 ): number {
-  // Light separator
-  doc.moveTo(MARGIN_L, y).lineTo(MARGIN_R, y).strokeColor(PDF_COLORS.border).lineWidth(0.3).stroke();
+  drawLine(page, MARGIN_L, y, MARGIN_R, C.border, 0.3);
 
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
-  doc.text(s(safe(line.label, "-")), MARGIN_L + 4, y + 6, { width: 250 });
-  doc.text(line.unit ? `+${e(line.unit)}` : "-", 310, y + 6, { width: 80, align: "center" });
-  doc.text(line.qty ? String(line.qty) : "-", 390, y + 6, { width: 70, align: "center" });
-  doc.text(e(line.total), 460, y + 6, { width: 85, align: "right" });
+  const label = safe(line.label, "-");
+  // Truncate long labels to fit ~250px at 8pt
+  const maxLabelChars = 45;
+  const truncLabel = label.length > maxLabelChars ? label.substring(0, maxLabelChars) + "..." : label;
+
+  drawText(page, truncLabel, MARGIN_L + 4, y + 6, fonts.main, 8, C.text);
+  drawText(page, line.unit ? `+${euro(line.unit)}` : "-", 310, y + 6, fonts.main, 8, C.text, { maxWidth: 80, align: "center" });
+  drawText(page, line.qty ? String(line.qty) : "-", 390, y + 6, fonts.main, 8, C.text, { maxWidth: 70, align: "center" });
+  drawText(page, euro(line.total), 460, y + 6, fonts.main, 8, C.text, { maxWidth: 85, align: "right" });
   return y + 24;
 }
 
-/** Draw totals block with orange acompte/solde boxes */
 export function drawTotalsBlock(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
-  e: (amount: number | null | undefined) => string,
-  totals: {
-    totalHT: number;
-    acompteRate: number;
-    acompteAmount: number;
-    solde: number;
-  },
+  page: PDFPage,
+  fonts: PdfFonts,
+  totals: { totalHT: number; acompteRate: number; acompteAmount: number; solde: number },
   y: number,
 ): number {
-  // Total HT line
-  doc.moveTo(350, y).lineTo(MARGIN_R, y).strokeColor(PDF_COLORS.border).lineWidth(0.5).stroke();
+  drawLine(page, 350, y, MARGIN_R, C.border);
 
-  doc.font(fonts.bold).fontSize(10).fillColor(PDF_COLORS.ink);
-  doc.text("TOTAL HT :", 350, y + 8, { width: 110, align: "right" });
-  doc.font(fonts.bold).fontSize(12).fillColor(PDF_COLORS.ink);
-  doc.text(e(totals.totalHT), 470, y + 6, { width: 75, align: "right" });
+  // Total HT
+  drawText(page, "TOTAL HT :", 350, y + 8, fonts.bold, 10, C.ink, { maxWidth: 110, align: "right" });
+  drawText(page, euro(totals.totalHT), 470, y + 6, fonts.bold, 12, C.ink, { maxWidth: 75, align: "right" });
 
-  // Orange block: Acompte
+  // Acompte box (orange)
   const orangeY = y + 30;
   const orangeW = 200;
   const orangeX = MARGIN_R - orangeW;
+  drawRect(page, orangeX, orangeY, orangeW, 20, C.orange);
+  drawText(page, `ACOMPTE (${totals.acompteRate}%) :`, orangeX + 6, orangeY + 5, fonts.bold, 8, C.white);
+  drawText(page, euro(totals.acompteAmount), orangeX + 136, orangeY + 5, fonts.bold, 8, C.white, { maxWidth: 58, align: "right" });
 
-  const grad1 = (doc as any).linearGradient(orangeX, orangeY, orangeX + orangeW, orangeY);
-  grad1.stop(0, PDF_COLORS.orange).stop(1, "#E05A10");
-  doc.roundedRect(orangeX, orangeY, orangeW, 20, 2).fill(grad1);
-  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.white);
-  doc.text(s(`ACOMPTE (${totals.acompteRate}%) :`), orangeX + 6, orangeY + 5, { width: 130 });
-  doc.text(e(totals.acompteAmount), orangeX + 136, orangeY + 5, { width: 58, align: "right" });
-
-  // Orange block: Solde
+  // Solde box (darker orange)
   const soldeY = orangeY + 22;
-  const grad2 = (doc as any).linearGradient(orangeX, soldeY, orangeX + orangeW, soldeY);
-  grad2.stop(0, "#E05A10").stop(1, PDF_COLORS.orangeDark);
-  doc.roundedRect(orangeX, soldeY, orangeW, 20, 2).fill(grad2);
-  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.white);
-  doc.text(s("SOLDE A LA LIVRAISON :"), orangeX + 6, soldeY + 5, { width: 130 });
-  doc.text(e(totals.solde), orangeX + 136, soldeY + 5, { width: 58, align: "right" });
+  drawRect(page, orangeX, soldeY, orangeW, 20, C.orangeDark);
+  drawText(page, "SOLDE A LA LIVRAISON :", orangeX + 6, soldeY + 5, fonts.bold, 8, C.white);
+  drawText(page, euro(totals.solde), orangeX + 136, soldeY + 5, fonts.bold, 8, C.white, { maxWidth: 58, align: "right" });
 
   return soldeY + 30;
 }
 
-/** Draw the "Reglement" (payment) section */
 export function drawReglementBlock(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
+  page: PDFPage,
+  fonts: PdfFonts,
   y: number,
   deliveryInfo?: string,
-) {
-  // Left side: Reglement
-  doc.font(fonts.bold).fontSize(10).fillColor(PDF_COLORS.ink).text(s("REGLEMENT :"), MARGIN_L, y);
+): number {
+  drawText(page, "REGLEMENT :", MARGIN_L, y, fonts.bold, 10, C.ink);
 
   if (deliveryInfo) {
-    doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.muted).text(deliveryInfo, 280, y + 2, { width: 265, align: "right" });
+    drawText(page, deliveryInfo, 280, y + 2, fonts.main, 8, C.muted, { maxWidth: 265, align: "right" });
   }
 
   const payY = y + 18;
-  doc.font(fonts.bold).fontSize(8).fillColor(PDF_COLORS.text).text("Par virement bancaire :", MARGIN_L, payY);
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
-  doc.text(s("Titulaire du compte :"), MARGIN_L, payY + 14);
-  doc.text("IBAN:", MARGIN_L, payY + 28);
-  doc.text("BIC:", MARGIN_L, payY + 42);
+  drawText(page, "Par virement bancaire :", MARGIN_L, payY, fonts.bold, 8, C.text);
+  drawText(page, "Titulaire du compte :", MARGIN_L, payY + 14, fonts.main, 8, C.text);
+  drawText(page, "IBAN:", MARGIN_L, payY + 28, fonts.main, 8, C.text);
+  drawText(page, "BIC:", MARGIN_L, payY + 42, fonts.main, 8, C.text);
 
   // Right side: Signature area
   const sigX = 340;
-  doc.font(fonts.main).fontSize(8).fillColor(PDF_COLORS.text);
-  doc.text(s('Signatures suivie de la'), sigX, payY + 8, { width: MARGIN_R - sigX, align: "center" });
-  doc.text(s('mention "bon pour accord"'), sigX, payY + 20, { width: MARGIN_R - sigX, align: "center" });
+  drawText(page, "Signatures suivie de la", sigX, payY + 8, fonts.main, 8, C.text, { maxWidth: MARGIN_R - sigX, align: "center" });
+  drawText(page, 'mention "bon pour accord"', sigX, payY + 20, fonts.main, 8, C.text, { maxWidth: MARGIN_R - sigX, align: "center" });
 
   return payY + 60;
 }
 
-/** Draw mentions legales */
 export function drawMentionsLegales(
-  doc: PDFKit.PDFDocument,
-  fonts: { main: string; bold: string; useCustom: boolean },
-  s: (text: string) => string,
+  page: PDFPage,
+  fonts: PdfFonts,
   mentions: string[],
   y: number,
 ) {
-  doc.font(fonts.bold).fontSize(7).fillColor(PDF_COLORS.light).text("Mentions legales :", MARGIN_L, y);
-  doc.font(fonts.main).fontSize(6).fillColor(PDF_COLORS.light);
+  drawText(page, "Mentions legales :", MARGIN_L, y, fonts.bold, 7, C.light);
   let my = y + 12;
   for (const mention of mentions) {
-    doc.text(s(mention), MARGIN_L, my, { width: CONTENT_W });
+    drawText(page, mention, MARGIN_L, my, fonts.main, 6, C.light);
     my += 9;
   }
+}
+
+/** Add a new page and return it (for multi-page documents) */
+export function addPage(pdf: PDFDocument): PDFPage {
+  return pdf.addPage([PAGE_W, PAGE_H]);
 }
