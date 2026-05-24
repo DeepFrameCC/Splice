@@ -28,7 +28,7 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ devisId })
         });
-        const data = await res.json();
+        const data = (await res.json()) as { error?: string; url?: string };
         if (!res.ok) { setError(data.error ?? "Erreur"); return; }
         if (data.url) { window.location.href = data.url; }
       } catch (e: any) {

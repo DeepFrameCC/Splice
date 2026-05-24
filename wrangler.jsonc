@@ -1,0 +1,50 @@
+{
+  "name": "splice",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-03-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "account_id": "2400285572f9c8d877183af362b4b027",
+  "routes": [
+    {
+      "pattern": "splicestudio.fr/*",
+      "zone_name": "splicestudio.fr"
+    },
+    {
+      "pattern": "www.splicestudio.fr/*",
+      "zone_name": "splicestudio.fr"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SPLICE_INCREMENTAL_CACHE",
+      "id": "459dc8ae84ca4a368a37c12da4de44fd"
+    },
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "459dc8ae84ca4a368a37c12da4de44fd"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "SPLICE_CDN",
+      "bucket_name": "splice-cdn"
+    },
+    {
+      "binding": "SPLICE_DELIVERIES",
+      "bucket_name": "splice-deliveries"
+    },
+    {
+      "binding": "SPLICE_ARCHIVE",
+      "bucket_name": "splice-archive"
+    }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

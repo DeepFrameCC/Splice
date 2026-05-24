@@ -50,7 +50,7 @@ export default auth((req) => {
   }
 
   // CSP with dynamic nonce
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  const nonce = btoa(crypto.randomUUID());
   const isDev = process.env.NODE_ENV === "development";
   const csp = [
     `default-src 'self'`,

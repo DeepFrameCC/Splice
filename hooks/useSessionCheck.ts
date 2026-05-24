@@ -16,7 +16,7 @@ export function useSessionCheck() {
   const checkSession = useCallback(async () => {
     try {
       const res = await fetch("/api/auth/session");
-      const data = await res.json();
+      const data = (await res.json()) as { user?: unknown };
       if (!data?.user) {
         toast.error("Votre session a expiré. Veuillez vous reconnecter.");
         router.push("/login");

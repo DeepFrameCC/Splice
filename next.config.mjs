@@ -1,4 +1,11 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('next').NextConfig} */
+
 
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control",  value: "on" },
@@ -46,9 +53,24 @@ const nextConfig = {
       { protocol: "https", hostname: "**.supabase.co" },
       { protocol: "https", hostname: "**.r2.dev" },
       { protocol: "https", hostname: "utfs.io" },
+      { protocol: "https", hostname: "cdn.splicestudio.fr" },
     ],
   },
-  serverExternalPackages: ["pdfkit", "fontkit", "linebreak", "png-js"],
+  outputFileTracingExcludes: {
+    "*": [
+      "./node_modules/@node-rs/argon2/**/*",
+      "./node_modules/@node-rs/argon2-win32-x64-msvc/**/*",
+      "./node_modules/@node-rs/argon2-darwin-arm64/**/*",
+      "./node_modules/@node-rs/argon2-darwin-x64/**/*",
+      "./node_modules/@node-rs/argon2-linux-arm64-gnu/**/*",
+      "./node_modules/@node-rs/argon2-linux-x64-gnu/**/*",
+      "./node_modules/@node-rs/argon2-linux-x64-musl/**/*",
+      "./node_modules/pdfkit/**/*",
+      "./node_modules/fontkit/**/*",
+      "./node_modules/linebreak/**/*",
+      "./node_modules/png-js/**/*"
+    ],
+  },
   experimental: {
     serverActions: { bodySizeLimit: "10mb" },
     optimizePackageImports: [
@@ -57,6 +79,12 @@ const nextConfig = {
       "zod",
       "zustand",
     ],
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.resolve.alias["@node-rs/argon2"] = path.resolve(__dirname, "./lib/mocks/argon2.ts");
+    }
+    return config;
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
@@ -72,6 +100,6 @@ export default withSentryConfig(nextConfig, {
   silent: !process.env.CI,
   widenClientFileUpload: true,
   disableLogger: true,
-  automaticVercelMonitors: true,
+  automaticVercelMonitors: false,
   tunnelRoute: "/monitoring",
 });

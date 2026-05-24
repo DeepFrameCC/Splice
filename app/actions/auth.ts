@@ -1,4 +1,4 @@
-﻿"use server";
+"use server";
 import { z } from "zod";
 import { hash, verify } from "@node-rs/argon2";
 import { db } from "@/lib/db";
@@ -43,7 +43,7 @@ async function verifyRecaptcha(token: string) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
   });
-  const data = await res.json();
+  const data = (await res.json()) as { success?: boolean; score?: number };
   return data.success === true && (data.score ?? 1) >= 0.5;
 }
 

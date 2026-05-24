@@ -9,5 +9,10 @@ out
 *.log
 .vercel
 prisma/migrations/dev.db*
-tsconfig.tsbuildinfo
 *.tsbuildinfo
+
+# Cloudflare / OpenNext
+.open-next
+.wrangler
+cloudflare-env.d.ts
+.dev.vars
