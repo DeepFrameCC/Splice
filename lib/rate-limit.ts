@@ -3,44 +3,58 @@ import { Redis } from "@upstash/redis";
 import { headers } from "next/headers";
 
 /**
- * Creates an Upstash Redis-backed rate limiter.
- * Falls back to no-op when UPSTASH_REDIS_REST_URL is not configured (dev mode).
+ * Creates an Upstash Redis-backed rate limiter lazily.
+ * Returns a getter function instead of the instance directly,
+ * so that process.env is read at request time (Workers-safe).
  */
-function createRateLimiter(
+function createLazyRateLimiter(
   requests: number,
   window: `${number} ${"s" | "m" | "h" | "d"}`
-) {
-  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
-    if (process.env.NODE_ENV === "production") {
-      console.error(
-        "[rate-limit] CRITICAL: Redis not configured in production. Rate limiting is DISABLED. " +
-        "Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN."
-      );
-    }
-    return null;
-  }
+): () => Ratelimit | null {
+  let cached: Ratelimit | null | undefined;
 
-  return new Ratelimit({
-    redis: Redis.fromEnv(),
-    limiter: Ratelimit.slidingWindow(requests, window),
-    analytics: true,
-    prefix: "splice:rl",
-  });
+  return () => {
+    if (cached !== undefined) return cached;
+
+    if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+      if (process.env.NODE_ENV === "production") {
+        console.error(
+          "[rate-limit] CRITICAL: Redis not configured in production. Rate limiting is DISABLED. " +
+          "Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN."
+        );
+      }
+      cached = null;
+      return null;
+    }
+
+    cached = new Ratelimit({
+      redis: Redis.fromEnv(),
+      limiter: Ratelimit.slidingWindow(requests, window),
+      analytics: true,
+      prefix: "splice:rl",
+    });
+    return cached;
+  };
 }
 
-// ── Pre-configured limiters ─────────────────────────────────
+// ── Pre-configured lazy limiters ─────────────────────────────
+
+const _authLimiter = createLazyRateLimiter(5, "60 s");
+const _contactLimiter = createLazyRateLimiter(3, "60 s");
+const _apiLimiter = createLazyRateLimiter(30, "60 s");
+const _devisLimiter = createLazyRateLimiter(3, "5 m");
 
 /** Auth actions: 5 requests per 60 seconds per IP */
-export const authLimiter = createRateLimiter(5, "60 s");
+export const authLimiter = { get: _authLimiter };
 
 /** Contact form: 3 requests per 60 seconds per IP */
-export const contactLimiter = createRateLimiter(3, "60 s");
+export const contactLimiter = { get: _contactLimiter };
 
 /** API general: 30 requests per 60 seconds per IP */
-export const apiLimiter = createRateLimiter(30, "60 s");
+export const apiLimiter = { get: _apiLimiter };
 
 /** Devis submission: 3 requests per 5 minutes per IP */
-export const devisLimiter = createRateLimiter(3, "5 m");
+export const devisLimiter = { get: _devisLimiter };
 
 // ── Helper ──────────────────────────────────────────────────
 
@@ -60,10 +74,12 @@ export async function getClientIP(): Promise<string> {
  * When Redis is not configured (dev), always allows.
  */
 export async function checkRateLimit(
-  limiter: Ratelimit | null,
+  limiter: { get: () => Ratelimit | null } | Ratelimit | null,
   identifier?: string
 ): Promise<{ success: boolean; error?: string }> {
-  if (!limiter) {
+  const resolved = limiter && "get" in limiter ? limiter.get() : limiter;
+
+  if (!resolved) {
     // Fail-closed in production: block all requests when Redis is missing
     if (process.env.NODE_ENV === "production") {
       return { success: false, error: "Service temporairement indisponible." };
@@ -72,7 +88,7 @@ export async function checkRateLimit(
   }
 
   const ip = identifier ?? (await getClientIP());
-  const result = await limiter.limit(ip);
+  const result = await resolved.limit(ip);
 
   if (!result.success) {
     return {

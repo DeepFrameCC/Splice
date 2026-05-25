@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { verifyPassword } from "@/lib/crypto/password";
 import { z } from "zod";
-import { db } from "./db";
+import { getDb } from "./db";
 import { authConfig } from "./auth.config";
 import { verifyTOTP } from "./totp";
 
@@ -17,7 +17,7 @@ const { providers, ...restConfig } = authConfig;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...restConfig,
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(getDb()),
   providers: [
     Credentials({
       credentials: { email: {}, password: {}, totpCode: {} },
@@ -25,7 +25,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const parsed = loginSchema.safeParse(creds);
         if (!parsed.success) return null;
 
-        const user = await db.user.findUnique({
+        const prisma = getDb();
+        const user = await prisma.user.findUnique({
           where: { email: parsed.data.email },
         });
         if (!user) return null;
