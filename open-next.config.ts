@@ -5,6 +5,4 @@ const config = defineCloudflareConfig({
   incrementalCache: kvIncrementalCache,
 });
 
-config.default.minify = true;
-
 export default config;
