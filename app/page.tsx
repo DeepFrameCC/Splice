@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import HomeContent from "@/components/home/HomeContent";
+import JsonLd from "@/components/JsonLd";
 import { buildWebSiteJsonLd, buildLocalBusinessJsonLd } from "@/lib/seo";
 
 export default async function Home() {
@@ -11,15 +12,9 @@ export default async function Home() {
       }
     : null;
 
-  const jsonLd = [buildWebSiteJsonLd(), buildLocalBusinessJsonLd()];
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={[buildWebSiteJsonLd(), buildLocalBusinessJsonLd()]} />
       <HomeContent user={user} />
     </>
   );

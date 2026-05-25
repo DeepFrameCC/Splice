@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PricingSection from "@/components/tarifs/PricingSection";
 import { buildPricingJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 
@@ -23,11 +24,7 @@ export const metadata: Metadata = {
 export default function TarifsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPricingJsonLd()) }}
-      />
+      <JsonLd data={buildPricingJsonLd()} />
       <NavWrapper />
       <main className="mx-auto max-w-6xl px-4 pb-20 md:px-6" style={{ paddingTop: "calc(80px + 3rem)" }}>
         {/* Retour à l'accueil */}

@@ -2,6 +2,7 @@
 import { Star, AlertTriangle, MessageSquare, Quote } from "lucide-react";
 import AvisForm from "@/components/gallery/AvisForm";
 import { buildAvisJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -40,16 +41,10 @@ export default async function AvisPage() {
 
   return (
     <>
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(buildAvisJsonLd(
-          noteMoyenne ? parseFloat(noteMoyenne) : null,
-          avis.length,
-        )),
-      }}
-    />
+    <JsonLd data={buildAvisJsonLd(
+      noteMoyenne ? parseFloat(noteMoyenne) : null,
+      avis.length,
+    )} />
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <header className="mb-12 text-center">
         <h1 className="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">

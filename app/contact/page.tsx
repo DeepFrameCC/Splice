@@ -4,6 +4,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import ContactForm from "./ContactForm";
 import { buildContactPageJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
@@ -30,11 +31,7 @@ const MEMBERS = [
 export default function ContactPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildContactPageJsonLd()) }}
-      />
+      <JsonLd data={buildContactPageJsonLd()} />
       <NavWrapper />
 
       <div

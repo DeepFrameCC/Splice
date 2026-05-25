@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
 import Link from "next/link";
 import { buildTeamJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
@@ -167,11 +168,7 @@ const TAG_STYLES: Record<FounderTag["variant"], string> = {
 export default function EquipePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTeamJsonLd()) }}
-      />
+      <JsonLd data={buildTeamJsonLd()} />
       <NavWrapper />
       <EquipeAnimations />
 

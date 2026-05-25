@@ -1,6 +1,7 @@
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -141,10 +142,7 @@ export default function FAQPage() {
   return (
     <>
       <NavWrapper />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <div className="mx-auto max-w-3xl px-6 pb-20" style={{ paddingTop: "calc(80px + 3rem)" }}>
         <header className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">

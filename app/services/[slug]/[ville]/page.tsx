@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { headers } from "next/headers";
+import JsonLd from "@/components/JsonLd";
 
 import {
   VILLES,
@@ -88,12 +89,7 @@ export default async function LocalServicePage({ params }: PageProps) {
 
   return (
     <>
-      <script
-        nonce={nonce}
-        suppressHydrationWarning
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <main className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
         {/* Breadcrumb */}

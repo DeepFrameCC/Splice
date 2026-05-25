@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/JsonLd";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogFeaturedCard from "@/components/blog/BlogFeaturedCard";
 import BlogArticleCard from "@/components/blog/BlogArticleCard";
@@ -69,11 +70,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBlogIndexJsonLd()) }}
-      />
+      <JsonLd data={buildBlogIndexJsonLd()} />
       <NavWrapper />
       <BlogHero />
 

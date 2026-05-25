@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
+import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -90,12 +91,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
-        <script
-          nonce={nonce}
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
       </head>
       <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">
         <a

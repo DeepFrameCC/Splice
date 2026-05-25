@@ -6,6 +6,7 @@ import { MapPin, ArrowLeft } from "lucide-react";
 import { getAllServices } from "@/lib/services/queries";
 import { buildServicesHubJsonLd } from "@/lib/services/schema-service";
 import { ServiceCoverImage } from "@/components/services/ServiceCoverImage";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "Services audiovisuels Orléans Tours | Splice",
@@ -53,12 +54,7 @@ export default async function ServicesHubPage() {
 
   return (
     <>
-      <script
-        nonce={nonce}
-        suppressHydrationWarning
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <main className="mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-20">
         {/* Retour à l'accueil */}
         <Link

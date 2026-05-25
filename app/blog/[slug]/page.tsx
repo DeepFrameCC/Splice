@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/JsonLd";
 import BlogAuthorRow from "@/components/blog/BlogAuthorRow";
 import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import BlogTOC from "@/components/blog/BlogTOC";
@@ -89,14 +90,8 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <NavWrapper />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
+      <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumb} />
 
       <article
         className="pb-16"

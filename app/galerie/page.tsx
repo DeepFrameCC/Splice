@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ProjetsClient from "@/components/gallery/ProjetsClient";
 import GalerieAnimations from "@/components/gallery/GalerieAnimations";
 import { buildGalleryJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import "./projets.css";
 
@@ -69,11 +70,7 @@ export default async function GaleriePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildGalleryJsonLd(medias.length)) }}
-      />
+      <JsonLd data={buildGalleryJsonLd(medias.length)} />
       <NavWrapper />
       <GalerieAnimations />
       <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>
