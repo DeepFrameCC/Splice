@@ -14,56 +14,10 @@ export default function OGCapturePage() {
         margin: "0 auto",
       }}
     >
-      {/* Decorative accent bar */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: 6,
-          background: "#F36B1F",
-        }}
-      />
-
-      {/* Brand name */}
-      <div
-        style={{
-          fontSize: 96,
-          fontWeight: 900,
-          color: "#ffffff",
-          letterSpacing: "-0.03em",
-          textTransform: "uppercase" as const,
-        }}
-      >
-        SPLICE
-      </div>
-
-      {/* Tagline */}
-      <div
-        style={{
-          fontSize: 28,
-          color: "rgba(255,255,255,0.7)",
-          marginTop: 12,
-          letterSpacing: "0.05em",
-        }}
-      >
-        Production audiovisuelle
-      </div>
-
-      {/* Location */}
-      <div
-        style={{
-          fontSize: 20,
-          color: "#F36B1F",
-          marginTop: 16,
-          fontWeight: 700,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase" as const,
-        }}
-      >
-        Orléans · Tours
-      </div>
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 6, background: "#F36B1F" }} />
+      <div style={{ fontSize: 96, fontWeight: 900, color: "#ffffff", letterSpacing: "-0.03em", textTransform: "uppercase" as const }}>SPLICE</div>
+      <div style={{ fontSize: 28, color: "rgba(255,255,255,0.7)", marginTop: 12, letterSpacing: "0.05em" }}>Production audiovisuelle</div>
+      <div style={{ fontSize: 20, color: "#F36B1F", marginTop: 16, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" as const }}>Orléans · Tours</div>
     </div>
   );
 }
