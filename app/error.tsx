@@ -16,7 +16,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-[#0E0E22]/30">SPLICE</span>
+      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-white/20">SPLICE</span>
 
       <p
         style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.18em" }}
@@ -32,7 +32,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         Une erreur<br />est survenue.
       </h2>
 
-      <p className="text-[#0E0E22]/60 text-lg max-w-md mb-10">
+      <p className="text-white/60 text-lg max-w-md mb-10">
         Ne t&apos;inquiète pas — ça arrive. Réessaie ou reviens à l&apos;accueil.
       </p>
 

@@ -63,7 +63,7 @@ export default function RegisterPage() {
 
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
-            <span className="font-display text-2xl font-bold tracking-wide text-[#0E0E22]">SPLICE</span>
+            <span className="font-display text-2xl font-bold tracking-wide text-white">SPLICE</span>
           </div>
 
           {/* Tabs */}
