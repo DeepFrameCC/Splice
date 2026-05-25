@@ -36,7 +36,7 @@ body {
 
 img { display: block; max-width: 100%; }
 
-.df-site { min-height: 100vh; }
+.df-site { min-height: 100vh; overflow-x: hidden; }
 
 .df-root {
   --df-radius: 18px;
@@ -2080,8 +2080,17 @@ img { display: block; max-width: 100%; }
     padding: 24px 16px 64px;
   }
 
+  .df-fre-baseline {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
   .df-fre-cta-cluster {
     gap: 16px;
+  }
+
+  .df-monitor-screen {
+    aspect-ratio: 16 / 9;
+    max-height: 50vh;
   }
 
   .df-monitor-bezel {

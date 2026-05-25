@@ -21,7 +21,7 @@ export default function Confidentialite() {
             <h2 className="text-lg font-bold text-white">1. Responsable du traitement</h2>
             <ul className="mt-3 space-y-1">
               <li><strong>Dénomination :</strong> Splice (micro-entreprise)</li>
-              <li><strong>Siège :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande à contact.splicestudio@gmail.com</li>
+              <li><strong>Siège :</strong> 84 Boulevard Alexandre Martin, 45000 Orléans</li>
               <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
             </ul>
           </div>
@@ -71,7 +71,7 @@ export default function Confidentialite() {
             <h2 className="text-lg font-bold text-white">4. Destinataires des données</h2>
             <p>Vos données personnelles peuvent être transmises aux sous-traitants suivants :</p>
             <ul className="mt-3 list-disc pl-5 space-y-1">
-              <li><strong>Vercel Inc.</strong> — hébergement du site (États-Unis, clauses contractuelles types)</li>
+              <li><strong>Cloudflare, Inc.</strong> — hébergement et distribution du site (États-Unis, clauses contractuelles types)</li>
               <li><strong>Stripe Inc.</strong> — traitement des paiements (États-Unis, certifié conforme RGPD)</li>
               <li><strong>Resend Inc.</strong> — envoi d&apos;emails transactionnels (États-Unis, clauses contractuelles types)</li>
               <li><strong>Neon Inc.</strong> — hébergement de la base de données PostgreSQL</li>
@@ -122,7 +122,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">8. Transferts hors UE</h2>
             <p>
-              Certains de nos sous-traitants sont situés aux États-Unis (Vercel, Stripe, Resend, Neon).
+              Certains de nos sous-traitants sont situés aux États-Unis (Cloudflare, Stripe, Resend, Neon).
               Ces transferts sont encadrés par des clauses contractuelles types approuvées par la Commission
               européenne, conformément à l&apos;article 46 du RGPD.
             </p>

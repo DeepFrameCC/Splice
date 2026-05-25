@@ -67,7 +67,7 @@ export default function ContactPage() {
         </header>
 
         {/* ─── Quick channels ────────────────────────── */}
-        <section className="mb-14 grid gap-4 sm:grid-cols-3">
+        <section className="mb-14 grid gap-4 sm:grid-cols-3 overflow-hidden">
           <a
             href="mailto:contact.splicestudio@gmail.com"
             className="group flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-df-surface p-6 transition hover:border-df-blue/30 hover:shadow-lg"
@@ -79,7 +79,7 @@ export default function ContactPage() {
               <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
                 Email studio
               </p>
-              <p className="text-sm font-bold text-white group-hover:text-df-gold">
+              <p className="text-sm font-bold text-white group-hover:text-df-gold break-all">
                 contact.splicestudio@gmail.com
               </p>
               <p className="mt-0.5 text-xs text-white/50">
@@ -177,7 +177,7 @@ export default function ContactPage() {
         </section>
 
         {/* ─── Lien FAQ ──────────────────────────────── */}
-        <section className="mb-14 flex items-center justify-between rounded-2xl border border-white/[0.08] bg-df-surface p-5">
+        <section className="mb-14 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/[0.08] bg-df-surface p-5">
           <p className="text-sm text-white/70">
             <span className="font-semibold text-white">Une question fréquente ?</span> Consultez notre FAQ complète.
           </p>

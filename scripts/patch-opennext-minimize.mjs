@@ -31,16 +31,20 @@ src = src.replace(
 );
 
 // Also patch fs.stat to handle broken symlinks
-src = src.replace(
-  "const stat = await fs.stat(filePath);",
-  `let stat;
+src = statPatch(src);
+
+function statPatch(content) {
+  return content.replace(
+    "const stat = await fs.stat(filePath);",
+    `let stat;
         try {
           stat = await fs.stat(filePath);
         } catch (e) {
           if (e.code === "ENOENT") continue;
           throw e;
         }`
-);
+  );
+}
 
 writeFileSync(target, src);
 console.log("[patch] minimize-js.js patched successfully.");

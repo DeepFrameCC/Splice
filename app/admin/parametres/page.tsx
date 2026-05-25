@@ -1,4 +1,4 @@
-﻿import { SUBSCRIPTION_PLANS, PLAN_IDS, OPTIONS_A_LA_CARTE, DUREE_SUPPLEMENT, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
+import { SUBSCRIPTION_PLANS, PLAN_IDS, OPTIONS_A_LA_CARTE, DUREE_SUPPLEMENT, DELAI, PRIX_KM, ACOMPTE_RATE } from "@/lib/pricing";
 import { Settings, CreditCard, FileText, Calculator, Truck, Clock, Package } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -163,7 +163,7 @@ export default function AdminParametresPage() {
         </div>
         <div className="divide-y divide-white/[0.06]">
           {[
-            { label: "Hébergeur", value: "Vercel (Edge Network)" },
+            { label: "Hébergeur", value: "Cloudflare (Workers)" },
             { label: "Base de données", value: "Neon PostgreSQL (eu-central-1)" },
             { label: "Paiements", value: "Stripe Checkout" },
             { label: "Emails", value: "Resend + React Email" },

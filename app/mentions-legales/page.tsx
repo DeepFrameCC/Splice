@@ -32,7 +32,7 @@ export default function MentionsLegales() {
               </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
               <li><strong>TVA :</strong> TVA non applicable, art.&nbsp;293&nbsp;B du CGI (franchise en base)</li>
-              <li><strong>Siège social :</strong> Saint-Avertin (37550), Indre-et-Loire — adresse complète communiquée sur demande</li>
+              <li><strong>Siège social :</strong> 84 Boulevard Alexandre Martin, 45000 Orléans</li>
               <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
             </ul>
           </div>
@@ -45,9 +45,9 @@ export default function MentionsLegales() {
           <div>
             <h2 className="text-lg font-bold text-white">3. Hébergeur</h2>
             <ul className="mt-3 space-y-1">
-              <li><strong>Nom :</strong> Vercel Inc.</li>
-              <li><strong>Adresse :</strong> 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
-              <li><strong>Site :</strong> vercel.com</li>
+              <li><strong>Nom :</strong> Cloudflare, Inc.</li>
+              <li><strong>Adresse :</strong> 101 Townsend St, San Francisco, CA 94107, États-Unis</li>
+              <li><strong>Site :</strong> cloudflare.com</li>
             </ul>
           </div>
 

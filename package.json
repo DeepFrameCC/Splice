@@ -16,10 +16,10 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "prebuild:cf": "node --input-type=module scripts/patch-opennext-minimize.js",
-    "preview": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.js && opennextjs-cloudflare preview",
-    "deploy": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.js && opennextjs-cloudflare deploy",
-    "deploy:hotfix": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.js && opennextjs-cloudflare deploy",
+    "prebuild:cf": "node scripts/patch-opennext-minimize.mjs",
+    "preview": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.mjs && opennextjs-cloudflare preview",
+    "deploy": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.mjs && opennextjs-cloudflare deploy",
+    "deploy:hotfix": "npm run prebuild:cf && opennextjs-cloudflare build && node scripts/clean-assets.mjs && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
