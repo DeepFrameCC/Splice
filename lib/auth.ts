@@ -13,8 +13,10 @@ const loginSchema = z.object({
   totpCode: z.string().optional(),
 });
 
+const { providers, ...restConfig } = authConfig;
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  ...authConfig,
+  ...restConfig,
   adapter: PrismaAdapter(db),
   providers: [
     Credentials({

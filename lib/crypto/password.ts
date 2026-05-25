@@ -1,5 +1,3 @@
-import { argon2id, argon2Verify } from "hash-wasm";
-
 const PARAMS = {
   parallelism: 1,
   iterations: 3,
@@ -9,10 +7,12 @@ const PARAMS = {
 };
 
 export async function hashPassword(plain: string): Promise<string> {
+  const { argon2id } = await import("hash-wasm");
   const salt = crypto.getRandomValues(new Uint8Array(16));
   return argon2id({ password: plain, salt, ...PARAMS });
 }
 
 export async function verifyPassword(plain: string, hash: string): Promise<boolean> {
+  const { argon2Verify } = await import("hash-wasm");
   return argon2Verify({ password: plain, hash });
 }
