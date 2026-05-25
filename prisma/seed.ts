@@ -1,5 +1,11 @@
 import fs from "fs";
 import path from "path";
+import { PrismaClient, Prisma } from "@prisma/client";
+import { hashPassword } from "@/lib/crypto/password";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { Pool } from "@neondatabase/serverless";
+import ws from "ws";
+import { SERVICES_CONTENT } from "./services-content";
 
 // Simple .env loader to ensure env variables are populated in non-Prisma CLI context
 try {
@@ -25,13 +31,6 @@ try {
 } catch (e) {
   console.error("Failed to load .env in seed script", e);
 }
-
-import { PrismaClient, Prisma } from "@prisma/client";
-import { hashPassword } from "@/lib/crypto/password";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool } from "@neondatabase/serverless";
-import ws from "ws";
-import { SERVICES_CONTENT } from "./services-content";
 
 const databaseUrl = process.env.DATABASE_URL!;
 const cleanUrl = databaseUrl.split("?")[0];
