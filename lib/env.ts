@@ -37,14 +37,14 @@ const serverSchema = z.object({
     ? z.string().min(1, "UPSTASH_REDIS_REST_TOKEN is required in production")
     : z.string().optional(),
 
-  // reCAPTCHA
-  RECAPTCHA_SECRET_KEY: z.string().optional(),
+  // Turnstile
+  TURNSTILE_SECRET_KEY: z.string().optional(),
 });
 
 const clientSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string().url("NEXT_PUBLIC_APP_URL must be a valid URL"),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
-  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().optional(),
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().optional(),
   NEXT_PUBLIC_PLAUSIBLE_DOMAIN: z.string().optional(),
 });
 

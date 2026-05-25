@@ -25,26 +25,24 @@ const registerSchema = z.object({
   ville: z.string().optional(),
   tel: z.string().min(6, "Téléphone requis"),
   age: z.coerce.number().int().min(16, "Âge minimum 16 ans").max(120),
-  recaptcha: z.string().min(1, "Captcha requis")
+  "cf-turnstile-response": z.string().min(1, "Captcha requis"),
 }).refine((d) => d.nomEntreprise || (d.prenom && d.nom), { message: "Nom/prénom OU nom d'entreprise requis", path: ["nom"] });
 
-async function verifyRecaptcha(token: string) {
-  if (!process.env.RECAPTCHA_SECRET_KEY) {
-    // Fail-closed in production so a missing secret cannot silently disable
-    // bot protection. Dev / preview environments still bypass for ergonomics.
+async function verifyTurnstile(token: string) {
+  if (!process.env.TURNSTILE_SECRET_KEY) {
     if (process.env.NODE_ENV === "production") {
-      console.error("[auth] RECAPTCHA_SECRET_KEY missing in production — registration refused");
+      console.error("[auth] TURNSTILE_SECRET_KEY missing in production — registration refused");
       return false;
     }
     return true;
   }
-  const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+    body: `secret=${process.env.TURNSTILE_SECRET_KEY}&response=${token}`,
   });
-  const data = (await res.json()) as { success?: boolean; score?: number };
-  return data.success === true && (data.score ?? 1) >= 0.5;
+  const data = (await res.json()) as { success?: boolean };
+  return data.success === true;
 }
 
 export async function registerAction(_prev: unknown, formData: FormData) {
@@ -55,7 +53,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Formulaire invalide" };
   const d = parsed.data;
 
-  if (!(await verifyRecaptcha(d.recaptcha))) return { ok: false, error: "Captcha invalide" };
+  if (!(await verifyTurnstile(d["cf-turnstile-response"]))) return { ok: false, error: "Captcha invalide" };
 
   const pseudo = formatPseudo(d.pseudo);
   if (!pseudoRegex.test(pseudo)) return { ok: false, error: "Pseudo : minuscules, chiffres, points uniquement" };

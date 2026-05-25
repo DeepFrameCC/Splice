@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { registerAction } from "@/app/actions/auth";
@@ -10,22 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import Script from "next/script";
 
-const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export default function RegisterPage() {
   const [state, action, pending] = useActionState(registerAction, null as { ok: boolean; error?: string } | null);
-  const [recaptchaToken, setRecaptchaToken] = useState("dev-skip");
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    if (!SITE_KEY) return;
-    e.preventDefault();
-    // @ts-ignore
-    const token: string = await window.grecaptcha.execute(SITE_KEY, { action: "register" });
-    setRecaptchaToken(token);
-    const fd = new FormData(e.currentTarget);
-    fd.set("recaptcha", token);
-    e.currentTarget.requestSubmit();
-  };
 
   return (
     <div className="flex min-h-screen">
@@ -59,7 +47,7 @@ export default function RegisterPage() {
       {/* ── Panneau droit : formulaire ────────────────────────────── */}
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2">
         <div className="w-full max-w-lg">
-          {SITE_KEY && <Script src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`} />}
+          {TURNSTILE_SITE_KEY && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
 
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
@@ -82,7 +70,7 @@ export default function RegisterPage() {
           <h2 className="font-display text-2xl font-black text-white">Créer mon compte</h2>
           <p className="mt-1 text-sm text-white/40">Renseignez vos infos pour profiter des fonctionnalités client.</p>
 
-          <form action={action} onSubmit={SITE_KEY ? onSubmit : undefined} className="mt-8 grid gap-4 md:grid-cols-2">
+          <form action={action} className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="prenom">Prénom</Label>
               <Input id="prenom" name="prenom" placeholder="Prénom" />
@@ -127,7 +115,11 @@ export default function RegisterPage() {
               <Label htmlFor="age">Âge</Label>
               <Input id="age" name="age" type="number" min={16} required placeholder="Âge" />
             </div>
-            <input type="hidden" name="recaptcha" value={recaptchaToken} />
+            {TURNSTILE_SITE_KEY && (
+              <div className="md:col-span-2">
+                <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />
+              </div>
+            )}
 
             {state?.error && (
               <Card className="border-red-500/20 bg-red-500/10 shadow-none ring-0 md:col-span-2">

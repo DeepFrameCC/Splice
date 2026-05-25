@@ -8,8 +8,9 @@ function getResend() {
   return _resend;
 }
 
-export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice <contact.splicestudio@gmail.com>";
-export const MAIL_CONTACT = "contact.splicestudio@gmail.com";
+export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice Studio <noreply@splicestudio.fr>";
+export const MAIL_REPLY_TO = "contact.splicestudio@gmail.com";
+export const MAIL_CONTACT = "contact@splicestudio.fr";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {
@@ -18,12 +19,17 @@ export async function sendMail(opts: { to: string | string[]; subject: string; h
     console.warn("[mailer] RESEND_API_KEY manquant — mail simulé:", opts.subject, opts.to);
     return { id: "dev-skip" };
   }
-  return resend.emails.send({ from: MAIL_FROM, ...opts });
+  return resend.emails.send({
+    from: MAIL_FROM,
+    replyTo: opts.replyTo ?? MAIL_REPLY_TO,
+    ...opts,
+  });
 }
 
 export const notifyFoundersNewDevis = (numero: string, payload: { client: string; total: number; lieu: string; pack: string }) =>
   sendMail({
     to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
+    replyTo: MAIL_CONTACT,
     subject: `[Splice] Nouveau devis ${numero} — ${payload.client}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22">
