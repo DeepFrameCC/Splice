@@ -25,7 +25,7 @@ export async function hashPassword(plain: string): Promise<string> {
   const derivedBits = await crypto.subtle.deriveBits(
     {
       name: "PBKDF2",
-      salt,
+      salt: salt as any,
       iterations: ITERATIONS,
       hash: HASH_NAME,
     },
@@ -63,7 +63,7 @@ export async function verifyPassword(plain: string, hash: string): Promise<boole
   const derivedBits = await crypto.subtle.deriveBits(
     {
       name: "PBKDF2",
-      salt,
+      salt: salt as any,
       iterations: iter,
       hash: HASH_NAME,
     },
