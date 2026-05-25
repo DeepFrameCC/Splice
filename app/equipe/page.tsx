@@ -1,4 +1,5 @@
 import NavWrapper from "@/components/layout/NavWrapper";
+import Footer from "@/components/layout/Footer";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
 import Link from "next/link";
 import { buildTeamJsonLd } from "@/lib/seo";
@@ -407,6 +408,8 @@ export default function EquipePage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </>
   );
 }

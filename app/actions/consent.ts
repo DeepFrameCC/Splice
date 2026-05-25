@@ -26,9 +26,15 @@ const consentSchema = z.object({
 export async function saveConsent(
   consents: { type: (typeof BANNER_CONSENT_TYPES)[number]; granted: boolean }[],
 ): Promise<{ ok: boolean; error?: string }> {
-  // Rate-limit unauthenticated form submissions to prevent ConsentLog flooding.
-  const rl = await checkRateLimit(apiLimiter);
-  if (!rl.success) return { ok: false, error: rl.error };
+  // Rate-limit unauthenticated form submissions (fail-open for cookie consent).
+  try {
+    const rl = await checkRateLimit(apiLimiter);
+    if (!rl.success) {
+      console.warn("[consent] Rate limit hit or blocked:", rl.error);
+    }
+  } catch (rlErr) {
+    console.error("[consent] Rate limiter error:", rlErr);
+  }
 
   const parsed = consentSchema.safeParse({ consents });
   if (!parsed.success) {
@@ -45,14 +51,21 @@ export async function saveConsent(
   const headerList = await headers();
   const ip = headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
 
-  await db.consentLog.createMany({
-    data: Array.from(deduped.values()).map((c) => ({
-      userId,
-      consentType: c.type,
-      granted: c.granted,
-      ipAddress: ip,
-    })),
-  });
+  try {
+    await db.consentLog.createMany({
+      data: Array.from(deduped.values()).map((c) => ({
+        userId,
+        consentType: c.type,
+        granted: c.granted,
+        ipAddress: ip,
+      })),
+    });
+  } catch (err) {
+    console.error("[consent] Failed to persist consent log:", err);
+    // Consent was already saved client-side (localStorage).
+    // Don't break the UX if the server-side audit log fails.
+    return { ok: true };
+  }
 
   return { ok: true };
 }

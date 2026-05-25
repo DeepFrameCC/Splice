@@ -44,7 +44,7 @@ export const getAllServices = cache(async () => {
       },
     });
   } catch (err) {
-    console.warn("[services] getAllServices: DB unreachable, returning empty list", err);
+    console.error("[services] getAllServices: DB unreachable. Error details:", err instanceof Error ? { message: err.message, stack: err.stack, name: err.name } : err);
     return [];
   }
 });

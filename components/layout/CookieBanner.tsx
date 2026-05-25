@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
@@ -51,10 +51,14 @@ export default function CookieBanner() {
     setVisible(false);
 
     startTransition(async () => {
-      await saveConsent([
-        { type: "COOKIES_ESSENTIELS", granted: true },
-        { type: "COOKIES_ANALYTICS", granted: analyticsAccepted },
-      ]);
+      try {
+        await saveConsent([
+          { type: "COOKIES_ESSENTIELS", granted: true },
+          { type: "COOKIES_ANALYTICS", granted: analyticsAccepted },
+        ]);
+      } catch (err) {
+        console.error("[CookieBanner] Failed to save consent on server:", err);
+      }
     });
   }
 
