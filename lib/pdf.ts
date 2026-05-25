@@ -1,5 +1,4 @@
-import { PDFDocument, PDFFont, PDFPage, rgb, StandardFonts } from "pdf-lib";
-import * as fontkit from "@pdf-lib/fontkit";
+import type { PDFDocument, PDFFont, PDFPage, rgb, StandardFonts } from "pdf-lib";
 
 /* ── Couleurs Splice ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
@@ -18,28 +17,19 @@ export const PDF_COLORS = {
   lightGray: "#F5F5F5",
 } as const;
 
-/* ── Helpers: hex → rgb ──────────────────────────────────────────── */
-function hexToRgb(hex: string) {
-  const h = hex.replace("#", "");
-  return rgb(
-    parseInt(h.substring(0, 2), 16) / 255,
-    parseInt(h.substring(2, 4), 16) / 255,
-    parseInt(h.substring(4, 6), 16) / 255,
-  );
-}
+/* ── Lazily populated runtime cache to keep drawing helpers synchronous ── */
+let _pdfLibCache: {
+  rgb: typeof rgb;
+  C: Record<keyof typeof PDF_COLORS, ReturnType<typeof rgb>>;
+  StandardFonts: typeof StandardFonts;
+} | null = null;
 
-const C = {
-  orange: hexToRgb(PDF_COLORS.orange),
-  orangeDark: hexToRgb(PDF_COLORS.orangeDark),
-  gold: hexToRgb(PDF_COLORS.gold),
-  teal: hexToRgb(PDF_COLORS.teal),
-  ink: hexToRgb(PDF_COLORS.ink),
-  text: hexToRgb(PDF_COLORS.text),
-  muted: hexToRgb(PDF_COLORS.muted),
-  light: hexToRgb(PDF_COLORS.light),
-  border: hexToRgb(PDF_COLORS.border),
-  white: hexToRgb(PDF_COLORS.white),
-} as const;
+function getCache() {
+  if (!_pdfLibCache) {
+    throw new Error("PDF context must be created via createPdfContext() before drawing functions are called.");
+  }
+  return _pdfLibCache;
+}
 
 /* ── Constants for A4 layout ─────────────────────────────────────── */
 const PAGE_W = 595.28;
@@ -87,6 +77,42 @@ export interface PdfContext {
 }
 
 export async function createPdfContext(): Promise<PdfContext> {
+  // Dynamically load pdf-lib and fontkit at runtime
+  const pdfLib = await import("pdf-lib");
+  const fontkit = await import("@pdf-lib/fontkit");
+
+  const { PDFDocument, rgb: rgbFn, StandardFonts } = pdfLib;
+
+  // Initialize the runtime cache for colors and fonts
+  const hexToRgb = (hex: string) => {
+    const h = hex.replace("#", "");
+    return rgbFn(
+      parseInt(h.substring(0, 2), 16) / 255,
+      parseInt(h.substring(2, 4), 16) / 255,
+      parseInt(h.substring(4, 6), 16) / 255,
+    );
+  };
+
+  _pdfLibCache = {
+    rgb: rgbFn,
+    StandardFonts,
+    C: {
+      orange: hexToRgb(PDF_COLORS.orange),
+      orangeDark: hexToRgb(PDF_COLORS.orangeDark),
+      gold: hexToRgb(PDF_COLORS.gold),
+      teal: hexToRgb(PDF_COLORS.teal),
+      ink: hexToRgb(PDF_COLORS.ink),
+      text: hexToRgb(PDF_COLORS.text),
+      muted: hexToRgb(PDF_COLORS.muted),
+      light: hexToRgb(PDF_COLORS.light),
+      border: hexToRgb(PDF_COLORS.border),
+      green: hexToRgb(PDF_COLORS.green),
+      red: hexToRgb(PDF_COLORS.red),
+      white: hexToRgb(PDF_COLORS.white),
+      lightGray: hexToRgb(PDF_COLORS.lightGray),
+    },
+  };
+
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
   pdf.setTitle("Splice Studio");
@@ -194,6 +220,7 @@ function drawRectOutline(
 /* ── Page decorations ────────────────────────────────────────────── */
 
 function drawPageDecorations(page: PDFPage) {
+  const C = getCache().C;
   // Top gradient bar (simplified as solid orange — pdf-lib has no gradients)
   drawRect(page, 0, 0, PAGE_W, 12, C.orange);
   // Bottom gradient bar
@@ -212,6 +239,7 @@ export function drawHeader(
   docType: "DEVIS" | "FACTURE",
   logoBytes?: Uint8Array,
 ) {
+  const C = getCache().C;
   drawPageDecorations(page);
 
   // Logo or fallback text
@@ -234,6 +262,7 @@ export function drawInfoBlock(
   fonts: PdfFonts,
   info: { date: string; echeance?: string; numero: string; docType: "DEVIS" | "FACTURE" },
 ) {
+  const C = getCache().C;
   const y = 75;
 
   // Left: dates
@@ -259,6 +288,7 @@ export function drawPartiesBlock(
   prestataire: { entreprise: string; adresse?: string; email: string; siret: string },
   destinataire: string[],
 ): number {
+  const C = getCache().C;
   const y = 108;
   const colW = CONTENT_W / 2;
 
@@ -294,6 +324,7 @@ export function drawPartiesBlock(
 }
 
 export function drawTableHeader(page: PDFPage, fonts: PdfFonts, tableTop: number) {
+  const C = getCache().C;
   drawLine(page, MARGIN_L, tableTop, MARGIN_R, C.border);
   drawText(page, "Description :", MARGIN_L, tableTop + 6, fonts.bold, 8, C.ink);
   drawText(page, "Prix Unitaire :", 310, tableTop + 6, fonts.bold, 8, C.ink, { maxWidth: 80, align: "center" });
@@ -308,6 +339,7 @@ export function drawTableRow(
   line: { label: string; qty?: number; unit?: number; total: number },
   y: number,
 ): number {
+  const C = getCache().C;
   drawLine(page, MARGIN_L, y, MARGIN_R, C.border, 0.3);
 
   const label = safe(line.label, "-");
@@ -328,6 +360,7 @@ export function drawTotalsBlock(
   totals: { totalHT: number; acompteRate: number; acompteAmount: number; solde: number },
   y: number,
 ): number {
+  const C = getCache().C;
   drawLine(page, 350, y, MARGIN_R, C.border);
 
   // Total HT
@@ -357,6 +390,7 @@ export function drawReglementBlock(
   y: number,
   deliveryInfo?: string,
 ): number {
+  const C = getCache().C;
   drawText(page, "REGLEMENT :", MARGIN_L, y, fonts.bold, 10, C.ink);
 
   if (deliveryInfo) {
@@ -383,6 +417,7 @@ export function drawMentionsLegales(
   mentions: string[],
   y: number,
 ) {
+  const C = getCache().C;
   drawText(page, "Mentions legales :", MARGIN_L, y, fonts.bold, 7, C.light);
   let my = y + 12;
   for (const mention of mentions) {
