@@ -1,8 +1,43 @@
+import fs from "fs";
+import path from "path";
+
+// Simple .env loader to ensure env variables are populated in non-Prisma CLI context
+try {
+  const envPath = path.resolve(process.cwd(), ".env");
+  if (fs.existsSync(envPath)) {
+    const envConfig = fs.readFileSync(envPath, "utf-8");
+    for (const rawLine of envConfig.split("\n")) {
+      const line = rawLine.replace(/\r/g, "").trim();
+      if (!line || line.startsWith("#")) continue;
+      const match = line.match(/^\s*([\w.\-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || "";
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.slice(1, -1);
+        } else if (value.startsWith("'") && value.endsWith("'")) {
+          value = value.slice(1, -1);
+        }
+        process.env[key] = value.trim();
+      }
+    }
+  }
+} catch (e) {
+  console.error("Failed to load .env in seed script", e);
+}
+
 import { PrismaClient, Prisma } from "@prisma/client";
 import { hashPassword } from "@/lib/crypto/password";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { Pool } from "@neondatabase/serverless";
+import ws from "ws";
 import { SERVICES_CONTENT } from "./services-content";
 
-const db = new PrismaClient();
+const databaseUrl = process.env.DATABASE_URL!;
+const cleanUrl = databaseUrl.split("?")[0];
+Pool.webSocketConstructor = ws;
+const adapter = new PrismaNeon({ connectionString: cleanUrl });
+const db = new PrismaClient({ adapter });
 
 async function main() {
   // ── Admin ──────────────────────────────────────────────────────────
