@@ -4,7 +4,12 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-df-surface flex flex-col items-center justify-center px-6 text-center">
-      <span className="mb-10 font-display text-2xl font-bold tracking-wide text-white/20">SPLICE</span>
+      <span
+        style={{ color: "rgba(255, 255, 255, 0.2)" }}
+        className="mb-10 font-display text-2xl font-bold tracking-wide"
+      >
+        SPLICE
+      </span>
 
       <p
         style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.18em" }}
@@ -20,7 +25,10 @@ export default function NotFound() {
         Page<br />introuvable.
       </h1>
 
-      <p className="text-white/60 text-lg max-w-md mb-10">
+      <p
+        style={{ color: "rgba(255, 255, 255, 0.6)" }}
+        className="text-lg max-w-md mb-10"
+      >
         Cette page n&apos;existe pas ou a été déplacée. Retourne à l&apos;accueil pour reprendre là où tu en étais.
       </p>
 
