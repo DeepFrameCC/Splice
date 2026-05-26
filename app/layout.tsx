@@ -90,9 +90,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
-      <head />
-      <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">
+      <head>
         <JsonLd data={jsonLd} />
+      </head>
+      <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-md focus:bg-df-blue focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white focus:shadow-lg focus:outline focus:outline-2 focus:outline-df-gold"
