@@ -1,18 +1,26 @@
 interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
+  inHead?: boolean;
 }
 
-export default function JsonLd({ data }: JsonLdProps) {
-  return (
-    <div style={{ display: "none" }} className="hidden" aria-hidden="true">
+export default function JsonLd({ data, inHead }: JsonLdProps) {
+  const json = JSON.stringify(data);
+
+  if (inHead) {
+    return (
       <script
         type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        className="hidden"
-        style={{ display: "none" }}
+        dangerouslySetInnerHTML={{ __html: json }}
       />
-    </div>
+    );
+  }
+
+  return (
+    <div
+      hidden
+      dangerouslySetInnerHTML={{
+        __html: `<script type="application/ld+json">${json}</script>`,
+      }}
+    />
   );
 }
-
