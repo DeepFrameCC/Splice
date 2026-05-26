@@ -144,6 +144,43 @@ describe("computeAbonnementQuote", () => {
     expect(quote.totalHT).toBe(1068);
     expect(quote.lines.some((l) => l.label.includes("Économie"))).toBe(true);
   });
+
+  it("enforces STANDARD subscription plan limits", () => {
+    // podcast not allowed
+    expect(() =>
+      computeAbonnementQuote({ ...BASE_ABO_INPUT, planId: "STANDARD", options: { podcast: 1 } })
+    ).toThrow(PricingError);
+
+    // photoSupp capped at 1 pack max
+    expect(() =>
+      computeAbonnementQuote({ ...BASE_ABO_INPUT, planId: "STANDARD", options: { photoSupp: 2 } })
+    ).toThrow(PricingError);
+
+    // 1 pack of photos is allowed (49 + 15 = 64)
+    const quote = computeAbonnementQuote({ ...BASE_ABO_INPUT, planId: "STANDARD", options: { photoSupp: 1 } });
+    expect(quote.totalHT).toBe(49 + 15);
+  });
+
+  it("enforces PRO subscription plan limits", () => {
+    // podcast capped at 2
+    expect(() =>
+      computeAbonnementQuote({ ...BASE_ABO_INPUT, planId: "PRO", options: { podcast: 3 } })
+    ).toThrow(PricingError);
+
+    // photoSupp capped at 3 packs max
+    expect(() =>
+      computeAbonnementQuote({ ...BASE_ABO_INPUT, planId: "PRO", options: { photoSupp: 4 } })
+    ).toThrow(PricingError);
+
+    // 2 podcasts + 3 photo packs are allowed
+    const quote = computeAbonnementQuote({
+      ...BASE_ABO_INPUT,
+      planId: "PRO",
+      options: { podcast: 2, photoSupp: 3 },
+    });
+    // PRO launch: 99 + 2 * 29 + 3 * 15 = 99 + 58 + 45 = 202
+    expect(quote.totalHT).toBe(202);
+  });
 });
 
 describe("resolvePackLabel", () => {

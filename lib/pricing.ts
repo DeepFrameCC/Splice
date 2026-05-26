@@ -44,11 +44,11 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "2 vidéos sources / mois",
       "Recyclage multi-réseaux",
       "Formats 9:16 + 16:9",
+      "Option photo (+5 photos max / 1 pack)",
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Création de podcasts",
-      "Volume supérieur (5+ vidéos)",
+      "Création de podcasts courts",
     ],
   },
   PRO: {
@@ -67,12 +67,12 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     features: [
       "5 vidéos sources / mois",
       "Recyclage multi-réseaux",
-      "2 podcasts courts / mois",
+      "Podcasts courts (limité à 2 / mois)",
+      "Option photo (+15 photos max / 3 packs)",
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Volume maximum (8 vidéos)",
-      "Podcasts supplémentaires (4/mois)",
+      "Création de podcasts jusqu'à 4 / mois",
     ],
   },
   PREMIUM_ABO: {
@@ -90,7 +90,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     features: [
       "8 vidéos sources / mois",
       "Recyclage multi-réseaux",
-      "4 podcasts courts / mois",
+      "Podcasts courts (limité à 4 / mois)",
+      "Option photo (disponible sans limite)",
       "Options à la carte disponibles",
     ],
     excludedFeatures: [],
@@ -98,6 +99,13 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
 };
 
 export const PLAN_IDS: PlanId[] = ["STANDARD", "PRO", "PREMIUM_ABO"];
+
+// ─── Status des Offres de Lancement (10 places max) ─────────────────
+export const PLAN_LAUNCH_STATUS: Record<PlanId, { complete: boolean; spotsLeft: number }> = {
+  STANDARD: { complete: false, spotsLeft: 10 },
+  PRO: { complete: false, spotsLeft: 10 },
+  PREMIUM_ABO: { complete: false, spotsLeft: 10 },
+};
 
 // ─── Formule Bienvenue (gratuite, nouveaux clients) ──────────────
 
@@ -180,7 +188,9 @@ export type OptionKey =
   | "montageExpress"
   | "musiqueSurMesure"
   | "adsReseaux"
-  | "podcast";
+  | "podcast"
+  | "videoSupp"
+  | "photoSupp";
 
 export interface OptionALaCarte {
   key: OptionKey;
@@ -197,7 +207,9 @@ export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
   { key: "montageExpress", label: "Montage express", price: 25, unit: "/ vidéo" },
   { key: "musiqueSurMesure", label: "Musique sur mesure", price: 25, unit: "/ vidéo" },
   { key: "adsReseaux", label: "Ads réseaux sociaux", price: 20, unit: "/ vidéo" },
-  { key: "podcast", label: "Création de podcast", price: 29, unit: "/ podcast" },
+  { key: "podcast", label: "Podcasts courts", price: 29, unit: "/ épisode" },
+  { key: "videoSupp", label: "Vidéo supplémentaire", price: 29, unit: "/ vidéo" },
+  { key: "photoSupp", label: "Option photo (5 photos)", price: 15, unit: "/ pack" },
 ];
 
 // ─── Bannière Splice ───────────────────────────────────────────
@@ -354,13 +366,24 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
   const plan = SUBSCRIPTION_PLANS[input.planId];
   const lines: QuoteLine[] = [];
 
-  // Enforce plan restrictions
+  // Enforce plan restrictions & limits
   if (input.planId === "STANDARD") {
-    if (input.options.musiqueSurMesure) {
-      throw new PricingError("L'option Musique sur mesure n'est pas disponible avec la formule Standard.");
+    if (typeof input.options.podcast === "number" && input.options.podcast > 0) {
+      throw new PricingError("Les podcasts courts ne sont pas disponibles avec la formule Standard.");
     }
-    if (input.options.podcast) {
-      throw new PricingError("L'option Podcast n'est pas disponible avec la formule Standard.");
+    if (typeof input.options.photoSupp === "number" && input.options.photoSupp > 1) {
+      throw new PricingError("L'option photo est limitée à +5 photos max (1 pack) avec la formule Standard.");
+    }
+  } else if (input.planId === "PRO") {
+    if (typeof input.options.podcast === "number" && input.options.podcast > 2) {
+      throw new PricingError("Les podcasts courts sont limités à 2 épisodes par mois avec la formule Pro.");
+    }
+    if (typeof input.options.photoSupp === "number" && input.options.photoSupp > 3) {
+      throw new PricingError("L'option photo est limitée à +15 photos max (3 packs) avec la formule Pro.");
+    }
+  } else if (input.planId === "PREMIUM_ABO") {
+    if (typeof input.options.podcast === "number" && input.options.podcast > 4) {
+      throw new PricingError("Les podcasts courts sont limités à 4 épisodes par mois avec la formule Premium.");
     }
   }
 
@@ -397,9 +420,18 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
     const val = input.options[opt.key];
     if (val) {
       let qty = typeof val === "number" ? val : (opt.key === "creationBanniere" ? 1 : videoCount);
-      if (opt.key !== "creationBanniere") {
+      
+      // For standard options, cap their quantity to the plan's videos count.
+      // For photoSupp, videoSupp, podcast, and creationBanniere, don't cap to videoCount.
+      if (
+        opt.key !== "creationBanniere" &&
+        opt.key !== "videoSupp" &&
+        opt.key !== "photoSupp" &&
+        opt.key !== "podcast"
+      ) {
         qty = Math.min(qty, videoCount);
       }
+      
       if (qty > 0) {
         lines.push({
           label: opt.label,

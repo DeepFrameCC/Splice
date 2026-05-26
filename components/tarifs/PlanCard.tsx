@@ -41,7 +41,19 @@ export default function PlanCard({
         </span>
       )}
 
-      <p className="font-display text-2xl uppercase tracking-tight text-white">{plan.label}</p>
+      <div className="flex justify-between items-start gap-2">
+        <p className="font-display text-2xl uppercase tracking-tight text-white">{plan.label}</p>
+        {useLaunchPrice && (
+          <span className="rounded bg-df-gold/25 px-2 py-0.5 text-[9px] font-bold text-df-gold shrink-0">
+            Lancement
+          </span>
+        )}
+      </div>
+      {useLaunchPrice && (
+        <p className="mt-1 text-[11px] font-semibold text-df-gold">
+          🔥 Offre de lancement — 10 places dispos
+        </p>
+      )}
       <p className="mt-1 text-sm text-white/50">{plan.tagline}</p>
 
       <div className="mt-5">

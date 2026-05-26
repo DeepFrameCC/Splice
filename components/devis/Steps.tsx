@@ -143,12 +143,25 @@ export function Step2Abonnement() {
   const selectPlan = useCallback(
     (p: PlanId) => {
       f.set("planId", p);
+      const nextOptions = { ...f.options };
       if (p === "STANDARD") {
-        const nextOptions = { ...f.options };
-        delete nextOptions.musiqueSurMesure;
         delete nextOptions.podcast;
-        f.set("options", nextOptions);
+        if (nextOptions.photoSupp && nextOptions.photoSupp > 1) {
+          nextOptions.photoSupp = 1;
+        }
+      } else if (p === "PRO") {
+        if (nextOptions.podcast && nextOptions.podcast > 2) {
+          nextOptions.podcast = 2;
+        }
+        if (nextOptions.photoSupp && nextOptions.photoSupp > 3) {
+          nextOptions.photoSupp = 3;
+        }
+      } else if (p === "PREMIUM_ABO") {
+        if (nextOptions.podcast && nextOptions.podcast > 4) {
+          nextOptions.podcast = 4;
+        }
       }
+      f.set("options", nextOptions);
     },
     [f]
   );
@@ -159,6 +172,17 @@ export function Step2Abonnement() {
         Étape 2 — Votre abonnement
       </h2>
       <p className="mt-1 text-white/60">Choisissez votre formule et vos options.</p>
+
+      {/* Bandeau Offre de Lancement */}
+      <div className="mt-4 rounded-xl border border-df-gold/30 bg-df-gold/10 p-4 text-sm text-df-gold flex items-start gap-2.5">
+        <Info className="h-5 w-5 shrink-0 mt-0.5 animate-pulse" />
+        <div>
+          <p className="font-bold uppercase tracking-wide">Offre de lancement en cours</p>
+          <p className="mt-1 text-white/70">
+            Profitez de tarifs préférentiels réservés aux 10 premiers clients accompagnés par formule. Les conditions acquises restent garanties à vie.
+          </p>
+        </div>
+      </div>
 
       {/* Billing toggle */}
       <div className="mt-6 flex items-center justify-center gap-3">
@@ -218,7 +242,12 @@ export function Step2Abonnement() {
               <p className="mt-3 text-3xl font-bold text-white">
                 {price} €<span className="text-sm font-normal text-white/50">/mois</span>
               </p>
-              <p className="mt-1 text-xs text-white/40">
+              {f.useLaunchPrice && (
+                <span className="mt-1 rounded bg-df-gold/20 px-2 py-0.5 text-[10px] font-semibold text-df-gold w-fit">
+                  Lancement : 10 places dispos
+                </span>
+              )}
+              <p className="mt-1.5 text-xs text-white/40">
                 {plan.videosPerMonth} vidéo{plan.videosPerMonth > 1 ? "s" : ""} source
                 {plan.videosPerMonth > 1 ? "s" : ""} / mois
               </p>
@@ -521,9 +550,42 @@ function OptionsSection() {
       )}
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         {OPTIONS_A_LA_CARTE.map((opt) => {
-          const isBlockedByPlan = mode === "ABONNEMENT" && planId === "STANDARD" && (opt.key === "musiqueSurMesure" || opt.key === "podcast");
-          const limit = opt.key === "creationBanniere" ? 20 : maxVideos;
-          const isDisabled = (opt.key !== "creationBanniere" && maxVideos === 0) || isBlockedByPlan;
+          let limit = opt.key === "creationBanniere" ? 20 : maxVideos;
+          let isBlockedByPlan = false;
+          let planLimitText = "";
+
+          if (mode === "ABONNEMENT") {
+            if (opt.key === "podcast") {
+              if (planId === "STANDARD") {
+                isBlockedByPlan = true;
+                limit = 0;
+                planLimitText = "Non disponible avec la formule Standard";
+              } else if (planId === "PRO") {
+                limit = 2;
+                planLimitText = "Limité à 2 épisodes / mois max";
+              } else if (planId === "PREMIUM_ABO") {
+                limit = 4;
+                planLimitText = "Limité à 4 épisodes / mois max";
+              }
+            } else if (opt.key === "photoSupp") {
+              if (planId === "STANDARD") {
+                limit = 1;
+                planLimitText = "Limité à +5 photos max (1 pack)";
+              } else if (planId === "PRO") {
+                limit = 3;
+                planLimitText = "Limité à +15 photos max (3 packs)";
+              } else if (planId === "PREMIUM_ABO") {
+                limit = 20;
+                planLimitText = "Disponible sans limite";
+              }
+            } else if (opt.key === "videoSupp") {
+              limit = 20;
+            } else if (opt.key === "creationBanniere") {
+              limit = 20;
+            }
+          }
+
+          const isDisabled = (mode === "PACK_PARTICULIER" && opt.key !== "creationBanniere" && maxVideos === 0) || isBlockedByPlan;
           const rawQty = options[opt.key] ?? 0;
           const isActive = rawQty > 0 && !isDisabled;
           const qty = Math.min(rawQty, limit);
@@ -557,9 +619,9 @@ function OptionsSection() {
                   <p className="text-xs text-white/50">
                     {opt.price} € {opt.unit}
                   </p>
-                  {isBlockedByPlan && (
-                    <p className="mt-0.5 text-[10px] font-semibold text-red-400">
-                      Non disponible avec la formule Standard
+                  {planLimitText && (
+                    <p className={`mt-0.5 text-[10px] font-semibold ${isBlockedByPlan ? "text-red-400" : "text-emerald-400"}`}>
+                      {planLimitText}
                     </p>
                   )}
                 </div>

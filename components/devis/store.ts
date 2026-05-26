@@ -101,7 +101,12 @@ export const useDevisForm = create<DevisFormState>((set) => ({
         return { options: nextOptions };
       } else {
         let defaultQty = 1;
-        if (key !== "creationBanniere") {
+        if (
+          key !== "creationBanniere" &&
+          key !== "videoSupp" &&
+          key !== "photoSupp" &&
+          key !== "podcast"
+        ) {
           if (s.mode === "ABONNEMENT") {
             defaultQty = SUBSCRIPTION_PLANS[s.planId]?.videosPerMonth ?? 1;
           } else {
@@ -114,8 +119,37 @@ export const useDevisForm = create<DevisFormState>((set) => ({
       }
     }),
   setOptionQty: (key, qty) =>
-    set((s) => ({
-      options: { ...s.options, [key]: qty },
-    })),
+    set((s) => {
+      let cappedQty = qty;
+      if (s.mode === "ABONNEMENT") {
+        if (key === "podcast") {
+          const max = s.planId === "STANDARD" ? 0 : s.planId === "PRO" ? 2 : 4;
+          cappedQty = Math.min(Math.max(1, qty), max);
+        } else if (key === "photoSupp") {
+          const max = s.planId === "STANDARD" ? 1 : s.planId === "PRO" ? 3 : 99;
+          cappedQty = Math.min(Math.max(1, qty), max);
+        } else if (key === "videoSupp") {
+          cappedQty = Math.max(1, qty);
+        } else if (key !== "creationBanniere") {
+          const max = SUBSCRIPTION_PLANS[s.planId]?.videosPerMonth ?? 1;
+          cappedQty = Math.min(Math.max(1, qty), max);
+        }
+      } else {
+        const maxVideos = s.nbVideos ?? 0;
+        if (
+          key !== "creationBanniere" &&
+          key !== "videoSupp" &&
+          key !== "photoSupp" &&
+          key !== "podcast"
+        ) {
+          cappedQty = Math.min(Math.max(1, qty), maxVideos);
+        } else {
+          cappedQty = Math.max(1, qty);
+        }
+      }
+      return {
+        options: { ...s.options, [key]: cappedQty },
+      };
+    }),
   reset: () => set(initial),
 }));

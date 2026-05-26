@@ -29,14 +29,13 @@ export default function PricingSection() {
       <section className="mt-16">
         <div className="text-center">
           <span className="inline-block rounded-full bg-df-gold/20 px-4 py-1 text-xs font-bold text-df-gold">
-            Offre de lancement — 10 places par formule
+            ⚡ Offre de lancement — 10 places disponibles par formule
           </span>
           <h2 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-5xl">
             Nos abonnements
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/60">
-            Des vidéos récurrentes pour alimenter tous vos réseaux. Choisissez la
-            formule qui correspond à votre rythme de publication.
+          <p className="mx-auto mt-3 max-w-xl text-white/60 text-sm md:text-base">
+            Tarifs réservés aux premiers clients accompagnés. Vous conservez ces conditions préférentielles tant que votre abonnement reste actif !
           </p>
         </div>
 
