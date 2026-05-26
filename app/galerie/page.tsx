@@ -51,6 +51,7 @@ export default async function GaleriePage() {
   }> = [];
   let likedIds: string[] = [];
   let isAuthed = false;
+  let dbError: string | null = null;
 
   try {
     const session = await auth();
@@ -83,6 +84,7 @@ export default async function GaleriePage() {
     likedIds = likes.map((l) => l.mediaId);
   } catch (e) {
     console.error("[galerie] DB error:", e);
+    dbError = e instanceof Error ? e.message : String(e);
   }
 
   return (
@@ -91,6 +93,11 @@ export default async function GaleriePage() {
       <NavWrapper />
       <GalerieAnimations />
       <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>
+        {dbError && (
+          <pre style={{ color: "red", padding: "20px", fontSize: "12px", whiteSpace: "pre-wrap", maxWidth: "800px", margin: "0 auto" }}>
+            [DEBUG] DB Error: {dbError}
+          </pre>
+        )}
         <ProjetsClient
           medias={medias}
           likedIds={likedIds}
