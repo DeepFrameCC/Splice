@@ -47,6 +47,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "**.r2.dev" },
       { protocol: "https", hostname: "cdn.splicestudio.fr" },
+      { protocol: "https", hostname: "media.splicestudio.fr" },
     ],
   },
   experimental: {

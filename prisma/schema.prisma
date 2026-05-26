@@ -230,8 +230,13 @@ model Media {
   monteur      User?     @relation("Monteur", fields: [monteurId], references: [id])
   published    Boolean   @default(true)
   createdAt    DateTime  @default(now())
+  groupKey     String?
+  groupOrder   Int?
 
   likes        Like[]
+
+  @@index([groupKey])
+  @@index([category])
 }
 
 model Like {

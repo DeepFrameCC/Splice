@@ -19,6 +19,8 @@ interface MediaItem {
   client: string | null;
   duration: string | null;
   createdAt: string;
+  groupKey?: string | null;
+  groupOrder?: number | null;
 }
 
 interface ProjetsClientProps {
@@ -30,21 +32,12 @@ interface ProjetsClientProps {
 
 /* ── Filters config ─────────────────────────────────────────────── */
 
-const VIDEO_FILTERS = [
+const CATEGORY_FILTERS = [
   { id: "all", label: "Tous" },
   { id: "automobile", label: "Automobile" },
-  { id: "film-marque", label: "Films de marque" },
-  { id: "reseaux-sociaux", label: "Réseaux sociaux" },
-  { id: "evenementiel", label: "Événementiel" },
-];
-
-const PHOTO_FILTERS = [
-  { id: "all", label: "Tous" },
-  { id: "automobile", label: "Automobile" },
-  { id: "produit", label: "Produit" },
+  { id: "evenement", label: "Evenement" },
   { id: "portrait", label: "Portrait" },
-  { id: "lifestyle", label: "Lifestyle" },
-  { id: "evenement", label: "Événement" },
+  { id: "urbain", label: "Urbain" },
 ];
 
 /* ── Gradient backgrounds (when no thumbnail) ───────────────────── */
@@ -62,13 +55,9 @@ const GRADIENTS = [
 
 const CATEGORY_LABELS: Record<string, string> = {
   automobile: "Automobile",
-  "film-marque": "Films de marque",
-  "reseaux-sociaux": "Réseaux sociaux",
-  evenementiel: "Événementiel",
-  produit: "Produit",
+  evenement: "Evenement",
   portrait: "Portrait",
-  lifestyle: "Lifestyle",
-  evenement: "Événement",
+  urbain: "Urbain",
 };
 
 /* ── ProjectCard ────────────────────────────────────────────────── */
@@ -218,7 +207,7 @@ export default function ProjetsClient({
   const closeMedia = useCallback(() => setActiveMedia(null), []);
 
   const isPhoto = tab === "photo";
-  const filters = isPhoto ? PHOTO_FILTERS : VIDEO_FILTERS;
+  const filters = CATEGORY_FILTERS;
 
   const videoCount = medias.filter((m) => m.type === "VIDEO").length;
   const photoCount = medias.filter((m) => m.type === "PHOTO").length;

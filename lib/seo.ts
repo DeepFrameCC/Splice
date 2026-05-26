@@ -201,19 +201,43 @@ export function buildContactPageJsonLd() {
   };
 }
 
-export function buildGalleryJsonLd(mediaCount: number) {
-  return {
+interface GalleryMediaForJsonLd {
+  type: string;
+  title: string;
+  description?: string | null;
+  url: string;
+  thumbnailUrl?: string | null;
+}
+
+export function buildGalleryJsonLd(
+  mediaCount: number,
+  medias?: GalleryMediaForJsonLd[],
+) {
+  const base = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Portfolio — Splice",
+    name: "Galerie Splice Studio",
     url: `${BASE_URL}/galerie`,
     description:
-      "Réalisations vidéo et photo : automobile, films de marque, réseaux sociaux, événementiel.",
+      "Portfolio photo et video de Splice Studio — Orleans / Tours.",
     publisher: {
       "@type": "Organization",
-      name: "Splice",
+      name: "Splice Studio",
     },
     numberOfItems: mediaCount,
+  };
+
+  if (!medias || medias.length === 0) return base;
+
+  return {
+    ...base,
+    hasPart: medias.slice(0, 20).map((m) => ({
+      "@type": m.type === "VIDEO" ? "VideoObject" : "ImageObject",
+      name: m.title,
+      ...(m.description ? { description: m.description } : {}),
+      contentUrl: m.url,
+      ...(m.thumbnailUrl ? { thumbnailUrl: m.thumbnailUrl } : {}),
+    })),
   };
 }
 

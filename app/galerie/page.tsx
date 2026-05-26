@@ -13,27 +13,44 @@ import "./projets.css";
 async function getPublishedMedias() {
   return db.media.findMany({
     where: { published: true },
-    orderBy: { createdAt: "desc" },
+    orderBy: [
+      { groupKey: { sort: "asc", nulls: "last" } },
+      { groupOrder: { sort: "asc", nulls: "last" } },
+      { createdAt: "desc" },
+    ],
   });
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 
 export const metadata: Metadata = {
-  title: "Portfolio — Splice",
+  title: "Galerie photo & video | Splice Studio",
   description:
-    "Découvrez nos réalisations vidéo et photo : automobile, films de marque, réseaux sociaux, événementiel, portrait, lifestyle.",
+    "Decouvrez notre portfolio : films cinematiques, evenements, portraits et urbain. Orleans / Tours / Centre-Val de Loire.",
   openGraph: {
-    title: "Portfolio — Splice",
-    description:
-      "Nos réalisations vidéo et photo en Centre-Val de Loire.",
+    title: "Galerie Splice Studio",
+    description: "Notre portfolio audiovisuel.",
+    url: `${BASE_URL}/galerie`,
+    type: "website",
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: `${BASE_URL}/galerie` },
 };
 
 export default async function GaleriePage() {
-  let medias: any[] = [];
+  let medias: Array<{
+    id: string;
+    type: "PHOTO" | "VIDEO";
+    url: string;
+    thumbnailUrl: string | null;
+    title: string;
+    category: string | null;
+    client: string | null;
+    duration: string | null;
+    createdAt: string;
+    groupKey: string | null;
+    groupOrder: number | null;
+  }> = [];
   let likedIds: string[] = [];
   let isAuthed = false;
 
@@ -54,7 +71,7 @@ export default async function GaleriePage() {
 
     medias = fetchedMedias.map((m) => ({
       id: m.id,
-      type: m.type,
+      type: m.type as "PHOTO" | "VIDEO",
       url: m.url,
       thumbnailUrl: m.thumbnailUrl,
       title: m.title,
@@ -62,6 +79,8 @@ export default async function GaleriePage() {
       client: m.client,
       duration: m.duration,
       createdAt: m.createdAt.toISOString(),
+      groupKey: m.groupKey,
+      groupOrder: m.groupOrder,
     }));
     likedIds = likes.map((l) => l.mediaId);
   } catch (e) {
@@ -70,7 +89,7 @@ export default async function GaleriePage() {
 
   return (
     <>
-      <JsonLd data={buildGalleryJsonLd(medias.length)} />
+      <JsonLd data={buildGalleryJsonLd(medias.length, medias)} />
       <NavWrapper />
       <GalerieAnimations />
       <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>
