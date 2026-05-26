@@ -14,8 +14,6 @@ async function getPublishedMedias() {
   return db.media.findMany({
     where: { published: true },
     orderBy: [
-      { groupKey: { sort: "asc", nulls: "last" } },
-      { groupOrder: { sort: "asc", nulls: "last" } },
       { createdAt: "desc" },
     ],
   });
