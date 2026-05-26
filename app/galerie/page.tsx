@@ -82,6 +82,18 @@ export default async function GaleriePage() {
     likedIds = likes.map((l) => l.mediaId);
   } catch (e) {
     console.error("[galerie] DB error:", e);
+    const errMsg = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+    return (
+      <>
+        <NavWrapper />
+        <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 120, padding: "120px 40px" }}>
+          <pre style={{ color: "#ff6b6b", fontSize: 13, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
+            [DEBUG PROD] {errMsg}
+          </pre>
+        </div>
+        <Footer />
+      </>
+    );
   }
 
   return (
