@@ -24,7 +24,7 @@ const sensitiveAreaHeaders = [
 
 const nextConfig = {
   outputFileTracingRoot: process.cwd(),
-  serverExternalPackages: ["@pdf-lib/fontkit"],
+  serverExternalPackages: ["@pdf-lib/fontkit", "@prisma/client", ".prisma/client"],
   poweredByHeader: false,
   async headers() {
     return [
