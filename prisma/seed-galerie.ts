@@ -661,6 +661,19 @@ function buildUrl(folder: string, filename: string): string {
 async function main() {
   console.log(`Seed galerie: ${MEDIAS.length} medias to upsert`);
 
+  // Clean up any duplicate local media entries starting with /videos/ or /photos/
+  const deletedLocal = await prisma.media.deleteMany({
+    where: {
+      OR: [
+        { url: { startsWith: "/videos/" } },
+        { url: { startsWith: "/photos/" } }
+      ]
+    }
+  });
+  if (deletedLocal.count > 0) {
+    console.log(`[seed-galerie] Cleaned up ${deletedLocal.count} legacy local media entries to prevent duplicates.`);
+  }
+
   let inserted = 0;
   let updated = 0;
 
