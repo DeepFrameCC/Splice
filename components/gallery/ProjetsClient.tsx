@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useCallback } from "react";
 import { Heart, Lock, X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -83,7 +83,8 @@ function ProjectCard({
   const [pending, start] = useTransition();
   const year = new Date(media.createdAt).getFullYear();
   const gradientIdx = index % GRADIENTS.length;
-  const hasThumb = !!media.thumbnailUrl;
+  const thumbUrl = media.thumbnailUrl || (isPhoto ? media.url : null);
+  const hasThumb = !!thumbUrl;
   const categoryLabel = media.category
     ? CATEGORY_LABELS[media.category] ?? media.category
     : null;
@@ -131,7 +132,7 @@ function ProjectCard({
       >
         {hasThumb && (
           <Image
-            src={media.thumbnailUrl!}
+            src={thumbUrl!}
             alt={media.title}
             fill
             sizes="(max-width: 920px) 50vw, 33vw"

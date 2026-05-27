@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { registerAction } from "@/app/actions/auth";
@@ -14,6 +14,64 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 export default function RegisterPage() {
   const [state, action, pending] = useActionState(registerAction, null as { ok: boolean; error?: string } | null);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  // Initialize Turnstile widget explicitly
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return;
+
+    const turnstile = (window as any).turnstile;
+    if (!turnstile) {
+      return;
+    }
+
+    if (widgetIdRef.current) return;
+
+    try {
+      const widgetId = turnstile.render(turnstileContainerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "dark",
+        callback: (token: string) => {
+          setTurnstileToken(token);
+        },
+        "expired-callback": () => {
+          setTurnstileToken("");
+        },
+        "error-callback": () => {
+          setTurnstileToken("");
+        },
+      });
+      widgetIdRef.current = widgetId;
+    } catch (err) {
+      console.error("Error rendering Turnstile:", err);
+    }
+
+    return () => {
+      if (widgetIdRef.current && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.remove(widgetIdRef.current);
+        } catch (e) {
+          // ignore
+        }
+        widgetIdRef.current = null;
+      }
+    };
+  }, [isScriptLoaded]);
+
+  // Reset Turnstile widget on server validation error
+  useEffect(() => {
+    if (state?.error && widgetIdRef.current && (window as any).turnstile) {
+      try {
+        (window as any).turnstile.reset(widgetIdRef.current);
+        setTurnstileToken("");
+      } catch (err) {
+        console.error("Error resetting Turnstile:", err);
+      }
+    }
+  }, [state]);
 
   return (
     <div className="flex min-h-screen">
@@ -47,7 +105,14 @@ export default function RegisterPage() {
       {/* ── Panneau droit : formulaire ────────────────────────────── */}
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2">
         <div className="w-full max-w-lg">
-          {TURNSTILE_SITE_KEY && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
+          {TURNSTILE_SITE_KEY && (
+            <Script
+              src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+              async
+              defer
+              onLoad={() => setIsScriptLoaded(true)}
+            />
+          )}
 
           {/* Logo mobile */}
           <div className="mb-8 flex justify-center lg:hidden">
@@ -116,8 +181,13 @@ export default function RegisterPage() {
               <Input id="age" name="age" type="number" min={16} required placeholder="Âge" />
             </div>
             {TURNSTILE_SITE_KEY && (
-              <div className="md:col-span-2">
-                <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />
+              <div className="md:col-span-2 flex justify-center">
+                <div ref={turnstileContainerRef} />
+                <input
+                  type="hidden"
+                  name="cf-turnstile-response"
+                  value={turnstileToken}
+                />
               </div>
             )}
 
@@ -131,7 +201,7 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              disabled={pending}
+              disabled={pending || (!!TURNSTILE_SITE_KEY && !turnstileToken)}
               variant="gold"
               size="lg"
               className="w-full md:col-span-2"

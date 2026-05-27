@@ -32,7 +32,7 @@ export const scenes: Scene[] = [
     tc: "00:33",
     ratio: "9/16",
     src: `${CDN}/videos/AlpineA110.mp4`,
-    poster: `${CDN}/videos/thumb-AlpineA110.jpg`,
+    poster: `${CDN}/thumb/thumb-AlpineA110.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -43,7 +43,7 @@ export const scenes: Scene[] = [
     tc: "00:36",
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Le saviez-vous Le PPF (Paint Protection Film).mp4")}`,
-    poster: `${CDN}/videos/thumb-ppf-cklean-auto.jpg`,
+    poster: `${CDN}/thumb/thumb-ppf-cklean-auto.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -54,7 +54,7 @@ export const scenes: Scene[] = [
     tc: "00:31",
     ratio: "9/16",
     src: `${CDN}/videos/${encodeURIComponent("West Side.mp4")}`,
-    poster: `${CDN}/videos/thumb-West-Side.jpg`,
+    poster: `${CDN}/thumb/thumb-West-Side.jpg`,
     format: "4K · 30fps",
   },
   {
@@ -65,7 +65,7 @@ export const scenes: Scene[] = [
     tc: "00:22",
     ratio: "9/16",
     src: `${CDN}/videos/${encodeURIComponent("Bistrot de la Croix Morin .mp4")}`,
-    poster: `${CDN}/videos/thumb-bistrot-orleans.jpg`,
+    poster: `${CDN}/thumb/thumb-bistrot-orleans.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -76,7 +76,7 @@ export const scenes: Scene[] = [
     tc: "00:50",
     ratio: "4/3",
     src: `${CDN}/videos/${encodeURIComponent("Interview cklean auto.mp4")}`,
-    poster: `${CDN}/videos/thumb-interview-cklean-auto.jpg`,
+    poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -87,7 +87,7 @@ export const scenes: Scene[] = [
     tc: "00:23",
     ratio: "9/16",
     src: `${CDN}/videos/${encodeURIComponent("Time (Par Fayad).mp4")}`,
-    poster: `${CDN}/videos/thumb-time-fayad.jpg`,
+    poster: `${CDN}/thumb/thumb-time-fayad.jpg`,
     format: "4K · 30fps",
   },
 ];
