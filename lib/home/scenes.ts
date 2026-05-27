@@ -2,6 +2,9 @@
  * Scenes data for the homepage SceneSelector signature component.
  * Each scene = one project showcased in the cinematic stage.
  * Order matters: scene 0 is the default focus on page load.
+ *
+ * Videos and thumbnails are served from Cloudflare R2 (bucket: galerie)
+ * via the CDN domain media.splicestudio.fr.
  */
 
 export type SceneRatio = "16/9" | "9/16" | "4/3";
@@ -18,6 +21,8 @@ export interface Scene {
   format: string;
 }
 
+const CDN = "https://media.splicestudio.fr";
+
 export const scenes: Scene[] = [
   {
     slug: "alpine-a110-lignes-bleues",
@@ -26,8 +31,8 @@ export const scenes: Scene[] = [
     credit: "papi",
     tc: "00:33",
     ratio: "9/16",
-    src: "/videos/AlpineA110.mp4",
-    poster: "/videos/thumb-AlpineA110.jpg",
+    src: `${CDN}/videos/AlpineA110.mp4`,
+    poster: `${CDN}/videos/thumb-AlpineA110.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -37,8 +42,8 @@ export const scenes: Scene[] = [
     credit: "papi",
     tc: "00:36",
     ratio: "16/9",
-    src: "/videos/ppf-cklean-auto.mp4",
-    poster: "/videos/thumb-ppf-cklean-auto.jpg",
+    src: `${CDN}/videos/${encodeURIComponent("Le saviez-vous Le PPF (Paint Protection Film).mp4")}`,
+    poster: `${CDN}/videos/thumb-ppf-cklean-auto.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -48,8 +53,8 @@ export const scenes: Scene[] = [
     credit: "ty",
     tc: "00:31",
     ratio: "9/16",
-    src: "/videos/West Side.mp4",
-    poster: "/videos/thumb-West-Side.jpg",
+    src: `${CDN}/videos/${encodeURIComponent("West Side.mp4")}`,
+    poster: `${CDN}/videos/thumb-West-Side.jpg`,
     format: "4K · 30fps",
   },
   {
@@ -59,8 +64,8 @@ export const scenes: Scene[] = [
     credit: "ty",
     tc: "00:22",
     ratio: "9/16",
-    src: "/videos/bistrot-orleans.mp4",
-    poster: "/videos/thumb-bistrot-orleans.jpg",
+    src: `${CDN}/videos/${encodeURIComponent("Bistrot de la Croix Morin .mp4")}`,
+    poster: `${CDN}/videos/thumb-bistrot-orleans.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -70,8 +75,8 @@ export const scenes: Scene[] = [
     credit: "by.louisia",
     tc: "00:50",
     ratio: "4/3",
-    src: "/videos/interview-cklean-auto.mp4",
-    poster: "/videos/thumb-interview-cklean-auto.jpg",
+    src: `${CDN}/videos/${encodeURIComponent("Interview cklean auto.mp4")}`,
+    poster: `${CDN}/videos/thumb-interview-cklean-auto.jpg`,
     format: "4K · 24fps",
   },
   {
@@ -81,8 +86,8 @@ export const scenes: Scene[] = [
     credit: "papi",
     tc: "00:23",
     ratio: "9/16",
-    src: "/videos/time-fayad.mp4",
-    poster: "/videos/thumb-time-fayad.jpg",
+    src: `${CDN}/videos/${encodeURIComponent("Time (Par Fayad).mp4")}`,
+    poster: `${CDN}/videos/thumb-time-fayad.jpg`,
     format: "4K · 30fps",
   },
 ];
