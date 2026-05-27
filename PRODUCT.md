@@ -95,6 +95,6 @@ Chemins secondaires : `/galerie` (preuve sociale visuelle) · `/tarifs` (clarté
 
 ## Stack technique (référence pour design constraints)
 
-Next.js 15 App Router · React 19 · Tailwind CSS · Framer Motion · GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) · React Three Fiber · Zustand · Prisma · PostgreSQL · NextAuth v5 · Stripe · Resend · PDFKit.
+Next.js 15 App Router · React 19 · Tailwind CSS · GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) · Zustand · Prisma · Neon PostgreSQL · Auth.js v5 (PBKDF2 + 2FA TOTP) · Stripe · Resend · pdf-lib · Cloudflare Workers (OpenNext) · Cloudflare R2 (media.splicestudio.fr / cdn.splicestudio.fr) · Upstash Redis · Cloudflare Turnstile.
 
 CSS : tokens Cinéma Studio dans `tailwind.config.ts` + classes legacy `df-*` dans `app/prototype-styles.css` (cohabitent). Animations compositor-only (transform, opacity). `prefers-reduced-motion` toujours géré via `gsap.matchMedia()`.

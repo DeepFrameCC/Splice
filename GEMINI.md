@@ -6,19 +6,22 @@ This file provides guidance to Gemini (Antigravity) when working with code in th
 
 ```bash
 npm run dev          # Start dev server
-npm run build        # Production build
+npm run build        # prisma generate && next build
 npm run lint         # ESLint
 npm run db:push      # Push Prisma schema to DB (no migration file)
 npm run db:generate  # Regenerate Prisma client after schema changes
 npm run db:studio    # Open Prisma Studio
-npm run db:seed      # Run prisma/seed.ts
+npm run db:seed      # Run prisma/seed.ts (admin + services + blog)
+npm run seed:galerie # Run prisma/seed-galerie.ts (gallery media)
+npm run deploy       # Build + deploy to Cloudflare Workers
+npm run preview      # Build + local Cloudflare Workers preview
+npm run test         # Vitest run
+npm run test:e2e     # Playwright tests
 ```
-
-No formal test suite is currently configured (Vitest + Playwright planned Phase 16).
 
 ## Architecture
 
-**Splice** is a Next.js 15 App Router application for a French audiovisual production company based in **Saint-Avertin (37)**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+**Splice** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
 
 The platform handles: public showcase, client authentication (CLIENT / TEAM / ADMIN), quote wizard, payment via Stripe, PDF invoices, electronic contracts, and a full admin dashboard.
 
@@ -28,19 +31,20 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 |-------|------|
 | Framework | Next.js 15 (App Router, RSC, Server Actions) |
 | Language | TypeScript strict |
-| Database | Neon PostgreSQL (eu-central-1) via Prisma |
-| Auth | Auth.js v5 (JWT strategy currently, migrating to DB sessions + Argon2id + 2FA TOTP) |
+| Deployment | Cloudflare Workers via OpenNext (`@opennextjs/cloudflare`) |
+| Database | Neon PostgreSQL (eu-west-2) via Prisma + `@prisma/adapter-neon` |
+| Auth | Auth.js v5 (JWT strategy, PBKDF2 password hashing via WebCrypto, 2FA TOTP) |
 | Payments | Stripe Checkout + webhooks |
-| Email | Resend + React Email |
-| Storage | Cloudflare R2 (planned, currently local public/) |
-| Signature | Yousign eIDAS (planned) |
-| Cache/RL | Upstash Redis (planned) |
+| Email | Resend (domain: `splicestudio.fr`) |
+| Storage | Cloudflare R2 — buckets: `galerie` (media.splicestudio.fr), `splice-cdn` (cdn.splicestudio.fr), `splice-deliveries`, `splice-archive` |
+| Anti-bot | Cloudflare Turnstile (invisible CAPTCHA) |
+| Cache/RL | Upstash Redis (rate limiting on auth endpoints) |
 | Styling | Tailwind CSS + shadcn/ui (mobile-first) |
 | Animations | GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) |
 | State | Zustand (quote wizard) |
 | Forms | React Hook Form + Zod |
-| PDF | PDFKit server-side |
-| Monitoring | Sentry + Plausible (planned) |
+| PDF | pdf-lib + @pdf-lib/fontkit server-side |
+| Monitoring | Sentry (planned) + Plausible (planned) |
 
 ### Team
 
@@ -73,8 +77,8 @@ app/
 
 ### Key Data Models (Prisma)
 
-- **User**: roles CLIENT | ADMIN (migrating to CLIENT | TEAM | ADMIN)
-- **Media**: PHOTO | VIDEO with owner (Founder enum: PAPI | LOUISIA | TY), category, client, duration
+- **User**: roles CLIENT | TEAM | ADMIN, with Profile relation, 2FA TOTP support (`twoFactorEnabled`, `twoFactorSecret`)
+- **Media**: PHOTO | VIDEO with owner (Founder enum: PAPI | LOUISIA | TY), category, client, duration, groupKey, groupOrder
 - **Devis**: Full quote with computed `lines` (JSON), `totalHT`, `acompteAmount` (30%)
 - **Facture**: Linked 1:1 to Devis after payment
 - **Contrat**: Linked 1:1 to Devis
@@ -172,7 +176,7 @@ Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically b
 | `security` | Auth flow, NextAuth config, CSP/HTTP headers, rate limiting, CSRF, input validation, secret handling, OWASP concerns, password hashing, 2FA, session storage, encryption (AES-GCM) |
 | `seo-performance` | `<head>` metadata, OpenGraph, JSON-LD, sitemap.xml, robots.txt, image optimization (next/image), bundle size, Core Web Vitals (LCP/INP/CLS), lazy loading, RSC vs client split |
 | `media-content` | Gallery, photo/video upload, R2/Supabase storage, likes, reviews/avis, moderation, founder enum (PAPI/LOUISIA/TY), media metadata |
-| `devops-quality` | `error.tsx` / `not-found.tsx` / `loading.tsx`, global error handlers, TypeScript strict issues, environment variables, deployment config (Vercel), `next.config.mjs`, Sentry, monitoring |
+| `devops-quality` | `error.tsx` / `not-found.tsx` / `loading.tsx`, global error handlers, TypeScript strict issues, environment variables, deployment config (Cloudflare Workers / OpenNext), `next.config.mjs`, `wrangler.jsonc`, Sentry, monitoring |
 | `gsap-animations` | GSAP Timeline, ScrollTrigger, SplitText, DrawSVG, Flip, scroll-linked motion, text reveal, pinning, `useGSAP()`, `gsap.matchMedia()`, `prefers-reduced-motion` |
 
 **Chaining examples:**
@@ -305,38 +309,39 @@ Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ 
 ## Environment Variables Required
 
 ```
-DATABASE_URL
-DIRECT_URL               # Neon direct connection (migrations)
-AUTH_SECRET
+DATABASE_URL                        # Neon PostgreSQL (with pooler)
+DIRECT_URL                          # Neon direct connection (migrations)
+AUTH_SECRET                         # Auth.js v5 secret (openssl rand -base64 32)
+NEXTAUTH_SECRET                     # Same as AUTH_SECRET
+NEXTAUTH_URL                        # https://splicestudio.fr
+NEXT_PUBLIC_APP_URL                 # https://splicestudio.fr
 STRIPE_SECRET_KEY
 STRIPE_WEBHOOK_SECRET
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 RESEND_API_KEY
-MAIL_FROM
-MAIL_FOUNDERS            # comma-separated founder emails
-NEXT_PUBLIC_APP_URL
-# Planned:
-# ENCRYPTION_KEY          # AES-256-GCM for PII
-# R2_ACCOUNT_ID / R2_ACCESS_KEY / R2_SECRET_KEY / R2_BUCKET
-# UPSTASH_REDIS_URL / UPSTASH_REDIS_TOKEN
-# YOUSIGN_API_KEY
+MAIL_FROM                           # "Splice Studio <noreply@splicestudio.fr>"
+MAIL_FOUNDERS                       # comma-separated founder emails
+R2_ACCOUNT_ID
+R2_ACCESS_KEY_ID
+R2_SECRET_ACCESS_KEY
+R2_BUCKET_NAME                      # splice-app-prod
+R2_PUBLIC_URL                       # https://cdn.splicestudio.fr
+NEXT_PUBLIC_CDN_GALERIE_URL         # https://media.splicestudio.fr
+UPSTASH_REDIS_REST_URL
+UPSTASH_REDIS_REST_TOKEN
+NEXT_PUBLIC_TURNSTILE_SITE_KEY
+TURNSTILE_SECRET_KEY
+# Optional / Planned:
+# ENCRYPTION_KEY                    # AES-256-GCM for PII
 # SENTRY_DSN
-# PLAUSIBLE_DOMAIN
+# NEXT_PUBLIC_PLAUSIBLE_DOMAIN
 ```
 
-### Image Hosting
+### Image & Media Hosting
 
-`next.config.mjs` allows remote images from Supabase (`**.supabase.co`), Cloudflare R2 (`**.r2.dev`), and UploadThing (`utfs.io`).
+`next.config.mjs` allows remote images from Cloudflare R2 (`**.r2.dev`), `cdn.splicestudio.fr`, and `media.splicestudio.fr`.
 
-## Migration Roadmap (16 Phases)
-
-Currently between Phase 0 (existing site) and Phase 1. See prompt master document for full roadmap.
-
-### Immediate priorities:
-1. shadcn/ui setup + component library
-2. Prisma schema evolution (TEAM role, Profile, Session, AuditLog, etc.)
-3. Auth hardening (Argon2id, 2FA TOTP, DB sessions)
-4. Rate limiting (Upstash Redis)
-5. Encryption helpers (AES-256-GCM for PII)
+Homepage videos served from R2 bucket `galerie` via `media.splicestudio.fr/videos/`. Gallery media also on R2 via same CDN domain. No local video files in `public/`.
 
 ---
 
@@ -437,7 +442,7 @@ Chemins secondaires : `/galerie` (preuve sociale visuelle) · `/tarifs` (clarté
 
 ## Stack technique (référence pour design constraints)
 
-Next.js 15 App Router · React 19 · Tailwind CSS · Framer Motion · GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) · React Three Fiber · Zustand · Prisma · PostgreSQL · NextAuth v5 · Stripe · Resend · PDFKit.
+Next.js 15 App Router · React 19 · Tailwind CSS · GSAP (ScrollTrigger, SplitText, DrawSVG, Flip) · Zustand · Prisma · Neon PostgreSQL · Auth.js v5 (PBKDF2 + 2FA TOTP) · Stripe · Resend · pdf-lib · Cloudflare Workers (OpenNext) · Cloudflare R2 (media.splicestudio.fr / cdn.splicestudio.fr) · Upstash Redis · Cloudflare Turnstile.
 
 CSS : tokens Cinéma Studio dans `tailwind.config.ts` + classes legacy `df-*` dans `app/prototype-styles.css` (cohabitent). Animations compositor-only (transform, opacity). `prefers-reduced-motion` toujours géré via `gsap.matchMedia()`.
 

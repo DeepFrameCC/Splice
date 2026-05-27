@@ -16,6 +16,11 @@ export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {
   const resend = getResend();
   if (!resend) {
+    const errorMsg = "[mailer] RESEND_API_KEY est manquante — Impossible d'envoyer l'e-mail.";
+    console.error(errorMsg);
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(errorMsg);
+    }
     console.warn("[mailer] RESEND_API_KEY manquant — mail simulé:", opts.subject, opts.to);
     return { id: "dev-skip" };
   }
@@ -27,6 +32,7 @@ export async function sendMail(opts: { to: string | string[]; subject: string; h
     });
     if (result.error) {
       console.error("[mailer] Resend API error:", result.error);
+      throw new Error(`Resend API error: ${result.error.message} (code: ${result.error.name})`);
     }
     return result;
   } catch (error: unknown) {
