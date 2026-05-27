@@ -30,7 +30,7 @@ export const scenes: Scene[] = [
     title: "Luxury Edit",
     credit: "ty",
     tc: "02:00",
-    ratio: "9/16",
+    ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Luxury Edit (Par Tracy).mp4")}`,
     poster: `${CDN}/thumb/thumb-luxury-edit.jpg`,
     format: "4K · 24fps",
