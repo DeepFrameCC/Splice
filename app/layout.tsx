@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
@@ -86,12 +85,10 @@ const jsonLd = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
-
   return (
-    <html lang="fr" className={`${display.variable} ${sans.variable}`} nonce={nonce}>
+    <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
-        <JsonLd nonce={nonce} data={{
+        <JsonLd data={{
           "@context": "https://schema.org",
           "@graph": [
             jsonLd,
