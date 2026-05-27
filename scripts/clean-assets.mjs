@@ -8,6 +8,16 @@ const __dirname = path.dirname(__filename);
 const ASSETS_DIR = path.resolve(__dirname, "../.open-next/assets");
 const MAX_SIZE = 24 * 1024 * 1024; // 24 MB (Cloudflare limit is 25MB)
 
+// Remove stale cached directories that should no longer exist in assets
+const STALE_DIRS = ["videos"];
+for (const dir of STALE_DIRS) {
+  const dirPath = path.join(ASSETS_DIR, dir);
+  if (fs.existsSync(dirPath)) {
+    console.log(`[clean-assets] Removing stale cached directory: ${dirPath}`);
+    fs.rmSync(dirPath, { recursive: true, force: true });
+  }
+}
+
 function cleanDirectory(dir) {
   if (!fs.existsSync(dir)) return;
   const files = fs.readdirSync(dir);
