@@ -624,16 +624,6 @@ const MEDIAS: MediaSeed[] = [
   },
   {
     type: MediaType.PHOTO,
-    filename: "miroir.jpg",
-    folder: "photos",
-    title: "Reflet #1",
-    category: "urbain",
-    owner: Founder.LOUISIA,
-    prixEstime: 150,
-    materiel: ["Sony ZV1"],
-  },
-  {
-    type: MediaType.PHOTO,
     filename: "miroir 2.jpg",
     folder: "photos",
     title: "Reflet #2",
