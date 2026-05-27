@@ -57,4 +57,15 @@ export const scenes: Scene[] = [
     poster: `${CDN}/thumb/thumb-presentation-louisia.jpg`,
     format: "4K · 24fps",
   },
+  {
+    slug: "fetes-johanniques-orleans",
+    tag: "Événementiel",
+    title: "Fêtes Johanniques d'Orléans",
+    credit: "ty",
+    tc: "03:00",
+    ratio: "9/16",
+    src: `${CDN}/videos/${encodeURIComponent("Jeanne d'arc .mp4")}`,
+    poster: `${CDN}/thumb/thumb-jeanne-darc.jpg`,
+    format: "4K · 24fps",
+  },
 ];
