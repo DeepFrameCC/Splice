@@ -12,7 +12,7 @@ import {
   PRIX_VIDEO_SUPP,
   PRIX_PODCAST_COURT,
   PRIX_OPTION_PHOTO_5,
-  PLAN_LAUNCH_STATUS,
+  LAUNCH_STATUS,
   type BillingCycle,
   type BanniereSize,
 } from "@/lib/pricing";
@@ -79,13 +79,13 @@ export default function PricingSection() {
           </div>
 
           {PLAN_IDS.map((id) => {
-            const isLaunchComplete = PLAN_LAUNCH_STATUS[id]?.complete ?? false;
             return (
               <PlanCard
                 key={id}
                 plan={SUBSCRIPTION_PLANS[id]}
                 cycle={cycle}
-                useLaunchPrice={!isLaunchComplete}
+                useLaunchPrice={!LAUNCH_STATUS.complete}
+                spotsLeft={LAUNCH_STATUS.spotsLeft}
               />
             );
           })}

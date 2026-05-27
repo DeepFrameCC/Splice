@@ -6,12 +6,14 @@ interface PlanCardProps {
   plan: SubscriptionPlan;
   cycle: BillingCycle;
   useLaunchPrice: boolean;
+  spotsLeft: number;
 }
 
 export default function PlanCard({
   plan,
   cycle,
   useLaunchPrice,
+  spotsLeft,
 }: PlanCardProps) {
   const price = useLaunchPrice
     ? cycle === "ANNUEL"
@@ -51,7 +53,7 @@ export default function PlanCard({
       </div>
       {useLaunchPrice && (
         <p className="mt-1 text-[11px] font-semibold text-df-gold">
-          🔥 Offre de lancement — 10 places dispos
+          🔥 Offre de lancement — {spotsLeft} place{spotsLeft > 1 ? "s" : ""} dispo{spotsLeft > 1 ? "s" : ""}
         </p>
       )}
       <p className="mt-1 text-sm text-white/50">{plan.tagline}</p>

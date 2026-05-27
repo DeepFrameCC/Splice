@@ -12,7 +12,7 @@ import {
   resolvePackLabel,
   type PlanId,
   type Quote,
-  PLAN_LAUNCH_STATUS,
+  LAUNCH_STATUS,
 } from "@/lib/pricing";
 import { nextNumero } from "@/lib/numbering";
 import { notifyFoundersNewDevis, sendMail } from "@/lib/mailer";
@@ -182,8 +182,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     packLabel = `Abonnement ${SUBSCRIPTION_PLANS[data.planId as PlanId].label}`;
 
     // Allow launch price for everyone unless marked as complete/finished
-    const isLaunchComplete = PLAN_LAUNCH_STATUS[data.planId as PlanId]?.complete ?? false;
-    const useLaunchPrice = !isLaunchComplete;
+    const useLaunchPrice = !LAUNCH_STATUS.complete;
 
     quote = computeAbonnementQuote({
       planId: data.planId as PlanId,

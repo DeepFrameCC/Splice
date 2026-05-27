@@ -100,12 +100,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
 
 export const PLAN_IDS: PlanId[] = ["STANDARD", "PRO", "PREMIUM_ABO"];
 
-// ─── Status des Offres de Lancement (10 places max) ─────────────────
-export const PLAN_LAUNCH_STATUS: Record<PlanId, { complete: boolean; spotsLeft: number }> = {
-  STANDARD: { complete: false, spotsLeft: 10 },
-  PRO: { complete: false, spotsLeft: 10 },
-  PREMIUM_ABO: { complete: false, spotsLeft: 10 },
-};
+// ─── Status de l'Offre de Lancement (5 places tous packs confondus) ──
+export const LAUNCH_STATUS = { complete: false, spotsLeft: 5 };
 
 // ─── Formule Bienvenue (gratuite, nouveaux clients) ──────────────
 

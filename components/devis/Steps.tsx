@@ -11,7 +11,7 @@ import {
   DUREE_SUPPLEMENT,
   PRIX_KM,
   VILLE_DEPART_LABEL,
-  PLAN_LAUNCH_STATUS,
+  LAUNCH_STATUS,
   type PlanId,
   type BillingCycle,
   type DevisMode,
@@ -144,8 +144,7 @@ export function Step2Abonnement() {
   const selectPlan = useCallback(
     (p: PlanId) => {
       f.set("planId", p);
-      const isLaunchComplete = PLAN_LAUNCH_STATUS[p]?.complete ?? false;
-      f.set("useLaunchPrice", !isLaunchComplete);
+      f.set("useLaunchPrice", !LAUNCH_STATUS.complete);
 
       const nextOptions = { ...f.options };
       if (p === "STANDARD") {
@@ -247,7 +246,7 @@ export function Step2Abonnement() {
         {PLAN_IDS.map((id) => {
           const plan = SUBSCRIPTION_PLANS[id];
           const active = f.planId === id;
-          const launchStatus = PLAN_LAUNCH_STATUS[id];
+          const launchStatus = LAUNCH_STATUS;
           const usePlanLaunchPrice = !launchStatus.complete;
           const price = usePlanLaunchPrice
             ? f.billingCycle === "ANNUEL"
