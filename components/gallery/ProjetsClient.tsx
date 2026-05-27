@@ -1,13 +1,10 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { Heart, Lock, X, ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { useTransition } from "react";
-import toast from "react-hot-toast";
-
-/* ── Types ──────────────────────────────────────────────────────── */
+import { Project, ProjectMedia, CATEGORIES, PROJECTS } from "./data";
+import MediaCarousel from "./MediaCarousel";
+import Lightbox from "./Lightbox";
 
 interface MediaItem {
   id: string;
@@ -30,252 +27,286 @@ interface ProjetsClientProps {
   toggleLike: (mediaId: string) => Promise<{ liked: boolean }>;
 }
 
-/* ── Filters config ─────────────────────────────────────────────── */
+// Map database categories to Projets v2 categories
+function mapDbCategoryToPj(dbCat: string | null): string {
+  if (!dbCat) return "produit";
+  const cat = dbCat.toLowerCase();
+  if (cat.includes("auto")) return "auto";
+  if (cat.includes("brand") || cat.includes("marque") || cat.includes("corporate")) return "brand";
+  if (cat.includes("social") || cat.includes("pub") || cat.includes("clip") || cat.includes("reel")) return "social";
+  if (cat.includes("event") || cat.includes("evene") || cat.includes("after")) return "event";
+  if (cat.includes("podcast") || cat.includes("interview")) return "podcast";
+  return "produit"; // Fallback for portrait, urbain, photo, lifestyle, etc.
+}
 
-const CATEGORY_FILTERS = [
-  { id: "all", label: "Tous" },
-  { id: "automobile", label: "Automobile" },
-  { id: "evenement", label: "Evenement" },
-  { id: "portrait", label: "Portrait" },
-  { id: "urbain", label: "Urbain" },
-];
-
-/* ── Gradient backgrounds (when no thumbnail) ───────────────────── */
-
-const GRADIENTS = [
-  "radial-gradient(ellipse at 70% 30%, rgba(243,107,31,.4), transparent 60%), linear-gradient(135deg, #F36B1F 0%, #7A3B1A 60%, #0E0E22 100%)",
-  "radial-gradient(ellipse at 20% 80%, rgba(243,107,31,.45), transparent 65%), linear-gradient(160deg, #F2D8A8 0%, #C8956D 60%, #5C3A1F 100%)",
-  "radial-gradient(ellipse at 50% 50%, rgba(243,107,31,.35), transparent 60%), linear-gradient(210deg, #0E0E22 0%, #F36B1F 100%)",
-  "linear-gradient(135deg, #F36B1F 0%, #FF7B00 60%, #B8501D 100%)",
-  "radial-gradient(ellipse at 80% 20%, rgba(243,107,31,.6), transparent 55%), linear-gradient(160deg, #1F0B5C 0%, #0E0E22 100%)",
-  "linear-gradient(160deg, #2A1F12 0%, #6E4422 50%, #B57B3F 100%)",
-];
-
-/* ── Category label map ─────────────────────────────────────────── */
-
-const CATEGORY_LABELS: Record<string, string> = {
-  automobile: "Automobile",
-  evenement: "Evenement",
-  portrait: "Portrait",
-  urbain: "Urbain",
-};
-
-/* ── ProjectCard ────────────────────────────────────────────────── */
-
-function ProjectCard({
-  media,
-  index,
-  isPhoto,
-  liked,
-  isAuthed,
-  toggleLike,
-  onOpen,
-}: {
-  media: MediaItem;
-  index: number;
-  isPhoto: boolean;
-  liked: boolean;
-  isAuthed: boolean;
-  toggleLike: (mediaId: string) => Promise<{ liked: boolean }>;
-  onOpen: (media: MediaItem) => void;
-}) {
-  const [optimisticLiked, setOptimisticLiked] = useState(liked);
-  const [pending, start] = useTransition();
-  const year = new Date(media.createdAt).getFullYear();
-  const gradientIdx = index % GRADIENTS.length;
-  const thumbUrl = media.thumbnailUrl || (isPhoto ? media.url : null);
-  const hasThumb = !!thumbUrl;
-  const categoryLabel = media.category
-    ? CATEGORY_LABELS[media.category] ?? media.category
-    : null;
-
-  const onLike = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!isAuthed) {
-      toast.error("Connecte-toi pour liker");
-      return;
-    }
-    setOptimisticLiked((p) => !p);
-    start(async () => {
-      try {
-        const r = await toggleLike(media.id);
-        setOptimisticLiked(r.liked);
-      } catch {
-        setOptimisticLiked((p) => !p);
-        toast.error("Erreur");
-      }
-    });
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onOpen(media);
-    }
-  };
-
+/* ── Catégorie Icons ───────────────────────────────────────────── */
+function VideoIcon() {
   return (
-    <div
-      className="pj-card"
-      data-anim="project"
-      onClick={() => onOpen(media)}
-      onKeyDown={handleKeyDown}
-      role="button"
-      tabIndex={0}
-      aria-label={`Ouvrir ${media.title}`}
-    >
-      {/* Thumbnail */}
-      <div
-        className="pj-thumb"
-        style={hasThumb ? undefined : { background: GRADIENTS[gradientIdx] }}
-      >
-        {hasThumb && (
-          <Image
-            src={thumbUrl!}
-            alt={media.title}
-            fill
-            sizes="(max-width: 920px) 50vw, 33vw"
-            className="object-cover"
-          />
-        )}
-
-        {/* Corner brackets */}
-        <div className="pj-corners" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-
-        {/* Medium badge */}
-        <span className="pj-medium">{isPhoto ? "PHOTO" : "VIDÉO"}</span>
-
-        {/* Timecode (video only) */}
-        {!isPhoto && media.duration && (
-          <span className="pj-tc">TC {media.duration}</span>
-        )}
-
-        {/* Play / expand button */}
-        <div className="pj-play">{isPhoto ? "↗" : "▶"}</div>
-
-        {/* Like button */}
-        <button
-          onClick={onLike}
-          disabled={pending}
-          aria-label={optimisticLiked ? "Retirer le like" : "Liker"}
-          className="pj-like"
-        >
-          {isAuthed ? (
-            <Heart
-              className={`h-4 w-4 ${
-                optimisticLiked ? "fill-[#F36B1F] text-[#F36B1F]" : "text-white"
-              }`}
-            />
-          ) : (
-            <Lock className="h-3.5 w-3.5 text-white" />
-          )}
-        </button>
-      </div>
-
-      {/* Card body */}
-      <div className="pj-body">
-        <span className="pj-tag">
-          {categoryLabel ? `${categoryLabel} · ${year}` : String(year)}
-        </span>
-        <h3>{media.title}</h3>
-        {media.client && <span className="pj-client">{media.client}</span>}
-      </div>
-    </div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="w-4 h-4">
+      <polygon points="23 7 16 12 23 17 23 7" />
+      <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+    </svg>
   );
 }
 
-/* ── Main Client Component ──────────────────────────────────────── */
+function PhotoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="w-4 h-4">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+      <circle cx="12" cy="13" r="4" />
+    </svg>
+  );
+}
 
-export default function ProjetsClient({
-  medias,
-  likedIds,
-  isAuthed,
-  toggleLike,
-}: ProjetsClientProps) {
+/* ── Card projet ───────────────────────────────────────────── */
+interface ProjectCardProps {
+  project: Project;
+  onOpen: (project: Project, startIdx: number) => void;
+}
+
+function ProjectCard({ project, onOpen }: ProjectCardProps) {
+  return (
+    <article
+      className="pj-card"
+      data-anim="project"
+      data-cat={project.cat}
+    >
+      <MediaCarousel
+        medias={project.medias}
+        projectTitle={project.title}
+        onOpenLightbox={(startIdx) => onOpen(project, startIdx)}
+      />
+      <div className="pj-body">
+        <div className="pj-tag-row">
+          <span>{project.tag}</span>
+          <span>·</span>
+          <span>{project.year}</span>
+        </div>
+        <h3>{project.title}</h3>
+        <span className="pj-client">{project.client}</span>
+        <button
+          type="button"
+          className="pj-cta"
+          onClick={() => onOpen(project, 0)}
+        >
+          Voir le projet
+        </button>
+      </div>
+    </article>
+  );
+}
+
+/* ── Section catégorie ─────────────────────────────────────── */
+interface CategorySectionProps {
+  category: typeof CATEGORIES[number];
+  projects: Project[];
+  onOpen: (project: Project, startIdx: number) => void;
+}
+
+function CategorySection({ category, projects, onOpen }: CategorySectionProps) {
+  if (projects.length === 0) return null;
+  return (
+    <section className="pj-section" aria-labelledby={`sec-${category.id}`}>
+      <div className="pj-section-head">
+        <div>
+          <div className="pj-section-eyebrow">{category.eyebrow}</div>
+          <h2 id={`sec-${category.id}`}>
+            {category.id === "auto" && <>Shootings <em>automobile</em></>}
+            {category.id === "brand" && <>Films de <em>marque</em></>}
+            {category.id === "social" && <>Pubs & <em>social</em></>}
+            {category.id === "produit" && <>Photo produit <em>& lifestyle</em></>}
+            {category.id === "event" && <>Aftermovies <em>& événements</em></>}
+            {category.id === "podcast" && <>Podcasts <em>& interviews</em></>}
+          </h2>
+          <p className="pj-section-sub">{category.sub}</p>
+        </div>
+        <div className="pj-section-count">
+          {projects.length === 1 ? "1 projet" : `${projects.length} projets`}
+          <b>{String(projects.length).padStart(2, "0")}</b>
+        </div>
+      </div>
+      <div className="pj-grid">
+        {projects.map((p) => (
+          <ProjectCard
+            key={p.id}
+            project={p}
+            onOpen={onOpen}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── Main ProjetsClient Component ─────────────────────────── */
+export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }: ProjetsClientProps) {
   const [tab, setTab] = useState<"video" | "photo">("video");
   const [filter, setFilter] = useState("all");
-  const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
+  const [openProject, setOpenProject] = useState<Project | null>(null);
+  const [openIdx, setOpenIdx] = useState(0);
 
-  const likedSet = useMemo(() => new Set(likedIds), [likedIds]);
+  // Group database media items by groupKey or create standalones
+  const allProjects = useMemo(() => {
+    if (!medias || medias.length === 0) {
+      // Fallback to static PROJECTS if database gallery is empty
+      return PROJECTS;
+    }
 
-  const openMedia = useCallback((media: MediaItem) => setActiveMedia(media), []);
-  const closeMedia = useCallback(() => setActiveMedia(null), []);
+    const groups: Record<string, MediaItem[]> = {};
+    medias.forEach((m) => {
+      const key = m.groupKey || `standalone-${m.id}`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(m);
+    });
 
-  const isPhoto = tab === "photo";
-  const filters = CATEGORY_FILTERS;
+    const parsed: Project[] = [];
+    Object.keys(groups).forEach((key) => {
+      const items = groups[key];
+      if (!items || items.length === 0) return;
+      items.sort((a, b) => (a.groupOrder ?? 0) - (b.groupOrder ?? 0));
+      const first = items[0];
+      if (!first) return;
 
-  const videoCount = medias.filter((m) => m.type === "VIDEO").length;
-  const photoCount = medias.filter((m) => m.type === "PHOTO").length;
+      const year = new Date(first.createdAt).getFullYear();
+      const types = new Set(items.map((m) => m.type));
+      let tag = "Photo";
+      if (types.has("VIDEO") && types.has("PHOTO")) {
+        tag = "Film + photo";
+      } else if (types.has("VIDEO")) {
+        tag = "Film";
+      }
 
-  const filtered = useMemo(() => {
-    const typeFilter = isPhoto ? "PHOTO" : "VIDEO";
-    return medias
-      .filter((m) => m.type === typeFilter)
-      .filter((m) => filter === "all" || m.category === filter);
-  }, [medias, isPhoto, filter]);
+      const client = first.client || "Splice Studio";
+      const cat = mapDbCategoryToPj(first.category);
 
-  // Navigation in lightbox
-  const currentIndex = activeMedia
-    ? filtered.findIndex((m) => m.id === activeMedia.id)
-    : -1;
-  const canPrev = currentIndex > 0;
-  const canNext = currentIndex < filtered.length - 1;
+      parsed.push({
+        id: key,
+        cat,
+        title: first.title,
+        client,
+        year,
+        tag,
+        medias: items.map((m, idx) => ({
+          id: m.id,
+          type: m.type === "VIDEO" ? "video" : "photo",
+          url: m.url,
+          thumbnailUrl: m.thumbnailUrl,
+          caption: m.title,
+          g: (idx + key.charCodeAt(0)) % 8, // Premium fallback gradients
+          duration: m.duration || undefined,
+          tc: m.type === "VIDEO" ? "00:01:10:00" : undefined,
+        })),
+      });
+    });
 
-  const goPrev = useCallback(() => {
-    if (canPrev) setActiveMedia(filtered[currentIndex - 1] ?? null);
-  }, [canPrev, currentIndex, filtered]);
+    return parsed;
+  }, [medias]);
 
-  const goNext = useCallback(() => {
-    if (canNext) setActiveMedia(filtered[currentIndex + 1] ?? null);
-  }, [canNext, currentIndex, filtered]);
+  // Project projection: keeps only projects containing current tab media type
+  // and filters project's medias array to contain only that tab type
+  const projectedProjects = useMemo(() => {
+    return allProjects
+      .map((p) => {
+        const matchingMedias = p.medias.filter((m) => m.type === tab);
+        if (matchingMedias.length === 0) return null;
+        return { ...p, medias: matchingMedias };
+      })
+      .filter(Boolean) as Project[];
+  }, [allProjects, tab]);
 
-  // Keyboard navigation in modal
-  const handleModalKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Escape") closeMedia();
-      if (e.key === "ArrowLeft") goPrev();
-      if (e.key === "ArrowRight") goNext();
-    },
-    [closeMedia, goPrev, goNext]
-  );
+  // Category filter
+  const filteredProjects = useMemo(() => {
+    if (filter === "all") return projectedProjects;
+    return projectedProjects.filter((p) => p.cat === filter);
+  }, [projectedProjects, filter]);
+
+  // Group by category to render category sections
+  const groupedProjects = useMemo(() => {
+    const map = new Map<string, Project[]>();
+    CATEGORIES.forEach((c) => map.set(c.id, []));
+    filteredProjects.forEach((p) => {
+      map.get(p.cat)?.push(p);
+    });
+    return map;
+  }, [filteredProjects]);
+
+  const totalFilteredCount = useMemo(() => {
+    let count = 0;
+    groupedProjects.forEach((arr) => (count += arr.length));
+    return count;
+  }, [groupedProjects]);
+
+  // Tab counters (projets containing at least 1 video / 1 photo)
+  const tabCounts = useMemo(() => {
+    return {
+      video: allProjects.filter((p) => p.medias.some((m) => m.type === "video")).length,
+      photo: allProjects.filter((p) => p.medias.some((m) => m.type === "photo")).length,
+    };
+  }, [allProjects]);
+
+  // Category counters filtered by active tab type
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { all: projectedProjects.length };
+    CATEGORIES.forEach((cat) => {
+      c[cat.id] = projectedProjects.filter((p) => p.cat === cat.id).length;
+    });
+    return c;
+  }, [projectedProjects]);
 
   const switchTab = (t: "video" | "photo") => {
     setTab(t);
     setFilter("all");
   };
 
+  const handleOpen = (project: Project, idx = 0) => {
+    setOpenProject(project);
+    setOpenIdx(idx);
+  };
+
   return (
-    <>
-      {/* ── Hero ──────────────────────────────────────────────────── */}
+    <div className="df-root">
+      {/* Hero */}
       <section className="pj-hero">
-        <div className="pj-eyebrow" data-anim="eyebrow">Portfolio</div>
-        <h1 data-anim="hero-title">
-          Ce qu&apos;on a tourné,
-          <br />
-          <em>ce qu&apos;on a shooté</em>.
-        </h1>
-        <p data-anim="hero-meta">
-          Un échantillon de nos productions récentes. Filmer une voiture au
-          crépuscule, raconter une marque, capter un événement, signer un
-          portrait — pour chaque projet, une intention claire.
-        </p>
+        <div>
+          <div className="pj-eyebrow" data-anim="eyebrow">Portfolio</div>
+          <h1 data-anim="hero-title">
+            Ce qu&apos;on a tourné,
+            <br />
+            <em>ce qu&apos;on a shooté</em>.
+          </h1>
+          <p data-anim="hero-meta">
+            Un échantillon de nos productions récentes. Filmer une voiture au crépuscule, raconter une marque, capter un événement, signer un portrait — pour chaque projet, une intention claire.
+          </p>
+          <div className="pj-hero-meta" data-anim="hero-meta">
+            <div>
+              <b>{allProjects.length}</b>projets
+            </div>
+            <div>
+              <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "video").length, 0)}</b>vidéos
+            </div>
+            <div>
+              <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "photo").length, 0)}</b>photos
+            </div>
+          </div>
+        </div>
+        <div className="pj-hero-mosaic hidden md:grid" aria-hidden="true">
+          <div className="pj-slide-bg pj-g0" />
+          <div className="pj-slide-bg pj-g1" />
+          <div className="pj-slide-bg pj-g4" />
+          <div className="pj-slide-bg pj-g3" />
+          <div className="pj-slide-bg pj-g5" />
+        </div>
       </section>
 
-      {/* ── Tabs ──────────────────────────────────────────────────── */}
-      <div className="pj-tabs" role="tablist">
+      {/* Tabs */}
+      <div className="pj-tabs" role="tablist" aria-label="Type de média">
         <button
           role="tab"
           aria-selected={tab === "video"}
           className={`pj-tab ${tab === "video" ? "on" : ""}`}
           onClick={() => switchTab("video")}
         >
-          Vidéo <em>{videoCount}</em>
+          <VideoIcon /> Vidéo <em>{tabCounts.video}</em>
         </button>
         <button
           role="tab"
@@ -283,133 +314,73 @@ export default function ProjetsClient({
           className={`pj-tab ${tab === "photo" ? "on" : ""}`}
           onClick={() => switchTab("photo")}
         >
-          Photo <em>{photoCount}</em>
+          <PhotoIcon /> Photo <em>{tabCounts.photo}</em>
         </button>
       </div>
 
-      {/* ── Filter chips ──────────────────────────────────────────── */}
+      {/* Category filters */}
       <div className="pj-filters">
-        {filters.map((f) => (
+        <span className="pj-filters-label">Filtrer</span>
+        <button
+          className={`pj-chip ${filter === "all" ? "on" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          Tous <em>{counts.all}</em>
+        </button>
+        {CATEGORIES.map((c) => (
           <button
-            key={f.id}
-            className={`pj-chip ${filter === f.id ? "on" : ""}`}
-            onClick={() => setFilter(f.id)}
+            key={c.id}
+            className={`pj-chip ${filter === c.id ? "on" : ""}`}
+            onClick={() => setFilter(c.id)}
+            disabled={counts[c.id] === 0}
           >
-            {f.label}
+            {c.label} <em>{counts[c.id]}</em>
           </button>
         ))}
       </div>
 
-      {/* ── Grid ──────────────────────────────────────────────────── */}
-      <div className={`pj-grid ${isPhoto ? "is-photo" : ""}`}>
-        {filtered.length === 0 ? (
-          <div className="pj-empty">
+      {/* Category Sections Grid */}
+      <main key={tab + ":" + filter}>
+        {totalFilteredCount === 0 ? (
+          <div className="pj-section text-center py-24 text-white/40">
             Aucun projet ne correspond à ce filtre.
           </div>
         ) : (
-          filtered.map((m, i) => (
-            <ProjectCard
-              key={m.id}
-              media={m}
-              index={i}
-              isPhoto={isPhoto}
-              liked={likedSet.has(m.id)}
-              isAuthed={isAuthed}
-              toggleLike={toggleLike}
-              onOpen={openMedia}
+          CATEGORIES.map((cat) => (
+            <CategorySection
+              key={cat.id}
+              category={cat}
+              projects={groupedProjects.get(cat.id) || []}
+              onOpen={handleOpen}
             />
           ))
         )}
-      </div>
+      </main>
 
-      {/* ── CTA vers devis ────────────────────────────────────────── */}
-      <div className="pj-cta-section">
-        <p className="pj-cta-text">Un projet en tête ? On en discute.</p>
-        <Link href="/devis" className="pj-cta-btn">
-          Demander un devis →
-        </Link>
-      </div>
-
-      {/* ── Media modal (photos + videos) ─────────────────────────── */}
-      {activeMedia && (
-        <div
-          className="pj-modal-overlay"
-          onClick={closeMedia}
-          onKeyDown={handleModalKeyDown}
-          role="dialog"
-          aria-modal="true"
-          aria-label={activeMedia.title}
-          tabIndex={-1}
-          ref={(el) => el?.focus()}
-        >
-          <div
-            className="pj-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="pj-modal-close"
-              onClick={closeMedia}
-              aria-label="Fermer"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            {/* Navigation arrows */}
-            {canPrev && (
-              <button
-                className="pj-modal-nav pj-modal-prev"
-                onClick={goPrev}
-                aria-label="Précédent"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-            )}
-            {canNext && (
-              <button
-                className="pj-modal-nav pj-modal-next"
-                onClick={goNext}
-                aria-label="Suivant"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-            )}
-
-            {/* Media content */}
-            {activeMedia.type === "VIDEO" ? (
-              <video
-                src={activeMedia.url}
-                poster={activeMedia.thumbnailUrl ?? undefined}
-                controls
-                autoPlay
-                className="pj-modal-video"
-              />
-            ) : (
-              <div className="pj-modal-photo">
-                <Image
-                  src={activeMedia.url}
-                  alt={activeMedia.title}
-                  fill
-                  sizes="(max-width: 768px) 95vw, 900px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            )}
-
-            <div className="pj-modal-info">
-              <span className="pj-tag">
-                {activeMedia.category
-                  ? `${CATEGORY_LABELS[activeMedia.category] ?? activeMedia.category} · ${new Date(activeMedia.createdAt).getFullYear()}`
-                  : String(new Date(activeMedia.createdAt).getFullYear())}
-              </span>
-              <h3>{activeMedia.title}</h3>
-              {activeMedia.client && (
-                <span className="pj-client">{activeMedia.client}</span>
-              )}
-            </div>
-          </div>
+      {/* Final CTA */}
+      <section className="pj-cta-final mx-6 md:mx-auto">
+        <div>
+          <h2>Vous avez <em>un projet</em> ?</h2>
+          <p>On vous répond sous 24 h, avec une première intuition de production. Devis gratuit, pas de prise de tête.</p>
         </div>
+        <div className="pj-cta-final-actions flex-wrap md:flex-nowrap">
+          <Link href="/devis" className="btn-primary py-4 px-8 text-base">
+            Demander un devis
+          </Link>
+          <Link href="/contact" className="inline-flex items-center justify-center py-4 px-8 rounded-full border border-white/20 text-white font-bold hover:bg-white/5 transition text-base">
+            Nous contacter
+          </Link>
+        </div>
+      </section>
+
+      {/* Lightbox details modal */}
+      {openProject && (
+        <Lightbox
+          project={openProject}
+          startIdx={openIdx}
+          onClose={() => setOpenProject(null)}
+        />
       )}
-    </>
+    </div>
   );
 }

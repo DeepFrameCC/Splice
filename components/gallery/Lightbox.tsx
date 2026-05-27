@@ -1,0 +1,226 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { Project } from "./data";
+
+interface LightboxProps {
+  project: Project;
+  startIdx: number;
+  onClose: () => void;
+}
+
+function ChevronLeft() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="w-6 h-6">
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  );
+}
+
+function ChevronRight() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="w-6 h-6">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10">
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  );
+}
+
+export default function Lightbox({ project, startIdx, onClose }: LightboxProps) {
+  const [i, setI] = useState(startIdx || 0);
+  const n = project.medias.length;
+  const cur = project.medias[i];
+
+  const go = useCallback(
+    (delta: number) => {
+      setI((prev) => {
+        const next = prev + delta;
+        if (next < 0) return 0;
+        if (next > n - 1) return n - 1;
+        return next;
+      });
+    },
+    [n]
+  );
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(+1);
+    };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [go, onClose]);
+
+  if (!cur) return null;
+
+  const isVideoUrl = /\.(mp4|webm|mov|avi)$/i.test(cur.url || "");
+  const stageSrc = cur.thumbnailUrl || (!isVideoUrl ? cur.url : null);
+  const bgClass = `pj-g${cur.g ?? 0}`;
+
+  return (
+    <div
+      className="pj-lb"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Projet : ${project.title}`}
+    >
+      {/* Header bar */}
+      <div className="pj-lb-head">
+        <div className="meta-l">
+          <h3>{project.title}</h3>
+          <span className="client">
+            {project.client} · {project.year}
+          </span>
+        </div>
+        <button
+          className="pj-lb-close"
+          onClick={onClose}
+          aria-label="Fermer"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Slide stage */}
+      <div className="pj-lb-stage">
+        <div className="pj-lb-frame">
+          {!stageSrc && cur.type !== "video" ? (
+            <div className={`pj-slide-bg ${bgClass}`} />
+          ) : cur.type === "video" ? (
+            <video
+              src={cur.url}
+              poster={cur.thumbnailUrl ?? undefined}
+              controls
+              autoPlay
+              className="absolute inset-0 w-full h-full object-contain bg-[#090918]"
+            />
+          ) : (
+            <Image
+              src={stageSrc!}
+              alt={cur.caption || project.title}
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-contain"
+              priority
+            />
+          )}
+
+          <div className="pj-corners" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <i />
+          </div>
+
+          {cur.type === "video" && !stageSrc && (
+            <>
+              <div className="pj-play" aria-hidden="true" style={{ pointerEvents: "none" }}>
+                <PlayIcon />
+              </div>
+              {cur.tc && <div className="pj-tc">TC {cur.tc}</div>}
+              {cur.duration && <div className="pj-dur">{cur.duration}</div>}
+            </>
+          )}
+
+          {cur.caption && (
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                padding: "32px 24px 16px",
+                background: "linear-gradient(to top, rgba(0,0,0,.7), transparent)",
+                color: "#fff",
+                fontFamily: "var(--font-sans), sans-serif",
+                fontSize: 14,
+                letterSpacing: "-0.005em",
+                zIndex: 2,
+              }}
+            >
+              {cur.caption}
+            </div>
+          )}
+        </div>
+
+        {/* Side navigation arrows */}
+        {n > 1 && (
+          <>
+            <button
+              className="pj-lb-nav prev"
+              onClick={() => go(-1)}
+              disabled={i === 0}
+              aria-label="Précédent"
+            >
+              <ChevronLeft />
+            </button>
+            <button
+              className="pj-lb-nav next"
+              onClick={() => go(+1)}
+              disabled={i === n - 1}
+              aria-label="Suivant"
+            >
+              <ChevronRight />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Footer bar */}
+      <div className="pj-lb-foot">
+        <span>
+          {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+        </span>
+
+        {n > 1 && (
+          <div className="pj-lb-thumbs" role="tablist" aria-label="Vignettes">
+            {project.medias.map((m, idx) => {
+              const isVidUrl = /\.(mp4|webm|mov|avi)$/i.test(m.url || "");
+              const thumbSrc = m.thumbnailUrl || (!isVidUrl ? m.url : null);
+              const thumbBgClass = `pj-g${m.g ?? 0}`;
+              return (
+                <button
+                  key={m.id || idx}
+                  type="button"
+                  className={`pj-lb-thumb ${idx === i ? "on" : ""}`}
+                  onClick={() => setI(idx)}
+                  aria-label={`Voir le média ${idx + 1}`}
+                >
+                  {!thumbSrc ? (
+                    <div className={`pj-lb-thumb-bg ${thumbBgClass}`} />
+                  ) : (
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={thumbSrc}
+                        alt={`Média ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+        <span style={{ textTransform: "uppercase" }}>
+          {cur.type === "video" ? "Vidéo" : "Photo"}
+        </span>
+      </div>
+    </div>
+  );
+}
