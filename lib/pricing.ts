@@ -251,7 +251,6 @@ export const VILLE_DEPART_LABEL: Record<VilleDepart, string> = {
 };
 
 export const FOUNDER_LABEL: Record<Founder, string> = {
-  PAPI: "@papiforcex",
   LOUISIA: "@by.louisia",
   TY: "@t.y97one",
 };

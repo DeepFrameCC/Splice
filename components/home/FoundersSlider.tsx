@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight, User } from "lucide-react";
 
 
 const founders = [
-  { handle: "@papiforcex", role: "Réalisateur / Vidéaste", bio: "Captation événementielle, brand films, drone.", gradient: "gradient-papi" },
   { handle: "@by.louisia", role: "Photographe", bio: "Portrait, mode, image de marque, retouche soignée.", gradient: "gradient-louisia" },
   { handle: "@t.y97one",  role: "Monteur / Motion designer", bio: "Montage dynamique, motion design, formats réseaux.", gradient: "gradient-ty" }
 ];

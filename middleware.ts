@@ -27,6 +27,9 @@ export default auth((req) => {
     const apiRes = NextResponse.next({ request: { headers: new Headers(req.headers) } });
     if (PRIVATE_API.some((p) => p.test(pathname))) {
       apiRes.headers.set("X-Robots-Tag", "noindex, nofollow");
+      apiRes.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+      apiRes.headers.set("Pragma", "no-cache");
+      apiRes.headers.set("Expires", "0");
     }
     return apiRes;
   }
@@ -52,9 +55,26 @@ export default auth((req) => {
   // CSP with dynamic nonce
   const nonce = btoa(crypto.randomUUID());
   const isDev = process.env.NODE_ENV === "development";
+
+  // Prevent dynamic nonce cache conflicts on purely static/public display routes
+  const isStaticRoute =
+    pathname === "/" ||
+    pathname.startsWith("/services") ||
+    pathname.startsWith("/galerie") ||
+    pathname.startsWith("/equipe") ||
+    pathname.startsWith("/mentions-legales") ||
+    pathname.startsWith("/confidentialite") ||
+    pathname.startsWith("/cookies") ||
+    pathname.startsWith("/tarifs") ||
+    pathname.startsWith("/avis");
+
+  const scriptSrc = isStaticRoute
+    ? `script-src 'self' 'unsafe-inline' https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`
+    : `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`;
+
   const csp = [
     `default-src 'self'`,
-    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`,
+    scriptSrc,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' data: blob: https://*.r2.dev https://cdn.splicestudio.fr https://media.splicestudio.fr`,

@@ -39,8 +39,7 @@ Splice produit des contenus audiovisuels pour PME et entreprises du Centre-Val d
 **Localisation :** Orléans (45) + Tours (37), interventions Centre-Val de Loire
 **Identité visuelle :** "Cinéma Studio" — dark natif, frame cinéma, codes TC, orange brûlé, surfaces glauque/forêt, typographie display condensée.
 
-**Équipe (3 fondateurs) :**
-- `papiforcex` — vidéaste / réalisateur (Sony FX, terrain, montages After Effects)
+**Équipe (2 fondateurs) :**
 - `by.louisia` — photographe / Sony ZV1 (rendu léché, voice-over)
 - `t.y97one` — monteur / motion designer (DaVinci Resolve, étalonnage, sound design)
 

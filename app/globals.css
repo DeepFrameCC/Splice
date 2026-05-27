@@ -39,7 +39,6 @@ body { font-family: var(--font-sans), system-ui, sans-serif; overflow-x: clip; }
     @apply transition-transform duration-300 will-change-transform hover:scale-[1.04] hover:shadow-2xl;
   }
 
-  .gradient-papi    { background: linear-gradient(135deg, #2DB6FF 0%, #F36B1F 100%); }
   .gradient-louisia { background: linear-gradient(135deg, #F36B1F 0%, #FF7A00 100%); }
   .gradient-ty      { background: linear-gradient(135deg, #8B5CF6 0%, #2DB6FF 100%); }
 }

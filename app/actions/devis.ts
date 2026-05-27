@@ -22,7 +22,7 @@ import { devisLimiter, checkRateLimit } from "@/lib/rate-limit";
 import { audit } from "@/lib/audit";
 import { notify } from "@/lib/notifications";
 
-const founders: Founder[] = ["PAPI", "LOUISIA", "TY"];
+const founders: Founder[] = ["LOUISIA", "TY"];
 
 async function pickChefDeProjet(): Promise<Founder> {
   const annee = new Date().getFullYear();
@@ -41,7 +41,7 @@ async function pickChefDeProjet(): Promise<Founder> {
       idx = i;
     }
   });
-  return founders[idx] ?? "PAPI";
+  return founders[idx] ?? "TY";
 }
 
 // ─── Option keys ─────────────────────────────────────────────────

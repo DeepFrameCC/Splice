@@ -2,7 +2,6 @@
 
 const tabs: { value?: string; label: string }[] = [
   { value: undefined, label: "Tous" },
-  { value: "PAPI",    label: "@papiforcex" },
   { value: "LOUISIA", label: "@by.louisia" },
   { value: "TY",      label: "@t.y97one" },
 ];

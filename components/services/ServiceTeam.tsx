@@ -2,7 +2,6 @@ import { Founder } from "@prisma/client";
 import { FOUNDER_LABEL } from "@/lib/pricing";
 
 const FOUNDER_ROLE: Record<Founder, string> = {
-  PAPI: "Videaste / Realisateur",
   LOUISIA: "Photographe",
   TY: "Monteur / Motion Designer",
 };

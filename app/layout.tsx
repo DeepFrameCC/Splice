@@ -80,7 +80,6 @@ const jsonLd = {
   sameAs: [
     "https://www.instagram.com/splice.cc/",
     "https://www.facebook.com/Splicecc/",
-    "https://instagram.com/papiforcex",
     "https://instagram.com/by.louisia",
     "https://instagram.com/t.y97one",
   ],
@@ -90,9 +89,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
-    <html lang="fr" className={`${display.variable} ${sans.variable}`}>
+    <html lang="fr" className={`${display.variable} ${sans.variable}`} nonce={nonce}>
       <head>
-        <JsonLd data={{
+        <JsonLd nonce={nonce} data={{
           "@context": "https://schema.org",
           "@graph": [
             jsonLd,

@@ -49,7 +49,6 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 ### Team
 
 - **t.y97one** — ADMIN (monteur / motion designer)
-- **papiforcex** — TEAM (vidéaste / réalisateur)
 - **by.louisia** — TEAM (photographe)
 
 ### Route Structure
@@ -78,7 +77,7 @@ app/
 ### Key Data Models (Prisma)
 
 - **User**: roles CLIENT | TEAM | ADMIN, with Profile relation, 2FA TOTP support (`twoFactorEnabled`, `twoFactorSecret`)
-- **Media**: PHOTO | VIDEO with owner (Founder enum: PAPI | LOUISIA | TY), category, client, duration, groupKey, groupOrder
+- **Media**: PHOTO | VIDEO with owner (Founder enum: LOUISIA | TY), category, client, duration, groupKey, groupOrder
 - **Devis**: Full quote with computed `lines` (JSON), `totalHT`, `acompteAmount` (30%)
 - **Facture**: Linked 1:1 to Devis after payment
 - **Contrat**: Linked 1:1 to Devis
@@ -175,7 +174,7 @@ Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically b
 | `backend-api` | Prisma schema/migration, Server Action, API route, Stripe checkout/webhook, Resend email, PDF generation, devis/facture/contrat logic, numbering, pricing computation, AuditLog |
 | `security` | Auth flow, NextAuth config, CSP/HTTP headers, rate limiting, CSRF, input validation, secret handling, OWASP concerns, password hashing, 2FA, session storage, encryption (AES-GCM) |
 | `seo-performance` | `<head>` metadata, OpenGraph, JSON-LD, sitemap.xml, robots.txt, image optimization (next/image), bundle size, Core Web Vitals (LCP/INP/CLS), lazy loading, RSC vs client split |
-| `media-content` | Gallery, photo/video upload, R2/Supabase storage, likes, reviews/avis, moderation, founder enum (PAPI/LOUISIA/TY), media metadata |
+| `media-content` | Gallery, photo/video upload, R2/Supabase storage, likes, reviews/avis, moderation, founder enum (LOUISIA/TY), media metadata |
 | `devops-quality` | `error.tsx` / `not-found.tsx` / `loading.tsx`, global error handlers, TypeScript strict issues, environment variables, deployment config (Cloudflare Workers / OpenNext), `next.config.mjs`, `wrangler.jsonc`, Sentry, monitoring |
 | `gsap-animations` | GSAP Timeline, ScrollTrigger, SplitText, DrawSVG, Flip, scroll-linked motion, text reveal, pinning, `useGSAP()`, `gsap.matchMedia()`, `prefers-reduced-motion` |
 

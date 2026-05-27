@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 const MEMBERS = [
-  { id: "papi", name: "Papi" },
   { id: "louisia", name: "Louisia" },
   { id: "ty", name: "Tracy" },
 ] as const;

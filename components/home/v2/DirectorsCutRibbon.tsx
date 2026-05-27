@@ -24,13 +24,9 @@ interface RibbonCell {
 const CDN = "https://media.splicestudio.fr";
 
 const ribbonCells: RibbonCell[] = [
-  { slug: "ppf-cklean-auto", poster: `${CDN}/thumb/thumb-ppf-cklean-auto.jpg`, tag: "Pub auto", ratio: "16/9" },
-  { slug: "alpine-a110", poster: `${CDN}/thumb/thumb-AlpineA110.jpg`, tag: "Pub auto", ratio: "9/16" },
   { slug: "bistrot-orleans", poster: `${CDN}/thumb/thumb-bistrot-orleans.jpg`, tag: "Pub locale", ratio: "9/16" },
   { slug: "porsche-hexlight", poster: "/photos/porsche-hexlight.jpg", tag: "Shooting auto", ratio: "4/3" },
-  { slug: "west-side", poster: `${CDN}/thumb/thumb-West-Side.jpg`, tag: "Clip", ratio: "9/16" },
   { slug: "interview-cklean-auto", poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`, tag: "Interview", ratio: "4/3" },
-  { slug: "time-fayad", poster: `${CDN}/thumb/thumb-time-fayad.jpg`, tag: "Clip", ratio: "9/16" },
   { slug: "porsche-studio", poster: "/photos/porsche-studio-1.jpg", tag: "Shooting auto", ratio: "16/9" },
 ];
 

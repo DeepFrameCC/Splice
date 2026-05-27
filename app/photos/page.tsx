@@ -15,7 +15,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 export const metadata: Metadata = {
   title: "Photos — Splice",
   description:
-    "Galerie photo : portraits, automobile, lifestyle, événementiel. Par Louisia, Papi et Tracy.",
+    "Galerie photo : portraits, automobile, lifestyle, événementiel. Par Louisia et Tracy.",
   openGraph: {
     title: "Photos — Splice",
     description: "Nos réalisations photo en Centre-Val de Loire.",
@@ -37,7 +37,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
     userId = session?.user?.id;
 
     const where: any = { type: "PHOTO", published: true };
-    if (sp.owner === "PAPI" || sp.owner === "LOUISIA" || sp.owner === "TY") where.owner = sp.owner;
+    if (sp.owner === "LOUISIA" || sp.owner === "TY") where.owner = sp.owner;
 
     const [fetchedMedias, likes] = await Promise.all([
       db.media.findMany({ where, include: { monteur: { select: { pseudo: true } } }, orderBy: { createdAt: "desc" } }),

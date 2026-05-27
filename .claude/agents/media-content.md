@@ -57,7 +57,7 @@ Media {
   description  String?
   materiel     String[]   (équipement utilisé)
   prixEstime   Int        (estimation du projet en €)
-  owner        PAPI | LOUISIA | TY
+  owner        LOUISIA | TY
   monteurId    String?    (référence User)
   published    Boolean    (false = draft)
 }
@@ -92,7 +92,7 @@ const photos = await db.media.findMany({
 
 ### Filtres (`components/gallery/FilterTabs.tsx`)
 
-Filtres par fondateur (owner) : Tous / @papiforcex / @by.louisia / @t.y97one
+Filtres par fondateur (owner) : Tous / @by.louisia / @t.y97one
 Implémenter côté client avec état local ou searchParams URL.
 
 ## Galerie vidéos (`app/videos/page.tsx`)

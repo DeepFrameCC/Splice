@@ -253,12 +253,6 @@ export function buildTeamJsonLd() {
       member: [
         {
           "@type": "Person",
-          name: "Fayad",
-          jobTitle: "Vidéaste / Réalisateur",
-          sameAs: "https://instagram.com/papiforcex",
-        },
-        {
-          "@type": "Person",
           name: "Louisia",
           jobTitle: "Photographe",
           sameAs: "https://instagram.com/by.louisia",

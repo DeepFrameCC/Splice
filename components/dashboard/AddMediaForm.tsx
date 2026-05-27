@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useTransition } from "react";
 import { Plus, X, Upload } from "lucide-react";
@@ -22,7 +22,7 @@ export default function AddMediaForm() {
       description: (fd.get("description") as string).trim() || undefined,
       category: (fd.get("category") as string).trim() || undefined,
       client: (fd.get("client") as string).trim() || undefined,
-      owner: fd.get("owner") as "PAPI" | "LOUISIA" | "TY",
+      owner: fd.get("owner") as "LOUISIA" | "TY",
       prixEstime: Number(fd.get("prixEstime")) || 0,
       published: fd.get("published") === "on",
     };
@@ -102,7 +102,6 @@ export default function AddMediaForm() {
             required
             className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
           >
-            <option value="PAPI">Papi</option>
             <option value="LOUISIA">Louisia</option>
             <option value="TY">Ty</option>
           </select>

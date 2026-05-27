@@ -27,7 +27,7 @@ export default function ContactForm({ members }: Props) {
           type: (fd.get("type") as string) ?? "",
           budget: (fd.get("budget") as string) ?? "",
           brief: (fd.get("brief") as string) ?? "",
-          member: memberRaw as "all" | "papi" | "louisia" | "ty",
+          member: memberRaw as "all" | "louisia" | "ty",
         };
         startTransition(async () => {
           const res = await submitContact(payload);

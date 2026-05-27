@@ -110,7 +110,7 @@ const montageVideo: ServiceContent = {
   category: "video",
   sortOrder: 1,
   iconName: "scissors",
-  teamMembers: ["TY", "PAPI"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Vidéo montée HD/4K", detail: "Format principal + déclinaisons" },
     { label: "Étalonnage colorimétrique", detail: "DaVinci Resolve Studio" },
@@ -191,7 +191,7 @@ const productionCorporate: ServiceContent = {
   category: "video",
   sortOrder: 2,
   iconName: "video",
-  teamMembers: ["PAPI", "TY"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Film monté HD/4K", detail: "Version longue + version courte" },
     { label: "Déclinaisons réseaux sociaux", detail: "3 à 5 formats" },
@@ -272,7 +272,7 @@ const motionDesign: ServiceContent = {
   category: "motion",
   sortOrder: 3,
   iconName: "palette",
-  teamMembers: ["TY", "PAPI"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Animation HD/4K", detail: "Durée selon brief" },
     { label: "Fichiers exportés", detail: "MP4, MOV, GIF selon besoin" },
@@ -432,7 +432,7 @@ const shootingAutomobile: ServiceContent = {
   category: "photo",
   sortOrder: 5,
   iconName: "car",
-  teamMembers: ["PAPI"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Photos HD retouchées", detail: "20 à 50 clichés selon le pack" },
     { label: "Vidéo teaser", detail: "30 à 60 secondes (option)" },
@@ -751,7 +751,7 @@ const presentationEntreprise: ServiceContent = {
   category: "video",
   sortOrder: 9,
   iconName: "building",
-  teamMembers: ["PAPI", "LOUISIA", "TY"],
+  teamMembers: ["LOUISIA", "TY"],
   deliverables: [
     { label: "Film monté HD/4K", detail: "Version longue (2-5 min)" },
     { label: "Version courte réseaux sociaux", detail: "30 à 90 secondes" },
@@ -832,7 +832,7 @@ const clipMusical: ServiceContent = {
   category: "video",
   sortOrder: 10,
   iconName: "music",
-  teamMembers: ["PAPI", "TY"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Clip monté HD/4K", detail: "Durée du morceau" },
     { label: "Teaser promotionnel", detail: "15 à 30 secondes" },
@@ -907,7 +907,7 @@ const dronePriseDeVue: ServiceContent = {
   category: "video",
   sortOrder: 11,
   iconName: "plane",
-  teamMembers: ["PAPI"],
+  teamMembers: ["TY"],
   deliverables: [
     { label: "Vidéo aérienne 4K", detail: "Plans stabilisés" },
     { label: "Photos aériennes HD", detail: "Retouchées et calibrées" },

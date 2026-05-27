@@ -79,7 +79,7 @@ const createMediaSchema = z.object({
   description: z.string().max(1000).optional(),
   category: z.string().max(100).optional(),
   client: z.string().max(200).optional(),
-  owner: z.enum(["PAPI", "LOUISIA", "TY"]),
+  owner: z.enum(["LOUISIA", "TY"]),
   prixEstime: z.number().int().min(0),
   published: z.boolean(),
 });

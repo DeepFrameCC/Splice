@@ -23,6 +23,25 @@ export async function POST(req: Request) {
   const file = formData.get("file") as File | null;
   if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
 
+  // Whitelist of allowed MIME types for R2 storage (images, videos, PDF, ZIP)
+  const ALLOWED_MIME_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/avif",
+    "video/mp4",
+    "video/webm",
+    "application/pdf",
+    "application/zip",
+  ];
+
+  if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    return NextResponse.json(
+      { error: `Type de fichier non autorisé : ${file.type || "inconnu"}` },
+      { status: 400 }
+    );
+  }
+
   const parsed = UploadSchema.safeParse({
     bucket: formData.get("bucket"),
     key: formData.get("key"),

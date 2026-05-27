@@ -1,7 +1,7 @@
 const GUARANTEES = [
   {
     title: "Expertise audiovisuelle",
-    description: "Trois fondateurs, trois spécialités complémentaires. Chaque projet est porté par le profil le plus adapté.",
+    description: "Deux fondateurs, deux spécialités complémentaires. Chaque projet est porté par le profil le plus adapté.",
   },
   {
     title: "Délais tenus",

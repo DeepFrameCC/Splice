@@ -8,7 +8,7 @@ import { contactLimiter, checkRateLimit } from "@/lib/rate-limit";
 /*  Validation                                                         */
 /* ------------------------------------------------------------------ */
 
-const MEMBER_VALUES = ["all", "papi", "louisia", "ty"] as const;
+const MEMBER_VALUES = ["all", "louisia", "ty"] as const;
 type MemberRoute = (typeof MEMBER_VALUES)[number];
 
 const contactSchema = z.object({
@@ -23,14 +23,13 @@ const contactSchema = z.object({
 /**
  * Map a public member identifier to a server-side envelope recipient.
  * Personal addresses are configured via environment variables
- * (MAIL_FOUNDER_PAPI, MAIL_FOUNDER_LOUISIA, MAIL_FOUNDER_TY) and never
+ * (MAIL_FOUNDER_LOUISIA, MAIL_FOUNDER_TY) and never
  * exposed in the HTML rendered to the public.
  */
 function resolveRecipients(member?: MemberRoute): string[] {
   const fallback = MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT];
   if (!member || member === "all") return fallback;
   const map: Record<Exclude<MemberRoute, "all">, string | undefined> = {
-    papi: process.env.MAIL_FOUNDER_PAPI,
     louisia: process.env.MAIL_FOUNDER_LOUISIA,
     ty: process.env.MAIL_FOUNDER_TY,
   };

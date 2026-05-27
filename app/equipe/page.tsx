@@ -11,11 +11,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
 export const metadata: Metadata = {
   title: "Équipe",
   description:
-    "Découvrez les portfolios de Fayad, Louisia et Tracy — les trois fondateurs de Splice.",
+    "Découvrez les portfolios de Louisia et Tracy, les deux fondateurs de Splice.",
   openGraph: {
     title: "L'équipe Splice",
     description:
-      "Vidéaste, photographe, monteur. Trois regards, une seule direction créative.",
+      "Photographe et monteur. Deux regards, une seule direction créative.",
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: `${BASE_URL}/equipe` },
@@ -69,34 +69,10 @@ interface FounderData {
 
 const FOUNDERS: FounderData[] = [
   {
-    key: "PAPI",
-    name: "Fayad",
-    role: "Réalisateur · monteur",
-    tag: "FONDATEUR · 01",
-    initial: "F",
-    photoGradient:
-      "radial-gradient(ellipse at 30% 20%, rgba(255,189,89,.45), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(243,107,31,.55), transparent 65%), linear-gradient(160deg, #3A1B0A 0%, #0E0E22 100%)",
-    bioOpener: "Œil de réal, main de monteur.",
-    bioBody:
-      "Fayad capte la matière brute sur le terrain puis lui donne du rythme : montages After Effects dynamiques, motion intégré, coupes qui claquent. Le tempo des films, c\u2019est lui.",
-    tags: [
-      { label: "Prise de vue", variant: "primary" },
-      { label: "Montage", variant: "primary" },
-      { label: "After Effects", variant: "accent" },
-      { label: "Direction", variant: "neutral" },
-      { label: "Cadrage", variant: "neutral" },
-    ],
-    setup: "Insta360 · 24-70 GM",
-    soft: "Premiere · After Effects",
-    instagram: "https://instagram.com/papiforcex",
-    tiktok: "https://tiktok.com/@papiforcex",
-    linktree: "https://linktr.ee/papiforcex",
-  },
-  {
     key: "LOUISIA",
     name: "Louisia",
     role: "Photographe · voix-off",
-    tag: "FONDATRICE · 02",
+    tag: "FONDATRICE · 01",
     initial: "L",
     photoGradient:
       "radial-gradient(ellipse at 70% 25%, rgba(255,189,89,.50), transparent 55%), radial-gradient(ellipse at 20% 100%, rgba(184,100,50,.45), transparent 65%), linear-gradient(160deg, #F2A93B 0%, #B86432 60%, #3D1F0F 100%)",
@@ -120,7 +96,7 @@ const FOUNDERS: FounderData[] = [
     key: "TY",
     name: "Tracy",
     role: "Monteur · développeur",
-    tag: "FONDATEUR · 03",
+    tag: "FONDATEUR · 02",
     initial: "T",
     photoGradient:
       "radial-gradient(ellipse at 30% 30%, rgba(255,189,89,.35), transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(243,107,31,.65), transparent 65%), linear-gradient(180deg, #7A3B1A 0%, #F36B1F 60%, #0E0E22 100%)",
@@ -184,7 +160,7 @@ export default function EquipePage() {
             data-anim="eyebrow"
           >
             <span className="inline-block h-px w-[22px] bg-current" />
-            L&apos;équipe · 3 fondateurs
+            L&apos;équipe · 2 fondateurs
           </span>
           <h1
             data-anim="hero-title"
@@ -196,7 +172,7 @@ export default function EquipePage() {
               letterSpacing: "-0.035em",
             }}
           >
-            Trois <em className="italic font-bold text-df-gold">artisans</em>
+            Deux <em className="italic font-bold text-df-gold">artisans</em>
             <br />
             de l&apos;image.
           </h1>
@@ -221,7 +197,7 @@ export default function EquipePage() {
 
       {/* ── Team Grid ────────────────────────────────────────────────── */}
       <main className="mx-auto max-w-[1320px] px-6 pb-20 pt-12 md:px-10">
-        <div className="grid gap-[18px] lg:grid-cols-3">
+        <div className="mx-auto grid max-w-[940px] gap-[18px] lg:grid-cols-2">
           {FOUNDERS.map((founder) => (
             <article
               key={founder.key}

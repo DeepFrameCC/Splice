@@ -3,7 +3,6 @@ import { Instagram, Facebook, Linkedin, Mail } from "lucide-react";
 import CookieSettingsButton from "./CookieSettingsButton";
 
 const founders = [
-  { handle: "@papiforcex", insta: "https://instagram.com/papiforcex" },
   { handle: "@by.louisia", insta: "https://instagram.com/by.louisia" },
   { handle: "@t.y97one",  insta: "https://instagram.com/t.y97one" },
 ];

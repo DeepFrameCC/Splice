@@ -30,7 +30,19 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
         });
         const data = (await res.json()) as { error?: string; url?: string };
         if (!res.ok) { setError(data.error ?? "Erreur"); return; }
-        if (data.url) { window.location.href = data.url; }
+        if (data.url) {
+          try {
+            const targetUrl = new URL(data.url);
+            if (targetUrl.protocol === "https:" && (targetUrl.hostname === "stripe.com" || targetUrl.hostname.endsWith(".stripe.com"))) {
+              window.location.href = data.url;
+            } else {
+              console.error("[SECURITY] Redirection suspecte bloquée:", targetUrl.hostname);
+              setError("Erreur de sécurité : Redirection suspecte détectée.");
+            }
+          } catch {
+            setError("L'URL de paiement générée est invalide.");
+          }
+        }
       } catch (e: any) {
         toast.error("Erreur de connexion");
         setError("Impossible de contacter le serveur de paiement.");
