@@ -7,6 +7,7 @@ import { submitDevis } from "@/app/actions/devis";
 import { ChevronLeft, ChevronRight, Send, Shield, Clock, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { PLAN_LAUNCH_STATUS } from "@/lib/pricing";
 
 const STEP_META = [
   { n: 1, label: "Prestation", desc: "Type de prestation" },
@@ -30,9 +31,11 @@ export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue
     f.set("isAuthenticated", isAuthenticated);
     f.set("canUseFormuleBienvenue", canUseFormuleBienvenue);
     f.set("isAdmin", isAdmin);
-    if (!isAdmin) {
-      f.set("useLaunchPrice", false);
-    }
+    
+    // Default useLaunchPrice to true if spots are left, false otherwise
+    const isLaunchComplete = PLAN_LAUNCH_STATUS[f.planId]?.complete ?? false;
+    f.set("useLaunchPrice", !isLaunchComplete);
+
     if (userInfo) {
       if (!f.nomContact) f.set("nomContact", userInfo.name);
       if (!f.emailContact) f.set("emailContact", userInfo.email);

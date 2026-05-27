@@ -25,14 +25,14 @@ const CDN = "https://media.splicestudio.fr";
 
 export const scenes: Scene[] = [
   {
-    slug: "bistrot-croix-morin",
-    tag: "Pub locale",
-    title: "Bistrot de la Croix Morin",
+    slug: "luxury-edit",
+    tag: "Automobile",
+    title: "Luxury Edit",
     credit: "ty",
-    tc: "00:22",
+    tc: "02:00",
     ratio: "9/16",
-    src: `${CDN}/videos/${encodeURIComponent("Bistrot de la Croix Morin .mp4")}`,
-    poster: `${CDN}/thumb/thumb-bistrot-orleans.jpg`,
+    src: `${CDN}/videos/${encodeURIComponent("Luxury Edit (Par Tracy).mp4")}`,
+    poster: `${CDN}/thumb/thumb-luxury-edit.jpg`,
     format: "4K · 24fps",
   },
   {

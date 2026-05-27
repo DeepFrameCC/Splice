@@ -44,8 +44,6 @@ async function pickChefDeProjet(): Promise<Founder> {
   return founders[idx] ?? "TY";
 }
 
-// ─── Option keys ─────────────────────────────────────────────────
-
 const optionKeysEnum = z.enum([
   "voixOff",
   "sousTitres",
@@ -57,6 +55,8 @@ const optionKeysEnum = z.enum([
   "podcast",
   "videoSupp",
   "photoSupp",
+  "photoRetouche",
+  "banniere",
 ]);
 
 const optionsSchema = z

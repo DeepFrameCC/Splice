@@ -190,7 +190,9 @@ export type OptionKey =
   | "adsReseaux"
   | "podcast"
   | "videoSupp"
-  | "photoSupp";
+  | "photoSupp"
+  | "photoRetouche"
+  | "banniere";
 
 export interface OptionALaCarte {
   key: OptionKey;
@@ -210,6 +212,8 @@ export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
   { key: "podcast", label: "Podcasts courts", price: 29, unit: "/ épisode" },
   { key: "videoSupp", label: "Vidéo supplémentaire", price: 29, unit: "/ vidéo" },
   { key: "photoSupp", label: "Option photo (5 photos)", price: 15, unit: "/ pack" },
+  { key: "photoRetouche", label: "Retouche photo avancée", price: 10, unit: "/ photo" },
+  { key: "banniere", label: "Bannière Deepframe", price: 15, unit: "/ mois" },
 ];
 
 // ─── Bannière Splice ───────────────────────────────────────────
@@ -373,6 +377,15 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
     if (typeof input.options.photoSupp === "number" && input.options.photoSupp > 1) {
       throw new PricingError("L'option photo est limitée à +5 photos max (1 pack) avec la formule Standard.");
     }
+    if (typeof input.options.photoRetouche === "number" && input.options.photoRetouche > 5) {
+      throw new PricingError("La retouche photo est limitée à 5 photos max avec la formule Standard.");
+    }
+    if (typeof input.options.montageExpress === "number" && input.options.montageExpress > 0) {
+      throw new PricingError("L'option montage express n'est pas disponible avec la formule Standard.");
+    }
+    if (input.options.banniere && typeof input.options.banniere === "number" && input.options.banniere > 1) {
+      throw new PricingError("L'option bannière est limitée à 1 avec la formule Standard.");
+    }
   } else if (input.planId === "PRO") {
     if (typeof input.options.podcast === "number" && input.options.podcast > 2) {
       throw new PricingError("Les podcasts courts sont limités à 2 épisodes par mois avec la formule Pro.");
@@ -380,10 +393,35 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
     if (typeof input.options.photoSupp === "number" && input.options.photoSupp > 3) {
       throw new PricingError("L'option photo est limitée à +15 photos max (3 packs) avec la formule Pro.");
     }
+    if (typeof input.options.photoRetouche === "number" && input.options.photoRetouche > 15) {
+      throw new PricingError("La retouche photo est limitée à 15 photos max avec la formule Pro.");
+    }
+    if (typeof input.options.montageExpress === "number" && input.options.montageExpress > 2) {
+      throw new PricingError("L'option montage express est limitée à 2 par mois avec la formule Pro.");
+    }
+    if (input.options.banniere && typeof input.options.banniere === "number" && input.options.banniere > 1) {
+      throw new PricingError("L'option bannière est limitée à 1 avec la formule Pro.");
+    }
   } else if (input.planId === "PREMIUM_ABO") {
     if (typeof input.options.podcast === "number" && input.options.podcast > 4) {
       throw new PricingError("Les podcasts courts sont limités à 4 épisodes par mois avec la formule Premium.");
     }
+    if (typeof input.options.photoRetouche === "number" && input.options.photoRetouche > 30) {
+      throw new PricingError("La retouche photo est limitée à 30 photos max avec la formule Premium.");
+    }
+    if (typeof input.options.montageExpress === "number" && input.options.montageExpress > 5) {
+      throw new PricingError("L'option montage express est limitée à 5 par mois avec la formule Premium.");
+    }
+    if (input.options.banniere && typeof input.options.banniere === "number" && input.options.banniere > 1) {
+      throw new PricingError("L'option bannière est limitée à 1 avec la formule Premium.");
+    }
+  }
+
+  // Enforce photoRetouche cannot exceed 5 * photoSupp
+  const nbPhotosJpg = 5 * (typeof input.options.photoSupp === "number" ? input.options.photoSupp : 0);
+  const nbPhotosRetouche = typeof input.options.photoRetouche === "number" ? input.options.photoRetouche : 0;
+  if (nbPhotosRetouche > nbPhotosJpg) {
+    throw new PricingError("Le nombre de photos retouchées ne peut pas dépasser le nombre de photos JPG commandées.");
   }
 
   // Monthly price
@@ -421,22 +459,35 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
       let qty = typeof val === "number" ? val : (opt.key === "creationBanniere" ? 1 : videoCount);
       
       // For standard options, cap their quantity to the plan's videos count.
-      // For photoSupp, videoSupp, podcast, and creationBanniere, don't cap to videoCount.
+      // For photoSupp, videoSupp, podcast, creationBanniere, photoRetouche, and banniere, don't cap to videoCount.
       if (
         opt.key !== "creationBanniere" &&
         opt.key !== "videoSupp" &&
         opt.key !== "photoSupp" &&
-        opt.key !== "podcast"
+        opt.key !== "podcast" &&
+        opt.key !== "photoRetouche" &&
+        opt.key !== "banniere"
       ) {
         qty = Math.min(qty, videoCount);
       }
       
       if (qty > 0) {
+        let price = opt.price;
+        let label = opt.label;
+
+        if (opt.key === "banniere") {
+          const banPrice = input.planId === "STANDARD" ? 15 : input.planId === "PRO" ? 20 : 30;
+          const banSize = input.planId === "STANDARD" ? "petite" : input.planId === "PRO" ? "moyenne" : "grande";
+          price = banPrice;
+          label = `Bannière Deepframe ${banSize}`;
+          qty = 1; // Always exactly 1 banner for subscription option
+        }
+
         lines.push({
-          label: opt.label,
+          label,
           qty,
-          unit: opt.price,
-          total: opt.price * qty,
+          unit: price,
+          total: price * qty,
         });
       }
     }

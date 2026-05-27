@@ -12,6 +12,7 @@ import {
   PRIX_VIDEO_SUPP,
   PRIX_PODCAST_COURT,
   PRIX_OPTION_PHOTO_5,
+  PLAN_LAUNCH_STATUS,
   type BillingCycle,
   type BanniereSize,
 } from "@/lib/pricing";
@@ -77,14 +78,17 @@ export default function PricingSection() {
             </Link>
           </div>
 
-          {PLAN_IDS.map((id) => (
-            <PlanCard
-              key={id}
-              plan={SUBSCRIPTION_PLANS[id]}
-              cycle={cycle}
-              useLaunchPrice={true}
-            />
-          ))}
+          {PLAN_IDS.map((id) => {
+            const isLaunchComplete = PLAN_LAUNCH_STATUS[id]?.complete ?? false;
+            return (
+              <PlanCard
+                key={id}
+                plan={SUBSCRIPTION_PLANS[id]}
+                cycle={cycle}
+                useLaunchPrice={!isLaunchComplete}
+              />
+            );
+          })}
         </div>
       </section>
 
@@ -160,7 +164,8 @@ export default function PricingSection() {
 
           {/* Photos */}
           <div className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.08]">
-            <h3 className="font-display text-xl uppercase tracking-tight text-white">Photos</h3>
+            <h3 className="font-display text-xl uppercase tracking-tight text-white">Photos retouchées</h3>
+            <p className="text-xs text-white/50 mt-1 mb-3">Retouches professionnelles avancées déjà incluses dans les packs.</p>
             <ul className="mt-4 space-y-3">
               {PACK_PARTICULIER_PHOTOS.map((p, i) => (
                 <li
@@ -168,7 +173,7 @@ export default function PricingSection() {
                   className="flex items-center justify-between text-sm"
                 >
                   <span className="text-white/70">
-                    {p.qty !== null ? `${p.qty} photos` : "Sur mesure"} —{" "}
+                    {p.qty !== null ? `${p.qty} photos retouchées` : "Sur mesure"} —{" "}
                     {p.label}
                     {p.popular && (
                       <span className="ml-2 rounded-full bg-df-gold/20 px-2 py-0.5 text-[10px] font-bold text-df-gold">
@@ -196,7 +201,7 @@ export default function PricingSection() {
         </p>
 
         <div className="mx-auto mt-8 grid max-w-4xl gap-3 md:grid-cols-2">
-          {OPTIONS_A_LA_CARTE.map((opt) => (
+          {OPTIONS_A_LA_CARTE.filter((opt) => opt.key !== "banniere").map((opt) => (
             <div
               key={opt.key}
               className="flex items-center justify-between rounded-xl bg-white/[0.04] px-5 py-3 ring-1 ring-white/[0.06]"

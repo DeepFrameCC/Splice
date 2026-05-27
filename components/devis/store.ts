@@ -94,18 +94,41 @@ export const useDevisForm = create<DevisFormState>((set) => ({
   set: (k, v) => set({ [k]: v } as Partial<DevisFormState>),
   toggleOption: (key) =>
     set((s) => {
+      // Disallow unavailable options for STANDARD
+      if (s.mode === "ABONNEMENT" && s.planId === "STANDARD" && (key === "podcast" || key === "montageExpress")) {
+        return {};
+      }
+
       const current = s.options[key];
       if (current && current > 0) {
         const nextOptions = { ...s.options };
         delete nextOptions[key];
+
+        // If disabling photoSupp, we must disable photoRetouche as well
+        if (key === "photoSupp") {
+          delete nextOptions.photoRetouche;
+        }
+
         return { options: nextOptions };
       } else {
+        // If enabling photoRetouche, auto-enable photoSupp at 1 if not already enabled
+        if (s.mode === "ABONNEMENT" && key === "photoRetouche") {
+          const nextOptions = { ...s.options };
+          if (!nextOptions.photoSupp || nextOptions.photoSupp === 0) {
+            nextOptions.photoSupp = 1;
+          }
+          nextOptions.photoRetouche = 1;
+          return { options: nextOptions };
+        }
+
         let defaultQty = 1;
         if (
           key !== "creationBanniere" &&
           key !== "videoSupp" &&
           key !== "photoSupp" &&
-          key !== "podcast"
+          key !== "podcast" &&
+          key !== "photoRetouche" &&
+          key !== "banniere"
         ) {
           if (s.mode === "ABONNEMENT") {
             defaultQty = SUBSCRIPTION_PLANS[s.planId]?.videosPerMonth ?? 1;
@@ -124,15 +147,37 @@ export const useDevisForm = create<DevisFormState>((set) => ({
       if (s.mode === "ABONNEMENT") {
         if (key === "podcast") {
           const max = s.planId === "STANDARD" ? 0 : s.planId === "PRO" ? 2 : 4;
+          if (max === 0) return {};
           cappedQty = Math.min(Math.max(1, qty), max);
         } else if (key === "photoSupp") {
           const max = s.planId === "STANDARD" ? 1 : s.planId === "PRO" ? 3 : 99;
+          const nextPhotoSupp = Math.min(Math.max(1, qty), max);
+          const nextOptions = { ...s.options, photoSupp: nextPhotoSupp };
+          if (nextOptions.photoRetouche) {
+            nextOptions.photoRetouche = Math.min(nextOptions.photoRetouche, 5 * nextPhotoSupp);
+          }
+          return { options: nextOptions };
+        } else if (key === "photoRetouche") {
+          const planMax = s.planId === "STANDARD" ? 5 : s.planId === "PRO" ? 15 : 30;
+          const jpgMax = 5 * (s.options.photoSupp ?? 0);
+          const max = Math.min(planMax, jpgMax);
+          if (max <= 0) return {};
           cappedQty = Math.min(Math.max(1, qty), max);
+        } else if (key === "montageExpress") {
+          const max = s.planId === "STANDARD" ? 0 : s.planId === "PRO" ? 2 : 5;
+          if (max === 0) return {};
+          cappedQty = Math.min(Math.max(1, qty), max);
+        } else if (key === "banniere") {
+          cappedQty = 1;
         } else if (key === "videoSupp") {
           cappedQty = Math.max(1, qty);
-        } else if (key !== "creationBanniere") {
+        } else if (
+          key !== "creationBanniere"
+        ) {
           const max = SUBSCRIPTION_PLANS[s.planId]?.videosPerMonth ?? 1;
           cappedQty = Math.min(Math.max(1, qty), max);
+        } else {
+          cappedQty = Math.max(1, qty);
         }
       } else {
         const maxVideos = s.nbVideos ?? 0;
@@ -140,7 +185,9 @@ export const useDevisForm = create<DevisFormState>((set) => ({
           key !== "creationBanniere" &&
           key !== "videoSupp" &&
           key !== "photoSupp" &&
-          key !== "podcast"
+          key !== "podcast" &&
+          key !== "photoRetouche" &&
+          key !== "banniere"
         ) {
           cappedQty = Math.min(Math.max(1, qty), maxVideos);
         } else {
