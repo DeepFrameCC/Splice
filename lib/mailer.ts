@@ -19,11 +19,20 @@ export async function sendMail(opts: { to: string | string[]; subject: string; h
     console.warn("[mailer] RESEND_API_KEY manquant — mail simulé:", opts.subject, opts.to);
     return { id: "dev-skip" };
   }
-  return resend.emails.send({
-    from: MAIL_FROM,
-    replyTo: opts.replyTo ?? MAIL_REPLY_TO,
-    ...opts,
-  });
+  try {
+    const result = await resend.emails.send({
+      from: MAIL_FROM,
+      replyTo: opts.replyTo ?? MAIL_REPLY_TO,
+      ...opts,
+    });
+    if (result.error) {
+      console.error("[mailer] Resend API error:", result.error);
+    }
+    return result;
+  } catch (error: unknown) {
+    console.error("[mailer] Failed to send:", opts.subject, "to:", opts.to, error);
+    throw error;
+  }
 }
 
 export const notifyFoundersNewDevis = (numero: string, payload: { client: string; total: number; lieu: string; pack: string }) =>

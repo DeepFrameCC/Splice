@@ -93,7 +93,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
       </div>`,
-  }).catch(() => {}); // fire-and-forget
+  }).catch((err: unknown) => { console.error("[auth] Verification email failed:", err); });
 
   await audit({ action: "LOGIN", target: d.email, metadata: { type: "register" } });
   await signIn("credentials", { email: d.email, password: d.password, redirectTo: "/profil" });
@@ -116,8 +116,8 @@ export async function loginAction(_prev: unknown, formData: FormData) {
       where: { email },
       select: { id: true, passwordHash: true, twoFactorEnabled: true },
     });
-    // Constant-time: always run Argon2 even when user not found (prevents timing oracle)
-    const dummyHash = "$argon2id$v=19$m=65536,t=3,p=4$AAAAAAAAAAAAAAAAAAAAAA$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    // Constant-time: always run PBKDF2 even when user not found (prevents timing oracle)
+    const dummyHash = "pbkdf2$100000$00000000000000000000000000000000$0000000000000000000000000000000000000000000000000000000000000000";
     let pwOk = false;
     try { pwOk = await verifyPassword(password, user?.passwordHash ?? dummyHash); } catch { /* dummy hash rejection */ }
     if (!user || !pwOk) {

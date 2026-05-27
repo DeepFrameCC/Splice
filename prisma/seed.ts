@@ -65,6 +65,7 @@ async function main() {
         email: adminEmail,
         passwordHash,
         emailVerified: new Date(),
+        role: "ADMIN",
         profile: {
           upsert: {
             create: {

@@ -45,9 +45,9 @@ export async function verifyPassword(plain: string, hash: string): Promise<boole
   }
   
   const parts = hash.split("$");
-  const iter = parseInt(parts[2] || "0", 10);
-  const saltHex = parts[3] || "";
-  const hashHex = parts[4] || "";
+  const iter = parseInt(parts[1] || "0", 10);
+  const saltHex = parts[2] || "";
+  const hashHex = parts[3] || "";
   
   if (!iter || !saltHex || !hashHex) return false;
 
