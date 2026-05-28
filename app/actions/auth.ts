@@ -36,10 +36,14 @@ async function verifyTurnstile(token: string) {
     }
     return true;
   }
+  const params = new URLSearchParams();
+  params.append("secret", process.env.TURNSTILE_SECRET_KEY);
+  params.append("response", token);
+
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `secret=${process.env.TURNSTILE_SECRET_KEY}&response=${token}`,
+    body: params.toString(),
   });
   const data = (await res.json()) as { success?: boolean };
   return data.success === true;
