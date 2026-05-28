@@ -1,45 +1,76 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Custom logout endpoint that manually clears all Auth.js session cookies.
- * Auth.js v5 beta signout doesn't reliably clear cookies on Cloudflare Workers.
+ * Debug + logout endpoint.
+ * GET  → shows all cookies the browser sends (for diagnosis)
+ * POST → clears all cookies and returns what was cleared
  */
-export async function POST() {
-  const response = NextResponse.json({ ok: true });
+export async function GET(req: NextRequest) {
+  const cookieHeader = req.headers.get("cookie") || "(vide)";
+  const allCookies = req.cookies.getAll().map((c) => `${c.name}=${c.value.substring(0, 20)}...`);
+  return NextResponse.json({
+    rawCookieHeader: cookieHeader.substring(0, 500),
+    parsedCookies: allCookies,
+    count: allCookies.length,
+  });
+}
 
-  // All possible Auth.js v5 cookie names (HTTP + HTTPS prefixed)
-  const cookieNames = [
-    "authjs.session-token",
-    "__Secure-authjs.session-token",
-    "authjs.csrf-token",
-    "__Host-authjs.csrf-token",
-    "authjs.callback-url",
-    "__Secure-authjs.callback-url",
-    // Legacy next-auth names (just in case)
-    "next-auth.session-token",
-    "__Secure-next-auth.session-token",
-    "next-auth.csrf-token",
-    "__Host-next-auth.csrf-token",
-    "next-auth.callback-url",
-    "__Secure-next-auth.callback-url",
-  ];
+export async function POST(req: NextRequest) {
+  const incomingCookies = req.cookies.getAll();
+  const cleared: string[] = [];
 
-  for (const name of cookieNames) {
-    // Clear with multiple path/domain combos to cover all cases
-    response.cookies.set(name, "", {
+  const response = NextResponse.json({
+    ok: true,
+    incomingCookieNames: incomingCookies.map((c) => c.name),
+    cleared,
+  });
+
+  // Clear EVERY cookie the browser sent, not just known names
+  for (const cookie of incomingCookies) {
+    cleared.push(cookie.name);
+
+    // Method 1: NextResponse.cookies.set with expires in the past
+    response.cookies.set(cookie.name, "", {
       expires: new Date(0),
       path: "/",
       httpOnly: true,
       secure: true,
       sameSite: "lax",
     });
-    response.cookies.set(name, "", {
+
+    // Method 2: Also try without secure flag
+    response.cookies.set(cookie.name, "", {
       expires: new Date(0),
       path: "/",
       httpOnly: true,
       secure: false,
       sameSite: "lax",
     });
+  }
+
+  // Also explicitly clear known Auth.js names even if not in incoming cookies
+  const knownNames = [
+    "authjs.session-token",
+    "__Secure-authjs.session-token",
+    "authjs.csrf-token",
+    "__Host-authjs.csrf-token",
+    "authjs.callback-url",
+    "__Secure-authjs.callback-url",
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+  ];
+
+  for (const name of knownNames) {
+    if (!cleared.includes(name)) {
+      cleared.push(name);
+      response.cookies.set(name, "", {
+        expires: new Date(0),
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+      });
+    }
   }
 
   return response;
