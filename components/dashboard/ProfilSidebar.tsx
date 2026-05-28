@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   User,
   FileText,
@@ -14,7 +15,6 @@ import {
   LogOut,
   ChevronRight,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 
 type Props = {
   userName: string;
@@ -40,6 +40,38 @@ const navItems = [
 
 export default function ProfilSidebar({ userName, isAdmin, counts, notificationBell }: Props) {
   const pathname = usePathname();
+  const [debug, setDebug] = useState<string>("DEBUG SIDEBAR CHARGÉ");
+  const [logoutLoading, setLogoutLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    setDebug("1/4 - Tentative de déconnexion...");
+    try {
+      const csrfRes = await fetch("/api/auth/csrf");
+      const csrfData = await csrfRes.json();
+      setDebug(`2/4 - CSRF OK: ${csrfData.csrfToken?.substring(0, 10)}...`);
+
+      const res = await fetch("/api/auth/signout", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ csrfToken: csrfData.csrfToken }),
+        redirect: "manual",
+      });
+      setDebug(`3/4 - Signout: status=${res.status} type=${res.type}`);
+
+      const cookies = document.cookie;
+      const hasSession = cookies.includes("authjs.session-token") || cookies.includes("__Secure-authjs.session-token");
+      setDebug(`4/4 - Session cookie encore là: ${hasSession} | Cookies: ${cookies.substring(0, 150)}`);
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 5000);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setDebug(`ERREUR: ${msg}`);
+      setLogoutLoading(false);
+    }
+  };
 
   function isActive(href: string, exact?: boolean) {
     if (exact) return pathname === href;
@@ -123,13 +155,17 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
         {notificationBell}
         <button
           type="button"
-          onClick={() => signOut({ callbackUrl: "/" })}
+          onClick={handleLogout}
+          disabled={logoutLoading}
           aria-label="Se déconnecter"
-          className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
+          className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white disabled:opacity-50"
         >
           <LogOut className="h-4 w-4" />
         </button>
       </div>
+      <p className="mt-2 break-all rounded bg-yellow-500/20 px-2 py-1 text-[10px] text-yellow-300">
+        {debug}
+      </p>
     </aside>
   );
 }
