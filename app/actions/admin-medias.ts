@@ -82,6 +82,8 @@ const createMediaSchema = z.object({
   owner: z.enum(["LOUISIA", "TY"]),
   prixEstime: z.number().int().min(0),
   published: z.boolean(),
+  groupKey: z.string().max(100).optional(),
+  groupOrder: z.number().int().min(0).optional(),
 });
 
 export async function createMedia(data: z.infer<typeof createMediaSchema>) {
@@ -100,6 +102,8 @@ export async function createMedia(data: z.infer<typeof createMediaSchema>) {
       owner: validated.owner,
       prixEstime: validated.prixEstime,
       published: validated.published,
+      groupKey: validated.groupKey || null,
+      groupOrder: validated.groupOrder ?? null,
     },
   });
 
@@ -127,6 +131,104 @@ export async function deleteMedia(mediaId: string) {
     userId: adminId,
     target: mediaId,
     metadata: { type: "media_deleted" },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}
+
+/* ── Group management ─────────────────────────────────────── */
+
+const addToGroupSchema = z.object({
+  mediaId: z.string().min(1),
+  groupKey: z.string().min(1).max(100),
+  groupOrder: z.number().int().min(0),
+});
+
+export async function addMediaToGroup(data: z.infer<typeof addToGroupSchema>) {
+  const adminId = await requireAdmin();
+  const validated = addToGroupSchema.parse(data);
+
+  await db.media.update({
+    where: { id: validated.mediaId },
+    data: {
+      groupKey: validated.groupKey,
+      groupOrder: validated.groupOrder,
+    },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: validated.mediaId,
+    metadata: { type: "media_added_to_group", groupKey: validated.groupKey, groupOrder: validated.groupOrder },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}
+
+export async function removeMediaFromGroup(mediaId: string) {
+  const adminId = await requireAdmin();
+
+  await db.media.update({
+    where: { id: mediaId },
+    data: { groupKey: null, groupOrder: null },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: mediaId,
+    metadata: { type: "media_removed_from_group" },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}
+
+const renameGroupSchema = z.object({
+  oldGroupKey: z.string().min(1),
+  newGroupKey: z.string().min(1).max(100),
+});
+
+export async function renameGroup(data: z.infer<typeof renameGroupSchema>) {
+  const adminId = await requireAdmin();
+  const validated = renameGroupSchema.parse(data);
+
+  const result = await db.media.updateMany({
+    where: { groupKey: validated.oldGroupKey },
+    data: { groupKey: validated.newGroupKey },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: validated.oldGroupKey,
+    metadata: { type: "group_renamed", newGroupKey: validated.newGroupKey, count: result.count },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}
+
+export async function dissolveGroup(groupKey: string) {
+  const adminId = await requireAdmin();
+
+  const result = await db.media.updateMany({
+    where: { groupKey },
+    data: { groupKey: null, groupOrder: null },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: groupKey,
+    metadata: { type: "group_dissolved", count: result.count },
   });
 
   revalidatePath("/admin/medias");

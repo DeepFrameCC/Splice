@@ -5,14 +5,26 @@ import { Plus, X, Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import { createMedia } from "@/app/actions/admin-medias";
 
-export default function AddMediaForm() {
+interface AddMediaFormProps {
+  groups?: string[];
+}
+
+export default function AddMediaForm({ groups = [] }: AddMediaFormProps) {
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
+  const [groupMode, setGroupMode] = useState<"none" | "existing" | "new">("none");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
+
+    const rawGroupKey = groupMode === "existing"
+      ? (fd.get("groupKeyExisting") as string).trim()
+      : groupMode === "new"
+        ? (fd.get("groupKeyNew") as string).trim()
+        : "";
+    const rawGroupOrder = fd.get("groupOrder") as string;
 
     const data = {
       type: fd.get("type") as "PHOTO" | "VIDEO",
@@ -25,6 +37,8 @@ export default function AddMediaForm() {
       owner: fd.get("owner") as "LOUISIA" | "TY",
       prixEstime: Number(fd.get("prixEstime")) || 0,
       published: fd.get("published") === "on",
+      groupKey: rawGroupKey || undefined,
+      groupOrder: rawGroupKey && rawGroupOrder !== "" ? Number(rawGroupOrder) : undefined,
     };
 
     if (!data.url || !data.title) {
@@ -37,6 +51,7 @@ export default function AddMediaForm() {
         await createMedia(data);
         toast.success("Média ajouté !");
         form.reset();
+        setGroupMode("none");
         setOpen(false);
       } catch (err: any) {
         toast.error(err?.message ?? "Erreur lors de l'ajout");
@@ -179,6 +194,57 @@ export default function AddMediaForm() {
             className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
           />
         </label>
+
+        {/* Group / Carousel */}
+        <div className="sm:col-span-2 space-y-2">
+          <span className="text-sm font-bold text-white">Groupe (carrousel)</span>
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-1.5 text-sm text-white/60">
+              <input type="radio" name="groupModeRadio" checked={groupMode === "none"} onChange={() => setGroupMode("none")} className="accent-df-blue" />
+              Aucun
+            </label>
+            {groups.length > 0 && (
+              <label className="flex items-center gap-1.5 text-sm text-white/60">
+                <input type="radio" name="groupModeRadio" checked={groupMode === "existing"} onChange={() => setGroupMode("existing")} className="accent-df-blue" />
+                Existant
+              </label>
+            )}
+            <label className="flex items-center gap-1.5 text-sm text-white/60">
+              <input type="radio" name="groupModeRadio" checked={groupMode === "new"} onChange={() => setGroupMode("new")} className="accent-df-blue" />
+              Nouveau
+            </label>
+          </div>
+          {groupMode === "existing" && (
+            <select
+              name="groupKeyExisting"
+              className="w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
+            >
+              {groups.map((g) => (
+                <option key={g} value={g}>{g}</option>
+              ))}
+            </select>
+          )}
+          {groupMode === "new" && (
+            <input
+              name="groupKeyNew"
+              type="text"
+              placeholder="Ex: lowrider, mariage-dupont"
+              className="w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
+            />
+          )}
+          {groupMode !== "none" && (
+            <label>
+              <span className="text-xs text-white/40">Ordre dans le groupe (0 = 1re slide)</span>
+              <input
+                name="groupOrder"
+                type="number"
+                min={0}
+                defaultValue={0}
+                className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
+              />
+            </label>
+          )}
+        </div>
 
         <label className="flex items-center gap-3">
           <input

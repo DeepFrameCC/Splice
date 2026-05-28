@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { Image as ImageIcon, Video, Eye, EyeOff, Heart } from "lucide-react";
 import { PublishToggle, DeleteMediaBtn } from "@/components/dashboard/MediaToggleBtn";
 import AddMediaForm from "@/components/dashboard/AddMediaForm";
+import GroupManager from "@/components/dashboard/GroupManager";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,18 @@ export default async function AdminMediasPage() {
     hidden: medias.filter((m) => !m.published).length,
   };
 
+  const existingGroups = [...new Set(medias.map((m) => m.groupKey).filter(Boolean))] as string[];
+
+  const groupManagerMedias = medias.map((m) => ({
+    id: m.id,
+    title: m.title,
+    thumbnailUrl: m.thumbnailUrl,
+    url: m.url,
+    type: m.type,
+    groupKey: m.groupKey,
+    groupOrder: m.groupOrder,
+  }));
+
   return (
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
@@ -31,7 +44,7 @@ export default async function AdminMediasPage() {
             {stats.total} médias — {stats.photos} photos, {stats.videos} vidéos · {stats.published} publiés, {stats.hidden} masqués
           </p>
         </div>
-        <AddMediaForm />
+        <AddMediaForm groups={existingGroups} />
       </header>
 
       {/* Stats */}
@@ -51,6 +64,9 @@ export default async function AdminMediasPage() {
           </div>
         ))}
       </div>
+
+      {/* Group Manager */}
+      <GroupManager medias={groupManagerMedias} />
 
       {/* Media grid */}
       {medias.length === 0 ? (
@@ -119,6 +135,11 @@ export default async function AdminMediasPage() {
                   <span>{m.owner}</span>
                   {m.monteur && <span>· @{m.monteur.pseudo}</span>}
                   {m.category && <span>· {m.category}</span>}
+                  {m.groupKey && (
+                    <span className="rounded-full bg-df-blue/15 px-2 py-0.5 text-[10px] font-bold text-df-blue">
+                      {m.groupKey}
+                    </span>
+                  )}
                 </div>
                 <p className="mt-1 text-xs font-bold text-df-gold">
                   {m.prixEstime.toLocaleString("fr-FR")} €
