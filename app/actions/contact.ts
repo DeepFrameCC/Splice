@@ -61,8 +61,8 @@ export async function submitContact(
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
   const recipients = resolveRecipients(member);
 
+  // --- Email fondateurs : notification interne (critique) ---
   try {
-    // --- Email fondateurs : notification interne ---
     await sendMail({
       to: recipients,
       subject: `[Splice] Nouveau pré-devis — ${nom}`,
@@ -100,8 +100,17 @@ export async function submitContact(
           </div>
         </div>`,
     });
+  } catch (err) {
+    console.error("[contact] Erreur email fondateurs:", err);
+    const detail = err instanceof Error ? err.message : "Erreur inconnue";
+    return {
+      success: false,
+      error: `Une erreur est survenue lors de l'envoi. (${detail})`,
+    };
+  }
 
-    // --- Email client : confirmation ---
+  // --- Email client : confirmation (secondaire, ne bloque pas) ---
+  try {
     await sendMail({
       to: email,
       subject: "Splice — Nous avons bien reçu votre demande",
@@ -116,24 +125,21 @@ export async function submitContact(
           </ul>
           <p style="color:#666;font-size:14px;margin-top:24px">
             En attendant, n'hésitez pas à consulter nos réalisations sur
-            <a href="${appUrl}" style="color:#F36B1F">splice.cc</a>.
+            <a href="${appUrl}" style="color:#F36B1F">splicestudio.fr</a>.
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
           <p style="color:#999;font-size:12px">
-            Cet email a été envoyé automatiquement par Splice.
+            Cet email a été envoyé automatiquement par Splice Studio.
             Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer ce message.
           </p>
         </div>`,
     });
-
-    return { success: true };
   } catch (err) {
-    console.error("[contact] Erreur envoi email:", err);
-    return {
-      success: false,
-      error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
-    };
+    // La notification fondateurs a réussi, on log mais on ne bloque pas
+    console.error("[contact] Erreur email confirmation client:", err);
   }
+
+  return { success: true };
 }
 
 /* ------------------------------------------------------------------ */
