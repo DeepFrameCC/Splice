@@ -1,4 +1,4 @@
-﻿import { db } from "@/lib/db";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { toggleLike } from "@/app/actions/likes";
 import NavWrapper from "@/components/layout/NavWrapper";
@@ -42,6 +42,7 @@ export default async function GaleriePage() {
     url: string;
     thumbnailUrl: string | null;
     title: string;
+    description: string | null;
     category: string | null;
     client: string | null;
     duration: string | null;
@@ -72,6 +73,7 @@ export default async function GaleriePage() {
       url: m.url,
       thumbnailUrl: m.thumbnailUrl,
       title: m.title,
+      description: m.description,
       category: m.category,
       client: m.client,
       duration: m.duration,

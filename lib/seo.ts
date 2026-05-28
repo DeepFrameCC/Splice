@@ -207,6 +207,7 @@ interface GalleryMediaForJsonLd {
   description?: string | null;
   url: string;
   thumbnailUrl?: string | null;
+  createdAt?: string;
 }
 
 export function buildGalleryJsonLd(
@@ -231,13 +232,20 @@ export function buildGalleryJsonLd(
 
   return {
     ...base,
-    hasPart: medias.slice(0, 20).map((m) => ({
-      "@type": m.type === "VIDEO" ? "VideoObject" : "ImageObject",
-      name: m.title,
-      ...(m.description ? { description: m.description } : {}),
-      contentUrl: m.url,
-      ...(m.thumbnailUrl ? { thumbnailUrl: m.thumbnailUrl } : {}),
-    })),
+    hasPart: medias.slice(0, 20).map((m) => {
+      const isVideo = m.type === "VIDEO";
+      const thumb = m.thumbnailUrl || (isVideo ? `${BASE_URL}/og-image.jpg` : undefined);
+      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice Studio - ${m.title}` : undefined);
+
+      return {
+        "@type": isVideo ? "VideoObject" : "ImageObject",
+        name: m.title,
+        ...(desc ? { description: desc } : {}),
+        contentUrl: m.url,
+        ...(thumb ? { thumbnailUrl: thumb } : {}),
+        ...(isVideo ? { uploadDate: m.createdAt || new Date().toISOString() } : {}),
+      };
+    }),
   };
 }
 
