@@ -41,41 +41,12 @@ const navItems = [
 export default function ProfilSidebar({ userName, isAdmin, counts, notificationBell }: Props) {
   const pathname = usePathname();
   const [logoutLoading, setLogoutLoading] = useState(false);
-  const [debug, setDebug] = useState("DEBUG SIDEBAR v2 PRET");
-
   const handleLogout = async () => {
     setLogoutLoading(true);
     try {
-      // 1. Session BEFORE
-      const beforeRes = await fetch("/api/auth/session");
-      const beforeData = await beforeRes.json();
-      const beforeUser = beforeData?.user?.name || beforeData?.user?.email || "aucun";
-      setDebug(`AVANT: ${beforeUser}`);
-
-      // 2. CSRF
-      const csrfRes = await fetch("/api/auth/csrf");
-      const csrfData = await csrfRes.json();
-
-      // 3. Signout
-      const signoutRes = await fetch("/api/auth/signout", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ csrfToken: csrfData.csrfToken }),
-        redirect: "follow",
-      });
-      setDebug(`AVANT: ${beforeUser} | SIGNOUT: ${signoutRes.status}`);
-
-      // 4. Session AFTER
-      const afterRes = await fetch("/api/auth/session");
-      const afterData = await afterRes.json();
-      const afterUser = afterData?.user?.name || afterData?.user?.email || "aucun";
-      setDebug(`AVANT: ${beforeUser} | APRES: ${afterUser} | status=${signoutRes.status}`);
-
-      // 5. Redirect after 6s
-      setTimeout(() => { window.location.href = "/"; }, 6000);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err);
-      setDebug(`ERREUR: ${msg}`);
+      await fetch("/api/logout", { method: "POST" });
+      window.location.href = "/";
+    } catch {
       setLogoutLoading(false);
     }
   };
@@ -170,9 +141,6 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
           <LogOut className="h-4 w-4" />
         </button>
       </div>
-      <p className="mt-2 break-all rounded bg-red-500/30 px-2 py-1 text-[11px] font-bold text-white">
-        {debug}
-      </p>
     </aside>
   );
 }

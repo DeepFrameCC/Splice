@@ -99,14 +99,7 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
             <button
               type="button"
               onClick={async () => {
-                const csrfRes = await fetch("/api/auth/csrf");
-                const csrfData = await csrfRes.json();
-                await fetch("/api/auth/signout", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                  body: new URLSearchParams({ csrfToken: csrfData.csrfToken }),
-                  redirect: "manual",
-                });
+                await fetch("/api/logout", { method: "POST" });
                 window.location.href = "/";
               }}
               className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"

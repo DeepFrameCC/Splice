@@ -129,14 +129,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
         <button
           type="button"
           onClick={async () => {
-            const csrfRes = await fetch("/api/auth/csrf");
-            const csrfData = await csrfRes.json();
-            await fetch("/api/auth/signout", {
-              method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: new URLSearchParams({ csrfToken: csrfData.csrfToken }),
-              redirect: "manual",
-            });
+            await fetch("/api/logout", { method: "POST" });
             window.location.href = "/";
           }}
           aria-label="Se deconnecter"
