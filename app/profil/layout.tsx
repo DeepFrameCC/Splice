@@ -7,6 +7,7 @@ import ProfilSidebar from "@/components/dashboard/ProfilSidebar";
 import NotificationBell from "@/components/dashboard/NotificationBell";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import { LogoutButton } from "@/components/dashboard/LogoutButton";
 
 export default async function ProfilLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -91,6 +92,7 @@ export default async function ProfilLayout({ children }: { children: React.React
                   {l.label}
                 </a>
               ))}
+              <LogoutButton />
             </nav>
           </div>
 

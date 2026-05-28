@@ -150,8 +150,7 @@ export async function loginAction(_prev: unknown, formData: FormData) {
 
 export async function logoutAction() {
   await audit({ action: "LOGOUT" });
-  await signOut({ redirect: false });
-  redirect("/");
+  await signOut({ redirectTo: "/" });
 }
 
 export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
