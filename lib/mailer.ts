@@ -8,7 +8,9 @@ function getResend() {
   return _resend;
 }
 
-export const MAIL_FROM = process.env.MAIL_FROM ?? "Splice Studio <noreply@splicestudio.fr>";
+// Hardcoded to the verified Resend domain — do not read from env to avoid
+// misconfiguration on Cloudflare Workers sending from an unverified domain.
+export const MAIL_FROM = "Splice Studio <noreply@splicestudio.fr>";
 export const MAIL_REPLY_TO = "contact.splicestudio@gmail.com";
 export const MAIL_CONTACT = "contact@splicestudio.fr";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
