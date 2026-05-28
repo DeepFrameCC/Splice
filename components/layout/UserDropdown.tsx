@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { User, Shield, FileText, Settings, LogOut } from "lucide-react";
-import { logoutAction } from "@/app/actions/auth";
 
 interface UserDropdownProps {
   name: string;
@@ -97,15 +96,24 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
           </div>
 
           <div className="border-t border-white/[0.06] pt-1">
-            <form action={logoutAction}>
-              <button
-                type="submit"
-                className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
-              >
-                <LogOut className="h-4 w-4" />
-                Déconnexion
-              </button>
-            </form>
+            <button
+              type="button"
+              onClick={async () => {
+                const csrfRes = await fetch("/api/auth/csrf");
+                const csrfData = await csrfRes.json();
+                await fetch("/api/auth/signout", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                  body: new URLSearchParams({ csrfToken: csrfData.csrfToken }),
+                  redirect: "manual",
+                });
+                window.location.href = "/";
+              }}
+              className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
+            >
+              <LogOut className="h-4 w-4" />
+              Déconnexion
+            </button>
           </div>
         </div>
       )}
