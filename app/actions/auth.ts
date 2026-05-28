@@ -27,26 +27,29 @@ const registerSchema = z.object({
   age: z.coerce.number().int().min(16, "Âge minimum 16 ans").max(120),
   "cf-turnstile-response": z.string().min(1, "Captcha requis"),
 }).refine((d) => d.nomEntreprise || (d.prenom && d.nom), { message: "Nom/prénom OU nom d'entreprise requis", path: ["nom"] });
-
-async function verifyTurnstile(token: string) {
+async function verifyTurnstile(token: string): Promise<{ success: boolean; errorCodes?: string[] }> {
   if (!process.env.TURNSTILE_SECRET_KEY) {
     if (process.env.NODE_ENV === "production") {
       console.error("[auth] TURNSTILE_SECRET_KEY missing in production — registration refused");
-      return false;
+      return { success: false, errorCodes: ["missing-secret-key-env"] };
     }
-    return true;
+    return { success: true };
   }
   const params = new URLSearchParams();
   params.append("secret", process.env.TURNSTILE_SECRET_KEY);
   params.append("response", token);
 
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params.toString(),
-  });
-  const data = (await res.json()) as { success?: boolean };
-  return data.success === true;
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+    const data = (await res.json()) as { success?: boolean; "error-codes"?: string[] };
+    return { success: data.success === true, errorCodes: data["error-codes"] };
+  } catch (err: any) {
+    return { success: false, errorCodes: ["fetch-failed", err?.message ?? String(err)] };
+  }
 }
 
 export async function registerAction(_prev: unknown, formData: FormData) {
@@ -57,7 +60,11 @@ export async function registerAction(_prev: unknown, formData: FormData) {
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Formulaire invalide" };
   const d = parsed.data;
 
-  if (!(await verifyTurnstile(d["cf-turnstile-response"]))) return { ok: false, error: "Captcha invalide" };
+  const turnstileRes = await verifyTurnstile(d["cf-turnstile-response"]);
+  if (!turnstileRes.success) {
+    const errDetail = turnstileRes.errorCodes?.join(", ") ?? "code inconnu";
+    return { ok: false, error: `Captcha invalide (${errDetail})` };
+  }
 
   const pseudo = formatPseudo(d.pseudo);
   if (!pseudoRegex.test(pseudo)) return { ok: false, error: "Pseudo : minuscules, chiffres, points uniquement" };
