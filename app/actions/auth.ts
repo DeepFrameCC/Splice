@@ -202,16 +202,50 @@ export async function loginAction(_prev: unknown, formData: FormData) {
 export async function logoutAction() {
   await audit({ action: "LOGOUT" });
 
-  // Auth.js signOut() doesn't reliably clear __Secure- prefixed cookies
-  // on Cloudflare Workers. Manually delete all known session cookies.
   const cookieStore = await cookies();
+
+  // Proactively clear all standard Auth.js cookie names
+  const knownNames = [
+    "authjs.session-token",
+    "__Secure-authjs.session-token",
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+    "authjs.csrf-token",
+    "__Host-authjs.csrf-token",
+    "next-auth.csrf-token",
+    "__Host-next-auth.csrf-token",
+    "authjs.callback-url",
+    "__Secure-authjs.callback-url",
+    "next-auth.callback-url",
+    "__Secure-next-auth.callback-url",
+  ];
+
+  for (const name of knownNames) {
+    cookieStore.set(name, "", {
+      path: "/",
+      maxAge: 0,
+      expires: new Date(0),
+      secure: true,
+      httpOnly: true,
+      sameSite: "lax",
+    });
+  }
+
+  // Also clear any other dynamic session cookies matched by name
   const allCookies = cookieStore.getAll();
   for (const cookie of allCookies) {
     if (
       cookie.name.includes("authjs") ||
       cookie.name.includes("next-auth")
     ) {
-      cookieStore.delete(cookie.name);
+      cookieStore.set(cookie.name, "", {
+        path: "/",
+        maxAge: 0,
+        expires: new Date(0),
+        secure: true,
+        httpOnly: true,
+        sameSite: "lax",
+      });
     }
   }
 
