@@ -16,18 +16,35 @@ export default async function ProfilLayout({ children }: { children: React.React
 
   const isAdmin = user.role === "ADMIN";
 
-  const [devisCount, facturesCount, contratsCount, likesCount, unreadCount, recentNotifs] = await Promise.all([
-    db.devis.count({ where: { userId: user.id } }),
-    db.facture.count({ where: { userId: user.id } }),
-    db.contrat.count({ where: { userId: user.id } }),
-    db.like.count({ where: { userId: user.id } }),
-    db.notification.count({ where: { userId: user.id, read: false } }),
-    db.notification.findMany({
-      where: { userId: user.id },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    }),
-  ]);
+  let devisCount = 0;
+  let facturesCount = 0;
+  let contratsCount = 0;
+  let likesCount = 0;
+  let unreadCount = 0;
+  let recentNotifs: any[] = [];
+
+  try {
+    const [dCount, fCount, cCount, lCount, uCount, notifs] = await Promise.all([
+      db.devis.count({ where: { userId: user.id } }),
+      db.facture.count({ where: { userId: user.id } }),
+      db.contrat.count({ where: { userId: user.id } }),
+      db.like.count({ where: { userId: user.id } }),
+      db.notification.count({ where: { userId: user.id, read: false } }),
+      db.notification.findMany({
+        where: { userId: user.id },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+      }),
+    ]);
+    devisCount = dCount;
+    facturesCount = fCount;
+    contratsCount = cCount;
+    likesCount = lCount;
+    unreadCount = uCount;
+    recentNotifs = notifs;
+  } catch (e) {
+    console.error("[profil-layout] Database counts failed:", e);
+  }
 
   const serializedNotifs = recentNotifs.map((n) => ({
     id: n.id,
