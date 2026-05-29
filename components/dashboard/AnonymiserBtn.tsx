@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useTransition, useState } from "react";
 import { anonymiserUtilisateur } from "@/app/actions/admin-clients";
 import { UserX } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function AnonymiserBtn({ userId, pseudo }: { userId: string; pseudo: string }) {
   const [pending, startTransition] = useTransition();
@@ -19,8 +20,13 @@ export default function AnonymiserBtn({ userId, pseudo }: { userId: string; pseu
           disabled={pending}
           onClick={() => {
             startTransition(async () => {
-              await anonymiserUtilisateur(userId);
-              setShowConfirm(false);
+              const res = await anonymiserUtilisateur(userId);
+              if (res.success) {
+                toast.success(`Client @${pseudo} anonymisé !`);
+                setShowConfirm(false);
+              } else {
+                toast.error(res.error ?? "Une erreur est survenue");
+              }
             });
           }}
           className="rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white transition hover:bg-red-600 disabled:opacity-50"

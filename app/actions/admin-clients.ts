@@ -18,23 +18,25 @@ async function requireAdmin() {
  * - Conserve les factures (obligation légale 10 ans)
  * - Conserve les devis/contrats avec données anonymisées
  */
-export async function anonymiserUtilisateur(userId: string) {
-  const adminId = await requireAdmin();
-  if (userId === adminId) throw new Error("Impossible de vous anonymiser vous-même");
+export async function anonymiserUtilisateur(userId: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const adminId = await requireAdmin();
+    if (userId === adminId) return { success: false, error: "Impossible de vous anonymiser vous-même" };
 
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { id: true, email: true, pseudo: true, role: true },
-  });
-  if (!user) throw new Error("Utilisateur introuvable");
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: { id: true, email: true, pseudo: true, role: true },
+    });
+    if (!user) return { success: false, error: "Utilisateur introuvable" };
 
-  const timestamp = Date.now();
-  const anonEmail = `supprime_${timestamp}@anonyme.local`;
-  const anonPseudo = `supprime_${timestamp}`;
+    const timestamp = Date.now();
+    const anonEmail = `supprime_${timestamp}@anonyme.local`;
+    const anonPseudo = `supprime_${timestamp}`;
 
-  await db.$transaction(async (tx) => {
-    // Anonymiser le profil
-    await tx.profile.updateMany({
+    // ─── Écritures Séquentielles Sans Transaction (pour compatibilité Neon HTTP) ───
+
+    // 1. Anonymiser le profil
+    await db.profile.updateMany({
       where: { userId },
       data: {
         prenom: "[supprimé]",
@@ -49,8 +51,8 @@ export async function anonymiserUtilisateur(userId: string) {
       },
     });
 
-    // Anonymiser l'utilisateur
-    await tx.user.update({
+    // 2. Anonymiser l'utilisateur
+    await db.user.update({
       where: { id: userId },
       data: {
         email: anonEmail,
@@ -61,8 +63,8 @@ export async function anonymiserUtilisateur(userId: string) {
       },
     });
 
-    // Anonymiser les devis (conserver le document, anonymiser les données perso)
-    await tx.devis.updateMany({
+    // 3. Anonymiser les devis (conserver le document, anonymiser les données perso)
+    await db.devis.updateMany({
       where: { userId },
       data: {
         nomContact: "[supprimé]",
@@ -74,30 +76,38 @@ export async function anonymiserUtilisateur(userId: string) {
       },
     });
 
-    // Supprimer les sessions
-    await tx.session.deleteMany({ where: { userId } });
+    // 4. Supprimer les sessions
+    await db.session.deleteMany({ where: { userId } });
 
-    // Supprimer les likes
-    await tx.like.deleteMany({ where: { userId } });
+    // 5. Supprimer les likes
+    await db.like.deleteMany({ where: { userId } });
 
-    // Supprimer les notifications
-    await tx.notification.deleteMany({ where: { userId } });
+    // 6. Supprimer les notifications
+    await db.notification.deleteMany({ where: { userId } });
 
-    // Supprimer les consentements
-    await tx.consentLog.deleteMany({ where: { userId } });
-  });
+    // 7. Supprimer les consentements
+    await db.consentLog.deleteMany({ where: { userId } });
 
-  await audit({
-    action: "ADMIN_ACTION",
-    userId: adminId,
-    target: userId,
-    metadata: {
-      type: "user_anonymized",
-      originalEmail: user.email.slice(0, 3) + "***",
-      originalPseudo: user.pseudo,
-    },
-  });
+    await audit({
+      action: "ADMIN_ACTION",
+      userId: adminId,
+      target: userId,
+      metadata: {
+        type: "user_anonymized",
+        originalEmail: user.email.slice(0, 3) + "***",
+        originalPseudo: user.pseudo,
+      },
+    });
 
-  revalidatePath("/admin/utilisateurs");
-  revalidatePath(`/admin/utilisateurs/${userId}`);
+    revalidatePath("/admin/utilisateurs");
+    revalidatePath(`/admin/utilisateurs/${userId}`);
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("[admin-clients] Anonymisation request error:", err);
+    return {
+      success: false,
+      error: `Erreur lors de l'anonymisation : ${err?.message ?? String(err)}`,
+    };
+  }
 }
