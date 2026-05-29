@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import {
   User,
   FileText,
@@ -40,26 +39,6 @@ const navItems = [
 
 export default function ProfilSidebar({ userName, isAdmin, counts, notificationBell }: Props) {
   const pathname = usePathname();
-  const [logoutLoading, setLogoutLoading] = useState(false);
-  const [debug, setDebug] = useState("SIDEBAR v4");
-  const handleLogout = async () => {
-    setLogoutLoading(true);
-    try {
-      const clearRes = await fetch("/api/logout", { method: "POST" });
-      const clearData = await clearRes.json();
-
-      const sessionRes = await fetch("/api/auth/session");
-      const sessionData = await sessionRes.json();
-      const user = sessionData?.user?.name || sessionData?.user?.email || "AUCUN";
-
-      setDebug(`CLEARED: ${JSON.stringify(clearData.incoming)} | SESSION: ${user}`);
-      setTimeout(() => { window.location.href = "/"; }, 6000);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err);
-      setDebug(`ERREUR: ${msg}`);
-      setLogoutLoading(false);
-    }
-  };
 
   function isActive(href: string, exact?: boolean) {
     if (exact) return pathname === href;
@@ -141,19 +120,14 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
           <p className="text-[11px] font-medium text-df-gold">Client</p>
         </div>
         {notificationBell}
-        <button
-          type="button"
-          onClick={handleLogout}
-          disabled={logoutLoading}
+        <a
+          href="/api/logout"
           aria-label="Se déconnecter"
-          className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white disabled:opacity-50"
+          className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
         >
           <LogOut className="h-4 w-4" />
-        </button>
+        </a>
       </div>
-      <p className="mt-2 break-all rounded bg-red-500/30 px-2 py-1 text-[10px] font-bold text-white">
-        {debug}
-      </p>
     </aside>
   );
 }

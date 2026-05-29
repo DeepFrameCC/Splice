@@ -126,17 +126,13 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
           <p className="truncate text-sm font-bold text-white">{userName}</p>
           <p className="text-[11px] font-medium text-df-gold">{userRole}</p>
         </div>
-        <button
-          type="button"
-          onClick={async () => {
-            await fetch("/api/logout", { method: "POST" });
-            window.location.href = "/";
-          }}
+        <a
+          href="/api/logout"
           aria-label="Se deconnecter"
           className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
         >
           <LogOut className="h-4 w-4" />
-        </button>
+        </a>
       </div>
     </aside>
   );
