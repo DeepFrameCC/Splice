@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { User, Shield, FileText, Settings, LogOut } from "lucide-react";
+import { logoutAction } from "@/app/actions/auth";
 
 interface UserDropdownProps {
   name: string;
@@ -12,8 +13,6 @@ interface UserDropdownProps {
 export default function UserDropdown({ name, role }: UserDropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const logoutFormRef = useRef<HTMLFormElement>(null);
-  const [csrfToken, setCsrfToken] = useState("");
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -30,13 +29,6 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
     };
   }, []);
 
-  useEffect(() => {
-    fetch("/api/auth/csrf")
-      .then((r) => r.json())
-      .then((d) => setCsrfToken((d as Record<string, string>).csrfToken ?? ""))
-      .catch(() => {});
-  }, []);
-
   const initial = name.charAt(0).toUpperCase();
   const isAdmin = role === "ADMIN";
   const isTeamOrAdmin = role === "ADMIN" || role === "TEAM";
@@ -51,17 +43,6 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
       >
         {initial}
       </button>
-
-      {/* Hidden logout form — submits to Auth.js as full browser navigation */}
-      <form
-        ref={logoutFormRef}
-        method="POST"
-        action="/api/auth/signout"
-        style={{ display: "none" }}
-      >
-        <input type="hidden" name="csrfToken" value={csrfToken} />
-        <input type="hidden" name="callbackUrl" value="/" />
-      </form>
 
       {open && (
         <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-xl border border-white/[0.08] bg-df-surface py-2 shadow-2xl shadow-black/40">
@@ -116,14 +97,15 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
           </div>
 
           <div className="border-t border-white/[0.06] pt-1">
-            <button
-              type="button"
-              onClick={() => logoutFormRef.current?.submit()}
-              className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
-            >
-              <LogOut className="h-4 w-4" />
-              Déconnexion
-            </button>
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
+              >
+                <LogOut className="h-4 w-4" />
+                Déconnexion
+              </button>
+            </form>
           </div>
         </div>
       )}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { logoutAction } from "@/app/actions/auth";
 import {
   User,
   FileText,
@@ -40,15 +40,6 @@ const navItems = [
 
 export default function ProfilSidebar({ userName, isAdmin, counts, notificationBell }: Props) {
   const pathname = usePathname();
-  const [csrfToken, setCsrfToken] = useState("");
-  const logoutFormRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    fetch("/api/auth/csrf")
-      .then((r) => r.json())
-      .then((d) => setCsrfToken((d as Record<string, string>).csrfToken ?? ""))
-      .catch(() => {});
-  }, []);
 
   function isActive(href: string, exact?: boolean) {
     if (exact) return pathname === href;
@@ -130,23 +121,15 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
           <p className="text-[11px] font-medium text-df-gold">Client</p>
         </div>
         {notificationBell}
-        <form
-          ref={logoutFormRef}
-          method="POST"
-          action="/api/auth/signout"
-          style={{ display: "none" }}
-        >
-          <input type="hidden" name="csrfToken" value={csrfToken} />
-          <input type="hidden" name="callbackUrl" value="/" />
+        <form action={logoutAction}>
+          <button
+            type="submit"
+            aria-label="Se déconnecter"
+            className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
         </form>
-        <button
-          type="button"
-          onClick={() => logoutFormRef.current?.submit()}
-          aria-label="Se déconnecter"
-          className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
-        >
-          <LogOut className="h-4 w-4" />
-        </button>
       </div>
     </aside>
   );

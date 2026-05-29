@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { signIn, signOut } from "@/lib/auth";
 import { sendMail } from "@/lib/mailer";
 import { randomBytes } from "crypto";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { authLimiter, checkRateLimit } from "@/lib/rate-limit";
 import { audit } from "@/lib/audit";
@@ -200,7 +201,21 @@ export async function loginAction(_prev: unknown, formData: FormData) {
 
 export async function logoutAction() {
   await audit({ action: "LOGOUT" });
-  await signOut({ redirectTo: "/" });
+
+  // Auth.js signOut() doesn't reliably clear __Secure- prefixed cookies
+  // on Cloudflare Workers. Manually delete all known session cookies.
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll();
+  for (const cookie of allCookies) {
+    if (
+      cookie.name.includes("authjs") ||
+      cookie.name.includes("next-auth")
+    ) {
+      cookieStore.delete(cookie.name);
+    }
+  }
+
+  redirect("/");
 }
 
 export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
