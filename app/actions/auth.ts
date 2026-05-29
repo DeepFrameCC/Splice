@@ -53,62 +53,89 @@ async function verifyTurnstile(token: string): Promise<{ success: boolean; error
 }
 
 export async function registerAction(_prev: unknown, formData: FormData) {
-  const rl = await checkRateLimit(authLimiter);
-  if (!rl.success) return { ok: false, error: rl.error };
+  try {
+    const rl = await checkRateLimit(authLimiter);
+    if (!rl.success) return { ok: false, error: rl.error };
 
-  const parsed = registerSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Formulaire invalide" };
-  const d = parsed.data;
+    const parsed = registerSchema.safeParse(Object.fromEntries(formData));
+    if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Formulaire invalide" };
+    const d = parsed.data;
 
-  const turnstileRes = await verifyTurnstile(d["cf-turnstile-response"]);
-  if (!turnstileRes.success) {
-    const errDetail = turnstileRes.errorCodes?.join(", ") ?? "code inconnu";
-    return { ok: false, error: `Captcha invalide (${errDetail})` };
-  }
+    const turnstileRes = await verifyTurnstile(d["cf-turnstile-response"]);
+    if (!turnstileRes.success) {
+      const errDetail = turnstileRes.errorCodes?.join(", ") ?? "code inconnu";
+      return { ok: false, error: `Captcha invalide (${errDetail})` };
+    }
 
-  const pseudo = formatPseudo(d.pseudo);
-  if (!pseudoRegex.test(pseudo)) return { ok: false, error: "Pseudo : minuscules, chiffres, points uniquement" };
+    const pseudo = formatPseudo(d.pseudo);
+    if (!pseudoRegex.test(pseudo)) return { ok: false, error: "Pseudo : minuscules, chiffres, points uniquement" };
 
-  const exists = await db.user.findFirst({ where: { OR: [{ email: d.email }, { pseudo }] } });
-  if (exists) return { ok: false, error: "Email ou pseudo déjà utilisé" };
+    const exists = await db.user.findFirst({ where: { OR: [{ email: d.email }, { pseudo }] } });
+    if (exists) return { ok: false, error: "Email ou pseudo déjà utilisé" };
 
-  const passwordHash = await hashPassword(d.password);
-  await db.user.create({
-    data: {
-      email: d.email, passwordHash, pseudo,
-      profile: {
-        create: {
-          prenom: d.prenom ?? null, nom: d.nom ?? null, nomEntreprise: d.nomEntreprise ?? null,
-          adresse: d.adresse, codePostal: d.codePostal ?? null, ville: d.ville ?? null,
-          tel: d.tel, age: d.age
+    const passwordHash = await hashPassword(d.password);
+    await db.user.create({
+      data: {
+        email: d.email, passwordHash, pseudo,
+        profile: {
+          create: {
+            prenom: d.prenom ?? null, nom: d.nom ?? null, nomEntreprise: d.nomEntreprise ?? null,
+            adresse: d.adresse, codePostal: d.codePostal ?? null, ville: d.ville ?? null,
+            tel: d.tel, age: d.age
+          }
         }
       }
+    });
+
+    // Send verification email (fire-and-forget)
+    const verifyToken = randomBytes(32).toString("hex");
+    await db.emailVerification.create({
+      data: { email: d.email, token: verifyToken, expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) },
+    });
+    const verifyLink = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${verifyToken}`;
+    
+    try {
+      await sendMail({
+        to: d.email,
+        subject: "Splice — Vérifiez votre adresse email",
+        html: `
+          <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+            <h2 style="color:#F36B1F">Bienvenue sur Splice !</h2>
+            <p>Cliquez ci-dessous pour vérifier votre email (valable 24h) :</p>
+            <p style="margin-top:20px">
+              <a href="${verifyLink}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
+            </p>
+            <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
+          </div>`,
+      });
+    } catch (emailErr) {
+      console.error("[auth] Verification email failed:", emailErr);
     }
-  });
 
-  // Send verification email (fire-and-forget)
-  const verifyToken = randomBytes(32).toString("hex");
-  await db.emailVerification.create({
-    data: { email: d.email, token: verifyToken, expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) },
-  });
-  const verifyLink = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${verifyToken}`;
-  sendMail({
-    to: d.email,
-    subject: "Splice — Vérifiez votre adresse email",
-    html: `
-      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
-        <h2 style="color:#F36B1F">Bienvenue sur Splice !</h2>
-        <p>Cliquez ci-dessous pour vérifier votre email (valable 24h) :</p>
-        <p style="margin-top:20px">
-          <a href="${verifyLink}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
-        </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
-      </div>`,
-  }).catch((err: unknown) => { console.error("[auth] Verification email failed:", err); });
+    await audit({ action: "LOGIN", target: d.email, metadata: { type: "register" } });
 
-  await audit({ action: "LOGIN", target: d.email, metadata: { type: "register" } });
-  await signIn("credentials", { email: d.email, password: d.password, redirectTo: "/profil" });
-  return { ok: true };
+    try {
+      await signIn("credentials", { email: d.email, password: d.password, redirectTo: "/profil" });
+    } catch (signInErr: any) {
+      // If it's a redirect, we must rethrow it so Next.js handles the navigation
+      if (signInErr && typeof signInErr === "object" && "digest" in signInErr) {
+        const digest = (signInErr as { digest?: string }).digest;
+        if (digest?.includes?.("NEXT_REDIRECT")) throw signInErr;
+      }
+      console.error("[auth] Auto-signin failed after registration:", signInErr);
+      return { ok: false, error: "Compte créé avec succès ! Connectez-vous sur la page de connexion." };
+    }
+
+    return { ok: true };
+  } catch (err: any) {
+    // If it's a redirect, let Next.js handle it
+    if (err && typeof err === "object" && "digest" in err) {
+      const digest = (err as { digest?: string }).digest;
+      if (digest?.includes?.("NEXT_REDIRECT")) throw err;
+    }
+    console.error("[auth] Registration error:", err);
+    return { ok: false, error: `Erreur d'inscription : ${err?.message ?? String(err)}` };
+  }
 }
 
 export async function loginAction(_prev: unknown, formData: FormData) {
