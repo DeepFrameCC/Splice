@@ -41,13 +41,10 @@ const navItems = [
 export default function ProfilSidebar({ userName, isAdmin, counts, notificationBell }: Props) {
   const pathname = usePathname();
   const [logoutLoading, setLogoutLoading] = useState(false);
-  const [debug, setDebug] = useState("SIDEBAR v3 PRET");
+  const [debug, setDebug] = useState("SIDEBAR v4");
   const handleLogout = async () => {
     setLogoutLoading(true);
     try {
-      const diagRes = await fetch("/api/logout");
-      const diagData = await diagRes.json();
-
       const clearRes = await fetch("/api/logout", { method: "POST" });
       const clearData = await clearRes.json();
 
@@ -55,8 +52,8 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
       const sessionData = await sessionRes.json();
       const user = sessionData?.user?.name || sessionData?.user?.email || "AUCUN";
 
-      setDebug(`COOKIES(${diagData.count}): ${JSON.stringify(diagData.parsedCookies)} | CLEARED: ${JSON.stringify(clearData.cleared)} | SESSION APRES: ${user}`);
-      setTimeout(() => { window.location.href = "/"; }, 8000);
+      setDebug(`CLEARED: ${JSON.stringify(clearData.incoming)} | SESSION: ${user}`);
+      setTimeout(() => { window.location.href = "/"; }, 6000);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       setDebug(`ERREUR: ${msg}`);

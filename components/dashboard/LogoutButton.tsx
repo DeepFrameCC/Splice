@@ -5,28 +5,22 @@ import { LogOut } from "lucide-react";
 
 export function LogoutButton() {
   const [loading, setLoading] = useState(false);
-  const [debug, setDebug] = useState("LOGOUT v3 PRET");
+  const [debug, setDebug] = useState("LOGOUT v4");
 
   const handleLogout = async () => {
     setLoading(true);
     try {
-      // Step 1: GET to see what cookies the server receives
-      const diagRes = await fetch("/api/logout");
-      const diagData = await diagRes.json();
-      setDebug(`COOKIES RECUS: ${JSON.stringify(diagData.parsedCookies)} (${diagData.count})`);
-
-      // Step 2: POST to clear them
       const clearRes = await fetch("/api/logout", { method: "POST" });
       const clearData = await clearRes.json();
-      setDebug(`RECUS: ${JSON.stringify(diagData.parsedCookies)} | CLEARED: ${JSON.stringify(clearData.cleared)}`);
+      setDebug(`CLEARED cookies: ${JSON.stringify(clearData.incoming)}`);
 
-      // Step 3: Check session after clear
+      // Check session after
       const sessionRes = await fetch("/api/auth/session");
       const sessionData = await sessionRes.json();
       const user = sessionData?.user?.name || sessionData?.user?.email || "AUCUN";
-      setDebug(`COOKIES(${diagData.count}): ${JSON.stringify(diagData.parsedCookies)} | APRES CLEAR session=${user}`);
+      setDebug(`CLEARED: ${JSON.stringify(clearData.incoming)} | SESSION: ${user}`);
 
-      setTimeout(() => { window.location.href = "/"; }, 8000);
+      setTimeout(() => { window.location.href = "/"; }, 6000);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       setDebug(`ERREUR: ${msg}`);

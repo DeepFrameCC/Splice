@@ -1,76 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * Debug + logout endpoint.
- * GET  → shows all cookies the browser sends (for diagnosis)
- * POST → clears all cookies and returns what was cleared
- */
-export async function GET(req: NextRequest) {
-  const cookieHeader = req.headers.get("cookie") || "(vide)";
-  const allCookies = req.cookies.getAll().map((c) => `${c.name}=${c.value.substring(0, 20)}...`);
-  return NextResponse.json({
-    rawCookieHeader: cookieHeader.substring(0, 500),
-    parsedCookies: allCookies,
-    count: allCookies.length,
-  });
-}
-
 export async function POST(req: NextRequest) {
-  const incomingCookies = req.cookies.getAll();
-  const cleared: string[] = [];
+  // Read incoming cookies from the request header directly
+  const cookieHeader = req.headers.get("cookie") || "";
+  const incomingNames = cookieHeader
+    .split(";")
+    .map((c) => c.trim().split("=")[0])
+    .filter(Boolean);
 
-  const response = NextResponse.json({
-    ok: true,
-    incomingCookieNames: incomingCookies.map((c) => c.name),
-    cleared,
-  });
+  const response = NextResponse.json({ ok: true, incoming: incomingNames });
 
-  // Clear EVERY cookie the browser sent, not just known names
-  for (const cookie of incomingCookies) {
-    cleared.push(cookie.name);
-
-    // Method 1: NextResponse.cookies.set with expires in the past
-    response.cookies.set(cookie.name, "", {
-      expires: new Date(0),
-      path: "/",
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-    });
-
-    // Method 2: Also try without secure flag
-    response.cookies.set(cookie.name, "", {
-      expires: new Date(0),
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-    });
+  // Clear __Host- prefixed cookies (require secure + path=/ + NO domain)
+  for (const name of incomingNames.filter((n) => n.startsWith("__Host-"))) {
+    response.headers.append(
+      "Set-Cookie",
+      `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`
+    );
   }
 
-  // Also explicitly clear known Auth.js names even if not in incoming cookies
-  const knownNames = [
-    "authjs.session-token",
-    "__Secure-authjs.session-token",
-    "authjs.csrf-token",
-    "__Host-authjs.csrf-token",
-    "authjs.callback-url",
-    "__Secure-authjs.callback-url",
-    "next-auth.session-token",
-    "__Secure-next-auth.session-token",
+  // Clear __Secure- prefixed cookies (require secure)
+  for (const name of incomingNames.filter((n) => n.startsWith("__Secure-"))) {
+    response.headers.append(
+      "Set-Cookie",
+      `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`
+    );
+  }
+
+  // Clear non-prefixed cookies
+  for (const name of incomingNames.filter((n) => !n.startsWith("__"))) {
+    response.headers.append(
+      "Set-Cookie",
+      `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`
+    );
+  }
+
+  // Also explicitly clear known Auth.js names with raw Set-Cookie headers
+  const explicit = [
+    `__Secure-authjs.session-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`,
+    `__Host-authjs.csrf-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`,
+    `__Secure-authjs.callback-url=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`,
+    `authjs.session-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`,
+    `authjs.csrf-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`,
+    `authjs.callback-url=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`,
   ];
 
-  for (const name of knownNames) {
-    if (!cleared.includes(name)) {
-      cleared.push(name);
-      response.cookies.set(name, "", {
-        expires: new Date(0),
-        path: "/",
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-      });
-    }
+  for (const header of explicit) {
+    response.headers.append("Set-Cookie", header);
   }
 
   return response;
