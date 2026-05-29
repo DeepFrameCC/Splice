@@ -52,14 +52,16 @@ export async function saveConsent(
   const ip = headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
 
   try {
-    await db.consentLog.createMany({
-      data: Array.from(deduped.values()).map((c) => ({
-        userId,
-        consentType: c.type,
-        granted: c.granted,
-        ipAddress: ip,
-      })),
-    });
+    for (const c of deduped.values()) {
+      await db.consentLog.create({
+        data: {
+          userId,
+          consentType: c.type,
+          granted: c.granted,
+          ipAddress: ip,
+        },
+      });
+    }
   } catch (err) {
     console.error("[consent] Failed to persist consent log:", err);
     // Consent was already saved client-side (localStorage).

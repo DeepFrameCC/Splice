@@ -21,152 +21,160 @@ export async function exportMyData(): Promise<{
   data?: string;
   error?: string;
 }> {
-  const userId = await requireAuth();
+  try {
+    const userId = await requireAuth();
 
-  const rl = await checkRateLimit(authLimiter);
-  if (!rl.success) return { success: false, error: rl.error };
+    const rl = await checkRateLimit(authLimiter);
+    if (!rl.success) return { success: false, error: rl.error };
 
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    include: {
-      profile: true,
-      devis: {
-        select: {
-          numero: true,
-          pack: true,
-          status: true,
-          totalHT: true,
-          nomEntreprise: true,
-          nomContact: true,
-          emailContact: true,
-          telContact: true,
-          lieuTournage: true,
-          dateTournage: true,
-          remarques: true,
-          createdAt: true,
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      include: {
+        profile: true,
+        devis: {
+          select: {
+            numero: true,
+            pack: true,
+            status: true,
+            totalHT: true,
+            nomEntreprise: true,
+            nomContact: true,
+            emailContact: true,
+            telContact: true,
+            lieuTournage: true,
+            dateTournage: true,
+            remarques: true,
+            createdAt: true,
+          },
+        },
+        factures: {
+          select: {
+            numero: true,
+            status: true,
+            createdAt: true,
+          },
+        },
+        contrats: {
+          select: {
+            numero: true,
+            status: true,
+            dateDebut: true,
+            dateFin: true,
+            createdAt: true,
+          },
+        },
+        likes: {
+          select: {
+            mediaId: true,
+            createdAt: true,
+          },
+        },
+        notifications: {
+          select: {
+            type: true,
+            title: true,
+            message: true,
+            createdAt: true,
+          },
+        },
+        consents: {
+          select: {
+            consentType: true,
+            granted: true,
+            createdAt: true,
+          },
+        },
+        auditLogs: {
+          select: {
+            action: true,
+            target: true,
+            ipAddress: true,
+            createdAt: true,
+          },
+          orderBy: { createdAt: "desc" },
+          take: 100,
         },
       },
-      factures: {
-        select: {
-          numero: true,
-          status: true,
-          createdAt: true,
-        },
-      },
-      contrats: {
-        select: {
-          numero: true,
-          status: true,
-          dateDebut: true,
-          dateFin: true,
-          createdAt: true,
-        },
-      },
-      likes: {
-        select: {
-          mediaId: true,
-          createdAt: true,
-        },
-      },
-      notifications: {
-        select: {
-          type: true,
-          title: true,
-          message: true,
-          createdAt: true,
-        },
-      },
-      consents: {
-        select: {
-          consentType: true,
-          granted: true,
-          createdAt: true,
-        },
-      },
-      auditLogs: {
-        select: {
-          action: true,
-          target: true,
-          ipAddress: true,
-          createdAt: true,
-        },
-        orderBy: { createdAt: "desc" },
-        take: 100,
-      },
-    },
-  });
+    });
 
-  if (!user) return { success: false, error: "Utilisateur introuvable" };
+    if (!user) return { success: false, error: "Utilisateur introuvable" };
 
-  const exportData = {
-    _meta: {
-      exportDate: new Date().toISOString(),
-      format: "RGPD Article 15/20 — Données personnelles",
-      service: "Splice",
-    },
-    compte: {
-      email: user.email,
-      pseudo: user.pseudo,
-      role: user.role,
-      emailVerifie: !!user.emailVerified,
-      doubleAuthentification: user.twoFactorEnabled,
-      dateCreation: user.createdAt.toISOString(),
-    },
-    profil: user.profile
-      ? {
-          prenom: user.profile.prenom,
-          nom: user.profile.nom,
-          nomEntreprise: user.profile.nomEntreprise,
-          adresse: user.profile.adresse,
-          codePostal: user.profile.codePostal,
-          ville: user.profile.ville,
-          pays: user.profile.pays,
-          tel: user.profile.tel,
-          age: user.profile.age,
-          bio: user.profile.bio,
-        }
-      : null,
-    devis: user.devis.map((d) => ({
-      ...d,
-      dateTournage: d.dateTournage?.toISOString() ?? null,
-      createdAt: d.createdAt.toISOString(),
-    })),
-    factures: user.factures.map((f) => ({
-      ...f,
-      createdAt: f.createdAt.toISOString(),
-    })),
-    contrats: user.contrats.map((c) => ({
-      ...c,
-      dateDebut: c.dateDebut?.toISOString() ?? null,
-      dateFin: c.dateFin?.toISOString() ?? null,
-      createdAt: c.createdAt.toISOString(),
-    })),
-    likes: user.likes.map((l) => ({
-      mediaId: l.mediaId,
-      createdAt: l.createdAt.toISOString(),
-    })),
-    notifications: user.notifications.map((n) => ({
-      ...n,
-      createdAt: n.createdAt.toISOString(),
-    })),
-    consentements: user.consents.map((c) => ({
-      ...c,
-      createdAt: c.createdAt.toISOString(),
-    })),
-    journalActivite: user.auditLogs.map((a) => ({
-      ...a,
-      createdAt: a.createdAt.toISOString(),
-    })),
-  };
+    const exportData = {
+      _meta: {
+        exportDate: new Date().toISOString(),
+        format: "RGPD Article 15/20 — Données personnelles",
+        service: "Splice",
+      },
+      compte: {
+        email: user.email,
+        pseudo: user.pseudo,
+        role: user.role,
+        emailVerifie: !!user.emailVerified,
+        doubleAuthentification: user.twoFactorEnabled,
+        dateCreation: user.createdAt.toISOString(),
+      },
+      profil: user.profile
+        ? {
+            prenom: user.profile.prenom,
+            nom: user.profile.nom,
+            nomEntreprise: user.profile.nomEntreprise,
+            adresse: user.profile.adresse,
+            codePostal: user.profile.codePostal,
+            ville: user.profile.ville,
+            pays: user.profile.pays,
+            tel: user.profile.tel,
+            age: user.profile.age,
+            bio: user.profile.bio,
+          }
+        : null,
+      devis: user.devis.map((d) => ({
+        ...d,
+        dateTournage: d.dateTournage?.toISOString() ?? null,
+        createdAt: d.createdAt.toISOString(),
+      })),
+      factures: user.factures.map((f) => ({
+        ...f,
+        createdAt: f.createdAt.toISOString(),
+      })),
+      contrats: user.contrats.map((c) => ({
+        ...c,
+        dateDebut: c.dateDebut?.toISOString() ?? null,
+        dateFin: c.dateFin?.toISOString() ?? null,
+        createdAt: c.createdAt.toISOString(),
+      })),
+      likes: user.likes.map((l) => ({
+        mediaId: l.mediaId,
+        createdAt: l.createdAt.toISOString(),
+      })),
+      notifications: user.notifications.map((n) => ({
+        ...n,
+        createdAt: n.createdAt.toISOString(),
+      })),
+      consentements: user.consents.map((c) => ({
+        ...c,
+        createdAt: c.createdAt.toISOString(),
+      })),
+      journalActivite: user.auditLogs.map((a) => ({
+        ...a,
+        createdAt: a.createdAt.toISOString(),
+      })),
+    };
 
-  await audit({
-    action: "ADMIN_ACTION",
-    userId,
-    target: userId,
-    metadata: { type: "rgpd_data_export" },
-  });
+    await audit({
+      action: "ADMIN_ACTION",
+      userId,
+      target: userId,
+      metadata: { type: "rgpd_data_export" },
+    });
 
-  return { success: true, data: JSON.stringify(exportData, null, 2) };
+    return { success: true, data: JSON.stringify(exportData, null, 2) };
+  } catch (err: any) {
+    console.error("[rgpd] Data export error:", err);
+    return {
+      success: false,
+      error: `Erreur lors de l'export des données : ${err?.message ?? String(err)}`,
+    };
+  }
 }
 
 /**
@@ -177,58 +185,69 @@ export async function exportMyData(): Promise<{
 export async function requestAccountDeletion(
   password: string
 ): Promise<{ success: boolean; error?: string }> {
-  const userId = await requireAuth();
+  try {
+    const userId = await requireAuth();
 
-  const rl = await checkRateLimit(authLimiter);
-  if (!rl.success) return { success: false, error: rl.error };
+    const rl = await checkRateLimit(authLimiter);
+    if (!rl.success) return { success: false, error: rl.error };
 
-  if (!password || password.length < 1) {
-    return { success: false, error: "Mot de passe requis pour confirmer" };
+    if (!password || password.length < 1) {
+      return { success: false, error: "Mot de passe requis pour confirmer" };
+    }
+
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: { passwordHash: true, email: true },
+    });
+
+    if (!user?.passwordHash) {
+      return { success: false, error: "Compte introuvable" };
+    }
+
+    // Verify password
+    const { verifyPassword } = await import("@/lib/crypto/password");
+    const valid = await verifyPassword(password, user.passwordHash);
+    if (!valid) {
+      return { success: false, error: "Mot de passe incorrect" };
+    }
+
+    // Log the deletion request (admin will process it within 30 days per RGPD)
+    await audit({
+      action: "ADMIN_ACTION",
+      userId,
+      target: userId,
+      metadata: {
+        type: "rgpd_deletion_request",
+        email: user.email,
+        requestedAt: new Date().toISOString(),
+      },
+    });
+
+    // Create a notification for admins
+    const admins = await db.user.findMany({
+      where: { role: "ADMIN" },
+      select: { id: true },
+    });
+
+    // Insert notifications sequentially to avoid Neon HTTP transaction errors (createMany uses implicit transactions)
+    for (const a of admins) {
+      await db.notification.create({
+        data: {
+          userId: a.id,
+          type: "SYSTEM",
+          title: "Demande de suppression RGPD",
+          message: `L'utilisateur ${user.email} a demandé la suppression de son compte. Délai légal : 30 jours.`,
+          href: "/admin/utilisateurs",
+        },
+      });
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("[rgpd] Account deletion request error:", err);
+    return {
+      success: false,
+      error: `Erreur lors de la demande de suppression : ${err?.message ?? String(err)}`,
+    };
   }
-
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { passwordHash: true, email: true },
-  });
-
-  if (!user?.passwordHash) {
-    return { success: false, error: "Compte introuvable" };
-  }
-
-  // Verify password
-  const { verifyPassword } = await import("@/lib/crypto/password");
-  const valid = await verifyPassword(password, user.passwordHash);
-  if (!valid) {
-    return { success: false, error: "Mot de passe incorrect" };
-  }
-
-  // Log the deletion request (admin will process it within 30 days per RGPD)
-  await audit({
-    action: "ADMIN_ACTION",
-    userId,
-    target: userId,
-    metadata: {
-      type: "rgpd_deletion_request",
-      email: user.email,
-      requestedAt: new Date().toISOString(),
-    },
-  });
-
-  // Create a notification for admins
-  const admins = await db.user.findMany({
-    where: { role: "ADMIN" },
-    select: { id: true },
-  });
-
-  await db.notification.createMany({
-    data: admins.map((a) => ({
-      userId: a.id,
-      type: "SYSTEM" as const,
-      title: "Demande de suppression RGPD",
-      message: `L'utilisateur ${user.email} a demandé la suppression de son compte. Délai légal : 30 jours.`,
-      href: "/admin/utilisateurs",
-    })),
-  });
-
-  return { success: true };
 }
