@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useState, useTransition } from "react";
 import { exportMyData, requestAccountDeletion } from "@/app/actions/rgpd";
 import { Download, Trash2, ShieldCheck, AlertTriangle } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export default function RGPDSection() {
   const [isPending, startTransition] = useTransition();
@@ -115,13 +116,13 @@ export default function RGPDSection() {
                 <label htmlFor="delete-password" className="mb-1 block text-xs font-bold text-red-400">
                   Confirmez avec votre mot de passe
                 </label>
-                <input
+                <Input
                   id="delete-password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Votre mot de passe"
-                  className="w-full max-w-xs rounded-xl border border-red-500/30 px-4 py-2.5 text-sm text-white outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+                  className="w-full max-w-xs border-red-500/30 focus-visible:border-red-500 focus-visible:ring-red-500/20"
                 />
               </div>
               <div className="flex gap-2">
