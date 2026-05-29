@@ -74,17 +74,29 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     if (exists) return { ok: false, error: "Email ou pseudo déjà utilisé" };
 
     const passwordHash = await hashPassword(d.password);
-    await db.user.create({
+
+    // 1. Écriture séquentielle 1 : Créer l'utilisateur (évite la transaction automatique de Prisma)
+    const newUser = await db.user.create({
       data: {
-        email: d.email, passwordHash, pseudo,
-        profile: {
-          create: {
-            prenom: d.prenom ?? null, nom: d.nom ?? null, nomEntreprise: d.nomEntreprise ?? null,
-            adresse: d.adresse, codePostal: d.codePostal ?? null, ville: d.ville ?? null,
-            tel: d.tel, age: d.age
-          }
-        }
-      }
+        email: d.email,
+        passwordHash,
+        pseudo,
+      },
+    });
+
+    // 2. Écriture séquentielle 2 : Créer le profil associé
+    await db.profile.create({
+      data: {
+        userId: newUser.id,
+        prenom: d.prenom ?? null,
+        nom: d.nom ?? null,
+        nomEntreprise: d.nomEntreprise ?? null,
+        adresse: d.adresse,
+        codePostal: d.codePostal ?? null,
+        ville: d.ville ?? null,
+        tel: d.tel,
+        age: d.age,
+      },
     });
 
     // Send verification email (fire-and-forget)

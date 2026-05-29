@@ -80,6 +80,19 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           Retour à l&apos;accueil
         </Link>
       </div>
+
+      {error && (
+        <div className="mt-12 w-full max-w-xl mx-auto rounded-2xl bg-black/40 border border-white/10 p-5 text-left font-mono text-[11px] text-red-400 shadow-2xl ring-1 ring-red-500/10 backdrop-blur-md">
+          <p className="font-sans font-bold uppercase tracking-wider mb-2 text-white/50 text-[10px]">Détails techniques (Diagnostic) :</p>
+          <p className="font-bold text-red-400">{error.name}: {error.message}</p>
+          {error.digest && <p className="mt-1 text-white/30 text-[10px]">Digest: {error.digest}</p>}
+          {error.stack && (
+            <pre className="mt-3 overflow-x-auto whitespace-pre-wrap max-h-48 border-t border-white/5 pt-3 text-white/60 leading-relaxed scrollbar-thin">
+              {error.stack}
+            </pre>
+          )}
+        </div>
+      )}
     </div>
   );
 }
