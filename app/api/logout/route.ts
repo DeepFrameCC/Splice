@@ -5,13 +5,13 @@ export async function POST(req: NextRequest) {
   const cookieHeader = req.headers.get("cookie") || "";
   const incomingNames = cookieHeader
     .split(";")
-    .map((c) => c.trim().split("=")[0] ?? "")
-    .filter((n): n is string => n.length > 0);
+    .map((c) => c.trim().split("=")[0])
+    .filter((n): n is string => typeof n === "string" && n.length > 0);
 
   const response = NextResponse.json({ ok: true, incoming: incomingNames });
 
   // Clear __Host- prefixed cookies (require secure + path=/ + NO domain)
-  for (const name of incomingNames.filter((n) => n.startsWith("__Host-"))) {
+  for (const name of incomingNames.filter((n) => n && n.startsWith("__Host-"))) {
     response.headers.append(
       "Set-Cookie",
       `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Clear __Secure- prefixed cookies (require secure)
-  for (const name of incomingNames.filter((n) => n.startsWith("__Secure-"))) {
+  for (const name of incomingNames.filter((n) => n && n.startsWith("__Secure-"))) {
     response.headers.append(
       "Set-Cookie",
       `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax`
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Clear non-prefixed cookies
-  for (const name of incomingNames.filter((n) => !n.startsWith("__"))) {
+  for (const name of incomingNames.filter((n) => n && !n.startsWith("__"))) {
     response.headers.append(
       "Set-Cookie",
       `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`
