@@ -5,8 +5,8 @@ export async function POST(req: NextRequest) {
   const cookieHeader = req.headers.get("cookie") || "";
   const incomingNames = cookieHeader
     .split(";")
-    .map((c) => c.trim().split("=")[0])
-    .filter(Boolean);
+    .map((c) => c.trim().split("=")[0] ?? "")
+    .filter((n): n is string => n.length > 0);
 
   const response = NextResponse.json({ ok: true, incoming: incomingNames });
 
