@@ -35,21 +35,27 @@ export async function anonymiserUtilisateur(userId: string): Promise<{ success: 
 
     // ─── Écritures Séquentielles Sans Transaction (pour compatibilité Neon HTTP) ───
 
-    // 1. Anonymiser le profil
-    await db.profile.updateMany({
+    // 1. Anonymiser le profil (findUnique + update car updateMany utilise des transactions implicites)
+    const profile = await db.profile.findUnique({
       where: { userId },
-      data: {
-        prenom: "[supprimé]",
-        nom: "[supprimé]",
-        nomEntreprise: null,
-        adresse: null,
-        codePostal: null,
-        ville: null,
-        tel: null,
-        bio: null,
-        avatarUrl: null,
-      },
+      select: { id: true },
     });
+    if (profile) {
+      await db.profile.update({
+        where: { id: profile.id },
+        data: {
+          prenom: "[supprimé]",
+          nom: "[supprimé]",
+          nomEntreprise: null,
+          adresse: null,
+          codePostal: null,
+          ville: null,
+          tel: null,
+          bio: null,
+          avatarUrl: null,
+        },
+      });
+    }
 
     // 2. Anonymiser l'utilisateur
     await db.user.update({
@@ -63,18 +69,24 @@ export async function anonymiserUtilisateur(userId: string): Promise<{ success: 
       },
     });
 
-    // 3. Anonymiser les devis (conserver le document, anonymiser les données perso)
-    await db.devis.updateMany({
+    // 3. Anonymiser les devis (récupération + boucle d'écritures séquentielles car updateMany utilise des transactions implicites)
+    const devisList = await db.devis.findMany({
       where: { userId },
-      data: {
-        nomContact: "[supprimé]",
-        nomEntreprise: "[supprimé]",
-        emailContact: anonEmail,
-        telContact: "[supprimé]",
-        lieuTournage: "[supprimé]",
-        remarques: null,
-      },
+      select: { id: true },
     });
+    for (const d of devisList) {
+      await db.devis.update({
+        where: { id: d.id },
+        data: {
+          nomContact: "[supprimé]",
+          nomEntreprise: "[supprimé]",
+          emailContact: anonEmail,
+          telContact: "[supprimé]",
+          lieuTournage: "[supprimé]",
+          remarques: null,
+        },
+      });
+    }
 
     // 4. Supprimer les sessions
     await db.session.deleteMany({ where: { userId } });
