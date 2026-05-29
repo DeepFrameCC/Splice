@@ -1,24 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Logout via navigation (GET), not fetch.
- * Browser navigates here → cookies are cleared via Set-Cookie → redirect to "/".
- * Using GET+redirect ensures the browser processes Set-Cookie headers reliably,
- * unlike fetch() which may not apply __Secure-/__Host- prefixed cookie changes.
+ * Logout endpoint — clears all Auth.js cookies and redirects to "/".
+ *
+ * Supports both GET (direct navigation / <a> link) and POST (fetch).
+ * GET+redirect is preferred because the browser reliably processes
+ * Set-Cookie headers on navigation responses, unlike fetch().
  */
-export async function GET(req: NextRequest) {
-  const redirectUrl = new URL("/", req.url);
-  const response = NextResponse.redirect(redirectUrl);
 
-  // Get all incoming cookie names
-  const cookieHeader = req.headers.get("cookie") || "";
-  const incomingNames = cookieHeader
+function clearCookiesAndRedirect(req: NextRequest) {
+  const redirectUrl = new URL("/", req.url);
+  const response = NextResponse.redirect(redirectUrl, { status: 302 });
+
+  const cookieHeader = req.headers.get("cookie") ?? "";
+  const names = cookieHeader
     .split(";")
-    .map((c) => c.trim().split("=")[0])
-    .filter((n): n is string => typeof n === "string" && n.length > 0);
+    .map((c) => {
+      const trimmed = c.trim();
+      const eqIdx = trimmed.indexOf("=");
+      return eqIdx > 0 ? trimmed.substring(0, eqIdx) : "";
+    })
+    .filter((n) => n.length > 0);
 
   // Clear every incoming cookie
-  for (const name of incomingNames) {
+  for (const name of names) {
     response.cookies.set(name, "", {
       path: "/",
       expires: new Date(0),
@@ -45,4 +50,12 @@ export async function GET(req: NextRequest) {
   }
 
   return response;
+}
+
+export async function GET(req: NextRequest) {
+  return clearCookiesAndRedirect(req);
+}
+
+export async function POST(req: NextRequest) {
+  return clearCookiesAndRedirect(req);
 }
