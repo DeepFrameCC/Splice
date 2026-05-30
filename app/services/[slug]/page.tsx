@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { headers } from "next/headers";
 import { Clock, Euro, Zap, Sparkles, ArrowRight } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 
@@ -142,7 +141,6 @@ export default async function ServicePage({ params }: PageProps) {
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const jsonLd = buildServiceJsonLd(service);
 
   const features = service.features as unknown as ServiceFeature[];

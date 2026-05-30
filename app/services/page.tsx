@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { headers } from "next/headers";
 import { MapPin, ArrowLeft } from "lucide-react";
 
 import { getAllServices } from "@/lib/services/queries";
@@ -44,7 +43,6 @@ const CATEGORY_ORDER = ["video", "photo", "motion", "audio"];
 
 export default async function ServicesHubPage() {
   const services = await getAllServices();
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const jsonLd = buildServicesHubJsonLd(services);
 
   const grouped = CATEGORY_ORDER.reduce<Record<string, typeof services>>((acc, cat) => {

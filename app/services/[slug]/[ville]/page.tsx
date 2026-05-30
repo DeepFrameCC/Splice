@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { headers } from "next/headers";
 import JsonLd from "@/components/JsonLd";
 
 import {
@@ -73,8 +72,6 @@ export default async function LocalServicePage({ params }: PageProps) {
   const ville = findVille(villeSlug);
   const data = LOCAL_SERVICE_DATA[slug as LocalServiceSlug];
   if (!ville || !data) notFound();
-
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   const h1 = fillTemplate(data.h1Template, ville);
   const intro = fillTemplate(data.introTemplate, ville);
