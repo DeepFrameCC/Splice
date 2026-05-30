@@ -3,7 +3,8 @@
  * Centralized structured data and metadata helpers
  */
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+export const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
+export const absoluteUrl = (path = ""): string => new URL(path, BASE_URL).toString();
 
 export function buildOrganizationJsonLd() {
   return {
