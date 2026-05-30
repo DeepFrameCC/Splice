@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 
 import {
   VILLES,
@@ -94,17 +95,16 @@ export default async function LocalServicePage({ params }: PageProps) {
 
       <main className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
         {/* Breadcrumb */}
-        <nav aria-label="Fil d'Ariane" className="mb-8 text-sm text-white/50">
-          <ol className="flex flex-wrap items-center gap-1.5">
-            <li><Link href="/" className="hover:text-white transition">Accueil</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link href="/services" className="hover:text-white transition">Services</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link href={`/services/${slug}`} className="hover:text-white transition">{data.shortName}</Link></li>
-            <li aria-hidden="true">/</li>
-            <li className="text-white/80">{ville.name}</li>
-          </ol>
-        </nav>
+        <Breadcrumbs
+          jsonLd={false}
+          className="mb-8 text-sm text-white/50"
+          items={[
+            { name: "Accueil", href: "/" },
+            { name: "Services", href: "/services" },
+            { name: data.shortName, href: `/services/${slug}` },
+            { name: ville.name, href: `/services/${slug}/${villeSlug}` },
+          ]}
+        />
 
         <article>
           {/* Hero */}

@@ -8,8 +8,9 @@ import BlogAuthorRow from "@/components/blog/BlogAuthorRow";
 import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import BlogTOC from "@/components/blog/BlogTOC";
 import BlogAdminBar from "@/components/blog/BlogAdminBar";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
-import { buildBlogPostJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
+import { buildBlogPostJsonLd } from "@/lib/seo";
 import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
@@ -80,18 +81,20 @@ export default async function BlogPostPage({ params }: Props) {
     parentService: post.parentService,
   });
 
-  const breadcrumb = buildBreadcrumbJsonLd([
-    { name: "Accueil", url: "/" },
-    { name: "Blog", url: "/blog" },
-    { name: post.title, url: `/blog/${post.slug}` },
-  ]);
+  const crumbs = [
+    { name: "Accueil", href: "/" },
+    { name: "Blog", href: "/blog" },
+    ...(post.categories.length > 0
+      ? [{ name: post.categories[0]!.name, href: `/blog?cat=${post.categories[0]!.slug}` }]
+      : []),
+    { name: post.title, href: `/blog/${post.slug}` },
+  ];
 
   return (
     <>
       <NavWrapper />
 
       <JsonLd data={jsonLd} />
-      <JsonLd data={breadcrumb} />
 
       <article
         className="pb-16"
@@ -109,21 +112,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* ─── Header ─────────────────────────────────── */}
         <header className="mx-auto max-w-4xl px-6">
           {/* Breadcrumb */}
-          <nav className="mb-6 text-sm text-white/50" aria-label="Fil d'Ariane">
-            <Link href="/" className="hover:text-white transition">Accueil</Link>
-            <span className="mx-2">/</span>
-            <Link href="/blog" className="hover:text-white transition">Blog</Link>
-            {post.categories.length > 0 && (
-              <>
-                <span className="mx-2">/</span>
-                <Link href={`/blog?cat=${post.categories[0]!.slug}`} className="hover:text-white transition">
-                  {post.categories[0]!.name}
-                </Link>
-              </>
-            )}
-            <span className="mx-2">/</span>
-            <span className="text-white/70">{post.title}</span>
-          </nav>
+          <Breadcrumbs className="mb-6 text-sm text-white/50" items={crumbs} />
 
           {/* Categories */}
           {post.categories.length > 0 && (

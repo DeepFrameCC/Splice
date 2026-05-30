@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 import { buildLandingJsonLd } from "@/lib/services/schema-service";
 import { absoluteUrl } from "@/lib/seo";
@@ -78,13 +79,14 @@ export default function PhotographeEvenementielPage() {
 
       <main className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
         {/* Breadcrumb */}
-        <nav aria-label="Fil d'Ariane" className="mb-8 text-sm text-white/50">
-          <ol className="flex flex-wrap items-center gap-1.5">
-            <li><Link href="/" className="hover:text-white transition">Accueil</Link></li>
-            <li aria-hidden="true">/</li>
-            <li className="text-white/80">Photographe événementiel</li>
-          </ol>
-        </nav>
+        <Breadcrumbs
+          jsonLd={false}
+          className="mb-8 text-sm text-white/50"
+          items={[
+            { name: "Accueil", href: "/" },
+            { name: "Photographe événementiel", href: PATH },
+          ]}
+        />
 
         <article>
           {/* Hero */}
