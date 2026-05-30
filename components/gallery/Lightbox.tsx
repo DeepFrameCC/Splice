@@ -1,13 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useTransition } from "react";
 import Image from "next/image";
 import { Project } from "./data";
+import { Heart } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface LightboxProps {
   project: Project;
   startIdx: number;
   onClose: () => void;
+  likedIds?: string[];
+  isAuthed?: boolean;
+  toggleLike?: (mediaId: string) => Promise<{ liked: boolean }>;
 }
 
 function ChevronLeft() {
@@ -34,10 +39,50 @@ function PlayIcon() {
   );
 }
 
-export default function Lightbox({ project, startIdx, onClose }: LightboxProps) {
+export default function Lightbox({
+  project,
+  startIdx,
+  onClose,
+  likedIds = [],
+  isAuthed = false,
+  toggleLike,
+}: LightboxProps) {
   const [i, setI] = useState(startIdx || 0);
   const n = project.medias.length;
   const cur = project.medias[i];
+
+  const [likesState, setLikesState] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    project.medias.forEach((m) => {
+      initial[m.id] = likedIds.includes(m.id);
+    });
+    return initial;
+  });
+  const [pending, start] = useTransition();
+
+  const isLiked = cur ? likesState[cur.id] ?? false : false;
+
+  const onLike = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAuthed) {
+      toast.error("Connecte-toi pour liker");
+      return;
+    }
+    if (!toggleLike || !cur?.id) return;
+    const mediaId = cur.id;
+    const wasLiked = isLiked;
+    setLikesState((prev) => ({ ...prev, [mediaId]: !wasLiked }));
+    start(async () => {
+      try {
+        const res = await toggleLike(mediaId);
+        setLikesState((prev) => ({ ...prev, [mediaId]: res.liked }));
+      } catch {
+        setLikesState((prev) => ({ ...prev, [mediaId]: wasLiked }));
+        toast.error("Erreur");
+      }
+    });
+  };
 
   const go = useCallback(
     (delta: number) => {
@@ -86,13 +131,24 @@ export default function Lightbox({ project, startIdx, onClose }: LightboxProps) 
             {project.client} · {project.year}
           </span>
         </div>
-        <button
-          className="pj-lb-close"
-          onClick={onClose}
-          aria-label="Fermer"
-        >
-          ✕
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={onLike}
+            disabled={pending}
+            aria-label={isLiked ? "Retirer le like" : "Liker"}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 hover:scale-110 active:scale-95 disabled:opacity-50"
+          >
+            <Heart className={`h-5 w-5 ${isLiked ? "fill-[#F36B1F] text-[#F36B1F]" : "text-white/70"}`} />
+          </button>
+          <button
+            className="pj-lb-close"
+            onClick={onClose}
+            aria-label="Fermer"
+            style={{ margin: 0 }}
+          >
+            ✕
+          </button>
+        </div>
       </div>
 
       {/* Slide stage */}

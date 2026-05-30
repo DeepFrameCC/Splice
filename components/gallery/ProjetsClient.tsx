@@ -379,6 +379,9 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
           project={openProject}
           startIdx={openIdx}
           onClose={() => setOpenProject(null)}
+          likedIds={likedIds}
+          isAuthed={isAuthed}
+          toggleLike={toggleLike}
         />
       )}
     </div>

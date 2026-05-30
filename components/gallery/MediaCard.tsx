@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { Heart, Lock } from "lucide-react";
 import Image from "next/image";
 import { useState, useTransition } from "react";
@@ -56,8 +56,8 @@ export default function MediaCard({ id, src, title, ownerHandle, prixEstime, mat
         className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/90 backdrop-blur transition hover:scale-110"
       >
         {isAuthed
-          ? <Heart className={`h-5 w-5 ${optimisticLiked ? "fill-df-gold text-df-gold" : "text-white/40"}`} />
-          : <Lock className="h-4 w-4 text-white/40" />}
+          ? <Heart className={`h-5 w-5 ${optimisticLiked ? "fill-df-gold text-df-gold" : "text-slate-400"}`} />
+          : <Lock className="h-4 w-4 text-slate-400" />}
       </button>
     </figure>
   );

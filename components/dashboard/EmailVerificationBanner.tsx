@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useTransition, useState } from "react";
 import { sendVerificationEmail } from "@/app/actions/email-verification";
@@ -9,6 +9,8 @@ export default function EmailVerificationBanner({ verified }: { verified: boolea
   const [pending, startTransition] = useTransition();
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [loading, setLoading] = useState(false);
 
   if (verified) {
     return (
@@ -42,20 +44,26 @@ export default function EmailVerificationBanner({ verified }: { verified: boolea
               variant="gold"
               size="sm"
               className="mt-3"
-              disabled={pending}
+              disabled={pending || loading}
               onClick={() => {
+                if (loading || pending) return;
+                setLoading(true);
                 setError(null);
                 startTransition(async () => {
-                  const result = await sendVerificationEmail();
-                  if (result.ok) {
-                    setSent(true);
-                  } else {
-                    setError(result.error ?? "Erreur inconnue");
+                  try {
+                    const result = await sendVerificationEmail();
+                    if (result.ok) {
+                      setSent(true);
+                    } else {
+                      setError(result.error ?? "Erreur inconnue");
+                    }
+                  } finally {
+                    setLoading(false);
                   }
                 });
               }}
             >
-              {pending ? "Envoi…" : "Envoyer le lien de vérification"}
+              {pending || loading ? "Envoi…" : "Envoyer le lien de vérification"}
             </Button>
           )}
 

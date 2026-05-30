@@ -160,6 +160,25 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
   const data = schema.parse(payload);
   const chefDeProjet = await pickChefDeProjet();
 
+  // Safely parse dateTournage to handle both ISO (YYYY-MM-DD) and French (DD/MM/YYYY) formats robustly.
+  const dateStr = data.dateTournage;
+  let parsedDate: Date | null = null;
+  if (dateStr) {
+    let d = new Date(dateStr);
+    if (isNaN(d.getTime())) {
+      const parts = dateStr.split("/");
+      if (parts.length === 3) {
+        const day = parseInt(parts[0] || "0", 10);
+        const month = parseInt(parts[1] || "0", 10) - 1;
+        const year = parseInt(parts[2] || "0", 10);
+        d = new Date(year, month, day);
+      }
+    }
+    if (!isNaN(d.getTime())) {
+      parsedDate = d;
+    }
+  }
+
   // Compute quote based on mode
   let quote: Quote;
   let packLabel: string;
@@ -229,7 +248,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         emailContact: data.emailContact,
         telContact: data.telContact,
         lieuTournage: data.lieuTournage,
-        dateTournage: data.dateTournage ? new Date(data.dateTournage) : null,
+        dateTournage: parsedDate,
         remarques: data.remarques ?? null,
         lines: quote.lines,
         totalHT: quote.totalHT,
