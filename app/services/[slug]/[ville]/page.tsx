@@ -8,6 +8,7 @@ import {
   SERVICES_LOCAL_SLUGS,
   LOCAL_SERVICE_DATA,
   fillTemplate,
+  getLocalPageContent,
   type LocalServiceSlug,
   type Ville,
 } from "@/lib/services/local-seo";
@@ -75,6 +76,7 @@ export default async function LocalServicePage({ params }: PageProps) {
 
   const h1 = fillTemplate(data.h1Template, ville);
   const intro = fillTemplate(data.introTemplate, ville);
+  const localContent = getLocalPageContent(slug as LocalServiceSlug, villeSlug);
 
   const jsonLd = buildLocalServiceJsonLd({
     serviceName: data.serviceName,
@@ -83,6 +85,7 @@ export default async function LocalServicePage({ params }: PageProps) {
     description: intro,
     priceRange: data.priceRange,
     parentServiceSlug: slug,
+    faq: localContent?.localFaq,
   });
 
   return (
@@ -143,6 +146,38 @@ export default async function LocalServicePage({ params }: PageProps) {
               <p className="mt-2 text-lg font-semibold text-white">{data.priceRange}</p>
             </div>
           </section>
+
+          {/* Contenu local unique */}
+          {localContent && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold text-white md:text-2xl">
+                Splice à {ville.name}
+              </h2>
+              <p className="mt-4 whitespace-pre-line text-pretty leading-relaxed text-white/70">
+                {localContent.localContext}
+              </p>
+            </section>
+          )}
+
+          {/* FAQ locale */}
+          {localContent && localContent.localFaq.length > 0 && (
+            <section className="mb-12">
+              <h2 className="text-xl font-semibold text-white md:text-2xl">
+                Questions fréquentes — {data.shortName} à {ville.name}
+              </h2>
+              <dl className="mt-6 grid gap-4">
+                {localContent.localFaq.map((item) => (
+                  <div
+                    key={item.question}
+                    className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-5"
+                  >
+                    <dt className="font-semibold text-white">{item.question}</dt>
+                    <dd className="mt-2 leading-relaxed text-white/70">{item.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          )}
 
           {/* Zone d'intervention */}
           <section className="mb-12">

@@ -42,6 +42,26 @@ const nextConfig = {
       },
     ];
   },
+  // SEO Phase 2 — consolidation géo : les anciennes pages Loiret /
+  // Centre-Val de Loire redirigent en 301 vers la page service parente.
+  async redirects() {
+    const services = [
+      "montage-video",
+      "production-corporate",
+      "motion-design",
+      "pub-reseaux-sociaux",
+      "photographie-professionnelle",
+      "interview-temoignage",
+    ];
+    const removedVilles = ["loiret", "centre-val-de-loire"];
+    return services.flatMap((service) =>
+      removedVilles.map((ville) => ({
+        source: `/services/${service}/${ville}`,
+        destination: `/services/${service}`,
+        permanent: true,
+      }))
+    );
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

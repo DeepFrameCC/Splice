@@ -152,9 +152,11 @@ export function buildLocalServiceJsonLd(opts: {
   description: string;
   priceRange: string;
   parentServiceSlug: string;
+  faq?: FAQItem[];
 }) {
   const url = `${SITE_URL}/services/${opts.serviceSlug}/${opts.ville.slug}`;
   const parentUrl = `${SITE_URL}/services/${opts.parentServiceSlug}`;
+  const faqItems = opts.faq ?? [];
 
   return {
     "@context": "https://schema.org",
@@ -192,6 +194,18 @@ export function buildLocalServiceJsonLd(opts: {
           description: opts.priceRange,
         },
       },
+      ...(faqItems.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faqItems.map((q) => ({
+                "@type": "Question",
+                name: q.question,
+                acceptedAnswer: { "@type": "Answer", text: q.answer },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 }

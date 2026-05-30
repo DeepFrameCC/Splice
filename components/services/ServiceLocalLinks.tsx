@@ -1,11 +1,5 @@
 import Link from "next/link";
-import { SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
-
-const VILLES = [
-  { slug: "orleans", label: "Orléans" },
-  { slug: "tours", label: "Tours" },
-  { slug: "centre-val-de-loire", label: "Centre-Val de Loire" },
-] as const;
+import { SERVICES_LOCAL_SLUGS, VILLES } from "@/lib/services/local-seo";
 
 interface Props {
   serviceSlug: string;
@@ -26,7 +20,7 @@ export function ServiceLocalLinks({ serviceSlug }: Props) {
             href={`/services/${serviceSlug}/${ville.slug}`}
             className="text-sm text-df-gold hover:underline"
           >
-            {ville.label}
+            {ville.name}
           </Link>
         ))}
       </div>
