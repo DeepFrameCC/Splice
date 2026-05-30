@@ -135,7 +135,9 @@ export default function PhotographeEvenementielPage() {
               L&apos;équipe Splice réunit la photographie (Louisia) et la vidéo &amp; le motion
               design (Tracy / TY), avec un matériel professionnel adapté à l&apos;événementiel :
               boîtiers performants en basse lumière, optiques lumineuses et stabilisation
-              vidéo. {"{{À COMPLÉTER : détail du matériel événementiel et de l'équipe sur site}}"}
+              vidéo. Nous couvrons aussi bien les événements de PME et d&apos;entreprises que
+              ceux organisés par les mairies — cérémonies officielles comme rassemblements
+              automobiles — jusqu&apos;aux prestations pour les particuliers.
             </p>
           </section>
 

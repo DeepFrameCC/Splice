@@ -144,7 +144,9 @@ export default function AgenceCommunicationOrleansPage() {
               spécifiques : montrer un lieu, donner envie d&apos;un plat, animer une page
               locale. Nous proposons des formules adaptées à un budget de commerce indépendant,
               avec des contenus photo et vidéo qui se diffusent immédiatement sur vos canaux.
-              {" "}{"{{À COMPLÉTER : exemples de commerces/restaurants accompagnés à Orléans}}"}
+              {" "}Nos clients vont des PME locales et des restaurants aux commerces de
+              proximité d&apos;Orléans, et nous travaillons aussi avec les mairies pour la
+              couverture d&apos;événements de la ville.
             </p>
           </section>
 
