@@ -72,7 +72,26 @@ const contactFields = {
   emailContact: z.string().email(),
   telContact: z.string().min(6),
   lieuTournage: z.string().min(2),
-  dateTournage: z.string().optional(),
+  dateTournage: z
+    .string()
+    .min(1, "La date de tournage est requise")
+    .refine((s) => {
+      // Accept ISO (YYYY-MM-DD) and French (DD/MM/YYYY); reject invalid/past dates.
+      let d = new Date(s);
+      if (isNaN(d.getTime())) {
+        const parts = s.split("/");
+        if (parts.length === 3) {
+          const day = parseInt(parts[0] || "0", 10);
+          const month = parseInt(parts[1] || "0", 10) - 1;
+          const year = parseInt(parts[2] || "0", 10);
+          d = new Date(year, month, day);
+        }
+      }
+      if (isNaN(d.getTime())) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return d >= today;
+    }, "La date de tournage ne peut pas être dans le passé"),
   remarques: z.string().optional(),
 };
 

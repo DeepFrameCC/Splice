@@ -809,13 +809,26 @@ export function Step3() {
           className="md:col-span-2"
         />
         <label className="md:col-span-1">
-          <span className="text-sm font-bold text-white">Date du tournage</span>
+          <span className="text-sm font-bold text-white">
+            Date du tournage <span className="text-df-gold">*</span>
+          </span>
           <input
             type="date"
+            required
+            min={new Date().toISOString().split("T")[0]}
             value={f.dateTournage}
             onChange={(e) => f.set("dateTournage", e.target.value)}
             className="mt-1 w-full rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-white placeholder:text-white/30 outline-none focus:border-df-glauque-500 focus:ring-2 focus:ring-df-glauque-500/20"
           />
+          {!f.dateTournage ? (
+            <span className="mt-1 block text-xs text-white/40">
+              Sélectionnez la date prévue du tournage.
+            </span>
+          ) : new Date(f.dateTournage) < new Date(new Date().toDateString()) ? (
+            <span className="mt-1 block text-xs text-red-400">
+              La date de tournage ne peut pas être dans le passé.
+            </span>
+          ) : null}
         </label>
         <label className="md:col-span-2">
           <span className="text-sm font-bold text-white">

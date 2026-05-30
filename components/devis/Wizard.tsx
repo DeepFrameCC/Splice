@@ -50,7 +50,10 @@ export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue
       return (f.nbVideos !== null && f.nbVideos > 0) || (f.nbPhotos !== null && f.nbPhotos > 0);
     }
     if (f.step === 3) {
-      return Boolean(f.nomContact && f.emailContact && f.telContact && f.lieuTournage);
+      const dateOk =
+        Boolean(f.dateTournage) &&
+        new Date(f.dateTournage) >= new Date(new Date().toDateString());
+      return Boolean(f.nomContact && f.emailContact && f.telContact && f.lieuTournage) && dateOk;
     }
     return true;
   };
