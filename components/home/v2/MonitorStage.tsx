@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTcCounter } from "@/hooks/useTcCounter";
+import Timecode from "./Timecode";
 
 interface MonitorStageProps {
   src: string;
@@ -15,7 +15,6 @@ interface MonitorStageProps {
  * Centre de gravité du Hero V2.
  */
 export default function MonitorStage({ src, poster, format, tagLine }: MonitorStageProps) {
-  const tc = useTcCounter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayFailed, setAutoplayFailed] = useState(false);
 
@@ -77,7 +76,7 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
 
           {/* Overlay bottom-right : TC live */}
           <div className="df-monitor-overlay df-monitor-overlay-br">
-            <span className="df-tc-live" aria-live="off">{tc}</span>
+            <Timecode className="df-tc-live" />
           </div>
 
           {/* Overlay bottom-left : tag scène */}
