@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTcCounter } from "@/hooks/useTcCounter";
 
 interface MonitorStageProps {
@@ -19,6 +19,24 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayFailed, setAutoplayFailed] = useState(false);
 
+  // Différer le chargement/lecture de la vidéo jusqu'à ce que le moniteur entre
+  // dans le viewport (le poster sert d'image LCP, la vidéo ne concurrence pas le LCP).
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          el.play().catch(() => setAutoplayFailed(true));
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="df-monitor-stage">
       <div className="df-monitor-bezel">
@@ -28,15 +46,11 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
             className="df-monitor-video"
             src={src}
             poster={poster}
-            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             onError={() => setAutoplayFailed(true)}
-            onCanPlay={(e) => {
-              void e.currentTarget.play().catch(() => setAutoplayFailed(true));
-            }}
             aria-label="Aperçu studio Splice en lecture"
           />
 
