@@ -138,12 +138,12 @@ const productionCorporate: ServiceContent = {
   slug: "production-corporate",
   name: "Production corporate et brand content",
   shortName: "Production corporate",
-  metaTitle: "Production corporate film de marque Orléans Tours | Splice",
+  metaTitle: "Production audiovisuelle & film corporate Orléans | Splice",
   metaDescription:
-    "Films corporate et interviews dirigeants à Orléans et Tours. Production audiovisuelle complète de la pré-production au montage final.",
-  h1: "Des films corporate mémorables qui valorisent votre marque",
+    "Production audiovisuelle à Orléans et Tours : film corporate, vidéo institutionnelle et pub entreprise, de la pré-production au montage final.",
+  h1: "Production audiovisuelle & film corporate à Orléans",
   introParagraph:
-    "Du script à la livraison, nous réalisons des vidéos d'entreprise stratégiques pour engager vos clients et partenaires.",
+    "Studio de production audiovisuelle à Orléans et Tours, nous réalisons films corporate, vidéos institutionnelles et pubs d'entreprise — du script à la livraison — pour engager vos clients et partenaires.",
   problemQuestion:
     "Comment un film d'entreprise transforme-t-il l'impact de votre communication ?",
   problemAnswer:
@@ -162,10 +162,15 @@ const productionCorporate: ServiceContent = {
     {
       h3: "Post-production et habillage",
       content:
-        "Montage rythmé, étalonnage des couleurs haut de gamme, habillage graphique et intégration des sous-titres pour une diffusion prête à l'emploi.",
+        "Montage rythmé, étalonnage des couleurs haut de gamme, habillage graphique et sous-titres : un film institutionnel ou une pub entreprise prêts à diffuser sur tous vos canaux.",
     }
   ],
   faq: [
+    {
+      question: "Quelle différence entre film corporate et vidéo institutionnelle ?",
+      answer:
+        "Un film corporate raconte une histoire de marque et cherche l'émotion ou la conviction commerciale, tandis qu'une vidéo institutionnelle présente plus factuellement votre organisation, ses valeurs et son fonctionnement. Nous produisons les deux formats selon votre objectif.",
+    },
     {
       question: "Quel est le délai de production moyen ?",
       answer:
@@ -180,6 +185,11 @@ const productionCorporate: ServiceContent = {
       question: "Pouvez-vous tourner directement dans nos bureaux ?",
       answer:
         "Oui. Nous adaptons notre éclairage et notre matériel pour transformer vos bureaux ou ateliers en un plateau de tournage de qualité.",
+    },
+    {
+      question: "Filmez-vous aussi nos événements d'entreprise ?",
+      answer:
+        "Oui, c'est une prestation dédiée. Pour les séminaires, soirées et salons, découvrez notre offre de <a href=\"/photographe-evenementiel\" class=\"text-df-gold hover:underline\">photographe événementiel à Orléans et Tours</a> (reportage photo + aftermovie).",
     }
   ],
   serviceType: "VideographyService",
@@ -299,12 +309,12 @@ const pubReseauxSociaux: ServiceContent = {
   slug: "pub-reseaux-sociaux",
   name: "Publicité réseaux sociaux",
   shortName: "Pubs réseaux sociaux",
-  metaTitle: "Publicité vidéo réseaux sociaux Orléans Tours | Splice",
+  metaTitle: "Agence social media & pub vidéo Orléans | Splice",
   metaDescription:
-    "Création de publicités vidéo pour Reels, TikTok, Facebook Ads et YouTube Shorts. Hooks, rythme vertical et copywriting ROI.",
+    "Agence social media à Orléans : publicités vidéo pour Reels, TikTok, Facebook Ads et YouTube Shorts. Hooks, format vertical et copywriting ROI.",
   h1: "Des publicités vidéo percutantes qui multiplient vos conversions",
   introParagraph:
-    "Nous concevons des vidéos mobiles au format vertical natif pour stopper le défilement et générer des ventes.",
+    "Agence social media à Orléans et Tours, nous concevons des vidéos mobiles au format vertical natif pour stopper le défilement et générer des ventes.",
   problemQuestion:
     "Pourquoi vos vidéos de vente actuelles manquent-elles de performance ?",
   problemAnswer:
@@ -313,7 +323,7 @@ const pubReseauxSociaux: ServiceContent = {
     {
       h3: "Copywriting vidéo orienté ROI",
       content:
-        "Rdaction de scripts percutants axés sur la résolution des problèmes de votre cible pour inciter à l'action immédiate.",
+        "Rédaction de scripts percutants axés sur la résolution des problèmes de votre cible pour inciter à l'action immédiate.",
     },
     {
       h3: "Optimisation verticale mobile (9:16)",
@@ -324,9 +334,19 @@ const pubReseauxSociaux: ServiceContent = {
       h3: "Sous-titres dynamiques natifs",
       content:
         "Intégration de sous-titres animés et rythmés, indispensables pour accrocher l'audience naviguant sans le son.",
+    },
+    {
+      h3: "Agence social media & contenu régulier",
+      content:
+        "Au-delà de la pub à l'unité, nous accompagnons votre présence sociale dans la durée avec des packs mensuels de contenus pensés pour nourrir vos comptes.",
     }
   ],
   faq: [
+    {
+      question: "Êtes-vous une agence social media ?",
+      answer:
+        "Oui. Splice agit comme agence social media pour les marques d'Orléans et de Tours : création de contenus vidéo, publicités et accompagnement régulier. Pour une approche globale (image, événementiel, stratégie), découvrez notre <a href=\"/agence-communication-orleans\" class=\"text-df-gold hover:underline\">agence de communication à Orléans</a>.",
+    },
     {
       question: "Quel est le tarif d'un pack publicitaire ?",
       answer:
@@ -379,31 +399,46 @@ const shootingAutomobile: ServiceContent = {
   slug: "shooting-automobile",
   name: "Shooting photo & vidéo automobile",
   shortName: "Shooting automobile",
-  metaTitle: "Shooting photo vidéo automobile Orléans Tours | Splice",
+  metaTitle: "Photographe automobile Orléans & Tours | Splice Studio",
   metaDescription:
-    "Shooting photo et vidéo automobile à Orléans et Tours. Rolling shots, studio, concessions et collectionneurs. Rendu magazine.",
-  h1: "Sublimez chaque courbe de vos véhicules d'exception",
+    "Photographe automobile à Orléans : voitures de luxe, tuning, moto. Shooting auto pour particuliers, garages et concessions. Rendu pro, livraison rapide.",
+  h1: "Photographe & vidéaste automobile à Orléans",
   introParagraph:
-    "Nous réalisons des photos et vidéos haut de gamme pour les concessions, préparateurs et collectionneurs privés.",
+    "Photographe automobile à Orléans et Tours, nous réalisons des photos et vidéos haut de gamme de voitures de luxe, de préparations tuning et de motos — pour les particuliers, les garages, concessions et collectionneurs privés.",
   problemQuestion:
     "Pourquoi faire appel à un photographe automobile professionnel ?",
   problemAnswer:
-    "L'automobile exige une maîtrise technique des reflets, de la lumière et du mouvement. Nos visuels haut de gamme créent le coup de cœur immédiat.",
+    "L'automobile exige une maîtrise technique des reflets, de la lumière et du mouvement. Nos visuels haut de gamme créent le coup de cœur immédiat, que ce soit pour une annonce de vente ou la communication d'un garage.",
   features: [
+    {
+      h3: "Voitures de luxe & sportives",
+      content:
+        "Mise en valeur des lignes, des matières et des détails de vos véhicules d'exception, en extérieur comme en studio, pour un rendu digne d'un magazine automobile.",
+    },
+    {
+      h3: "Tuning & préparations",
+      content:
+        "Photos qui révèlent le caractère d'une préparation : jantes, échappement, covering, ambiance nocturne. Le rendu valorise le travail réalisé sur le véhicule.",
+    },
+    {
+      h3: "Shooting moto",
+      content:
+        "Captation dynamique ou posée de votre moto, avec un éclairage qui souligne le réservoir, le moteur et les chromes pour un visuel percutant.",
+    },
     {
       h3: "Rolling shots et prises dynamiques",
       content:
         "Photos spectaculaires prises en mouvement de voiture à voiture avec un système de stabilisation professionnel, pour un rendu cinéma.",
     },
     {
-      h3: "Shooting studio et light painting",
+      h3: "Studio, light painting & retouche magazine",
       content:
-        "Création d'ambiances lumineuses de prestige (néons, reflets, peinture de lumière) pour souligner les lignes esthétiques du véhicule.",
+        "Ambiances lumineuses de prestige (néons, peinture de lumière), nettoyage des reflets parasites et étalonnage précis des teintes de carrosserie.",
     },
     {
-      h3: "Retouche magazine et post-production",
+      h3: "Pour garages, concessions & revendeurs",
       content:
-        "Nettoyage minutieux des poussières, correction des reflets parasites sur la carrosserie et étalonnage précis des teintes de peinture.",
+        "Packs de visuels homogènes pour vos annonces, votre site et vos réseaux : un catalogue cohérent qui accélère la vente et renforce votre image.",
     }
   ],
   faq: [
@@ -460,12 +495,12 @@ const photographieProfessionnelle: ServiceContent = {
   slug: "photographie-professionnelle",
   name: "Photographie professionnelle",
   shortName: "Photographie pro",
-  metaTitle: "Photographe professionnel Orléans Tours | Splice",
+  metaTitle: "Photographe professionnel Orléans & Tours | Splice Studio",
   metaDescription:
-    "Photographe d'entreprise à Orléans et Tours. Portraits corporate, reportages industriels, packshots produits et immobilier.",
-  h1: "Valorisez votre entreprise avec des visuels authentiques",
+    "Photographe professionnel à Orléans et Tours : portraits corporate, reportages métier, packshots produits et immobilier. Photographe freelance réactif.",
+  h1: "Photographe professionnel à Orléans",
   introParagraph:
-    "Portraits d'équipe, reportages industriels, packshots produits ou immobilier : inspirez confiance au premier regard.",
+    "Photographe professionnel à Orléans et Tours, nous réalisons portraits d'équipe, reportages métier, packshots produits et photos immobilier. Une approche de photographe freelance, réactive et proche de vos besoins, pour inspirer confiance au premier regard.",
   problemQuestion:
     "Pourquoi investir dans des photos sur mesure plutôt qu'en banque d'images ?",
   problemAnswer:
@@ -496,7 +531,17 @@ const photographieProfessionnelle: ServiceContent = {
     {
       question: "Sous quel délai livrez-vous les clichés ?",
       answer:
-        "Toutes les photos sélectionnées et retouchées vous sont remises sous 5 à 7 jours ouvrés après la sance via une galerie en ligne.",
+        "Toutes les photos sélectionnées et retouchées vous sont remises sous 5 à 7 jours ouvrés après la séance via une galerie en ligne.",
+    },
+    {
+      question: "Travaillez-vous en freelance ?",
+      answer:
+        "Oui. Splice intervient avec la souplesse d'un photographe freelance / auto-entrepreneur : un interlocuteur direct, des délais réactifs et des formules à la carte, tout en conservant un niveau d'exigence professionnel sur la prise de vue et la retouche.",
+    },
+    {
+      question: "Comment trouver un photographe autour de moi à Orléans ?",
+      answer:
+        "Nous nous déplaçons dans vos locaux partout à Orléans, à Tours et dans le Loiret. Vous pouvez nous retrouver via notre fiche établissement et notre page de contact, ou demander un devis en ligne pour fixer la date et le lieu de la séance.",
     },
     {
       question: "Proposez-vous des collaborations régulières ?",
