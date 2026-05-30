@@ -51,6 +51,8 @@ function Footer() {
           <h4>Navigation</h4>
           <ul className="df-footer-nav-grid">
             <li><Link href="/services">Services</Link></li>
+            <li><Link href="/agence-communication-orleans">Agence communication</Link></li>
+            <li><Link href="/photographe-evenementiel">Photo événementiel</Link></li>
             <li><Link href="/tarifs">Tarifs</Link></li>
             <li><Link href="/galerie">Galerie</Link></li>
             <li><Link href="/blog">Blog</Link></li>

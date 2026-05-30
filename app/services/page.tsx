@@ -113,6 +113,39 @@ export default async function ServicesHubPage() {
           </p>
         )}
 
+        {/* Pôles d'expertise (pages piliers) */}
+        <section className="mb-16">
+          <h2 className="mb-6 text-xs font-semibold uppercase tracking-widest text-df-gold">
+            Pôles d&apos;expertise
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Link
+              href="/agence-communication-orleans"
+              className="group rounded-2xl border border-white/[0.08] bg-df-surface p-5 shadow-sm transition hover:shadow-md hover:border-df-gold/25"
+            >
+              <h3 className="text-base font-semibold text-white group-hover:text-df-gold transition">
+                Agence de communication à Orléans
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/50">
+                Stratégie visuelle, vidéo, social media et événementiel : l&apos;accompagnement global de votre marque.
+              </p>
+              <span className="mt-4 inline-block text-sm font-medium text-df-gold">En savoir plus &rarr;</span>
+            </Link>
+            <Link
+              href="/photographe-evenementiel"
+              className="group rounded-2xl border border-white/[0.08] bg-df-surface p-5 shadow-sm transition hover:shadow-md hover:border-df-gold/25"
+            >
+              <h3 className="text-base font-semibold text-white group-hover:text-df-gold transition">
+                Photographe événementiel Orléans &amp; Tours
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/50">
+                Séminaires, soirées et salons : reportage photo et aftermovie vidéo de vos événements.
+              </p>
+              <span className="mt-4 inline-block text-sm font-medium text-df-gold">En savoir plus &rarr;</span>
+            </Link>
+          </div>
+        </section>
+
         {/* Zone d'intervention */}
         <section className="mt-20 rounded-2xl border border-white/[0.08] bg-df-surface p-6">
           <div className="flex items-center gap-3">

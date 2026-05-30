@@ -79,10 +79,13 @@ export default function FrameRoomEntry() {
         <div className="df-fre-text">
           <div className="df-fre-eyebrow df-fre-anim">
             <span className="df-rec-dot" aria-hidden="true" />
-            Studio production · Orléans · Tours
+            Studio de production audiovisuelle &amp; vidéaste · Orléans · Tours
           </div>
 
           <h1 className="df-fre-baseline">
+            <span className="sr-only">
+              Studio de production audiovisuelle et vidéaste à Orléans &amp; Tours.{" "}
+            </span>
             <span className="df-fre-line df-fre-anim">On filme.</span>
             <span className="df-fre-line df-fre-anim">On cadre. <em>On sublime.</em></span>
           </h1>
