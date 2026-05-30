@@ -1,4 +1,4 @@
-﻿"use server";
+"use server";
 
 import { z } from "zod";
 import { sendMail, MAIL_FOUNDERS, MAIL_CONTACT } from "@/lib/mailer";
@@ -59,7 +59,8 @@ export async function submitContact(
 
   const { nom, email, type, budget, brief, member } = parsed.data;
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
-  const recipients = resolveRecipients(member);
+  const baseRecipients = resolveRecipients(member);
+  const recipients = Array.from(new Set([...baseRecipients, "contact.splicestudio@gmail.com"]));
 
   // --- Email fondateurs : notification interne (critique) ---
   try {
