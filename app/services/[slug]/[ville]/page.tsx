@@ -14,6 +14,7 @@ import {
 } from "@/lib/services/local-seo";
 import { buildLocalServiceJsonLd } from "@/lib/services/schema-service";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
+import { absoluteUrl } from "@/lib/seo";
 
 export const dynamicParams = false;
 export const revalidate = 3600;
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const title = fillTemplate(data.h1Template, ville) + " | Splice";
   const description = fillTemplate(data.introTemplate, ville);
-  const url = `https://splice.cc/services/${slug}/${villeSlug}`;
+  const url = absoluteUrl(`/services/${slug}/${villeSlug}`);
 
   return {
     title,

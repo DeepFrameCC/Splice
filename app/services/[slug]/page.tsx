@@ -12,6 +12,7 @@ import {
   getRelatedServices,
 } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
+import { absoluteUrl } from "@/lib/seo";
 import type { ServiceFeature, FAQItem, ServiceDeliverable, EquipmentItem, Equipment } from "@/lib/services/types";
 
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return {};
-  const url = `https://splice.cc/services/${slug}`;
+  const url = absoluteUrl(`/services/${slug}`);
   return {
     title: service.metaTitle,
     description: service.metaDescription,
