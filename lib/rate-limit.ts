@@ -60,12 +60,16 @@ export const devisLimiter = { get: _devisLimiter };
 
 /** Get client IP from request headers */
 export async function getClientIP(): Promise<string> {
-  const h = await headers();
-  return (
-    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    h.get("x-real-ip") ??
-    "unknown"
-  );
+  try {
+    const h = await headers();
+    return (
+      h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      h.get("x-real-ip") ??
+      "unknown"
+    );
+  } catch {
+    return "unknown";
+  }
 }
 
 /**
