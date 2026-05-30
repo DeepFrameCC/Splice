@@ -28,7 +28,7 @@ export default function MentionsLegales() {
               </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
               <li><strong>Siège social :</strong> 84 Boulevard Alexandre Martin, 45000 Orléans</li>
-              <li><strong>Email :</strong> contact@splicestudio.fr</li>
+              <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
               <li className="mt-4 pt-3 border-t border-white/10 text-white/60">
                 <strong>Conditions de facturation :</strong>
                 <ul className="mt-1 ml-4 list-disc space-y-0.5 text-xs">

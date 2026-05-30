@@ -12,7 +12,7 @@ function getResend() {
 // misconfiguration on Cloudflare Workers sending from an unverified domain.
 export const MAIL_FROM = "Splice Studio <noreply@splicestudio.fr>";
 export const MAIL_REPLY_TO = "contact.splicestudio@gmail.com";
-export const MAIL_CONTACT = "contact@splicestudio.fr";
+export const MAIL_CONTACT = "contact.splicestudio@gmail.com";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {

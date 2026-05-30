@@ -105,7 +105,7 @@ export async function GET(
       {
         entreprise: `Girault Louisia (${chefLabel})`,
         adresse: "84 Boulevard Alexandre Martin, 45000 Orléans",
-        email: "contact@splicestudio.fr",
+        email: "contact.splicestudio@gmail.com",
         siret: "10461962200012",
       },
       destinataireLines,
