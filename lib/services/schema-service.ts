@@ -143,6 +143,91 @@ export function buildServicesHubJsonLd(
 }
 
 /**
+ * JSON-LD for a bespoke top-level landing/pillar page (e.g. /agence-communication-orleans).
+ * Emits @graph: ProfessionalService (@id org) + WebPage + BreadcrumbList + Service + optional FAQPage.
+ */
+export function buildLandingJsonLd(opts: {
+  path: string;
+  name: string;
+  pageTitle: string;
+  description: string;
+  breadcrumbName: string;
+  serviceType: string;
+  faq?: FAQItem[];
+}) {
+  const url = `${SITE_URL}${opts.path}`;
+  const faqItems = opts.faq ?? [];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": ORG_ID,
+        name: "Splice",
+        description:
+          "Studio de production audiovisuelle et agence de communication à Orléans et Tours — vidéo corporate, photographie, motion design, social media.",
+        image: `${SITE_URL}/logo-1.svg`,
+        url: SITE_URL,
+        telephone: "+33651109202",
+        areaServed: [
+          { "@type": "City", name: "Orléans" },
+          { "@type": "City", name: "Tours" },
+          { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
+          { "@type": "Country", name: "France" },
+        ],
+        address: {
+          "@type": "PostalAddress",
+          postalCode: "45000",
+          addressRegion: "Centre-Val de Loire",
+          addressCountry: "FR",
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${url}/#webpage`,
+        url,
+        name: opts.pageTitle,
+        isPartOf: { "@id": ORG_ID },
+        inLanguage: "fr-FR",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: opts.breadcrumbName, item: url },
+        ],
+      },
+      {
+        "@type": "Service",
+        "@id": `${url}/#service`,
+        name: opts.name,
+        serviceType: opts.serviceType,
+        description: opts.description,
+        provider: { "@id": ORG_ID },
+        areaServed: [
+          { "@type": "City", name: "Orléans" },
+          { "@type": "City", name: "Tours" },
+        ],
+        url,
+      },
+      ...(faqItems.length > 0
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faqItems.map((q) => ({
+                "@type": "Question",
+                name: q.question,
+                acceptedAnswer: { "@type": "Answer", text: q.answer },
+              })),
+            },
+          ]
+        : []),
+    ],
+  };
+}
+
+/**
  * JSON-LD for a geo-local service page (/services/[slug]/[ville]).
  */
 export function buildLocalServiceJsonLd(opts: {

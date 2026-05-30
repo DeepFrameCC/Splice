@@ -60,6 +60,8 @@ export default auth((req) => {
   const isStaticRoute =
     pathname === "/" ||
     pathname.startsWith("/services") ||
+    pathname.startsWith("/agence-communication-orleans") ||
+    pathname.startsWith("/photographe-evenementiel") ||
     pathname.startsWith("/galerie") ||
     pathname.startsWith("/equipe") ||
     pathname.startsWith("/mentions-legales") ||
