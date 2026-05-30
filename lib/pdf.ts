@@ -268,7 +268,8 @@ export function drawInfoBlock(
   // Left: dates
   drawText(page, `DATE : ${info.date}`, MARGIN_L, y, fonts.main, 8, C.text);
   if (info.echeance) {
-    drawText(page, `ECHEANCE : ${info.echeance}`, MARGIN_L, y + 12, fonts.main, 8, C.text);
+    const label = info.docType === "DEVIS" ? "VALABLE JUSQU'AU" : "ECHEANCE";
+    drawText(page, `${label} : ${info.echeance}`, MARGIN_L, y + 12, fonts.main, 8, C.text);
   }
 
   // Right: document number in orange-bordered box
@@ -388,27 +389,44 @@ export function drawReglementBlock(
   page: PDFPage,
   fonts: PdfFonts,
   y: number,
+  docType: "DEVIS" | "FACTURE",
   deliveryInfo?: string,
 ): number {
   const C = getCache().C;
-  drawText(page, "REGLEMENT :", MARGIN_L, y, fonts.bold, 10, C.ink);
 
-  if (deliveryInfo) {
-    drawText(page, deliveryInfo, 280, y + 2, fonts.main, 8, C.muted, { maxWidth: 265, align: "right" });
+  if (docType === "FACTURE") {
+    drawText(page, "REGLEMENT :", MARGIN_L, y, fonts.bold, 10, C.ink);
+
+    if (deliveryInfo) {
+      drawText(page, deliveryInfo, 280, y + 2, fonts.main, 8, C.muted, { maxWidth: 265, align: "right" });
+    }
+
+    const payY = y + 18;
+    drawText(page, "Par virement bancaire :", MARGIN_L, payY, fonts.bold, 8, C.text);
+    drawText(page, "Titulaire du compte :", MARGIN_L, payY + 14, fonts.main, 8, C.text);
+    drawText(page, "IBAN:", MARGIN_L, payY + 28, fonts.main, 8, C.text);
+    drawText(page, "BIC:", MARGIN_L, payY + 42, fonts.main, 8, C.text);
+
+    return payY + 60;
+  } else {
+    // For DEVIS, we draw the deliveryInfo on the left,
+    // and a nice framed Signature area on the right, but NO bank transfer details.
+    if (deliveryInfo) {
+      drawText(page, deliveryInfo, MARGIN_L, y + 4, fonts.bold, 8, C.text);
+    }
+
+    const payY = y + 18;
+    const sigX = 330;
+    const sigW = MARGIN_R - sigX;
+    
+    // Draw signature box
+    drawRectOutline(page, sigX, payY - 14, sigW, 64, C.border, 0.5);
+    drawText(page, "Signature client précédée de la", sigX, payY - 4, fonts.main, 8, C.text, { maxWidth: sigW, align: "center" });
+    drawText(page, 'mention manuscrite "Bon pour accord" :', sigX, payY + 8, fonts.main, 8, C.text, { maxWidth: sigW, align: "center" });
+    drawText(page, "Date : ............................", sigX, payY + 28, fonts.main, 8, C.muted, { maxWidth: sigW, align: "center" });
+
+    return payY + 60;
   }
-
-  const payY = y + 18;
-  drawText(page, "Par virement bancaire :", MARGIN_L, payY, fonts.bold, 8, C.text);
-  drawText(page, "Titulaire du compte :", MARGIN_L, payY + 14, fonts.main, 8, C.text);
-  drawText(page, "IBAN:", MARGIN_L, payY + 28, fonts.main, 8, C.text);
-  drawText(page, "BIC:", MARGIN_L, payY + 42, fonts.main, 8, C.text);
-
-  // Right side: Signature area
-  const sigX = 340;
-  drawText(page, "Signatures suivie de la", sigX, payY + 8, fonts.main, 8, C.text, { maxWidth: MARGIN_R - sigX, align: "center" });
-  drawText(page, 'mention "bon pour accord"', sigX, payY + 20, fonts.main, 8, C.text, { maxWidth: MARGIN_R - sigX, align: "center" });
-
-  return payY + 60;
 }
 
 export function drawMentionsLegales(

@@ -95,6 +95,7 @@ export async function GET(
       devis.nomContact,
       devis.telContact,
       devis.emailContact,
+      devis.lieuTournage ? `Lieu d'exécution : ${devis.lieuTournage}` : "",
       devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
       devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
     ].filter(Boolean) as string[];
@@ -134,7 +135,8 @@ export async function GET(
     /* ── Reglement ───────────────────────────────────────────────── */
     const afterReglement = drawReglementBlock(
       currentPage, fonts, afterTotals + 8,
-      "Delais de livraison : .........",
+      "DEVIS",
+      "Délais d'exécution : sous 14 jours après signature",
     );
 
     /* ── Mentions legales ────────────────────────────────────────── */

@@ -139,13 +139,17 @@ export async function GET(
     /* ── Reglement ───────────────────────────────────────────────── */
     const afterReglement = drawReglementBlock(
       currentPage, fonts, afterTotals + 8,
-      "Livre le :",
+      "FACTURE",
+      "Règlement : à réception",
     );
 
     /* ── Mentions legales ────────────────────────────────────────── */
     const factureMentions = [
       "TVA non applicable, art. 293 B du CGI.",
-      "Les fichiers sont livres apres reception du solde.",
+      "Paiement à réception. Pas d'escompte consenti pour paiement anticipé.",
+      "Pénalités de retard : 3 fois le taux d'intérêt légal exigibles le jour suivant la date d'échéance.",
+      "Indemnité forfaitaire de 40 € pour frais de recouvrement en cas de retard de paiement (professionnels).",
+      "Les fichiers numériques restent la propriété exclusive de l'auteur jusqu'au paiement intégral du solde.",
     ];
     const mentionsY = Math.min(afterReglement + 8, 720);
     drawMentionsLegales(currentPage, fonts, factureMentions, mentionsY);
