@@ -46,7 +46,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 md:px-6">
           <div className="flex items-center gap-3 md:hidden">
             <h2 className="font-display text-lg font-bold text-white">
-              DEEP<span className="text-df-gold">FRAME</span>
+              SPL<span className="text-df-gold">ICE</span>
             </h2>
           </div>
           <Link href="/" className="hidden items-center gap-1.5 text-sm text-white/50 transition hover:text-white md:flex">
