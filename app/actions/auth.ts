@@ -202,53 +202,31 @@ export async function loginAction(_prev: unknown, formData: FormData) {
 export async function logoutAction() {
   await audit({ action: "LOGOUT" });
 
-  const cookieStore = await cookies();
-
-  // Proactively clear all standard Auth.js cookie names
-  const knownNames = [
-    "authjs.session-token",
-    "__Secure-authjs.session-token",
-    "next-auth.session-token",
-    "__Secure-next-auth.session-token",
-    "authjs.csrf-token",
-    "__Host-authjs.csrf-token",
-    "next-auth.csrf-token",
-    "__Host-next-auth.csrf-token",
-    "authjs.callback-url",
-    "__Secure-authjs.callback-url",
-    "next-auth.callback-url",
-    "__Secure-next-auth.callback-url",
-  ];
-
-  for (const name of knownNames) {
-    cookieStore.set(name, "", {
-      path: "/",
-      maxAge: 0,
-      expires: new Date(0),
-      secure: true,
-      httpOnly: true,
-      sameSite: "lax",
-    });
+  // Primary: invalidate the JWT session through NextAuth itself.
+  try {
+    await signOut({ redirect: false });
+  } catch (err) {
+    console.error("[auth] signOut failed, manual cookie purge fallback", err);
   }
 
-  // Also clear any other dynamic session cookies matched by name
-  const allCookies = cookieStore.getAll();
-  for (const cookie of allCookies) {
-    if (
-      cookie.name.includes("authjs") ||
-      cookie.name.includes("next-auth")
-    ) {
+  // Fallback safety net: purge any residual Auth.js cookies. `secure` is set
+  // conditionally so the deletion also matches cookies issued over HTTP locally.
+  const cookieStore = await cookies();
+  const isProd = process.env.NODE_ENV === "production";
+  for (const cookie of cookieStore.getAll()) {
+    if (cookie.name.includes("authjs") || cookie.name.includes("next-auth")) {
       cookieStore.set(cookie.name, "", {
         path: "/",
         maxAge: 0,
         expires: new Date(0),
-        secure: true,
+        secure: isProd,
         httpOnly: true,
         sameSite: "lax",
       });
     }
   }
 
+  // Keep redirect outside any try/catch so NEXT_REDIRECT propagates.
   redirect("/");
 }
 
