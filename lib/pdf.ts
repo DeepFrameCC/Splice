@@ -295,10 +295,10 @@ export function drawPartiesBlock(
   // Left: Prestataire
   drawText(page, "PRESTATAIRE", MARGIN_L, y, fonts.bold, 9, C.ink);
   let py = y + 16;
-  drawText(page, `entreprise: ${prestataire.entreprise}`, MARGIN_L, py, fonts.main, 8, C.text);
+  drawText(page, prestataire.entreprise, MARGIN_L, py, fonts.main, 8, C.text);
   py += 12;
   if (prestataire.adresse) {
-    drawText(page, `adresse: ${prestataire.adresse}`, MARGIN_L, py, fonts.main, 8, C.text);
+    drawText(page, prestataire.adresse, MARGIN_L, py, fonts.main, 8, C.text);
     py += 12;
   }
   drawText(page, prestataire.email, MARGIN_L, py, fonts.main, 8, C.text);

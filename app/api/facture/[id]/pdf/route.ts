@@ -107,10 +107,10 @@ export async function GET(
     const afterParties = drawPartiesBlock(
       currentPage, fonts,
       {
-        entreprise: `Prenom Nom (${chefLabel})`,
-        adresse: "adresse:",
-        email: "contact.splicestudio@gmail.com",
-        siret: "En cours d'immatriculation",
+        entreprise: `Girault Louisia (${chefLabel})`,
+        adresse: "84 Boulevard Alexandre Martin, 45000 Orléans",
+        email: "contact@splicestudio.fr",
+        siret: "10461962200012",
       },
       destinataireLines,
     );
