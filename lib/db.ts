@@ -7,7 +7,9 @@ import { cache } from "react";
 const globalForPrisma = global as unknown as { prisma?: PrismaClient };
 
 export const getDb = cache((): PrismaClient => {
-  if (globalForPrisma.prisma) return globalForPrisma.prisma;
+  if (process.env.NODE_ENV !== "production" && globalForPrisma.prisma) {
+    return globalForPrisma.prisma;
+  }
 
   const url = process.env.DATABASE_URL;
   if (!url) {
@@ -24,9 +26,10 @@ export const getDb = cache((): PrismaClient => {
   const adapter = new PrismaNeon({ connectionString: cleanUrl });
   const prisma = new PrismaClient({ adapter });
 
-  // Store in global singleton for hot reload safety in development, 
-  // and connection reuse in production.
-  globalForPrisma.prisma = prisma;
+  // Store in global singleton ONLY for hot reload safety in development.
+  if (process.env.NODE_ENV !== "production") {
+    globalForPrisma.prisma = prisma;
+  }
 
   return prisma;
 });
