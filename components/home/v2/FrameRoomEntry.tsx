@@ -25,8 +25,10 @@ export default function FrameRoomEntry() {
         const tl = gsap.timeline({ defaults: { ease } });
 
         if (reduced) {
+          // Le H1 (.df-fre-line) reste peint pour préserver le LCP : on ne fade
+          // que les éléments non-LCP.
           tl.fromTo(
-            ".df-fre-anim",
+            ".df-fre-anim:not(.df-fre-line)",
             { opacity: 0 },
             { opacity: 1, duration: 0.25, stagger: 0.05 }
           );
@@ -42,8 +44,8 @@ export default function FrameRoomEntry() {
           )
           .fromTo(
             ".df-fre-line",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 },
+            { y: 24 },
+            { y: 0, duration: 0.6, stagger: 0.12 },
             0.24
           )
           .fromTo(
