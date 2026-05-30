@@ -16,7 +16,11 @@ npm run seed:galerie # Run prisma/seed-galerie.ts (gallery media)
 npm run deploy       # Build + deploy to Cloudflare Workers
 npm run preview      # Build + local Cloudflare Workers preview
 npm run test         # Vitest run
+npm run test:watch   # Vitest watch mode
+npm run test:coverage # Vitest test coverage report
 npm run test:e2e     # Playwright tests
+npm run test:e2e:ui  # Playwright tests in UI mode
+npm run cf-typegen   # Generate Cloudflare Env interface types
 ```
 
 ## Architecture
@@ -36,7 +40,7 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 | Auth | Auth.js v5 (JWT strategy, PBKDF2 password hashing via WebCrypto, 2FA TOTP) |
 | Payments | Stripe Checkout + webhooks |
 | Email | Resend (domain: `splicestudio.fr`) |
-| Storage | Cloudflare R2 — buckets: `galerie` (media.splicestudio.fr), `splice-cdn` (cdn.splicestudio.fr), `splice-deliveries`, `splice-archive` |
+| Storage | Cloudflare R2 — buckets: `galerie` (media.splicestudio.fr), `splice-cdn` (cdn.splicestudio.fr), `splice-deliveries`, `splice-archive` (via bindings) |
 | Anti-bot | Cloudflare Turnstile (invisible CAPTCHA) |
 | Cache/RL | Upstash Redis (rate limiting on auth endpoints) |
 | Styling | Tailwind CSS + shadcn/ui (mobile-first) |
@@ -44,7 +48,7 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 | State | Zustand (quote wizard) |
 | Forms | React Hook Form + Zod |
 | PDF | pdf-lib + @pdf-lib/fontkit server-side |
-| Monitoring | Sentry (planned) + Plausible (planned) |
+| Monitoring | Sentry (client-side active) + Plausible (GDPR-compliant consent-based active) |
 
 ### Team
 
@@ -296,6 +300,53 @@ Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ 
 - Global setup: `lib/gsap.ts` with `gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVG, Flip)`
 - GSAP components: must be `"use client"` or `dynamic(..., { ssr: false })`
 - `prefers-reduced-motion`: always handle via `gsap.matchMedia()`
+## Code Modernization & Refactoring Suite
+
+Nous disposons d'un framework officiel de modernisation (`.agents/skills/code-modernization/`) avec des sous-agents et des commandes dédiés à l'analyse et la transformation structurée du code.
+
+### Modernization Subagents
+
+| Agent | Rôle / Description | Localisation |
+|-------|--------------------|--------------|
+| `architecture-critic` | Principal engineer critique. Évalue les choix d'architecture cibles pour éviter la sur-ingénierie et la complexité inutile. | `.agents/skills/code-modernization/agents/architecture-critic.md` |
+| `business-rules-extractor` | Extrait et isole la logique métier, les calculs et les règles de validation complexes en spécifications claires. | `.agents/skills/code-modernization/agents/business-rules-extractor.md` |
+| `legacy-analyst` | Analyse en profondeur les structures de code historique pour cartographier les comportements complexes. | `.agents/skills/code-modernization/agents/legacy-analyst.md` |
+| `security-auditor` | Audit de sécurité complet face aux vulnérabilités (OWASP, CVE, failles logiques, injection). | `.agents/skills/code-modernization/agents/security-auditor.md` |
+| `test-engineer` | Rédige des tests d'équivalence et de caractérisation pour valider que le comportement reste identique. | `.agents/skills/code-modernization/agents/test-engineer.md` |
+
+### Modernization Commands
+
+- **`modernize-assess`** : Analyse initiale du codebase, évaluation de la dette technique, de la complexité et estimation de l'effort.
+- **`modernize-map`** : Cartographie des dépendances et flux d'exécution.
+- **`modernize-extract-rules`** : Extraction structurée de la logique métier.
+- **`modernize-brief`** : Génération d'un plan de modernisation phasé approuvé.
+- **`modernize-reimagine`** : Conception de l'architecture cible modernisée.
+- **`modernize-transform`** : Exécution de la transformation de code et refactoring.
+- **`modernize-harden`** : Audit de robustesse et correction des vulnérabilités de sécurité.
+
+**MANDATE D'AUTO-INVOCATION :** Dès qu'un grand refactoring, audit de structure, extraction de règles métier, ou travail de modernisation est nécessaire, Claude et Antigravity doivent **automatiquement** charger les agents ci-dessus et exécuter les étapes correspondantes de ce framework.
+
+## Cursor Official Engineering Principles & Skills
+
+Nous disposons des compétences et principes d'ingénierie officiels de **Cursor** (`.agents/skills/`) importés directement dans le projet. Claude et Antigravity doivent s'y référer **systématiquement et automatiquement** pour garantir un code d'une qualité exceptionnelle.
+
+### Core Cursor Skills
+
+- **`thermo-nuclear-code-quality-review`** : Revue de code ultra-rigoureuse ciblant les défauts structurels, la complexité algorithmique, l'optimisation et la dette technique.
+- **`unslop` / `deslop`** : Élimination du code superflu, des abstractions inutiles et du code généré par IA non idiomatique.
+- **`architect`** : Élaboration de plans d'architecture système solides avant d'attaquer les implémentations complexes.
+- **`typescript-best-practices`** : Application rigoureuse des standards stricts de typage TypeScript sans contournement (`any`, etc.).
+- **`tdd`** : Conception guidée par les tests pour assurer la non-régression et la clarté du code.
+
+### Core Cursor Engineering Principles
+
+- **`principle-foundational-thinking`** : Analyser les problèmes à partir de principes fondamentaux (first principles), sans copier de solutions superficielles.
+- **`principle-boundary-discipline`** : Respecter les frontières d'isolation de couches (ex: RSC vs Client, Server Actions vs API, Prisma vs Logic).
+- **`principle-guard-the-context-window`** : Minimiser l'empreinte mémoire et la charge cognitive des prompts et fichiers lus pour préserver l'efficacité du modèle.
+- **`principle-fix-root-causes`** : Corriger la source réelle d'un bug plutôt que de rajouter un correctif superficiel (workaround).
+- **`principle-subtract-before-you-add`** : Supprimer le code mort ou inutile avant d'implémenter de nouvelles fonctionnalités.
+- **`principle-never-block-on-the-human`** : Concevoir des processus asynchrones et autonomes extrêmement robustes.
+- **`principle-prove-it-works`** : Valider et tester systématiquement chaque édit de code par des commandes ou tests concrets avant livraison.
 
 ## Workflow Rules
 
@@ -306,6 +357,15 @@ Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ 
 - **AuditLog**: On every sensitive action (create/modify/delete docs and users).
 
 ## Environment Variables Required
+
+### Runtime Environment Validation
+All environment variables are validated at startup using Zod in `lib/env.ts`.
+* In local development, runtime bindings and secrets are loaded from `.dev.vars` (used by Wrangler/OpenNext) and client fallbacks from `.env`.
+
+### Cloudflare Bindings (wrangler.jsonc)
+In production, R2 buckets and KV namespaces are configured as direct bindings:
+- **R2 Buckets**: `SPLICE_CDN` (`splice-cdn`), `SPLICE_DELIVERIES` (`splice-deliveries`), `SPLICE_ARCHIVE` (`splice-archive`).
+- **KV Cache**: `SPLICE_INCREMENTAL_CACHE` and `NEXT_INC_CACHE_KV`.
 
 ```
 DATABASE_URL                        # Neon PostgreSQL (with pooler)

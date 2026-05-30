@@ -24,6 +24,12 @@
       "sourceType": "github",
       "skillPath": "higgsfield-soul-id/SKILL.md",
       "computedHash": "6d468aafc15bacee9f4e86c2726e8351e18fe588301974332535db5a666de7c6"
+    },
+    "ln-830-code-modernization-coordinator": {
+      "source": "levnikolaevich/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/optimization-suite/skills/ln-830-code-modernization-coordinator/SKILL.md",
+      "computedHash": "ba350a534d12d1f6a21cd2601dd82ef1206e915bc624d1279bf3d8cd06d53dee"
     }
   }
 }
