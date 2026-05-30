@@ -18,13 +18,10 @@ export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s
 export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {
   const resend = getResend();
   if (!resend) {
-    const errorMsg = "[mailer] RESEND_API_KEY est manquante — Impossible d'envoyer l'e-mail.";
-    console.error(errorMsg);
-    if (process.env.NODE_ENV === "production") {
-      throw new Error(errorMsg);
-    }
-    console.warn("[mailer] RESEND_API_KEY manquant — mail simulé:", opts.subject, opts.to);
-    return { id: "dev-skip" };
+    // Best-effort : ne jamais bloquer un appelant si la clé est absente/mal
+    // configurée. L'envoi d'e-mail est secondaire vis-à-vis de l'action métier.
+    console.error("[mailer] RESEND_API_KEY manquante — e-mail non envoyé:", opts.subject, opts.to);
+    return { id: "skip-no-key" } as const;
   }
   try {
     const result = await resend.emails.send({

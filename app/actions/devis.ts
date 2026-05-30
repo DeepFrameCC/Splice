@@ -143,11 +143,10 @@ const schema = z.discriminatedUnion("mode", [
 
 export async function submitDevis(payload: z.infer<typeof schema>) {
   const rl = await checkRateLimit(devisLimiter);
-  if (!rl.success)
-    return {
-      ok: false as const,
-      error: rl.error ?? "Trop de requêtes. Veuillez réessayer.",
-    };
+  if (!rl.success) {
+    // Throw (instead of returning) so the Wizard's toast.error surfaces it.
+    throw new Error(rl.error ?? "Trop de requêtes. Veuillez réessayer.");
+  }
 
   const session = await auth();
   const userId = session?.user?.id;
@@ -291,6 +290,8 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
       </div>`,
   });
 
+  // ── Effets de bord best-effort : AUCUN ne doit faire échouer l'envoi du devis.
+  // Le devis est déjà créé en base ; mails, audit et notif sont secondaires.
   const results = await Promise.allSettled([founderMail, clientMail]);
   for (const [i, r] of results.entries()) {
     if (r.status === "rejected") {
@@ -301,22 +302,31 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     }
   }
 
-  await audit({
-    action: "DEVIS_CREATED",
-    userId,
-    target: devis.id,
-    metadata: { numero: devis.numero, pack: packLabel, devisType },
-  });
+  try {
+    await audit({
+      action: "DEVIS_CREATED",
+      userId,
+      target: devis.id,
+      metadata: { numero: devis.numero, pack: packLabel, devisType },
+    });
+  } catch (e) {
+    console.error(`[submitDevis] audit failed for devis ${devis.numero}:`, e);
+  }
 
-  await notify({
-    userId,
-    type: "DEVIS_STATUS",
-    title: `Devis n°${devis.numero} envoyé`,
-    message: devis.totalHT > 0
-      ? `Votre demande de devis (${devis.totalHT} € HT) a bien été enregistrée. Nous la traitons rapidement.`
-      : `Votre Formule Bienvenue a bien été enregistrée. Nous vous recontactons rapidement !`,
-    href: `/profil/devis/${devis.id}`,
-  });
+  try {
+    await notify({
+      userId,
+      type: "DEVIS_STATUS",
+      title: `Devis n°${devis.numero} envoyé`,
+      message: devis.totalHT > 0
+        ? `Votre demande de devis (${devis.totalHT} € HT) a bien été enregistrée. Nous la traitons rapidement.`
+        : `Votre Formule Bienvenue a bien été enregistrée. Nous vous recontactons rapidement !`,
+      href: `/profil/devis/${devis.id}`,
+    });
+  } catch (e) {
+    console.error(`[submitDevis] notify failed for devis ${devis.numero}:`, e);
+  }
 
+  // redirect() must stay OUTSIDE any try/catch so its NEXT_REDIRECT propagates.
   redirect(`/profil/devis/${devis.id}?nouveau=1`);
 }
