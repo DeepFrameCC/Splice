@@ -168,9 +168,9 @@ export const PACK_PARTICULIER_VIDEOS: PackVideoOption[] = [
 ];
 
 export const PACK_PARTICULIER_PHOTOS: PackPhotoOption[] = [
-  { qty: 5, label: "Pack Essentiel", price: 15 },
-  { qty: 10, label: "Pack Standard", price: 28, popular: true },
-  { qty: 20, label: "Pack Pro", price: 50 },
+  { qty: 5, label: "Pack Essentiel", price: 50 },
+  { qty: 10, label: "Pack Standard", price: 90, popular: true },
+  { qty: 20, label: "Pack Pro", price: 190 },
   { qty: null, label: "Pack Custom", price: null },
 ];
 
