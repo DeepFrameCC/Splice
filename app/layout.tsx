@@ -4,7 +4,7 @@ import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
 import JsonLd from "@/components/JsonLd";
-import { buildWebSiteJsonLd, buildLocalBusinessJsonLd } from "@/lib/seo";
+import { buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -27,7 +27,7 @@ const sans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"),
+  metadataBase: new URL(BASE_URL),
   title: {
     default: "Splice — Production audiovisuelle · Orléans & Tours",
     template: "%s | Splice",
@@ -67,8 +67,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Splice",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc",
-  logo: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc"}/logo-1.svg`,
+  url: BASE_URL,
+  logo: `${BASE_URL}/logo-1.svg`,
   description:
     "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
   email: "contact.splicestudio@gmail.com",

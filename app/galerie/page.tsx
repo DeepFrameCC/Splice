@@ -19,7 +19,7 @@ async function getPublishedMedias() {
   });
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Galerie photo & video | Splice Studio",

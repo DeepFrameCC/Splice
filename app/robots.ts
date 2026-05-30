@@ -1,6 +1,5 @@
 import { MetadataRoute } from "next";
-
-const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+import { BASE_URL as base } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {

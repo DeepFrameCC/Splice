@@ -16,7 +16,7 @@ import { auth, isAdmin } from "@/lib/auth";
 import { buildBlogIndexJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Blog — Splice",

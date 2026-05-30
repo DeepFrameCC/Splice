@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { Metadata } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Demander un devis — Splice",

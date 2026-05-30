@@ -1,8 +1,7 @@
 import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { VILLES, SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
-
-const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+import { BASE_URL as base } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [

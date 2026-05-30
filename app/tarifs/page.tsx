@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Tarifs — Splice | Vidéo & Photo en Centre-Val de Loire",

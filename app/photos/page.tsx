@@ -10,7 +10,7 @@ import { AlertTriangle } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Photos — Splice",

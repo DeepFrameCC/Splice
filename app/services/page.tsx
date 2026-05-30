@@ -5,6 +5,7 @@ import { MapPin, ArrowLeft } from "lucide-react";
 
 import { getAllServices } from "@/lib/services/queries";
 import { buildServicesHubJsonLd } from "@/lib/services/schema-service";
+import { absoluteUrl } from "@/lib/seo";
 import { ServiceCoverImage } from "@/components/services/ServiceCoverImage";
 import JsonLd from "@/components/JsonLd";
 
@@ -12,12 +13,12 @@ export const metadata: Metadata = {
   title: "Services audiovisuels Orléans Tours | Splice",
   description:
     "Production vidéo, photographie professionnelle, motion design, pub réseaux sociaux à Orléans et Tours. Splice couvre toute la chaîne de production audiovisuelle en Centre-Val de Loire.",
-  alternates: { canonical: "https://splice.cc/services" },
+  alternates: { canonical: absoluteUrl("/services") },
   openGraph: {
     title: "Nos services audiovisuels — Orléans · Tours | Splice",
     description:
       "Montage vidéo, production corporate, motion design, shooting automobile, photographie professionnelle et plus. Splice couvre toute la chaîne audiovisuelle à Orléans et Tours.",
-    url: "https://splice.cc/services",
+    url: absoluteUrl("/services"),
     siteName: "Splice",
     locale: "fr_FR",
     type: "website",

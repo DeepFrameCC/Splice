@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = post.metaTitle || `${post.title} — Blog Splice`;
   const description = post.metaDescription || post.excerpt;
 
-  const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+  const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
   return {
     title,

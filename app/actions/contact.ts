@@ -58,7 +58,7 @@ export async function submitContact(
   }
 
   const { nom, email, type, budget, brief, member } = parsed.data;
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splice.cc";
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
   const recipients = resolveRecipients(member);
 
   // --- Email fondateurs : notification interne (critique) ---
