@@ -10,7 +10,7 @@ import "./globals.css";
 import "./prototype-styles.css";
 
 const display = localFont({
-  src: "../public/fonts/Anton-Regular.ttf",
+  src: "../public/fonts/Anton-Regular.woff2",
   variable: "--font-display",
   display: "swap",
   weight: "400",
@@ -18,10 +18,10 @@ const display = localFont({
 
 const sans = localFont({
   src: [
-    { path: "../public/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
-    { path: "../public/fonts/Poppins-Italic.ttf", weight: "400", style: "italic" },
-    { path: "../public/fonts/Poppins-Bold.ttf", weight: "700", style: "normal" },
-    { path: "../public/fonts/Poppins-BoldItalic.ttf", weight: "700", style: "italic" },
+    { path: "../public/fonts/Poppins-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/Poppins-Italic.woff2", weight: "400", style: "italic" },
+    { path: "../public/fonts/Poppins-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../public/fonts/Poppins-BoldItalic.woff2", weight: "700", style: "italic" },
   ],
   variable: "--font-sans",
   display: "swap",
