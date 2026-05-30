@@ -24,16 +24,20 @@ export default function MentionsLegales() {
               <li><strong>Statut juridique :</strong> Micro-entreprise (auto-entrepreneur)</li>
               <li>
                 <strong>SIRET :</strong>{" "}
-                {process.env.NEXT_PUBLIC_LEGAL_SIRET ? (
-                  <span className="font-mono">{process.env.NEXT_PUBLIC_LEGAL_SIRET}</span>
-                ) : (
-                  <span className="text-white/50 italic">communiqué sur demande à contact.splicestudio@gmail.com</span>
-                )}
+                <span className="font-mono">10461962200012</span>
               </li>
               <li><strong>Code APE :</strong> 5911A — Production de films et de programmes pour la télévision</li>
-              <li><strong>TVA :</strong> TVA non applicable, art.&nbsp;293&nbsp;B du CGI (franchise en base)</li>
               <li><strong>Siège social :</strong> 84 Boulevard Alexandre Martin, 45000 Orléans</li>
-              <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
+              <li><strong>Email :</strong> contact@splicestudio.fr</li>
+              <li className="mt-4 pt-3 border-t border-white/10 text-white/60">
+                <strong>Conditions de facturation :</strong>
+                <ul className="mt-1 ml-4 list-disc space-y-0.5 text-xs">
+                  <li>TVA non applicable, art. 293 B du CGI (franchise en base).</li>
+                  <li>Devis valables 30 jours à compter de leur date d&apos;émission.</li>
+                  <li>Pénalités de retard applicables en cas de défaut de paiement : 3 fois le taux d&apos;intérêt légal en vigueur.</li>
+                  <li>Indemnité forfaitaire pour frais de recouvrement en cas de retard de paiement (professionnels) : 40 €.</li>
+                </ul>
+              </li>
             </ul>
           </div>
 
