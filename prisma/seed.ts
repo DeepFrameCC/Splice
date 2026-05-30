@@ -210,13 +210,6 @@ async function main() {
       publishedAt: new Date("2026-01-25"),
       serviceSlug: "motion-design",
     },
-    {
-      slug: "intro-animee-logo-reveal-marque",
-      title: "Intro animee et logo reveal : pourquoi chaque marque en a besoin",
-      excerpt: "Impact de l'intro animee sur la memorisation de marque et les taux de completion video.",
-      publishedAt: new Date("2026-04-18"),
-      serviceSlug: "motion-design",
-    },
   ];
 
   for (const bp of blogPosts) {

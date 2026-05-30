@@ -62,24 +62,6 @@ const SERVICES: Record<string, ServiceData> = {
   },
   "03": {
     id: "03",
-    titlePrefix: "Intro ",
-    titleHighlight: "animée.",
-    code: "MOTION · SIGNATURE · 5–20 s",
-    abo: "◆ Motion · forfait unique",
-    tc: "00:00:07:18",
-    blurb: "5 à 20 secondes sur mesure pour signer tout ce que <em>vous diffusez</em>. Marque, podcast, intro YouTube, bumper.",
-    spec: [
-      ["Durée", "5 · 10 · 20 s"],
-      ["Livraison", "<b>10 j ouvrés</b>"],
-      ["Fichiers", "MP4 · transparent · audio sync"],
-      ["Révisions", "2 cycles inclus"],
-    ],
-    tags: ["Motion", "After Effects", "Sound design", "Looping"],
-    gradientKey: "motion",
-    href: "/services/intro-animee",
-  },
-  "04": {
-    id: "04",
     titlePrefix: "",
     titleHighlight: "Événementiel.",
     code: "LIVE · MULTICAM · AFTERMOVIE",
@@ -171,7 +153,7 @@ export default function CrewStack() {
           <div className="df-cs-ix-head">
             <span>01 — Index</span>
             <span>
-              <b>04</b> Services
+              <b>03</b> Services
             </span>
           </div>
           <ul className="df-cs-ix-list" id="ixList">
@@ -290,7 +272,7 @@ export default function CrewStack() {
       {/* ── Statistics / Quick Links footer strip ── */}
       <div className="df-cs-tally-strip df-cs-anim">
         <div className="cell">
-          <div className="n">04</div>
+          <div className="n">03</div>
           <div className="l">— Services</div>
         </div>
         <div className="cell">

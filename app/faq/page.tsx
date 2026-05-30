@@ -36,8 +36,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Qu'est-ce que Splice Studio, votre agence vidéo à Orléans et Tours ?",
-        a: "Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque, aftermovie événementiel et intro animée. Nous intervenons sur tout le Centre-Val de Loire.",
-        rich: <>Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque, aftermovie événementiel et intro animée. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
+        a: "Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Nous intervenons sur tout le Centre-Val de Loire.",
+        rich: <>Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
       },
       {
         q: "Dans quelle zone géographique votre vidéaste intervient-il ?",
