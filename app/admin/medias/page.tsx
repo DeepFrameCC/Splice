@@ -1,9 +1,10 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { Image as ImageIcon, Video, Eye, EyeOff, Heart } from "lucide-react";
 import { PublishToggle, DeleteMediaBtn } from "@/components/dashboard/MediaToggleBtn";
 import AddMediaForm from "@/components/dashboard/AddMediaForm";
 import GroupManager from "@/components/dashboard/GroupManager";
+import MediaDescriptionEdit from "@/components/dashboard/MediaDescriptionEdit";
 
 export const dynamic = "force-dynamic";
 
@@ -131,6 +132,7 @@ export default async function AdminMediasPage() {
               {/* Info */}
               <div className="p-4">
                 <p className="truncate font-bold text-white">{m.title}</p>
+                <MediaDescriptionEdit mediaId={m.id} description={m.description} />
                 <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-white/30">
                   <span>{m.owner}</span>
                   {m.monteur && <span>· @{m.monteur.pseudo}</span>}

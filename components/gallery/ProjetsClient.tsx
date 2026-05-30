@@ -12,6 +12,7 @@ interface MediaItem {
   url: string;
   thumbnailUrl: string | null;
   title: string;
+  description?: string | null;
   category: string | null;
   client: string | null;
   duration: string | null;
@@ -191,7 +192,7 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
           type: m.type === "VIDEO" ? "video" : "photo",
           url: m.url,
           thumbnailUrl: m.thumbnailUrl,
-          caption: m.title,
+          caption: m.description || m.title,
           g: (idx + key.charCodeAt(0)) % 8, // Premium fallback gradients
           duration: m.duration || undefined,
           tc: m.type === "VIDEO" ? "00:01:10:00" : undefined,

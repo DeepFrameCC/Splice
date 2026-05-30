@@ -236,3 +236,27 @@ export async function dissolveGroup(groupKey: string) {
   revalidatePath("/photos");
 }
 
+/* ── Inline description update ───────────────────────────── */
+
+export async function updateMediaDescription(mediaId: string, description: string | null) {
+  const adminId = await requireAdmin();
+
+  const trimmed = description?.trim() || null;
+  if (trimmed && trimmed.length > 1000) throw new Error("Description trop longue (max 1000 caractères)");
+
+  await db.media.update({
+    where: { id: mediaId },
+    data: { description: trimmed },
+  });
+
+  await audit({
+    action: "ADMIN_ACTION",
+    userId: adminId,
+    target: mediaId,
+    metadata: { type: "media_description_updated", description: trimmed?.slice(0, 100) },
+  });
+
+  revalidatePath("/admin/medias");
+  revalidatePath("/galerie");
+  revalidatePath("/photos");
+}

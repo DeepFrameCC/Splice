@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { scenes } from "@/lib/home/scenes";
@@ -223,19 +224,32 @@ export default function SceneSelector() {
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          <video
-            ref={videoRef}
-            key={current.src}
-            className="df-ss-video"
-            src={current.src}
-            poster={current.poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={`Aperçu vidéo : ${current.title}`}
-          />
+          {current.type === "photo" ? (
+            <Image
+              key={current.src}
+              className="df-ss-video"
+              src={current.poster}
+              alt={`Photo : ${current.title}`}
+              fill
+              sizes="(max-width: 768px) 100vw, 80vw"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              key={current.src}
+              className="df-ss-video"
+              src={current.src}
+              poster={current.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={`Aperçu vidéo : ${current.title}`}
+            />
+          )}
 
           {/* Overlay métadonnées */}
           <div ref={metaRef} className="df-ss-meta">

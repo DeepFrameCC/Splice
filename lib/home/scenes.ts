@@ -8,6 +8,7 @@
  */
 
 export type SceneRatio = "16/9" | "9/16" | "4/3";
+export type SceneType = "video" | "photo";
 
 export interface Scene {
   slug: string;
@@ -19,6 +20,8 @@ export interface Scene {
   src: string;
   poster: string;
   format: string;
+  /** "video" (default) or "photo" — controls playback behaviour in SceneSelector */
+  type?: SceneType;
 }
 
 const CDN = "https://media.splicestudio.fr";
@@ -36,6 +39,18 @@ export const scenes: Scene[] = [
     format: "4K · 24fps",
   },
   {
+    slug: "shooting-porsche-loire",
+    tag: "Shooting auto",
+    title: "Porsche 911 — Loire Edition",
+    credit: "ty",
+    tc: "—",
+    ratio: "16/9",
+    type: "photo",
+    src: `${CDN}/photos/porsche-911-loire.jpg`,
+    poster: `${CDN}/photos/porsche-911-loire.jpg`,
+    format: "Photo · 61 MP",
+  },
+  {
     slug: "ckcleanauto45-interview",
     tag: "Interview",
     title: "CKCLEANAUTO45",
@@ -45,6 +60,18 @@ export const scenes: Scene[] = [
     src: `${CDN}/videos/${encodeURIComponent("Interview cklean auto.mp4")}`,
     poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`,
     format: "4K · 24fps",
+  },
+  {
+    slug: "bijoux-capsule-ete",
+    tag: "Produit & lifestyle",
+    title: "Bijoux — capsule été",
+    credit: "by.louisia",
+    tc: "—",
+    ratio: "4/3",
+    type: "photo",
+    src: `${CDN}/photos/bijoux-capsule-ete.jpg`,
+    poster: `${CDN}/photos/bijoux-capsule-ete.jpg`,
+    format: "Photo · Studio",
   },
   {
     slug: "presentation-louisia",
@@ -58,6 +85,18 @@ export const scenes: Scene[] = [
     format: "4K · 24fps",
   },
   {
+    slug: "cafe-naya-torrefaction",
+    tag: "Brand content",
+    title: "Café Naya — torréfaction",
+    credit: "by.louisia",
+    tc: "—",
+    ratio: "16/9",
+    type: "photo",
+    src: `${CDN}/photos/cafe-naya-torrefaction.jpg`,
+    poster: `${CDN}/photos/cafe-naya-torrefaction.jpg`,
+    format: "Photo · Reportage",
+  },
+  {
     slug: "fetes-johanniques-orleans",
     tag: "Événementiel",
     title: "Fêtes Johanniques d'Orléans",
@@ -69,3 +108,4 @@ export const scenes: Scene[] = [
     format: "4K · 24fps",
   },
 ];
+
