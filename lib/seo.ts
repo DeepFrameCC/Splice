@@ -6,10 +6,15 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 export const absoluteUrl = (path = ""): string => new URL(path, BASE_URL).toString();
 
+const ORG_ID = `${BASE_URL}/#organization`;
+const WEBSITE_ID = `${BASE_URL}/#website`;
+const LOCALBUSINESS_ID = `${BASE_URL}/#localbusiness`;
+
 export function buildOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORG_ID,
     name: "Splice",
     alternateName: "Splice",
     url: BASE_URL,
@@ -45,10 +50,15 @@ export function buildOrganizationJsonLd() {
 export function buildLocalBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@id": LOCALBUSINESS_ID,
+    parentOrganization: { "@id": ORG_ID },
     name: "Splice",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
+    image: `${BASE_URL}/og-image.jpg`,
+    telephone: "+33651109202",
+    geo: { "@type": "GeoCoordinates", latitude: 47.9029, longitude: 1.9093 },
     description:
       "Studio et boîte de production audiovisuelle à Orléans (Loiret) et Tours (Indre-et-Loire). Spécialiste en tournage, montage vidéo, motion design et création de podcast en Centre-Val de Loire.",
     email: "contact.splicestudio@gmail.com",
@@ -103,11 +113,7 @@ export function buildServiceJsonLd(service: {
     name: service.name,
     description: service.description,
     url: `${BASE_URL}/services/${service.slug}`,
-    provider: {
-      "@type": "Organization",
-      name: "Splice",
-      url: BASE_URL,
-    },
+    provider: { "@id": ORG_ID },
     areaServed: {
       "@type": "Place",
       name: "Centre-Val de Loire, France",
@@ -154,14 +160,12 @@ export function buildWebSiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": WEBSITE_ID,
     name: "Splice",
     url: BASE_URL,
     description:
       "Boîte de production audiovisuelle basée à Orléans et Tours.",
-    publisher: {
-      "@type": "Organization",
-      name: "Splice",
-    },
+    publisher: { "@id": ORG_ID },
     potentialAction: {
       "@type": "SearchAction",
       target: `${BASE_URL}/blog?q={search_term_string}`,

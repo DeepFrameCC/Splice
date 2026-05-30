@@ -35,10 +35,6 @@ export const metadata: Metadata = {
   },
   description:
     "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies. Devis en ligne.",
-  keywords: [
-    "production audiovisuelle", "vidéaste", "Orléans", "Tours",
-    "pub réseaux sociaux", "shooting automobile", "film de marque", "aftermovie",
-  ],
   authors: [{ name: "Splice" }],
   creator: "Splice",
   openGraph: {
@@ -97,7 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               ({ "@context": _, ...rest }) => rest
             ),
           ],
-        }} inHead />
+        }} />
       </head>
       <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">
         <a

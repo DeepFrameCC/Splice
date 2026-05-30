@@ -1,26 +1,15 @@
 interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
-  inHead?: boolean;
 }
 
-export default function JsonLd({ data, inHead }: JsonLdProps) {
-  const json = JSON.stringify(data);
-
-  if (inHead) {
-    return (
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: json }}
-      />
-    );
-  }
+export default function JsonLd({ data }: JsonLdProps) {
+  // Échappe `<` pour éviter une casse HTML si une chaîne contient `</script>`.
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
 
   return (
-    <div
-      hidden
-      dangerouslySetInnerHTML={{
-        __html: `<script type="application/ld+json">${json}</script>`,
-      }}
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }
