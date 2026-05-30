@@ -4,6 +4,7 @@ import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
 import JsonLd from "@/components/JsonLd";
+import AuthProvider from "@/components/layout/AuthProvider";
 import { buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
 import "./globals.css";
 import "./prototype-styles.css";
@@ -105,7 +106,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           Aller au contenu
         </a>
-        <main id="main-content" className="flex-1">{children}</main>
+        <AuthProvider>
+          <main id="main-content" className="flex-1">{children}</main>
+        </AuthProvider>
         <ToasterClient />
         <CookieBanner />
         <PlausibleScript />

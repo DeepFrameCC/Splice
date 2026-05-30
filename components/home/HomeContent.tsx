@@ -12,17 +12,13 @@ import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram } from "lucide-react";
 
-interface HomeContentProps {
-  user?: { name: string; role: string } | null;
-}
-
-export default function HomeContent({ user }: HomeContentProps) {
+export default function HomeContent() {
   return (
     <>
       <ClientShell />
       <div className="df-site">
         <div className="df-root">
-          <Nav user={user} />
+          <Nav />
 
           {/* ── V2 Frame Room — 7 sections ──────────────────────── */}
           <FrameRoomEntry />

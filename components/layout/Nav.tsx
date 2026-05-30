@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 import UserDropdown from "./UserDropdown";
 
@@ -20,8 +21,18 @@ interface NavProps {
   user?: { name: string; role: string } | null;
 }
 
-export default function Nav({ user }: NavProps) {
+export default function Nav({ user: userProp }: NavProps) {
   const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
+
+  // When `user` is not provided (e.g. statically-rendered home), derive it
+  // client-side from the session. An explicit `null` (logged-out) is respected.
+  const user =
+    userProp !== undefined
+      ? userProp
+      : session?.user
+        ? { name: session.user.name ?? "", role: session.user.role ?? "CLIENT" }
+        : null;
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
