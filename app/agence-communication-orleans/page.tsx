@@ -24,7 +24,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Combien coûte une agence de communication à Orléans ?",
     answer:
-      "Le coût dépend du périmètre : prestation ponctuelle (un shooting, une vidéo) ou accompagnement régulier. Chez Splice, certaines prestations démarrent à quelques dizaines d'euros et les accompagnements se construisent sur devis. Le plus simple est de configurer votre besoin sur notre simulateur de devis.",
+      "Tout dépend du périmètre. Splice propose une formule Bienvenue gratuite pour découvrir notre univers, des packs à la carte (photos dès 15 €, vidéos dès 29 €) et des abonnements mensuels à partir de 45 €/mois en offre de lancement. Les accompagnements plus complets sont chiffrés sur devis : configurez votre besoin sur notre simulateur de devis en ligne ou consultez la page Tarifs.",
   },
   {
     question: "Travaillez-vous avec les restaurants et commerces locaux ?",

@@ -32,6 +32,11 @@ const FAQ: FAQItem[] = [
       "Oui, la majorité des événements d'entreprise se déroulent en soirée ou le week-end. Nous adaptons notre matériel d'éclairage aux conditions de faible lumière pour garantir un rendu professionnel quelle que soit l'heure.",
   },
   {
+    question: "Quel est le tarif d'une couverture événementielle ?",
+    answer:
+      "La couverture d'événement est chiffrée sur devis selon la durée, le format (photo, vidéo ou les deux) et le déplacement. À titre indicatif, nos packs à la carte démarrent à 15 € pour les photos et 29 € pour la vidéo, avec des frais de déplacement de 0,50 €/km. Le plus précis reste notre simulateur de devis en ligne.",
+  },
+  {
     question: "Comment trouver un photographe événementiel autour de moi à Orléans ou Tours ?",
     answer:
       "Splice se déplace sur votre lieu d'événement à Orléans, à Tours et dans tout le Centre-Val de Loire. Vous pouvez nous retrouver via notre fiche établissement et notre page de contact, ou demander un devis en ligne pour vérifier notre disponibilité à la date souhaitée.",
