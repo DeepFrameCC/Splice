@@ -1,7 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool, neonConfig } from "@neondatabase/serverless";
+import { neonConfig } from "@neondatabase/serverless";
 import { cache } from "react";
+
+// ⚠️ Cloudflare Workers : router les requêtes simples via HTTP fetch (stateless)
+// plutôt que via une session WebSocket persistante. Sur Workers, l'isolat est gelé
+// entre deux requêtes → la session WebSocket Neon est fermée et toute requête
+// suivante (même un findUnique) échoue avec « Transaction not found / closed ».
+// Le mode fetch est sans état et résout définitivement ce problème.
+neonConfig.poolQueryViaFetch = true;
 
 // Singleton PrismaClient mapping to preserve connections and support transactions
 const globalForPrisma = global as unknown as { prisma?: PrismaClient };
