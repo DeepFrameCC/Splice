@@ -241,49 +241,47 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     });
   }
 
-  const devis = await db.$transaction(async (tx) => {
-    const { numero, annee, sequence } = await nextNumero("DEVIS", tx);
-    const created = await tx.devis.create({
-      data: {
-        numero,
-        annee,
-        sequence,
-        userId,
-        chefDeProjet,
-        devisType,
-        pack: packLabel,
-        planAbonnement,
-        billingCycle,
-        duree: data.mode === "PACK_PARTICULIER" ? data.duree : "DEMI_JOURNEE",
-        usage: "ORGANIQUE",
-        delai: data.mode === "PACK_PARTICULIER" ? data.delai : "STANDARD",
-        villeDepart:
-          data.mode === "PACK_PARTICULIER" ? data.villeDepart : "TOURS",
-        distanceKm:
-          data.mode === "PACK_PARTICULIER" ? data.distanceKm : 0,
-        nomEntreprise: data.nomEntreprise ?? "",
-        nomContact: data.nomContact,
-        emailContact: data.emailContact,
-        telContact: data.telContact,
-        lieuTournage: data.lieuTournage,
-        dateTournage: parsedDate,
-        remarques: data.remarques ?? null,
-        lines: quote.lines,
-        totalHT: quote.totalHT,
-        acompteRate: ACOMPTE_RATE,
-        acompteAmount: quote.acompte,
-      },
-    });
-
-    if (data.mode === "FORMULE_BIENVENUE") {
-      await tx.user.update({
-        where: { id: userId },
-        data: { hasUsedFormuleBienvenue: true },
-      });
-    }
-
-    return created;
+  // ⚠️ Pas de $transaction interactive : sur Cloudflare Workers + Neon, la connexion
+  // est recyclée entre deux requêtes → "Transaction not found". Écritures séquentielles.
+  const { numero, annee, sequence } = await nextNumero("DEVIS");
+  const devis = await db.devis.create({
+    data: {
+      numero,
+      annee,
+      sequence,
+      userId,
+      chefDeProjet,
+      devisType,
+      pack: packLabel,
+      planAbonnement,
+      billingCycle,
+      duree: data.mode === "PACK_PARTICULIER" ? data.duree : "DEMI_JOURNEE",
+      usage: "ORGANIQUE",
+      delai: data.mode === "PACK_PARTICULIER" ? data.delai : "STANDARD",
+      villeDepart:
+        data.mode === "PACK_PARTICULIER" ? data.villeDepart : "TOURS",
+      distanceKm:
+        data.mode === "PACK_PARTICULIER" ? data.distanceKm : 0,
+      nomEntreprise: data.nomEntreprise ?? "",
+      nomContact: data.nomContact,
+      emailContact: data.emailContact,
+      telContact: data.telContact,
+      lieuTournage: data.lieuTournage,
+      dateTournage: parsedDate,
+      remarques: data.remarques ?? null,
+      lines: quote.lines,
+      totalHT: quote.totalHT,
+      acompteRate: ACOMPTE_RATE,
+      acompteAmount: quote.acompte,
+    },
   });
+
+  if (data.mode === "FORMULE_BIENVENUE") {
+    await db.user.update({
+      where: { id: userId },
+      data: { hasUsedFormuleBienvenue: true },
+    });
+  }
 
   const founderMail = notifyFoundersNewDevis(devis.numero, {
     client: data.nomEntreprise || data.nomContact,

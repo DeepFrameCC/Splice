@@ -261,11 +261,12 @@ export async function resetPasswordAction(_prev: unknown, formData: FormData) {
   if (!t || t.expiresAt < new Date()) return { ok: false, error: "Lien expiré ou invalide" };
 
   const passwordHash = await hashPassword(password);
-  const user = await db.$transaction(async (tx) => {
-    const updated = await tx.user.update({ where: { email: t.email }, data: { passwordHash } });
-    await tx.passwordReset.delete({ where: { token } });
-    return updated;
-  });
+  // ⚠️ Pas de $transaction interactive : sur Cloudflare Workers + Neon, la connexion
+  // est recyclée entre deux requêtes → "Transaction not found". Écritures séquentielles :
+  // on change le mot de passe d'abord (opération critique), puis on supprime le token
+  // (simple nettoyage ; il expire de toute façon au bout d'1h).
+  const user = await db.user.update({ where: { email: t.email }, data: { passwordHash } });
+  await db.passwordReset.delete({ where: { token } });
   await audit({ action: "PASSWORD_RESET", userId: user.id, target: t.email });
   redirect("/login?reset=1");
 }

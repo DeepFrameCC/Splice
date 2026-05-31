@@ -18,39 +18,46 @@ async function requireAdmin() {
 export async function validerDevis(devisId: string) {
   const adminId = await requireAdmin();
 
-  // Transaction : valider le devis + créer facture + créer contrat
-  const result = await db.$transaction(async (tx) => {
-    const devis = await tx.devis.findUniqueOrThrow({ where: { id: devisId } });
-    if (devis.status !== "ATTENTE") throw new Error("Seul un devis en attente peut être validé.");
-    if (!devis.userId) throw new Error("Impossible de valider un devis sans client associé.");
-    await tx.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
+  // ⚠️ Pas de $transaction interactive : sur Cloudflare Workers + Neon, la connexion
+  // est recyclée entre deux requêtes → "Transaction not found". On fait des écritures
+  // séquentielles et idempotentes, le statut VALIDE étant écrit en dernier (si une étape
+  // échoue avant, le devis reste ATTENTE et l'admin peut relancer la validation).
+  const result = await db.devis.findUniqueOrThrow({ where: { id: devisId } });
+  if (result.status !== "ATTENTE") throw new Error("Seul un devis en attente peut être validé.");
+  if (!result.userId) throw new Error("Impossible de valider un devis sans client associé.");
 
-    // Créer la facture
-    const factNum = await nextNumero("FACTURE", tx);
-    await tx.facture.create({
+  // Créer la facture (idempotent : devisId est unique)
+  const existingFacture = await db.facture.findUnique({ where: { devisId } });
+  if (!existingFacture) {
+    const factNum = await nextNumero("FACTURE");
+    await db.facture.create({
       data: {
         numero: `F-${factNum.numero}`,
-        devisId: devis.id,
-        userId: devis.userId,
+        devisId: result.id,
+        userId: result.userId,
         status: "EMISE",
       },
     });
+  }
 
-    // Créer le contrat
-    const contratNum = await nextNumero("CONTRAT", tx);
-    await tx.contrat.create({
+  // Créer le contrat (idempotent : devisId est unique)
+  const existingContrat = await db.contrat.findUnique({ where: { devisId } });
+  if (!existingContrat) {
+    const contratNum = await nextNumero("CONTRAT");
+    await db.contrat.create({
       data: {
         numero: `C-${contratNum.numero}`,
         annee: contratNum.annee,
         sequence: contratNum.sequence,
-        devisId: devis.id,
-        userId: devis.userId,
+        devisId: result.id,
+        userId: result.userId,
         status: "A_VENIR",
       },
     });
+  }
 
-    return devis;
-  });
+  // Statut en dernier.
+  await db.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
 
   await sendMail({
     to: result.emailContact,
