@@ -1,11 +1,23 @@
+import * as Sentry from "@sentry/nextjs";
+
 /**
  * Server-side instrumentation hook.
  *
- * Sentry server-side init is disabled on Cloudflare Workers because
- * Next.js loads this file via dynamic require() which is not supported
- * in the ESM Worker runtime. Client-side Sentry remains active via
+ * Server-side Sentry is enabled on Cloudflare Workers thanks to the
+ * `nodejs_compat` flag + `compatibility_date >= 2025-08-16` set in wrangler.jsonc,
+ * which provide the Node APIs the SDK requires. Client-side init lives in
  * instrumentation-client.ts.
  */
 export async function register() {
-  // no-op on Workers — Sentry client-side only
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("./sentry.server.config");
+  }
+
+  if (process.env.NEXT_RUNTIME === "edge") {
+    await import("./sentry.edge.config");
+  }
 }
+
+// Captures errors from Server Components, route handlers, and middleware.
+// Requires @sentry/nextjs >= 8.28.0. Silences the build-time onRequestError warning.
+export const onRequestError = Sentry.captureRequestError;
