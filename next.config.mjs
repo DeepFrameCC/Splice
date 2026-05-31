@@ -98,13 +98,18 @@ const nextConfig = {
 
 import { withSentryConfig } from "@sentry/nextjs";
 
-export default withSentryConfig(nextConfig, {
+const isSentryDisabled = process.env.NEXT_DISABLE_SENTRY === "true";
+
+export default isSentryDisabled ? nextConfig : withSentryConfig(nextConfig, {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   authToken: process.env.SENTRY_AUTH_TOKEN,
   silent: !process.env.CI,
   widenClientFileUpload: true,
-  tunnelRoute: "/monitoring",
+  // tunnelRoute retiré : le proxy same-origin /monitoring est fragile sur Cloudflare
+  // Workers (OpenNext). Le navigateur envoie directement à *.ingest.de.sentry.io,
+  // autorisé par la CSP (connect-src … *.sentry.io dans middleware.ts).
+  autoInstrumentPages: false,
   webpack: {
     // ex-`disableLogger: true` — tree-shake les logs de debug du SDK en prod
     treeshake: {

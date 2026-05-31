@@ -71,7 +71,7 @@ export default auth((req) => {
     pathname.startsWith("/avis");
 
   const scriptSrc = isStaticRoute
-    ? `script-src 'self' 'unsafe-inline' https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`
+    ? `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`
     : `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`;
 
   const csp = [
