@@ -43,49 +43,51 @@ export async function POST(req: NextRequest) {
     // creates them as a fallback to handle out-of-band payments. Facture.devisId is
     // @unique so a duplicate insert would crash — we check existence first.
     const userId = devis.userId;
-    await db.$transaction(async (tx) => {
-      await tx.devis.update({
-        where: { id: devisId },
-        data: { acomptePaid: true, status: "PAYE", stripeSession: session.id },
-      });
-
-      const existingFacture = await tx.facture.findUnique({ where: { devisId } });
-      if (existingFacture) {
-        if (existingFacture.status !== "PAYEE") {
-          await tx.facture.update({
-            where: { id: existingFacture.id },
-            data: { status: "PAYEE" },
-          });
-        }
-      } else {
-        const fNum = await nextNumero("FACTURE", tx);
-        await tx.facture.create({
-          data: {
-            numero: `F-${fNum.numero}`,
-            devisId,
-            userId,
-            status: "PAYEE",
-            pdfUrl: null,
-          },
-        });
-      }
-
-      const existingContrat = await tx.contrat.findUnique({ where: { devisId } });
-      if (!existingContrat) {
-        const cNum = await nextNumero("CONTRAT", tx);
-        await tx.contrat.create({
-          data: {
-            numero: `C-${cNum.numero}`,
-            annee: cNum.annee,
-            sequence: cNum.sequence,
-            devisId,
-            userId,
-            status: "A_VENIR",
-            pdfUrl: null,
-          },
-        });
-      }
+    // ⚠️ Pas de $transaction interactive : sur Cloudflare Workers + Neon, la connexion
+    // est recyclée entre deux requêtes → "Transaction not found". Écritures séquentielles.
+    // Le handler est déjà idempotent (early return si acomptePaid, + checks d'existence
+    // ci-dessous via les contraintes @unique sur Facture.devisId / Contrat.devisId).
+    await db.devis.update({
+      where: { id: devisId },
+      data: { acomptePaid: true, status: "PAYE", stripeSession: session.id },
     });
+
+    const existingFacture = await db.facture.findUnique({ where: { devisId } });
+    if (existingFacture) {
+      if (existingFacture.status !== "PAYEE") {
+        await db.facture.update({
+          where: { id: existingFacture.id },
+          data: { status: "PAYEE" },
+        });
+      }
+    } else {
+      const fNum = await nextNumero("FACTURE");
+      await db.facture.create({
+        data: {
+          numero: `F-${fNum.numero}`,
+          devisId,
+          userId,
+          status: "PAYEE",
+          pdfUrl: null,
+        },
+      });
+    }
+
+    const existingContrat = await db.contrat.findUnique({ where: { devisId } });
+    if (!existingContrat) {
+      const cNum = await nextNumero("CONTRAT");
+      await db.contrat.create({
+        data: {
+          numero: `C-${cNum.numero}`,
+          annee: cNum.annee,
+          sequence: cNum.sequence,
+          devisId,
+          userId,
+          status: "A_VENIR",
+          pdfUrl: null,
+        },
+      });
+    }
 
     await audit({ action: "PAYMENT_SUCCESS", userId, target: devisId, metadata: { stripeSession: session.id, amount: devis.acompteAmount } });
 
