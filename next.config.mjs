@@ -104,7 +104,13 @@ export default withSentryConfig(nextConfig, {
   authToken: process.env.SENTRY_AUTH_TOKEN,
   silent: !process.env.CI,
   widenClientFileUpload: true,
-  disableLogger: true,
-  automaticVercelMonitors: false,
   tunnelRoute: "/monitoring",
+  webpack: {
+    // ex-`disableLogger: true` — tree-shake les logs de debug du SDK en prod
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    // ex-`automaticVercelMonitors: false` (défaut) — pas de monitors Vercel auto
+    automaticVercelMonitors: false,
+  },
 });
