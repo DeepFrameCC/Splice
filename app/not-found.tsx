@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#0E0E22] flex flex-col items-center justify-center px-6 text-center">
       <span
-        style={{ color: "rgba(255, 255, 255, 0.2)" }}
+        style={{ color: "rgba(255, 255, 255, 0.45)" }}
         className="mb-10 font-display text-2xl font-bold tracking-wide"
       >
         SPLICE
@@ -36,7 +36,7 @@ export default function NotFound() {
           href="/profil"
           style={{
             background: "#F36B1F",
-            color: "#fff",
+            color: "#0E0E22",
             borderRadius: "999px",
             fontFamily: "var(--font-sans)",
             fontWeight: 600,

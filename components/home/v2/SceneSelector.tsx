@@ -195,6 +195,7 @@ export default function SceneSelector() {
       aria-roledescription="carousel"
       tabIndex={0}
     >
+      <h2 className="sr-only">Sélection de projets Splice</h2>
       <div className="df-ss-head">
         <span className="df-ss-eyebrow">
           <span className="df-rec-dot" aria-hidden="true" />
@@ -221,6 +222,8 @@ export default function SceneSelector() {
           ref={sceneRef}
           id="df-ss-stage"
           className={`df-ss-scene ${ratioClass}`}
+          role="tabpanel"
+          aria-label={`Scène ${index + 1} : ${current.title}`}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
@@ -248,7 +251,9 @@ export default function SceneSelector() {
               playsInline
               preload="metadata"
               aria-label={`Aperçu vidéo : ${current.title}`}
-            />
+            >
+              <track kind="captions" srcLang="fr" src={current.captions} label="Français" default />
+            </video>
           )}
 
           {/* Overlay métadonnées */}

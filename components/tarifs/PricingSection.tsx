@@ -47,7 +47,7 @@ export default function PricingSection() {
         <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Formule Bienvenue */}
           <div className="relative flex flex-col rounded-3xl border-2 border-df-gold/40 bg-df-gold/[0.06] p-6">
-            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-df-gold px-4 py-1 text-xs font-bold text-white shadow">
+            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-df-gold px-4 py-1 text-xs font-bold text-df-night shadow">
               Gratuit
             </span>
             <p className="font-display text-2xl uppercase tracking-tight text-white">{FORMULE_BIENVENUE.label}</p>
@@ -55,7 +55,7 @@ export default function PricingSection() {
             <div className="mt-5">
               <span className="text-4xl font-bold text-white">0 €</span>
             </div>
-            <p className="mt-1 text-xs text-white/40">1 par client · Places limitées</p>
+            <p className="mt-1 text-xs text-white/60">1 par client · Places limitées</p>
             <ul className="mt-4 flex-1 space-y-2">
               {FORMULE_BIENVENUE.features.map((f) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-white/70">
@@ -64,15 +64,15 @@ export default function PricingSection() {
                 </li>
               ))}
               {FORMULE_BIENVENUE.excludedFeatures.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-white/30 line-through decoration-white/10">
-                  <X className="mt-0.5 h-4 w-4 shrink-0 text-white/20" />
+                <li key={f} className="flex items-start gap-2 text-sm text-white/55 line-through decoration-white/20">
+                  <X className="mt-0.5 h-4 w-4 shrink-0 text-white/45" />
                   {f}
                 </li>
               ))}
             </ul>
             <Link
               href="/devis"
-              className="mt-6 block rounded-full border-2 border-df-gold py-3 text-center text-sm font-bold text-df-gold transition hover:bg-df-gold hover:text-white"
+              className="mt-6 block rounded-full border-2 border-df-gold py-3 text-center text-sm font-bold text-df-gold transition hover:bg-df-gold hover:text-df-night"
             >
               Demander ma formule
             </Link>
@@ -103,7 +103,7 @@ export default function PricingSection() {
         <div className="mx-auto mt-8 max-w-5xl overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-white/40">
+              <tr className="border-b border-white/10 text-white/60">
                 <th className="px-4 py-3 font-bold">Réseau</th>
                 <th className="px-4 py-3 font-bold">Standard</th>
                 <th className="px-4 py-3 font-bold">Pro</th>
@@ -269,7 +269,7 @@ export default function PricingSection() {
           </p>
           <Link
             href="/devis"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-df-gold px-8 py-3 font-bold text-white shadow-lg shadow-df-gold/30 transition hover:brightness-110"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-df-gold px-8 py-3 font-bold text-df-night shadow-lg shadow-df-gold/30 transition hover:brightness-110"
           >
             Demander un devis <ArrowRight className="h-5 w-5" />
           </Link>

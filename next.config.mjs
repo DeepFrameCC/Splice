@@ -64,6 +64,10 @@ const nextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // Cache optimized variants for 31 days (also sets max-age on the image
+    // responses served to the browser → addresses the "efficient cache" insight
+    // for any image flowing through /_next/image).
+    minimumCacheTTL: 2678400,
     remotePatterns: [
       { protocol: "https", hostname: "**.r2.dev" },
       { protocol: "https", hostname: "cdn.splicestudio.fr" },

@@ -47,7 +47,7 @@ export function ServiceTeam({ members }: Props) {
 
               <div>
                 <p className="text-sm font-bold text-white">{displayName}</p>
-                <p className="text-xs text-white/40">{FOUNDER_ROLE[code]}</p>
+                <p className="text-xs text-white/60">{FOUNDER_ROLE[code]}</p>
               </div>
             </div>
           );

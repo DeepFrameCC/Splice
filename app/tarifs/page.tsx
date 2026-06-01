@@ -30,7 +30,7 @@ export default function TarifsPage() {
         {/* Retour à l'accueil */}
         <Link
           href="/"
-          className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/40 transition hover:text-df-gold"
+          className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/60 transition hover:text-df-gold"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Retour à l&apos;accueil
@@ -45,7 +45,7 @@ export default function TarifsPage() {
           <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
             Abonnement mensuel pour les pros, pack à la carte pour les particuliers.
           </p>
-          <p className="mx-auto mt-2 max-w-xl text-xs text-white/40">
+          <p className="mx-auto mt-2 max-w-xl text-xs text-white/60">
             TVA non applicable, art. 293 B du CGI.
           </p>
         </div>

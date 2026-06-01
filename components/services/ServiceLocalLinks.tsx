@@ -12,7 +12,7 @@ export function ServiceLocalLinks({ serviceSlug }: Props) {
 
   return (
     <section className="mt-8 border-t border-white/[0.08] pt-8">
-      <p className="text-sm text-white/40">Aussi disponible à :</p>
+      <p className="text-sm text-white/60">Aussi disponible à :</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {VILLES.map((ville) => (
           <Link

@@ -27,7 +27,7 @@ export default function FilterTabs({
             key={t.label}
             href={href}
             className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-              active ? "bg-df-gold text-white" : "bg-df-surface text-white/50 hover:bg-white/10 hover:text-white"
+              active ? "bg-df-gold text-df-night" : "bg-df-surface text-white/60 hover:bg-white/10 hover:text-white"
             }`}
           >
             {t.label}

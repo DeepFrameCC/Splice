@@ -119,6 +119,7 @@ export default function FrameRoomEntry() {
           <MonitorStage
             src={heroScene.src}
             poster={heroScene.poster}
+            captions={heroScene.captions}
             format={heroScene.format}
             tagLine={`Scene 01 - ${heroScene.tag}`}
           />

@@ -63,9 +63,10 @@ function PhotoIcon() {
 interface ProjectCardProps {
   project: Project;
   onOpen: (project: Project, startIdx: number) => void;
+  priority?: boolean;
 }
 
-function ProjectCard({ project, onOpen }: ProjectCardProps) {
+function ProjectCard({ project, onOpen, priority = false }: ProjectCardProps) {
   return (
     <article
       className="pj-card"
@@ -76,6 +77,7 @@ function ProjectCard({ project, onOpen }: ProjectCardProps) {
         medias={project.medias}
         projectTitle={project.title}
         onOpenLightbox={(startIdx) => onOpen(project, startIdx)}
+        priority={priority}
       />
       <div className="pj-body">
         <div className="pj-tag-row">
@@ -102,9 +104,11 @@ interface CategorySectionProps {
   category: typeof CATEGORIES[number];
   projects: Project[];
   onOpen: (project: Project, startIdx: number) => void;
+  /** Eagerly load the very first card's first image (LCP candidate). */
+  priorityFirst?: boolean;
 }
 
-function CategorySection({ category, projects, onOpen }: CategorySectionProps) {
+function CategorySection({ category, projects, onOpen, priorityFirst = false }: CategorySectionProps) {
   if (projects.length === 0) return null;
   return (
     <section className="pj-section" aria-labelledby={`sec-${category.id}`}>
@@ -127,11 +131,12 @@ function CategorySection({ category, projects, onOpen }: CategorySectionProps) {
         </div>
       </div>
       <div className="pj-grid">
-        {projects.map((p) => (
+        {projects.map((p, idx) => (
           <ProjectCard
             key={p.id}
             project={p}
             onOpen={onOpen}
+            priority={priorityFirst && idx === 0}
           />
         ))}
       </div>
@@ -236,6 +241,12 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
     groupedProjects.forEach((arr) => (count += arr.length));
     return count;
   }, [groupedProjects]);
+
+  // First category that has projects → its first card holds the LCP image.
+  const firstCatWithProjects = useMemo(
+    () => CATEGORIES.find((c) => (groupedProjects.get(c.id) || []).length > 0)?.id,
+    [groupedProjects]
+  );
 
   // Tab counters (projets containing at least 1 video / 1 photo)
   const tabCounts = useMemo(() => {
@@ -343,7 +354,7 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
       {/* Category Sections Grid */}
       <main key={tab + ":" + filter}>
         {totalFilteredCount === 0 ? (
-          <div className="pj-section text-center py-24 text-white/40">
+          <div className="pj-section text-center py-24 text-white/60">
             Aucun projet ne correspond à ce filtre.
           </div>
         ) : (
@@ -353,6 +364,7 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
               category={cat}
               projects={groupedProjects.get(cat.id) || []}
               onOpen={handleOpen}
+              priorityFirst={cat.id === firstCatWithProjects}
             />
           ))
         )}
