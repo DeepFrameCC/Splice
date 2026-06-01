@@ -29,11 +29,15 @@ export default function SceneSelectorRail({ scenes, currentIndex, onSelect }: Sc
     const track = trackRef.current;
     if (!active || !track) return;
 
-    const trackRect = track.getBoundingClientRect();
-    const activeRect = active.getBoundingClientRect();
-    const offset = activeRect.left - trackRect.left - trackRect.width / 2 + activeRect.width / 2;
+    const rafId = requestAnimationFrame(() => {
+      const trackRect = track.getBoundingClientRect();
+      const activeRect = active.getBoundingClientRect();
+      const offset = activeRect.left - trackRect.left - trackRect.width / 2 + activeRect.width / 2;
 
-    track.scrollBy({ left: offset, behavior: "smooth" });
+      track.scrollBy({ left: offset, behavior: "smooth" });
+    });
+
+    return () => cancelAnimationFrame(rafId);
   }, [currentIndex]);
 
   return (

@@ -85,6 +85,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
+        <link
+          rel="preload"
+          href="https://media.splicestudio.fr/thumb/thumb-interview-cklean-auto.jpg"
+          as="image"
+          fetchPriority="high"
+        />
         <JsonLd data={{
           "@context": "https://schema.org",
           "@graph": [
