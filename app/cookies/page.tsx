@@ -31,7 +31,8 @@ export default function Cookies() {
 
             <h3 className="mt-4 font-bold text-white">2.1. Cookies strictement nécessaires</h3>
             <p>Ces cookies sont indispensables au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
-            <table className="mt-3 w-full text-left text-xs">
+            <div className="mt-3 overflow-x-auto">
+            <table className="w-full min-w-[480px] text-left text-xs">
               <caption className="sr-only">Cookies strictement nécessaires</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
@@ -58,6 +59,7 @@ export default function Cookies() {
                 </tr>
               </tbody>
             </table>
+            </div>
             <p className="mt-3 text-xs text-white/50">
               Note : le choix de consentement à la bannière cookies (clé{" "}
               <span className="font-mono">df_consent</span>) est stocké dans le{" "}
@@ -71,7 +73,8 @@ export default function Cookies() {
               Lors du paiement d&apos;un devis, Stripe peut déposer des cookies pour la sécurisation
               de la transaction et la prévention de la fraude.
             </p>
-            <table className="mt-3 w-full text-left text-xs">
+            <div className="mt-3 overflow-x-auto">
+            <table className="w-full min-w-[480px] text-left text-xs">
               <caption className="sr-only">Cookies tiers — paiement</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
@@ -90,6 +93,7 @@ export default function Cookies() {
                 </tr>
               </tbody>
             </table>
+            </div>
 
             <h3 className="mt-6 font-bold text-white">2.3. Cookies analytiques</h3>
             <p>

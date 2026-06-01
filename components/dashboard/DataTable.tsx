@@ -80,7 +80,7 @@ export default function DataTable<T>({
 
       {/* Table */}
       <div className="overflow-x-auto rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[680px] text-sm">
           <thead>
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="border-b border-white/[0.08] text-left">
