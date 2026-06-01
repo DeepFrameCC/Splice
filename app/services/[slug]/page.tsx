@@ -23,6 +23,7 @@ import { ServiceDeliverables } from "@/components/services/ServiceDeliverables";
 import { ServiceZone } from "@/components/services/ServiceZone";
 import { ServiceLocalLinks } from "@/components/services/ServiceLocalLinks";
 import { ServiceCoverImage } from "@/components/services/ServiceCoverImage";
+import { CtaTrackedLink } from "@/components/marketing/CtaTrackedLink";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -342,13 +343,14 @@ export default async function ServicePage({ params }: PageProps) {
               </p>
               
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-                <Link
+                <CtaTrackedLink
                   href="/devis"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-df-gold px-8 py-4 text-sm font-bold text-black transition-all duration-300 hover:bg-df-gold/90 hover:scale-[1.02] shadow-[0_4px_20px_rgba(212,175,55,0.25)]"
+                  source="service_detail"
+                  className="w-full sm:w-auto inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-df-gold px-8 py-4 text-sm font-bold text-black transition-all duration-300 hover:bg-df-gold/90 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-df-gold focus-visible:ring-offset-2 focus-visible:ring-offset-df-night shadow-[0_4px_20px_rgba(212,175,55,0.25)]"
                 >
                   <span>Lancer le simulateur de devis</span>
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </CtaTrackedLink>
                 <Link
                   href="/contact"
                   className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.02] px-8 py-4 text-sm font-bold text-white transition-all duration-300 hover:border-white/30 hover:bg-white/[0.05]"

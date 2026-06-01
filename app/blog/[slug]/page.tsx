@@ -9,6 +9,7 @@ import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import BlogTOC from "@/components/blog/BlogTOC";
 import BlogAdminBar from "@/components/blog/BlogAdminBar";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
 import { buildBlogPostJsonLd } from "@/lib/seo";
 import { auth, isAdmin } from "@/lib/auth";
@@ -214,20 +215,16 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* ─── CTA ────────────────────────────────────── */}
         <div className="mx-auto mt-16 max-w-4xl px-6">
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
-            <h2 className="font-sans text-2xl font-extrabold tracking-tight md:text-3xl">
-              Un projet en tête ?
-            </h2>
-            <p className="mx-auto mt-3 max-w-lg text-white/60">
-              On vous accompagne de A à Z. Devis gratuit, sans engagement.
-            </p>
-            <Link
-              href="/devis"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-df-gold/90 hover:scale-105"
-            >
-              Demander un devis →
-            </Link>
-          </div>
+          <CtaBlock
+            variant="primary"
+            source="blog_article"
+            title="Un projet en tête ?"
+            subtitle="On vous accompagne de A à Z. Devis gratuit, sans engagement."
+            primaryHref="/devis"
+            primaryLabel="Demander un devis gratuit"
+            secondaryHref="/galerie"
+            secondaryLabel="Voir nos réalisations"
+          />
         </div>
 
         {/* ─── Related posts ──────────────────────────── */}

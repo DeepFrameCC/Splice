@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
+import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
 import { buildLandingJsonLd } from "@/lib/services/schema-service";
 import { absoluteUrl } from "@/lib/seo";
 import type { FAQItem } from "@/lib/services/types";
@@ -193,6 +194,8 @@ export default function PhotographeEvenementielPage() {
           <ServiceCTA variant="block" serviceName="couverture événementielle" />
         </article>
       </main>
+      <div aria-hidden className="h-16 md:hidden" />
+      <StickyMobileCta source="sticky_evenementiel" />
     </>
   );
 }
