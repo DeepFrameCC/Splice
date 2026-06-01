@@ -44,11 +44,11 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
             ref={videoRef}
             className="df-monitor-video"
             src={src}
-            poster={poster}
+            poster={poster || undefined}
             muted
             loop
             playsInline
-            preload="none"
+            preload={poster ? "none" : "metadata"}
             onError={() => setAutoplayFailed(true)}
             aria-label="Aperçu studio Splice en lecture"
           />

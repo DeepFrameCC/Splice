@@ -46,7 +46,7 @@ export const scenes: Scene[] = [
     tc: "02:00",
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Luxury Edit (Par Tracy).mp4")}`,
-    poster: `${CDN}/thumb/thumb-luxury-edit.jpg`,
+    poster: `${CDN}/thumb/${encodeURIComponent("thumb_porsche_orléans.png")}`,
     format: "4K · 24fps",
   },
   {
