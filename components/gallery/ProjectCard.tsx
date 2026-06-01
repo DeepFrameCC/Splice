@@ -99,7 +99,7 @@ export default function ProjectCard({
         </div>
 
         {/* Badge medium (Vidéo / Photo) */}
-        <span className="absolute left-3.5 top-3.5 z-[2] rounded-full bg-df-gold px-3 py-1 text-[11px] font-bold text-white">
+        <span className="absolute left-3.5 top-3.5 z-[2] rounded-full bg-df-gold px-3 py-1 text-[11px] font-bold text-df-night">
           {isVideo ? "Vidéo" : "Photo"}
         </span>
 

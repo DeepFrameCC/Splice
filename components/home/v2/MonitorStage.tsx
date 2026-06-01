@@ -6,6 +6,7 @@ import Timecode from "./Timecode";
 interface MonitorStageProps {
   src: string;
   poster: string;
+  captions: string;
   format: string;
   tagLine: string;
 }
@@ -14,7 +15,7 @@ interface MonitorStageProps {
  * Faux moniteur de contrôle : vidéo encadrée + bezel + REC dot + TC live.
  * Centre de gravité du Hero V2.
  */
-export default function MonitorStage({ src, poster, format, tagLine }: MonitorStageProps) {
+export default function MonitorStage({ src, poster, captions, format, tagLine }: MonitorStageProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayFailed, setAutoplayFailed] = useState(false);
 
@@ -51,7 +52,9 @@ export default function MonitorStage({ src, poster, format, tagLine }: MonitorSt
             preload={poster ? "none" : "metadata"}
             onError={() => setAutoplayFailed(true)}
             aria-label="Aperçu studio Splice en lecture"
-          />
+          >
+            <track kind="captions" srcLang="fr" src={captions} label="Français" default />
+          </video>
 
           {autoplayFailed && (
             <button

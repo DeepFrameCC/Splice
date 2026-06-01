@@ -161,21 +161,25 @@ export default function CrewStack() {
               <li
                 key={s.id}
                 className={`df-cs-ix-item ${activeId === s.id ? "is-on" : ""}`}
-                onMouseEnter={() => setActiveId(s.id)}
-                onFocus={() => setActiveId(s.id)}
-                onClick={() => setActiveId(s.id)}
-                tabIndex={0}
-                role="button"
-                aria-label={`Voir le service ${s.titlePrefix}${s.titleHighlight}`}
               >
-                <span className="df-cs-ix-scn">S/{s.id}</span>
-                <span
-                  className="df-cs-ix-ttl"
-                  dangerouslySetInnerHTML={{
-                    __html: `${s.titlePrefix}<em>${s.titleHighlight}</em>`,
-                  }}
-                />
-                <span className="df-cs-ix-tally" aria-hidden="true" />
+                <button
+                  type="button"
+                  className="df-cs-ix-btn"
+                  onMouseEnter={() => setActiveId(s.id)}
+                  onFocus={() => setActiveId(s.id)}
+                  onClick={() => setActiveId(s.id)}
+                  aria-pressed={activeId === s.id}
+                  aria-label={`Voir le service ${s.titlePrefix}${s.titleHighlight}`}
+                >
+                  <span className="df-cs-ix-scn">S/{s.id}</span>
+                  <span
+                    className="df-cs-ix-ttl"
+                    dangerouslySetInnerHTML={{
+                      __html: `${s.titlePrefix}<em>${s.titleHighlight}</em>`,
+                    }}
+                  />
+                  <span className="df-cs-ix-tally" aria-hidden="true" />
+                </button>
               </li>
             ))}
           </ul>

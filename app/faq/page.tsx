@@ -210,23 +210,23 @@ export default function FAQPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 rounded-2xl bg-df-blue p-8 text-center text-white">
+        <div className="mt-12 rounded-2xl bg-df-blue p-8 text-center text-df-night">
           <h2 className="font-display text-2xl uppercase tracking-tight">
             Vous avez d&apos;autres questions ?
           </h2>
-          <p className="mt-2 text-white/70">
+          <p className="mt-2 text-df-night/85">
             Contactez-nous directement ou demandez un devis gratuit.
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/devis"
-              className="inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-df-gold/90"
+              className="inline-flex items-center gap-2 rounded-full bg-df-night px-6 py-3 font-bold text-white transition hover:bg-df-night/90"
             >
               Demander un devis →
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-white/30 px-6 py-3 font-bold text-white transition hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-df-night/40 px-6 py-3 font-bold text-df-night transition hover:bg-df-night/10"
             >
               Nous contacter
             </Link>

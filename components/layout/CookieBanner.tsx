@@ -93,7 +93,7 @@ export default function CookieBanner() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-bold text-white">Cookies essentiels</p>
-                  <p className="text-xs text-white/40">Authentification, sécurité, préférences</p>
+                  <p className="text-xs text-white/60">Authentification, sécurité, préférences</p>
                 </div>
                 <span className="rounded-full bg-emerald-500/15 px-2.5 py-1 text-[10px] font-bold text-emerald-400">
                   Toujours actifs
@@ -103,7 +103,7 @@ export default function CookieBanner() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-bold text-white">Cookies d&apos;analyse</p>
-                  <p className="text-xs text-white/40">Statistiques anonymes (Plausible)</p>
+                  <p className="text-xs text-white/60">Statistiques anonymes (Plausible)</p>
                 </div>
                 <button
                   onClick={() => setAnalytics((v) => !v)}
@@ -129,7 +129,7 @@ export default function CookieBanner() {
             <button
               onClick={() => accept(true)}
               disabled={pending}
-              className="rounded-xl bg-df-blue px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-df-blue/25 transition hover:bg-df-blue/90"
+              className="rounded-xl bg-df-blue px-5 py-2.5 text-sm font-bold text-df-night shadow-lg shadow-df-blue/25 transition hover:bg-df-blue/90"
             >
               Tout accepter
             </button>
@@ -145,7 +145,7 @@ export default function CookieBanner() {
               <button
                 onClick={() => accept(analytics)}
                 disabled={pending}
-                className="rounded-xl bg-df-gold px-5 py-2.5 text-sm font-bold text-white transition hover:bg-df-gold/80"
+                className="rounded-xl bg-df-gold px-5 py-2.5 text-sm font-bold text-df-night transition hover:bg-df-gold/80"
               >
                 Confirmer mes choix
               </button>

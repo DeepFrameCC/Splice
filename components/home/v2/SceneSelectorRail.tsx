@@ -38,7 +38,12 @@ export default function SceneSelectorRail({ scenes, currentIndex, onSelect }: Sc
 
   return (
     <div className="df-ss-rail df-glass-deep">
-      <div className="df-ss-rail-track df-scroll-hidden" ref={trackRef}>
+      <div
+        className="df-ss-rail-track df-scroll-hidden"
+        ref={trackRef}
+        role="tablist"
+        aria-label="Sélecteur de scènes"
+      >
         {scenes.map((scene, i) => {
           const isActive = i === currentIndex;
           const aspect = RATIO_MAP[scene.ratio];
@@ -65,7 +70,8 @@ export default function SceneSelectorRail({ scenes, currentIndex, onSelect }: Sc
                 width={width * 2}
                 height={height * 2}
                 className="df-ss-rail-poster"
-                unoptimized
+                sizes="160px"
+                loading="lazy"
               />
               <span className="df-ss-rail-tc">{scene.tc}</span>
             </button>

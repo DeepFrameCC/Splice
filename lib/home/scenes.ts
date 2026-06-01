@@ -19,6 +19,8 @@ export interface Scene {
   ratio: SceneRatio;
   src: string;
   poster: string;
+  /** WebVTT track describing the (muted) footage — satisfies video-caption a11y. */
+  captions: string;
   format: string;
   /** "video" (default) or "photo" — controls playback behaviour in SceneSelector */
   type?: SceneType;
@@ -36,6 +38,7 @@ export const scenes: Scene[] = [
     ratio: "4/3",
     src: `${CDN}/videos/${encodeURIComponent("Interview cklean auto.mp4")}`,
     poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`,
+    captions: "/captions/ckcleanauto45-interview.vtt",
     format: "4K · 24fps",
   },
   {
@@ -47,6 +50,7 @@ export const scenes: Scene[] = [
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Luxury Edit (Par Tracy).mp4")}`,
     poster: `${CDN}/thumb/${encodeURIComponent("thumb_porsche_orléans.png")}`,
+    captions: "/captions/luxury-edit.vtt",
     format: "4K · 24fps",
   },
   {
@@ -58,6 +62,7 @@ export const scenes: Scene[] = [
     ratio: "9/16",
     src: `${CDN}/videos/${encodeURIComponent("Présentation (Par Louisia).mp4")}`,
     poster: `${CDN}/thumb/thumb-presentation-louisia.jpg`,
+    captions: "/captions/presentation-louisia.vtt",
     format: "4K · 24fps",
   },
   {
@@ -69,6 +74,7 @@ export const scenes: Scene[] = [
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Jeanne d'arc .mp4")}`,
     poster: `${CDN}/thumb/thumb-jeanne-darc.jpg`,
+    captions: "/captions/fetes-johanniques-orleans.vtt",
     format: "4K · 24fps",
   },
 ];

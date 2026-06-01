@@ -48,7 +48,7 @@ function Footer() {
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>
         <div>
-          <h4>Navigation</h4>
+          <h2 className="df-footer-col-title">Navigation</h2>
           <ul className="df-footer-nav-grid">
             <li><Link href="/services">Services</Link></li>
             <li><Link href="/agence-communication-orleans">Agence communication</Link></li>
@@ -61,14 +61,14 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h4>Contact</h4>
+          <h2 className="df-footer-col-title">Contact</h2>
           <ul>
             <li><a href="mailto:contact.splicestudio@gmail.com">contact.splicestudio@gmail.com</a></li>
             <li>Orléans, 45000</li>
           </ul>
         </div>
         <div>
-          <h4>Suivre</h4>
+          <h2 className="df-footer-col-title">Suivre</h2>
           <div className="df-footer-socials">
             <a href="https://www.facebook.com/Splicecc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Facebook">
               <Facebook size={18} />

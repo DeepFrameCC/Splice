@@ -196,7 +196,7 @@ export default function AgenceCommunicationOrleansPage() {
 
           {/* Internal links */}
           <section className="mb-12 border-t border-white/[0.08] pt-8">
-            <p className="text-sm text-white/40">Nos expertises liées :</p>
+            <p className="text-sm text-white/60">Nos expertises liées :</p>
             <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
               <Link href="/photographe-evenementiel" className="inline-flex items-center gap-1.5 text-sm text-df-gold hover:underline">
                 Photographe événementiel <ArrowRight className="h-3 w-3" />

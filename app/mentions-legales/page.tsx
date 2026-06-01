@@ -14,7 +14,7 @@ export default function MentionsLegales() {
       <NavWrapper />
       <div className="mx-auto max-w-3xl px-6 pb-24 pt-32">
         <h1 className="font-display text-4xl font-bold text-white">Mentions légales</h1>
-        <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
+        <p className="mt-2 text-sm text-white/60">Dernière mise à jour : {LEGAL_LAST_UPDATED}</p>
 
         <section className="mt-10 space-y-8 text-sm leading-relaxed text-white/80">
           <div>

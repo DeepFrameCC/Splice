@@ -8,6 +8,8 @@ interface MediaCarouselProps {
   medias: ProjectMedia[];
   projectTitle: string;
   onOpenLightbox: (startIdx: number) => void;
+  /** When true, the first slide image is eagerly loaded as the LCP candidate. */
+  priority?: boolean;
 }
 
 function ChevronLeft() {
@@ -34,7 +36,7 @@ function PlayIcon() {
   );
 }
 
-export default function MediaCarousel({ medias, projectTitle, onOpenLightbox }: MediaCarouselProps) {
+export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, priority = false }: MediaCarouselProps) {
   const [i, setI] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ active: false, startX: 0, dx: 0 });
@@ -164,6 +166,7 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox }: 
                   fill
                   sizes="(max-width: 920px) 50vw, 33vw"
                   className="object-cover"
+                  priority={priority && idx === 0}
                 />
               )}
               <div className="pj-corners" aria-hidden="true">

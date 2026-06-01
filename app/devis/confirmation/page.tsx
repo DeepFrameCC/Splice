@@ -49,7 +49,7 @@ export default async function ConfirmationPage({
           </Link>
           <Link
             href="/register"
-            className="rounded-full bg-df-gold px-6 py-3 text-sm font-bold text-white transition hover:scale-105 hover:shadow-lg"
+            className="rounded-full bg-df-gold px-6 py-3 text-sm font-bold text-df-night transition hover:scale-105 hover:shadow-lg"
           >
             Créer un compte pour suivre mon devis
           </Link>
