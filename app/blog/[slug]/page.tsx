@@ -11,7 +11,7 @@ import BlogAdminBar from "@/components/blog/BlogAdminBar";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
-import { buildBlogPostJsonLd } from "@/lib/seo";
+import { buildBlogPostJsonLd, BASE_URL } from "@/lib/seo";
 import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
@@ -32,8 +32,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = post.metaTitle || `${post.title} — Blog Splice`;
   const description = post.metaDescription || post.excerpt;
-
-  const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
   return {
     title,

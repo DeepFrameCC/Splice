@@ -3,7 +3,7 @@
  * Centralized structured data and metadata helpers
  */
 
-export const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
+export const BASE_URL = (process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr").trim();
 export const absoluteUrl = (path = ""): string => new URL(path, BASE_URL).toString();
 
 const ORG_ID = `${BASE_URL}/#organization`;

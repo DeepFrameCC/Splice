@@ -6,8 +6,7 @@ import ContactForm from "./ContactForm";
 import { buildContactPageJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
+import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact — Splice",

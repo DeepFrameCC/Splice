@@ -2,11 +2,9 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import EquipeAnimations from "@/components/equipe/EquipeAnimations";
 import Link from "next/link";
-import { buildTeamJsonLd } from "@/lib/seo";
+import { buildTeamJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Équipe",

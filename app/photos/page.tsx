@@ -1,4 +1,4 @@
-﻿import { db } from "@/lib/db";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { FOUNDER_LABEL } from "@/lib/pricing";
 import type { Founder } from "@prisma/client";
@@ -7,10 +7,9 @@ import MediaCard from "@/components/gallery/MediaCard";
 import { toggleLike } from "@/app/actions/likes";
 import FilterTabs from "@/components/gallery/FilterTabs";
 import { AlertTriangle } from "lucide-react";
+import { BASE_URL } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Photos — Splice",

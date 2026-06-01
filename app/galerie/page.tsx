@@ -5,7 +5,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import ProjetsClient from "@/components/gallery/ProjetsClient";
 import GalerieAnimations from "@/components/gallery/GalerieAnimations";
-import { buildGalleryJsonLd } from "@/lib/seo";
+import { buildGalleryJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import "./projets.css";
@@ -18,8 +18,6 @@ async function getPublishedMedias() {
     ],
   });
 }
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Galerie photo & video | Splice Studio",

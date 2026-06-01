@@ -2,7 +2,7 @@ import type { Service } from "@prisma/client";
 import type { FAQItem } from "./types";
 import type { Ville } from "./local-seo";
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
+const SITE_URL = (process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr").trim();
 const ORG_ID = `${SITE_URL}/#organization`;
 
 export function buildServiceJsonLd(service: Service) {

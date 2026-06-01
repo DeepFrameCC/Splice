@@ -4,8 +4,7 @@ import Wizard from "@/components/devis/Wizard";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { Metadata } from "next";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
+import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Demander un devis — Splice",

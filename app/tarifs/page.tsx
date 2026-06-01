@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import PricingSection from "@/components/tarifs/PricingSection";
-import { buildPricingJsonLd } from "@/lib/seo";
+import { buildPricingJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Tarifs — Splice | Vidéo & Photo en Centre-Val de Loire",

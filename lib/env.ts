@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+if (process.env.NEXT_PUBLIC_APP_URL) {
+  process.env.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL.trim();
+}
+
 /**
  * Runtime environment validation.
  * Imported at startup — fails fast with clear error messages.

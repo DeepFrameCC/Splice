@@ -1,13 +1,11 @@
-﻿import { db } from "@/lib/db";
+import { db } from "@/lib/db";
 import { Star, AlertTriangle, MessageSquare, Quote } from "lucide-react";
 import AvisForm from "@/components/gallery/AvisForm";
-import { buildAvisJsonLd } from "@/lib/seo";
+import { buildAvisJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Avis clients",

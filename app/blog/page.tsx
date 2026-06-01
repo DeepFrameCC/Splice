@@ -14,10 +14,8 @@ import BlogAdminFAB from "@/components/blog/BlogAdminFAB";
 import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPublishedPosts, getFeaturedPost, getAllCategories } from "@/lib/blog/queries";
 import { auth, isAdmin } from "@/lib/auth";
-import { buildBlogIndexJsonLd } from "@/lib/seo";
+import { buildBlogIndexJsonLd, BASE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
-
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
 
 export const metadata: Metadata = {
   title: "Blog — Splice",
