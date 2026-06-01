@@ -171,10 +171,23 @@ async function main() {
     console.log("BlogCategory:", cat.slug);
   }
 
-  // ── Blog Posts (2 par service pilier) ──────────────────────────────
+  // ── Blog Posts ──────────────────────────────────────────────────────
   const { blogContent } = await import("./blog-content");
   const adminUser = await db.user.findUnique({ where: { email: adminEmail } });
-  const blogPosts = [
+
+  type BlogSeedPost = {
+    slug: string;
+    title: string;
+    excerpt: string;
+    publishedAt: Date;
+    serviceSlug: string;
+    metaTitle?: string;
+    metaDescription?: string;
+    tags?: string[];
+    coverImageAlt?: string;
+  };
+
+  const blogPosts: BlogSeedPost[] = [
     {
       slug: "5-erreurs-montage-video-reseaux-sociaux",
       title: "5 erreurs de montage qui plombent vos videos sur les reseaux sociaux",
@@ -210,6 +223,72 @@ async function main() {
       publishedAt: new Date("2026-01-25"),
       serviceSlug: "motion-design",
     },
+    {
+      slug: "prix-video-entreprise-2026",
+      title: "Combien coute une video d'entreprise en 2026 ?",
+      excerpt: "Les facteurs de prix, des fourchettes par type de film et comment obtenir un devis juste pour votre video d'entreprise.",
+      metaTitle: "Prix d'une video d'entreprise en 2026 | Splice",
+      metaDescription: "Combien coute une video d'entreprise en 2026 ? Facteurs de prix, fourchettes par type de film et conseils pour un devis juste. Le guide Splice.",
+      tags: ["prix video entreprise", "tarif film corporate", "budget video"],
+      coverImageAlt: "Tournage d'une video d'entreprise en studio",
+      publishedAt: new Date("2026-05-05"),
+      serviceSlug: "production-corporate",
+    },
+    {
+      slug: "reussir-shooting-photo-automobile",
+      title: "Reussir un shooting photo automobile : le guide complet",
+      excerpt: "Lumiere, lieux, reglages, retouche : le guide pour reussir un shooting photo automobile professionnel.",
+      metaTitle: "Shooting photo automobile : le guide complet | Splice",
+      metaDescription: "Lumiere, lieux, reglages, retouche : le guide complet pour reussir un shooting photo automobile professionnel et valoriser un vehicule.",
+      tags: ["shooting photo voiture", "photographe automobile", "photo auto"],
+      coverImageAlt: "Shooting photo d'une voiture a l'heure doree",
+      publishedAt: new Date("2026-05-09"),
+      serviceSlug: "shooting-automobile",
+    },
+    {
+      slug: "vlog-entreprise-definition-formats",
+      title: "Vlog d'entreprise : definition, formats et exemples",
+      excerpt: "Qu'est-ce qu'un vlog d'entreprise ? Definition, formats et bonnes pratiques pour lancer un vlog corporate efficace.",
+      metaTitle: "Vlog d'entreprise : definition et formats | Splice",
+      metaDescription: "Qu'est-ce qu'un vlog d'entreprise ? Definition, formats, exemples et bonnes pratiques pour lancer un vlog corporate efficace. Guide Splice.",
+      tags: ["vlog entreprise", "c'est quoi un vlog", "vlog corporate"],
+      coverImageAlt: "Collaborateur filme pour un vlog d'entreprise",
+      publishedAt: new Date("2026-05-14"),
+      serviceSlug: "production-corporate",
+    },
+    {
+      slug: "formats-video-reseaux-sociaux-2026",
+      title: "Formats video pour les reseaux sociaux : le guide 2026",
+      excerpt: "9:16, 1:1, 16:9 : quel format video pour quel reseau social en 2026 et comment decliner une seule captation.",
+      metaTitle: "Formats video reseaux sociaux : guide 2026 | Splice",
+      metaDescription: "9:16, 1:1, 16:9 : quel format video pour quel reseau social en 2026 ? Bonnes pratiques et declinaison multi-format. Guide Splice.",
+      tags: ["format video reseaux sociaux", "9:16", "16:9", "format Reels"],
+      coverImageAlt: "Declinaison d'une video en formats vertical, carre et paysage",
+      publishedAt: new Date("2026-05-19"),
+      serviceSlug: "pub-reseaux-sociaux",
+    },
+    {
+      slug: "photographe-freelance-ou-agence",
+      title: "Photographe freelance ou agence : comment choisir ?",
+      excerpt: "Avantages, limites, couts et criteres de choix entre un photographe freelance et une agence selon votre projet.",
+      metaTitle: "Photographe freelance ou agence : comment choisir ?",
+      metaDescription: "Photographe freelance ou agence : avantages, limites, couts et criteres de choix selon votre projet. Le guide objectif de Splice.",
+      tags: ["photographe freelance", "agence vs freelance", "choisir photographe"],
+      coverImageAlt: "Photographe professionnel en prise de vue",
+      publishedAt: new Date("2026-05-23"),
+      serviceSlug: "photographie-professionnelle",
+    },
+    {
+      slug: "preparer-evenement-entreprise-checklist",
+      title: "Preparer un evenement d'entreprise : la check-list photo/video",
+      excerpt: "La check-list complete pour reussir la couverture photo et video de votre evenement d'entreprise.",
+      metaTitle: "Check-list photo/video d'un evenement d'entreprise",
+      metaDescription: "La check-list complete pour reussir la couverture photo et video de votre evenement d'entreprise : preparation, brief, logistique, livrables.",
+      tags: ["couverture evenement entreprise", "check-list evenement", "photo video evenement"],
+      coverImageAlt: "Reportage photo lors d'un evenement d'entreprise",
+      publishedAt: new Date("2026-05-28"),
+      serviceSlug: "production-corporate",
+    },
   ];
 
   for (const bp of blogPosts) {
@@ -228,6 +307,10 @@ async function main() {
       parentServiceId: service.id,
       authorId: adminUser?.id ?? null,
       readingTimeMin: Math.max(3, Math.round((content.replace(/<[^>]*>/g, "").split(/\s+/).length) / 200)),
+      metaTitle: bp.metaTitle ?? null,
+      metaDescription: bp.metaDescription ?? null,
+      tags: bp.tags ?? [],
+      coverImageAlt: bp.coverImageAlt ?? null,
     };
 
     await db.blogPost.upsert({

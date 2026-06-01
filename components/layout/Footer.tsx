@@ -30,6 +30,8 @@ export default function Footer() {
           <h3 className="mb-3 font-bold text-df-gold">Navigation</h3>
           <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
             <li><Link href="/services" className="hover:text-df-gold transition-colors">Services</Link></li>
+            <li><Link href="/agence-communication-orleans" className="hover:text-df-gold transition-colors">Agence communication</Link></li>
+            <li><Link href="/photographe-evenementiel" className="hover:text-df-gold transition-colors">Photo événementiel</Link></li>
             <li><Link href="/tarifs" className="hover:text-df-gold transition-colors">Tarifs</Link></li>
             <li><Link href="/galerie" className="hover:text-df-gold transition-colors">Galerie</Link></li>
             <li><Link href="/blog" className="hover:text-df-gold transition-colors">Blog</Link></li>

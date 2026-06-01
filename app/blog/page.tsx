@@ -11,6 +11,7 @@ import BlogSearchBar from "@/components/blog/BlogSearchBar";
 import BlogPagination from "@/components/blog/BlogPagination";
 import BlogNewsletterCTA from "@/components/blog/BlogNewsletterCTA";
 import BlogAdminFAB from "@/components/blog/BlogAdminFAB";
+import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPublishedPosts, getFeaturedPost, getAllCategories } from "@/lib/blog/queries";
 import { auth, isAdmin } from "@/lib/auth";
 import { buildBlogIndexJsonLd } from "@/lib/seo";
@@ -150,19 +151,17 @@ export default async function BlogPage({ searchParams }: Props) {
         </div>
 
         {/* Devis CTA */}
-        <div className="mt-12 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8 text-center text-white md:p-12">
-          <h2 className="font-sans text-2xl font-extrabold tracking-tight md:text-3xl">
-            Un projet en tête ?
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-white/60">
-            On vous accompagne de A à Z. Devis gratuit, sans engagement.
-          </p>
-          <Link
-            href="/devis"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:bg-df-gold/90 hover:scale-105"
-          >
-            Demander un devis →
-          </Link>
+        <div className="mt-12">
+          <CtaBlock
+            variant="soft"
+            source="blog_index"
+            title="Un projet en tête ?"
+            subtitle="On vous accompagne de A à Z. Devis gratuit, sans engagement."
+            primaryHref="/devis"
+            primaryLabel="Demander un devis gratuit"
+            secondaryHref="/galerie"
+            secondaryLabel="Voir nos réalisations"
+          />
         </div>
       </div>
 

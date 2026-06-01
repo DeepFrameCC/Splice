@@ -48,7 +48,8 @@ export default function Confidentialite() {
 
           <div>
             <h2 className="text-lg font-bold text-white">3. Finalités et bases légales</h2>
-            <table className="mt-3 w-full text-left text-xs">
+            <div className="mt-3 overflow-x-auto">
+            <table className="w-full min-w-[420px] text-left text-xs">
               <caption className="sr-only">Finalités et bases légales du traitement</caption>
               <thead>
                 <tr className="border-b border-df-ink/10">
@@ -65,6 +66,7 @@ export default function Confidentialite() {
                 <tr><td className="py-2 pr-4">Réponse aux demandes de contact</td><td className="py-2">Consentement</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <div>
