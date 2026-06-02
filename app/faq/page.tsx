@@ -101,8 +101,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Quel est le délai de livraison d'une vidéo montée ?",
-        a: "Le délai standard de livraison est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une option express 48h (+50 €) pour les projets urgents.",
-        rich: <>Le délai standard de livraison est de 7 à 10 jours ouvrés après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <L href="/devis">option express 48h</L> (+50 €) pour les projets urgents.</>,
+        a: "Le délai standard de livraison est de 7 à 14 jours après le tournage. Nous proposons aussi un délai étendu (15 jours) et une option express 48h (+50 €) pour les projets urgents.",
+        rich: <>Le délai standard de livraison est de 7 à 14 jours après le tournage. Nous proposons aussi un délai étendu (15 jours) et une <L href="/devis">option express 48h</L> (+50 €) pour les projets urgents.</>,
       },
       {
         q: "En quels formats vidéo livrez-vous les fichiers finaux ?",
@@ -136,13 +136,13 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Réalisez-vous des films corporate et vidéos institutionnelles ?",
-        a: "Oui, le film corporate est l'une de nos spécialités. Nous gérons l'intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 3 à 6 semaines.",
-        rich: <>Oui, le <L href="/services/production-corporate">film corporate</L> est l&apos;une de nos spécialités. Nous gérons l&apos;intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 3 à 6 semaines. <L href="/devis">Estimez votre projet</L>.</>,
+        a: "Oui, le film corporate est l'une de nos spécialités. Nous gérons l'intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 7 à 14 jours.",
+        rich: <>Oui, le <L href="/services/production-corporate">film corporate</L> est l&apos;une de nos spécialités. Nous gérons l&apos;intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 7 à 14 jours. <L href="/devis">Estimez votre projet</L>.</>,
       },
       {
         q: "Faites-vous des photos professionnelles pour entreprise ?",
-        a: "Oui. Nous réalisons portraits corporate, reportages métier, packshots produits et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 5 à 7 jours ouvrés.",
-        rich: <>Oui. Nous réalisons <L href="/services/photographie-professionnelle">portraits corporate, reportages métier, packshots produits</L> et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 5 à 7 jours ouvrés.</>,
+        a: "Oui. Nous réalisons portraits corporate, reportages métier, packshots produits et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 7 à 14 jours.",
+        rich: <>Oui. Nous réalisons <L href="/services/photographie-professionnelle">portraits corporate, reportages métier, packshots produits</L> et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 7 à 14 jours.</>,
       },
     ],
   },
@@ -193,8 +193,8 @@ export default function FAQPage() {
                     key={item.q}
                     className="group rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]"
                   >
-                    <summary className="flex cursor-pointer items-center justify-between p-5 font-bold text-white transition hover:bg-white/[0.04]">
-                      <h3 className="text-[length:inherit] font-[weight:inherit] m-0 leading-[inherit]">{item.q}</h3>
+                    <summary className="flex cursor-pointer items-center justify-between p-5 text-white transition hover:bg-white/[0.04]">
+                      <span className="font-sans text-base font-medium text-white m-0 leading-normal">{item.q}</span>
                       <span className="ml-4 shrink-0 text-df-gold transition-transform group-open:rotate-45">
                         +
                       </span>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import NavWrapper from "@/components/layout/NavWrapper";
+import Footer from "@/components/layout/Footer";
 import { ServiceCTA } from "@/components/services/ServiceCTA";
 import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
 import { buildLandingJsonLd } from "@/lib/services/schema-service";
@@ -12,7 +14,7 @@ import type { FAQItem } from "@/lib/services/types";
 export const revalidate = 86400;
 
 const PATH = "/agence-communication-orleans";
-const TITLE = "Agence de communication à Orléans | Splice Studio";
+const TITLE = "Agence de communication à Orléans | Splice";
 const DESCRIPTION =
   "Agence de communication à Orléans : stratégie visuelle, vidéo, événementiel et social media. Splice accompagne les entreprises du Loiret. Devis gratuit.";
 const H1 = "Agence de communication à Orléans";
@@ -26,7 +28,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Combien coûte une agence de communication à Orléans ?",
     answer:
-      "Tout dépend du périmètre. Splice propose une formule Bienvenue gratuite pour découvrir notre univers, des packs à la carte (photos dès 15 €, vidéos dès 29 €) et des abonnements mensuels à partir de 45 €/mois en offre de lancement. Les accompagnements plus complets sont chiffrés sur devis : configurez votre besoin sur notre simulateur de devis en ligne ou consultez la page Tarifs.",
+      "Tout dépend du périmètre. Splice propose des packs à la carte (photos dès 15 €, vidéos dès 29 €) et des abonnements mensuels de montage vidéo à partir de 45 €/mois. Les accompagnements plus complets sont chiffrés sur devis : configurez votre besoin sur notre simulateur de devis en ligne ou consultez la page Tarifs.",
   },
   {
     question: "Travaillez-vous avec les restaurants et commerces locaux ?",
@@ -66,155 +68,235 @@ export default function AgenceCommunicationOrleansPage() {
 
   return (
     <>
+      <NavWrapper />
       <JsonLd data={jsonLd} />
 
-      <main className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-12">
+      <div className="df-root pb-24" style={{ paddingTop: "calc(80px + 3rem)" }}>
         {/* Breadcrumb */}
-        <Breadcrumbs
-          jsonLd={false}
-          className="mb-8 text-sm text-white/50"
-          items={[
-            { name: "Accueil", href: "/" },
-            { name: "Agence de communication Orléans", href: PATH },
-          ]}
-        />
+        <div className="mx-auto max-w-7xl px-6 mb-8">
+          <Breadcrumbs
+            jsonLd={false}
+            className="text-xs text-white/50"
+            items={[
+              { name: "Accueil", href: "/" },
+              { name: "Agence de communication Orléans", href: PATH },
+            ]}
+          />
+        </div>
 
-        <article>
-          {/* Hero */}
-          <header className="mb-12">
-            <h1 className="text-balance text-3xl font-semibold tracking-tight text-white md:text-5xl">
-              {H1}
-            </h1>
-            <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-white/70">
-              Splice est un studio créatif et une agence de communication à Orléans. Nous
-              accompagnons les entreprises, commerces et institutions du Loiret pour donner
-              une image forte et cohérente à leur marque — de la stratégie visuelle à la
-              vidéo, du social media à l&apos;événementiel.
-            </p>
-          </header>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Communication visuelle</h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              Une marque se reconnaît d&apos;abord à ses images. Nous produisons des visuels
-              sur mesure — photographie, motion design, habillage graphique — qui traduisent
-              votre positionnement plutôt que de recourir à des banques d&apos;images
-              génériques. Cette identité visuelle se décline ensuite sur l&apos;ensemble de
-              vos supports, du site web aux documents commerciaux. Découvrez notre approche
-              de la{" "}
-              <Link href="/services/photographie-professionnelle" className="text-df-gold hover:underline">
-                photographie professionnelle
-              </Link>{" "}
-              et du{" "}
-              <Link href="/services/motion-design" className="text-df-gold hover:underline">
-                motion design
-              </Link>.
-            </p>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Communication événementielle</h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              Séminaires, soirées d&apos;entreprise, salons, lancements : un événement mérite
-              d&apos;être documenté pour vivre au-delà du jour J. Nous assurons la couverture
-              photo et vidéo, jusqu&apos;à l&apos;aftermovie, pour alimenter votre
-              communication interne et externe. Pour ces prestations, voyez notre offre dédiée
-              de{" "}
-              <Link href="/photographe-evenementiel" className="text-df-gold hover:underline">
-                photographe événementiel
-              </Link>.
-            </p>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Social media &amp; contenu</h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              En tant qu&apos;agence social media, nous concevons des contenus pensés pour les
-              réseaux : formats verticaux, vidéos courtes orientées conversion, séries de
-              visuels cohérents. L&apos;objectif n&apos;est pas de publier pour publier, mais
-              d&apos;entretenir une présence régulière qui transforme l&apos;audience en
-              clients. Explorez notre service de{" "}
-              <Link href="/services/pub-reseaux-sociaux" className="text-df-gold hover:underline">
-                publicité réseaux sociaux
-              </Link>.
-            </p>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Communication pour restaurants &amp; commerces</h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              Les commerces de proximité et les restaurants d&apos;Orléans ont des besoins
-              spécifiques : montrer un lieu, donner envie d&apos;un plat, animer une page
-              locale. Nous proposons des formules adaptées à un budget de commerce indépendant,
-              avec des contenus photo et vidéo qui se diffusent immédiatement sur vos canaux.
-              {" "}Nos clients vont des PME locales et des restaurants aux commerces de
-              proximité d&apos;Orléans, et nous travaillons aussi avec les mairies pour la
-              couverture d&apos;événements de la ville.
-            </p>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Notre approche</h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              Splice combine la rigueur d&apos;une agence et la souplesse d&apos;un studio.
-              Chaque projet commence par la compréhension de votre objectif réel — recruter,
-              vendre, fidéliser — avant de choisir les bons formats. Notre équipe réunit la
-              photographie (Louisia) et la vidéo &amp; le motion design (Tracy / TY), ce qui
-              nous permet de tenir une cohérence créative d&apos;un support à l&apos;autre.
-              Vous gardez un interlocuteur unique du brief à la livraison.
-            </p>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">
-              Zone d&apos;intervention (Orléans, Tours, Centre-Val de Loire)
-            </h2>
-            <p className="mt-4 leading-relaxed text-white/70">
-              Basés en Centre-Val de Loire, nous intervenons à Orléans, à Tours et dans tout le
-              Loiret pour les tournages, shootings et couvertures d&apos;événements. Les volets
-              stratégie, montage et production graphique se gèrent à distance, sans contrainte
-              de déplacement. Retrouvez l&apos;ensemble de nos prestations sur la page{" "}
-              <Link href="/services" className="text-df-gold hover:underline">Services</Link>.
-            </p>
-          </section>
-
-          {/* FAQ */}
-          <section className="mb-12">
-            <h2 className="text-xl font-semibold text-white md:text-2xl">Questions fréquentes</h2>
-            <dl className="mt-6 grid gap-4">
-              {FAQ.map((item) => (
-                <div
-                  key={item.question}
-                  className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-5"
-                >
-                  <dt className="font-semibold text-white">{item.question}</dt>
-                  <dd className="mt-2 leading-relaxed text-white/70">{item.answer}</dd>
+        {/* Hero Section */}
+        <section className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            {/* Title / Description */}
+            <div className="lg:col-span-7">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
+                Studio Créatif · Orléans
+              </span>
+              <h1 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-6xl">
+                {H1}
+              </h1>
+              <p className="mt-6 text-base leading-relaxed text-white/70">
+                Splice est un studio de création visuelle et une agence de communication à Orléans. Nous accompagnons les entreprises, commerces et institutions du Loiret pour donner une image forte et cohérente à leur marque — de la stratégie de marque à la production de contenus photo, vidéo, motion design et réseaux sociaux.
+              </p>
+            </div>
+            
+            {/* Manifeste / Side Frame */}
+            <div className="relative lg:col-span-5">
+              <div className="df-cine-corners p-8 bg-df-surface border border-white/[0.06] rounded-2xl">
+                <i /><i /><i /><i />
+                <span className="text-[10px] font-mono tracking-widest text-df-gold uppercase">Manifeste</span>
+                <p className="mt-4 font-serif text-lg italic text-white/90">
+                  &ldquo;L&apos;image juste a plus de pouvoir qu&apos;un long discours. Nous refusons les banques d&apos;images génériques pour façonner l&apos;identité visuelle singulière de votre entreprise.&rdquo;
+                </p>
+                <div className="mt-6 h-[1px] bg-white/[0.06]" />
+                <div className="mt-4 flex items-center justify-between text-xs text-white/50">
+                  <span>SPLICE STUDIO</span>
+                  <span>EST. 2024</span>
                 </div>
-              ))}
-            </dl>
-          </section>
+              </div>
+            </div>
+          </div>
+        </section>
 
-          {/* Internal links */}
-          <section className="mb-12 border-t border-white/[0.08] pt-8">
-            <p className="text-sm text-white/60">Nos expertises liées :</p>
-            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
-              <Link href="/photographe-evenementiel" className="inline-flex items-center gap-1.5 text-sm text-df-gold hover:underline">
-                Photographe événementiel <ArrowRight className="h-3 w-3" />
-              </Link>
-              <Link href="/services/pub-reseaux-sociaux" className="inline-flex items-center gap-1.5 text-sm text-df-gold hover:underline">
-                Publicité réseaux sociaux <ArrowRight className="h-3 w-3" />
-              </Link>
-              <Link href="/services" className="inline-flex items-center gap-1.5 text-sm text-df-gold hover:underline">
-                Tous nos services <ArrowRight className="h-3 w-3" />
+        {/* Core Expertise Sections (Ce que nous faisons) */}
+        <section className="mx-auto max-w-7xl px-6 mt-24">
+          <div className="mb-12 flex items-center gap-3">
+            <span className="h-[1px] w-8 bg-df-gold" />
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
+              Ce que nous faisons
+            </span>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {/* Card 1 */}
+            <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
+              <span className="text-3xl font-light text-df-gold/30">01</span>
+              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+                Production Vidéo &amp; Motion Design
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                Films corporate, interviews, vidéos de marque et animations en motion design. Nous gérons tout : scénarisation, tournage cinéma 4K et post-production complète (étalonnage, sound design).
+              </p>
+              <ul className="mt-6 space-y-2 text-xs text-white/50">
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Films institutionnels &amp; marque employeur
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Animations 2D/3D et logo reveals
+                </li>
+              </ul>
+              <Link href="/services/montage-video" className="mt-8 inline-flex items-center gap-1.5 text-xs font-bold text-df-gold hover:underline">
+                Découvrir l&apos;offre vidéo <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
-          </section>
 
-          {/* CTA */}
+            {/* Card 2 */}
+            <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
+              <span className="text-3xl font-light text-df-gold/30">02</span>
+              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+                Photographie Professionnelle
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                Portraits d&apos;équipe corporate, reportages métier sur site, photographies d&apos;établissements, packshots produits et couverture d&apos;événements. Des clichés retouchés d&apos;une netteté absolue.
+              </p>
+              <ul className="mt-6 space-y-2 text-xs text-white/50">
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Portraits corporate LinkedIn
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Shootings immobiliers, culinaires et produits
+                </li>
+              </ul>
+              <Link href="/services/photographie-professionnelle" className="mt-8 inline-flex items-center gap-1.5 text-xs font-bold text-df-gold hover:underline">
+                Découvrir l&apos;offre photo <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
+              <span className="text-3xl font-light text-df-gold/30">03</span>
+              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+                Social Media &amp; Publicités
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                Création de publicités vidéo verticales (Reels, TikTok, Shorts) à fort taux de complétion, hooks d&apos;accroche, sous-titres animés et packs mensuels pour booster votre visibilité en continu.
+              </p>
+              <ul className="mt-6 space-y-2 text-xs text-white/50">
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Formats courts 9:16 natifs mobiles
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Direction artistique orientée conversion
+                </li>
+              </ul>
+              <Link href="/services/pub-reseaux-sociaux" className="mt-8 inline-flex items-center gap-1.5 text-xs font-bold text-df-gold hover:underline">
+                Découvrir l&apos;offre social media <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
+              <span className="text-3xl font-light text-df-gold/30">04</span>
+              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+                Événementiel, Mairies &amp; Collectivités
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
+                Couverture de séminaires, salons, rassemblements locaux, cérémonies officielles et événements culturels ou associatifs organisés par les mairies et collectivités territoriales du Centre-Val de Loire.
+              </p>
+              <ul className="mt-6 space-y-2 text-xs text-white/50">
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Reportages photo &amp; aftermovies vidéo pour collectivités
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 text-df-gold" /> Communication institutionnelle &amp; mise en valeur de la vie locale
+                </li>
+              </ul>
+              <Link href="/photographe-evenementiel" className="mt-8 inline-flex items-center gap-1.5 text-xs font-bold text-df-gold hover:underline">
+                Découvrir l&apos;offre événementielle <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Qui sommes-nous (Qui nous sommes) */}
+        <section className="mx-auto max-w-7xl px-6 mt-24">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-5">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
+                Qui sommes-nous
+              </span>
+              <h2 className="mt-4 font-display text-3xl uppercase tracking-tight text-white md:text-4xl">
+                La force d&apos;un studio,<br />la souplesse de freelances
+              </h2>
+              <p className="mt-6 text-sm leading-relaxed text-white/70">
+                Splice réunit Louisia (directrice artistique &amp; photographe) et TY (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">
+                  <span className="block text-lg font-bold text-white">Louisia</span>
+                  <span className="text-xs text-df-gold">Photo &amp; DA</span>
+                </div>
+                <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">
+                  <span className="block text-lg font-bold text-white">T.Y</span>
+                  <span className="text-xs text-df-gold">Vidéo &amp; Motion</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl border border-white/[0.06] bg-df-surface p-8">
+                <span className="text-xs font-mono uppercase tracking-wider text-df-gold">Zone de service &amp; intervention</span>
+                <p className="mt-4 text-sm leading-relaxed text-white/70">
+                  Nous sommes basés en Centre-Val de Loire et nous déplaçons physiquement à <strong>Orléans</strong>, <strong>Tours</strong> et dans tout le <strong>Loiret (45)</strong> pour les tournages et prises de vues. Les étapes de conception stratégique, montage vidéo et post-production s&apos;effectuent à distance avec des outils collaboratifs en ligne pour une rapidité maximale.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2 text-xs">
+                  <span className="rounded-full bg-white/[0.04] px-3 py-1 text-white/60">Orléans Centre</span>
+                  <span className="rounded-full bg-white/[0.04] px-3 py-1 text-white/60">La Source / Olivet</span>
+                  <span className="rounded-full bg-white/[0.04] px-3 py-1 text-white/60">Saran / Ingré</span>
+                  <span className="rounded-full bg-white/[0.04] px-3 py-1 text-white/60">Tours &amp; Indre-et-Loire</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mx-auto max-w-4xl px-6 mt-24">
+          <div className="mb-12 flex items-center gap-3 justify-center">
+            <span className="h-[1px] w-8 bg-df-gold" />
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
+              Questions fréquentes
+            </span>
+            <span className="h-[1px] w-8 bg-df-gold" />
+          </div>
+
+          <div className="space-y-4">
+            {FAQ.map((item) => (
+              <details
+                key={item.question}
+                className="group rounded-2xl bg-df-surface ring-1 ring-white/[0.08]"
+              >
+                <summary className="flex cursor-pointer items-center justify-between p-5 text-white transition hover:bg-white/[0.04]">
+                  <span className="font-sans text-base font-medium text-white m-0 leading-normal">{item.question}</span>
+                  <span className="ml-4 shrink-0 text-df-gold transition-transform group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <div className="px-5 pb-5 text-sm leading-relaxed text-white/70 border-t border-white/[0.04] pt-4">
+                  {item.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <div className="mx-auto max-w-7xl px-6 mt-24">
           <ServiceCTA variant="block" serviceName="communication" />
-        </article>
-      </main>
-      <div aria-hidden className="h-16 md:hidden" />
+        </div>
+      </div>
+
+      <Footer />
       <StickyMobileCta source="sticky_agence" />
     </>
   );

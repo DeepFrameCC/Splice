@@ -237,7 +237,7 @@ export const DUREE_SUPPLEMENT: Record<DureeTournage, { label: string; price: num
 };
 
 export const DELAI: Record<DelaiLivraison, { label: string; price: number }> = {
-  STANDARD: { label: "Standard (7 à 10 jours ouvrés)", price: 0 },
+  STANDARD: { label: "Standard (7 à 14 jours)", price: 0 },
   ETENDU: { label: "Jusqu'à 15 jours ouvrés (4 à 8 vidéos)", price: 0 },
   EXPRESS_48H: { label: "Express 48h", price: 50 },
 };

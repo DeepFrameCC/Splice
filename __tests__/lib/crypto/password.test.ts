@@ -2,9 +2,9 @@ import { describe, it, expect } from "vitest";
 import { hashPassword, verifyPassword } from "@/lib/crypto/password";
 
 describe("lib/crypto/password", () => {
-  it("hashPassword produces an Argon2id encoded hash", async () => {
+  it("hashPassword produces a PBKDF2 encoded hash", async () => {
     const hash = await hashPassword("testPassword123!");
-    expect(hash).toMatch(/^\$argon2id\$/);
+    expect(hash).toMatch(/^pbkdf2\$/);
   });
 
   it("verifyPassword returns true for matching password", async () => {

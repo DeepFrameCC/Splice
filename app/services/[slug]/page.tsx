@@ -129,17 +129,17 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
 };
 
 const DELIVERY_BY_SERVICE: Record<string, { delay: string; priceFrom: string; express?: string }> = {
-  "montage-video": { delay: "7 jours ouvrés", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Option express 48h" },
-  "production-corporate": { delay: "3 à 6 semaines", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
-  "motion-design": { delay: "2 à 4 semaines", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Sur demande" },
-  "pub-reseaux-sociaux": { delay: "5 à 7 jours ouvrés", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Option express 48h" },
-  "shooting-automobile": { delay: "5 à 7 jours ouvrés", priceFrom: "Dès 15 € (Photos) ou 29 € (Vidéo)", express: "Option express 48h" },
-  "photographie-professionnelle": { delay: "5 à 7 jours ouvrés", priceFrom: "Dès 15 € (5 photos)", express: "Option express 48h" },
-  "interview-temoignage": { delay: "1 à 2 semaines", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
-  "voix-off-sound-design": { delay: "Quelques jours", priceFrom: "Dès 12 € (Option) ou 29 € (Pack)", express: "Option express 48h" },
-  "presentation-entreprise": { delay: "4 à 8 semaines", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
-  "clip-musical": { delay: "2 à 4 semaines", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
-  "drone-prise-de-vue-aerienne": { delay: "3 à 5 jours ouvrés", priceFrom: "Dès 15 € (Photos) ou Devis", express: "Option express 48h" },
+  "montage-video": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Option express 48h" },
+  "production-corporate": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
+  "motion-design": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Sur demande" },
+  "pub-reseaux-sociaux": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Option express 48h" },
+  "shooting-automobile": { delay: "7 à 14 jours", priceFrom: "Dès 15 € (Photos) ou 29 € (Vidéo)", express: "Option express 48h" },
+  "photographie-professionnelle": { delay: "7 à 14 jours", priceFrom: "Dès 15 € (5 photos)", express: "Option express 48h" },
+  "interview-temoignage": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
+  "voix-off-sound-design": { delay: "7 à 14 jours", priceFrom: "Dès 12 € (Option) ou 29 € (Pack)", express: "Option express 48h" },
+  "presentation-entreprise": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
+  "clip-musical": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
+  "drone-prise-de-vue-aerienne": { delay: "7 à 14 jours", priceFrom: "Dès 15 € (Photos) ou Devis", express: "Option express 48h" },
 };
 
 export default async function ServicePage({ params }: PageProps) {

@@ -88,7 +88,7 @@ const montageVideo: ServiceContent = {
     {
       question: "Quel est le délai de livraison standard ?",
       answer:
-        "Nous livrons votre premier montage sous 7 jours ouvrés après réception de vos fichiers. Une option express en 48h est également disponible.",
+        "Nous livrons votre premier montage sous 7 à 14 jours après réception de vos fichiers. Une option express en 48h est également disponible.",
     },
     {
       question: "Combien coûte une prestation de montage vidéo ?",
@@ -174,7 +174,7 @@ const productionCorporate: ServiceContent = {
     {
       question: "Quel est le délai de production moyen ?",
       answer:
-        "Prévoyez 3 à 6 semaines entre le brief initial et la livraison de votre film finalisé, selon la logistique requise (nombre de jours de tournage).",
+        "Prévoyez 7 à 14 jours entre le brief initial et la livraison de votre film finalisé, selon la logistique requise (nombre de jours de tournage).",
     },
     {
       question: "Combien coûte un film corporate complet ?",
@@ -260,7 +260,7 @@ const motionDesign: ServiceContent = {
     {
       question: "Quel est le délai pour créer une animation ?",
       answer:
-        "Il faut compter généralement 2 à 4 semaines selon la longueur de la vidéo et la complexité des graphismes à animer.",
+        "Il faut compter généralement 7 à 14 jours selon la longueur de la vidéo et la complexité des graphismes à animer.",
     },
     {
       question: "Quel est le budget de départ pour du motion design ?",
@@ -531,7 +531,7 @@ const photographieProfessionnelle: ServiceContent = {
     {
       question: "Sous quel délai livrez-vous les clichés ?",
       answer:
-        "Toutes les photos sélectionnées et retouchées vous sont remises sous 5 à 7 jours ouvrés après la séance via une galerie en ligne.",
+        "Toutes les photos sélectionnées et retouchées vous sont remises sous 7 à 14 jours après la séance via une galerie en ligne.",
     },
     {
       question: "Travaillez-vous en freelance ?",

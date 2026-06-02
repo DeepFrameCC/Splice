@@ -84,8 +84,6 @@ export const SERVICES_LOCAL_SLUGS: LocalServiceSlug[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Service data (templates with {ville} / {department} placeholders)
-// ---------------------------------------------------------------------------
 
 export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> =
   {
@@ -101,7 +99,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Livraison rapide avec 2 allers-retours de corrections",
         "Logiciels professionnels : Premiere Pro, DaVinci Resolve, After Effects",
       ],
-      deliveryTime: "7 à 14 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 390 €",
     },
 
@@ -117,7 +115,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Post-production soignée : montage narratif, étalonnage, mixage audio",
         "Versions adaptées pour votre site web, vos réseaux sociaux et vos événements",
       ],
-      deliveryTime: "14 à 21 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 1 490 €",
     },
 
@@ -133,7 +131,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Intégration fluide avec vos contenus filmés existants",
         "Fichiers source livrés pour vos futures déclinaisons",
       ],
-      deliveryTime: "10 à 21 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 690 €",
     },
 
@@ -149,7 +147,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Tournage et montage rapides pour suivre vos temps forts marketing",
         "Packs mensuels disponibles pour une présence régulière",
       ],
-      deliveryTime: "5 à 10 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 290 €",
     },
 
@@ -165,7 +163,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Direction artistique adaptée à votre univers de marque",
         "Galerie privée en ligne pour sélectionner et télécharger vos photos",
       ],
-      deliveryTime: "5 à 10 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 350 €",
     },
 
@@ -181,7 +179,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Montage dynamique avec habillage, sous-titres et musique libre de droits",
         "Format long pour votre site et versions courtes pour les réseaux sociaux",
       ],
-      deliveryTime: "10 à 14 jours ouvrés",
+      deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 890 €",
     },
   };
@@ -242,7 +240,7 @@ export const LOCAL_PAGE_CONTENT: Record<
         {
           question: "Combien de temps faut-il prévoir pour un film corporate ?",
           answer:
-            "Comptez en général 14 à 21 jours ouvrés entre le brief validé et la livraison, selon le nombre de jours de tournage. Nous calons le planning avec vos disponibilités internes.",
+            "Comptez en général 7 à 14 jours entre le brief validé et la livraison, selon le nombre de jours de tournage. Nous calons le planning avec vos disponibilités internes.",
         },
       ],
     },
@@ -347,7 +345,7 @@ export const LOCAL_PAGE_CONTENT: Record<
         {
           question: "Sous quel délai livrez-vous les photos ?",
           answer:
-            "Les clichés sélectionnés et retouchés sont livrés sous 5 à 10 jours ouvrés via une galerie en ligne privée et sécurisée.",
+            "Les clichés sélectionnés et retouchés sont livrés sous 7 à 14 jours via une galerie en ligne privée et sécurisée.",
         },
       ],
     },
