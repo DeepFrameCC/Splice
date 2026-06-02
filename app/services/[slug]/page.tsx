@@ -269,15 +269,18 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="divide-y divide-white/[0.06] w-full">
                       {features.map((feature, idx) => (
                         <div key={feature.h3} className="py-8 first:pt-0 last:pb-0">
-                          <div className="flex items-center gap-3">
-                            <span className="font-mono text-xs text-df-gold font-semibold">
+                          <div className="flex items-baseline gap-3">
+                            <span className="font-mono text-sm text-df-gold font-semibold select-none">
                               {(idx + 1).toString().padStart(2, "0")}.
                             </span>
-                            <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wider">
+                            <h3 
+                              style={{ fontFamily: "var(--font-sans)" }} 
+                              className="text-lg md:text-xl font-medium text-white tracking-normal normal-case"
+                            >
                               {feature.h3}
                             </h3>
                           </div>
-                          <p className="mt-3 text-xs md:text-sm text-white/50 leading-relaxed max-w-3xl">
+                          <p className="mt-3 text-sm md:text-base text-white/60 leading-relaxed max-w-3xl font-light">
                             {feature.content}
                           </p>
                         </div>
@@ -299,14 +302,19 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main grid gap-12 sm:grid-cols-2 w-full">
                       {deliverables.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Livrables inclus</h3>
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Livrables inclus
+                          </h3>
                           <ul className="space-y-4">
                             {deliverables.map((item) => (
                               <li key={item.label} className="flex items-start gap-3">
-                                <Check className="h-4 w-4 text-df-gold shrink-0 mt-0.5" />
+                                <Check className="h-4 w-4 text-df-gold shrink-0 mt-1" />
                                 <div>
-                                  <span className="text-sm font-semibold text-white block">{item.label}</span>
-                                  {item.detail && <span className="text-xs text-white/40 block mt-1">{item.detail}</span>}
+                                  <span className="text-base font-normal text-white block">{item.label}</span>
+                                  {item.detail && <span className="text-sm text-white/45 block mt-1 font-light">{item.detail}</span>}
                                 </div>
                               </li>
                             ))}
@@ -315,14 +323,19 @@ export default async function ServicePage({ params }: PageProps) {
                       )}
                       {equipment.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Matériel &amp; Outils</h3>
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Matériel &amp; Outils
+                          </h3>
                           <ul className="space-y-4">
                             {equipment.map((item) => (
                               <li key={item.name} className="flex items-start gap-3">
-                                <Cpu className="h-4 w-4 text-white/30 shrink-0 mt-0.5" />
+                                <Cpu className="h-4 w-4 text-white/30 shrink-0 mt-1" />
                                 <div>
-                                  <span className="text-sm font-semibold text-white block">{item.name}</span>
-                                  {item.detail && <span className="text-xs text-white/40 block mt-1">{item.detail}</span>}
+                                  <span className="text-base font-normal text-white block">{item.name}</span>
+                                  {item.detail && <span className="text-sm text-white/45 block mt-1 font-light">{item.detail}</span>}
                                 </div>
                               </li>
                             ))}
@@ -346,22 +359,32 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main grid gap-12 sm:grid-cols-2 w-full">
                       {service.teamMembers.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Interlocuteur dédié</h3>
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Interlocuteur dédié
+                          </h3>
                           <div className="flex items-center gap-4 bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl max-w-sm">
                             <div className="h-10 w-10 rounded-full bg-df-gold/10 flex items-center justify-center text-df-gold font-bold text-sm tracking-wider">
                               {service.teamMembers[0]?.substring(0, 2) || "SP"}
                             </div>
                             <div>
-                              <span className="text-sm font-bold text-white block">{service.teamMembers[0]}</span>
-                              <span className="text-xs text-white/40 block mt-0.5">Chef de projet &amp; Réalisateur</span>
+                              <span className="text-base font-normal text-white block">{service.teamMembers[0]}</span>
+                              <span className="text-sm text-white/40 block mt-0.5 font-light">Chef de projet &amp; Réalisateur</span>
                             </div>
                           </div>
                         </div>
                       )}
                       {service.zoneText && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Zone d&apos;intervention</h3>
-                          <p className="text-sm text-white/60 leading-relaxed">
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Zone d&apos;intervention
+                          </h3>
+                          <p className="text-base text-white/60 leading-relaxed font-light">
                             {service.zoneText}
                           </p>
                         </div>
@@ -383,12 +406,15 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main divide-y divide-white/[0.06] w-full">
                       {faqItems.map((item) => (
                         <details key={item.question} className="group py-5 first:pt-0 last:pb-0">
-                          <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-white transition hover:text-df-gold select-none">
+                          <summary 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="flex cursor-pointer items-center justify-between text-base md:text-lg font-medium text-white transition hover:text-df-gold select-none"
+                          >
                             <span>{item.question}</span>
                             <span className="ml-4 shrink-0 text-df-gold/60 transition duration-300 group-open:rotate-45 font-mono text-base">+</span>
                           </summary>
                           <div 
-                            className="mt-4 text-xs md:text-sm leading-relaxed text-white/50 pl-4 border-l border-df-gold/20 prose-splice"
+                            className="mt-4 text-sm md:text-base leading-relaxed text-white/50 pl-4 border-l border-df-gold/20 prose-splice font-light"
                             dangerouslySetInnerHTML={{ __html: item.answer }}
                           />
                         </details>
@@ -410,7 +436,12 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main space-y-12 w-full">
                       {relatedArticles.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Articles utiles</h3>
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Articles utiles
+                          </h3>
                           <div className="grid gap-4 sm:grid-cols-2">
                             {relatedArticles.map((article) => (
                               <Link
@@ -418,10 +449,13 @@ export default async function ServicePage({ params }: PageProps) {
                                 href={`/blog/${article.slug}`}
                                 className="group block border border-white/[0.04] bg-[#15152A] p-5 rounded-xl hover:border-df-gold/20 transition-all duration-300"
                               >
-                                <h4 className="text-sm font-bold text-white group-hover:text-df-gold transition-colors leading-snug">
+                                <h4 
+                                  style={{ fontFamily: "var(--font-sans)" }} 
+                                  className="text-base font-medium text-white group-hover:text-df-gold transition-colors leading-snug"
+                                >
                                   {article.title}
                                 </h4>
-                                <p className="mt-2 text-xs text-white/40 leading-relaxed line-clamp-2">
+                                <p className="mt-2 text-xs text-white/40 leading-relaxed line-clamp-2 font-light">
                                   {article.excerpt}
                                 </p>
                               </Link>
@@ -431,7 +465,12 @@ export default async function ServicePage({ params }: PageProps) {
                       )}
                       {relatedServices.length > 0 && (
                         <div>
-                          <h3 className="font-sans text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Services connexes</h3>
+                          <h3 
+                            style={{ fontFamily: "var(--font-sans)" }} 
+                            className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
+                          >
+                            Services connexes
+                          </h3>
                           <div className="grid gap-4 sm:grid-cols-2">
                             {relatedServices.map((rs) => (
                               <Link
@@ -440,12 +479,15 @@ export default async function ServicePage({ params }: PageProps) {
                                 className="group block border border-white/[0.04] bg-[#15152A] p-5 rounded-xl hover:border-df-gold/20 transition-all duration-300"
                               >
                                 <div className="flex items-center justify-between">
-                                  <h4 className="text-sm font-bold text-white group-hover:text-df-gold transition-colors">
+                                  <h4 
+                                    style={{ fontFamily: "var(--font-sans)" }} 
+                                    className="text-base font-medium text-white group-hover:text-df-gold transition-colors"
+                                  >
                                     {rs.shortName}
                                   </h4>
                                   <ArrowRight className="h-4 w-4 text-white/20 transform group-hover:translate-x-1 group-hover:text-df-gold transition-all" />
                                 </div>
-                                <p className="mt-2 text-xs text-white/40 leading-relaxed line-clamp-2">
+                                <p className="mt-2 text-xs text-white/40 leading-relaxed line-clamp-2 font-light">
                                   {rs.metaDescription}
                                 </p>
                               </Link>
