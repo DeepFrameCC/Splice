@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 
 /**
  * LastFrame — cinematic CTA section.
@@ -16,14 +17,21 @@ export default function LastFrame() {
 
       <div className="df-lf-inner">
         <h2 className="df-lf-title">
-          Votre prochain projet,
+          Votre projet, on s&apos;en occupe
           <br />
-          on le cadre <em>ensemble.</em>
+          comme si c&apos;était <em>le nôtre.</em>
         </h2>
 
         <Link href="/devis" className="df-btn df-btn-primary df-btn-lg df-lf-cta">
           Demander un devis →
         </Link>
+
+        <ul className="df-lf-reassurance">
+          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> 30+ projets livrés</li>
+          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> Devis gratuit sous 24h</li>
+          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> 2 retours inclus, sans engagement</li>
+          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> Paiement sécurisé Stripe</li>
+        </ul>
 
         <div className="df-lf-meta">
           <a href="mailto:contact.splicestudio@gmail.com" className="df-lf-meta-link">contact.splicestudio@gmail.com</a>

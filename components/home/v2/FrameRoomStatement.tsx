@@ -54,28 +54,40 @@ export default function FrameRoomStatement() {
     <section
       ref={sectionRef}
       className="df-frs"
-      aria-label="Manifeste Splice"
+      aria-label="Note d'intention Splice"
     >
-      <div className="df-frs-inner">
-        <span className="df-frs-eyebrow df-frs-anim">
-          Manifeste · Splice
-        </span>
+      <div className="df-frs-grid">
+        {/* Rail latéral — repère type clap de cinéma */}
+        <div className="df-frs-rail df-frs-anim" aria-hidden="true">
+          <span className="df-frs-rail-num">N°01</span>
+          <span className="df-frs-rail-line" />
+          <span className="df-frs-rail-label">Note d&apos;intention</span>
+        </div>
 
-        <h2 className="df-frs-headline df-frs-anim">
-          On compose des images
-          <br />
-          qui font travailler
-          <br />
-          <em>les marques.</em>
-        </h2>
+        <div className="df-frs-main">
+          <span className="df-frs-eyebrow df-frs-anim">
+            Studio audiovisuel · Orléans + Tours
+          </span>
 
-        <p className="df-frs-stats df-frs-anim">
-          <em>30+</em> projets · <em>4K</em> rendu · <em>48h</em> express
-        </p>
+          <h2 className="df-frs-headline df-frs-anim">
+            Derrière chaque image,
+            <br />
+            une intention.
+            <br />
+            <em>La vôtre.</em>
+          </h2>
 
-        <span className="df-frs-sig df-frs-anim">
-          Orléans · Tours
-        </span>
+          <p className="df-frs-credo df-frs-anim">
+            On part de votre histoire, on la cadre plan par plan,
+            jusqu&apos;à ce qu&apos;elle sonne juste.
+          </p>
+
+          <div className="df-frs-slate df-frs-anim">
+            <span><em>30+</em> projets livrés</span>
+            <span><em>2</em> retours inclus</span>
+            <span>Sans engagement</span>
+          </div>
+        </div>
       </div>
     </section>
   );

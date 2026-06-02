@@ -73,7 +73,7 @@ export const scenes: Scene[] = [
     tc: "03:00",
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Jeanne d'arc .mp4")}`,
-    poster: `${CDN}/thumb/thumb-jeanne-darc.jpg`,
+    poster: `${CDN}/photos/${encodeURIComponent("cathédrale.jpg")}`,
     captions: "/captions/fetes-johanniques-orleans.vtt",
     format: "4K · 24fps",
   },

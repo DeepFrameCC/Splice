@@ -98,6 +98,7 @@ export default async function ProfilLayout({ children }: { children: React.React
                 { href: "/profil/devis", label: `Devis (${devisCount})` },
                 { href: "/profil/factures", label: `Factures (${facturesCount})` },
                 { href: "/profil/contrats", label: `Contrats (${contratsCount})` },
+                { href: "/profil/abonnement", label: "Abonnement" },
                 { href: "/profil/likes", label: `Likes (${likesCount})` },
                 { href: "/profil/parametres", label: "Paramètres" },
               ].map((l) => (

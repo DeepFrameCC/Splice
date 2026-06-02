@@ -2555,10 +2555,181 @@ img { display: block; max-width: 100%; }
   transform: translateX(6px);
 }
 
-/* Colonne DROITE : Fiche descriptive */
-.df-cs-feat {
+/* Intro en accroche, juste sous le titre (aligné à gauche) */
+.df-cs-intro {
+  max-width: 48ch;
+  margin-top: clamp(20px, 2.5vw, 32px);
+  font-family: var(--font-sans), sans-serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.005em;
+}
+
+/* ── Galerie draggable de services (cartes images N&B) ── */
+.df-cs-gallery-wrap {
   position: relative;
-  min-height: 400px;
+}
+.df-cs-gallery {
+  display: flex;
+  gap: clamp(16px, 1.6vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  cursor: grab;
+  scrollbar-width: none;
+}
+.df-cs-gallery::-webkit-scrollbar { display: none; }
+.df-cs-gallery:active { cursor: grabbing; }
+
+.df-cs-card {
+  position: relative;
+  flex: 0 0 clamp(260px, 30vw, 380px);
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: #0a0a16;
+  text-decoration: none;
+  isolation: isolate;
+}
+.df-cs-card:focus-visible {
+  outline: 2px solid var(--df-accent);
+  outline-offset: 3px;
+}
+.df-cs-card-img {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.02);
+  transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+  z-index: 0;
+}
+.df-cs-card:hover .df-cs-card-img,
+.df-cs-card:focus-visible .df-cs-card-img {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+.df-cs-card-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(10, 10, 22, 0.92) 4%, rgba(10, 10, 22, 0.25) 38%, rgba(10, 10, 22, 0.05) 70%);
+}
+.df-cs-card-num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  font-family: var(--font-sans), ui-monospace, monospace;
+  font-feature-settings: "tnum";
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.7);
+}
+.df-cs-card-cap {
+  position: absolute;
+  left: clamp(16px, 1.6vw, 22px);
+  right: clamp(16px, 1.6vw, 22px);
+  bottom: clamp(16px, 1.6vw, 22px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.df-cs-card-name {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+.df-cs-card-desc {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 32ch;
+}
+.df-cs-card-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--df-accent);
+}
+/* Sur desktop (survol possible) : desc + lien apparaissent au survol.
+   Sur tactile : toujours visibles. */
+@media (hover: hover) {
+  .df-cs-card-desc,
+  .df-cs-card-go {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .df-cs-card:hover .df-cs-card-desc,
+  .df-cs-card:hover .df-cs-card-go,
+  .df-cs-card:focus-visible .df-cs-card-desc,
+  .df-cs-card:focus-visible .df-cs-card-go {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.df-cs-drag-hint {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .df-cs-card-img,
+  .df-cs-card-desc,
+  .df-cs-card-go { transition: none; }
+}
+
+/* Footer slim (remplace le triptyque de stats SaaS) */
+.df-cs-foot {
+  margin-top: clamp(48px, 6vw, 88px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.df-cs-foot-meta {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+}
+.df-cs-foot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(18px, 2vw, 24px);
+  text-transform: uppercase;
+  color: var(--df-accent);
+}
+.df-cs-foot-link span {
+  transition: transform 0.22s;
+}
+.df-cs-foot-link:hover span {
+  transform: translateX(6px);
 }
 
 .df-cs-feat-main-copy {
@@ -3163,44 +3334,85 @@ img { display: block; max-width: 100%; }
   display: grid;
   place-items: center;
   background: var(--bg-deep);
-  padding: clamp(80px, 12vw, 160px) clamp(24px, 4vw, 80px);
-  text-align: center;
+  padding: clamp(80px, 12vw, 160px) clamp(24px, 6vw, 96px);
   position: relative;
   overflow: hidden;
 }
+/* Lueur asymétrique : glauque en haut-gauche, touche d'accent en bas-droite */
 .df-frs::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(107, 135, 121, 0.35) 0%, rgba(107, 135, 121, 0.12) 50%, transparent 85%);
+  background:
+    radial-gradient(58% 50% at 16% 28%, rgba(107, 135, 121, 0.30) 0%, transparent 70%),
+    radial-gradient(42% 42% at 88% 82%, rgba(243, 107, 31, 0.10) 0%, transparent 70%);
   z-index: 1;
   pointer-events: none;
 }
 
-.df-frs-inner {
-  max-width: 960px;
+.df-frs-grid {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: stretch;
+}
+
+/* Rail latéral — repère type clap / note d'intention */
+.df-frs-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(24px, 3vw, 48px);
-  position: relative;
-  z-index: 2;
+  gap: 16px;
+  padding-top: 6px;
+}
+.df-frs-rail-num {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--df-accent);
+}
+.df-frs-rail-line {
+  width: 1px;
+  flex: 1;
+  min-height: 120px;
+  background: linear-gradient(to bottom, var(--df-accent) 0%, rgba(243, 107, 31, 0.15) 60%, transparent 100%);
+}
+.df-frs-rail-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.df-frs-main {
+  min-width: 0;
 }
 
 .df-frs-eyebrow {
+  display: block;
   font-family: var(--font-sans), sans-serif;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--surface-glauque-mid);
+  margin-bottom: clamp(20px, 3vw, 36px);
 }
 
 .df-frs-headline {
   font-family: var(--font-display), system-ui, sans-serif;
-  font-size: clamp(48px, 7vw, 96px);
+  font-size: clamp(44px, 6.4vw, 92px);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.01em;
   color: #fff;
   margin: 0;
@@ -3217,30 +3429,68 @@ img { display: block; max-width: 100%; }
   letter-spacing: -0.005em;
 }
 
-.df-frs-stats {
+.df-frs-credo {
   font-family: var(--font-sans), sans-serif;
-  font-size: clamp(22px, 2.2vw, 32px);
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 44ch;
+  margin: clamp(24px, 3vw, 40px) 0 0;
   letter-spacing: -0.01em;
 }
 
-.df-frs-stats em {
+/* Bandeau de réassurance — preuve + risk-reversal, présenté façon « slate » */
+.df-frs-slate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(14px, 2vw, 30px);
+  margin-top: clamp(32px, 4vw, 56px);
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   font-family: var(--font-sans), sans-serif;
-  font-style: italic;
-  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+}
+.df-frs-slate span {
+  display: inline-flex;
+  align-items: baseline;
+}
+.df-frs-slate em {
+  font-style: normal;
+  font-weight: 800;
   color: var(--df-accent);
   font-size: 1.15em;
+  margin-right: 6px;
 }
 
-.df-frs-sig {
-  font-family: var(--font-sans), sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.58);
+/* Mobile : le rail passe à l'horizontale au-dessus du texte */
+@media (max-width: 640px) {
+  .df-frs-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .df-frs-rail {
+    flex-direction: row;
+    gap: 12px;
+    padding-top: 0;
+  }
+  .df-frs-rail-line {
+    width: 40px;
+    height: 1px;
+    min-height: 0;
+    flex: none;
+    background: linear-gradient(to right, var(--df-accent), transparent);
+  }
+  .df-frs-rail-label {
+    writing-mode: horizontal-tb;
+    letter-spacing: 0.22em;
+  }
+  .df-frs-headline {
+    font-size: clamp(40px, 11vw, 64px);
+  }
 }
 
 /* ────────────────────────────────────────────────────────────────
@@ -3684,6 +3934,33 @@ img { display: block; max-width: 100%; }
 .df-lf-cta {
   padding: 20px 40px;
   font-size: 16px;
+}
+
+/* Ligne de réassurance sous le CTA — point de décision */
+.df-lf-reassurance {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 22px;
+  max-width: 640px;
+}
+.df-lf-reassurance li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+.df-lf-reassurance-ic {
+  width: 16px;
+  height: 16px;
+  color: var(--df-accent);
+  flex-shrink: 0;
 }
 
 .df-lf-meta {

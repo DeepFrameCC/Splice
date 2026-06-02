@@ -14,6 +14,7 @@ import {
   Shield,
   LogOut,
   ChevronRight,
+  Repeat,
 } from "lucide-react";
 
 type Props = {
@@ -33,6 +34,7 @@ const navItems = [
   { href: "/profil/devis", label: "Mes devis", icon: FileText, countKey: "devis" as const },
   { href: "/profil/factures", label: "Mes factures", icon: Receipt, countKey: "factures" as const },
   { href: "/profil/contrats", label: "Mes contrats", icon: FileSignature, countKey: "contrats" as const },
+  { href: "/profil/abonnement", label: "Mon abonnement", icon: Repeat, countKey: null },
   { href: "/profil/likes", label: "Mes likes", icon: Heart, countKey: "likes" as const },
   { href: "/profil/notifications", label: "Notifications", icon: Bell, countKey: null },
   { href: "/profil/parametres", label: "Paramètres", icon: Settings, countKey: null },

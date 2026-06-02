@@ -1,101 +1,90 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { scenes } from "@/lib/home/scenes";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ServiceData {
+interface ServiceCard {
   id: string;
-  titlePrefix: string;
-  titleHighlight: string;
-  code: string;
-  abo: string;
-  tc: string;
-  blurb: string;
-  spec: [string, string][];
-  tags: string[];
-  gradientKey: "glauque" | "auto" | "motion" | "event";
+  name: string;
+  desc: string;
   href: string;
+  /** Slug d'une scène de lib/home/scenes — on réutilise son POSTER (pas la vidéo). */
+  mediaSlug: string;
 }
 
-const SERVICES: Record<string, ServiceData> = {
-  "01": {
+const SERVICES: ServiceCard[] = [
+  {
     id: "01",
-    titlePrefix: "Pub ",
-    titleHighlight: "sociale.",
-    code: "REELS · TIKTOK · VERTICAL",
-    abo: "★ Abonnement · dès 45 €/mois",
-    tc: "00:00:21:14",
-    blurb: "Des reels et TikToks qui ne se zappent pas. Production récurrente, multi-format, recyclage <em>multi-réseaux</em>.",
-    spec: [
-      ["Formats", "9:16 · 1:1 · 16:9"],
-      ["Cadence", "<b>4 reels / mois</b>"],
-      ["Livraison", "72 h après tournage"],
-      ["Engagement", "Sans engagement · résiliable"],
-    ],
-    tags: ["Reels", "TikTok", "Vertical", "Recyclage"],
-    gradientKey: "glauque",
+    name: "Pub sociale",
+    desc: "Reels & TikToks qui ne se zappent pas. Production récurrente, multi-réseaux.",
     href: "/services/pub-reseaux-sociaux",
+    mediaSlug: "presentation-louisia",
   },
-  "02": {
+  {
     id: "02",
-    titlePrefix: "Shooting ",
-    titleHighlight: "auto.",
-    code: "ROLLING · PHOTO · DRONE",
-    abo: "✦ À la carte · sur devis",
-    tc: "00:01:38:04",
-    blurb: "Photo et vidéo voiture, en studio mobile ou en décor. Pour <em>concessionnaires, importateurs, collectionneurs</em>.",
-    spec: [
-      ["Formats", "16:9 · 4:3 · Stills"],
-      ["Type", "<b>Rolling + statique</b>"],
-      ["Livraison", "5 j ouvrés"],
-      ["Lieu", "Orléans · ± 200 km"],
-    ],
-    tags: ["Rolling", "Photo", "Drone", "Étalonnage"],
-    gradientKey: "auto",
+    name: "Shooting auto",
+    desc: "Photo & vidéo automobile, en studio mobile ou en décor.",
     href: "/services/shooting-automobile",
+    mediaSlug: "luxury-edit",
   },
-  "03": {
+  {
     id: "03",
-    titlePrefix: "",
-    titleHighlight: "Événementiel.",
-    code: "LIVE · MULTICAM · AFTERMOVIE",
-    abo: "◉ Sur devis · multicam",
-    tc: "00:03:08:00",
-    blurb: "Aftermovie, multicam, captation live. Un film sur mesure pour votre <em>événement</em>, livré chaud.",
-    spec: [
-      ["Caméras", "2 → 6"],
-      ["Son", "<b>Léger · HF · ambiance</b>"],
-      ["Aftermovie", "48 h post-event"],
-      ["Live", "Streaming optionnel"],
-    ],
-    tags: ["Live", "Multicam", "Aftermovie", "Son léger"],
-    gradientKey: "event",
+    name: "Événementiel",
+    desc: "Aftermovie, multicam, captation live. Un film sur mesure, livré chaud.",
     href: "/services/aftermovie-evenementiel",
+    mediaSlug: "fetes-johanniques-orleans",
   },
-};
+];
 
+const sceneBySlug = Object.fromEntries(scenes.map((s) => [s.slug, s]));
 
 export default function CrewStack() {
-  const [activeId, setActiveId] = useState<string>("01");
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ down: false, startX: 0, scrollLeft: 0, moved: false });
   const reduced = useReducedMotion();
+
+  // Glisser-déposer à la souris pour faire défiler (le tactile utilise le scroll natif).
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.pointerType !== "mouse") return;
+    const el = trackRef.current;
+    if (!el) return;
+    drag.current = { down: true, startX: e.clientX, scrollLeft: el.scrollLeft, moved: false };
+    el.setPointerCapture(e.pointerId);
+  }
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!drag.current.down) return;
+    const el = trackRef.current;
+    if (!el) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 4) drag.current.moved = true;
+    el.scrollLeft = drag.current.scrollLeft - dx;
+  }
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    drag.current.down = false;
+    trackRef.current?.releasePointerCapture?.(e.pointerId);
+  }
+  // Empêche la navigation si le clic était en fait un glissement.
+  function onCardClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (drag.current.moved) e.preventDefault();
+  }
 
   useGSAP(
     () => {
       if (!sectionRef.current) return;
-
       const ctx = gsap.context(() => {
         if (reduced) {
           gsap.set(".df-cs-anim", { opacity: 1 });
           return;
         }
-
         gsap.fromTo(
           ".df-cs-anim",
           { opacity: 0, y: 30 },
@@ -103,7 +92,7 @@ export default function CrewStack() {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            stagger: 0.15,
+            stagger: 0.12,
             ease: "expo.out",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -113,188 +102,82 @@ export default function CrewStack() {
           }
         );
       }, sectionRef);
-
       return () => ctx.revert();
     },
     { dependencies: [reduced], scope: sectionRef }
   );
 
-  const activeService = (SERVICES[activeId] || SERVICES["01"]) as ServiceData;
-
   return (
-    <section
-      ref={sectionRef}
-      className="df-cs"
-      aria-label="Services Splice"
-    >
-      {/* ── Section Header ── */}
+    <section ref={sectionRef} className="df-cs" aria-label="Services Splice">
+      {/* ── Header ── */}
       <div className="df-cs-head">
         <div className="df-cs-anim">
           <span className="df-cs-eyebrow">Services</span>
-          <h2 className="df-cs-h2" style={{ marginTop: "clamp(32px, 4vw, 56px)" }}>
+          <h2 className="df-cs-h2" style={{ marginTop: "clamp(28px, 4vw, 48px)" }}>
             Ce qu&apos;on cadre, <em>vraiment bien</em>
-            <span className="text-[#F36B1F]">.</span>
+            <span style={{ color: "#F36B1F" }}>.</span>
           </h2>
+          <p className="df-cs-intro">
+            On vous accompagne de la première idée à la livraison. Trois services,
+            une même exigence : des images qui vous ressemblent.
+          </p>
         </div>
-        <aside className="df-cs-head-aside df-cs-anim">
-          PGM STREAM · ON AIR
-          <div className="df-cs-head-aside-row">
-            <span className="df-rec-dot" aria-hidden="true" />
-            <b>24 FPS</b> · 4K UHD
-          </div>
-        </aside>
       </div>
 
-      {/* ── Editorial 2-Column Spread ── */}
-      <div className="df-cs-editorial">
-        
-        {/* Left Column: Interactive Index */}
-        <aside className="df-cs-ix df-cs-anim">
-          <div className="df-cs-ix-head">
-            <span>01 — Index</span>
-            <span>
-              <b>03</b> Services
-            </span>
-          </div>
-          <ul className="df-cs-ix-list" id="ixList">
-            {Object.values(SERVICES).map((s) => (
-              <li
+      {/* ── Galerie draggable de services ── */}
+      <div className="df-cs-gallery-wrap df-cs-anim">
+        <div
+          ref={trackRef}
+          className="df-cs-gallery"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerLeave={onPointerUp}
+        >
+          {SERVICES.map((s) => {
+            const media = sceneBySlug[s.mediaSlug];
+            return (
+              <Link
                 key={s.id}
-                className={`df-cs-ix-item ${activeId === s.id ? "is-on" : ""}`}
+                href={s.href}
+                className="df-cs-card"
+                onClick={onCardClick}
+                draggable={false}
+                aria-label={`Voir le service ${s.name}`}
               >
-                <button
-                  type="button"
-                  className="df-cs-ix-btn"
-                  onMouseEnter={() => setActiveId(s.id)}
-                  onFocus={() => setActiveId(s.id)}
-                  onClick={() => setActiveId(s.id)}
-                  aria-pressed={activeId === s.id}
-                  aria-label={`Voir le service ${s.titlePrefix}${s.titleHighlight}`}
-                >
-                  <span className="df-cs-ix-scn">S/{s.id}</span>
-                  <span
-                    className="df-cs-ix-ttl"
-                    dangerouslySetInnerHTML={{
-                      __html: `${s.titlePrefix}<em>${s.titleHighlight}</em>`,
-                    }}
+                {media && (
+                  <Image
+                    src={media.poster}
+                    alt={s.name}
+                    fill
+                    sizes="(max-width: 640px) 80vw, 380px"
+                    className="df-cs-card-img"
+                    draggable={false}
                   />
-                  <span className="df-cs-ix-tally" aria-hidden="true" />
-                </button>
-              </li>
-            ))}
-          </ul>
-
-        </aside>
-
-        {/* Right Column: Detailed spread */}
-        <div className="df-cs-feat" id="featStage">
-          
-
-
-          {/* Service title */}
-          <h2
-            className="df-cs-feat-title"
-            data-anim
-            key={`title-${activeId}`}
-          >
-            {activeService.titlePrefix}
-            <em>{activeService.titleHighlight}</em>
-          </h2>
-
-          <div
-            className="df-cs-feat-body"
-            data-anim
-            key={`body-${activeId}`}
-          >
-            
-            {/* Left part of split: main hook, tags, and CTA */}
-            <div className="df-cs-feat-main-copy">
-              <p
-                className="df-cs-feat-blurb"
-                dangerouslySetInnerHTML={{ __html: activeService.blurb }}
-              />
-
-              <div className="df-cs-feat-tags">
-                {activeService.tags.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </div>
-
-              <div className="df-cs-feat-cta">
-                <Link href={activeService.href} className="btn btn-pri">
-                  Voir le service <span className="arr">→</span>
-                </Link>
-                <Link href="/contact" className="btn btn-ghost">
-                  Réserver un appel
-                </Link>
-              </div>
-            </div>
-
-            {/* Right part of split: Devis card */}
-            <div className="df-cs-feat-side-details">
-              <div className="df-cs-devis-card">
-                <div className="df-cs-devis-card-content">
-                  <div className="df-cs-devis-card-head">
-                    <span className="df-rec-dot" aria-hidden="true" />
-                    Devis Express · 24h
-                  </div>
-                  <h3 className="df-cs-devis-card-title">
-                    Projet sur mesure
-                  </h3>
-                  <ul className="df-cs-devis-card-list">
-                    <li className="df-cs-devis-card-item">
-                      <span className="df-cs-devis-card-item-bullet">✦</span>
-                      <span><b>Tarif transparent :</b> TVA non applicable (art. 293 B du CGI)</span>
-                    </li>
-                    <li className="df-cs-devis-card-item">
-                      <span className="df-cs-devis-card-item-bullet">✦</span>
-                      <span><b>Lancement rapide :</b> Planification sous 14 jours</span>
-                    </li>
-                    <li className="df-cs-devis-card-item">
-                      <span className="df-cs-devis-card-item-bullet">✦</span>
-                      <span><b>Acompte 30% :</b> Paiement Stripe sécurisé</span>
-                    </li>
-                    <li className="df-cs-devis-card-item">
-                      <span className="df-cs-devis-card-item-bullet">✦</span>
-                      <span><b>Accompagnement :</b> De la conception aux livrables</span>
-                    </li>
-                  </ul>
+                )}
+                <div className="df-cs-card-veil" aria-hidden="true" />
+                <span className="df-cs-card-num">S/{s.id}</span>
+                <div className="df-cs-card-cap">
+                  <span className="df-cs-card-name">{s.name}</span>
+                  <span className="df-cs-card-desc">{s.desc}</span>
+                  <span className="df-cs-card-go">
+                    Voir le service <span aria-hidden="true">→</span>
+                  </span>
                 </div>
-                <div className="df-cs-devis-card-btn">
-                  <Link href="/devis" className="df-btn df-btn-primary w-full text-center">
-                    Demander un devis <span className="arr">→</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-          </div>
+              </Link>
+            );
+          })}
         </div>
-
+        <span className="df-cs-drag-hint" aria-hidden="true">
+          ↔ Glissez pour explorer
+        </span>
       </div>
 
-      {/* ── Statistics / Quick Links footer strip ── */}
-      <div className="df-cs-tally-strip df-cs-anim">
-        <div className="cell">
-          <div className="n">03</div>
-          <div className="l">— Services</div>
-        </div>
-        <div className="cell">
-          <div className="n">
-            72
-            <small style={{ fontFamily: "var(--font-sans)", fontSize: "18px", letterSpacing: "0.1em", color: "rgba(255, 255, 255, 0.45)", marginLeft: "6px" }}>
-              h
-            </small>
-          </div>
-          <div className="l">— Livraison min.</div>
-        </div>
-        <div className="cell">
-          <div className="n">01</div>
-          <div className="l">— Studio · Orléans</div>
-        </div>
-        <Link href="/services" className="cell last hover:opacity-85 transition-opacity">
-          <div className="n">Voir tout →</div>
-          <div className="l">— /services</div>
+      {/* ── Footer slim ── */}
+      <div className="df-cs-foot df-cs-anim">
+        <span className="df-cs-foot-meta">Studio audiovisuel · Orléans + Tours</span>
+        <Link href="/services" className="df-cs-foot-link">
+          Voir tous les services <span>→</span>
         </Link>
       </div>
     </section>
