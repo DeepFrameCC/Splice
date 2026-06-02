@@ -171,7 +171,7 @@ export default async function ServicePage({ params }: PageProps) {
       
       <div className="df-site">
         <div className="df-root">
-          <main className="mx-auto max-w-5xl px-6 py-12 md:py-20">
+          <main className="mx-auto max-w-7xl px-6 py-12 md:py-20">
             
             {/* Breadcrumbs */}
             <div className="mb-8">
@@ -240,7 +240,7 @@ export default async function ServicePage({ params }: PageProps) {
 
               {/* Note d'intention — Styled as manifesto */}
               <section className="df-frs" aria-label="Note d'intention">
-                <div className="df-frs-grid">
+                <div className="df-frs-grid max-w-none">
                   <div className="df-frs-rail">
                     <span className="df-frs-rail-num">N°01</span>
                     <span className="df-frs-rail-line" />
@@ -259,7 +259,7 @@ export default async function ServicePage({ params }: PageProps) {
 
               {/* Nos Prestations — Features list */}
               <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="Prestations">
-                <div className="df-frs-grid">
+                <div className="df-frs-grid max-w-none">
                   <div className="df-frs-rail">
                     <span className="df-frs-rail-num">N°02</span>
                     <span className="df-frs-rail-line" />
@@ -293,7 +293,7 @@ export default async function ServicePage({ params }: PageProps) {
               {/* Technical Details (Livrables & Matériel) */}
               {(deliverables.length > 0 || equipment.length > 0) && (
                 <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="Livrables et Matériel">
-                  <div className="df-frs-grid">
+                  <div className="df-frs-grid max-w-none">
                     <div className="df-frs-rail">
                       <span className="df-frs-rail-num">N°03</span>
                       <span className="df-frs-rail-line" />
@@ -350,7 +350,7 @@ export default async function ServicePage({ params }: PageProps) {
               {/* Équipe & Logistique */}
               {(service.teamMembers.length > 0 || service.zoneText) && (
                 <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="Organisation">
-                  <div className="df-frs-grid">
+                  <div className="df-frs-grid max-w-none">
                     <div className="df-frs-rail">
                       <span className="df-frs-rail-num">N°04</span>
                       <span className="df-frs-rail-line" />
@@ -397,7 +397,7 @@ export default async function ServicePage({ params }: PageProps) {
               {/* FAQ Accordion */}
               {faqItems.length > 0 && (
                 <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="FAQ">
-                  <div className="df-frs-grid">
+                  <div className="df-frs-grid max-w-none">
                     <div className="df-frs-rail">
                       <span className="df-frs-rail-num">N°05</span>
                       <span className="df-frs-rail-line" />
@@ -427,7 +427,7 @@ export default async function ServicePage({ params }: PageProps) {
               {/* Ressources (Articles & Services liés) */}
               {(relatedArticles.length > 0 || relatedServices.length > 0) && (
                 <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="Ressources">
-                  <div className="df-frs-grid">
+                  <div className="df-frs-grid max-w-none">
                     <div className="df-frs-rail">
                       <span className="df-frs-rail-num">N°06</span>
                       <span className="df-frs-rail-line" />
