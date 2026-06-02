@@ -17,6 +17,19 @@ import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
 import { ServiceCoverImage } from "@/components/services/ServiceCoverImage";
 import { CtaTrackedLink } from "@/components/marketing/CtaTrackedLink";
 
+const MEMBER_DETAILS: Record<string, { name: string; role: string; initials: string }> = {
+  TY: {
+    name: "T.Y",
+    role: "Monteur & Motion Designer",
+    initials: "TY"
+  },
+  LOUISIA: {
+    name: "Louisia",
+    role: "Photographe",
+    initials: "LO"
+  }
+};
+
 export const dynamicParams = true;
 export const revalidate = 3600;
 
@@ -363,16 +376,27 @@ export default async function ServicePage({ params }: PageProps) {
                             style={{ fontFamily: "var(--font-sans)" }} 
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
-                            Interlocuteur dédié
+                            Contacts dédiés
                           </h3>
-                          <div className="flex items-center gap-4 bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl max-w-sm">
-                            <div className="h-10 w-10 rounded-full bg-df-gold/10 flex items-center justify-center text-df-gold font-bold text-sm tracking-wider">
-                              {service.teamMembers[0]?.substring(0, 2) || "SP"}
-                            </div>
-                            <div>
-                              <span className="text-base font-normal text-white block">{service.teamMembers[0]}</span>
-                              <span className="text-sm text-white/40 block mt-0.5 font-light">Chef de projet &amp; Réalisateur</span>
-                            </div>
+                          <div className="flex flex-col gap-4 max-w-sm">
+                            {service.teamMembers.map((memberKey) => {
+                              const details = MEMBER_DETAILS[memberKey.toUpperCase()] || {
+                                name: memberKey,
+                                role: "Membre de l'équipe",
+                                initials: memberKey.substring(0, 2).toUpperCase()
+                              };
+                              return (
+                                <div key={memberKey} className="flex items-center gap-4 bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl w-full">
+                                  <div className="h-10 w-10 rounded-full bg-df-gold/10 flex items-center justify-center text-df-gold font-bold text-sm tracking-wider shrink-0 select-none">
+                                    {details.initials}
+                                  </div>
+                                  <div>
+                                    <span className="text-base font-normal text-white block">{details.name}</span>
+                                    <span className="text-sm text-white/40 block mt-0.5 font-light">{details.role}</span>
+                                  </div>
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       )}

@@ -110,7 +110,7 @@ const montageVideo: ServiceContent = {
   category: "video",
   sortOrder: 1,
   iconName: "scissors",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Vidéo montée HD/4K", detail: "Format principal + déclinaisons" },
     { label: "Étalonnage colorimétrique", detail: "DaVinci Resolve Studio" },
@@ -201,7 +201,7 @@ const productionCorporate: ServiceContent = {
   category: "video",
   sortOrder: 2,
   iconName: "video",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Film monté HD/4K", detail: "Version longue + version courte" },
     { label: "Déclinaisons réseaux sociaux", detail: "3 à 5 formats" },
@@ -282,7 +282,7 @@ const motionDesign: ServiceContent = {
   category: "motion",
   sortOrder: 3,
   iconName: "palette",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Animation HD/4K", detail: "Durée selon brief" },
     { label: "Fichiers exportés", detail: "MP4, MOV, GIF selon besoin" },
@@ -372,7 +372,7 @@ const pubReseauxSociaux: ServiceContent = {
   category: "video",
   sortOrder: 4,
   iconName: "megaphone",
-  teamMembers: ["LOUISIA"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Vidéos publicitaires montées", detail: "1 à 5 déclinaisons" },
     { label: "Formats 9:16, 1:1, 16:9" },
@@ -467,7 +467,7 @@ const shootingAutomobile: ServiceContent = {
   category: "photo",
   sortOrder: 5,
   iconName: "car",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Photos HD retouchées", detail: "20 à 50 clichés selon le pack" },
     { label: "Vidéo teaser", detail: "30 à 60 secondes (option)" },
@@ -558,7 +558,7 @@ const photographieProfessionnelle: ServiceContent = {
   category: "photo",
   sortOrder: 6,
   iconName: "camera",
-  teamMembers: ["LOUISIA"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Photos HD retouchées", detail: "Sélection + retouche complète" },
     { label: "Galerie en ligne privée", detail: "Téléchargement sécurisé" },
@@ -638,7 +638,7 @@ const interviewTemoignage: ServiceContent = {
   category: "video",
   sortOrder: 7,
   iconName: "user",
-  teamMembers: ["LOUISIA"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Interview montée HD/4K", detail: "Version longue + courte" },
     { label: "Déclinaisons réseaux sociaux", detail: "Extraits 30s à 60s" },
@@ -717,7 +717,7 @@ const voixOffSoundDesign: ServiceContent = {
   category: "audio",
   sortOrder: 8,
   iconName: "mic",
-  teamMembers: ["LOUISIA"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Fichier voix-off", detail: "WAV 48kHz/24bit" },
     { label: "Sound design complet", detail: "Ambiances, bruitages, effets" },
@@ -796,7 +796,7 @@ const presentationEntreprise: ServiceContent = {
   category: "video",
   sortOrder: 9,
   iconName: "building",
-  teamMembers: ["LOUISIA", "TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Film monté HD/4K", detail: "Version longue (2-5 min)" },
     { label: "Version courte réseaux sociaux", detail: "30 à 90 secondes" },
@@ -877,7 +877,7 @@ const clipMusical: ServiceContent = {
   category: "video",
   sortOrder: 10,
   iconName: "music",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Clip monté HD/4K", detail: "Durée du morceau" },
     { label: "Teaser promotionnel", detail: "15 à 30 secondes" },
@@ -952,7 +952,7 @@ const dronePriseDeVue: ServiceContent = {
   category: "video",
   sortOrder: 11,
   iconName: "plane",
-  teamMembers: ["TY"],
+  teamMembers: ["TY", "LOUISIA"],
   deliverables: [
     { label: "Vidéo aérienne 4K", detail: "Plans stabilisés" },
     { label: "Photos aériennes HD", detail: "Retouchées et calibrées" },
