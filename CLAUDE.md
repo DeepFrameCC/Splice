@@ -1,6 +1,6 @@
-# CLAUDE.md
+# CLAUDE.md — Splice (projet)
 
-This file provides guidance to Claude Code when working with code in this repository.
+Ce fichier décrit **uniquement les modules spécifiques au projet Splice**. Les compétences (skills), les sous-agents et les bonnes pratiques transverses sont définis dans le `CLAUDE.md` global (`~/.claude/CLAUDE.md`) et s'appliquent à toutes les sessions — ne pas les dupliquer ici.
 
 ## Commands
 
@@ -49,6 +49,14 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 | Forms | React Hook Form + Zod |
 | PDF | pdf-lib + @pdf-lib/fontkit server-side |
 | Monitoring | Sentry (client-side active) + Plausible (GDPR-compliant consent-based active) |
+
+### Charte visuelle "Cinéma Studio"
+
+Splice a déjà sa direction artistique. Utiliser les skills design globaux (`ui-ux-pro-max`, `impeccable`, `emil-design-eng`) comme référence/checklist **sans écraser les tokens existants** :
+- Couleurs : `#0E0E22`, `#6B8779`, `#F36B1F`
+- Fonts : Fraunces, Inter, JetBrains Mono (et Anton/Poppins selon contexte)
+- Register `impeccable` : `brand` (production audiovisuelle = design IS the product)
+- Tinter les neutrals vers `#F36B1F` (chroma 0.005-0.01) pour respecter les design laws OKLCH
 
 ### Team
 
@@ -105,21 +113,14 @@ All mutations use `"use server"`:
 - `app/actions/likes.ts` — toggle like
 - `app/actions/contact.ts` — contact form submission
 
-## Agent Orchestration Protocol (Context-Engineering)
+### GSAP — setup projet
 
-Cette section impose les règles de coordination entre l'orchestrateur (moi, Claude principal) et les 7 sub-agents projet. Elle dérive directement des skills `multi-agent-patterns` et `tool-design`.
+- Global setup: `lib/gsap.ts` avec `gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVG, Flip)`
+- (Voir bonnes pratiques GSAP transverses dans `~/.claude/CLAUDE.md`.)
 
-**Pattern utilisé** : supervisor/orchestrator avec `forward_message` discipline. Je décompose, route vers les specialists, et **forwarde** leurs artefacts littéralement quand ils sont finaux (copy, JSON-LD, mention PDF, message d'email).
+## Routing projet (application des sous-agents au code Splice)
 
-### Règles d'invocation (hard rules)
-
-1. **Cap de parallélisme** : maximum **3 sub-agents en parallèle** par feature. Au-delà → batch en deux vagues séquentielles. Raison : coordination overhead > gain au-delà de 3-5 workers (cf. multi-agent-patterns gotcha #1).
-2. **Ne pas déléguer pour les single-file edits triviaux** (un import à ajouter, un typo, un toast à changer). Coût ~15× tokens vs édit inline (cf. multi-agent-patterns token economics).
-3. **Contexte minimal** : à chaque invocation, passer **uniquement** le contexte nécessaire au sub-agent (chemins de fichier + intent + contraintes). Ne jamais dumper toute la conversation. Sub-agent = contexte propre par design.
-4. **Filesystem-as-shared-state** : si deux sub-agents doivent partager un état, écrire dans un fichier du repo (commentaire, JSON, ou code source). Pas de message-passing entre agents — risque téléphone.
-5. **Validation systématique** : avant d'accepter l'output d'un sub-agent, vérifier l'Output Contract — les `Files changed` existent vraiment (Read), le build passe si annoncé, les handoffs listés sont traités.
-6. **Forward-message pour artefacts finaux** : copy utilisateur, contenu d'email Resend, texte de MENTIONS_LEGALES PDF, JSON-LD, descriptions metadata — je les **forwarde littéralement** depuis le sub-agent vers l'utilisateur, jamais paraphrasé.
-7. **Pas de sycophantic consensus** : si deux sub-agents donnent des avis contradictoires (ex. `security` veut un CSP strict, `seo-performance` veut autoriser un domaine d'image), je tranche en remontant la contrainte la plus stricte par défaut, et je documente le trade-off dans la sortie.
+Les sous-agents et skills sont définis globalement. Voici comment ils s'appliquent aux fichiers Splice.
 
 ### Routing table (decision tree)
 
@@ -136,59 +137,15 @@ Cette section impose les règles de coordination entre l'orchestrateur (moi, Cla
 | Migration Prisma destructive | `devops-quality` (plan) | → `backend-api` (code consommateur) — requires user validation |
 | Bug TypeScript | l'agent owner du fichier en question | — |
 
-### Output Contract (imposé à tous les sub-agents)
+### Chaining examples (Splice)
 
-Tout sub-agent doit terminer son invocation par ce bloc :
-
-```
-### Files changed
-- <path> — <résumé 1 ligne>
-
-### Decisions
-- <choix non-évident>
-
-### Verified
-- <ce qui a été testé/buildé>
-
-### Handoff
-- @<sibling-agent> : <ce qui doit être traité ailleurs>
-```
-
-Si le bloc manque ou si une ligne ne correspond pas à la réalité (fichier non créé, build cassé alors qu'annoncé ok), je rejette l'output et redemande au sub-agent avec la finding spécifique.
-
-### Quand NE PAS invoquer un sub-agent
-
-- Édit single-file < 10 lignes → inline
-- Recherche / exploration / lecture sans modification → inline (Read/Grep/Glob)
-- Question conceptuelle de l'utilisateur → réponse directe
-- Tâche entièrement dans ma zone (réécrire ce fichier CLAUDE.md, gérer la mémoire) → inline
-
-### Quand chaîner vs paralléliser
-
-- **Séquentiel obligatoire** : data → UI → metadata → security audit. La sortie de l'un est l'input de l'autre.
-- **Parallèle OK** : audits indépendants (ex. `security` + `seo-performance` sur la même PR avant merge), ou refactors de domaines disjoints.
-
-## Agent Squad — Capabilities (Proactive Auto-Invocation)
-
-Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically based on task context, never wait for the user to name them.** Detect intent, call the Agent tool, then produce output. Chain selon la routing table ci-dessus. Respecter le cap de 3 agents parallèles.
-
-| Agent | Auto-invoke when the task involves… |
-|-------|-------------------------------------|
-| `design-frontend` | Any React component, page layout, Tailwind, shadcn/ui, responsive breakpoint, hover/focus state, form UI, mobile menu, modal, drawer, accessibility (WCAG/ARIA), or "make it look better" |
-| `backend-api` | Prisma schema/migration, Server Action, API route, Stripe checkout/webhook, Resend email, PDF generation, devis/facture/contrat logic, numbering, pricing computation, AuditLog |
-| `security` | Auth flow, NextAuth config, CSP/HTTP headers, rate limiting, CSRF, input validation, secret handling, OWASP concerns, password hashing, 2FA, session storage, encryption (AES-GCM) |
-| `seo-performance` | `<head>` metadata, OpenGraph, JSON-LD, sitemap.xml, robots.txt, image optimization (next/image), bundle size, Core Web Vitals (LCP/INP/CLS), lazy loading, RSC vs client split |
-| `media-content` | Gallery, photo/video upload, R2/Supabase storage, likes, reviews/avis, moderation, founder enum (LOUISIA/TY), media metadata |
-| `devops-quality` | `error.tsx` / `not-found.tsx` / `loading.tsx`, global error handlers, TypeScript strict issues, environment variables, deployment config (Cloudflare Workers / OpenNext), `next.config.mjs`, `wrangler.jsonc`, Sentry, monitoring |
-| `gsap-animations` | GSAP Timeline, ScrollTrigger, SplitText, DrawSVG, Flip, scroll-linked motion, text reveal, pinning, `useGSAP()`, `gsap.matchMedia()`, `prefers-reduced-motion` |
-
-**Chaining examples:**
 - Nouvelle page `/services/[slug]` SEO-optimisée → `seo-performance` (metadata, JSON-LD) + `design-frontend` (UI) + `backend-api` (data fetch)
 - Tunnel devis avec paiement Stripe → `backend-api` (Server Action, Stripe, Resend) + `design-frontend` (Wizard UI) + `security` (validation Zod, rate limit) + `devops-quality` (error boundary)
 - Animation hero landing → `gsap-animations` + `design-frontend` + `seo-performance` (vérifier LCP)
 - Refonte tarifs → `backend-api` (`lib/pricing.ts`) + `design-frontend` (PricingSection) + `seo-performance` (metadata)
 
-**Marketing skills auto-invocation** (depuis `~/.claude/skills/marketingskills/`) :
+### Marketing skills — mapping Splice
+
 - Copy des pages services / landing → `copywriting` + `cro`
 - Emails devis/onboarding/relance → `emails`
 - Page `/services/*` SEO → `seo-audit` + `ai-seo` + `schema`
@@ -197,163 +154,12 @@ Specialized sub-agents in `.claude/agents/`. **MANDATORY: invoke automatically b
 - Avis clients → `customer-research`
 - Lancement nouveau service → `launch` + `directory-submissions`
 
-**Exception — NE PAS auto-invoquer** : `higgsfield-generate`, `higgsfield-marketplace-cards`, `higgsfield-product-photoshoot`, `higgsfield-soul-id` (génération vidéo/photo payante — requiert demande explicite de l'utilisateur).
+### Design skills — cas Splice
 
-## UI/UX Pro Max (nextlevelbuilder/ui-ux-pro-max-skill)
-
-Repo dans `~/.claude/skills/ui-ux-pro-max-skill/` (MIT, NextLevelBuilder). 7 skills jonctionnés dans `~/.claude/skills/` : `ui-ux-pro-max`, `design`, `design-system`, `ui-styling`, `brand`, `banner-design`, `slides`. Base de données : 67 styles UI, 161 palettes, 57 pairings de fonts, 99 règles UX, 25 types de charts, 10 stacks.
-
-- **Repo** : https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
-- **Auto-invocation** : MANDATORY avant toute tâche UI/UX/composant sur Splice. Invoquer `ui-ux-pro-max` en amont pour pull style + palette + typo + règles UX, puis chaîner `design-frontend` (agent projet) pour l'implémentation React/Tailwind/shadcn.
-- **Cas Splice** :
-  - Refonte composant existant (`components/services/*`, `components/devis/*`, `components/home/*`) → `ui-ux-pro-max` + `design-frontend`
-  - Nouveau token / variable CSS / palette (charte "Cinéma Studio") → `design-system` + `ui-styling`
-  - Bannière OG / hero / cover services / social → `banner-design`
-  - Refonte identité visuelle ou guidelines de tonalité → `brand`
-  - Présentation interne ou pitch → `slides`
-- **Compatibilité charte existante** : Splice a déjà sa DA "Cinéma Studio" (cf. mémoire) — utiliser `ui-ux-pro-max` comme système de référence/checklist, sans écraser les tokens existants (`#0E0E22`, `#F36B1F`, Fraunces, Inter, JetBrains Mono).
-- **Update** : `cd ~/.claude/skills/ui-ux-pro-max-skill && git pull`
-
-## Impeccable — Design Engineering Workflow (pbakaus/impeccable)
-
-Installé via `npx skills add` (Apache 2.0, basé sur Anthropic frontend-design fork par Paul Bakaus). Skill **workflow complet** avec 24 sous-commandes, design laws strictes, et système de register brand/product.
-
-- **Repo** : https://github.com/pbakaus/impeccable
-- **Register Splice** : `brand` (production audiovisuelle = design IS the product, pas un app UI)
-- **Setup recommandé** : créer `PRODUCT.md` à la racine du projet avec users (clients PME Centre-Val de Loire), brand (Splice Cinéma Studio), tone (premium, sobre, direct), anti-references (templates SaaS génériques, fillers décoratifs), strategic principles. Optionnel : `DESIGN.md` avec palette `#0E0E22`/`#6B8779`/`#F36B1F`, fonts Anton/Poppins, charte DA Cinéma Studio. Sans ces fichiers le skill sera invité à invoquer `/impeccable teach` en premier.
-- **Sous-commandes** : `craft`, `shape`, `polish`, `critique`, `audit`, `bolder`, `quieter`, `distill`, `harden`, `onboard`, `animate`, `colorize`, `typeset`, `layout`, `delight`, `overdrive`, `clarify`, `adapt`, `optimize`, `live`, `extract`, `teach`, `document`.
-- **Design laws strictes** (impeccable applique partout) :
-  - OKLCH only, jamais `#000`/`#fff` purs, tinter les neutrals vers `#F36B1F` (chroma 0.005-0.01)
-  - Theme choisi par "scene sentence" (qui, où, dans quelle ambiance) — pas par défaut "dark cool"
-  - Typography : line-length 65-75ch body, hiérarchie ≥1.25 ratio
-  - Spacing varié pour le rythme, pas de padding uniforme
-  - **Bans absolus** : side-stripe borders >1px, gradient text, glassmorphism par défaut, hero-metric template SaaS, grilles de cards identiques, modal-first, em dashes (—) en français → utiliser virgules/parenthèses
-  - Motion : ease-out-quart/quint/expo, pas de bounce/elastic, ne jamais animer layout properties
-
-**Auto-invocation sur Splice** :
-- Refonte d'une page entière → `impeccable shape` → `impeccable craft`
-- Polish d'un composant → `impeccable polish <fichier>`
-- Page trop fade → `impeccable bolder <fichier>`
-- Page trop chargée → `impeccable quieter <fichier>` ou `impeccable distill <fichier>`
-- Audit a11y/perf/responsive → `impeccable audit`
-- Critique UX heuristique → `impeccable critique`
-- Production-ready (errors, i18n, edge cases) → `impeccable harden`
-- First-run flows, empty states → `impeccable onboard`
-- UI performance → `impeccable optimize`
-
-**Complémentarité avec les autres design skills Splice** :
-- `ui-ux-pro-max` = DB statique structurée (67 styles × 161 palettes × 57 fonts) — référentiel
-- `emil-design-eng` = sensibilité Emil Kowalski sur micro-interactions / feel
-- `impeccable` = **workflow opérationnel** avec laws + commandes + register
-- `design-frontend` (agent projet) = implémentation finale React/Tailwind/Framer Motion
-
-**Chaînage type pour grosse refonte sur Splice** :
-```
-impeccable shape (plan)
-  → impeccable craft (build)
-  → emil-design-eng (polish/feel)
-  → impeccable critique + audit (eval)
-  → impeccable polish (final pass)
-  → design-frontend (implémentation finale si pas encore couverte)
-```
-
-**Update** : `npx skills add https://github.com/pbakaus/impeccable --skill impeccable`
-
-## Design Engineering (emilkowalski/skill)
-
-Cloné dans `~/.claude/skills/emil-skill/` (MIT, Emil Kowalski). Skill auto-découvert sous le nom `emil-design-eng` via jonction. Encode la philosophie design engineering : UI polish, micro-interactions, animation feel, détails invisibles qui font la différence entre une UI fonctionnelle et une UI premium.
-
-- **Repo** : https://github.com/emilkowalski/skill
-- **Auto-invocation** : MANDATORY en amont de `design-frontend` (agent projet) sur Splice pour toute tâche UI sensible au "feel" — micro-interactions, hover/focus states, animation timing, polish de composants. Chaîner avec `ui-ux-pro-max` (DB styles/palettes) en parallèle pour couvrir système ET sensibilité.
-- **Cas Splice** :
-  - Polish des transitions tunnel devis (`components/devis/Wizard.tsx`, `Steps.tsx`)
-  - Hover states galerie / showreel (`components/home/HomeContent.tsx` Showreel function)
-  - Animation feel des CTA primaires (df-btn-primary scale/translateY)
-  - Sortie d'erreurs/toasts (`react-hot-toast` timing)
-  - Subtilités d'apparition (IntersectionObserver dans About stats)
-- **Chaînage type** : `emil-design-eng` (philosophie/principes) → `ui-ux-pro-max` (DB styles si besoin de palette/font) → `design-frontend` (implémentation React/Tailwind/Framer Motion ou GSAP via `gsap-animations`).
-- **Update** : `cd ~/.claude/skills/emil-skill && git pull`
-
-## Anti-Slop Skill (hardikpandya/stop-slop)
-
-Cloné dans `~/.claude/skills/stop-slop/` (MIT, Hardik Pandya). Élimine les patterns d'écriture IA dans la prose : ouvertures bavardes, contrastes binaires ("c'est pas X, c'est Y"), béquilles d'emphase, voix passive, jargon corporate, fragmentation dramatique.
-
-- **Repo** : https://github.com/hardikpandya/stop-slop
-- **Auto-invocation** : MANDATORY en final pass après toute génération/édition de prose (copy services, emails devis, mentions légales, descriptions galerie, posts blog, OG/meta descriptions). Chaîner systématiquement après `copywriting`, `copy-editing`, `emails`, `cold-email`.
-- **Cas Splice** : tout texte visible côté client (`prisma/services-content.ts`, `components/services/*`, `components/devis/*`, emails Resend, PDF mentions, hero/baseline) doit passer par `stop-slop` avant validation.
-- **Update** : `cd ~/.claude/skills/stop-slop && git pull`
-
-## Marketing Skills (coreyhaines31/marketingskills)
-
-Cloned globally to `~/.claude/skills/marketingskills/` (MIT, Corey Haines). 40+ skills for technical marketers: conversion optimization, copywriting, SEO, ads, analytics, growth.
-
-- **Repo**: https://github.com/coreyhaines31/marketingskills
-- **Categories**: `cro`, `copywriting`, `emails`, `seo-audit`, `ai-seo`, `programmatic-seo`, `schema`, `ads`, `ad-creative`, `analytics`, `ab-testing`, `referrals`, `churn-prevention`, `onboarding`, `pricing`, `launch`, `popups`, `paywalls`, `signup`, `lead-magnets`, `cold-email`, `community-marketing`, `social`, `video`, `image`, `customer-research`, `competitor-profiling`, `marketing-psychology`, `product-marketing`, `sales-enablement`, `revops`, `content-strategy`, `aso`, `directory-submissions`, `site-architecture`, `free-tools`, `marketing-ideas`, `co-marketing`, `copy-editing` (full list in `~/.claude/skills/marketingskills/skills/`)
-- **Usage**: invoke via Skill tool by name (e.g. `cro`, `copywriting`, `emails`) when working on landing pages, devis emails, service SEO pages, or launch copy for Splice
-- **Tool registry**: `~/.claude/skills/marketingskills/tools/REGISTRY.md` — integration guides for GA4, Stripe, Resend, Google Ads, Meta Ads, HubSpot, etc.
-- **Update**: `git pull` dans `~/.claude/skills/marketingskills/`
-
-## GSAP
-
-- Install: `npm install gsap @gsap/react`
-- Rule: always `useGSAP()` (never `useEffect`) in React
-- Global setup: `lib/gsap.ts` with `gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVG, Flip)`
-- GSAP components: must be `"use client"` or `dynamic(..., { ssr: false })`
-- `prefers-reduced-motion`: always handle via `gsap.matchMedia()`
-## Code Modernization & Refactoring Suite
-
-Nous disposons d'un framework officiel de modernisation (`.agents/skills/code-modernization/`) avec des sous-agents et des commandes dédiés à l'analyse et la transformation structurée du code.
-
-### Modernization Subagents
-
-| Agent | Rôle / Description | Localisation |
-|-------|--------------------|--------------|
-| `architecture-critic` | Principal engineer critique. Évalue les choix d'architecture cibles pour éviter la sur-ingénierie et la complexité inutile. | `.agents/skills/code-modernization/agents/architecture-critic.md` |
-| `business-rules-extractor` | Extrait et isole la logique métier, les calculs et les règles de validation complexes en spécifications claires. | `.agents/skills/code-modernization/agents/business-rules-extractor.md` |
-| `legacy-analyst` | Analyse en profondeur les structures de code historique pour cartographier les comportements complexes. | `.agents/skills/code-modernization/agents/legacy-analyst.md` |
-| `security-auditor` | Audit de sécurité complet face aux vulnérabilités (OWASP, CVE, failles logiques, injection). | `.agents/skills/code-modernization/agents/security-auditor.md` |
-| `test-engineer` | Rédige des tests d'équivalence et de caractérisation pour valider que le comportement reste identique. | `.agents/skills/code-modernization/agents/test-engineer.md` |
-
-### Modernization Commands
-
-- **`modernize-assess`** : Analyse initiale du codebase, évaluation de la dette technique, de la complexité et estimation de l'effort.
-- **`modernize-map`** : Cartographie des dépendances et flux d'exécution.
-- **`modernize-extract-rules`** : Extraction structurée de la logique métier.
-- **`modernize-brief`** : Génération d'un plan de modernisation phasé approuvé.
-- **`modernize-reimagine`** : Conception de l'architecture cible modernisée.
-- **`modernize-transform`** : Exécution de la transformation de code et refactoring.
-- **`modernize-harden`** : Audit de robustesse et correction des vulnérabilités de sécurité.
-
-**MANDATE D'AUTO-INVOCATION :** Dès qu'un grand refactoring, audit de structure, extraction de règles métier, ou travail de modernisation est nécessaire, Claude et Antigravity doivent **automatiquement** charger les agents ci-dessus et exécuter les étapes correspondantes de ce framework.
-## Cursor Official Engineering Principles & Skills
-
-Nous disposons des compétences et principes d'ingénierie officiels de **Cursor** (`.agents/skills/`) importés directement dans le projet. Claude et Antigravity doivent s'y référer **systématiquement et automatiquement** pour garantir un code d'une qualité exceptionnelle.
-
-### Core Cursor Skills
-
-- **`thermo-nuclear-code-quality-review`** : Revue de code ultra-rigoureuse ciblant les défauts structurels, la complexité algorithmique, l'optimisation et la dette technique.
-- **`unslop` / `deslop`** : Élimination du code superflu, des abstractions inutiles et du code généré par IA non idiomatique.
-- **`architect`** : Élaboration de plans d'architecture système solides avant d'attaquer les implémentations complexes.
-- **`typescript-best-practices`** : Application rigoureuse des standards stricts de typage TypeScript sans contournement (`any`, etc.).
-- **`tdd`** : Conception guidée par les tests pour assurer la non-régression et la clarté du code.
-
-### Core Cursor Engineering Principles
-
-- **`principle-foundational-thinking`** : Analyser les problèmes à partir de principes fondamentaux (first principles), sans copier de solutions superficielles.
-- **`principle-boundary-discipline`** : Respecter les frontières d'isolation de couches (ex: RSC vs Client, Server Actions vs API, Prisma vs Logic).
-- **`principle-guard-the-context-window`** : Minimiser l'empreinte mémoire et la charge cognitive des prompts et fichiers lus pour préserver l'efficacité du modèle.
-- **`principle-fix-root-causes`** : Corriger la source réelle d'un bug plutôt que de rajouter un correctif superficiel (workaround).
-- **`principle-subtract-before-you-add`** : Supprimer le code mort ou inutile avant d'implémenter de nouvelles fonctionnalités.
-- **`principle-never-block-on-the-human`** : Concevoir des processus asynchrones et autonomes extrêmement robustes.
-- **`principle-prove-it-works`** : Valider et tester systématiquement chaque édit de code par des commandes ou tests concrets avant livraison.
-
-## Workflow Rules
-
-- **Double-check before validating**: Always verify every modification BEFORE declaring done. Re-read modified files, ensure imports are correct, CSS loads, paths exist. Never validate without complete verification.
-- **RSC by default**: `"use client"` only when immediate interactivity is required.
-- **No `any`**: Use `unknown` with narrowing if needed.
-- **Zod validation**: Client AND server, never trust frontend alone.
-- **AuditLog**: On every sensitive action (create/modify/delete docs and users).
+- Refonte composant (`components/services/*`, `components/devis/*`, `components/home/*`) → `ui-ux-pro-max` + `design-frontend`
+- Polish transitions tunnel devis (`components/devis/Wizard.tsx`, `Steps.tsx`) → `emil-design-eng` → `design-frontend`
+- Hover states galerie / showreel (`components/home/HomeContent.tsx`) → `emil-design-eng`
+- Toute prose visible client (`prisma/services-content.ts`, `components/services/*`, emails Resend, PDF mentions, hero/baseline) → `stop-slop` en final pass
 
 ## Environment Variables Required
 

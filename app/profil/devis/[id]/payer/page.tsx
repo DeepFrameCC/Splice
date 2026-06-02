@@ -24,6 +24,8 @@ export default async function PayerPage({ params }: { params: Promise<{ id: stri
       acompteRate={devis.acompteRate}
       acompteAmount={devis.acompteAmount}
       pack={resolvePackLabel(devis.pack)}
+      devisType={devis.devisType}
+      billingCycle={devis.billingCycle}
     />
   );
 }

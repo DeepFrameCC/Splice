@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getStripe } from "@/lib/stripe";
 import { FOUNDER_LABEL } from "@/lib/pricing";
+import type Stripe from "stripe";
 import {
   createPdfContext,
   drawHeader,
@@ -37,7 +39,11 @@ export async function GET(
   try {
     facture = await db.facture.findUnique({
       where: { id },
-      include: { devis: { include: { user: { include: { profile: true } } } }, user: { include: { profile: true } } },
+      include: {
+        devis: { include: { user: { include: { profile: true } } } },
+        abonnement: { include: { devis: { include: { user: { include: { profile: true } } } } } },
+        user: { include: { profile: true } },
+      },
     });
   } catch (err) {
     console.error("[facture-pdf] DB error:", err);
@@ -48,7 +54,48 @@ export async function GET(
     return NextResponse.json({ error: "Facture introuvable" }, { status: 404 });
   }
 
-  const devis = facture.devis;
+  // Devis source : ponctuel (facture.devis) ou devis d'origine de l'abonnement.
+  const devis = facture.devis ?? facture.abonnement?.devis ?? null;
+  if (!devis) {
+    return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
+  }
+  const isAbo = facture.abonnementId != null;
+  const montant = facture.montant ?? devis.totalHT;
+
+  /* ── Payment method via Stripe API ───────────────────────────────── */
+  let paymentMethodLabel: string | null = null;
+  const stripe = getStripe();
+  if (stripe) {
+    try {
+      if (facture.stripeInvoiceId) {
+        const inv = await stripe.invoices.retrieve(facture.stripeInvoiceId, {
+          expand: ["payment_intent.payment_method"],
+        });
+        const pi = inv.payment_intent as Stripe.PaymentIntent | null;
+        const pm = pi?.payment_method as Stripe.PaymentMethod | null;
+        if (pm?.type === "card" && pm.card) {
+          const brand = pm.card.brand.charAt(0).toUpperCase() + pm.card.brand.slice(1);
+          paymentMethodLabel = `Carte bancaire ${brand} se terminant par ${pm.card.last4}`;
+        } else if (pm) {
+          paymentMethodLabel = "Paye via Stripe";
+        }
+      } else if (devis.stripeSession && devis.stripeSession !== "dev-simulated") {
+        const cs = await stripe.checkout.sessions.retrieve(devis.stripeSession, {
+          expand: ["payment_intent.payment_method"],
+        });
+        const pi = cs.payment_intent as Stripe.PaymentIntent | null;
+        const pm = pi?.payment_method as Stripe.PaymentMethod | null;
+        if (pm?.type === "card" && pm.card) {
+          const brand = pm.card.brand.charAt(0).toUpperCase() + pm.card.brand.slice(1);
+          paymentMethodLabel = `Carte bancaire ${brand} se terminant par ${pm.card.last4}`;
+        } else if (pm) {
+          paymentMethodLabel = "Paye via Stripe";
+        }
+      }
+    } catch (e) {
+      console.error("[facture-pdf] Failed to fetch payment method from Stripe:", e);
+    }
+  }
 
   /* ── Parse lines safely ──────────────────────────────────────────── */
   let lines: { label: string; qty?: number; unit?: number; total: number }[] = [];
@@ -130,10 +177,10 @@ export async function GET(
 
     /* ── Totals ──────────────────────────────────────────────────── */
     const afterTotals = drawTotalsBlock(currentPage, fonts, {
-      totalHT: devis.totalHT,
-      acompteRate: devis.acompteRate,
-      acompteAmount: devis.acompteAmount,
-      solde: devis.totalHT - devis.acompteAmount,
+      totalHT: montant,
+      acompteRate: isAbo ? 0 : devis.acompteRate,
+      acompteAmount: isAbo ? montant : devis.acompteAmount,
+      solde: isAbo ? 0 : devis.totalHT - devis.acompteAmount,
     }, y + 8);
 
     /* ── Reglement ───────────────────────────────────────────────── */
@@ -141,6 +188,7 @@ export async function GET(
       currentPage, fonts, afterTotals + 8,
       "FACTURE",
       "Règlement : à réception",
+      paymentMethodLabel,
     );
 
     /* ── Mentions legales ────────────────────────────────────────── */

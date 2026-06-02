@@ -36,7 +36,7 @@ const SERVICES: Record<string, ServiceData> = {
       ["Formats", "9:16 · 1:1 · 16:9"],
       ["Cadence", "<b>4 reels / mois</b>"],
       ["Livraison", "72 h après tournage"],
-      ["Engagement", "Trimestriel · sans reconduction"],
+      ["Engagement", "Sans engagement · résiliable"],
     ],
     tags: ["Reels", "TikTok", "Vertical", "Recyclage"],
     gradientKey: "glauque",

@@ -4,7 +4,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { Download, Eye, Copy } from "lucide-react";
 import StatusPill from "@/components/dashboard/StatusPill";
-import { ValiderBtn, RefuserBtn } from "@/components/dashboard/DevisActions";
+import { ValiderBtn, RefuserBtn, ProposerDateBtn } from "@/components/dashboard/DevisActions";
 import DataTable from "@/components/dashboard/DataTable";
 
 export type DevisRow = {
@@ -98,7 +98,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
     accessorKey: "status",
     header: "Statut",
     cell: ({ row }) => (
-      <StatusPill status={row.original.status as "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE"} />
+      <StatusPill status={row.original.status as "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE" | "ABONNE"} />
     ),
     filterFn: (row, _, filterValue: string) => {
       if (!filterValue) return true;
@@ -123,6 +123,7 @@ const columns: ColumnDef<DevisRow, unknown>[] = [
         {row.original.status === "ATTENTE" && (
           <>
             <ValiderBtn devisId={row.original.id} />
+            <ProposerDateBtn devisId={row.original.id} />
             <RefuserBtn devisId={row.original.id} />
           </>
         )}
@@ -159,6 +160,7 @@ const statusOptions = [
   { value: "VALIDE", label: "Validé" },
   { value: "REFUSE", label: "Refusé" },
   { value: "PAYE", label: "Payé" },
+  { value: "ABONNE", label: "Abonné" },
 ];
 
 export default function DevisTable({ data, statusFilter, onStatusChange }: Props) {

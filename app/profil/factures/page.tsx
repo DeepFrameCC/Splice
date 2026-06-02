@@ -17,7 +17,7 @@ export default async function MesFactures() {
   if (!userId) redirect("/login");
   const factures = await db.facture.findMany({
     where: { userId },
-    include: { devis: true },
+    include: { devis: true, abonnement: { include: { devis: true } } },
     orderBy: { createdAt: "desc" },
   });
 
@@ -39,7 +39,11 @@ export default async function MesFactures() {
         </div>
       ) : (
         <ul className="space-y-4">
-          {factures.map((f) => (
+          {factures.map((f) => {
+            const src = f.devis ?? f.abonnement?.devis ?? null;
+            const isAbo = f.abonnementId != null;
+            const montant = f.montant ?? src?.totalHT ?? 0;
+            return (
             <li key={f.id}>
               <div className="rounded-2xl bg-white/5 p-5 shadow-md ring-1 ring-white/10 transition hover:shadow-lg">
                 {/* Header row */}
@@ -49,7 +53,7 @@ export default async function MesFactures() {
                       Facture n&deg;{f.numero}
                     </p>
                     <p className="mt-0.5 text-sm text-white/50">
-                      {f.devis.nomEntreprise || f.devis.nomContact}
+                      {src?.nomEntreprise || src?.nomContact || "Abonnement"}
                     </p>
                   </div>
                   <StatusPill status={f.status as any} />
@@ -58,17 +62,27 @@ export default async function MesFactures() {
                 {/* Amounts */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/[0.08] pt-4">
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-white/50">Montant HT</p>
+                    <p className="text-xs uppercase tracking-wide text-white/50">{isAbo ? "Montant" : "Montant HT"}</p>
                     <p className="font-sans text-base font-bold text-white">
-                      {formatEuros(f.devis.totalHT)}
+                      {formatEuros(montant)}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-white/50">Acompte ({f.devis.acompteRate}%)</p>
-                    <p className="font-sans text-base font-bold text-df-gold">
-                      {formatEuros(f.devis.acompteAmount)}
-                    </p>
-                  </div>
+                  {!isAbo && src && (
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-white/50">Acompte ({src.acompteRate}%)</p>
+                      <p className="font-sans text-base font-bold text-df-gold">
+                        {formatEuros(src.acompteAmount)}
+                      </p>
+                    </div>
+                  )}
+                  {isAbo && f.periodeDebut && f.periodeFin && (
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-white/50">Période</p>
+                      <p className="font-sans text-sm font-bold text-white">
+                        {f.periodeDebut.toLocaleDateString("fr-FR")} – {f.periodeFin.toLocaleDateString("fr-FR")}
+                      </p>
+                    </div>
+                  )}
                   <div className="ml-auto text-right">
                     <p className="flex items-center gap-1.5 text-sm text-white/50">
                       <Calendar className="h-3.5 w-3.5" />
@@ -79,13 +93,15 @@ export default async function MesFactures() {
 
                 {/* Actions */}
                 <div className="mt-4 flex flex-wrap gap-3 border-t border-white/[0.08] pt-4">
-                  <Link
-                    href={`/profil/devis/${f.devisId}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-4 py-1.5 text-xs font-bold text-white transition hover:bg-white/10"
-                  >
-                    <FileText className="h-3.5 w-3.5" />
-                    Voir le devis
-                  </Link>
+                  {f.devisId && (
+                    <Link
+                      href={`/profil/devis/${f.devisId}`}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-4 py-1.5 text-xs font-bold text-white transition hover:bg-white/10"
+                    >
+                      <FileText className="h-3.5 w-3.5" />
+                      Voir le devis
+                    </Link>
+                  )}
                   <a
                     href={`/api/facture/${f.id}/pdf`}
                     target="_blank"
@@ -99,7 +115,7 @@ export default async function MesFactures() {
                 </div>
               </div>
             </li>
-          ))}
+          );})}
         </ul>
       )}
     </div>

@@ -13,11 +13,16 @@ type Props = {
   acompteRate: number;
   acompteAmount: number;
   pack: string;
+  devisType: string;
+  billingCycle: string | null;
 };
 
-export default function PayerClient({ devisId, numero, nomContact, nomEntreprise, totalHT, acompteRate, acompteAmount, pack }: Props) {
+export default function PayerClient({ devisId, numero, nomContact, nomEntreprise, totalHT, acompteRate, acompteAmount, pack, devisType, billingCycle }: Props) {
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
+
+  const isAbo = devisType === "ABONNEMENT";
+  const cycleLabel = billingCycle === "ANNUEL" ? "an" : "mois";
 
   const onPay = () => {
     setError(null);
@@ -62,18 +67,30 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
             <ShieldCheck className="h-6 w-6 text-df-gold" />
           </div>
           <div>
-            <p className="font-display text-[10px] font-bold uppercase tracking-wider text-df-gold/80">Paiement sécurisé</p>
+            <p className="font-display text-[10px] font-bold uppercase tracking-wider text-df-gold/80">{isAbo ? "Abonnement sécurisé" : "Paiement sécurisé"}</p>
             <h1 className="font-display text-2xl uppercase tracking-tight text-white">Devis n°{numero}</h1>
           </div>
         </div>
 
         <div className="mt-6 space-y-4 rounded-2xl border border-white/[0.05] bg-white/[0.03] p-6">
           <Row label="Client" value={nomEntreprise || nomContact} />
-          <Row label="Pack" value={pack} />
-          <Row label="Total HT" value={`${totalHT} €`} />
-          <div className="border-t border-white/[0.08] pt-3">
-            <Row label={`Acompte (${acompteRate}%)`} value={`${acompteAmount} €`} bold />
-          </div>
+          {isAbo ? (
+            <>
+              <Row label="Formule" value={pack} />
+              <Row label="Facturation" value={billingCycle === "ANNUEL" ? "Annuelle" : "Mensuelle"} />
+              <div className="border-t border-white/[0.08] pt-3">
+                <Row label={`Montant / ${cycleLabel}`} value={`${totalHT} €`} bold />
+              </div>
+            </>
+          ) : (
+            <>
+              <Row label="Pack" value={pack} />
+              <Row label="Total HT" value={`${totalHT} €`} />
+              <div className="border-t border-white/[0.08] pt-3">
+                <Row label={`Acompte (${acompteRate}%)`} value={`${acompteAmount} €`} bold />
+              </div>
+            </>
+          )}
         </div>
 
         {error && (
@@ -89,6 +106,10 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
         >
           {pending ? (
             <span className="animate-pulse">Redirection vers Stripe…</span>
+          ) : isAbo ? (
+            <>
+              <CreditCard className="h-5 w-5" /> S&apos;abonner · {totalHT} €/{cycleLabel}
+            </>
           ) : (
             <>
               <CreditCard className="h-5 w-5" /> Payer {acompteAmount} € par carte

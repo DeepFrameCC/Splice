@@ -13,23 +13,30 @@ export default async function AdminFacturesPage({
   const statusParam = typeof sp.status === "string" ? sp.status : "";
 
   const factures = await db.facture.findMany({
-    include: { devis: true, user: { select: { pseudo: true } } },
+    include: {
+      devis: true,
+      abonnement: { include: { devis: true } },
+      user: { select: { pseudo: true } },
+    },
     orderBy: { createdAt: "desc" },
     take: 500,
   });
 
-  const rows = factures.map((f) => ({
-    id: f.id,
-    numero: f.numero,
-    devisNumero: f.devis.numero,
-    devisId: f.devisId,
-    nomContact: f.devis.nomContact,
-    nomEntreprise: f.devis.nomEntreprise,
-    pseudo: f.user?.pseudo ?? "",
-    totalHT: f.devis.totalHT,
-    status: f.status,
-    createdAt: f.createdAt.toISOString(),
-  }));
+  const rows = factures.map((f) => {
+    const src = f.devis ?? f.abonnement?.devis ?? null;
+    return {
+      id: f.id,
+      numero: f.numero,
+      devisNumero: src?.numero ?? "Abonnement",
+      devisId: f.devisId,
+      nomContact: src?.nomContact ?? "",
+      nomEntreprise: src?.nomEntreprise ?? "",
+      pseudo: f.user?.pseudo ?? "",
+      totalHT: f.montant ?? src?.totalHT ?? 0,
+      status: f.status,
+      createdAt: f.createdAt.toISOString(),
+    };
+  });
 
   return (
     <div className="space-y-6">

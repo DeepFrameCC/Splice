@@ -10,7 +10,7 @@ export type FactureRow = {
   id: string;
   numero: string;
   devisNumero: string;
-  devisId: string;
+  devisId: string | null;
   nomContact: string;
   nomEntreprise: string;
   pseudo: string;
@@ -89,15 +89,17 @@ const columns: ColumnDef<FactureRow, unknown>[] = [
         >
           <Download className="h-3 w-3" /> Facture
         </a>
-        <a
-          href={`/api/devis/${row.original.devisId}/pdf`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-full bg-df-surface px-2.5 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
-          aria-label={`Télécharger devis ${row.original.devisNumero}`}
-        >
-          <Download className="h-3 w-3" /> Devis
-        </a>
+        {row.original.devisId && (
+          <a
+            href={`/api/devis/${row.original.devisId}/pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-full bg-df-surface px-2.5 py-1.5 text-xs font-bold text-white/70 transition hover:bg-df-gold hover:text-white"
+            aria-label={`Télécharger devis ${row.original.devisNumero}`}
+          >
+            <Download className="h-3 w-3" /> Devis
+          </a>
+        )}
       </div>
     ),
   },

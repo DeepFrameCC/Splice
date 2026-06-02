@@ -22,7 +22,7 @@ export const getDb = cache((): PrismaClient => {
   if (!url) {
     throw new Error("[db] DATABASE_URL is not defined in environment variables");
   }
-  const cleanUrl = url.trim().replace(/^["']|["']$/g, "").split("?")[0];
+  const cleanUrl = url.trim().replace(/^["']|["']$/g, "");
 
   // Dynamically set WebSocket constructor for Node.js CLI/server contexts
   if (typeof WebSocket === "undefined") {

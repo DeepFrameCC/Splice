@@ -98,7 +98,7 @@ export default async function ClientDetailPage({
       date: f.createdAt,
       type: "facture",
       label: `Facture ${f.numero}`,
-      sub: `Devis ${f.devis.numero}`,
+      sub: f.devis ? `Devis ${f.devis.numero}` : "Abonnement",
       status: f.status,
     });
   }

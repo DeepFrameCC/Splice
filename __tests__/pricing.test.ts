@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   computePackParticulierQuote,
   computeAbonnementQuote,
+  computeFormuleBienvenueQuote,
+  quoteToStripeLineItems,
   PricingError,
   SUBSCRIPTION_PLANS,
   ACOMPTE_RATE,
@@ -43,7 +45,8 @@ describe("computePackParticulierQuote", () => {
 
   it("adds photo pack price", () => {
     const quote = computePackParticulierQuote({ ...BASE_PACK_INPUT, nbVideos: 2, nbPhotos: 10 });
-    expect(quote.totalHT).toBe(55 + 28);
+    // Pack Duo (2 vidéos = 55) + Pack Standard (10 photos = 90)
+    expect(quote.totalHT).toBe(55 + 90);
   });
 
   it("calculates frais de déplacement correctly", () => {
@@ -180,6 +183,63 @@ describe("computeAbonnementQuote", () => {
     });
     // PRO launch: 99 + 2 * 29 + 3 * 15 = 99 + 58 + 45 = 202
     expect(quote.totalHT).toBe(202);
+  });
+});
+
+describe("computeAbonnementQuote — annualisation des options", () => {
+  it("annualise les options (× 12) sur un abonnement annuel", () => {
+    const quote = computeAbonnementQuote({
+      planId: "PRO",
+      billingCycle: "ANNUEL",
+      useLaunchPrice: true,
+      options: { voixOff: true },
+    });
+    // Base annuelle PRO lancement 1068 + voixOff (12 € × 12 mois × 5 vidéos = 720)
+    expect(quote.totalHT).toBe(1068 + 12 * 12 * 5);
+    const voixOff = quote.lines.find((l) => l.label === "Voix off");
+    expect(voixOff?.unit).toBe(12 * 12);
+    expect(voixOff?.total).toBe(12 * 12 * 5);
+  });
+
+  it("ne modifie pas les options en mensuel (facteur 1)", () => {
+    const quote = computeAbonnementQuote({
+      planId: "PRO",
+      billingCycle: "MENSUEL",
+      useLaunchPrice: true,
+      options: { voixOff: true },
+    });
+    expect(quote.totalHT).toBe(99 + 12 * 5);
+  });
+});
+
+describe("quoteToStripeLineItems", () => {
+  it("mappe un abonnement mensuel en line_items récurrents (centimes, interval month)", () => {
+    const quote = computeAbonnementQuote(BASE_ABO_INPUT); // STANDARD mensuel = 49
+    const items = quoteToStripeLineItems(quote, "MENSUEL");
+    expect(items).toHaveLength(1);
+    expect(items[0]?.price_data.unit_amount).toBe(4900);
+    expect(items[0]?.price_data.recurring.interval).toBe("month");
+    expect(items[0]?.price_data.currency).toBe("eur");
+    expect(items[0]?.quantity).toBe(1);
+  });
+
+  it("utilise l'interval year en annuel et filtre les lignes à 0 €", () => {
+    const quote = computeAbonnementQuote({
+      planId: "PRO",
+      billingCycle: "ANNUEL",
+      useLaunchPrice: true,
+      options: {},
+    });
+    // 2 lignes (base 1068 + « Économie » à 0) → la ligne à 0 € est filtrée
+    const items = quoteToStripeLineItems(quote, "ANNUEL");
+    expect(items).toHaveLength(1);
+    expect(items[0]?.price_data.unit_amount).toBe(106800);
+    expect(items[0]?.price_data.recurring.interval).toBe("year");
+  });
+
+  it("ne produit aucune ligne pour une formule gratuite", () => {
+    const quote = computeFormuleBienvenueQuote();
+    expect(quoteToStripeLineItems(quote, "MENSUEL")).toHaveLength(0);
   });
 });
 

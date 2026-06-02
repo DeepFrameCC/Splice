@@ -1,10 +1,11 @@
-﻿type StatusKind = "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE" | "EMISE" | "PAYEE" | "ANNULEE" | "A_VENIR" | "EN_COURS" | "FINI";
+﻿type StatusKind = "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE" | "ABONNE" | "EMISE" | "PAYEE" | "ANNULEE" | "A_VENIR" | "EN_COURS" | "FINI";
 
 const map: Record<StatusKind, { label: string; bg: string; dot: string }> = {
   ATTENTE: { label: "En attente", bg: "bg-amber-500/15 text-amber-400",  dot: "bg-amber-500" },
   VALIDE:  { label: "Valid\u00e9",     bg: "bg-emerald-500/15 text-emerald-400", dot: "bg-emerald-500" },
   REFUSE:  { label: "Refus\u00e9",     bg: "bg-rose-100 text-rose-900",   dot: "bg-rose-500" },
   PAYE:    { label: "Pay\u00e9",       bg: "bg-emerald-500/15 text-emerald-400", dot: "bg-emerald-500" },
+  ABONNE:  { label: "Abonn\u00e9",     bg: "bg-df-gold/15 text-df-gold",  dot: "bg-df-gold" },
   EMISE:   { label: "\u00c9mise",      bg: "bg-amber-500/15 text-amber-400",  dot: "bg-amber-500" },
   PAYEE:   { label: "Pay\u00e9e",      bg: "bg-emerald-500/15 text-emerald-400", dot: "bg-emerald-500" },
   ANNULEE: { label: "Annul\u00e9e",    bg: "bg-rose-100 text-rose-900",   dot: "bg-rose-500" },

@@ -75,7 +75,7 @@ export async function adminSearch(query: string): Promise<SearchResult[]> {
       id: f.id,
       type: "facture",
       label: `Facture ${f.numero}`,
-      sub: f.devis.nomContact,
+      sub: f.devis?.nomContact ?? "Facture d'abonnement",
       href: `/admin/factures`,
     });
   }

@@ -74,7 +74,7 @@ export default function PlanCard({
         </p>
       )}
       {cycle === "MENSUEL" && (
-        <p className="mt-1 text-xs text-white/60">Engagement 3 mois</p>
+        <p className="mt-1 text-xs text-white/60">Sans engagement, résiliable à tout moment</p>
       )}
 
       <p className="mt-3 text-sm font-bold text-df-gold">

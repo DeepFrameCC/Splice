@@ -391,6 +391,7 @@ export function drawReglementBlock(
   y: number,
   docType: "DEVIS" | "FACTURE",
   deliveryInfo?: string,
+  paymentMethod?: string | null,
 ): number {
   const C = getCache().C;
 
@@ -402,6 +403,16 @@ export function drawReglementBlock(
     }
 
     const payY = y + 18;
+
+    if (paymentMethod) {
+      // Paiement Stripe confirmé — afficher le moyen de paiement réel
+      drawRect(page, MARGIN_L, payY - 2, 220, 22, C.green);
+      drawText(page, "Payé", MARGIN_L + 8, payY + 3, fonts.bold, 9, C.white);
+      drawText(page, paymentMethod, MARGIN_L, payY + 28, fonts.main, 8, C.text);
+      return payY + 50;
+    }
+
+    // Pas de paiement Stripe — afficher le bloc virement bancaire classique
     drawText(page, "Par virement bancaire :", MARGIN_L, payY, fonts.bold, 8, C.text);
     drawText(page, "Titulaire du compte :", MARGIN_L, payY + 14, fonts.main, 8, C.text);
     drawText(page, "IBAN:", MARGIN_L, payY + 28, fonts.main, 8, C.text);

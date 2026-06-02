@@ -10,30 +10,42 @@ const TAUX_COTISATIONS_BNC = 0.22;
 export default async function AdminComptabilitePage() {
   const currentYear = new Date().getFullYear();
 
-  // Livre des recettes : toutes les factures payées cette année
+  // Livre des recettes : toutes les factures payées cette année.
+  // Une facture peut venir d'un devis ponctuel (f.devis) OU d'un cycle
+  // d'abonnement (f.abonnement.devis + montant propre à la période).
   const facturesPayees = await db.facture.findMany({
     where: { status: "PAYEE" },
     include: {
       devis: {
-        select: {
-          numero: true,
-          nomContact: true,
-          nomEntreprise: true,
-          totalHT: true,
-          pack: true,
-          createdAt: true,
+        select: { numero: true, nomContact: true, nomEntreprise: true, totalHT: true, pack: true },
+      },
+      abonnement: {
+        include: {
+          devis: {
+            select: { numero: true, nomContact: true, nomEntreprise: true, totalHT: true, pack: true },
+          },
         },
       },
     },
     orderBy: { createdAt: "asc" },
   });
 
-  // Filtrer par année courante
-  const recettesAnnee = facturesPayees.filter(
-    (f) => f.createdAt.getFullYear() === currentYear
-  );
+  // Normalise chaque facture : résout le devis source et le montant encaissé.
+  const recettesAnnee = facturesPayees
+    .filter((f) => f.createdAt.getFullYear() === currentYear)
+    .map((f) => {
+      const src = f.devis ?? f.abonnement?.devis ?? null;
+      return {
+        id: f.id,
+        createdAt: f.createdAt,
+        numero: f.numero,
+        devisNumero: src?.numero ?? "Abonnement",
+        client: src?.nomEntreprise || src?.nomContact || "—",
+        montant: f.montant ?? src?.totalHT ?? 0,
+      };
+    });
 
-  const totalRecettes = recettesAnnee.reduce((s, f) => s + f.devis.totalHT, 0);
+  const totalRecettes = recettesAnnee.reduce((s, f) => s + f.montant, 0);
   const cotisationsSociales = Math.round(totalRecettes * TAUX_COTISATIONS_BNC);
   const revenuNet = totalRecettes - cotisationsSociales;
   const progressTVA = Math.min(100, Math.round((totalRecettes / SEUIL_FRANCHISE_TVA) * 100));
@@ -46,9 +58,9 @@ export default async function AdminComptabilitePage() {
       [
         f.createdAt.toLocaleDateString("fr-FR"),
         f.numero,
-        f.devis.numero,
-        (f.devis.nomEntreprise || f.devis.nomContact).replace(/;/g, ","),
-        f.devis.totalHT,
+        f.devisNumero,
+        f.client.replace(/;/g, ","),
+        f.montant,
         "Stripe",
       ].join(";")
     ),
@@ -186,13 +198,13 @@ export default async function AdminComptabilitePage() {
                         {f.numero}
                       </td>
                       <td className="px-5 py-3 text-xs text-white/40">
-                        {f.devis.numero}
+                        {f.devisNumero}
                       </td>
                       <td className="px-5 py-3 font-bold text-white">
-                        {f.devis.nomEntreprise || f.devis.nomContact}
+                        {f.client}
                       </td>
                       <td className="px-5 py-3 text-right font-display text-sm font-bold text-white">
-                        {f.devis.totalHT.toLocaleString("fr-FR")} €
+                        {f.montant.toLocaleString("fr-FR")} €
                       </td>
                       <td className="px-5 py-3">
                         <span className="rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] font-bold text-purple-600">

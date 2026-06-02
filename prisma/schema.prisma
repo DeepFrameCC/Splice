@@ -31,6 +31,14 @@ enum DevisStatus {
   VALIDE
   REFUSE
   PAYE
+  ABONNE
+}
+
+enum AbonnementStatus {
+  INCOMPLETE
+  ACTIVE
+  PAST_DUE
+  CANCELED
 }
 
 enum FactureStatus {
@@ -95,6 +103,8 @@ enum AuditAction {
   CONTRAT_UPDATED
   PAYMENT_SUCCESS
   PAYMENT_FAILED
+  SUBSCRIPTION_CREATED
+  SUBSCRIPTION_CANCELED
   ADMIN_ACTION
   SETTINGS_UPDATED
   CONSENT_UPDATED
@@ -133,6 +143,7 @@ model User {
   twoFactorEnabled Boolean @default(false)
   twoFactorSecret  String?
   hasUsedFormuleBienvenue Boolean @default(false)
+  stripeCustomerId String?   @unique
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -142,6 +153,7 @@ model User {
   devis         Devis[]
   factures      Facture[]
   contrats      Contrat[]
+  abonnements   Abonnement[]
   mediasMontes  Media[]        @relation("Monteur")
   auditLogs     AuditLog[]
   notifications Notification[]
@@ -302,18 +314,48 @@ model Devis {
 
   facture         Facture?
   contrat         Contrat?
+  abonnement      Abonnement?
+}
+
+model Abonnement {
+  id                   String           @id @default(cuid())
+  devisId              String           @unique
+  devis                Devis            @relation(fields: [devisId], references: [id])
+  userId               String
+  user                 User             @relation(fields: [userId], references: [id])
+  stripeSubscriptionId String           @unique
+  stripeCustomerId     String
+  plan                 String           // PlanId : STANDARD | PRO | PREMIUM_ABO
+  billingCycle         String           // MENSUEL | ANNUEL
+  status               AbonnementStatus @default(INCOMPLETE)
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean          @default(false)
+  factures             Facture[]
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
 }
 
 model Facture {
-  id        String        @id @default(cuid())
-  numero    String        @unique
-  devisId   String        @unique
-  devis     Devis         @relation(fields: [devisId], references: [id])
-  userId    String
-  user      User          @relation(fields: [userId], references: [id])
-  status    FactureStatus @default(EMISE)
-  pdfUrl    String?
-  createdAt DateTime      @default(now())
+  id              String        @id @default(cuid())
+  numero          String        @unique
+  // devisId reste @unique mais devient optionnel : une facture ponctuelle garde
+  // son devis (1:1, findUnique({where:{devisId}}) intact) ; une facture de cycle
+  // d'abonnement a devisId = null (Postgres autorise plusieurs NULL en index
+  // unique) et s'attache à l'abonnement via abonnementId (1:N).
+  devisId         String?       @unique
+  devis           Devis?        @relation(fields: [devisId], references: [id])
+  abonnementId    String?
+  abonnement      Abonnement?   @relation(fields: [abonnementId], references: [id])
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  status          FactureStatus @default(EMISE)
+  // montant propre à CETTE facture (null = dériver de Devis.totalHT, legacy ponctuel).
+  montant         Int?
+  periodeDebut    DateTime?
+  periodeFin      DateTime?
+  stripeInvoiceId String?       @unique
+  pdfUrl          String?
+  createdAt       DateTime      @default(now())
 }
 
 model Contrat {

@@ -1,4 +1,4 @@
-import { DureeTournage, DelaiLivraison, VilleDepart, Founder } from "@prisma/client";
+import type { DureeTournage, DelaiLivraison, VilleDepart, Founder } from "@prisma/client";
 
 // ─── Plan IDs ─────────────────────────────────────────────────────
 
@@ -432,7 +432,7 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
       lines.push({ label: `Économie : ${plan.launchAnnualSaving} € / an`, total: 0 });
     } else {
       monthlyPrice = plan.launchMonthly;
-      lineLabel = `${plan.label} — Mensuel (offre de lancement, engagement 3 mois)`;
+      lineLabel = `${plan.label} — Mensuel (offre de lancement)`;
       lines.push({ label: lineLabel, total: monthlyPrice });
     }
   } else {
@@ -442,13 +442,17 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
       lines.push({ label: lineLabel, total: plan.stdAnnualTotal });
     } else {
       monthlyPrice = plan.stdMonthly;
-      lineLabel = `${plan.label} — Mensuel (engagement 3 mois)`;
+      lineLabel = `${plan.label} — Mensuel`;
       lines.push({ label: lineLabel, total: monthlyPrice });
     }
   }
 
   // Options à la carte
   const videoCount = plan.videosPerMonth;
+  // En annuel, les options sont récurrentes facturées sur 12 mois : on les
+  // annualise (× 12) pour rester cohérent avec la base annuelle. La remise de
+  // lancement ne porte que sur la formule, pas sur les options.
+  const optionFactor = input.billingCycle === "ANNUEL" ? 12 : 1;
   for (const opt of OPTIONS_A_LA_CARTE) {
     const val = input.options[opt.key];
     if (val) {
@@ -479,11 +483,12 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
           qty = 1; // Always exactly 1 banner for subscription option
         }
 
+        const annualUnit = price * optionFactor;
         lines.push({
           label,
           qty,
-          unit: price,
-          total: price * qty,
+          unit: annualUnit,
+          total: annualUnit * qty,
         });
       }
     }
@@ -504,6 +509,45 @@ export function computeFormuleBienvenueQuote(): Quote {
     { label: "5 photos offertes", total: 0 },
   ];
   return { lines, totalHT: 0, acompte: 0, solde: 0 };
+}
+
+// ─── Stripe subscription line items ───────────────────────────────
+
+/**
+ * Ligne d'abonnement Stripe construite à partir d'un Quote. Le type est volon-
+ * tairement local (pas d'import du SDK Stripe ici) mais structurellement
+ * compatible avec `Stripe.Checkout.SessionCreateParams.LineItem` côté route.
+ */
+export type StripeRecurringLineItem = {
+  price_data: {
+    currency: "eur";
+    unit_amount: number;
+    recurring: { interval: "month" | "year" };
+    product_data: { name: string };
+  };
+  quantity: number;
+};
+
+/**
+ * Transforme les lignes d'un devis d'abonnement en line_items récurrents Stripe.
+ * - `unit_amount` est en centimes (les montants Quote sont en euros entiers).
+ * - L'intervalle dérive du cycle (mensuel → month, annuel → year).
+ * - Les lignes à montant nul (ex. ligne "Économie") sont filtrées : Stripe
+ *   refuse un prix récurrent à 0 et elles n'ont pas à être facturées.
+ */
+export function quoteToStripeLineItems(quote: Quote, cycle: BillingCycle): StripeRecurringLineItem[] {
+  const interval: "month" | "year" = cycle === "ANNUEL" ? "year" : "month";
+  return quote.lines
+    .filter((line) => line.total > 0)
+    .map((line) => ({
+      price_data: {
+        currency: "eur",
+        unit_amount: Math.round(line.total * 100),
+        recurring: { interval },
+        product_data: { name: line.label },
+      },
+      quantity: 1,
+    }));
 }
 
 // ─── Legacy backward compat ───────────────────────────────────────

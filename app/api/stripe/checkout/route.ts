@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { apiLimiter, checkRateLimit } from "@/lib/rate-limit";
+import { quoteToStripeLineItems, type QuoteLine, type BillingCycle } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   const rl = await checkRateLimit(apiLimiter);
@@ -20,6 +21,61 @@ export async function POST(req: NextRequest) {
   const devis = await db.devis.findUnique({ where: { id: devisId } });
   if (!devis || devis.userId !== userId) return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
   if (devis.status !== "VALIDE") return NextResponse.json({ error: "Le devis n'est pas encore validé par Splice" }, { status: 400 });
+
+  const stripe = getStripe();
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
+  // ─── Abonnement : Stripe Checkout en mode "subscription" (récurrent) ──────
+  if (devis.devisType === "ABONNEMENT") {
+    const existingAbo = await db.abonnement.findUnique({ where: { devisId } });
+    if (existingAbo) {
+      return NextResponse.json({ error: "Un abonnement existe déjà pour ce devis." }, { status: 400 });
+    }
+
+    if (!stripe) {
+      // Pas de simulation dev pour le récurrent : tester avec des clés Stripe test.
+      return NextResponse.json({ error: "Paiement temporairement indisponible" }, { status: 503 });
+    }
+
+    const cycle: BillingCycle = devis.billingCycle === "ANNUEL" ? "ANNUEL" : "MENSUEL";
+    const lineItems = quoteToStripeLineItems(
+      { lines: (devis.lines as unknown as QuoteLine[]) ?? [], totalHT: devis.totalHT, acompte: 0, solde: 0 },
+      cycle,
+    );
+    if (lineItems.length === 0) {
+      return NextResponse.json({ error: "Aucune ligne facturable pour cet abonnement." }, { status: 400 });
+    }
+
+    // Customer Stripe réutilisable : rattache les factures récurrentes et permet
+    // le portail de gestion. Le montant figé dans price_data assure le
+    // grandfathering (un changement de tarif standard n'affecte pas l'existant).
+    const user = await db.user.findUniqueOrThrow({ where: { id: userId } });
+    let customerId = user.stripeCustomerId;
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: devis.emailContact,
+        name: devis.nomEntreprise || devis.nomContact,
+        metadata: { userId },
+      });
+      customerId = customer.id;
+      await db.user.update({ where: { id: userId }, data: { stripeCustomerId: customerId } });
+    }
+
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      customer: customerId,
+      line_items: lineItems,
+      metadata: { devisId: devis.id, devisNumero: devis.numero },
+      subscription_data: { metadata: { devisId: devis.id, devisNumero: devis.numero } },
+      success_url: `${appUrl}/profil/devis/${devisId}?abonne=1`,
+      cancel_url: `${appUrl}/profil/devis/${devisId}/payer?annule=1`,
+    });
+
+    await db.devis.update({ where: { id: devisId }, data: { stripeSession: checkoutSession.id } });
+    return NextResponse.json({ url: checkoutSession.url });
+  }
+
+  // ─── Pack / ponctuel : acompte 30 % en paiement unique ────────────────────
   if (devis.acomptePaid) return NextResponse.json({ error: "L'acompte a déjà été réglé" }, { status: 400 });
 
   if (!stripe) {
@@ -33,7 +89,7 @@ export async function POST(req: NextRequest) {
       where: { id: devisId },
       data: { acomptePaid: true, status: "PAYE", stripeSession: "dev-simulated" },
     });
-    return NextResponse.json({ url: `${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}?paye=1` });
+    return NextResponse.json({ url: `${appUrl}/profil/devis/${devisId}?paye=1` });
   }
 
   // Reuse an existing pending Stripe session when available to avoid orphan
@@ -67,8 +123,8 @@ export async function POST(req: NextRequest) {
         quantity: 1,
       },
     ],
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}?paye=1`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer?annule=1`,
+    success_url: `${appUrl}/profil/devis/${devisId}?paye=1`,
+    cancel_url: `${appUrl}/profil/devis/${devisId}/payer?annule=1`,
   });
 
   await db.devis.update({ where: { id: devisId }, data: { stripeSession: checkoutSession.id } });

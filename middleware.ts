@@ -88,7 +88,7 @@ export default auth((req) => {
     `base-uri 'self'`,
     `form-action 'self'`,
     `frame-ancestors 'none'`,
-    `upgrade-insecure-requests`,
+    ...(isDev ? [] : [`upgrade-insecure-requests`]),
   ].join("; ");
 
   const res = NextResponse.next({

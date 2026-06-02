@@ -22,6 +22,8 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   CONTRAT_UPDATED: "Contrat mis à jour",
   PAYMENT_SUCCESS: "Paiement réussi",
   PAYMENT_FAILED: "Paiement échoué",
+  SUBSCRIPTION_CREATED: "Abonnement créé",
+  SUBSCRIPTION_CANCELED: "Abonnement résilié",
   ADMIN_ACTION: "Action admin",
   SETTINGS_UPDATED: "Paramètres modifiés",
   CONSENT_UPDATED: "Consentement modifié",

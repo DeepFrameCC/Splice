@@ -126,8 +126,8 @@ export default function Recap() {
               {f.mode === "ABONNEMENT" && (
                 <p className="mt-2 text-xs text-white/50">
                   {f.billingCycle === "ANNUEL"
-                    ? "Facturé annuellement"
-                    : "Engagement 3 mois minimum"}
+                    ? "Facturé annuellement (payé d'avance)"
+                    : "Facturé mensuellement, sans engagement"}
                 </p>
               )}
               {f.mode === "FORMULE_BIENVENUE" && (

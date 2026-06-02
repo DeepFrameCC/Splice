@@ -1,7 +1,8 @@
 "use server";
+import { z } from "zod";
 import { auth, isAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { sendMail } from "@/lib/mailer";
+import { sendMail, MAIL_CONTACT } from "@/lib/mailer";
 import { nextNumero } from "@/lib/numbering";
 import { revalidatePath } from "next/cache";
 import { audit } from "@/lib/audit";
@@ -15,6 +16,16 @@ async function requireAdmin() {
   return session?.user?.id;
 }
 
+/** Échappe le HTML d'un texte libre avant injection dans un e-mail. */
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function validerDevis(devisId: string) {
   const adminId = await requireAdmin();
 
@@ -26,6 +37,12 @@ export async function validerDevis(devisId: string) {
   if (result.status !== "ATTENTE") throw new Error("Seul un devis en attente peut être validé.");
   if (!result.userId) throw new Error("Impossible de valider un devis sans client associé.");
 
+  // Formule gratuite (totalHT = 0, ex. Formule Bienvenue) : rien à encaisser.
+  // La facture est émise directement « PAYEE » et le devis passe en « PAYE »,
+  // soit l'état final identique à celui atteint après paiement Stripe pour un
+  // devis payant. L'acceptation reste manuelle : c'est l'admin qui décide ici.
+  const isFree = result.totalHT === 0;
+
   // Créer la facture (idempotent : devisId est unique)
   const existingFacture = await db.facture.findUnique({ where: { devisId } });
   if (!existingFacture) {
@@ -35,7 +52,7 @@ export async function validerDevis(devisId: string) {
         numero: `F-${factNum.numero}`,
         devisId: result.id,
         userId: result.userId,
-        status: "EMISE",
+        status: isFree ? "PAYEE" : "EMISE",
       },
     });
   }
@@ -57,12 +74,29 @@ export async function validerDevis(devisId: string) {
   }
 
   // Statut en dernier.
-  await db.devis.update({ where: { id: devisId }, data: { status: "VALIDE" } });
+  await db.devis.update({ where: { id: devisId }, data: { status: isFree ? "PAYE" : "VALIDE" } });
 
-  await sendMail({
-    to: result.emailContact,
-    subject: `Splice — Votre devis n°${result.numero} est validé`,
-    html: `
+  if (isFree) {
+    await sendMail({
+      to: result.emailContact,
+      subject: `Splice — Votre ${result.pack} n°${result.numero} est confirmée`,
+      html: `
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">C'est confirmé !</h2>
+        <p>Bonjour ${result.nomContact},</p>
+        <p>Votre <strong>${result.pack}</strong> (devis n°${result.numero}) vient d'être validée par notre équipe. Comme cette prestation est offerte, il n'y a rien à régler.</p>
+        <p>Nous revenons vers vous très vite pour caler les détails et la date de votre prestation.</p>
+        <p style="margin-top:20px">
+          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
+        </p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+      </div>`
+    });
+  } else {
+    await sendMail({
+      to: result.emailContact,
+      subject: `Splice — Votre devis n°${result.numero} est validé`,
+      html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis validé !</h2>
         <p>Bonjour ${result.nomContact},</p>
@@ -71,19 +105,22 @@ export async function validerDevis(devisId: string) {
         <p style="margin-top:20px">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
       </div>`
-  });
+    });
+  }
 
-  await audit({ action: "DEVIS_UPDATED", userId: adminId, target: devisId, metadata: { status: "VALIDE" } });
+  await audit({ action: "DEVIS_UPDATED", userId: adminId, target: devisId, metadata: { status: isFree ? "PAYE" : "VALIDE", free: isFree } });
 
   if (result.userId) {
     await notify({
       userId: result.userId,
       type: "DEVIS_STATUS",
-      title: `Devis n°${result.numero} validé`,
-      message: `Votre devis de ${result.totalHT} € a été validé. Vous pouvez maintenant régler l'acompte.`,
-      href: `/profil/devis/${devisId}/payer`,
+      title: isFree ? `${result.pack} n°${result.numero} confirmée` : `Devis n°${result.numero} validé`,
+      message: isFree
+        ? `Votre ${result.pack} est validée. Rien à régler, on vous recontacte pour organiser la prestation.`
+        : `Votre devis de ${result.totalHT} € a été validé. Vous pouvez maintenant régler l'acompte.`,
+      href: isFree ? `/profil/devis/${devisId}` : `/profil/devis/${devisId}/payer`,
     });
   }
 
@@ -125,6 +162,68 @@ export async function refuserDevis(devisId: string) {
   }
 
   revalidatePath("/admin/devis");
+}
+
+const propositionDateSchema = z
+  .string()
+  .trim()
+  .min(5, "Le message doit contenir au moins 5 caractères.")
+  .max(2000, "Le message ne peut pas dépasser 2000 caractères.");
+
+/**
+ * Propose une autre date au client (quand l'équipe n'est pas disponible) sans
+ * refuser ni valider le devis : il reste en ATTENTE. Le client reçoit le
+ * message libre par e-mail + notification in-app. Aucun changement de statut.
+ */
+export async function proposerAutreDate(devisId: string, message: string) {
+  const adminId = await requireAdmin();
+  const texte = propositionDateSchema.parse(message);
+
+  const result = await db.devis.findUniqueOrThrow({ where: { id: devisId } });
+  if (result.status !== "ATTENTE") {
+    throw new Error("Une autre date ne peut être proposée que pour un devis en attente.");
+  }
+
+  // Le message vient d'un champ libre admin : on échappe le HTML. white-space:pre-wrap
+  // préserve les retours à la ligne saisis.
+  const safe = escapeHtml(texte);
+
+  await sendMail({
+    to: result.emailContact,
+    subject: `Splice — Proposition de date pour votre devis n°${result.numero}`,
+    html: `
+      <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
+        <h2 style="color:#F36B1F">Une proposition de date</h2>
+        <p>Bonjour ${result.nomContact},</p>
+        <p>Au sujet de votre devis <strong>n°${result.numero}</strong> :</p>
+        <div style="background:#f6f6f8;border-radius:8px;padding:16px;margin:16px 0;white-space:pre-wrap;line-height:1.6">${safe}</div>
+        <p>Un doute sur nos disponibilités ? Écrivez-nous à <a href="mailto:${MAIL_CONTACT}" style="color:#F36B1F">${MAIL_CONTACT}</a>, on vous répond rapidement.</p>
+        <p style="margin-top:20px">
+          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a>
+        </p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+      </div>`,
+  });
+
+  await audit({
+    action: "DEVIS_UPDATED",
+    userId: adminId,
+    target: devisId,
+    metadata: { type: "date_proposee" },
+  });
+
+  if (result.userId) {
+    await notify({
+      userId: result.userId,
+      type: "DEVIS_STATUS",
+      title: `Proposition de date — devis n°${result.numero}`,
+      message: texte.length > 140 ? `${texte.slice(0, 139)}…` : texte,
+      href: `/profil/devis/${devisId}`,
+    });
+  }
+
+  revalidatePath("/admin/devis");
+  revalidatePath(`/profil/devis/${devisId}`);
 }
 
 const CONTRAT_TRANSITIONS: Record<string, string[]> = {
