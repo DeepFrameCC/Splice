@@ -103,7 +103,7 @@ const montageVideo: ServiceContent = {
   ],
   serviceType: "VideoEditingService",
   priceRange: "$$$",
-  coverImageUrl: "/images/services/montage-video.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Poste de montage vidéo professionnel avec DaVinci Resolve — studio Splice Orléans",
   videoUrl: null,
@@ -194,7 +194,7 @@ const productionCorporate: ServiceContent = {
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
-  coverImageUrl: "/images/services/production-corporate.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Tournage film corporate en entreprise — équipe Splice avec caméra cinéma",
   videoUrl: null,
@@ -275,7 +275,7 @@ const motionDesign: ServiceContent = {
   ],
   serviceType: "GraphicDesignService",
   priceRange: "$$$",
-  coverImageUrl: "/images/services/motion-design.jpg",
+  coverImageUrl: "/images/services/motion.png",
   coverImageAlt:
     "Animation motion design en cours de création — interface After Effects studio Splice",
   videoUrl: null,
@@ -365,7 +365,7 @@ const pubReseauxSociaux: ServiceContent = {
   ],
   serviceType: "AdvertisingService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/pub-reseaux-sociaux.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Tournage publicité vidéo verticale pour réseaux sociaux — Splice Orléans",
   videoUrl: null,
@@ -460,7 +460,7 @@ const shootingAutomobile: ServiceContent = {
   ],
   serviceType: "PhotographyService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/shooting-automobile.jpg",
+  coverImageUrl: "/images/services/photo.png",
   coverImageAlt:
     "Shooting photo automobile Porsche en studio — éclairage créatif Splice",
   videoUrl: null,
@@ -551,7 +551,7 @@ const photographieProfessionnelle: ServiceContent = {
   ],
   serviceType: "PhotographyService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/photographie-professionnelle.jpg",
+  coverImageUrl: "/images/services/photo.png",
   coverImageAlt:
     "Séance photo portrait corporate en entreprise — photographe Splice Orléans",
   videoUrl: null,
@@ -631,7 +631,7 @@ const interviewTemoignage: ServiceContent = {
   ],
   serviceType: "VideographyService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/interview-temoignage.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Tournage interview vidéo en entreprise — setup multi-caméra Splice",
   videoUrl: null,
@@ -710,7 +710,7 @@ const voixOffSoundDesign: ServiceContent = {
   ],
   serviceType: "AudioService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/voix-off-sound-design.jpg",
+  coverImageUrl: "/images/services/audio.png",
   coverImageAlt:
     "Studio d’enregistrement voix-off et sound design — Splice Orléans",
   videoUrl: null,
@@ -789,7 +789,7 @@ const presentationEntreprise: ServiceContent = {
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
-  coverImageUrl: "/images/services/presentation-entreprise.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Tournage film de présentation d’entreprise — équipe Splice en action",
   videoUrl: null,
@@ -870,7 +870,7 @@ const clipMusical: ServiceContent = {
   ],
   serviceType: "VideographyService",
   priceRange: "$$$",
-  coverImageUrl: "/images/services/clip-musical.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Tournage clip musical en extérieur — réalisation cinéma Splice",
   videoUrl: null,
@@ -945,7 +945,7 @@ const dronePriseDeVue: ServiceContent = {
   ],
   serviceType: "VideographyService",
   priceRange: "$$",
-  coverImageUrl: "/images/services/drone-prise-de-vue-aerienne.jpg",
+  coverImageUrl: "/images/services/video.png",
   coverImageAlt:
     "Prise de vue aérienne par drone au-dessus de la Loire — Splice Orléans",
   videoUrl: null,
