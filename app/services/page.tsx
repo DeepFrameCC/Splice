@@ -6,7 +6,7 @@ import ServicesClient from "@/components/services/ServicesClient";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Services audiovisuels Orléans Tours | Splice",
+  title: "Services audiovisuels — Orléans & Tours",
   description:
     "Production vidéo, photographie professionnelle, motion design, pub réseaux sociaux à Orléans et Tours. Splice couvre toute la chaîne de production audiovisuelle en Centre-Val de Loire.",
   alternates: { canonical: absoluteUrl("/services") },

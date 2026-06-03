@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Demander un devis — Splice",
+  title: "Demander un devis vidéo — réponse sous 24h",
   description:
     "Configurez votre projet audiovisuel en 3 étapes et recevez un devis détaillé sous 24h. Gratuit et sans engagement.",
   openGraph: {

@@ -130,7 +130,7 @@ export async function submitContact(
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
           <p style="color:#999;font-size:12px">
-            Cet email a été envoyé automatiquement par Splice Studio.
+            Cet email a été envoyé automatiquement par Splice.
             Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer ce message.
           </p>
         </div>`,

@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "FAQ production audiovisuelle Orléans Tours — Splice",
+  title: "FAQ — production vidéo Orléans & Tours",
   description:
     "Réponses à vos questions fréquentes sur nos services de production vidéo et photo à Orléans et Tours : tarifs, délais de livraison, formats livrés, shooting automobile, montage vidéo et plus.",
   openGraph: {
@@ -35,7 +35,7 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     title: "Général",
     items: [
       {
-        q: "Qu'est-ce que Splice Studio, votre agence vidéo à Orléans et Tours ?",
+        q: "Qu'est-ce que Splice, votre agence vidéo à Orléans et Tours ?",
         a: "Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Nous intervenons sur tout le Centre-Val de Loire.",
         rich: <>Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
       },

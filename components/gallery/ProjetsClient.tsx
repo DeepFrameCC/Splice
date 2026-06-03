@@ -182,7 +182,7 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
         tag = "Film";
       }
 
-      const client = first.client || "Splice Studio";
+      const client = first.client || "Splice";
       const cat = mapDbCategoryToPj(first.category);
 
       parsed.push({

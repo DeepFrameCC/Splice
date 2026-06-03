@@ -16,7 +16,7 @@ export function buildOrganizationJsonLd() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: "Splice",
-    alternateName: "Splice",
+    alternateName: "Splice Studio",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
     description:
@@ -29,6 +29,7 @@ export function buildOrganizationJsonLd() {
     sameAs: [
       "https://www.instagram.com/splice.cc/",
       "https://www.facebook.com/Splicecc/",
+      "https://share.google/xs14h7WtSrIkYlfjS",
     ],
     knowsAbout: [
       "Production audiovisuelle",
@@ -79,11 +80,12 @@ export function buildLocalBusinessJsonLd() {
       },
     ],
     priceRange: "€€",
+    sameAs: ["https://share.google/xs14h7WtSrIkYlfjS"],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "09:00",
-      closes: "18:00",
+      closes: "20:00",
     },
   };
 }
@@ -222,13 +224,13 @@ export function buildGalleryJsonLd(
   const base = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Galerie Splice Studio",
+    name: "Galerie Splice",
     url: `${BASE_URL}/galerie`,
     description:
-      "Portfolio photo et video de Splice Studio — Orleans / Tours.",
+      "Portfolio photo et vidéo de Splice — Orléans / Tours.",
     publisher: {
       "@type": "Organization",
-      name: "Splice Studio",
+      name: "Splice",
     },
     numberOfItems: mediaCount,
   };
@@ -240,7 +242,7 @@ export function buildGalleryJsonLd(
     hasPart: medias.slice(0, 20).map((m) => {
       const isVideo = m.type === "VIDEO";
       const thumb = m.thumbnailUrl || (isVideo ? `${BASE_URL}/og-image.jpg` : undefined);
-      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice Studio - ${m.title}` : undefined);
+      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice - ${m.title}` : undefined);
 
       return {
         "@type": isVideo ? "VideoObject" : "ImageObject",

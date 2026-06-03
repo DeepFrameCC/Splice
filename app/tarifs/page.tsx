@@ -8,7 +8,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Tarifs — Splice | Vidéo & Photo en Centre-Val de Loire",
+  title: "Tarifs vidéo & photo — Orléans & Tours",
   description:
     "Tarifs transparents, zéro surprise. Abonnements vidéo dès 45 €/mois, Pack Particulier dès 29 €. Options à la carte, recyclage multi-réseaux inclus.",
   openGraph: {

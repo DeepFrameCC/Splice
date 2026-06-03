@@ -14,7 +14,7 @@ import type { FAQItem } from "@/lib/services/types";
 export const revalidate = 86400;
 
 const PATH = "/photographe-evenementiel";
-const TITLE = "Photographe événementiel Orléans & Tours | Splice";
+const TITLE = "Photographe événementiel à Orléans & Tours";
 const DESCRIPTION =
   "Photographe événementiel à Orléans et Tours : séminaires, soirées d'entreprise, salons. Reportage photo + aftermovie. Splice, livraison rapide.";
 const H1 = "Photographe événementiel à Orléans & Tours";

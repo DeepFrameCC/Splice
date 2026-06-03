@@ -14,7 +14,7 @@ import type { FAQItem } from "@/lib/services/types";
 export const revalidate = 86400;
 
 const PATH = "/agence-communication-orleans";
-const TITLE = "Agence de communication à Orléans | Splice";
+const TITLE = "Agence de communication à Orléans";
 const DESCRIPTION =
   "Agence de communication à Orléans : stratégie visuelle, vidéo, événementiel et social media. Splice accompagne les entreprises du Loiret. Devis gratuit.";
 const H1 = "Agence de communication à Orléans";

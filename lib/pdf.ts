@@ -115,8 +115,8 @@ export async function createPdfContext(): Promise<PdfContext> {
 
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
-  pdf.setTitle("Splice Studio");
-  pdf.setProducer("Splice Studio");
+  pdf.setTitle("Splice");
+  pdf.setProducer("Splice");
 
   let fonts: PdfFonts;
   const fontBytes = await loadFontBytes();

@@ -18,7 +18,7 @@ import { buildBlogIndexJsonLd, BASE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog — Splice",
+  title: "Blog : conseils production vidéo & contenu",
   description:
     "Conseils, guides et actualités sur la production audiovisuelle, le montage vidéo, les réseaux sociaux et la photographie professionnelle.",
   openGraph: {

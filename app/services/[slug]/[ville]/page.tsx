@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = LOCAL_SERVICE_DATA[slug as LocalServiceSlug];
   if (!ville || !data) return {};
 
-  const title = fillTemplate(data.h1Template, ville) + " | Splice";
+  const title = fillTemplate(data.h1Template, ville);
   const description = fillTemplate(data.introTemplate, ville);
   const url = absoluteUrl(`/services/${slug}/${villeSlug}`);
 

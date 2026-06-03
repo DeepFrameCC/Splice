@@ -12,7 +12,7 @@ import { BASE_URL } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Photos — Splice",
+  title: "Photos — portfolio vidéo & photo Orléans & Tours",
   description:
     "Galerie photo : portraits, automobile, lifestyle, événementiel. Par Louisia et Tracy.",
   openGraph: {

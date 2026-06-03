@@ -100,14 +100,14 @@ export default function PricingSection() {
         <p className="mt-2 text-center text-white/50">
           Chaque vidéo source est recyclée et adaptée à chaque réseau.
         </p>
-        <div className="mx-auto mt-8 max-w-5xl overflow-x-auto">
-          <table className="w-full text-left text-sm">
+        <div className="-mx-4 mt-8 overflow-x-auto px-4 sm:mx-auto sm:max-w-5xl sm:px-0 [scrollbar-width:thin]">
+          <table className="w-full min-w-[34rem] text-left text-sm">
             <thead>
               <tr className="border-b border-white/10 text-white/60">
-                <th className="px-4 py-3 font-bold">Réseau</th>
-                <th className="px-4 py-3 font-bold">Standard</th>
-                <th className="px-4 py-3 font-bold">Pro</th>
-                <th className="px-4 py-3 font-bold">Premium</th>
+                <th scope="col" className="sticky left-0 z-10 bg-df-night px-4 py-3 font-bold">Réseau</th>
+                <th scope="col" className="px-4 py-3 font-bold">Standard</th>
+                <th scope="col" className="px-4 py-3 font-bold">Pro</th>
+                <th scope="col" className="px-4 py-3 font-bold">Premium</th>
               </tr>
             </thead>
             <tbody>
@@ -116,9 +116,9 @@ export default function PricingSection() {
                   key={row.network}
                   className="border-b border-white/[0.06] text-white/70"
                 >
-                  <td className="px-4 py-3 font-bold text-white">
+                  <th scope="row" className="sticky left-0 z-10 bg-df-night px-4 py-3 text-left font-bold text-white">
                     {row.network}
-                  </td>
+                  </th>
                   <td className="px-4 py-3">{row.standard}</td>
                   <td className="px-4 py-3">{row.pro}</td>
                   <td className="px-4 py-3">{row.premium}</td>

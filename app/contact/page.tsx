@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact — Splice",
+  title: "Contact — production vidéo Orléans & Tours",
   description:
     "Contactez Splice — boîte de production audiovisuelle à Orléans et Tours. Email, téléphone, Instagram, devis en ligne.",
   openGraph: {

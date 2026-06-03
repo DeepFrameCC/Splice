@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
-  if (!post) return { title: "Article introuvable — Splice" };
+  if (!post) return { title: "Article introuvable" };
 
-  const title = post.metaTitle || `${post.title} — Blog Splice`;
+  const title = post.metaTitle || post.title;
   const description = post.metaDescription || post.excerpt;
 
   return {

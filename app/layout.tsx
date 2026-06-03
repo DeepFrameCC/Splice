@@ -5,7 +5,7 @@ import CookieBanner from "@/components/layout/CookieBanner";
 import PlausibleScript from "@/components/layout/PlausibleScript";
 import JsonLd from "@/components/JsonLd";
 import AuthProvider from "@/components/layout/AuthProvider";
-import { buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
+import { buildOrganizationJsonLd, buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -60,27 +60,6 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Splice",
-  url: BASE_URL,
-  logo: `${BASE_URL}/logo-1.svg`,
-  description:
-    "Boite de production audiovisuelle basee a Orleans et Tours. Pubs reseaux sociaux, shootings automobile, films de marque, aftermovies.",
-  email: "contact.splicestudio@gmail.com",
-  areaServed: {
-    "@type": "Place",
-    name: "Centre-Val de Loire, France",
-  },
-  sameAs: [
-    "https://www.instagram.com/splice.cc/",
-    "https://www.facebook.com/Splicecc/",
-    "https://instagram.com/by.louisia",
-    "https://instagram.com/t.y97one",
-  ],
-};
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
@@ -94,11 +73,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <JsonLd data={{
           "@context": "https://schema.org",
           "@graph": [
-            jsonLd,
-            ...[buildWebSiteJsonLd(), buildLocalBusinessJsonLd()].map(
-              ({ "@context": _, ...rest }) => rest
-            ),
-          ],
+            buildOrganizationJsonLd(),
+            buildWebSiteJsonLd(),
+            buildLocalBusinessJsonLd(),
+          ].map(({ "@context": _unused, ...rest }) => rest),
         }} />
       </head>
       <body className="min-h-screen flex flex-col bg-df-night text-white antialiased">

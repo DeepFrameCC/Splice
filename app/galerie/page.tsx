@@ -20,11 +20,11 @@ async function getPublishedMedias() {
 }
 
 export const metadata: Metadata = {
-  title: "Galerie photo & video | Splice Studio",
+  title: "Galerie photo & vidéo — réalisations Orléans & Tours",
   description:
     "Decouvrez notre portfolio : films cinematiques, evenements, portraits et urbain. Orleans / Tours / Centre-Val de Loire.",
   openGraph: {
-    title: "Galerie Splice Studio",
+    title: "Galerie Splice — Orléans & Tours",
     description: "Notre portfolio audiovisuel.",
     url: `${BASE_URL}/galerie`,
     type: "website",
