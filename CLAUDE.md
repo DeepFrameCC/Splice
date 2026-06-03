@@ -206,3 +206,17 @@ TURNSTILE_SECRET_KEY
 `next.config.mjs` allows remote images from Cloudflare R2 (`**.r2.dev`), `cdn.splicestudio.fr`, and `media.splicestudio.fr`.
 
 Homepage videos served from R2 bucket `galerie` via `media.splicestudio.fr/videos/`. Gallery media also on R2 via same CDN domain. No local video files in `public/`.
+
+## SEO & Link Building Rules
+
+### Internal Linking Rule (Maillage Interne)
+*   Chaque article de blog ou réalisation publié doit comporter **au moins 2 liens internes contextuels** :
+    1.  Un lien pointant vers la page service métier générique (ex: `/services/montage-video`).
+    2.  Un lien pointant vers la page locale service-ville correspondante (ex: `/services/montage-video/orleans`).
+*   Utiliser des ancres de lien sémantiques et descriptives (ex: "expert en montage vidéo à Orléans" au lieu de "cliquez ici").
+
+### Off-Page SEO & Netlinking Guidelines
+Pour développer le profil d'autorité (backlinks) de Splice (objectif : rattraper IOA/48 et Mstream/65 RD), l'équipe doit prioriser les actions suivantes :
+1.  **Annuaires Locaux** : Inscrire l'établissement dans les annuaires régionaux qualitatifs (Loiret 45 et Indre-et-Loire 37).
+2.  **Relations Presse régionales** : Proposer des dossiers/communiqués lors de projets phares (ex: couverture de grands événements à Orléans/Tours) aux rédactions locales (*La République du Centre*, *La Nouvelle République*).
+3.  **Backlinks Clients** : Demander systématiquement l'ajout d'un lien d'attribution "Réalisation : Splice Studio" sur les sites des clients réguliers ou institutionnels ayant commandé des vidéos.

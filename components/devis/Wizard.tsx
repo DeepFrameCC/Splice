@@ -211,7 +211,7 @@ export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue
           </span>
           <span className="flex items-center gap-1.5">
             <Clock className="h-4 w-4 text-df-glauque-300" />
-            Réponse sous 24h
+            Réponse sous 48h max
           </span>
           <span className="flex items-center gap-1.5">
             <CheckCircle className="h-4 w-4 text-df-glauque-300" />

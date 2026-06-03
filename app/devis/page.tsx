@@ -50,7 +50,7 @@ export default async function DevisPage() {
           </h1>
           <p className="mx-auto mt-3 max-w-lg text-white/70">
             3 étapes simples — récapitulatif en temps réel. Gratuit, sans engagement.
-            Nous revenons vers vous sous 24h.
+            Réponse et proposition commerciale personnalisée sous 48h maximum.
           </p>
         </header>
         <Wizard

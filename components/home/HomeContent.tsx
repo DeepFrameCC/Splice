@@ -6,7 +6,9 @@ import FrameRoomEntry from "@/components/home/v2/FrameRoomEntry";
 import SceneSelector from "@/components/home/v2/SceneSelector";
 import CrewStack from "@/components/home/v2/CrewStack";
 import FrameRoomStatement from "@/components/home/v2/FrameRoomStatement";
+import ProcessSection from "@/components/home/v2/ProcessSection";
 import TestimonialsSlider from "@/components/home/v2/TestimonialsSlider";
+import TrustSection from "@/components/home/v2/TrustSection";
 import DirectorsCutRibbon from "@/components/home/v2/DirectorsCutRibbon";
 import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
@@ -20,12 +22,14 @@ export default function HomeContent() {
         <div className="df-root">
           <Nav />
 
-          {/* ── V2 Frame Room — 7 sections ──────────────────────── */}
+          {/* ── V2 Frame Room — 9 sections ──────────────────────── */}
           <FrameRoomEntry />
           <SceneSelector />
           <CrewStack />
           <FrameRoomStatement />
+          <ProcessSection />
           <TestimonialsSlider />
+          <TrustSection />
           <DirectorsCutRibbon />
           <LastFrame />
 

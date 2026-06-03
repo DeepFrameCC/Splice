@@ -27,9 +27,9 @@ const CDN = "https://media.splicestudio.fr";
 
 const ribbonCells: RibbonCell[] = [
   { slug: "bistrot-orleans", poster: `${CDN}/thumb/thumb-bistrot-orleans.jpg`, tag: "Pub locale", label: "Pub locale — Bistrot Orléans", ratio: "9/16" },
-  { slug: "porsche-hexlight", poster: "/photos/porsche-hexlight.jpg", tag: "Shooting auto", label: "Shooting auto — Porsche Hexlight", ratio: "4/3" },
+  { slug: "porsche-hexlight", poster: "/photos/porsche-hexlight.webp", tag: "Shooting auto", label: "Shooting auto — Porsche Hexlight", ratio: "4/3" },
   { slug: "interview-cklean-auto", poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`, tag: "Interview", label: "Interview — CK Clean Auto", ratio: "4/3" },
-  { slug: "porsche-studio", poster: "/photos/porsche-studio-1.jpg", tag: "Shooting auto", label: "Shooting auto — Porsche Studio", ratio: "16/9" },
+  { slug: "porsche-studio", poster: "/photos/porsche-studio-1.webp", tag: "Shooting auto", label: "Shooting auto — Porsche Studio", ratio: "16/9" },
 ];
 
 const CELL_HEIGHT = 280;
@@ -101,7 +101,7 @@ export default function DirectorsCutRibbon() {
             >
               <Image
                 src={cell.poster}
-                alt=""
+                alt={cell.label}
                 width={width * 2}
                 height={CELL_HEIGHT * 2}
                 className="df-dcr-poster"

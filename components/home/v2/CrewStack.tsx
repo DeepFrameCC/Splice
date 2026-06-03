@@ -114,6 +114,9 @@ export default function CrewStack() {
         <div className="df-cs-anim">
           <span className="df-cs-eyebrow">Services</span>
           <h2 className="df-cs-h2" style={{ marginTop: "clamp(28px, 4vw, 48px)" }}>
+            <span className="sr-only">
+              Nos services de production vidéo &amp; photographie professionnelle à Orléans &amp; Tours.{" "}
+            </span>
             Ce qu&apos;on cadre, <em>vraiment bien</em>
             <span style={{ color: "#F36B1F" }}>.</span>
           </h2>
