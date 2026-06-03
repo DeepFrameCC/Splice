@@ -18,11 +18,6 @@ const PARTNERS: Partner[] = [
   { name: "Pixel 404", location: "Orléans" },
   { name: "CK Clean Auto", location: "Saran" },
   { name: "Bistrot Croix Morin", location: "Orléans" },
-  { name: "Métropole d'Orléans", location: "Loiret" },
-  { name: "Concession Verneuil", location: "Tours" },
-  { name: "Maison Lalou", location: "Sancerre" },
-  { name: "Atelier Joaillier", location: "Tours" },
-  { name: "Roastery #4", location: "Orléans" },
 ];
 
 export default function TrustSection() {
@@ -134,8 +129,8 @@ export default function TrustSection() {
         {/* Scrolling Partner Row */}
         <div className="df-trust-anim relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-[#0E0E22] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-[#0E0E22] after:to-transparent">
           <div className="df-trust-track flex w-max gap-8 py-4">
-            {/* Render partners list twice for seamless infinite scroll */}
-            {[...PARTNERS, ...PARTNERS].map((partner, index) => (
+            {/* Render partners list multiple times for seamless infinite scroll */}
+            {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div
                 key={index}
                 className="flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
