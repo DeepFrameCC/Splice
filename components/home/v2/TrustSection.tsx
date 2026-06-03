@@ -18,8 +18,8 @@ interface Partner {
 }
 
 const PARTNERS: Partner[] = [
-  { name: "Pixel 404", location: "Orléans", logo: "/images/pixel-logo.webp", logoWidth: 102, logoHeight: 20 },
-  { name: "CK Clean Auto", location: "Saran", logo: "/images/ckleanauto-orleans.svg", logoWidth: 100, logoHeight: 20 },
+  { name: "Pixel 404", location: "Orléans", logo: "/images/pixel-logo.webp", logoWidth: 180, logoHeight: 36 },
+  { name: "CK Clean Auto", location: "Saran", logo: "/images/ckleanauto-orleans.svg", logoWidth: 180, logoHeight: 36 },
   { name: "Bistrot Croix Morin", location: "Orléans" },
 ];
 
@@ -124,24 +124,24 @@ export default function TrustSection() {
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div
                 key={`t1-${index}`}
-                className="group flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
+                className="group flex items-center gap-4 rounded-2xl border border-white/[0.05] bg-white/[0.01] px-7 py-4.5 shadow-md transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
               >
                 {partner.logo ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <Image
                       src={partner.logo}
                       alt={partner.name}
                       width={partner.logoWidth}
                       height={partner.logoHeight}
-                      className="h-5 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                      className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
                     />
-                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/40">({partner.location})</span>
                   </div>
                 ) : (
                   <>
-                    <Award className="h-3.5 w-3.5 text-[#F36B1F]/70" />
-                    <span className="text-xs font-bold text-white/80">{partner.name}</span>
-                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                    <Award className="h-5 w-5 text-[#F36B1F]/70" />
+                    <span className="text-sm font-bold text-white/80">{partner.name}</span>
+                    <span className="text-xs text-white/40">({partner.location})</span>
                   </>
                 )}
               </div>
@@ -153,24 +153,24 @@ export default function TrustSection() {
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div
                 key={`t2-${index}`}
-                className="group flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
+                className="group flex items-center gap-4 rounded-2xl border border-white/[0.05] bg-white/[0.01] px-7 py-4.5 shadow-md transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
               >
                 {partner.logo ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <Image
                       src={partner.logo}
                       alt={partner.name}
                       width={partner.logoWidth}
                       height={partner.logoHeight}
-                      className="h-5 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                      className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
                     />
-                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/40">({partner.location})</span>
                   </div>
                 ) : (
                   <>
-                    <Award className="h-3.5 w-3.5 text-[#F36B1F]/70" />
-                    <span className="text-xs font-bold text-white/80">{partner.name}</span>
-                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                    <Award className="h-5 w-5 text-[#F36B1F]/70" />
+                    <span className="text-sm font-bold text-white/80">{partner.name}</span>
+                    <span className="text-xs text-white/40">({partner.location})</span>
                   </>
                 )}
               </div>
