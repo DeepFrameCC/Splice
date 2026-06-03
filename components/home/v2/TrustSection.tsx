@@ -53,18 +53,6 @@ export default function TrustSection() {
             },
           }
         );
-
-        // Infinite scroll animation for partner logos
-        const track = document.querySelector(".df-trust-track");
-        if (track) {
-          const width = track.scrollWidth / 2;
-          gsap.to(".df-trust-track", {
-            x: -width,
-            duration: 20,
-            ease: "none",
-            repeat: -1,
-          });
-        }
       }, sectionRef);
 
       return () => ctx.revert();
@@ -130,12 +118,41 @@ export default function TrustSection() {
         </div>
 
         {/* Scrolling Partner Row */}
-        <div className="df-trust-anim relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-[#0E0E22] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-[#0E0E22] after:to-transparent">
-          <div className="df-trust-track flex w-max gap-8 py-4">
-            {/* Render partners list multiple times for seamless infinite scroll */}
+        <div className="df-trust-anim relative flex w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-[#0E0E22] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-[#0E0E22] after:to-transparent">
+          {/* First track */}
+          <div className="animate-marquee flex gap-8 pr-8 py-4 shrink-0">
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div
-                key={index}
+                key={`t1-${index}`}
+                className="group flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
+              >
+                {partner.logo ? (
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={partner.logoWidth}
+                      height={partner.logoHeight}
+                      className="h-5 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                    />
+                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                  </div>
+                ) : (
+                  <>
+                    <Award className="h-3.5 w-3.5 text-[#F36B1F]/70" />
+                    <span className="text-xs font-bold text-white/80">{partner.name}</span>
+                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Second duplicate track for seamless looping */}
+          <div className="animate-marquee flex gap-8 pr-8 py-4 shrink-0" aria-hidden="true">
+            {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
+              <div
+                key={`t2-${index}`}
                 className="group flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
               >
                 {partner.logo ? (

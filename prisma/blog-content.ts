@@ -465,7 +465,7 @@ export const blogContent: Record<string, string> = {
 <p>Un devis vidéo se décompose presque toujours en trois grandes phases, chacune représentant une part du budget total :</p>
 <ul>
   <li><strong>La pré-production</strong> : brief, écriture, repérages, casting, planification. C'est la phase qui sécurise le résultat.</li>
-  <li><strong>Le tournage</strong> : c'est le poste le plus visible. Il dépend du nombre de jours, de la taille de l'équipe (cadreur seul ou équipe complète), du matériel (caméra, lumière, drone, son) et des lieux.</li>
+  <li><strong>Le tournage</strong> : c'est le poste le plus visible. Il dépend du nombre de jours, de la taille de l'équipe (cadreur seul ou équipe complète), du matériel (caméra, lumière, stabilisateurs, son) et des lieux.</li>
   <li><strong>La post-production</strong> : montage, étalonnage, mixage son, habillage graphique, sous-titres et déclinaisons par format. C'est souvent là que se joue la qualité perçue.</li>
 </ul>
 

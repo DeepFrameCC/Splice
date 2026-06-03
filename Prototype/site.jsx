@@ -189,7 +189,7 @@ function Services() {
     {
       n: "02", title: "Shooting automobile",
       body: "Photo & vidéo voiture, en studio mobile ou décor. Concessionnaires, importateurs, collectionneurs.",
-      tags: ["Photo", "Rolling shot", "Drone"],
+      tags: ["Photo", "Rolling shot", "Grand angle"],
     },
     {
       n: "03", title: "Films de marque",
@@ -309,7 +309,7 @@ function Pricing() {
     {
       name: "Devis personnalisé", price: "sur mesure",
       pitch: "Brand film, documentaire, campagne complète.",
-      feats: ["Écriture + scénario", "Équipe étendue", "6K · drone · steadicam", "Étalonnage cinéma", "Versions multi-formats"],
+      feats: ["Écriture + scénario", "Équipe étendue", "6K · steadicam · slider", "Étalonnage cinéma", "Versions multi-formats"],
       cta: "Parlons-en",
     },
   ];

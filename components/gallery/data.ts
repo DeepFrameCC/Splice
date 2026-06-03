@@ -281,7 +281,7 @@ export const PROJECTS: Project[] = [
     feat: true,
     medias: [
       { id: "fest1", type: "video", url: "", thumbnailUrl: null, g: 4, tc: "00:03:08:00", duration: "3:08", caption: "Aftermovie 3'08" },
-      { id: "fest2", type: "photo", url: "", thumbnailUrl: null, g: 5, caption: "Mainstage — drone" },
+      { id: "fest2", type: "photo", url: "", thumbnailUrl: null, g: 5, caption: "Mainstage — plan large" },
       { id: "fest3", type: "photo", url: "", thumbnailUrl: null, g: 4, caption: "Foule — lumière" },
       { id: "fest4", type: "photo", url: "", thumbnailUrl: null, g: 2, caption: "Backstage" },
     ],

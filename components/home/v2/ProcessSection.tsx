@@ -33,10 +33,10 @@ const STEPS: Step[] = [
     id: "step-2",
     num: "02",
     title: "Tournage Agile",
-    desc: "Déploiement de matériel cinéma de pointe (Sony FX3/FX6 4K, captation drone homologuée, lumières LED Aputure) avec une équipe resserrée et réactive.",
+    desc: "Déploiement de matériel cinéma de pointe (Sony ZV1/FX6 4K, lumières LED Aputure) avec une équipe resserrée et réactive.",
     metric: "Production Premium",
     icon: Camera,
-    details: ["Caméras Cinéma 4K", "Drone homologué DGAC", "Directeurs artistiques sur place"],
+    details: ["Caméras Cinéma 4K", "Optiques & Éclairages pros", "Directeurs artistiques sur place"],
   },
   {
     id: "step-3",

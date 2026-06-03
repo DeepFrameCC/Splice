@@ -98,7 +98,7 @@ const montageVideo: ServiceContent = {
     {
       question: "Puis-je vous envoyer mes propres fichiers ?",
       answer:
-        "Oui. Transmettez-nous vos fichiers bruts (caméra, smartphone, <a href=\"/services/drone-prise-de-vue-aerienne\" class=\"text-df-gold hover:underline\">drone</a>) via notre espace de transfert en ligne haut débit sécurisé.",
+        "Oui. Transmettez-nous vos fichiers bruts (caméra, smartphone, GoPro, etc.) via notre espace de transfert en ligne haut débit sécurisé.",
     }
   ],
   serviceType: "VideoEditingService",
@@ -210,7 +210,7 @@ const productionCorporate: ServiceContent = {
     { label: "Brief créatif et script validé" },
   ],
   equipment: [
-    { name: "Sony FX3 / FX6", detail: "Camera cinema full-frame" },
+    { name: "Sony ZV1 / FX6", detail: "Caméra cinéma & vlog 4K" },
     { name: "Blackmagic Pocket 6K", detail: "Camera cinema compacte" },
     { name: "Sigma Art 24-70mm f/2.8 + 85mm f/1.4", detail: "Optiques professionnelles" },
     { name: "DJI Ronin RS3 Pro", detail: "Stabilisateur gimbale" },
@@ -646,7 +646,7 @@ const interviewTemoignage: ServiceContent = {
     { label: "Habillage graphique", detail: "Titrages, lower thirds" },
   ],
   equipment: [
-    { name: "Setup 2-3 caméras Sony FX3", detail: "Multi-angle cinéma" },
+    { name: "Setup 2-3 caméras Sony ZV1", detail: "Multi-angle vlog & interview" },
     { name: "Aputure 300X + LS 600D", detail: "Éclairage interview doux" },
     { name: "Prompteur", detail: "Confort pour les intervenants" },
     { name: "DPA 4060", detail: "Micro-cravate broadcast" },
@@ -760,9 +760,9 @@ const presentationEntreprise: ServiceContent = {
         "Nous construisons un récit captivant adapté à vos objectifs commerciaux et à votre charte d'entreprise.",
     },
     {
-      h3: "Tournage soigné & plans drone",
+      h3: "Tournage cinématique soigné",
       content:
-        "Prises de vue terrestres cinématiques 4K complétées par des survols aériens spectaculaires de vos infrastructures.",
+        "Prises de vue terrestres cinématiques 4K mettant en valeur vos équipes et vos infrastructures de façon professionnelle.",
     },
     {
       h3: "Habillage de marque sur mesure",
@@ -779,7 +779,7 @@ const presentationEntreprise: ServiceContent = {
     {
       question: "Quel budget faut-il prévoir pour un film complet ?",
       answer:
-        "Le <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage</a> d'un film de présentation débute à 29 €. Pour une production complète incluant le tournage terrestre et par <a href=\"/services/drone-prise-de-vue-aerienne\" class=\"text-df-gold hover:underline\">drone</a>, estimez votre budget sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">générateur de devis</a> ou sur notre page <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
+        "Le <a href=\"/services/montage-video\" class=\"text-df-gold hover:underline\">montage</a> d'un film de présentation débute à 29 €. Pour une production complète incluant le tournage dans vos locaux, estimez votre budget sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">générateur de devis</a> ou sur notre page <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a>.",
     },
     {
       question: "Pouvons-nous décliner le film principal ?",
@@ -808,7 +808,6 @@ const presentationEntreprise: ServiceContent = {
   equipment: [
     { name: "Sony FX6", detail: "Caméra cinéma full frame" },
     { name: "DJI RS3 Pro", detail: "Stabilisateur professionnel" },
-    { name: "Drone DJI (option)", detail: "Plans aériens d’ouverture" },
     { name: "Aputure kit complet", detail: "300X, LS 600D, panneaux LED" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,

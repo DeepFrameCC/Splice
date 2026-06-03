@@ -28,7 +28,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Quel matériel de tournage utilisez-vous pour les vidéos à Tours ?",
     answer:
-      "Nous filmons avec du matériel cinéma professionnel de pointe : caméras Sony FX3/FX6 4K, objectifs de qualité supérieure (Sigma Art), éclairages LED Aputure et prises de son haut de gamme (micros HF Sennheiser/DPA). Nous assurons également des prises de vue aériennes par drone homologué DGAC.",
+      "Nous filmons avec du matériel cinéma professionnel de pointe : caméras Sony ZV1/FX6 4K, objectifs de qualité supérieure (Sigma Art), éclairages LED Aputure et prises de son haut de gamme (micros HF Sennheiser/DPA).",
   },
   {
     question: "Quel est le délai de livraison pour un film d'entreprise à Tours ?",
@@ -197,10 +197,10 @@ export default function ProductionVideoToursPage() {
                 <span className="text-xs font-mono uppercase tracking-wider text-df-gold">Chiffres clés &amp; Matériel</span>
                 <ul className="mt-4 space-y-3 text-sm text-white/70">
                   <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-df-gold" /> Caméras de cinéma professionnelles Sony FX3/FX6 4K
+                    <Check className="h-4 w-4 text-df-gold" /> Caméras de cinéma professionnelles Sony ZV1/FX6 4K
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-df-gold" /> Prises de vue aériennes par drone homologué DGAC
+                    <Check className="h-4 w-4 text-df-gold" /> Optiques de qualité supérieure &amp; Éclairages LED professionnels
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-df-gold" /> Garantie de réponse &amp; proposition sous 48h maximum

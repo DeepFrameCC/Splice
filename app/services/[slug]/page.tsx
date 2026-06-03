@@ -78,7 +78,7 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
     { name: "Audition CC" },
   ],
   "production-corporate": [
-    { name: "Sony FX3 / FX6" },
+    { name: "Sony ZV1 / FX6" },
     { name: "Blackmagic Pocket 6K" },
     { name: "Optiques Sigma Art", detail: "24-70mm, 85mm" },
     { name: "Ronin RS3 Pro" },
@@ -109,7 +109,7 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
     { name: "Calibration X-Rite" },
   ],
   "interview-temoignage": [
-    { name: "Setup 2-3 caméras", detail: "Sony FX3" },
+    { name: "Setup 2-3 caméras", detail: "Sony ZV1" },
     { name: "Éclairage Aputure" },
     { name: "Prompteur" },
     { name: "Micro-cravate DPA 4060" },
@@ -123,7 +123,6 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
   "presentation-entreprise": [
     { name: "Sony FX6" },
     { name: "Ronin RS3 Pro" },
-    { name: "Drone", detail: "Option" },
     { name: "Éclairage Aputure complet" },
   ],
 };
