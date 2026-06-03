@@ -47,17 +47,16 @@ const CLEAN_REPLACEMENT = `getQueryCompilerWasmModule: async () => { const wasm 
 function patchFile(filePath, label) {
   let code = fs.readFileSync(filePath, "utf8");
 
-  // Pattern A: original Prisma WASM loader block
-  const regexA = /getQueryCompilerWasmModule\s*:\s*async\s*\(\)\s*=>\s*\{[\s\S]*?new\s*WebAssembly\.Module\(\s*queryCompilerWasmFileBytes\s*\)\s*\}/g;
+  // Pattern A: original Prisma WASM loader block (captures complete try/catch)
+  const regexA = /getQueryCompilerWasmModule\s*:\s*async\s*\(\)\s*=>\s*\{[\s\S]*?new\s*WebAssembly\.Module\([\s\S]*?throw\s+e\s*;?\s*\}\s*\}/g;
 
-  // Pattern B: broken patch — async () => { ... return wasm; }catch(e){...}}
-  // Matches the function body up to and including the stray }catch block
-  const regexB = /getQueryCompilerWasmModule\s*:\s*async\s*\(\)\s*=>\s*\{[\s\S]*?return\s+wasm(?:\.default\s*\|\|\s*wasm)?\s*;\s*\}catch\(e\)\{[\s\S]*?throw\s+e\}\}/g;
+  // Pattern B: broken patch — captures stray catch block after function body
+  const regexB = /getQueryCompilerWasmModule\s*:\s*async\s*\(\)\s*=>\s*\{[\s\S]*?\}catch\s*\(e\)\s*\{[\s\S]*?throw\s+e\s*;?\s*\}\s*\}/g;
 
   // Pattern C: clean patch already applied
   const alreadyClean = `getQueryCompilerWasmModule: async () => { const wasm = require('./query_compiler_bg.wasm'); return wasm.default || wasm; }`;
 
-  if (code.includes(alreadyClean)) {
+  if (code.includes(alreadyClean) && !regexB.test(code)) {
     console.log(`[patch-opennext-wasm] ${label} already cleanly patched. Skipping.`);
     return;
   }
