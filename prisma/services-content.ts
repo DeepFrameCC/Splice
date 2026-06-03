@@ -578,6 +578,96 @@ const photographieProfessionnelle: ServiceContent = {
 };
 
 // ---------------------------------------------------------------------------
+// 6b. Photographie Google Business Profile
+// ---------------------------------------------------------------------------
+
+const photographieGoogleBusiness: ServiceContent = {
+  slug: "photographie-google-business",
+  name: "Photographie Google Business Profile",
+  shortName: "Photo Google Business",
+  metaTitle: "Photographe Google Business Profile Orléans Tours | Splice",
+  metaDescription:
+    "Optimisez votre fiche Google Business Profile à Orléans et Tours. Photos professionnelles d'établissement, portraits d'équipe et packshots locaux certifiés SEO.",
+  h1: "Photographe Google Business Profile & Référencement Local",
+  introParagraph:
+    "Nous réalisons des shootings photo professionnels optimisés pour votre Fiche Établissement Google afin de booster votre visibilité dans le Pack Local et d'attirer plus de clients.",
+  problemQuestion:
+    "Pourquoi les photos de votre fiche Google Business Profile sont-elles cruciales ?",
+  problemAnswer:
+    "Une fiche Google contenant des photos professionnelles récentes génère 35% de clics en plus vers votre site web et 42% de demandes d'itinéraires en plus. C'est le premier point de contact avec vos clients locaux.",
+  features: [
+    {
+      h3: "Shooting extérieur & vitrine",
+      content:
+        "Mise en valeur de votre façade et de votre enseigne pour faciliter la localisation de votre commerce et inciter à la visite physique.",
+    },
+    {
+      h3: "Intérieurs & ambiance chaleureuse",
+      content:
+        "Prises de vue de vos espaces de vente, bureaux ou ateliers sous leur meilleur jour avec un éclairage soigné pour rassurer vos visiteurs.",
+    },
+    {
+      h3: "Portraits de l'équipe en action",
+      content:
+        "Photos de vos collaborateurs accueillants et professionnels pour humaniser votre fiche établissement et instaurer une relation de confiance.",
+    },
+    {
+      h3: "Formatage et métadonnées SEO",
+      content:
+        "Optimisation des dimensions, du poids et de la qualité des fichiers selon les recommandations strictes de Google pour un affichage optimal et un meilleur référencement local."
+    }
+  ],
+  faq: [
+    {
+      question: "Quel est l'impact réel des photos sur le référencement local ?",
+      answer:
+        "Google favorise les fiches actives qui publient régulièrement des images de qualité. Les photos professionnelles augmentent le taux de clic (CTR), un signal fort utilisé par l'algorithme pour classer votre commerce dans les premiers résultats de recherche locale.",
+    },
+    {
+      question: "Combien coûte un shooting photo Google Business Profile ?",
+      answer:
+        "Nos tarifs pour un shooting de fiche établissement débutent à 190 € pour un forfait de base comprenant 15 photos optimisées. Vous pouvez consulter notre page de <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a> ou faire une simulation sur notre <a href=\"/devis\" class=\"text-df-gold hover:underline\">simulateur de devis</a>.",
+    },
+    {
+      question: "Combien de temps dure la séance photo sur place ?",
+      answer:
+        "Prévoyez généralement entre 1h et 2h d'intervention dans vos locaux. Nous intervenons en dehors de vos heures d'affluence pour ne pas perturber vos clients.",
+    },
+    {
+      question: "Gérez-vous la publication des photos sur ma fiche ?",
+      answer:
+        "Nous vous livrons les fichiers au format idéal prêts à être téléversés. En option, nous pouvons nous charger de l'intégration et de l'optimisation directement sur votre compte Google Business Profile.",
+    }
+  ],
+  serviceType: "PhotographyService",
+  priceRange: "$$",
+  coverImageUrl: "/images/services/photo.png",
+  coverImageAlt:
+    "Optimisation de fiche Google Business Profile avec photos professionnelles d'établissement — Splice Studio",
+  videoUrl: null,
+  category: "photo",
+  sortOrder: 7,
+  iconName: "camera",
+  teamMembers: ["TY", "LOUISIA"],
+  deliverables: [
+    { label: "Photos d'établissement HD", detail: "Extérieur, intérieur, équipe" },
+    { label: "Optimisation de format", detail: "Fichiers compressés spécial Google Web" },
+    { label: "Intégration Google Map (option)", detail: "Publication et géolocalisation" },
+    { label: "Droits d'utilisation commerciaux", detail: "Inclus sans limite de durée" },
+  ],
+  equipment: [
+    { name: "Sony A7R V", detail: "Capteur 61 MP pour des détails parfaits" },
+    { name: "Objectif grand angle 16-35mm f/2.8", detail: "Idéal pour valoriser l'espace intérieur" },
+    { name: "Trépied et têtes panoramiques", detail: "Alignements verticaux rigoureux" },
+    { name: "Éclairage d'appoint LED portable", detail: "Débouchage des ombres" },
+  ],
+  zoneText: ZONE_ORLEANS_TOURS,
+  relatedSlugs: ["photographie-professionnelle", "production-corporate", "presentation-entreprise"],
+  isPublished: true,
+};
+
+
+// ---------------------------------------------------------------------------
 // 7. Interview et témoignage d'entreprise
 // ---------------------------------------------------------------------------
 
@@ -636,7 +726,7 @@ const interviewTemoignage: ServiceContent = {
     "Tournage interview vidéo en entreprise — setup multi-caméra Splice",
   videoUrl: null,
   category: "video",
-  sortOrder: 7,
+  sortOrder: 8,
   iconName: "user",
   teamMembers: ["TY", "LOUISIA"],
   deliverables: [
@@ -715,7 +805,7 @@ const voixOffSoundDesign: ServiceContent = {
     "Studio d’enregistrement voix-off et sound design — Splice Orléans",
   videoUrl: null,
   category: "audio",
-  sortOrder: 8,
+  sortOrder: 9,
   iconName: "mic",
   teamMembers: ["TY", "LOUISIA"],
   deliverables: [
@@ -794,7 +884,7 @@ const presentationEntreprise: ServiceContent = {
     "Tournage film de présentation d’entreprise — équipe Splice en action",
   videoUrl: null,
   category: "video",
-  sortOrder: 9,
+  sortOrder: 10,
   iconName: "building",
   teamMembers: ["TY", "LOUISIA"],
   deliverables: [
@@ -874,7 +964,7 @@ const clipMusical: ServiceContent = {
     "Tournage clip musical en extérieur — réalisation cinéma Splice",
   videoUrl: null,
   category: "video",
-  sortOrder: 10,
+  sortOrder: 11,
   iconName: "music",
   teamMembers: ["TY", "LOUISIA"],
   deliverables: [
@@ -949,7 +1039,7 @@ const dronePriseDeVue: ServiceContent = {
     "Prise de vue aérienne par drone au-dessus de la Loire — Splice Orléans",
   videoUrl: null,
   category: "video",
-  sortOrder: 11,
+  sortOrder: 12,
   iconName: "plane",
   teamMembers: ["TY", "LOUISIA"],
   deliverables: [
@@ -976,6 +1066,7 @@ export const SERVICES_CONTENT: ServiceContent[] = [
   pubReseauxSociaux,
   shootingAutomobile,
   photographieProfessionnelle,
+  photographieGoogleBusiness,
   interviewTemoignage,
   voixOffSoundDesign,
   presentationEntreprise,

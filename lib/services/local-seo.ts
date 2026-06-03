@@ -22,6 +22,7 @@ export type LocalServiceSlug =
   | "motion-design"
   | "pub-reseaux-sociaux"
   | "photographie-professionnelle"
+  | "photographie-google-business"
   | "interview-temoignage";
 
 export interface LocalServiceTemplate {
@@ -80,6 +81,7 @@ export const SERVICES_LOCAL_SLUGS: LocalServiceSlug[] = [
   "motion-design",
   "pub-reseaux-sociaux",
   "photographie-professionnelle",
+  "photographie-google-business",
   "interview-temoignage",
 ];
 
@@ -165,6 +167,22 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       ],
       deliveryTime: "7 à 14 jours",
       priceRange: "À partir de 350 €",
+    },
+
+    "photographie-google-business": {
+      serviceName: "Photographie Google Business Profile",
+      shortName: "Photo Google Business",
+      h1Template: "Photographe Google Business Profile à {ville}",
+      introTemplate:
+        "Valorisez votre établissement à {ville} et boostez votre référencement local. Splice réalise des reportages photo professionnels optimisés pour votre fiche Google Business Profile dans tout le département du {department}.",
+      points: [
+        "Shooting intérieur, extérieur et photos d'équipe à {ville}",
+        "Photos optimisées pour le Pack Local et les critères de l'algorithme Google",
+        "Retouches de qualité professionnelle et formats de fichiers web optimisés",
+        "Intervention rapide sur site avec livraison sous 7 à 14 jours",
+      ],
+      deliveryTime: "7 à 14 jours",
+      priceRange: "À partir de 190 €",
     },
 
     "interview-temoignage": {
@@ -362,6 +380,41 @@ export const LOCAL_PAGE_CONTENT: Record<
           question: "Photographiez-vous les produits et les lieux, pas seulement les personnes ?",
           answer:
             "Oui. Nous réalisons portraits, reportages métier, packshots produits et photographie de lieux (immobilier, domaines, établissements) selon vos besoins.",
+        },
+      ],
+    },
+  },
+
+  "photographie-google-business": {
+    orleans: {
+      localContext:
+        "À Orléans, la visibilité locale est capitale pour les commerces du centre-ville (rues commerçantes autour de la place du Martroi, rue de la République), les restaurants des quais de Loire, mais aussi les artisans, professions libérales et agences implantés à Saran, Olivet ou Fleury-les-Aubrais. Une fiche Google Business Profile bien optimisée avec des photos professionnelles de votre établissement est le moyen le plus efficace de capter des clients dans le Loiret (45). Splice réalise des prises de vue de votre commerce ou de vos bureaux sous leur meilleur jour : façade valorisée, espaces intérieurs accueillants, et portraits de vos équipes en action. Nous cadrons chaque image pour susciter la confiance des clients orléanais dès leur recherche sur Google Maps. De plus, nos fichiers sont livrés avec les bonnes dimensions et un poids optimisé pour le web, respectant les prérequis de l'algorithme local de Google pour favoriser votre classement dans le Pack Local. Que vous gériez une boutique de créateurs, un cabinet médical, un restaurant ou une agence de services, nous intervenons dans vos locaux à Orléans et dans sa périphérie pour créer une galerie de photos d'établissement de haute qualité qui convertit les internautes en visiteurs physiques.",
+      localFaq: [
+        {
+          question: "Comment trouver un photographe Google Business Profile autour de moi à Orléans ?",
+          answer:
+            "Splice se déplace dans votre établissement partout à Orléans et dans la métropole pour réaliser la séance photo. Nous livrons des photos conformes aux standards de Google. Contactez-nous pour planifier votre shooting.",
+        },
+        {
+          question: "Quel est l'impact de photos professionnelles sur le Pack Local à Orléans ?",
+          answer:
+            "Les fiches Google Business Profile disposant de visuels professionnels récents enregistrent un taux de clic et des demandes d'itinéraires bien plus élevés. Ces signaux d'engagement positifs incitent l'algorithme de Google à mieux classer votre établissement à Orléans.",
+        },
+      ],
+    },
+    tours: {
+      localContext:
+        "À Tours, l'attractivité touristique et la richesse de la vie commerciale autour du Vieux Tours (place Plumereau, rue Colbert) et de l'avenue de la Tranchée rendent la concurrence locale particulièrement rude. Les commerçants, hôteliers, restaurateurs et prestataires de services d'Indre-et-Loire (37) ont besoin d'une fiche Google Business Profile impeccable pour capter les flux de visiteurs locaux et touristiques. Splice propose un service de photographie d'établissement sur mesure à Tours pour valoriser votre pas-de-porte, vos chais, vos salles de restaurant ou vos bureaux. Nous capturons l'atmosphère de votre lieu avec des angles soignés et un éclairage adapté, tout en tirant des portraits authentiques de vos collaborateurs pour humaniser votre entreprise. Chaque image est calibrée et compressée selon les prérequis techniques de Google, évitant les refus de publication et améliorant le temps de chargement sur mobile. Une fiche riche en visuels de qualité supérieure rassure immédiatement les internautes tourangeaux et favorise l'obtention d'itinéraires et d'appels directs.",
+      localFaq: [
+        {
+          question: "Comment trouver un photographe Google Business Profile autour de moi à Tours ?",
+          answer:
+            "Splice intervient directement sur site à Tours, Joué-lès-Tours, Saint-Cyr-sur-Loire et dans toute la Touraine pour photographier votre commerce. Pour obtenir un devis ou fixer un rendez-vous, utilisez notre formulaire de contact.",
+        },
+        {
+          question: "Les photos aident-elles à attirer les touristes à Tours ?",
+          answer:
+            "Absolument. Les touristes de passage à Tours utilisent massivement Google Maps pour trouver des restaurants, hôtels ou boutiques de spécialités locales. Des visuels professionnels de votre établissement et de vos produits font toute la différence face à vos concurrents.",
         },
       ],
     },

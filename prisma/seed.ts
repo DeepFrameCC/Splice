@@ -155,6 +155,7 @@ async function main() {
     { slug: "pub-reseaux-sociaux", name: "Publicité réseaux sociaux", color: "#F36B1F" },
     { slug: "shooting-automobile", name: "Shooting automobile", color: "#F36B1F" },
     { slug: "photographie-professionnelle", name: "Photographie professionnelle", color: "#F36B1F" },
+    { slug: "photographie-google-business", name: "Photo Google Business", color: "#F36B1F" },
     { slug: "interview-temoignage", name: "Interview & témoignage", color: "#F36B1F" },
     { slug: "voix-off-sound-design", name: "Voix-off & sound design", color: "#F36B1F" },
     { slug: "presentation-entreprise", name: "Film d'entreprise", color: "#F36B1F" },

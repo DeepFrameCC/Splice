@@ -108,6 +108,12 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
     { name: "Godox AD400 Pro" },
     { name: "Calibration X-Rite" },
   ],
+  "photographie-google-business": [
+    { name: "Sony A7R V" },
+    { name: "Objectif grand angle 16-35mm f/2.8" },
+    { name: "Trépied et rotules de précision" },
+    { name: "Éclairage LED mobile" },
+  ],
   "interview-temoignage": [
     { name: "Setup 2-3 caméras", detail: "Sony ZV1" },
     { name: "Éclairage Aputure" },
@@ -134,6 +140,7 @@ const DELIVERY_BY_SERVICE: Record<string, { delay: string; priceFrom: string; ex
   "pub-reseaux-sociaux": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Pack) ou 45 €/mois", express: "Option express 48h" },
   "shooting-automobile": { delay: "7 à 14 jours", priceFrom: "Dès 15 € (Photos) ou 29 € (Vidéo)", express: "Option express 48h" },
   "photographie-professionnelle": { delay: "7 à 14 jours", priceFrom: "Dès 15 € (5 photos)", express: "Option express 48h" },
+  "photographie-google-business": { delay: "7 à 14 jours", priceFrom: "Dès 190 € (15 photos)", express: "Option express 48h" },
   "interview-temoignage": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },
   "voix-off-sound-design": { delay: "7 à 14 jours", priceFrom: "Dès 12 € (Option) ou 29 € (Pack)", express: "Option express 48h" },
   "presentation-entreprise": { delay: "7 à 14 jours", priceFrom: "Dès 29 € (Montage) ou Devis", express: "Sur demande" },

@@ -51,6 +51,7 @@ const nextConfig = {
       "motion-design",
       "pub-reseaux-sociaux",
       "photographie-professionnelle",
+      "photographie-google-business",
       "interview-temoignage",
     ];
     const removedVilles = ["loiret", "centre-val-de-loire"];
