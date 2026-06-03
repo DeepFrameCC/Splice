@@ -1,6 +1,6 @@
 "use client";
-
 import React, { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,11 +12,14 @@ gsap.registerPlugin(ScrollTrigger);
 interface Partner {
   name: string;
   location: string;
+  logo?: string;
+  logoWidth?: number;
+  logoHeight?: number;
 }
 
 const PARTNERS: Partner[] = [
-  { name: "Pixel 404", location: "Orléans" },
-  { name: "CK Clean Auto", location: "Saran" },
+  { name: "Pixel 404", location: "Orléans", logo: "/images/pixel-logo.webp", logoWidth: 102, logoHeight: 20 },
+  { name: "CK Clean Auto", location: "Saran", logo: "/images/ckleanauto-orleans.svg", logoWidth: 100, logoHeight: 20 },
   { name: "Bistrot Croix Morin", location: "Orléans" },
 ];
 
@@ -85,9 +88,9 @@ export default function TrustSection() {
               <Video className="h-6 w-6" />
             </div>
             <div>
-              <span className="block font-display text-3xl font-bold text-white">+50</span>
-              <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Vidéos réalisées</span>
-              <span className="block mt-1 text-xs text-white/40">Partout en Région Centre-Val de Loire.</span>
+              <span className="block font-display text-3xl font-bold text-white">47</span>
+              <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Photos &amp; Vidéos</span>
+              <span className="block mt-1 text-xs text-white/40">Présentes dans notre galerie de réalisations.</span>
             </div>
           </div>
 
@@ -133,11 +136,26 @@ export default function TrustSection() {
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
+                className="group flex items-center gap-2.5 rounded-xl border border-white/[0.05] bg-white/[0.01] px-5 py-3 shadow-sm transition hover:border-[#F36B1F]/20 hover:bg-white/[0.03]"
               >
-                <Award className="h-3.5 w-3.5 text-[#F36B1F]/70" />
-                <span className="text-xs font-bold text-white/80">{partner.name}</span>
-                <span className="text-[10px] text-white/40">({partner.location})</span>
+                {partner.logo ? (
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={partner.logoWidth}
+                      height={partner.logoHeight}
+                      className="h-5 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                    />
+                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                  </div>
+                ) : (
+                  <>
+                    <Award className="h-3.5 w-3.5 text-[#F36B1F]/70" />
+                    <span className="text-xs font-bold text-white/80">{partner.name}</span>
+                    <span className="text-[10px] text-white/40">({partner.location})</span>
+                  </>
+                )}
               </div>
             ))}
           </div>
