@@ -77,5 +77,18 @@ export const scenes: Scene[] = [
     captions: "/captions/fetes-johanniques-orleans.vtt",
     format: "4K · 24fps",
   },
+  {
+    slug: "portrait-fleuri",
+    tag: "Photographie",
+    title: "Portrait Fleuri",
+    credit: "by.louisia",
+    tc: "00:00",
+    ratio: "4/3",
+    src: "",
+    poster: `${CDN}/photos/${encodeURIComponent("fille avec fleur.jpg")}`,
+    captions: "",
+    format: "HR · Photo",
+    type: "photo",
+  },
 ];
 

@@ -42,6 +42,13 @@ const SERVICES: ServiceCard[] = [
     href: "/services/aftermovie-evenementiel",
     mediaSlug: "fetes-johanniques-orleans",
   },
+  {
+    id: "04",
+    name: "Photographie",
+    desc: "Portraits d'équipe, reportages métier, packshots produits & fiches Google.",
+    href: "/services/photographie-professionnelle",
+    mediaSlug: "portrait-fleuri",
+  },
 ];
 
 const sceneBySlug = Object.fromEntries(scenes.map((s) => [s.slug, s]));
@@ -121,7 +128,7 @@ export default function CrewStack() {
             <span style={{ color: "#F36B1F" }}>.</span>
           </h2>
           <p className="df-cs-intro">
-            On vous accompagne de la première idée à la livraison. Trois services,
+            On vous accompagne de la première idée à la livraison. Quatre services,
             une même exigence : des images qui vous ressemblent.
           </p>
         </div>
