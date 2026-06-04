@@ -14,8 +14,10 @@ type MemberRoute = (typeof MEMBER_VALUES)[number];
 const contactSchema = z.object({
   nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
   email: z.string().email("Adresse email invalide"),
+  tel: z.string().min(6, "Numéro de téléphone invalide").max(30),
   type: z.string().min(1, "Le type de projet est requis"),
   budget: z.string().min(1, "Le budget envisagé est requis"),
+  delai: z.string().min(1, "Le délai souhaité est requis"),
   brief: z.string().min(10, "Le brief doit contenir au moins 10 caractères"),
   member: z.enum(MEMBER_VALUES).optional(),
 });
@@ -57,7 +59,7 @@ export async function submitContact(
     return { success: false, error: firstError };
   }
 
-  const { nom, email, type, budget, brief, member } = parsed.data;
+  const { nom, email, tel, type, budget, delai, brief, member } = parsed.data;
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://splicestudio.fr";
   const baseRecipients = resolveRecipients(member);
   const recipients = Array.from(new Set([...baseRecipients, "contact.splicestudio@gmail.com"]));
@@ -81,12 +83,20 @@ export async function submitContact(
               <td style="padding:8px 12px"><a href="mailto:${escapeHtml(email)}" style="color:#F36B1F">${escapeHtml(email)}</a></td>
             </tr>
             <tr>
+              <td style="padding:8px 12px;font-weight:bold;color:#F36B1F;vertical-align:top">Téléphone</td>
+              <td style="padding:8px 12px"><a href="tel:${escapeHtml(tel)}" style="color:#F36B1F">${escapeHtml(tel)}</a></td>
+            </tr>
+            <tr style="background:#f8f8fc">
               <td style="padding:8px 12px;font-weight:bold;color:#F36B1F;vertical-align:top">Type de projet</td>
               <td style="padding:8px 12px">${escapeHtml(type)}</td>
             </tr>
             <tr style="background:#f8f8fc">
               <td style="padding:8px 12px;font-weight:bold;color:#F36B1F;vertical-align:top">Budget</td>
               <td style="padding:8px 12px">${escapeHtml(budget)}</td>
+            </tr>
+            <tr style="background:#f8f8fc">
+              <td style="padding:8px 12px;font-weight:bold;color:#F36B1F;vertical-align:top">Délai souhaité</td>
+              <td style="padding:8px 12px">${escapeHtml(delai)}</td>
             </tr>
             <tr>
               <td style="padding:8px 12px;font-weight:bold;color:#F36B1F;vertical-align:top">Brief</td>
