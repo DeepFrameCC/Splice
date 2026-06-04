@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { exportMyData, requestAccountDeletion } from "@/app/actions/rgpd";
-import { Download, Trash2, ShieldCheck, AlertTriangle } from "lucide-react";
+import { exportMyData, deleteMyAccount } from "@/app/actions/rgpd";
+import { Download, Trash2, AlertTriangle, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export default function RGPDSection() {
   const [isPending, startTransition] = useTransition();
-  const [deleteStep, setDeleteStep] = useState<"idle" | "confirm" | "done">("idle");
+  const [deleteStep, setDeleteStep] = useState<"idle" | "confirm">("idle");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [leaving, setLeaving] = useState(false);
 
   function handleExport() {
     setError(null);
@@ -34,20 +35,23 @@ export default function RGPDSection() {
     });
   }
 
-  function handleDeleteRequest() {
+  function handleDelete() {
     if (!password) {
       setError("Entrez votre mot de passe pour confirmer.");
       return;
     }
     setError(null);
     startTransition(async () => {
-      const result = await requestAccountDeletion(password);
+      const result = await deleteMyAccount(password);
       if (!result.success) {
-        setError(result.error ?? "Erreur lors de la demande");
+        setError(result.error ?? "Erreur lors de la suppression");
         return;
       }
-      setDeleteStep("done");
-      setPassword("");
+      // Account is gone and the session is invalidated server-side. Keep the
+      // overlay up and hard-navigate so we never re-render the (now forbidden)
+      // dashboard.
+      setLeaving(true);
+      window.location.assign("/?compte_supprime=1");
     });
   }
 
@@ -109,7 +113,10 @@ export default function RGPDSection() {
               <div className="flex items-start gap-2 rounded-lg bg-red-500/15 p-3">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
                 <p className="text-xs font-bold text-red-400">
-                  Cette action est irréversible. Votre compte sera anonymisé dans un délai de 30 jours.
+                  Cette action est irréversible. Votre compte et vos données
+                  personnelles sont supprimés immédiatement et vous êtes
+                  déconnecté. Les factures sont conservées 10 ans (obligation
+                  légale comptable).
                 </p>
               </div>
               <div>
@@ -128,11 +135,18 @@ export default function RGPDSection() {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={handleDeleteRequest}
-                  disabled={isPending}
-                  className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-700 disabled:opacity-50"
+                  onClick={handleDelete}
+                  disabled={isPending || leaving}
+                  className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {isPending ? "..." : "Confirmer la suppression"}
+                  {isPending || leaving ? (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      Suppression…
+                    </>
+                  ) : (
+                    "Confirmer la suppression"
+                  )}
                 </button>
                 <button
                   type="button"
@@ -141,21 +155,12 @@ export default function RGPDSection() {
                     setPassword("");
                     setError(null);
                   }}
-                  className="rounded-full px-4 py-2 text-xs font-bold text-white/40 transition hover:bg-white/5"
+                  disabled={isPending || leaving}
+                  className="rounded-full px-4 py-2 text-xs font-bold text-white/40 transition hover:bg-white/5 disabled:opacity-50"
                 >
                   Annuler
                 </button>
               </div>
-            </div>
-          )}
-
-          {deleteStep === "done" && (
-            <div className="mt-3 flex items-center gap-2 rounded-lg bg-emerald-500/10 p-3">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              <p className="text-xs font-bold text-emerald-400">
-                Demande enregistrée. Votre compte sera traité dans un délai de 30 jours.
-                Vous recevrez une confirmation par email.
-              </p>
             </div>
           )}
         </div>
@@ -164,6 +169,20 @@ export default function RGPDSection() {
       {/* Feedback messages */}
       {error && <p className="text-sm font-bold text-red-600">{error}</p>}
       {success && <p className="text-sm font-bold text-emerald-400">{success}</p>}
+
+      {/* Full-screen overlay during account deletion + logout */}
+      {leaving && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-4 bg-[#0E0E22] text-white"
+        >
+          <Loader2 className="h-6 w-6 animate-spin text-[#F36B1F]" />
+          <p className="text-sm font-medium tracking-wide text-white/80">
+            Suppression du compte et déconnexion…
+          </p>
+        </div>
+      )}
     </div>
   );
 }

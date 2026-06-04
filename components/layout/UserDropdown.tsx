@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { User, Shield, FileText, Settings, LogOut } from "lucide-react";
-import { logoutAction } from "@/app/actions/auth";
+import { User, Shield, FileText, Settings } from "lucide-react";
+import { LogoutButton } from "@/components/dashboard/LogoutButton";
 
 interface UserDropdownProps {
   name: string;
@@ -97,15 +97,7 @@ export default function UserDropdown({ name, role }: UserDropdownProps) {
           </div>
 
           <div className="border-t border-white/[0.06] pt-1">
-            <form action={logoutAction}>
-              <button
-                type="submit"
-                className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
-              >
-                <LogOut className="h-4 w-4" />
-                Déconnexion
-              </button>
-            </form>
+            <LogoutButton variant="menu" />
           </div>
         </div>
       )}

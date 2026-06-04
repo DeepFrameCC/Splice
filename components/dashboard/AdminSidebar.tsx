@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "@/app/actions/auth";
+import { LogoutButton } from "@/components/dashboard/LogoutButton";
 import {
   LayoutDashboard,
   FileText,
@@ -16,7 +16,6 @@ import {
   BookOpen,
   UserCog,
   Settings,
-  LogOut,
   ChevronRight,
   Newspaper,
   Clapperboard,
@@ -127,15 +126,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
           <p className="truncate text-sm font-bold text-white">{userName}</p>
           <p className="text-[11px] font-medium text-df-gold">{userRole}</p>
         </div>
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            aria-label="Se deconnecter"
-            className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
-        </form>
+        <LogoutButton variant="icon" />
       </div>
     </aside>
   );

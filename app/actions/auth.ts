@@ -199,10 +199,15 @@ export async function loginAction(_prev: unknown, formData: FormData) {
   }
 }
 
-export async function logoutAction() {
+export async function logoutAction(): Promise<void> {
+  // Fire-and-forget audit; never blocks logout.
   await audit({ action: "LOGOUT" });
 
   // Primary: invalidate the JWT session through NextAuth itself.
+  // `redirect: false` is deliberate — the client performs a hard navigation
+  // once this resolves. That avoids re-rendering the current protected route
+  // (which would call auth() → null → redirect chain, the source of the error
+  // flash) and lets us show a controlled loading overlay instead.
   try {
     await signOut({ redirect: false });
   } catch (err) {
@@ -211,23 +216,27 @@ export async function logoutAction() {
 
   // Fallback safety net: purge any residual Auth.js cookies. `secure` is set
   // conditionally so the deletion also matches cookies issued over HTTP locally.
-  const cookieStore = await cookies();
-  const isProd = process.env.NODE_ENV === "production";
-  for (const cookie of cookieStore.getAll()) {
-    if (cookie.name.includes("authjs") || cookie.name.includes("next-auth")) {
-      cookieStore.set(cookie.name, "", {
-        path: "/",
-        maxAge: 0,
-        expires: new Date(0),
-        secure: isProd,
-        httpOnly: true,
-        sameSite: "lax",
-      });
+  try {
+    const cookieStore = await cookies();
+    const isProd = process.env.NODE_ENV === "production";
+    for (const cookie of cookieStore.getAll()) {
+      if (cookie.name.includes("authjs") || cookie.name.includes("next-auth")) {
+        cookieStore.set(cookie.name, "", {
+          path: "/",
+          maxAge: 0,
+          expires: new Date(0),
+          secure: isProd,
+          httpOnly: true,
+          sameSite: "lax",
+        });
+      }
     }
+  } catch (err) {
+    console.error("[auth] cookie purge failed", err);
   }
 
-  // Keep redirect outside any try/catch so NEXT_REDIRECT propagates.
-  redirect("/");
+  // No redirect() here: the caller (LogoutButton) hard-navigates to "/" after
+  // this resolves, guaranteeing a clean, unauthenticated render with no flash.
 }
 
 export async function forgotPasswordAction(_prev: unknown, formData: FormData) {

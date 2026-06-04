@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "@/app/actions/auth";
+import { LogoutButton } from "@/components/dashboard/LogoutButton";
 import {
   User,
   FileText,
@@ -12,7 +12,6 @@ import {
   Bell,
   Settings,
   Shield,
-  LogOut,
   ChevronRight,
   Repeat,
 } from "lucide-react";
@@ -123,15 +122,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
           <p className="text-[11px] font-medium text-df-gold">Client</p>
         </div>
         {notificationBell}
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            aria-label="Se déconnecter"
-            className="rounded-xl p-2 text-white/40 transition hover:bg-white/10 hover:text-white"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
-        </form>
+        <LogoutButton variant="icon" />
       </div>
     </aside>
   );

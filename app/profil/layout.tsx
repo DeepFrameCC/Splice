@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { requireActiveUser } from "@/lib/auth-guard";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -10,8 +10,8 @@ import Footer from "@/components/layout/Footer";
 import { LogoutButton } from "@/components/dashboard/LogoutButton";
 
 export default async function ProfilLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
-  if (!session?.user?.id) redirect("/login");
+  const session = await requireActiveUser();
+  if (!session.user?.id) redirect("/login");
   const user = session.user;
 
   const isAdmin = user.role === "ADMIN";

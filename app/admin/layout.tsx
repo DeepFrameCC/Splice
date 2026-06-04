@@ -1,4 +1,4 @@
-﻿import { auth } from "@/lib/auth";
+﻿import { requireActiveUser } from "@/lib/auth-guard";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import Link from "next/link";
@@ -8,8 +8,8 @@ import NotificationBell from "@/components/dashboard/NotificationBell";
 import CommandSearch from "@/components/dashboard/CommandSearch";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
-  if (session?.user?.role !== "ADMIN") redirect("/profil");
+  const session = await requireActiveUser();
+  if (session.user?.role !== "ADMIN") redirect("/profil");
   const user = session.user;
 
   const [devisCount, facturesCount, contratsCount, utilisateursCount, mediasCount, avisEnAttenteCount, articlesCount, servicesCount, unreadCount, recentNotifs] = await Promise.all([
