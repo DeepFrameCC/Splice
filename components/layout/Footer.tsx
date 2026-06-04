@@ -36,6 +36,7 @@ export default function Footer() {
             <li><Link href="/galerie" className="hover:text-df-gold transition-colors">Galerie</Link></li>
             <li><Link href="/blog" className="hover:text-df-gold transition-colors">Blog</Link></li>
             <li><Link href="/equipe" className="hover:text-df-gold transition-colors">Équipe</Link></li>
+            <li><Link href="/partenaires" className="hover:text-df-gold transition-colors">Partenaires</Link></li>
             <li><Link href="/faq" className="hover:text-df-gold transition-colors">FAQ</Link></li>
           </ul>
         </div>

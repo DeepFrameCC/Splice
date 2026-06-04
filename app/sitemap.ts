@@ -12,6 +12,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/avis`,                   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/contact`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.5 },
     { url: `${base}/tarifs`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/partenaires`,           lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/partenaires/pixel-404`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/agence-communication-orleans`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/photographe-evenementiel`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/production-video-orleans`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
