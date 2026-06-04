@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { ClipboardList, Camera, Film, BarChart3, Check } from "lucide-react";
+import { ClipboardList, Camera, Film, Send, Check } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,38 +23,38 @@ const STEPS: Step[] = [
   {
     id: "step-1",
     num: "01",
-    title: "Cadrage Stratégique",
-    desc: "Définition des indicateurs de performance (KPIs) de la vidéo (notoriété, conversion, recrutement) et rédaction d'un script détaillé.",
-    metric: "Cadrage & Planification",
+    title: "Brief & découverte",
+    desc: "On échange ensemble pour comprendre votre projet, vos objectifs et votre cible, puis on définit le cadre précis de la prestation.",
+    metric: "Cadrage du projet",
     icon: ClipboardList,
-    details: ["Script complet rédigé", "Storyboard & Moodboard", "Cibles & objectifs de conversion"],
+    details: ["Échange sur vos objectifs", "Définition de votre cible", "Cadre de la prestation validé"],
   },
   {
     id: "step-2",
     num: "02",
-    title: "Tournage Agile",
-    desc: "Déploiement de matériel cinéma de pointe (Sony ZV1/FX6 4K, lumières LED Aputure) avec une équipe resserrée et réactive.",
-    metric: "Production Premium",
+    title: "Tournage & capture",
+    desc: "On se déplace sur site ou on travaille à distance selon la prestation. On filme, photographie ou enregistre avec notre matériel.",
+    metric: "Sur site ou à distance",
     icon: Camera,
-    details: ["Caméras Cinéma 4K", "Optiques & Éclairages pros", "Directeurs artistiques sur place"],
+    details: ["Déplacement ou travail à distance", "Vidéo, photo ou audio", "Captation avec notre matériel"],
   },
   {
     id: "step-3",
     num: "03",
-    title: "Post-Production",
-    desc: "Montage dynamique, étalonnage couleur professionnel, sound design immersif et habillage graphique sur mesure (motion design).",
-    metric: "2 allers-retours inclus",
+    title: "Montage & post-production",
+    desc: "Montage vidéo sur DaVinci Resolve, étalonnage colorimétrique et sound design. Motion graphics sur After Effects si le projet le demande.",
+    metric: "DaVinci Resolve & After Effects",
     icon: Film,
-    details: ["Montage rythmé multi-format", "Étalonnage & Sound design", "Habillage motion design"],
+    details: ["Montage & étalonnage DaVinci Resolve", "Sound design soigné", "Motion graphics After Effects"],
   },
   {
     id: "step-4",
     num: "04",
-    title: "Impact & Repurposing",
-    desc: "Conseils stratégiques pour la diffusion, recyclage de formats (vidéos sources déclinées en Reels/TikToks) et analyse de performance.",
-    metric: "Recyclage multi-réseau",
-    icon: BarChart3,
-    details: ["Formats 9:16 verticaux inclus", "Adaptation réseaux sociaux", "Analyse de complétion"],
+    title: "Livraison & retours",
+    desc: "Export aux formats de chaque plateforme (YouTube, Instagram, TikTok, LinkedIn), retours via notre plateforme sécurisée et fichiers SRT inclus.",
+    metric: "Multi-plateformes, SRT inclus",
+    icon: Send,
+    details: ["Export YouTube, Instagram, TikTok, LinkedIn", "Retours sur plateforme sécurisée", "Fichiers de sous-titres SRT inclus"],
   },
 ];
 
@@ -128,7 +128,7 @@ export default function ProcessSection() {
             Notre processus en 4 étapes<span className="text-[#F36B1F]">.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
-            Nous combinons la vision stratégique d&apos;une agence et l&apos;agilité d&apos;un studio créatif pour assurer l&apos;impact de vos campagnes, de la conception à la diffusion.
+            De la première prise de contact à la livraison finale, voici comment on travaille sur chaque projet vidéo ou photo, sans jargon ni mauvaise surprise.
           </p>
         </div>
 
