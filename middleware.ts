@@ -71,17 +71,17 @@ export default auth((req) => {
     pathname.startsWith("/avis");
 
   const scriptSrc = isStaticRoute
-    ? `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`
-    : `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`;
+    ? `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://www.googletagmanager.com https://*.sentry.io`
+    : `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://www.googletagmanager.com https://*.sentry.io`;
 
   const csp = [
     `default-src 'self'`,
     scriptSrc,
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     `font-src 'self' https://fonts.gstatic.com`,
-    `img-src 'self' data: blob: https://*.r2.dev https://cdn.splicestudio.fr https://media.splicestudio.fr`,
+    `img-src 'self' data: blob: https://*.r2.dev https://cdn.splicestudio.fr https://media.splicestudio.fr https://www.google-analytics.com`,
     `media-src 'self' https://media.splicestudio.fr`,
-    `connect-src 'self' https://api.resend.com https://api.stripe.com https://challenges.cloudflare.com https://plausible.io https://*.sentry.io`,
+    `connect-src 'self' https://api.resend.com https://api.stripe.com https://challenges.cloudflare.com https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.sentry.io`,
     `frame-src https://js.stripe.com https://hooks.stripe.com https://challenges.cloudflare.com`,
     `worker-src blob:`,
     `object-src 'none'`,
