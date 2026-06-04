@@ -229,7 +229,7 @@ export default function AgenceCommunicationOrleansPage() {
                 La force d&apos;un studio,<br />la souplesse de freelances
               </h2>
               <p className="mt-6 text-sm leading-relaxed text-white/70">
-                Splice réunit Louisia (directrice artistique &amp; photographe) et TY (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
+                Splice réunit Louisia (directrice artistique &amp; photographe) et Tracy (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">
@@ -237,7 +237,7 @@ export default function AgenceCommunicationOrleansPage() {
                   <span className="text-xs text-df-gold">Photo &amp; DA</span>
                 </div>
                 <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">
-                  <span className="block text-lg font-bold text-white">T.Y</span>
+                  <span className="block text-lg font-bold text-white">Tracy</span>
                   <span className="text-xs text-df-gold">Vidéo &amp; Motion</span>
                 </div>
               </div>

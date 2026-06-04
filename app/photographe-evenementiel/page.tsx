@@ -33,7 +33,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Intervenez-vous le soir et le week-end ?",
     answer:
-      "Oui, nous intervenons en soirée et le week-end sous réserve de notre disponibilité et de celle de notre matériel d'éclairage. La majorité des événements se déroulant à ces moments, nous adaptons notre planning et nos projecteurs pour garantir un rendu professionnel optimal quelle que soit l'heure.",
+      "Oui, nous intervenons en soirée et le week-end sous réserve de notre disponibilité. La majorité des événements se déroulant à ces moments, nous adaptons notre planning et travaillons avec des boîtiers hybrides à l'aise en basse lumière pour garantir un rendu professionnel quelle que soit l'heure.",
   },
   {
     question: "Quel est le tarif d'une couverture événementielle ?",
@@ -147,7 +147,7 @@ export default function PhotographeEvenementielPage() {
                 Duo Photo &amp; Vidéo
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-white/60">
-                Pas besoin de mobiliser deux prestataires différents. Louisia pilote la photographie haute définition pendant que TY réalise les captations vidéo et le montage de l&apos;aftermovie.
+                Pas besoin de mobiliser deux prestataires différents. Louisia pilote la photographie haute définition pendant que Tracy réalise les captations vidéo et le montage de l&apos;aftermovie.
               </p>
             </div>
 

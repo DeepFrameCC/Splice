@@ -86,8 +86,8 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Quel matériel de tournage vidéo utilisez-vous à Orléans ?",
-        a: "Nous travaillons avec du matériel cinéma professionnel : caméras Sony ZV1/FX6 4K, objectifs Sigma Art, stabilisateurs Ronin RS3 Pro, éclairages Aputure LED et micros cravates DPA broadcast.",
-        rich: <>Nous travaillons avec du matériel cinéma professionnel : caméras Sony ZV1/FX6 4K, objectifs Sigma Art, stabilisateurs Ronin RS3 Pro, éclairages Aputure LED et micros cravates DPA broadcast. Voyez le résultat dans <L href="/galerie">notre galerie</L>.</>,
+        a: "Nous tournons avec un setup léger et efficace : Sony ZV-1 et iPhone 14 en 4K, micro sans fil DJI pour le son, puis montage et étalonnage sur DaVinci Resolve Studio.",
+        rich: <>Nous tournons avec un setup léger et efficace : Sony ZV-1 et iPhone 14 en 4K, micro sans fil DJI pour le son, puis montage et étalonnage sur DaVinci Resolve Studio. Voyez le résultat dans <L href="/galerie">notre galerie</L>.</>,
       },
       {
         q: "Puis-je assister au tournage de ma vidéo d'entreprise ?",

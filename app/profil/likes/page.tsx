@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { FOUNDER_LABEL } from "@/lib/pricing";
+import { FOUNDER_HANDLE } from "@/lib/pricing";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,7 +43,7 @@ export default async function MesLikes() {
               )}
               <div className="p-3">
                 <div className="flex items-center justify-between">
-                  <p className="font-display uppercase tracking-wider text-df-gold text-sm">{FOUNDER_LABEL[m.owner]}</p>
+                  <p className="font-display uppercase tracking-wider text-df-gold text-sm">{FOUNDER_HANDLE[m.owner]}</p>
                   <Heart className="h-4 w-4 fill-df-gold text-df-gold" />
                 </div>
                 <p className="text-xs font-bold text-white truncate group-hover:text-df-gold transition-colors">{m.title}</p>

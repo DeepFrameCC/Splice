@@ -113,7 +113,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
         "Splice accompagne les entreprises de {ville} et du {department} dans la création de films corporate sur mesure. Présentation d'entreprise, vidéo institutionnelle ou film de marque : chaque projet est pensé pour refléter votre identité et convaincre vos audiences.",
       points: [
         "Pré-production complète : scénario, repérage, casting et planning de tournage",
-        "Tournage en qualité cinéma avec matériel professionnel (4K, éclairage, son HF)",
+        "Tournage en qualité cinéma avec un setup léger (Sony ZV-1 4K, micro sans fil DJI)",
         "Post-production soignée : montage narratif, étalonnage, mixage audio",
         "Versions adaptées pour votre site web, vos réseaux sociaux et vos événements",
       ],
@@ -160,7 +160,7 @@ export const LOCAL_SERVICE_DATA: Record<LocalServiceSlug, LocalServiceTemplate> 
       introTemplate:
         "Splice propose des prestations de photographie professionnelle à {ville} et dans le {department}. Portraits corporate, shooting produit, couverture événementielle ou reportage : nous capturons l'image juste pour valoriser votre activité.",
       points: [
-        "Shooting en studio ou en extérieur, matériel professionnel (flash, réflecteurs)",
+        "Shooting en studio ou en extérieur, boîtier hybride 4K et lumière naturelle",
         "Retouche avancée et livraison en haute définition pour print et web",
         "Direction artistique adaptée à votre univers de marque",
         "Galerie privée en ligne pour sélectionner et télécharger vos photos",
@@ -248,7 +248,7 @@ export const LOCAL_PAGE_CONTENT: Record<
   "production-corporate": {
     orleans: {
       localContext:
-        "Orléans concentre un tissu de PME et d'ETI industrielles, de laboratoires de la Cosmetic Valley et de sièges de services qui ont tout intérêt à valoriser leur savoir-faire en vidéo. Splice produit des films corporate sur site, dans vos locaux ou vos ateliers des zones d'activité de Saran, Ingré, Fleury-les-Aubrais ou de la technopole d'Orléans La Source. Notre approche est intégrale : nous écrivons le message clé avec vous, repérons les lieux de tournage, filmons en qualité cinéma (4K, éclairage, son HF) puis assurons la post-production. L'objectif d'un film d'entreprise à Orléans est rarement la notoriété grand public : il s'agit le plus souvent de convaincre des clients B2B, de recruter, ou de présenter une expertise technique. Nous structurons donc le récit autour de la preuve et de l'humain. Chaque film est décliné pour votre site, vos rendez-vous commerciaux et vos réseaux. Nos clients à Orléans sont surtout des PME locales et des entreprises en quête de visibilité, ainsi que des mairies du Loiret pour leurs films institutionnels et la couverture d'événements de la ville.",
+        "Orléans concentre un tissu de PME et d'ETI industrielles, de laboratoires de la Cosmetic Valley et de sièges de services qui ont tout intérêt à valoriser leur savoir-faire en vidéo. Splice produit des films corporate sur site, dans vos locaux ou vos ateliers des zones d'activité de Saran, Ingré, Fleury-les-Aubrais ou de la technopole d'Orléans La Source. Notre approche est intégrale : nous écrivons le message clé avec vous, repérons les lieux de tournage, filmons en qualité cinéma (Sony ZV-1 4K, micro sans fil DJI) puis assurons la post-production. L'objectif d'un film d'entreprise à Orléans est rarement la notoriété grand public : il s'agit le plus souvent de convaincre des clients B2B, de recruter, ou de présenter une expertise technique. Nous structurons donc le récit autour de la preuve et de l'humain. Chaque film est décliné pour votre site, vos rendez-vous commerciaux et vos réseaux. Nos clients à Orléans sont surtout des PME locales et des entreprises en quête de visibilité, ainsi que des mairies du Loiret pour leurs films institutionnels et la couverture d'événements de la ville.",
       localFaq: [
         {
           question: "Comment trouver un vidéaste corporate autour de moi à Orléans ?",
@@ -264,7 +264,7 @@ export const LOCAL_PAGE_CONTENT: Record<
     },
     tours: {
       localContext:
-        "À Tours, la production audiovisuelle corporate s'adresse à un écosystème marqué par le tourisme, la viticulture du Val de Loire, la gastronomie et un pôle universitaire actif. Un film de marque tourangeau valorise souvent un territoire et un terroir autant qu'une entreprise : domaines viticoles, maisons gastronomiques, acteurs du patrimoine UNESCO. Splice se déplace dans vos locaux, vos chais ou vos sites de production en Indre-et-Loire pour tourner en qualité cinéma. Nous prenons en charge l'ensemble de la chaîne — scénario, repérage, tournage 4K avec éclairage et son professionnel, puis montage narratif, étalonnage et mixage. À la différence d'un film purement industriel, le brand content tourangeau mise volontiers sur l'esthétique des lieux et l'émotion. Chaque production est livrée en plusieurs versions : film institutionnel pour le site, capsules pour les réseaux, formats pour vos événements et salons professionnels. À Tours, nous accompagnons des PME, des entreprises tournées vers leur communication sur les réseaux et des collectivités qui souhaitent valoriser leur territoire en vidéo.",
+        "À Tours, la production audiovisuelle corporate s'adresse à un écosystème marqué par le tourisme, la viticulture du Val de Loire, la gastronomie et un pôle universitaire actif. Un film de marque tourangeau valorise souvent un territoire et un terroir autant qu'une entreprise : domaines viticoles, maisons gastronomiques, acteurs du patrimoine UNESCO. Splice se déplace dans vos locaux, vos chais ou vos sites de production en Indre-et-Loire pour tourner en qualité cinéma. Nous prenons en charge l'ensemble de la chaîne : scénario, repérage, tournage 4K avec micro sans fil DJI, puis montage narratif, étalonnage et mixage. À la différence d'un film purement industriel, le brand content tourangeau mise volontiers sur l'esthétique des lieux et l'émotion. Chaque production est livrée en plusieurs versions : film institutionnel pour le site, capsules pour les réseaux, formats pour vos événements et salons professionnels. À Tours, nous accompagnons des PME, des entreprises tournées vers leur communication sur les réseaux et des collectivités qui souhaitent valoriser leur territoire en vidéo.",
       localFaq: [
         {
           question: "Comment trouver un vidéaste corporate autour de moi à Tours ?",
@@ -274,7 +274,7 @@ export const LOCAL_PAGE_CONTENT: Record<
         {
           question: "Pouvez-vous tourner dans un domaine viticole ou un lieu patrimonial ?",
           answer:
-            "Oui. Nous adaptons notre éclairage et notre matériel aux contraintes des lieux (chais, caves, monuments) pour en révéler l'atmosphère tout en restant discrets sur site.",
+            "Oui. Nous adaptons notre matériel léger aux contraintes des lieux (chais, caves, monuments) pour en révéler l'atmosphère tout en restant discrets sur site.",
         },
       ],
     },

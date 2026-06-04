@@ -118,7 +118,7 @@ export default function AddMediaForm({ groups = [] }: AddMediaFormProps) {
             className="mt-1 w-full rounded-xl border-2 border-white/10 px-3 py-2 text-sm outline-none focus:border-df-blue"
           >
             <option value="LOUISIA">Louisia</option>
-            <option value="TY">Ty</option>
+            <option value="TY">Tracy</option>
           </select>
         </label>
 

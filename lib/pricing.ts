@@ -250,7 +250,21 @@ export const VILLE_DEPART_LABEL: Record<VilleDepart, string> = {
   ORLEANS: "Orléans",
 };
 
+/**
+ * Display names — used wherever a person is named to a client: devis/facture
+ * "chef de projet", the service "Contacts dédiés" block, admin. Real first
+ * names, never initials.
+ */
 export const FOUNDER_LABEL: Record<Founder, string> = {
+  LOUISIA: "Louisia",
+  TY: "Tracy",
+};
+
+/**
+ * Social handles — used only for gallery / photo credits, never as a contact
+ * name on a business document.
+ */
+export const FOUNDER_HANDLE: Record<Founder, string> = {
   LOUISIA: "@by.louisia",
   TY: "@t.y97one",
 };

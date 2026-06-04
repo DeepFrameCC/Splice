@@ -28,7 +28,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Quel matériel de tournage utilisez-vous pour les vidéos à Tours ?",
     answer:
-      "Nous filmons avec du matériel cinéma professionnel de pointe : caméras Sony ZV1/FX6 4K, objectifs de qualité supérieure (Sigma Art), éclairages LED Aputure et prises de son haut de gamme (micros HF Sennheiser/DPA).",
+      "Nous filmons avec un setup léger et efficace : Sony ZV-1 et iPhone 14 en 4K, micro sans fil DJI pour le son, puis montage et étalonnage sur DaVinci Resolve Studio.",
   },
   {
     question: "Quel est le délai de livraison pour un film d'entreprise à Tours ?",
@@ -188,7 +188,7 @@ export default function ProductionVideoToursPage() {
                 La réactivité d&apos;un vidéaste local
               </h2>
               <p className="mt-6 text-sm leading-relaxed text-white/70">
-                Basés en Centre-Val de Loire, nous nous déplaçons directement dans vos locaux à <strong>Tours, Joué-lès-Tours, Saint-Avertin, Chambray-lès-Tours</strong> et partout en Indre-et-Loire pour filmer vos équipes et vos réalisations. Pas d&apos;intermédiaires : vous échangez en direct avec Louisia et TY pour une cohérence parfaite et des délais respectés.
+                Basés en Centre-Val de Loire, nous nous déplaçons directement dans vos locaux à <strong>Tours, Joué-lès-Tours, Saint-Avertin, Chambray-lès-Tours</strong> et partout en Indre-et-Loire pour filmer vos équipes et vos réalisations. Pas d&apos;intermédiaires : vous échangez en direct avec Louisia et Tracy pour une cohérence parfaite et des délais respectés.
               </p>
             </div>
             
@@ -197,10 +197,10 @@ export default function ProductionVideoToursPage() {
                 <span className="text-xs font-mono uppercase tracking-wider text-df-gold">Chiffres clés &amp; Matériel</span>
                 <ul className="mt-4 space-y-3 text-sm text-white/70">
                   <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-df-gold" /> Caméras de cinéma professionnelles Sony ZV1/FX6 4K
+                    <Check className="h-4 w-4 text-df-gold" /> Captation 4K : Sony ZV-1 &amp; iPhone 14
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-df-gold" /> Optiques de qualité supérieure &amp; Éclairages LED professionnels
+                    <Check className="h-4 w-4 text-df-gold" /> Son sans fil DJI &amp; montage DaVinci Resolve Studio
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-df-gold" /> Garantie de réponse &amp; proposition sous 48h maximum

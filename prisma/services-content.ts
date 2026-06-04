@@ -155,9 +155,9 @@ const productionCorporate: ServiceContent = {
         "Nous concevons ensemble le message clé, rédigeons le script et créons un moodboard visuel complet avant d'allumer la caméra.",
     },
     {
-      h3: "Tournage cinéma dans vos locaux",
+      h3: "Tournage dans vos locaux",
       content:
-        "Notre équipe se déplace avec un équipement cinéma 4K (Sony FX, Blackmagic) et des éclairages doux pour sublimer vos espaces et collaborateurs.",
+        "Notre équipe se déplace léger avec la Sony ZV-1 en 4K et un micro sans fil DJI pour capter proprement vos espaces et vos collaborateurs, en lumière naturelle.",
     },
     {
       h3: "Post-production et habillage",
@@ -184,7 +184,7 @@ const productionCorporate: ServiceContent = {
     {
       question: "Pouvez-vous tourner directement dans nos bureaux ?",
       answer:
-        "Oui. Nous adaptons notre éclairage et notre matériel pour transformer vos bureaux ou ateliers en un plateau de tournage de qualité.",
+        "Oui. Nous adaptons notre matériel léger et la lumière disponible pour transformer vos bureaux ou ateliers en un plateau de tournage soigné.",
     },
     {
       question: "Filmez-vous aussi nos événements d'entreprise ?",
@@ -210,11 +210,11 @@ const productionCorporate: ServiceContent = {
     { label: "Brief créatif et script validé" },
   ],
   equipment: [
-    { name: "Sony ZV1 / FX6", detail: "Caméra cinéma & vlog 4K" },
-    { name: "Blackmagic Pocket 6K", detail: "Camera cinema compacte" },
-    { name: "Sigma Art 24-70mm f/2.8 + 85mm f/1.4", detail: "Optiques professionnelles" },
-    { name: "DJI Ronin RS3 Pro", detail: "Stabilisateur gimbale" },
-    { name: "Aputure 300X + LS 600D", detail: "Eclairage LED cinema" },
+    { name: "Sony ZV-1", detail: "Caméra hybride compacte 4K" },
+    { name: "iPhone 14", detail: "Captation complémentaire et B-roll" },
+    { name: "Micro DJI", detail: "Captation audio sans fil" },
+    { name: "DaVinci Resolve Studio", detail: "Montage et étalonnage" },
+    { name: "After Effects", detail: "Habillage et motion design" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["interview-temoignage", "presentation-entreprise", "montage-video"],
@@ -292,9 +292,9 @@ const motionDesign: ServiceContent = {
   ],
   equipment: [
     { name: "After Effects", detail: "Animation, compositing, expressions" },
-    { name: "Cinema 4D", detail: "3D modélisation et rendu" },
-    { name: "Illustrator", detail: "Création d’assets vectoriels" },
-    { name: "Lottie", detail: "Export animations légères pour le web" },
+    { name: "Adobe Premiere Pro CC", detail: "Montage et exports multi-formats" },
+    { name: "DaVinci Resolve Studio", detail: "Étalonnage et finition" },
+    { name: "Adobe Audition CC", detail: "Sound design et nettoyage audio" },
   ],
   zoneText: ZONE_REMOTE,
   relatedSlugs: ["montage-video", "pub-reseaux-sociaux", "presentation-entreprise"],
@@ -381,10 +381,10 @@ const pubReseauxSociaux: ServiceContent = {
     { label: "Exports optimisés par plateforme" },
   ],
   equipment: [
-    { name: "Sony ZV-E1", detail: "Captation vidéo compacte full frame" },
-    { name: "iPhone Pro", detail: "Contenus authentiques et spontanés" },
-    { name: "DJI OM6", detail: "Stabilisateur smartphone" },
-    { name: "Premiere Pro", detail: "Montage et export multi-formats" },
+    { name: "Sony ZV-1", detail: "Captation vidéo compacte 4K" },
+    { name: "iPhone 14", detail: "Contenus verticaux authentiques et spontanés" },
+    { name: "Micro DJI", detail: "Son sans fil propre en tournage" },
+    { name: "Adobe Premiere Pro CC", detail: "Montage et export multi-formats" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["montage-video", "photographie-professionnelle", "production-corporate"],
@@ -423,7 +423,7 @@ const shootingAutomobile: ServiceContent = {
     {
       h3: "Shooting moto",
       content:
-        "Captation dynamique ou posée de votre moto, avec un éclairage qui souligne le réservoir, le moteur et les chromes pour un visuel percutant.",
+        "Captation dynamique ou posée de votre moto, avec un cadrage et une lumière qui soulignent le réservoir, le moteur et les chromes pour un visuel percutant.",
     },
     {
       h3: "Rolling shots et prises dynamiques",
@@ -462,7 +462,7 @@ const shootingAutomobile: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/photo.png",
   coverImageAlt:
-    "Shooting photo automobile Porsche en studio — éclairage créatif Splice",
+    "Shooting photo automobile Porsche en studio — Splice",
   videoUrl: null,
   category: "photo",
   sortOrder: 5,
@@ -476,11 +476,9 @@ const shootingAutomobile: ServiceContent = {
     { label: "Exports web + print", detail: "JPEG, TIFF, PNG" },
   ],
   equipment: [
-    { name: "Sony A7R V", detail: "61 MP, autofocus IA" },
-    { name: "Sigma Art 35mm f/1.4", detail: "Optique prime grand angle" },
-    { name: "Sigma Art 90mm Macro", detail: "Détails et textures" },
-    { name: "Hexlight LED", detail: "Éclairage studio hexagonal" },
-    { name: "DJI RS3", detail: "Véhicule suiveur stabilisé" },
+    { name: "Sony ZV-1", detail: "Photo et vidéo automobile 4K" },
+    { name: "iPhone 14", detail: "Prises dynamiques et formats sociaux" },
+    { name: "DaVinci Resolve Studio", detail: "Étalonnage des teintes de carrosserie" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["photographie-professionnelle", "pub-reseaux-sociaux", "production-corporate"],
@@ -566,11 +564,8 @@ const photographieProfessionnelle: ServiceContent = {
     { label: "Détourage produits", detail: "Pour packshots e-commerce" },
   ],
   equipment: [
-    { name: "Sony A7R V", detail: "61 MP, autofocus IA" },
-    { name: "Sigma Art 24-70mm f/2.8", detail: "Polyvalence studio et reportage" },
-    { name: "Sigma Art 85mm f/1.4", detail: "Portrait et bokeh" },
-    { name: "Godox AD400 Pro", detail: "Flash studio portable" },
-    { name: "X-Rite ColorChecker", detail: "Calibration couleur fidèle" },
+    { name: "Sony ZV-1", detail: "Boîtier hybride pour portraits et produits" },
+    { name: "iPhone 14", detail: "Prises de vue complémentaires" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["shooting-automobile", "pub-reseaux-sociaux", "production-corporate"],
@@ -604,7 +599,7 @@ const photographieGoogleBusiness: ServiceContent = {
     {
       h3: "Intérieurs & ambiance chaleureuse",
       content:
-        "Prises de vue de vos espaces de vente, bureaux ou ateliers sous leur meilleur jour avec un éclairage soigné pour rassurer vos visiteurs.",
+        "Prises de vue de vos espaces de vente, bureaux ou ateliers sous leur meilleur jour, en lumière naturelle soignée, pour rassurer vos visiteurs.",
     },
     {
       h3: "Portraits de l'équipe en action",
@@ -656,10 +651,8 @@ const photographieGoogleBusiness: ServiceContent = {
     { label: "Droits d'utilisation commerciaux", detail: "Inclus sans limite de durée" },
   ],
   equipment: [
-    { name: "Sony A7R V", detail: "Capteur 61 MP pour des détails parfaits" },
-    { name: "Objectif grand angle 16-35mm f/2.8", detail: "Idéal pour valoriser l'espace intérieur" },
-    { name: "Trépied et têtes panoramiques", detail: "Alignements verticaux rigoureux" },
-    { name: "Éclairage d'appoint LED portable", detail: "Débouchage des ombres" },
+    { name: "Sony ZV-1", detail: "Photos d'établissement nettes en 4K" },
+    { name: "iPhone 14", detail: "Vues d'ambiance et formats web" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["photographie-professionnelle", "production-corporate", "presentation-entreprise"],
@@ -697,16 +690,16 @@ const interviewTemoignage: ServiceContent = {
         "Filmez vos collaborateurs pour exprimer les valeurs de votre entreprise et dynamiser vos recrutements (RH).",
     },
     {
-      h3: "Technique haut de gamme & prompteur",
+      h3: "Captation multi-angle soignée",
       content:
-        "Setup multi-caméras 4K, micros cravates professionnels et prompteur de lecture pour mettre vos collaborateurs en confiance.",
+        "Captation avec la Sony ZV-1 et un complément iPhone 14, micro sans fil DJI pour un son clair, afin de mettre vos collaborateurs en confiance.",
     }
   ],
   faq: [
     {
       question: "Comment rassurez-vous les personnes devant la caméra ?",
       answer:
-        "Nous échangeons de façon conviviale avant d'enregistrer et pouvons utiliser un prompteur pour sécuriser la prise de parole.",
+        "Nous échangeons de façon conviviale avant d'enregistrer et préparons les questions ensemble pour sécuriser la prise de parole.",
     },
     {
       question: "Combien coûte une interview d'entreprise ?",
@@ -736,10 +729,10 @@ const interviewTemoignage: ServiceContent = {
     { label: "Habillage graphique", detail: "Titrages, lower thirds" },
   ],
   equipment: [
-    { name: "Setup 2-3 caméras Sony ZV1", detail: "Multi-angle vlog & interview" },
-    { name: "Aputure 300X + LS 600D", detail: "Éclairage interview doux" },
-    { name: "Prompteur", detail: "Confort pour les intervenants" },
-    { name: "DPA 4060", detail: "Micro-cravate broadcast" },
+    { name: "Sony ZV-1", detail: "Captation interview 4K" },
+    { name: "iPhone 14", detail: "Second angle et plans d'illustration" },
+    { name: "Micro DJI", detail: "Micro sans fil pour les intervenants" },
+    { name: "DaVinci Resolve Studio", detail: "Montage et étalonnage" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["production-corporate", "presentation-entreprise", "voix-off-sound-design"],
@@ -815,10 +808,9 @@ const voixOffSoundDesign: ServiceContent = {
     { label: "Musique licenciée", detail: "Droits inclus" },
   ],
   equipment: [
-    { name: "Studio traité acoustiquement", detail: "Isolation et absorption" },
-    { name: "Neumann TLM 103", detail: "Micro condensateur broadcast" },
-    { name: "Universal Audio Apollo Twin MKII", detail: "Interface audio et préamplis" },
+    { name: "Micro DJI", detail: "Captation voix sans fil" },
     { name: "Logic Pro X", detail: "Mixage, mastering et sound design" },
+    { name: "Adobe Audition CC", detail: "Nettoyage et traitement audio" },
   ],
   zoneText: ZONE_REMOTE,
   relatedSlugs: ["montage-video", "production-corporate", "interview-temoignage"],
@@ -896,9 +888,11 @@ const presentationEntreprise: ServiceContent = {
     { label: "Musique licenciée" },
   ],
   equipment: [
-    { name: "Sony FX6", detail: "Caméra cinéma full frame" },
-    { name: "DJI RS3 Pro", detail: "Stabilisateur professionnel" },
-    { name: "Aputure kit complet", detail: "300X, LS 600D, panneaux LED" },
+    { name: "Sony ZV-1", detail: "Caméra hybride 4K" },
+    { name: "iPhone 14", detail: "Plans complémentaires et B-roll" },
+    { name: "Micro DJI", detail: "Son sans fil sur le tournage" },
+    { name: "DaVinci Resolve Studio", detail: "Montage et étalonnage" },
+    { name: "After Effects", detail: "Motion design et habillage" },
   ],
   zoneText: ZONE_ORLEANS_TOURS,
   relatedSlugs: ["production-corporate", "interview-temoignage", "motion-design"],
@@ -930,9 +924,9 @@ const clipMusical: ServiceContent = {
         "Création de concepts visuels et de scénarios en harmonie avec le style de votre morceau et vos influences.",
     },
     {
-      h3: "Esthétique cinéma & Lumières",
+      h3: "Esthétique cinéma & étalonnage",
       content:
-        "Utilisation de caméras cinéma grand capteur et de configurations d'éclairages élaborées pour un look authentique.",
+        "Captation 4K avec la Sony ZV-1, travail de la lumière naturelle et étalonnage poussé sur DaVinci Resolve pour un look cinéma authentique.",
     },
     {
       h3: "Post-production & Color grading",
@@ -944,7 +938,7 @@ const clipMusical: ServiceContent = {
     {
       question: "Quel budget faut-il prévoir pour un clip ?",
       answer:
-        "Le montage de clip musical débute à 29 € à l'unité. Pour une réalisation complète (tournage, éclairages) avec intégration de <a href=\"/services/motion-design\" class=\"text-df-gold hover:underline\">motion design</a>, consultez nos <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a> ou faites une simulation de devis.",
+        "Le montage de clip musical débute à 29 € à l'unité. Pour une réalisation complète (tournage et montage) avec intégration de <a href=\"/services/motion-design\" class=\"text-df-gold hover:underline\">motion design</a>, consultez nos <a href=\"/tarifs\" class=\"text-df-gold hover:underline\">tarifs fixes</a> ou faites une simulation de devis.",
     },
     {
       question: "Combien de temps dure la production ?",

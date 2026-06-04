@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
-import { FOUNDER_LABEL } from "@/lib/pricing";
+import { FOUNDER_HANDLE } from "@/lib/pricing";
 import type { Founder } from "@prisma/client";
 import type { Metadata } from "next";
 import MediaCard from "@/components/gallery/MediaCard";
@@ -77,7 +77,7 @@ export default async function PhotosPage({ searchParams }: { searchParams: Promi
               id={m.id}
               src={m.url}
               title={m.title}
-              ownerHandle={FOUNDER_LABEL[m.owner as Founder]}
+              ownerHandle={FOUNDER_HANDLE[m.owner as Founder]}
               prixEstime={m.prixEstime}
               materiel={m.materiel}
               monteur={m.monteur?.pseudo ?? null}

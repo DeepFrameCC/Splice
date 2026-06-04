@@ -19,9 +19,9 @@ import { CtaTrackedLink } from "@/components/marketing/CtaTrackedLink";
 
 const MEMBER_DETAILS: Record<string, { name: string; role: string; initials: string }> = {
   TY: {
-    name: "T.Y",
+    name: "Tracy",
     role: "Monteur & Motion Designer",
-    initials: "TY"
+    initials: "TR"
   },
   LOUISIA: {
     name: "Louisia",
@@ -69,67 +69,65 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+// Fallback only — the live values come from the seeded DB (`service.equipment`).
+// Kept honest so a missing/empty DB record can never resurface fake gear.
 const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> = {
   "montage-video": [
-    { name: "Premiere Pro CC" },
+    { name: "Adobe Premiere Pro CC" },
     { name: "DaVinci Resolve Studio" },
     { name: "After Effects" },
     { name: "Logic Pro X" },
-    { name: "Audition CC" },
+    { name: "Adobe Audition CC" },
   ],
   "production-corporate": [
-    { name: "Sony ZV1 / FX6" },
-    { name: "Blackmagic Pocket 6K" },
-    { name: "Optiques Sigma Art", detail: "24-70mm, 85mm" },
-    { name: "Ronin RS3 Pro" },
-    { name: "Éclairage Aputure", detail: "300X + LS 600D" },
+    { name: "Sony ZV-1", detail: "Caméra hybride 4K" },
+    { name: "iPhone 14", detail: "B-roll et plans complémentaires" },
+    { name: "Micro DJI", detail: "Son sans fil" },
+    { name: "DaVinci Resolve Studio" },
+    { name: "After Effects" },
   ],
   "motion-design": [
     { name: "After Effects" },
-    { name: "Cinema 4D" },
-    { name: "Illustrator" },
-    { name: "Lottie" },
+    { name: "Adobe Premiere Pro CC" },
+    { name: "DaVinci Resolve Studio" },
+    { name: "Adobe Audition CC" },
   ],
   "pub-reseaux-sociaux": [
-    { name: "Sony ZV-E1" },
-    { name: "iPhone Pro", detail: "Tournage vertical natif" },
-    { name: "DJI OM6" },
-    { name: "Premiere Pro" },
+    { name: "Sony ZV-1" },
+    { name: "iPhone 14", detail: "Tournage vertical natif" },
+    { name: "Micro DJI" },
+    { name: "Adobe Premiere Pro CC" },
   ],
   "shooting-automobile": [
-    { name: "Sony A7R V" },
-    { name: "Sigma Art", detail: "35mm f/1.4 + 90mm Macro" },
-    { name: "Hexlight LED" },
-    { name: "Véhicule suiveur", detail: "Équipé RS3" },
+    { name: "Sony ZV-1", detail: "Photo et vidéo 4K" },
+    { name: "iPhone 14" },
+    { name: "DaVinci Resolve Studio", detail: "Étalonnage des teintes" },
   ],
   "photographie-professionnelle": [
-    { name: "Sony A7R V" },
-    { name: "Sigma Art", detail: "24-70mm + 85mm" },
-    { name: "Godox AD400 Pro" },
-    { name: "Calibration X-Rite" },
+    { name: "Sony ZV-1" },
+    { name: "iPhone 14" },
   ],
   "photographie-google-business": [
-    { name: "Sony A7R V" },
-    { name: "Objectif grand angle 16-35mm f/2.8" },
-    { name: "Trépied et rotules de précision" },
-    { name: "Éclairage LED mobile" },
+    { name: "Sony ZV-1" },
+    { name: "iPhone 14" },
   ],
   "interview-temoignage": [
-    { name: "Setup 2-3 caméras", detail: "Sony ZV1" },
-    { name: "Éclairage Aputure" },
-    { name: "Prompteur" },
-    { name: "Micro-cravate DPA 4060" },
+    { name: "Sony ZV-1" },
+    { name: "iPhone 14", detail: "Second angle" },
+    { name: "Micro DJI" },
+    { name: "DaVinci Resolve Studio" },
   ],
   "voix-off-sound-design": [
-    { name: "Studio traité acoustiquement" },
-    { name: "Neumann TLM 103" },
-    { name: "Apollo Twin MKII" },
+    { name: "Micro DJI" },
     { name: "Logic Pro X" },
+    { name: "Adobe Audition CC" },
   ],
   "presentation-entreprise": [
-    { name: "Sony FX6" },
-    { name: "Ronin RS3 Pro" },
-    { name: "Éclairage Aputure complet" },
+    { name: "Sony ZV-1" },
+    { name: "iPhone 14" },
+    { name: "Micro DJI" },
+    { name: "DaVinci Resolve Studio" },
+    { name: "After Effects" },
   ],
 };
 
