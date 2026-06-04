@@ -88,9 +88,9 @@ export default function TrustSection() {
               <CheckCircle className="h-6 w-6" />
             </div>
             <div>
-              <span className="block font-display text-3xl font-bold text-white">100%</span>
-              <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Clients satisfaits</span>
-              <span className="block mt-1 text-xs text-white/40">Accompagnement réactif et 2 retours inclus.</span>
+              <span className="block font-display text-3xl font-bold text-white">24h</span>
+              <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Réponse à votre demande</span>
+              <span className="block mt-1 text-xs text-white/40">Devis gratuit, sans engagement, 2 retours inclus.</span>
             </div>
           </div>
 

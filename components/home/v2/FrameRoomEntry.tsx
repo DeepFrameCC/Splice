@@ -107,7 +107,7 @@ export default function FrameRoomEntry() {
                 document.getElementById("scene-selector")?.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
             >
-              <span>Pilotage du studio</span>
+              <span>Découvrir le studio</span>
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
