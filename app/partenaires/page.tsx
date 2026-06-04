@@ -21,8 +21,8 @@ const PARTNERS = [
   {
     slug: "pixel-404",
     name: "Pixel 404",
-    tagline: "Gaming, pop culture & réparation",
-    text: "On réalise leurs vidéos et photos : produits, atelier et événements en boutique.",
+    tagline: "Magasin gaming & informatique · Orléans",
+    text: "On réalise leurs vidéos et photos : boutique, produits et événements.",
   },
 ];
 
