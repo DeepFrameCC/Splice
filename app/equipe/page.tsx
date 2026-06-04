@@ -93,14 +93,14 @@ const FOUNDERS: FounderData[] = [
   {
     key: "TY",
     name: "Tracy",
-    role: "Monteur · développeur",
+    role: "Monteur · motion designer",
     tag: "FONDATEUR · 02",
     initial: "T",
     photoGradient:
       "radial-gradient(ellipse at 30% 30%, rgba(255,189,89,.35), transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(243,107,31,.65), transparent 65%), linear-gradient(180deg, #7A3B1A 0%, #F36B1F 60%, #0E0E22 100%)",
-    bioOpener: "Le développeur, et monteur vidéo.",
+    bioOpener: "Le monteur et motion designer.",
     bioBody:
-      "Tracy maîtrise DaVinci Resolve sur le bout des doigts — étalonnage cinéma, motion design propre, sound design soigné. C\u2019est lui qui transforme un bon montage en montage percutant.",
+      "Tracy maîtrise DaVinci Resolve sur le bout des doigts, étalonnage cinéma, motion design propre, sound design soigné. C\u2019est lui qui transforme un bon montage en montage percutant.",
     tags: [
       { label: "Motion Design", variant: "primary" },
       { label: "Montage", variant: "primary" },

@@ -264,18 +264,25 @@ export function buildTeamJsonLd() {
     url: `${BASE_URL}/equipe`,
     mainEntity: {
       "@type": "Organization",
+      "@id": ORG_ID,
       name: "Splice",
       member: [
         {
           "@type": "Person",
+          "@id": `${BASE_URL}/equipe#louisia`,
           name: "Louisia",
           jobTitle: "Photographe",
+          worksFor: { "@id": ORG_ID },
+          knowsAbout: ["Photographie", "Retouche photo", "Direction artistique", "Voix-off"],
           sameAs: "https://instagram.com/by.louisia",
         },
         {
           "@type": "Person",
+          "@id": `${BASE_URL}/equipe#tracy`,
           name: "Tracy",
-          jobTitle: "Monteur / Motion Designer",
+          jobTitle: "Monteur & motion designer",
+          worksFor: { "@id": ORG_ID },
+          knowsAbout: ["Montage vidéo", "Motion design", "Étalonnage", "Sound design", "DaVinci Resolve"],
           sameAs: "https://instagram.com/t.y97one",
         },
       ],
