@@ -13,6 +13,7 @@ import DirectorsCutRibbon from "@/components/home/v2/DirectorsCutRibbon";
 import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram } from "lucide-react";
+import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
 
 export default function HomeContent({ mediaCount }: { mediaCount: number }) {
   return (
@@ -36,6 +37,7 @@ export default function HomeContent({ mediaCount }: { mediaCount: number }) {
           <Footer />
         </div>
       </div>
+      <StickyMobileCta source="sticky_home" />
     </>
   );
 }

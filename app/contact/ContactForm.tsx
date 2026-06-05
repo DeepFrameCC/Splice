@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { submitContact } from "@/app/actions/contact";
+import { track } from "@/lib/analytics/track";
 
 interface Props {
   members: { id: string; name: string }[];
@@ -42,6 +43,7 @@ export default function ContactForm({ members }: Props) {
           if (res.success) {
             setStatus({ ok: true });
             form.reset();
+            track("devis_envoye", { source: "contact" });
           } else {
             setStatus({ ok: false, error: res.error });
           }

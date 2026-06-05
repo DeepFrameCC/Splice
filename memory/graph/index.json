@@ -1,0 +1,34 @@
+[
+  {
+    "id": "00-moc-project",
+    "label": "MOC Project — Carte mémoire principale",
+    "type": "moc",
+    "coreprimary": "agent",
+    "path": "memory/00-MOC-project.md",
+    "status": "active"
+  },
+  {
+    "id": "design-system",
+    "label": "Charte Graphique et Design System",
+    "type": "asset",
+    "coreprimary": "design",
+    "path": "memory/design/design-system.md",
+    "status": "active"
+  },
+  {
+    "id": "product-vision",
+    "label": "Vision Produit Splice Studio",
+    "type": "fact",
+    "coreprimary": "product",
+    "path": "memory/product/product-vision.md",
+    "status": "active"
+  },
+  {
+    "id": "tech-stack",
+    "label": "Stack Technique Splice Studio",
+    "type": "fact",
+    "coreprimary": "tech",
+    "path": "memory/tech/tech-stack.md",
+    "status": "active"
+  }
+]

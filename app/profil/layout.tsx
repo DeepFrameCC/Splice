@@ -88,7 +88,7 @@ export default async function ProfilLayout({ children }: { children: React.React
           <div className="space-y-4 md:hidden">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-xl font-bold text-white">
-                SPL<span className="text-df-gold">ICE</span>
+                SPL<span className="text-df-gold">ICE</span> STUDIO
               </h2>
               <p className="text-xs font-medium text-white/60">Mon espace</p>
             </div>

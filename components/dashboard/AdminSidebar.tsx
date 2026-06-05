@@ -67,7 +67,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
       <div className="mb-8">
         <Link href="/admin" className="block">
           <h2 className="font-display text-2xl font-bold tracking-tight text-white">
-            SPL<span className="text-df-gold">ICE</span>
+            SPL<span className="text-df-gold">ICE</span> STUDIO
           </h2>
           <p className="mt-1 text-xs font-medium text-white/40">Administration</p>
         </Link>

@@ -4,7 +4,9 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID; // GA4 : G-XXXXXXX
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID; // Tag Manager : GTM-XXXXXXX
+// Conteneur Tag Manager Splice Studio. ID public (visible dans le HTML) — sûr à
+// commiter. Surchargé par NEXT_PUBLIC_GTM_ID si défini.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-KN98673M";
 
 /**
  * Google Analytics 4 / Tag Manager loader.

@@ -53,7 +53,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
       <div className="mb-8">
         <Link href="/profil" className="block">
           <h2 className="font-display text-2xl font-bold tracking-tight text-white">
-            SPL<span className="text-df-gold">ICE</span>
+            SPL<span className="text-df-gold">ICE</span> STUDIO
           </h2>
           <p className="mt-1 text-xs font-medium text-white/40">Mon espace</p>
         </Link>

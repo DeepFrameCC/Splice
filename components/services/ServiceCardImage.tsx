@@ -12,7 +12,7 @@ function Placeholder() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-df-surface to-df-deep">
       <span className="font-display text-5xl font-bold tracking-wide text-white/20">
-        SPL<span className="text-[#F36B1F]/30">ICE</span>
+        SPL<span className="text-[#F36B1F]/30">ICE</span> STUDIO
       </span>
       <div className="mt-2 h-0.5 w-12 rounded-full bg-[#F36B1F]/20" />
     </div>

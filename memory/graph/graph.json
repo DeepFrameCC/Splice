@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "project": "splice-studio",
+    "generatedat": "2026-06-05T00:19:54.795Z",
+    "nodecount": 4,
+    "edgecount": 3,
+    "metrics": {
+      "density": 0.25,
+      "modularityq": 2.220446049250313e-16,
+      "orphancount": 0
+    }
+  },
+  "nodes": [
+    {
+      "id": "00-moc-project",
+      "label": "MOC Project — Carte mémoire principale",
+      "type": "moc",
+      "coreprimary": "agent",
+      "importance": 0.5,
+      "color": "#8191a5",
+      "path": "memory/00-MOC-project.md",
+      "status": "active",
+      "cluster": "agent",
+      "meta": {
+        "coreprimary": "agent",
+        "coresecondary": null,
+        "summary": null,
+        "importance": 0.5,
+        "status": "active",
+        "path": "memory/00-MOC-project.md",
+        "tags": [],
+        "created": "2026-06-05",
+        "updated": "2026-06-05",
+        "links": [],
+        "body": "\n# MOC Project Splice Studio\n\n## Cores actifs\n\n### Product\n- [[product-vision]]\n\n### Design\n- [[design-system]]\n\n### Tech\n- [[tech-stack]]\n",
+        "community": 0
+      },
+      "community": 0
+    },
+    {
+      "id": "design-system",
+      "label": "Charte Graphique et Design System",
+      "type": "asset",
+      "coreprimary": "design",
+      "importance": 0.6,
+      "color": "#ea548b",
+      "path": "memory/design/design-system.md",
+      "status": "active",
+      "cluster": "design",
+      "meta": {
+        "coreprimary": "design",
+        "coresecondary": null,
+        "summary": "Principes de design, composants et palette de couleurs du projet Splice Studio.",
+        "importance": 0.6,
+        "status": "active",
+        "path": "memory/design/design-system.md",
+        "tags": [
+          "design",
+          "component"
+        ],
+        "created": "2026-06-05",
+        "updated": "2026-06-05",
+        "links": [],
+        "body": "\n# Charte Graphique et Design System\n\nNous utilisons une palette de couleurs sombres et élégantes basée sur OKLCH pour une intégration parfaite dans les IDE modernes et pour l'application cliente principale.\n",
+        "community": 0
+      },
+      "community": 0
+    },
+    {
+      "id": "product-vision",
+      "label": "Vision Produit Splice Studio",
+      "type": "fact",
+      "coreprimary": "product",
+      "importance": 0.8,
+      "color": "#6f77ea",
+      "path": "memory/product/product-vision.md",
+      "status": "active",
+      "cluster": "product",
+      "meta": {
+        "coreprimary": "product",
+        "coresecondary": null,
+        "summary": "Plateforme cloud de développement et d'orchestration pour applications distribuées.",
+        "importance": 0.8,
+        "status": "active",
+        "path": "memory/product/product-vision.md",
+        "tags": [
+          "vision",
+          "product"
+        ],
+        "created": "2026-06-05",
+        "updated": "2026-06-05",
+        "links": [],
+        "body": "\n# Vision Produit Splice Studio\n\nSplice Studio est conçu pour être la plateforme de référence pour les développeurs souhaitant créer, tester et déployer des applications web distribuées de bout en bout avec des agents intelligents.\n",
+        "community": 0
+      },
+      "community": 0
+    },
+    {
+      "id": "tech-stack",
+      "label": "Stack Technique Splice Studio",
+      "type": "fact",
+      "coreprimary": "tech",
+      "importance": 0.9,
+      "color": "#25c2c2",
+      "path": "memory/tech/tech-stack.md",
+      "status": "active",
+      "cluster": "tech",
+      "meta": {
+        "coreprimary": "tech",
+        "coresecondary": null,
+        "summary": "Description de la stack technologique employée pour le développement de Splice Studio.",
+        "importance": 0.9,
+        "status": "active",
+        "path": "memory/tech/tech-stack.md",
+        "tags": [
+          "nextjs",
+          "react",
+          "postgresql"
+        ],
+        "created": "2026-06-05",
+        "updated": "2026-06-05",
+        "links": [],
+        "body": "\n# Stack Technique Splice Studio\n\n- **Frontend / Application** : Next.js App Router\n- **Backend / Database** : Neon (PostgreSQL managé serverless)\n- **Déploiement / Hébergement** : Vercel\n- **Paiements / Abonnements** : Stripe\n",
+        "community": 0
+      },
+      "community": 0
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-0001",
+      "source": "00-moc-project",
+      "target": "product-vision",
+      "rel": "wikilink",
+      "weight": 0.8,
+      "directed": true,
+      "origin": "body"
+    },
+    {
+      "id": "e-0002",
+      "source": "00-moc-project",
+      "target": "design-system",
+      "rel": "wikilink",
+      "weight": 0.8,
+      "directed": true,
+      "origin": "body"
+    },
+    {
+      "id": "e-0003",
+      "source": "00-moc-project",
+      "target": "tech-stack",
+      "rel": "wikilink",
+      "weight": 0.8,
+      "directed": true,
+      "origin": "body"
+    }
+  ],
+  "clusters": [
+    {
+      "id": "agent",
+      "coreprimary": "agent",
+      "nodeids": [
+        "00-moc-project"
+      ]
+    },
+    {
+      "id": "design",
+      "coreprimary": "design",
+      "nodeids": [
+        "design-system"
+      ]
+    },
+    {
+      "id": "product",
+      "coreprimary": "product",
+      "nodeids": [
+        "product-vision"
+      ]
+    },
+    {
+      "id": "tech",
+      "coreprimary": "tech",
+      "nodeids": [
+        "tech-stack"
+      ]
+    }
+  ]
+}

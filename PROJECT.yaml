@@ -1,0 +1,24 @@
+name: Splice Studio
+slug: splice-studio
+description: Studio de création et déploiement d'applications distribuées.
+repo: https://github.com/user/splice
+stack:
+  - next.js
+  - typescript
+  - neon-postgresql
+  - vercel
+  - stripe
+tools:
+  - antigravity-ide
+  - antigravity-cli
+  - gemini-cli
+coresactive:
+  - product
+  - design
+  - tech
+  - fixes
+  - decisions
+  - agent
+created: 2026-06-05
+embeddings:
+  enabled: false

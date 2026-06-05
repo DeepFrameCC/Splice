@@ -1,0 +1,3 @@
+{"id":"e-0001","source":"00-moc-project","target":"product-vision","rel":"wikilink","weight":0.8,"directed":true,"origin":"body"}
+{"id":"e-0002","source":"00-moc-project","target":"design-system","rel":"wikilink","weight":0.8,"directed":true,"origin":"body"}
+{"id":"e-0003","source":"00-moc-project","target":"tech-stack","rel":"wikilink","weight":0.8,"directed":true,"origin":"body"}
