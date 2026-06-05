@@ -207,8 +207,6 @@ export default function Lightbox({
               <div className="pj-play" aria-hidden="true" style={{ pointerEvents: "none" }}>
                 <PlayIcon />
               </div>
-              {cur.tc && <div className="pj-tc">TC {cur.tc}</div>}
-              {cur.duration && <div className="pj-dur">{cur.duration}</div>}
             </>
           )}
 

@@ -175,12 +175,7 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
                 <i />
                 <i />
               </div>
-              {m.type === "video" && (
-                <>
-                  {m.tc && <div className="pj-tc">TC {m.tc}</div>}
-                  {m.duration && <div className="pj-dur">{m.duration}</div>}
-                </>
-              )}
+
             </div>
           );
         })}
