@@ -1,5 +1,5 @@
 {
-  "name": "splice",
+  "name": "splicestudio",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-09-01",
   "compatibility_flags": [
