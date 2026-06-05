@@ -39,7 +39,7 @@ const SERVICES: ServiceCard[] = [
     id: "03",
     name: "Événementiel",
     desc: "Aftermovie, multicam, captation live. Un film sur mesure, livré chaud.",
-    href: "/services/aftermovie-evenementiel",
+    href: "/photographe-evenementiel",
     mediaSlug: "fetes-johanniques-orleans",
   },
   {
