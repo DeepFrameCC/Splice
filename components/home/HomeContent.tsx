@@ -5,7 +5,6 @@ import ClientShell from "@/components/home/ClientShell";
 import FrameRoomEntry from "@/components/home/v2/FrameRoomEntry";
 import SceneSelector from "@/components/home/v2/SceneSelector";
 import CrewStack from "@/components/home/v2/CrewStack";
-import FrameRoomStatement from "@/components/home/v2/FrameRoomStatement";
 import ProcessSection from "@/components/home/v2/ProcessSection";
 import TestimonialsSlider from "@/components/home/v2/TestimonialsSlider";
 import TrustSection from "@/components/home/v2/TrustSection";
@@ -26,7 +25,6 @@ export default function HomeContent({ mediaCount }: { mediaCount: number }) {
           <FrameRoomEntry />
           <SceneSelector />
           <CrewStack />
-          <FrameRoomStatement />
           <ProcessSection />
           <TestimonialsSlider />
           <TrustSection mediaCount={mediaCount} />
