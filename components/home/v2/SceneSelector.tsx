@@ -8,6 +8,7 @@ import { scenes } from "@/lib/home/scenes";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import SceneSelectorArrow from "./SceneSelectorArrow";
 import SceneSelectorRail from "./SceneSelectorRail";
+import Link from "next/link";
 
 /**
  * SceneSelector — le composant signature de la homepage V2.
@@ -199,7 +200,7 @@ export default function SceneSelector() {
       <div className="df-ss-head">
         <span className="df-ss-eyebrow">
           <span className="df-rec-dot" aria-hidden="true" />
-          Pilotage du studio · Sélection 2026
+          Projet Réalisé
         </span>
         <span className="df-ss-counter df-tc-live" aria-live="polite">
           Scene {String(index + 1).padStart(2, "0")} / {String(scenes.length).padStart(2, "0")}
@@ -263,11 +264,7 @@ export default function SceneSelector() {
             <span className="df-ss-meta-line df-ss-meta-credit">@ {current.credit}</span>
           </div>
 
-          {/* Top-right : TC + format */}
-          <div className="df-ss-meta-tech df-ss-meta-line">
-            <span className="df-tc-live">TC {current.tc}</span>
-            <span className="df-ss-format">{current.format}</span>
-          </div>
+
 
           {/* Corners ciné */}
           <div className="df-cine-corners" aria-hidden="true">
@@ -293,6 +290,11 @@ export default function SceneSelector() {
       </div>
 
       <SceneSelectorRail scenes={scenes} currentIndex={index} onSelect={goTo} />
+      <div className="flex justify-center mt-6">
+        <Link href="/galerie" className="df-dcr-link">
+          Voir toute la galerie →
+        </Link>
+      </div>
     </section>
   );
 }

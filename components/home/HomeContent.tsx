@@ -9,7 +9,6 @@ import FrameRoomStatement from "@/components/home/v2/FrameRoomStatement";
 import ProcessSection from "@/components/home/v2/ProcessSection";
 import TestimonialsSlider from "@/components/home/v2/TestimonialsSlider";
 import TrustSection from "@/components/home/v2/TrustSection";
-import DirectorsCutRibbon from "@/components/home/v2/DirectorsCutRibbon";
 import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram } from "lucide-react";
@@ -31,7 +30,6 @@ export default function HomeContent({ mediaCount }: { mediaCount: number }) {
           <ProcessSection />
           <TestimonialsSlider />
           <TrustSection mediaCount={mediaCount} />
-          <DirectorsCutRibbon />
           <LastFrame />
 
           <Footer />
