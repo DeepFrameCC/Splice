@@ -1,11 +1,12 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { MapPin, CheckCircle, Video, Award } from "lucide-react";
+import { getPublishedMediaCount } from "@/app/actions/media-public";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,8 +25,17 @@ const PARTNERS: Partner[] = [
 ];
 
 export default function TrustSection({ mediaCount }: { mediaCount: number }) {
+  const [count, setCount] = useState(mediaCount);
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+
+  useEffect(() => {
+    getPublishedMediaCount().then((dynamicCount) => {
+      if (dynamicCount > 0) {
+        setCount(dynamicCount);
+      }
+    });
+  }, []);
 
   useGSAP(
     () => {
@@ -76,7 +86,7 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
               <Video className="h-6 w-6" />
             </div>
             <div>
-              <span className="block font-display text-3xl font-bold text-white">{mediaCount}</span>
+              <span className="block font-display text-3xl font-bold text-white">{count}</span>
               <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Photos &amp; Vidéos</span>
               <span className="block mt-1 text-xs text-white/40">Présentes dans notre galerie de réalisations.</span>
             </div>

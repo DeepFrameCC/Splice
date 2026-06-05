@@ -7,14 +7,15 @@ import { useSession } from "next-auth/react";
 import UserDropdown from "./UserDropdown";
 
 const NAV_LINKS = [
-  { href: "/#about",    label: "À propos" },
-  { href: "/services", label: "Services" },
-  { href: "/galerie",   label: "Galerie" },
-  { href: "/equipe",    label: "Équipe" },
-  { href: "/tarifs",    label: "Tarifs" },
-  { href: "/blog",      label: "Blog" },
-  { href: "/faq",       label: "FAQ" },
-  { href: "/contact",   label: "Contact" },
+  { href: "/#about",       label: "À propos" },
+  { href: "/services",     label: "Services" },
+  { href: "/galerie",      label: "Galerie" },
+  { href: "/equipe",       label: "Équipe" },
+  { href: "/tarifs",       label: "Tarifs" },
+  { href: "/blog",         label: "Blog" },
+  { href: "/faq",          label: "FAQ" },
+  { href: "/partenaires",  label: "Partenaires" },
+  { href: "/contact",      label: "Contact" },
 ];
 
 interface NavProps {
