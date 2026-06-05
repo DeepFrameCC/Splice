@@ -31,14 +31,6 @@ function ChevronRight() {
   );
 }
 
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-10 h-10">
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  );
-}
-
 export default function Lightbox({
   project,
   startIdx,
@@ -201,14 +193,6 @@ export default function Lightbox({
             <i />
             <i />
           </div>
-
-          {cur.type === "video" && !stageSrc && (
-            <>
-              <div className="pj-play" aria-hidden="true" style={{ pointerEvents: "none" }}>
-                <PlayIcon />
-              </div>
-            </>
-          )}
 
           {cur.caption && (
             <div

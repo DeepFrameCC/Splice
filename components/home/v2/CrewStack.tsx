@@ -60,24 +60,32 @@ export default function CrewStack() {
   const reduced = useReducedMotion();
 
   // Glisser-déposer à la souris pour faire défiler (le tactile utilise le scroll natif).
+  // On ne capture le pointeur QU'À partir du moment où un vrai drag démarre : sinon
+  // le navigateur synthétise le `click` sur la piste capturée au lieu du <Link>,
+  // ce qui avale la navigation.
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     if (e.pointerType !== "mouse") return;
     const el = trackRef.current;
     if (!el) return;
     drag.current = { down: true, startX: e.clientX, scrollLeft: el.scrollLeft, moved: false };
-    el.setPointerCapture(e.pointerId);
   }
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (!drag.current.down) return;
     const el = trackRef.current;
     if (!el) return;
     const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 4) drag.current.moved = true;
-    el.scrollLeft = drag.current.scrollLeft - dx;
+    // Seuil volontairement large : un clic avec micro-tremblement reste un clic.
+    if (!drag.current.moved && Math.abs(dx) > 8) {
+      drag.current.moved = true;
+      el.setPointerCapture(e.pointerId); // capture seulement une fois le drag confirmé
+    }
+    if (drag.current.moved) el.scrollLeft = drag.current.scrollLeft - dx;
   }
   function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
     drag.current.down = false;
-    trackRef.current?.releasePointerCapture?.(e.pointerId);
+    if (trackRef.current?.hasPointerCapture?.(e.pointerId)) {
+      trackRef.current.releasePointerCapture(e.pointerId);
+    }
   }
   // Empêche la navigation si le clic était en fait un glissement.
   function onCardClick(e: React.MouseEvent<HTMLAnchorElement>) {
