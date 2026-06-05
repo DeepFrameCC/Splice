@@ -30,16 +30,14 @@ pas en gonflant.**
 3. **Réciprocité** : exposer la checklist gratuite en bas d'article de blog et en footer.
 4. **Chiffres honnêtes** : « 15 projets livrés », compteur galerie dynamique — vrais, donc crédibles. Ne jamais regonfler.
 
-## /popups — recommandation (et l'arbitrage à valider)
-Règles non négociables : **aucune popup sur mobile au chargement** (pénalité UX + Google), pas de discount inventé.
+## /popups — DÉCIDÉ : pas de popups
+Décision validée : **Splice n'utilise pas de popups** — ni exit-intent, ni mobile,
+ni bannière interruptive. On garde une UX sans friction.
 
-- **Exit-intent desktop** sur `/services/*` et `/blog/*` : proposer **le lead magnet gratuit** (« Avant de partir : la checklist des 10 points avant de tourner »), pas une remise. Réciprocité > pression.
-- **Scroll-trigger 50% sur le blog** : encart inline discret vers la checklist, jamais un modal bloquant.
-- **Bannière d'annonce** : seulement pour un vrai événement (lancement, créneau, partenariat Pixel 404).
-
-**Arbitrage à trancher avant que je code les popups** : où vont les emails capturés ?
-Options : audience Resend, ou une table `NewsletterSignup` en base + double opt-in.
-Dis-moi laquelle et je branche l'opt-in + la popup exit-intent (desktop, honnête).
+Les lead magnets (checklist, template brief) restent diffusés **en inline** : encart
+discret en bas d'article de blog et lien en footer, sans interrompre la lecture.
+La capture d'email se fera via un champ d'inscription classique (à brancher quand
+tu veux : audience Resend ou table `NewsletterSignup`).
 
 ## Anti-patterns interdits (rappel)
 Faux compteurs « 3 personnes regardent », fausses notes 5/5 sans avis réels, fausses
