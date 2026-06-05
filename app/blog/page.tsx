@@ -68,7 +68,7 @@ export default async function BlogPage({ searchParams }: Props) {
       : posts;
 
   return (
-    <>
+    <div className="df-site">
       <JsonLd data={buildBlogIndexJsonLd()} />
       <NavWrapper />
       <BlogHero />
@@ -165,6 +165,6 @@ export default async function BlogPage({ searchParams }: Props) {
 
       {showAdminFAB && <BlogAdminFAB />}
       <Footer />
-    </>
+    </div>
   );
 }

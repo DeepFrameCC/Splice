@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function TarifsPage() {
   return (
-    <>
+    <div className="df-site">
       <JsonLd data={buildPricingJsonLd()} />
       <NavWrapper />
       <main className="mx-auto max-w-6xl px-4 pb-20 md:px-6" style={{ paddingTop: "calc(80px + 3rem)" }}>
@@ -36,12 +36,12 @@ export default function TarifsPage() {
 
         {/* Hero */}
         <div className="text-center">
-          <h1 className="font-display text-5xl uppercase tracking-tight text-white md:text-7xl">
+          <h1 className="font-display text-3xl sm:text-5xl md:text-7xl uppercase tracking-tight text-white">
             Tarifs fixes.<br />
             Pas de <em className="not-italic text-df-gold">mauvaise surprise</em>.
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">
-            Abonnement mensuel pour les pros, pack à la carte pour les particuliers.
+            Abonnement mensuel pour les entreprises, des packs faits exprès pour les particuliers.
           </p>
           <p className="mx-auto mt-2 max-w-xl text-xs text-white/60">
             TVA non applicable, art. 293 B du CGI.
@@ -51,6 +51,6 @@ export default function TarifsPage() {
         <PricingSection />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

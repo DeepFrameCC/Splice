@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
   ];
 
   return (
-    <>
+    <div className="df-site">
       <NavWrapper />
 
       <JsonLd data={jsonLd} />
@@ -232,6 +232,6 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       <Footer />
-    </>
+    </div>
   );
 }

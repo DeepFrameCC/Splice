@@ -84,7 +84,7 @@ export default async function GaleriePage() {
     console.error("[galerie] DB error:", e);
     const errMsg = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
     return (
-      <>
+      <div className="df-site">
         <NavWrapper />
         <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 120, padding: "120px 40px" }}>
           <pre style={{ color: "#ff6b6b", fontSize: 13, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
@@ -92,12 +92,12 @@ export default async function GaleriePage() {
           </pre>
         </div>
         <Footer />
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="df-site">
       <JsonLd data={buildGalleryJsonLd(medias.length, medias)} />
       <NavWrapper />
       <GalerieAnimations />
@@ -110,6 +110,6 @@ export default async function GaleriePage() {
         />
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

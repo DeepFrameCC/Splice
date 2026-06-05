@@ -65,6 +65,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-F263MRVX69"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-F263MRVX69');
+          `
+        }} />
         <link
           rel="preload"
           href="https://media.splicestudio.fr/thumb/thumb-interview-cklean-auto.jpg"

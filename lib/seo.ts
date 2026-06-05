@@ -84,7 +84,7 @@ export function buildLocalBusinessJsonLd() {
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
+      opens: "11:00",
       closes: "20:00",
     },
   };
@@ -313,14 +313,14 @@ export function buildAvisJsonLd(averageRating: number | null, reviewCount: numbe
     url: BASE_URL,
     ...(averageRating && reviewCount > 0
       ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: averageRating,
-            bestRating: 5,
-            worstRating: 1,
-            reviewCount,
-          },
-        }
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: averageRating,
+          bestRating: 5,
+          worstRating: 1,
+          reviewCount,
+        },
+      }
       : {}),
   };
 }

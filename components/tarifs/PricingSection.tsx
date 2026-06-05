@@ -32,7 +32,7 @@ export default function PricingSection() {
           <span className="inline-block rounded-full bg-df-gold/20 px-4 py-1 text-xs font-bold text-df-gold">
             ⚡ Offre de lancement — 10 places disponibles par formule
           </span>
-          <h2 className="mt-4 font-display text-4xl uppercase tracking-tight text-white md:text-5xl">
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-white">
             Nos abonnements
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-white/60 text-sm md:text-base">
@@ -44,7 +44,7 @@ export default function PricingSection() {
           <BillingToggle onChange={setCycle} />
         </div>
 
-        <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-10 grid grid-cols-1 max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Formule Bienvenue */}
           <div className="relative flex flex-col rounded-3xl border-2 border-df-gold/40 bg-df-gold/[0.06] p-6">
             <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-df-gold px-4 py-1 text-xs font-bold text-df-night shadow">
@@ -94,14 +94,14 @@ export default function PricingSection() {
 
       {/* ── Volumes multi-réseaux ───────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
+        <h2 className="text-center font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
           Volume de contenus par formule
         </h2>
         <p className="mt-2 text-center text-white/50">
           Chaque vidéo source est recyclée et adaptée à chaque réseau.
         </p>
         <div className="-mx-4 mt-8 overflow-x-auto px-4 sm:mx-auto sm:max-w-5xl sm:px-0 [scrollbar-width:thin]">
-          <table className="w-full min-w-[34rem] text-left text-sm">
+          <table className="w-full min-w-[640px] text-left text-sm">
             <thead>
               <tr className="border-b border-white/10 text-white/60">
                 <th scope="col" className="sticky left-0 z-10 bg-df-night px-4 py-3 font-bold">Réseau</th>
@@ -131,14 +131,14 @@ export default function PricingSection() {
 
       {/* ── Pack Particulier ────────────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
+        <h2 className="text-center font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
           Pack Particulier — À la carte
         </h2>
         <p className="mt-2 text-center text-white/50">
           Parfait pour un événement, un portrait, ou un besoin ponctuel.
         </p>
 
-        <div className="mx-auto mt-8 grid max-w-4xl gap-8 md:grid-cols-2">
+        <div className="mx-auto mt-8 grid grid-cols-1 max-w-4xl gap-8 md:grid-cols-2">
           {/* Vidéos */}
           <div className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.08]">
             <h3 className="font-display text-xl uppercase tracking-tight text-white">Vidéos</h3>
@@ -193,14 +193,14 @@ export default function PricingSection() {
 
       {/* ── Options à la carte ──────────────────────────────── */}
       <section className="mt-20">
-        <h2 className="text-center font-display text-3xl uppercase tracking-tight text-white">
+        <h2 className="text-center font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
           Options à la carte
         </h2>
         <p className="mt-2 text-center text-white/50">
           Ajoutez des options pour personnaliser votre prestation.
         </p>
 
-        <div className="mx-auto mt-8 grid max-w-4xl gap-3 md:grid-cols-2">
+        <div className="mx-auto mt-8 grid grid-cols-1 max-w-4xl gap-3 md:grid-cols-2">
           {OPTIONS_A_LA_CARTE.filter((opt) => opt.key !== "banniere").map((opt) => (
             <div
               key={opt.key}
@@ -215,7 +215,7 @@ export default function PricingSection() {
         </div>
 
         {/* Extras */}
-        <div className="mx-auto mt-6 grid max-w-4xl gap-3 md:grid-cols-3">
+        <div className="mx-auto mt-6 grid grid-cols-1 max-w-4xl gap-3 md:grid-cols-3">
           <div className="flex items-center justify-between rounded-xl bg-white/[0.04] px-5 py-3 ring-1 ring-white/[0.06]">
             <span className="text-sm text-white/70">Vidéo supplémentaire</span>
             <span className="text-sm font-bold text-white">
@@ -237,10 +237,10 @@ export default function PricingSection() {
         </div>
 
         {/* Bannières */}
-        <h3 className="mt-10 text-center font-display text-xl uppercase tracking-tight text-white">
+        <h3 className="mt-10 text-center font-display text-lg sm:text-xl uppercase tracking-tight text-white">
           Bannière Splice Studio
         </h3>
-        <div className="mx-auto mt-4 grid max-w-3xl gap-3 md:grid-cols-3">
+        <div className="mx-auto mt-4 grid grid-cols-1 max-w-3xl gap-3 md:grid-cols-3">
           {(Object.keys(BANNIERE_SPLICE) as BanniereSize[]).map((key) => {
             const b = BANNIERE_SPLICE[key];
             return (
@@ -261,7 +261,7 @@ export default function PricingSection() {
       {/* ── CTA ─────────────────────────────────────────────── */}
       <section className="mt-20 text-center">
         <div className="mx-auto max-w-xl rounded-3xl bg-gradient-to-br from-df-glauque to-df-surface p-8 ring-1 ring-white/[0.08]">
-          <h2 className="font-display text-3xl uppercase tracking-tight text-white">
+          <h2 className="font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
             Prêt à vous lancer ?
           </h2>
           <p className="mt-2 text-white/60">
