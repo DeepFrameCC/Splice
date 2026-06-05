@@ -14,7 +14,7 @@ import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
 import { Facebook, Linkedin, Instagram } from "lucide-react";
 
-export default function HomeContent() {
+export default function HomeContent({ mediaCount }: { mediaCount: number }) {
   return (
     <>
       <ClientShell />
@@ -29,7 +29,7 @@ export default function HomeContent() {
           <FrameRoomStatement />
           <ProcessSection />
           <TestimonialsSlider />
-          <TrustSection />
+          <TrustSection mediaCount={mediaCount} />
           <DirectorsCutRibbon />
           <LastFrame />
 
@@ -47,7 +47,7 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <span className="font-display text-lg font-bold tracking-wide text-white">SPL<span className="text-[#F36B1F]">ICE</span></span>
+            <span className="font-display text-lg font-bold tracking-wide text-white">SPL<span className="text-[#F36B1F]">ICE</span> STUDIO</span>
           </div>
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>

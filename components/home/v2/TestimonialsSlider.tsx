@@ -113,7 +113,7 @@ export default function TestimonialsSlider() {
                   {activeTestimonial.author}
                 </span>
                 <span className="df-testimonial-org">
-                  {activeTestimonial.company} · {activeTestimonial.location}
+                  {activeTestimonial.location}
                 </span>
               </div>
               <div className="df-testimonial-service-tag">

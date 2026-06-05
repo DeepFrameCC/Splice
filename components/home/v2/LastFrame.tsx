@@ -27,7 +27,7 @@ export default function LastFrame() {
         </Link>
 
         <ul className="df-lf-reassurance">
-          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> 30+ projets livrés</li>
+          <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> 15 projets livrés</li>
           <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> Devis gratuit sous 24h</li>
           <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> 2 retours inclus, sans engagement</li>
           <li><Check className="df-lf-reassurance-ic" aria-hidden="true" /> Paiement sécurisé Stripe</li>

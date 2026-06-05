@@ -83,7 +83,7 @@ export default function FrameRoomStatement() {
           </p>
 
           <div className="df-frs-slate df-frs-anim">
-            <span><em>30+</em> projets livrés</span>
+            <span><em>15</em> projets livrés</span>
             <span><em>2</em> retours inclus</span>
             <span>Sans engagement</span>
           </div>

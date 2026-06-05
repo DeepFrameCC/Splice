@@ -23,7 +23,7 @@ const PARTNERS: Partner[] = [
   { name: "Bistrot Croix Morin", location: "Orléans" },
 ];
 
-export default function TrustSection() {
+export default function TrustSection({ mediaCount }: { mediaCount: number }) {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
@@ -76,7 +76,7 @@ export default function TrustSection() {
               <Video className="h-6 w-6" />
             </div>
             <div>
-              <span className="block font-display text-3xl font-bold text-white">47</span>
+              <span className="block font-display text-3xl font-bold text-white">{mediaCount}</span>
               <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Photos &amp; Vidéos</span>
               <span className="block mt-1 text-xs text-white/40">Présentes dans notre galerie de réalisations.</span>
             </div>
