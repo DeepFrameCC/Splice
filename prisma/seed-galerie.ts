@@ -444,16 +444,6 @@ const MEDIAS: MediaSeed[] = [
   },
   {
     type: MediaType.PHOTO,
-    filename: "chevalier avant.webp",
-    folder: "photos",
-    title: "Chevalier avant combat",
-    category: "evenement",
-    owner: Founder.LOUISIA,
-    prixEstime: 150,
-    materiel: ["Sony ZV1"],
-  },
-  {
-    type: MediaType.PHOTO,
     filename: "cheval blanc après.webp",
     folder: "photos",
     title: "Cheval blanc — apres",
@@ -618,26 +608,6 @@ const MEDIAS: MediaSeed[] = [
   // ═══ PHOTOS — URBAIN ══════════════════════════════════════════════════
   {
     type: MediaType.PHOTO,
-    filename: "P7.webp",
-    folder: "photos",
-    title: "Urbain P7",
-    category: "urbain",
-    owner: Founder.LOUISIA,
-    prixEstime: 180,
-    materiel: ["Sony ZV1"],
-  },
-  {
-    type: MediaType.PHOTO,
-    filename: "P19.webp",
-    folder: "photos",
-    title: "Pose de PPF sur Porsche",
-    category: "automobile",
-    owner: Founder.LOUISIA,
-    prixEstime: 180,
-    materiel: ["Sony ZV1"],
-  },
-  {
-    type: MediaType.PHOTO,
     filename: "fleur 7.webp",
     folder: "photos",
     title: "Fleur #7",
@@ -740,6 +710,20 @@ async function main() {
   });
   if (deletedOldPhotos.count > 0) {
     console.log(`[seed-galerie] Cleaned up ${deletedOldPhotos.count} legacy R2 .jpg photo entries.`);
+  }
+
+  // Clean up any orphan seeded media entries from the database (those not in the current keepUrls)
+  const keepUrls = MEDIAS.map(m => buildUrl(m.folder, m.filename));
+  const deletedOrphans = await prisma.media.deleteMany({
+    where: {
+      url: {
+        startsWith: CDN,
+        notIn: keepUrls
+      }
+    }
+  });
+  if (deletedOrphans.count > 0) {
+    console.log(`[seed-galerie] Cleaned up ${deletedOrphans.count} orphan seeded media entries.`);
   }
 
   let inserted = 0;
