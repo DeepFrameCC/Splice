@@ -31,23 +31,23 @@ const sans = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Splice — Production audiovisuelle · Orléans & Tours",
-    template: "%s | Splice",
+    default: "Splice Studio — Production audiovisuelle · Orléans & Tours",
+    template: "%s | Splice Studio",
   },
   description:
     "Boîte de production audiovisuelle basée à Orléans et Tours. Pubs réseaux sociaux, shootings automobile, films de marque, aftermovies. Devis en ligne.",
-  authors: [{ name: "Splice" }],
-  creator: "Splice",
+  authors: [{ name: "Splice Studio" }],
+  creator: "Splice Studio",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Splice",
+    siteName: "Splice Studio",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Splice — Production audiovisuelle · Orléans & Tours",
+        alt: "Splice Studio — Production audiovisuelle · Orléans & Tours",
       },
     ],
   },

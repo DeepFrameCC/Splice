@@ -84,7 +84,7 @@ function Footer() {
         </div>
       </div>
       <div className="df-footer-bot">
-        <span>© 2026 Splice · Tous droits réservés</span>
+        <span>© 2026 Splice Studio · Tous droits réservés</span>
         <span><Link href="/mentions-legales">Mentions légales</Link> · <Link href="/confidentialite">Confidentialité</Link> · <Link href="/cookies">Cookies</Link></span>
       </div>
     </footer>

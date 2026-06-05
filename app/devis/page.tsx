@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Configurez votre projet audiovisuel en 3 étapes et recevez un devis détaillé sous 24h. Gratuit et sans engagement.",
   openGraph: {
-    title: "Demander un devis — Splice",
+    title: "Demander un devis — Splice Studio",
     description: "Configurez votre projet audiovisuel en 3 étapes.",
   },
   twitter: { card: "summary_large_image" },

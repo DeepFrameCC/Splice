@@ -16,14 +16,14 @@ export const revalidate = 86400;
 const PATH = "/production-video-tours";
 const TITLE = "Production vidéo à Tours — Vidéaste & Studio";
 const DESCRIPTION =
-  "Boîte de production vidéo à Tours : films corporate, vidéos réseaux sociaux (Reels/TikTok), shootings de marque et motion design. Splice vous accompagne du brief à la diffusion. Devis gratuit.";
+  "Boîte de production vidéo à Tours : films corporate, vidéos réseaux sociaux (Reels/TikTok), shootings de marque et motion design. Splice Studio vous accompagne du brief à la diffusion. Devis gratuit.";
 const H1 = "Production vidéo à Tours";
 
 const FAQ: FAQItem[] = [
   {
     question: "Quel type de vidéo réalise votre boîte de production à Tours ?",
     answer:
-      "Splice réalise une large gamme de vidéos professionnelles à Tours : films d'entreprise (corporate/institutionnel), vidéos courtes et publicitaires pour les réseaux sociaux (Reels, TikTok, Shorts), shootings photo et vidéo automobile, Aftermovies d'événements (salons, festivals, soirées d'entreprise) et podcasts vidéo multi-caméras.",
+      "Splice Studio réalise une large gamme de vidéos professionnelles à Tours : films d'entreprise (corporate/institutionnel), vidéos courtes et publicitaires pour les réseaux sociaux (Reels, TikTok, Shorts), shootings photo et vidéo automobile, Aftermovies d'événements (salons, festivals, soirées d'entreprise) et podcasts vidéo multi-caméras.",
   },
   {
     question: "Quel matériel de tournage utilisez-vous pour les vidéos à Tours ?",
@@ -52,7 +52,7 @@ export function generateMetadata(): Metadata {
       title: TITLE,
       description: DESCRIPTION,
       url,
-      siteName: "Splice",
+      siteName: "Splice Studio",
       locale: "fr_FR",
       type: "website",
     },
@@ -101,7 +101,7 @@ export default function ProductionVideoToursPage() {
                 {H1}
               </h1>
               <p className="mt-6 text-base leading-relaxed text-white/70">
-                Splice est votre studio partenaire de production vidéo à Tours. Nous accompagnons les entreprises, PMEs et marques d&apos;Indre-et-Loire pour façonner des contenus vidéo cinématiques à fort impact : du film corporate de marque aux formats verticaux percutants pour vos réseaux sociaux.
+                Splice Studio est votre studio partenaire de production vidéo à Tours. Nous accompagnons les entreprises, PMEs et marques d&apos;Indre-et-Loire pour façonner des contenus vidéo cinématiques à fort impact : du film corporate de marque aux formats verticaux percutants pour vos réseaux sociaux.
               </p>
             </div>
             
@@ -182,7 +182,7 @@ export default function ProductionVideoToursPage() {
           <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-df-gold">
-                Pourquoi Splice
+                Pourquoi Splice Studio
               </span>
               <h2 className="mt-4 font-display text-3xl uppercase tracking-tight text-white md:text-4xl">
                 La réactivité d&apos;un vidéaste local

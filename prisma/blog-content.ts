@@ -80,7 +80,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Ces cinq erreurs — hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme — expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. La bonne nouvelle : elles se corrigent toutes avec un montage professionnel et une vraie réflexion en amont.</p>
 
-<p>Chez Splice, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
+<p>Chez Splice Studio, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
 
 <p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h.</p>`,
 
@@ -195,9 +195,9 @@ export const blogContent: Record<string, string> = {
   <li><strong>Testez et itérez</strong> selon vos statistiques</li>
 </ul>
 
-<p>C'est l'approche que nous appliquons chez Splice dans <a href="/services/montage-video">notre service de montage vidéo</a>. Vous pouvez voir des exemples dans <a href="/galerie">nos réalisations</a>.</p>
+<p>C'est l'approche que nous appliquons chez Splice Studio dans <a href="/services/montage-video">notre service de montage vidéo</a>. Vous pouvez voir des exemples dans <a href="/galerie">nos réalisations</a>.</p>
 
-<p>Chez Splice, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
+<p>Chez Splice Studio, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
 
 <p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a> — nous vous répondons sous 48 h.</p>`,
 
@@ -220,7 +220,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Les grandes agences parisiennes facturent couramment entre 5 000 et 30 000 euros. Mais une <strong>réalisation vidéo PME pas cher</strong> ne signifie pas une réalisation au rabais.</p>
 
-<p>Chez Splice, nos <strong>packs démarrent à partir de 140 euros</strong> et notre pack Premium à partir de 850 euros couvre les projets les plus ambitieux. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
+<p>Chez Splice Studio, nos <strong>packs démarrent à partir de 140 euros</strong> et notre pack Premium à partir de 850 euros couvre les projets les plus ambitieux. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
 
 <h2>Quatre cas d'usage à fort ROI pour les PME</h2>
 
@@ -279,7 +279,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Avec une approche structurée — objectif clair, production soignée, diffusion stratégique et suivi des résultats — même un investissement modeste peut générer un retour significatif.</p>
 
-<p>Chez Splice, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence.</p>`,
+<p>Chez Splice Studio, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence.</p>`,
 
   "interview-dirigeant-reussie-7-conseils": `<h2>Pourquoi l'interview vidéo de dirigeant est un atout stratégique</h2>
 
@@ -368,7 +368,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Passez à l'action</h2>
 
-<p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez Splice, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
+<p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez Splice Studio, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
 
 <p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong></p>`,
 
@@ -452,7 +452,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Faites le bon choix</h2>
 
-<p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez Splice, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
+<p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez Splice Studio, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
 
 <p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une recommandation personnalisée sous 24 heures.</p>`,
 
@@ -742,7 +742,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Une troisième voie : le studio à taille humaine</h3>
 
-<p>Entre le freelance isolé et la grande agence, un studio à taille humaine combine souvent le meilleur des deux : la proximité d'un interlocuteur dédié et les moyens d'une équipe polyvalente. C'est le positionnement de Splice, qui réunit <a href="/services/photographie-professionnelle">photographie professionnelle</a> et expertise vidéo au sein d'une même structure, avec une vraie logique d'<a href="/agence-communication-orleans">agence de communication à Orléans</a>.</p>
+<p>Entre le freelance isolé et la grande agence, un studio à taille humaine combine souvent le meilleur des deux : la proximité d'un interlocuteur dédié et les moyens d'une équipe polyvalente. C'est le positionnement de Splice Studio, qui réunit <a href="/services/photographie-professionnelle">photographie professionnelle</a> et expertise vidéo au sein d'une même structure, avec une vraie logique d'<a href="/agence-communication-orleans">agence de communication à Orléans</a>.</p>
 
 <h3>Comparer les coûts au-delà du tarif affiché</h3>
 

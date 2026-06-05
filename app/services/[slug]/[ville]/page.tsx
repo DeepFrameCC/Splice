@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       url,
-      siteName: "Splice",
+      siteName: "Splice Studio",
       locale: "fr_FR",
       type: "article",
     },
@@ -120,7 +120,7 @@ export default async function LocalServicePage({ params }: PageProps) {
           {/* Points cles */}
           <section className="mb-12">
             <h2 className="text-xl font-semibold text-white md:text-2xl">
-              Pourquoi choisir Splice
+              Pourquoi choisir Splice Studio
             </h2>
             <ul className="mt-6 grid gap-3">
               {data.points.map((point) => (
@@ -151,7 +151,7 @@ export default async function LocalServicePage({ params }: PageProps) {
           {localContent && (
             <section className="mb-12">
               <h2 className="text-xl font-semibold text-white md:text-2xl">
-                Splice à {ville.name}
+                Splice Studio à {ville.name}
               </h2>
               <p className="mt-4 whitespace-pre-line text-pretty leading-relaxed text-white/70">
                 {localContent.localContext}
@@ -185,7 +185,7 @@ export default async function LocalServicePage({ params }: PageProps) {
               Zone d&apos;intervention
             </h2>
             <p className="mt-4 leading-relaxed text-white/70">
-              Splice intervient à {ville.name}
+              Splice Studio intervient à {ville.name}
               {ville.departmentCode ? ` (${ville.department}, ${ville.departmentCode})` : ` et dans toute la région ${ville.name}`}
               {" "}ainsi qu&apos;à Orléans, Tours, Blois, Chartres et Bourges.
             </p>

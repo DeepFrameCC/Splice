@@ -1,5 +1,5 @@
 /**
- * Complete service content for all 11 Splice services.
+ * Complete service content for all 11 Splice Studio services.
  * Refactored for UX writing: 50%+ text reduction, clear client benefits, structured visual blocks.
  * Used by prisma/seed.ts to populate the Service table.
  */
@@ -52,7 +52,7 @@ const montageVideo: ServiceContent = {
   slug: "montage-video",
   name: "Montage vidéo professionnel",
   shortName: "Montage vidéo",
-  metaTitle: "Montage vidéo professionnel Orléans Tours | Splice",
+  metaTitle: "Montage vidéo professionnel Orléans Tours | Splice Studio",
   metaDescription:
     "Montage vidéo haut de gamme pour entreprises à Orléans et Tours. Post-production, étalonnage DaVinci, sound design. Livraison multi-format rapide.",
   h1: "Des montages vidéo rythmés qui captent et retiennent l'attention",
@@ -105,7 +105,7 @@ const montageVideo: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Poste de montage vidéo professionnel avec DaVinci Resolve — studio Splice Orléans",
+    "Poste de montage vidéo professionnel avec DaVinci Resolve — studio Splice Studio Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 1,
@@ -138,7 +138,7 @@ const productionCorporate: ServiceContent = {
   slug: "production-corporate",
   name: "Production corporate et brand content",
   shortName: "Production corporate",
-  metaTitle: "Production audiovisuelle & film corporate Orléans | Splice",
+  metaTitle: "Production audiovisuelle & film corporate Orléans | Splice Studio",
   metaDescription:
     "Production audiovisuelle à Orléans et Tours : film corporate, vidéo institutionnelle et pub entreprise, de la pré-production au montage final.",
   h1: "Production audiovisuelle & film corporate à Orléans",
@@ -196,7 +196,7 @@ const productionCorporate: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Tournage film corporate en entreprise — équipe Splice avec caméra cinéma",
+    "Tournage film corporate en entreprise — équipe Splice Studio avec caméra cinéma",
   videoUrl: null,
   category: "video",
   sortOrder: 2,
@@ -229,7 +229,7 @@ const motionDesign: ServiceContent = {
   slug: "motion-design",
   name: "Motion design et animation graphique",
   shortName: "Motion design",
-  metaTitle: "Motion design animation graphique Orléans Tours | Splice",
+  metaTitle: "Motion design animation graphique Orléans Tours | Splice Studio",
   metaDescription:
     "Motion design sur mesure à Orléans et Tours : vidéos explicatives, intros animées. Animation 2D/3D pour marques exigeantes.",
   h1: "Vos idées complexes simplifiées grâce à l'animation graphique",
@@ -277,7 +277,7 @@ const motionDesign: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/motion.png",
   coverImageAlt:
-    "Animation motion design en cours de création — interface After Effects studio Splice",
+    "Animation motion design en cours de création — interface After Effects studio Splice Studio",
   videoUrl: null,
   category: "motion",
   sortOrder: 3,
@@ -309,7 +309,7 @@ const pubReseauxSociaux: ServiceContent = {
   slug: "pub-reseaux-sociaux",
   name: "Publicité réseaux sociaux",
   shortName: "Pubs réseaux sociaux",
-  metaTitle: "Agence social media & pub vidéo Orléans | Splice",
+  metaTitle: "Agence social media & pub vidéo Orléans | Splice Studio",
   metaDescription:
     "Agence social media à Orléans : publicités vidéo pour Reels, TikTok, Facebook Ads et YouTube Shorts. Hooks, format vertical et copywriting ROI.",
   h1: "Des publicités vidéo percutantes qui multiplient vos conversions",
@@ -345,7 +345,7 @@ const pubReseauxSociaux: ServiceContent = {
     {
       question: "Êtes-vous une agence social media ?",
       answer:
-        "Oui. Splice agit comme agence social media pour les marques d'Orléans et de Tours : création de contenus vidéo, publicités et accompagnement régulier. Pour une approche globale (image, événementiel, stratégie), découvrez notre <a href=\"/agence-communication-orleans\" class=\"text-df-gold hover:underline\">agence de communication à Orléans</a>.",
+        "Oui. Splice Studio agit comme agence social media pour les marques d'Orléans et de Tours : création de contenus vidéo, publicités et accompagnement régulier. Pour une approche globale (image, événementiel, stratégie), découvrez notre <a href=\"/agence-communication-orleans\" class=\"text-df-gold hover:underline\">agence de communication à Orléans</a>.",
     },
     {
       question: "Quel est le tarif d'un pack publicitaire ?",
@@ -367,7 +367,7 @@ const pubReseauxSociaux: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Tournage publicité vidéo verticale pour réseaux sociaux — Splice Orléans",
+    "Tournage publicité vidéo verticale pour réseaux sociaux — Splice Studio Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 4,
@@ -462,7 +462,7 @@ const shootingAutomobile: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/photo.png",
   coverImageAlt:
-    "Shooting photo automobile Porsche en studio — Splice",
+    "Shooting photo automobile Porsche en studio — Splice Studio",
   videoUrl: null,
   category: "photo",
   sortOrder: 5,
@@ -534,7 +534,7 @@ const photographieProfessionnelle: ServiceContent = {
     {
       question: "Travaillez-vous en freelance ?",
       answer:
-        "Oui. Splice intervient avec la souplesse d'un photographe freelance / auto-entrepreneur : un interlocuteur direct, des délais réactifs et des formules à la carte, tout en conservant un niveau d'exigence professionnel sur la prise de vue et la retouche.",
+        "Oui. Splice Studio intervient avec la souplesse d'un photographe freelance / auto-entrepreneur : un interlocuteur direct, des délais réactifs et des formules à la carte, tout en conservant un niveau d'exigence professionnel sur la prise de vue et la retouche.",
     },
     {
       question: "Comment trouver un photographe autour de moi à Orléans ?",
@@ -551,7 +551,7 @@ const photographieProfessionnelle: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/photo.png",
   coverImageAlt:
-    "Séance photo portrait corporate en entreprise — photographe Splice Orléans",
+    "Séance photo portrait corporate en entreprise — photographe Splice Studio Orléans",
   videoUrl: null,
   category: "photo",
   sortOrder: 6,
@@ -580,7 +580,7 @@ const photographieGoogleBusiness: ServiceContent = {
   slug: "photographie-google-business",
   name: "Photographie Google Business Profile",
   shortName: "Photo Google Business",
-  metaTitle: "Photographe Google Business Profile Orléans Tours | Splice",
+  metaTitle: "Photographe Google Business Profile Orléans Tours | Splice Studio",
   metaDescription:
     "Optimisez votre fiche Google Business Profile à Orléans et Tours. Photos professionnelles d'établissement, portraits d'équipe et packshots locaux certifiés SEO.",
   h1: "Photographe Google Business Profile & Référencement Local",
@@ -668,7 +668,7 @@ const interviewTemoignage: ServiceContent = {
   slug: "interview-temoignage",
   name: "Interview et témoignage d’entreprise",
   shortName: "Interview & témoignage",
-  metaTitle: "Interview vidéo témoignage entreprise Orléans Tours | Splice",
+  metaTitle: "Interview vidéo témoignage entreprise Orléans Tours | Splice Studio",
   metaDescription:
     "Interviews vidéo professionnelles à Orléans et Tours. Témoignages clients, portraits dirigeants, équipement multi-caméras.",
   h1: "Créez une confiance immédiate avec le témoignage client",
@@ -716,7 +716,7 @@ const interviewTemoignage: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Tournage interview vidéo en entreprise — setup multi-caméra Splice",
+    "Tournage interview vidéo en entreprise — setup multi-caméra Splice Studio",
   videoUrl: null,
   category: "video",
   sortOrder: 8,
@@ -747,7 +747,7 @@ const voixOffSoundDesign: ServiceContent = {
   slug: "voix-off-sound-design",
   name: "Voix-off et sound design",
   shortName: "Voix-off & sound design",
-  metaTitle: "Voix-off sound design Orléans Tours | Splice",
+  metaTitle: "Voix-off sound design Orléans Tours | Splice Studio",
   metaDescription:
     "Enregistrement voix-off et mixage audio à Orléans et Tours. Voix-off narrative professionnelle et design sonore premium.",
   h1: "Donnez une voix et une identité sonore à votre marque",
@@ -795,7 +795,7 @@ const voixOffSoundDesign: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/audio.png",
   coverImageAlt:
-    "Studio d’enregistrement voix-off et sound design — Splice Orléans",
+    "Studio d’enregistrement voix-off et sound design — Splice Studio Orléans",
   videoUrl: null,
   category: "audio",
   sortOrder: 9,
@@ -825,7 +825,7 @@ const presentationEntreprise: ServiceContent = {
   slug: "presentation-entreprise",
   name: "Film de présentation d’entreprise",
   shortName: "Film d’entreprise",
-  metaTitle: "Film présentation entreprise Orléans Tours | Splice",
+  metaTitle: "Film présentation entreprise Orléans Tours | Splice Studio",
   metaDescription:
     "Film vitrine de présentation d'entreprise à Orléans et Tours. Racontez votre expertise en vidéo de prestige.",
   h1: "Votre meilleur ambassadeur commercial en 3 minutes",
@@ -873,7 +873,7 @@ const presentationEntreprise: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Tournage film de présentation d’entreprise — équipe Splice en action",
+    "Tournage film de présentation d’entreprise — équipe Splice Studio en action",
   videoUrl: null,
   category: "video",
   sortOrder: 10,
@@ -907,7 +907,7 @@ const clipMusical: ServiceContent = {
   slug: "clip-musical",
   name: "Clip musical et vidéoclip",
   shortName: "Clip musical",
-  metaTitle: "Clip musical vidéoclip Orléans Tours | Splice",
+  metaTitle: "Clip musical vidéoclip Orléans Tours | Splice Studio",
   metaDescription:
     "Réalisation de clips musicaux artistiques à Orléans et Tours. Univers cinématographique de haute qualité pour artistes.",
   h1: "Donnez une dimension cinématographique à votre musique",
@@ -955,7 +955,7 @@ const clipMusical: ServiceContent = {
   priceRange: "$$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Tournage clip musical en extérieur — réalisation cinéma Splice",
+    "Tournage clip musical en extérieur — réalisation cinéma Splice Studio",
   videoUrl: null,
   category: "video",
   sortOrder: 11,
@@ -982,7 +982,7 @@ const dronePriseDeVue: ServiceContent = {
   slug: "drone-prise-de-vue-aerienne",
   name: "Drone et prise de vue aérienne",
   shortName: "Prise de vue drone",
-  metaTitle: "Drone prise de vue aérienne Orléans Tours | Splice",
+  metaTitle: "Drone prise de vue aérienne Orléans Tours | Splice Studio",
   metaDescription:
     "Prises de vues aériennes par drone à Orléans et Tours. Vidéo 4K et photos certifiées DGAC pour l'immobilier et le corporate.",
   h1: "Prenez de la hauteur avec des prises de vue spectaculaires",
@@ -1030,7 +1030,7 @@ const dronePriseDeVue: ServiceContent = {
   priceRange: "$$",
   coverImageUrl: "/images/services/video.png",
   coverImageAlt:
-    "Prise de vue aérienne par drone au-dessus de la Loire — Splice Orléans",
+    "Prise de vue aérienne par drone au-dessus de la Loire — Splice Studio Orléans",
   videoUrl: null,
   category: "video",
   sortOrder: 12,

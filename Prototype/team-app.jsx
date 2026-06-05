@@ -1,4 +1,4 @@
-// Splice — Espace équipe
+// Splice Studio — Espace équipe
 // Login fictif → Dashboard (devis, clients, export PDF)
 
 const { useState, useEffect, useMemo, useRef } = React;
@@ -44,7 +44,7 @@ function Login({ onLogin }) {
     e.preventDefault();
     setErr("");
     if (!email.includes("@splice")) {
-      setErr("Compte réservé à l'équipe Splice.");
+      setErr("Compte réservé à l'équipe Splice Studio.");
       return;
     }
     setLoading(true);
@@ -61,7 +61,7 @@ function Login({ onLogin }) {
   return (
     <div className="df-login">
       <div className="df-login-left">
-        <a href="Splice Site.html" className="df-logo-mark df-logo-mark-light">
+        <a href="Splice Studio Site.html" className="df-logo-mark df-logo-mark-light">
           <img src="assets/splice-logo.svg" alt="" />
           <span>SPLICE</span>
         </a>
@@ -76,7 +76,7 @@ function Login({ onLogin }) {
             <li><i /> Stats équipe</li>
           </ul>
         </div>
-        <div className="df-login-foot">© 2026 Splice · Espace réservé</div>
+        <div className="df-login-foot">© 2026 Splice Studio · Espace réservé</div>
       </div>
 
       <div className="df-login-right">
@@ -86,7 +86,7 @@ function Login({ onLogin }) {
             <button type="button" className="df-tab" onClick={() => setErr("Création de compte sur invitation uniquement.")}>Créer un compte</button>
           </div>
           <h2>Bon retour parmi nous.</h2>
-          <p className="df-login-sub">Identifiants équipe Splice.</p>
+          <p className="df-login-sub">Identifiants équipe Splice Studio.</p>
 
           <label>
             <span>Email pro</span>
@@ -150,7 +150,7 @@ function Dashboard({ user, onLogout }) {
   return (
     <div className="df-app">
       <aside className="df-side">
-        <a href="Splice Site.html" className="df-logo-mark df-logo-mark-light">
+        <a href="Splice Studio Site.html" className="df-logo-mark df-logo-mark-light">
           <img src="assets/splice-logo.svg" alt="" />
           <span>SPLICE</span>
         </a>
@@ -626,7 +626,7 @@ function PdfPreview({ quote, client, onClose }) {
     const w = window.open("", "_blank", "width=900,height=1200");
     w.document.write(`
       <!doctype html><html><head><meta charset="utf-8" />
-      <title>${quote.id} — Splice</title>
+      <title>${quote.id} — Splice Studio</title>
       <style>
         body { font-family: 'Inter', system-ui, sans-serif; margin: 0; padding: 40px; color: #0A0A23; }
         ${PDF_CSS}
@@ -683,7 +683,7 @@ function PdfPreview({ quote, client, onClose }) {
               <div>
                 <h4>Émetteur</h4>
                 <p>
-                  <b>Splice SAS</b><br/>
+                  <b>Splice Studio SAS</b><br/>
                   12 quai du Châtelet, 45000 Orléans<br/>
                   hello@splice.fr · +33 2 38 00 00 00<br/>
                   SIRET 000 000 000 00000 · TVA FR00000000000
@@ -735,7 +735,7 @@ function PdfPreview({ quote, client, onClose }) {
                 <div className="pdf-sign-box"></div>
               </div>
               <div className="pdf-stamp">
-                <span>Splice</span>
+                <span>Splice Studio</span>
                 <i>—</i>
                 <span>Orléans · Tours</span>
               </div>

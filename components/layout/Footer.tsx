@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="mt-24 bg-[var(--bg-deep)] border-t border-white/[.08] text-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-4">
         <div>
-          <h3 className="font-display text-2xl uppercase tracking-tight">Splice</h3>
+          <h3 className="font-display text-2xl uppercase tracking-tight">Splice Studio</h3>
           <p className="mt-3 text-sm opacity-80">
             Boîte de production audiovisuelle.
             On capte le meilleur de votre entreprise.
@@ -64,7 +64,7 @@ export default function Footer() {
             <span>·</span>
             <CookieSettingsButton />
           </div>
-          <p className="mt-2 text-xs opacity-60">© {new Date().getFullYear()} Splice. Tous droits réservés.</p>
+          <p className="mt-2 text-xs opacity-60">© {new Date().getFullYear()} Splice Studio. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

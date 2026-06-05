@@ -7,15 +7,15 @@ export default function NotFound() {
         style={{ color: "rgba(255, 255, 255, 0.45)" }}
         className="mb-10 font-display text-2xl font-bold tracking-wide"
       >
-        SPLICE
+        SPLICE STUDIO
       </span>
 
-      <p
+      <h1
         style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.18em" }}
         className="text-xs uppercase text-[#F36B1F] mb-4"
       >
         Page introuvable (404)
-      </p>
+      </h1>
 
       <h2
         style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}

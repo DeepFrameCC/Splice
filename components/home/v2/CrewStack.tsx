@@ -115,7 +115,7 @@ export default function CrewStack() {
   );
 
   return (
-    <section ref={sectionRef} className="df-cs" aria-label="Services Splice">
+    <section ref={sectionRef} className="df-cs" aria-label="Services Splice Studio">
       {/* ── Header ── */}
       <div className="df-cs-head">
         <div className="df-cs-anim">

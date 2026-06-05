@@ -1,5 +1,5 @@
 /**
- * SEO utilities for Splice
+ * SEO utilities for Splice Studio
  * Centralized structured data and metadata helpers
  */
 
@@ -15,7 +15,7 @@ export function buildOrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": ORG_ID,
-    name: "Splice",
+    name: "Splice Studio",
     alternateName: "Splice Studio",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
@@ -54,7 +54,7 @@ export function buildLocalBusinessJsonLd() {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": LOCALBUSINESS_ID,
     parentOrganization: { "@id": ORG_ID },
-    name: "Splice",
+    name: "Splice Studio",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
     image: `${BASE_URL}/og-image.jpg`,
@@ -146,10 +146,10 @@ export function buildBlogPostJsonLd(post: {
     ...(post.parentService ? { articleSection: post.parentService.name } : {}),
     author: post.author
       ? { "@type": "Person", name: post.author.pseudo }
-      : { "@type": "Organization", name: "Splice" },
+      : { "@type": "Organization", name: "Splice Studio" },
     publisher: {
       "@type": "Organization",
-      name: "Splice",
+      name: "Splice Studio",
       logo: {
         "@type": "ImageObject",
         url: `${BASE_URL}/logo-1.svg`,
@@ -163,7 +163,7 @@ export function buildWebSiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    name: "Splice",
+    name: "Splice Studio",
     url: BASE_URL,
     description:
       "Boîte de production audiovisuelle basée à Orléans et Tours.",
@@ -180,11 +180,11 @@ export function buildContactPageJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contactez Splice",
+    name: "Contactez Splice Studio",
     url: `${BASE_URL}/contact`,
     mainEntity: {
       "@type": "LocalBusiness",
-      name: "Splice",
+      name: "Splice Studio",
       email: "contact.splicestudio@gmail.com",
       telephone: "+33651109202",
       url: BASE_URL,
@@ -224,13 +224,13 @@ export function buildGalleryJsonLd(
   const base = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Galerie Splice",
+    name: "Galerie Splice Studio",
     url: `${BASE_URL}/galerie`,
     description:
-      "Portfolio photo et vidéo de Splice — Orléans / Tours.",
+      "Portfolio photo et vidéo de Splice Studio — Orléans / Tours.",
     publisher: {
       "@type": "Organization",
-      name: "Splice",
+      name: "Splice Studio",
     },
     numberOfItems: mediaCount,
   };
@@ -242,7 +242,7 @@ export function buildGalleryJsonLd(
     hasPart: medias.slice(0, 20).map((m) => {
       const isVideo = m.type === "VIDEO";
       const thumb = m.thumbnailUrl || (isVideo ? `${BASE_URL}/og-image.jpg` : undefined);
-      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice - ${m.title}` : undefined);
+      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice Studio - ${m.title}` : undefined);
 
       return {
         "@type": isVideo ? "VideoObject" : "ImageObject",
@@ -260,12 +260,12 @@ export function buildTeamJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "L'équipe Splice",
+    name: "L'équipe Splice Studio",
     url: `${BASE_URL}/equipe`,
     mainEntity: {
       "@type": "Organization",
       "@id": ORG_ID,
-      name: "Splice",
+      name: "Splice Studio",
       member: [
         {
           "@type": "Person",
@@ -294,13 +294,13 @@ export function buildBlogIndexJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Blog — Splice",
+    name: "Blog — Splice Studio",
     url: `${BASE_URL}/blog`,
     description:
       "Découvrez nos actualités, guides pratiques et conseils sur le montage vidéo, la production corporate et le podcast à Orléans, Tours et Centre-Val de Loire.",
     publisher: {
       "@type": "Organization",
-      name: "Splice",
+      name: "Splice Studio",
     },
   };
 }
@@ -309,7 +309,7 @@ export function buildAvisJsonLd(averageRating: number | null, reviewCount: numbe
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Splice",
+    name: "Splice Studio",
     url: BASE_URL,
     ...(averageRating && reviewCount > 0
       ? {
@@ -329,13 +329,13 @@ export function buildPricingJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Tarifs — Splice",
+    name: "Tarifs — Splice Studio",
     url: `${BASE_URL}/tarifs`,
     description:
       "Tarifs transparents de production vidéo et photographie à Orléans, Tours et Centre-Val de Loire. Abonnements vidéo pro, packs photo à la carte et création de podcast.",
     mainEntity: {
       "@type": "OfferCatalog",
-      name: "Tarifs Splice",
+      name: "Tarifs Splice Studio",
       itemListElement: [
         {
           "@type": "Offer",

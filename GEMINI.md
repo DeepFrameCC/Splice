@@ -1,8 +1,8 @@
 # GEMINI.md - GLOBAL SYSTEM SKILLS & SPLICE ARCHITECTURE
 
 > Statut : Source de Vérité Absolue / System Prompt / Référentiel de Production.
-> Portée : Tout projet technique, architecture logicielle distribuée, ingénierie IA avancée et projet Splice.
-> Règle d'or : Ce fichier réunit les compétences IA globales de `skills-md` et les spécifications d'architecture du projet `Splice`. Il prime sur toute habitude ou configuration par défaut de l'IA.
+> Portée : Tout projet technique, architecture logicielle distribuée, ingénierie IA avancée et projet Splice Studio.
+> Règle d'or : Ce fichier réunit les compétences IA globales de `skills-md` et les spécifications d'architecture du projet `Splice Studio`. Il prime sur toute habitude ou configuration par défaut de l'IA.
 
 ---
 
@@ -1135,9 +1135,9 @@ Ne jamais commencer par "un assistant omnipotent". Commencer par un noyau simple
 
 ---
 
-# PARTIE 2 : SPÉCIFICATIONS ET PROTOCOLES DU PROJET SPLICE (Splice/GEMINI.md)
+# PARTIE 2 : SPÉCIFICATIONS ET PROTOCOLES DU PROJET SPLICE (Splice Studio/GEMINI.md)
 
-## 1. Commandes de production Splice
+## 1. Commandes de production Splice Studio
 
 ```bash
 npm run dev          # Start dev server
@@ -1158,13 +1158,13 @@ npm run test:e2e:ui  # Playwright tests in UI mode
 npm run cf-typegen   # Generate Cloudflare Env interface types
 ```
 
-## 2. Architecture du Projet Splice
+## 2. Architecture du Projet Splice Studio
 
-**Splice** est une application Next.js 15 App Router pour une entreprise française de production audiovisuelle basée à **Orléans (45), France**. Statut juridique : **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+**Splice Studio** est une application Next.js 15 App Router pour une entreprise française de production audiovisuelle basée à **Orléans (45), France**. Statut juridique : **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
 
 La plateforme gère : vitrine publique, authentification client (CLIENT / TEAM / ADMIN), tunnel de devis, paiement Stripe, factures PDF, contrats électroniques et tableau de bord admin complet.
 
-### 2.1 Stack Technique Splice
+### 2.1 Stack Technique Splice Studio
 
 | Layer | Tech |
 |-------|------|
@@ -1185,12 +1185,12 @@ La plateforme gère : vitrine publique, authentification client (CLIENT / TEAM /
 | Génération PDF | pdf-lib + @pdf-lib/fontkit côté serveur |
 | Monitoring | Sentry (côté client actif) + Plausible (respectueux du RGPD avec consentement) |
 
-### 2.2 Équipe Splice (Fondateurs)
+### 2.2 Équipe Splice Studio (Fondateurs)
 
 - **t.y97one** — ADMIN (monteur / motion designer)
 - **by.louisia** — TEAM (photographe)
 
-### 2.3 Structure des Routes Splice
+### 2.3 Structure des Routes Splice Studio
 
 ```
 app/
@@ -1224,14 +1224,14 @@ app/
 - **Service** : Basé sur un slug, contient des champs JSON `features` et `faq`, lié à un BlogPost
 - **BlogPost** : Basé sur un slug, lié à un Service parent pour le maillage SEO (silo)
 
-### 2.5 Logique Métier Centrale Splice
+### 2.5 Logique Métier Centrale Splice Studio
 
 - **Calcul de prix** (`lib/pricing.ts`) : `computeQuote(input)` construit les lignes de facturation. Tous les montants sont en euros (nombres entiers). Les `MENTIONS_LEGALES` sont intégrées aux PDFs.
 - **Numérotation des devis** (`lib/numbering.ts`) : `nextNumero(type, tx)` — DOIT impérativement être appelé à l'intérieur d'une transaction `db.$transaction()`, jamais en dehors.
 - **Règle Fiscale** : TVA non applicable, art. 293 B du CGI. Mention obligatoire présente sur les devis et factures.
 - **Séquençage numérique** : Séquence continue, sans trous autorisés (Art. L123-22 du Code de commerce). Format : `{YYYY}_{seq:03d}`.
 
-### 2.6 Server Actions Splice
+### 2.6 Server Actions Splice Studio
 
 Toutes les mutations utilisent `"use server"` :
 - `app/actions/auth.ts` — inscription, réinitialisation de mot de passe
@@ -1240,7 +1240,7 @@ Toutes les mutations utilisent `"use server"` :
 - `app/actions/likes.ts` — bascule d'état des likes
 - `app/actions/contact.ts` — soumission du formulaire de contact
 
-## 3. Protocole d'Orchestration d'Agents (Splice Context-Engineering)
+## 3. Protocole d'Orchestration d'Agents (Splice Studio Context-Engineering)
 
 Cette section impose les règles de coordination entre l'orchestrateur (moi, Gemini principal) et les 7 sub-agents projet. Elle dérive directement des skills `multi-agent-patterns` et `tool-design`.
 
@@ -1256,7 +1256,7 @@ Cette section impose les règles de coordination entre l'orchestrateur (moi, Gem
 6. **Forward-message pour artefacts finaux** : les textes rédigés pour l'utilisateur, le contenu d'un e-mail Resend, le texte légal d'une facture, les balises de référencement JSON-LD ou les descriptions de métadonnées doivent être **forwardés textuellement** depuis le sub-agent vers l'utilisateur, sans paraphrase.
 7. **Pas de consensus sycophante** : si deux sub-agents formulent des recommandations contradictoires (ex. `security` veut un CSP strict alors que `seo-performance` veut autoriser un CDN d'images externe), je tranche en choisissant par défaut la contrainte la plus stricte (sécuritaire) et je documente ce compromis.
 
-### 3.2 Table de Routage (Arbre de Décision Splice)
+### 3.2 Table de Routage (Arbre de Décision Splice Studio)
 
 | Tâche | Agent principal | Chaînage si nécessaire |
 |-------|-----------------|---------------------|
@@ -1305,7 +1305,7 @@ Si ce bloc manque ou s'il comporte des inexactitudes (fichiers non créés, buil
 
 ## 4. Capacités de l'Escouade d'Agents (Auto-Invocation Proactive)
 
-Les sub-agents spécialisés de Splice résident dans `.claude/agents/`. **Règle impérative : les invoquer de façon autonome dès que le contexte de la tâche le justifie, sans attendre que l'utilisateur ne les nomme.**
+Les sub-agents spécialisés de Splice Studio résident dans `.claude/agents/`. **Règle impérative : les invoquer de façon autonome dès que le contexte de la tâche le justifie, sans attendre que l'utilisateur ne les nomme.**
 
 | Agent | Auto-invocation dès que la tâche implique... |
 |-------|-------------------------------------|
@@ -1333,12 +1333,12 @@ Les compétences marketing globales (disponibles dans `.claude/skills/marketings
 
 ### 5.1 Doctrine UI/UX Pro Max
 
-- **Auto-invocation** : Obligatoire pour toute tâche visuelle sur Splice. Invoquer `ui-ux-pro-max` pour s'assurer des grilles de référence, puis chaîner `design-frontend`.
-- **DA Splice Cinéma Studio** : Respecter les choix de design de la marque — fond sombre `#0E0E22`, accent orange `#F36B1F`, vert forêt/glauque `#2E4239`, polices Anton et Poppins. Ne pas écraser ces tokens par des styles génériques.
+- **Auto-invocation** : Obligatoire pour toute tâche visuelle sur Splice Studio. Invoquer `ui-ux-pro-max` pour s'assurer des grilles de référence, puis chaîner `design-frontend`.
+- **DA Splice Studio Cinéma Studio** : Respecter les choix de design de la marque — fond sombre `#0E0E22`, accent orange `#F36B1F`, vert forêt/glauque `#2E4239`, polices Anton et Poppins. Ne pas écraser ces tokens par des styles génériques.
 
 ### 5.2 Doctrine Impeccable — Design Engineering Workflow
 
-- **Enregistrement de la marque** : Splice est classé comme **brand** (le design est l'affirmation même de l'expertise audiovisuelle).
+- **Enregistrement de la marque** : Splice Studio est classé comme **brand** (le design est l'affirmation même de l'expertise audiovisuelle).
 - **Règles de design strictes (Bans absolus)** :
   1. Pas de couleur noire ou blanche pure (`#000` / `#fff` purs) — appliquer une légère teinte vers l'orange brûlé pour tinter les neutres.
   2. Pas d'en-têtes avec de grosses statistiques standardisées (templates SaaS).
@@ -1357,7 +1357,7 @@ Invoquer `emil-design-eng` pour le polissage des transitions, l'ajustement du ti
 
 Avant de valider tout contenu textuel rédigé en français ou en anglais, appliquer impérativement la compétence `stop-slop` pour éliminer le jargon d'écriture IA, les superlatifs inutiles, la voix passive abusive et les structures de phrases répétitives.
 
-## 6. Variables d'Environnement Obligatoires de Splice
+## 6. Variables d'Environnement Obligatoires de Splice Studio
 
 Toutes les variables sont validées à l'initialisation dans `lib/env.ts` :
 - Localement : secrets chargés depuis `.dev.vars` (Wrangler/OpenNext), valeurs client dans `.env`.

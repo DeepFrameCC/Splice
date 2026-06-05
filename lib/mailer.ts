@@ -44,7 +44,7 @@ export const notifyFoundersNewDevis = (numero: string, payload: { client: string
   sendMail({
     to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
     replyTo: MAIL_CONTACT,
-    subject: `[Splice] Nouveau devis ${numero} — ${payload.client}`,
+    subject: `[Splice Studio] Nouveau devis ${numero} — ${payload.client}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22">
         <h2 style="color:#F36B1F">Nouveau devis ${numero}</h2>

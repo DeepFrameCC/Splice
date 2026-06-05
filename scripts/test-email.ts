@@ -52,8 +52,8 @@ async function main() {
     const result = await resend.emails.send({
       from: mailFrom,
       to: testRecipients,
-      subject: "[Test Splice] Test d'envoi Resend",
-      html: `<p>Ceci est un test de fonctionnement du service de messagerie Resend pour Splice.</p>`
+      subject: "[Test Splice Studio] Test d'envoi Resend",
+      html: `<p>Ceci est un test de fonctionnement du service de messagerie Resend pour Splice Studio.</p>`
     });
 
     console.log("Resultat de l'envoi :");

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Conseils, guides et actualités sur la production audiovisuelle, le montage vidéo, les réseaux sociaux et la photographie professionnelle.",
   openGraph: {
-    title: "Blog — Splice",
+    title: "Blog — Splice Studio",
     description:
       "Conseils, guides et actualités sur la production audiovisuelle.",
   },

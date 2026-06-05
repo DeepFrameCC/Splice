@@ -51,6 +51,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          NEXT_PUBLIC_GTM_ID: "GTM-KN98673M"
 
       - name: Clean oversized assets
         run: node scripts/clean-assets.js

@@ -292,7 +292,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
 
   const clientMail = sendMail({
     to: data.emailContact,
-    subject: `Splice — Demande de devis ${devis.numero} bien reçue`,
+    subject: `Splice Studio — Demande de devis ${devis.numero} bien reçue`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Merci pour votre demande</h2>

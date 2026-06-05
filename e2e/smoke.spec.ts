@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Smoke tests — public pages", () => {
-  test("homepage loads and shows Splice branding", async ({ page }) => {
+  test("homepage loads and shows Splice Studio branding", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/Splice/i);
+    await expect(page).toHaveTitle(/Splice Studio/i);
   });
 
   test("galerie page loads", async ({ page }) => {
@@ -13,7 +13,7 @@ test.describe("Smoke tests — public pages", () => {
 
   test("equipe page loads", async ({ page }) => {
     await page.goto("/equipe");
-    await expect(page.locator("h1")).toContainText(/équipe|team/i);
+    await expect(page.locator("h1")).toContainText(/artisans/i);
   });
 
   test("avis page loads", async ({ page }) => {

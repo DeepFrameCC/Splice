@@ -1,4 +1,4 @@
-# Annuaires & plateformes — référencement local Splice
+# Annuaires & plateformes — référencement local Splice Studio
 
 > But : citations locales (NAP) + backlinks + visibilité. Levier direct contre IOA
 > qui domine « production vidéo Orléans ». Aucune URL inventée : les liens incertains

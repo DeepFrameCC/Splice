@@ -8,20 +8,20 @@ import JsonLd from "@/components/JsonLd";
 export const metadata: Metadata = {
   title: "Services audiovisuels — Orléans & Tours",
   description:
-    "Production vidéo, photographie professionnelle, motion design, pub réseaux sociaux à Orléans et Tours. Splice couvre toute la chaîne de production audiovisuelle en Centre-Val de Loire.",
+    "Production vidéo, photographie professionnelle, motion design, pub réseaux sociaux à Orléans et Tours. Splice Studio couvre toute la chaîne de production audiovisuelle en Centre-Val de Loire.",
   alternates: { canonical: absoluteUrl("/services") },
   openGraph: {
-    title: "Nos services audiovisuels — Orléans · Tours | Splice",
+    title: "Nos services audiovisuels — Orléans · Tours | Splice Studio",
     description:
-      "Montage vidéo, production corporate, motion design, shooting automobile, photographie professionnelle et plus. Splice couvre toute la chaîne audiovisuelle à Orléans et Tours.",
+      "Montage vidéo, production corporate, motion design, shooting automobile, photographie professionnelle et plus. Splice Studio couvre toute la chaîne audiovisuelle à Orléans et Tours.",
     url: absoluteUrl("/services"),
-    siteName: "Splice",
+    siteName: "Splice Studio",
     locale: "fr_FR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nos services audiovisuels — Orléans · Tours | Splice",
+    title: "Nos services audiovisuels — Orléans · Tours | Splice Studio",
     description:
       "Montage vidéo, production corporate, motion design, shooting automobile, photographie professionnelle et plus.",
   },

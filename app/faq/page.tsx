@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   description:
     "Réponses à vos questions fréquentes sur nos services de production vidéo et photo à Orléans et Tours : tarifs, délais de livraison, formats livrés, shooting automobile, montage vidéo et plus.",
   openGraph: {
-    title: "FAQ production audiovisuelle — Splice",
+    title: "FAQ production audiovisuelle — Splice Studio",
     description:
-      "Tout savoir sur les prestations audiovisuelles Splice : tarifs, délais, formats, shooting photo & vidéo à Orléans et Tours.",
+      "Tout savoir sur les prestations audiovisuelles Splice Studio : tarifs, délais, formats, shooting photo & vidéo à Orléans et Tours.",
   },
 };
 
@@ -35,9 +35,9 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
     title: "Général",
     items: [
       {
-        q: "Qu'est-ce que Splice, votre agence vidéo à Orléans et Tours ?",
-        a: "Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Nous intervenons sur tout le Centre-Val de Loire.",
-        rich: <>Splice est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
+        q: "Qu'est-ce que Splice Studio, votre agence vidéo à Orléans et Tours ?",
+        a: "Splice Studio est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Nous intervenons sur tout le Centre-Val de Loire.",
+        rich: <>Splice Studio est une boîte de production audiovisuelle basée à Orléans et Tours spécialisée en vidéo publicitaire pour les réseaux sociaux, shooting automobile, film de marque et aftermovie événementiel. Découvrez <L href="/galerie">nos réalisations</L> et <L href="/equipe">notre équipe</L>.</>,
       },
       {
         q: "Dans quelle zone géographique votre vidéaste intervient-il ?",
@@ -45,7 +45,7 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         rich: <>Nous intervenons principalement en Centre-Val de Loire : Orléans, Tours, Blois, Chartres, Bourges et environs. Les frais de déplacement sont calculés à 0,50 €/km aller-retour au-delà de 30 km. <L href="/contact">Contactez-nous</L> pour en discuter.</>,
       },
       {
-        q: "Comment contacter Splice pour un projet vidéo ou photo ?",
+        q: "Comment contacter Splice Studio pour un projet vidéo ou photo ?",
         a: "Vous pouvez nous écrire à contact.splicestudio@gmail.com, remplir le formulaire de contact sur notre site, ou directement demander un devis en ligne via notre simulateur. Nous répondons sous 24h ouvrées.",
         rich: <>Vous pouvez nous écrire à contact.splicestudio@gmail.com, remplir notre <L href="/contact">formulaire de contact</L>, ou directement <L href="/devis">demander un devis en ligne</L> via notre simulateur. Nous répondons sous 24h ouvrées.</>,
       },
@@ -60,7 +60,7 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         rich: <>Notre <L href="/devis">configurateur en ligne</L> vous permet de choisir votre formule (abonnement ou pack à l&apos;unité), vos options de montage et vos coordonnées en 3 étapes. Vous recevez un devis détaillé par email sous 24h. C&apos;est gratuit et sans engagement.</>,
       },
       {
-        q: "Combien coûte un montage vidéo professionnel chez Splice ?",
+        q: "Combien coûte un montage vidéo professionnel chez Splice Studio ?",
         a: "Nos abonnements de montage vidéo démarrent à 45 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo.",
         rich: <>Nos <L href="/tarifs">abonnements de montage vidéo</L> démarrent à 45 €/mois (formule Standard : 2 vidéos sources + recyclage multi-réseaux). La formule Pro est à 99 €/mois et la Premium à 189 €/mois. Pour un besoin ponctuel, le Pack Particulier démarre à 29 € la vidéo. <L href="/devis">Demandez un devis</L> pour un tarif personnalisé.</>,
       },

@@ -164,7 +164,7 @@ export async function exportMyData(): Promise<{
       _meta: {
         exportDate: new Date().toISOString(),
         format: "RGPD Article 15/20 — Données personnelles",
-        service: "Splice",
+        service: "Splice Studio",
       },
       compte: {
         email: user.email,

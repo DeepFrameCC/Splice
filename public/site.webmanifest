@@ -1,6 +1,6 @@
 {
-  "name": "Splice — Production audiovisuelle",
-  "short_name": "Splice",
+  "name": "Splice Studio — Production audiovisuelle",
+  "short_name": "Splice Studio",
   "description": "Boîte de production audiovisuelle basée à Orléans et Tours.",
   "start_url": "/",
   "display": "standalone",

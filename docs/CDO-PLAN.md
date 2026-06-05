@@ -116,7 +116,7 @@ localement, ou ajoute une règle de permission Bash.
 4. **GA4 / GTM** : ID propriété + conteneur → /analytics, events, dashboard.
 5. **Cible prospection** : critères + source (export CRM/liste) → /prospecting, /cold-email (je ne scrape pas d'emails au hasard).
 6. **Autorisation recherche web** (oui/non) → /deep-research, /competitor-profiling avec vraies données.
-7. **Handles réseaux actuels** Splice → audit /social.
+7. **Handles réseaux actuels** Splice Studio → audit /social.
 
 ---
 

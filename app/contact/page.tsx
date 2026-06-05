@@ -11,9 +11,9 @@ import { BASE_URL } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Contact — production vidéo Orléans & Tours",
   description:
-    "Contactez Splice — boîte de production audiovisuelle à Orléans et Tours. Email, téléphone, Instagram, devis en ligne.",
+    "Contactez Splice Studio — boîte de production audiovisuelle à Orléans et Tours. Email, téléphone, Instagram, devis en ligne.",
   openGraph: {
-    title: "Contactez Splice",
+    title: "Contactez Splice Studio",
     description:
       "Email, WhatsApp, formulaire en ligne. Réponse sous 24h. Orléans & Tours.",
   },

@@ -16,19 +16,19 @@ export const revalidate = 86400;
 const PATH = "/agence-communication-orleans";
 const TITLE = "Agence de communication à Orléans";
 const DESCRIPTION =
-  "Agence de communication à Orléans : stratégie visuelle, vidéo, événementiel et social media. Splice accompagne les entreprises du Loiret. Devis gratuit.";
+  "Agence de communication à Orléans : stratégie visuelle, vidéo, événementiel et social media. Splice Studio accompagne les entreprises du Loiret. Devis gratuit.";
 const H1 = "Agence de communication à Orléans";
 
 const FAQ: FAQItem[] = [
   {
     question: "Quelle différence entre une agence de communication et un freelance ?",
     answer:
-      "Un freelance couvre une compétence précise (montage, photo, rédaction). Une agence comme Splice orchestre l'ensemble : stratégie, image, vidéo, social media et événementiel, avec une cohérence de marque d'un support à l'autre et un interlocuteur unique qui pilote le projet de bout en bout.",
+      "Un freelance couvre une compétence précise (montage, photo, rédaction). Une agence comme Splice Studio orchestre l'ensemble : stratégie, image, vidéo, social media et événementiel, avec une cohérence de marque d'un support à l'autre et un interlocuteur unique qui pilote le projet de bout en bout.",
   },
   {
     question: "Combien coûte une agence de communication à Orléans ?",
     answer:
-      "Tout dépend du périmètre. Splice propose des packs à la carte (photos dès 15 €, vidéos dès 29 €) et des abonnements mensuels de montage vidéo à partir de 45 €/mois. Les accompagnements plus complets sont chiffrés sur devis : configurez votre besoin sur notre simulateur de devis en ligne ou consultez la page Tarifs.",
+      "Tout dépend du périmètre. Splice Studio propose des packs à la carte (photos dès 15 €, vidéos dès 29 €) et des abonnements mensuels de montage vidéo à partir de 45 €/mois. Les accompagnements plus complets sont chiffrés sur devis : configurez votre besoin sur notre simulateur de devis en ligne ou consultez la page Tarifs.",
   },
   {
     question: "Travaillez-vous avec les restaurants et commerces locaux ?",
@@ -47,7 +47,7 @@ export function generateMetadata(): Metadata {
       title: TITLE,
       description: DESCRIPTION,
       url,
-      siteName: "Splice",
+      siteName: "Splice Studio",
       locale: "fr_FR",
       type: "website",
     },
@@ -96,7 +96,7 @@ export default function AgenceCommunicationOrleansPage() {
                 {H1}
               </h1>
               <p className="mt-6 text-base leading-relaxed text-white/70">
-                Splice est un studio de création visuelle et une agence de communication à Orléans. Nous accompagnons les entreprises, commerces et institutions du Loiret pour donner une image forte et cohérente à leur marque — de la stratégie de marque à la production de contenus photo, vidéo, motion design et réseaux sociaux.
+                Splice Studio est un studio de création visuelle et une agence de communication à Orléans. Nous accompagnons les entreprises, commerces et institutions du Loiret pour donner une image forte et cohérente à leur marque — de la stratégie de marque à la production de contenus photo, vidéo, motion design et réseaux sociaux.
               </p>
             </div>
             
@@ -229,7 +229,7 @@ export default function AgenceCommunicationOrleansPage() {
                 La force d&apos;un studio,<br />la souplesse de freelances
               </h2>
               <p className="mt-6 text-sm leading-relaxed text-white/70">
-                Splice réunit Louisia (directrice artistique &amp; photographe) et Tracy (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
+                Splice Studio réunit Louisia (directrice artistique &amp; photographe) et Tracy (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">

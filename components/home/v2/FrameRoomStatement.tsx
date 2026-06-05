@@ -54,7 +54,7 @@ export default function FrameRoomStatement() {
     <section
       ref={sectionRef}
       className="df-frs"
-      aria-label="Note d'intention Splice"
+      aria-label="Note d'intention Splice Studio"
     >
       <div className="df-frs-grid">
         {/* Rail latéral — repère type clap de cinéma */}

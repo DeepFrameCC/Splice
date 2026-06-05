@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     "Galerie photo : portraits, automobile, lifestyle, événementiel. Par Louisia et Tracy.",
   openGraph: {
-    title: "Photos — Splice",
+    title: "Photos — Splice Studio",
     description: "Nos réalisations photo en Centre-Val de Loire.",
   },
   twitter: { card: "summary_large_image" },

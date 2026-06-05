@@ -1,4 +1,4 @@
-# Cursor Rules for Splice
+# Cursor Rules for Splice Studio
 
 This file provides guidance to Cursor's AI (Composer, Agent, Chat) when working with code in this repository.
 
@@ -29,7 +29,7 @@ npm run cf-typegen   # Generate Cloudflare Env interface types
 
 ## Core Architecture
 
-**Splice** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+**Splice Studio** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
 
 ### Tech Stack
 - **Framework**: Next.js 15 (App Router, RSC, Server Actions)

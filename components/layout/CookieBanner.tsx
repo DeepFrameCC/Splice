@@ -129,14 +129,14 @@ export default function CookieBanner() {
             <button
               onClick={() => accept(true)}
               disabled={pending}
-              className="rounded-xl bg-df-blue px-5 py-2.5 text-sm font-bold text-df-night shadow-lg shadow-df-blue/25 transition hover:bg-df-blue/90"
+              className="rounded-xl bg-df-blue px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-df-blue/25 transition hover:bg-df-blue/90"
             >
               Tout accepter
             </button>
             <button
               onClick={() => accept(false)}
               disabled={pending}
-              className="rounded-xl border border-white/10 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-white/5"
+              className="rounded-xl bg-white/15 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/10 transition hover:bg-white/20"
               aria-label="Refuser tous les cookies optionnels et n'autoriser que les cookies essentiels"
             >
               Tout refuser

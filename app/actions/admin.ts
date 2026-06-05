@@ -79,7 +79,7 @@ export async function validerDevis(devisId: string) {
   if (isFree) {
     await sendMail({
       to: result.emailContact,
-      subject: `Splice — Votre ${result.pack} n°${result.numero} est confirmée`,
+      subject: `Splice Studio — Votre ${result.pack} n°${result.numero} est confirmée`,
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">C'est confirmé !</h2>
@@ -89,13 +89,13 @@ export async function validerDevis(devisId: string) {
         <p style="margin-top:20px">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
       </div>`
     });
   } else {
     await sendMail({
       to: result.emailContact,
-      subject: `Splice — Votre devis n°${result.numero} est validé`,
+      subject: `Splice Studio — Votre devis n°${result.numero} est validé`,
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis validé !</h2>
@@ -105,7 +105,7 @@ export async function validerDevis(devisId: string) {
         <p style="margin-top:20px">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
       </div>`
     });
   }
@@ -138,7 +138,7 @@ export async function refuserDevis(devisId: string) {
 
   await sendMail({
     to: devis.emailContact,
-    subject: `Splice — Devis n°${devis.numero} non retenu`,
+    subject: `Splice Studio — Devis n°${devis.numero} non retenu`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis non retenu</h2>
@@ -190,7 +190,7 @@ export async function proposerAutreDate(devisId: string, message: string) {
 
   await sendMail({
     to: result.emailContact,
-    subject: `Splice — Proposition de date pour votre devis n°${result.numero}`,
+    subject: `Splice Studio — Proposition de date pour votre devis n°${result.numero}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Une proposition de date</h2>
@@ -201,7 +201,7 @@ export async function proposerAutreDate(devisId: string, message: string) {
         <p style="margin-top:20px">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a>
         </p>
-        <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+        <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
       </div>`,
   });
 

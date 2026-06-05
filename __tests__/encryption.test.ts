@@ -14,7 +14,7 @@ afterAll(() => {
 
 describe("encryption", () => {
   it("encrypts and decrypts a string correctly", () => {
-    const plaintext = "Hello, Splice!";
+    const plaintext = "Hello, Splice Studio!";
     const ciphertext = encrypt(plaintext);
     expect(ciphertext).not.toBe(plaintext);
     expect(decrypt(ciphertext)).toBe(plaintext);

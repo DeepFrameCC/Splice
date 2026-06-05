@@ -70,7 +70,7 @@ async function main() {
           upsert: {
             create: {
               prenom: "Admin",
-              nom: "Splice",
+              nom: "Splice Studio",
               adresse: "Orleans",
               codePostal: "45000",
               ville: "Orleans",
@@ -78,7 +78,7 @@ async function main() {
               age: 25,
             },
             update: {
-              nom: "Splice",
+              nom: "Splice Studio",
             }
           }
         }
@@ -97,7 +97,7 @@ async function main() {
         profile: {
           create: {
             prenom: "Admin",
-            nom: "Splice",
+            nom: "Splice Studio",
             adresse: "Orleans",
             codePostal: "45000",
             ville: "Orleans",
@@ -228,8 +228,8 @@ async function main() {
       slug: "prix-video-entreprise-2026",
       title: "Combien coute une video d'entreprise en 2026 ?",
       excerpt: "Les facteurs de prix, des fourchettes par type de film et comment obtenir un devis juste pour votre video d'entreprise.",
-      metaTitle: "Prix d'une video d'entreprise en 2026 | Splice",
-      metaDescription: "Combien coute une video d'entreprise en 2026 ? Facteurs de prix, fourchettes par type de film et conseils pour un devis juste. Le guide Splice.",
+      metaTitle: "Prix d'une video d'entreprise en 2026 | Splice Studio",
+      metaDescription: "Combien coute une video d'entreprise en 2026 ? Facteurs de prix, fourchettes par type de film et conseils pour un devis juste. Le guide Splice Studio.",
       tags: ["prix video entreprise", "tarif film corporate", "budget video"],
       coverImageAlt: "Tournage d'une video d'entreprise en studio",
       publishedAt: new Date("2026-05-05"),
@@ -239,7 +239,7 @@ async function main() {
       slug: "reussir-shooting-photo-automobile",
       title: "Reussir un shooting photo automobile : le guide complet",
       excerpt: "Lumiere, lieux, reglages, retouche : le guide pour reussir un shooting photo automobile professionnel.",
-      metaTitle: "Shooting photo automobile : le guide complet | Splice",
+      metaTitle: "Shooting photo automobile : le guide complet | Splice Studio",
       metaDescription: "Lumiere, lieux, reglages, retouche : le guide complet pour reussir un shooting photo automobile professionnel et valoriser un vehicule.",
       tags: ["shooting photo voiture", "photographe automobile", "photo auto"],
       coverImageAlt: "Shooting photo d'une voiture a l'heure doree",
@@ -250,8 +250,8 @@ async function main() {
       slug: "vlog-entreprise-definition-formats",
       title: "Vlog d'entreprise : definition, formats et exemples",
       excerpt: "Qu'est-ce qu'un vlog d'entreprise ? Definition, formats et bonnes pratiques pour lancer un vlog corporate efficace.",
-      metaTitle: "Vlog d'entreprise : definition et formats | Splice",
-      metaDescription: "Qu'est-ce qu'un vlog d'entreprise ? Definition, formats, exemples et bonnes pratiques pour lancer un vlog corporate efficace. Guide Splice.",
+      metaTitle: "Vlog d'entreprise : definition et formats | Splice Studio",
+      metaDescription: "Qu'est-ce qu'un vlog d'entreprise ? Definition, formats, exemples et bonnes pratiques pour lancer un vlog corporate efficace. Guide Splice Studio.",
       tags: ["vlog entreprise", "c'est quoi un vlog", "vlog corporate"],
       coverImageAlt: "Collaborateur filme pour un vlog d'entreprise",
       publishedAt: new Date("2026-05-14"),
@@ -261,8 +261,8 @@ async function main() {
       slug: "formats-video-reseaux-sociaux-2026",
       title: "Formats video pour les reseaux sociaux : le guide 2026",
       excerpt: "9:16, 1:1, 16:9 : quel format video pour quel reseau social en 2026 et comment decliner une seule captation.",
-      metaTitle: "Formats video reseaux sociaux : guide 2026 | Splice",
-      metaDescription: "9:16, 1:1, 16:9 : quel format video pour quel reseau social en 2026 ? Bonnes pratiques et declinaison multi-format. Guide Splice.",
+      metaTitle: "Formats video reseaux sociaux : guide 2026 | Splice Studio",
+      metaDescription: "9:16, 1:1, 16:9 : quel format video pour quel reseau social en 2026 ? Bonnes pratiques et declinaison multi-format. Guide Splice Studio.",
       tags: ["format video reseaux sociaux", "9:16", "16:9", "format Reels"],
       coverImageAlt: "Declinaison d'une video en formats vertical, carre et paysage",
       publishedAt: new Date("2026-05-19"),
@@ -273,7 +273,7 @@ async function main() {
       title: "Photographe freelance ou agence : comment choisir ?",
       excerpt: "Avantages, limites, couts et criteres de choix entre un photographe freelance et une agence selon votre projet.",
       metaTitle: "Photographe freelance ou agence : comment choisir ?",
-      metaDescription: "Photographe freelance ou agence : avantages, limites, couts et criteres de choix selon votre projet. Le guide objectif de Splice.",
+      metaDescription: "Photographe freelance ou agence : avantages, limites, couts et criteres de choix selon votre projet. Le guide objectif de Splice Studio.",
       tags: ["photographe freelance", "agence vs freelance", "choisir photographe"],
       coverImageAlt: "Photographe professionnel en prise de vue",
       publishedAt: new Date("2026-05-23"),

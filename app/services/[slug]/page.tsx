@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: service.metaTitle,
       description: service.metaDescription,
       url,
-      siteName: "Splice",
+      siteName: "Splice Studio",
       locale: "fr_FR",
       type: "article",
       images: [{ url: service.coverImageUrl || "", width: 1200, height: 630, alt: service.coverImageAlt }],
@@ -529,7 +529,7 @@ export default async function ServicePage({ params }: PageProps) {
               )}
 
               {/* Final CTA: LastFrame style */}
-              <section className="df-lf mt-24" aria-label="Demander un devis Splice">
+              <section className="df-lf mt-24" aria-label="Demander un devis Splice Studio">
                 {/* Cine corners */}
                 <div className="df-cine-corners df-lf-corners" aria-hidden="true">
                   <i /><i /><i /><i />

@@ -1,4 +1,4 @@
-// Splice — sections du site
+// Splice Studio — sections du site
 
 function Site() {
   return (
@@ -74,7 +74,7 @@ function Showreel() {
 function Nav() {
   return (
     <header className="df-nav">
-      <a href="#" className="df-logo-mark" aria-label="Splice">
+      <a href="#" className="df-logo-mark" aria-label="Splice Studio">
         <img src="assets/splice-logo.svg" alt="" />
         <span>SPLICE</span>
       </a>
@@ -104,7 +104,7 @@ function Hero() {
         <em>On sublime.</em>
       </h1>
       <p className="df-hero-sub">
-        Splice embellit les marques avec des publicités sociales, des shootings auto
+        Splice Studio embellit les marques avec des publicités sociales, des shootings auto
         et des contenus audiovisuels qui se regardent jusqu'au bout.
       </p>
       <div className="df-hero-cta">
@@ -261,7 +261,7 @@ function Projects() {
 function Testimonials() {
   const items = [
     {
-      q: "On a doublé le taux de complétion sur nos reels Insta. Le passage chez Splice a vraiment changé la donne.",
+      q: "On a doublé le taux de complétion sur nos reels Insta. Le passage chez Splice Studio a vraiment changé la donne.",
       a: "Camille R.", r: "Directrice marketing — Maison Lalou",
     },
     {
@@ -460,7 +460,7 @@ function Footer() {
         </div>
       </div>
       <div className="df-footer-bot">
-        <span>© 2026 Splice · Tous droits réservés</span>
+        <span>© 2026 Splice Studio · Tous droits réservés</span>
         <span>Mentions légales · Confidentialité</span>
       </div>
     </footer>

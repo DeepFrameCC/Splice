@@ -9,7 +9,7 @@ import { Check } from "lucide-react";
  */
 export default function LastFrame() {
   return (
-    <section className="df-lf" aria-label="Demander un devis Splice">
+    <section className="df-lf" aria-label="Demander un devis Splice Studio">
       {/* Cine corners */}
       <div className="df-cine-corners df-lf-corners" aria-hidden="true">
         <i /><i /><i /><i />

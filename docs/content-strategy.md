@@ -1,7 +1,7 @@
-# Stratégie éditoriale Splice — 12 sujets (Q3 2026)
+# Stratégie éditoriale Splice Studio — 12 sujets (Q3 2026)
 
 > Angle directeur : **exploiter la faille des concurrents**. IOA et McFly cachent
-> leurs prix et leurs délais. Splice gagne en répondant publiquement aux questions
+> leurs prix et leurs délais. Splice Studio gagne en répondant publiquement aux questions
 > « combien ça coûte / combien de temps / comment ça se passe » + en ciblant le local.
 >
 > Règle de maillage (CLAUDE.md) : chaque article = **≥ 2 liens internes** contextuels

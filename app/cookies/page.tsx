@@ -5,7 +5,7 @@ import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de cookies",
-  description: "Politique de cookies du site Splice — informations sur les cookies utilisés et comment les gérer.",
+  description: "Politique de cookies du site Splice Studio — informations sur les cookies utilisés et comment les gérer.",
 };
 
 export default function Cookies() {
@@ -64,7 +64,7 @@ export default function Cookies() {
               Note : le choix de consentement à la bannière cookies (clé{" "}
               <span className="font-mono">df_consent</span>) est stocké dans le{" "}
               <strong>localStorage</strong> de votre navigateur (pas un cookie HTTP) et n&apos;est
-              jamais transmis aux serveurs Splice. Vous pouvez le réinitialiser en vidant le
+              jamais transmis aux serveurs Splice Studio. Vous pouvez le réinitialiser en vidant le
               stockage local du site.
             </p>
 
@@ -95,12 +95,41 @@ export default function Cookies() {
             </table>
             </div>
 
-            <h3 className="mt-6 font-bold text-white">2.3. Cookies analytiques</h3>
+            <h3 className="mt-6 font-bold text-white">2.3. Cookies et traceurs analytiques</h3>
             <p>
-              Actuellement, splice.cc n&apos;utilise aucun cookie analytique (Google Analytics, Matomo, etc.).
-              Si un outil d&apos;analyse venait à être mis en place, cette page serait mise à jour et votre
-              consentement serait recueilli préalablement.
+              Avec votre consentement préalable, splice.cc utilise les technologies suivantes pour
+              analyser la fréquentation du site et améliorer l&apos;expérience utilisateur. Ces traceurs
+              ne sont activés qu&apos;après avoir cliqué sur « Tout accepter » ou activé les cookies d&apos;analyse
+              dans le panneau de personnalisation.
             </p>
+            <div className="mt-3 overflow-x-auto">
+            <table className="w-full min-w-[480px] text-left text-xs">
+              <caption className="sr-only">Cookies et traceurs analytiques</caption>
+              <thead>
+                <tr className="border-b border-df-ink/10">
+                  <th scope="col" className="py-2 pr-4 font-bold">Fournisseur</th>
+                  <th scope="col" className="py-2 pr-4 font-bold">Finalité</th>
+                  <th scope="col" className="py-2 font-bold">Plus d&apos;infos</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-df-ink/5">
+                <tr>
+                  <td className="py-2 pr-4">Google Tag Manager</td>
+                  <td className="py-2 pr-4">Gestionnaire de balises — charge conditionnellement les scripts d&apos;analyse</td>
+                  <td className="py-2">
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">policies.google.com/privacy</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 pr-4">Plausible Analytics</td>
+                  <td className="py-2 pr-4">Statistiques de fréquentation anonymes, sans cookies HTTP (conforme RGPD)</td>
+                  <td className="py-2">
+                    <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">plausible.io/privacy</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
           </div>
 
           <div>

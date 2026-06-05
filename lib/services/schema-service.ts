@@ -15,7 +15,7 @@ export function buildServiceJsonLd(service: Service) {
       {
         "@type": "ProfessionalService",
         "@id": ORG_ID,
-        name: "Splice",
+        name: "Splice Studio",
         description: "Agence de production audiovisuelle à Orléans et Tours — vidéo corporate, photographie, motion design, pub réseaux sociaux.",
         image: `${SITE_URL}/logo-1.svg`,
         url: SITE_URL,
@@ -95,7 +95,7 @@ export function buildServicesHubJsonLd(
       {
         "@type": "LocalBusiness",
         "@id": ORG_ID,
-        name: "Splice",
+        name: "Splice Studio",
         description:
           "Agence de production audiovisuelle à Orléans et Tours. Vidéo corporate, montage, motion design, photographie professionnelle.",
         image: `${SITE_URL}/logo-1.svg`,
@@ -125,7 +125,7 @@ export function buildServicesHubJsonLd(
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Services audiovisuels Splice",
+          name: "Services audiovisuels Splice Studio",
           itemListElement: services.map((s) => ({
             "@type": "Offer",
             itemOffered: {
@@ -164,7 +164,7 @@ export function buildLandingJsonLd(opts: {
       {
         "@type": "ProfessionalService",
         "@id": ORG_ID,
-        name: "Splice",
+        name: "Splice Studio",
         description:
           "Studio de production audiovisuelle et agence de communication à Orléans et Tours — vidéo corporate, photographie, motion design, social media.",
         image: `${SITE_URL}/logo-1.svg`,
@@ -263,7 +263,7 @@ export function buildLocalServiceJsonLd(opts: {
         provider: {
           "@type": "LocalBusiness",
           "@id": ORG_ID,
-          name: "Splice",
+          name: "Splice Studio",
           url: SITE_URL,
         },
         areaServed: {

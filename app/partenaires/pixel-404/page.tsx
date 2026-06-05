@@ -7,12 +7,12 @@ import JsonLd from "@/components/JsonLd";
 import { buildBreadcrumbJsonLd, BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Pixel 404 × Splice — partenaire gaming & pop culture à Orléans",
+  title: "Pixel 404 × Splice Studio — partenaire gaming & pop culture à Orléans",
   description:
-    "Splice réalise les contenus vidéo et photo de Pixel 404, magasin informatique et gaming à Orléans (réparation consoles & PC, montage sur mesure, cartes Pokémon TCG).",
+    "Splice Studio réalise les contenus vidéo et photo de Pixel 404, magasin informatique et gaming à Orléans (réparation consoles & PC, montage sur mesure, cartes Pokémon TCG).",
   alternates: { canonical: `${BASE_URL}/partenaires/pixel-404` },
   openGraph: {
-    title: "Pixel 404 × Splice",
+    title: "Pixel 404 × Splice Studio",
     description: "Vidéo et photo pour Pixel 404, magasin gaming à Orléans.",
   },
   twitter: { card: "summary_large_image" },
@@ -32,7 +32,7 @@ const PIXEL_404 = {
   ],
 };
 
-// Ce que Splice produit pour Pixel 404.
+// Ce que Splice Studio produit pour Pixel 404.
 const COLLAB = [
   {
     icon: Video,
@@ -87,7 +87,7 @@ export default function PartenairePixel404Page() {
             Partenaire officiel · Orléans
           </p>
           <h1 className="text-5xl font-bold leading-none text-white md:text-7xl" style={{ letterSpacing: "-0.03em" }}>
-            Pixel 404 <span className="text-df-gold">×</span> Splice
+            Pixel 404 <span className="text-df-gold">×</span> Splice Studio
           </h1>
           <p className="mt-5 max-w-2xl text-white/70">
             Pixel 404 est un magasin informatique et gaming à Orléans : réparation

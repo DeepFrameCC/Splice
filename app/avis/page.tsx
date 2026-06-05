@@ -9,9 +9,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Avis clients",
-  description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Splice.",
+  description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Splice Studio.",
   openGraph: {
-    title: "Avis clients — Splice",
+    title: "Avis clients — Splice Studio",
     description: "Les retours de nos clients sur nos prestations audiovisuelles.",
   },
   twitter: { card: "summary_large_image" },
@@ -49,7 +49,7 @@ export default async function AvisPage() {
           Avis clients
         </h1>
         <p className="mt-3 text-sm text-white/60">
-          Ce que nos clients disent de Splice.
+          Ce que nos clients disent de Splice Studio.
           {noteMoyenne && (
             <span className="ml-2 inline-flex items-center gap-1">
               <Star className="h-3.5 w-3.5 fill-df-gold text-df-gold" />

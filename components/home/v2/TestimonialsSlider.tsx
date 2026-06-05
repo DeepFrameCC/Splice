@@ -9,7 +9,7 @@ import { useGSAP } from "@gsap/react";
 
 /**
  * TestimonialsSlider — Premium interactive review slider.
- * Fully compliant with the Splice Cinéma Studio DA.
+ * Fully compliant with the Splice Studio Cinéma Studio DA.
  * Combines huge bold display font, orange lowercase italic emphasis,
  * and a tactile glassmorphic container with custom navigation arrows.
  */

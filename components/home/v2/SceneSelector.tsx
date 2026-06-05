@@ -191,11 +191,11 @@ export default function SceneSelector() {
       id="scene-selector"
       ref={stageRef}
       className="df-ss"
-      aria-label="Sélecteur de projets Splice"
+      aria-label="Sélecteur de projets Splice Studio"
       aria-roledescription="carousel"
       tabIndex={0}
     >
-      <h2 className="sr-only">Sélection de projets Splice</h2>
+      <h2 className="sr-only">Sélection de projets Splice Studio</h2>
       <div className="df-ss-head">
         <span className="df-ss-eyebrow">
           <span className="df-rec-dot" aria-hidden="true" />

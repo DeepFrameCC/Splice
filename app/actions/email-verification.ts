@@ -37,7 +37,7 @@ export async function sendVerificationEmail() {
 
   await sendMail({
     to: user.email,
-    subject: "Splice — Vérifiez votre adresse email",
+    subject: "Splice Studio — Vérifiez votre adresse email",
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Vérification de votre email</h2>

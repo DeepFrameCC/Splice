@@ -85,7 +85,7 @@ export default function AvisForm() {
       <textarea
         value={contenu}
         onChange={(e) => setContenu(e.target.value)}
-        placeholder="Décrivez votre expérience avec Splice…"
+        placeholder="Décrivez votre expérience avec Splice Studio…"
         required
         rows={4}
         className="mt-3 w-full rounded-xl border-2 border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition focus:border-df-glauque-500"

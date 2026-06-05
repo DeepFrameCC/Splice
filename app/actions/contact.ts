@@ -68,7 +68,7 @@ export async function submitContact(
   try {
     await sendMail({
       to: recipients,
-      subject: `[Splice] Nouveau pré-devis — ${nom}`,
+      subject: `[Splice Studio] Nouveau pré-devis — ${nom}`,
       replyTo: email,
       html: `
         <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
@@ -124,7 +124,7 @@ export async function submitContact(
   try {
     await sendMail({
       to: email,
-      subject: "Splice — Nous avons bien reçu votre demande",
+      subject: "Splice Studio — Nous avons bien reçu votre demande",
       html: `
         <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
           <h2 style="color:#F36B1F">Merci ${escapeHtml(nom)} !</h2>
@@ -140,7 +140,7 @@ export async function submitContact(
           </p>
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
           <p style="color:#999;font-size:12px">
-            Cet email a été envoyé automatiquement par Splice.
+            Cet email a été envoyé automatiquement par Splice Studio.
             Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer ce message.
           </p>
         </div>`,

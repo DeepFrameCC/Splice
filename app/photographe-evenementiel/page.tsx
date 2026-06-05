@@ -16,7 +16,7 @@ export const revalidate = 86400;
 const PATH = "/photographe-evenementiel";
 const TITLE = "Photographe événementiel à Orléans & Tours";
 const DESCRIPTION =
-  "Photographe événementiel à Orléans et Tours : séminaires, soirées d'entreprise, salons. Reportage photo + aftermovie. Splice, livraison rapide.";
+  "Photographe événementiel à Orléans et Tours : séminaires, soirées d'entreprise, salons. Reportage photo + aftermovie. Splice Studio, livraison rapide.";
 const H1 = "Photographe événementiel à Orléans & Tours";
 
 const FAQ: FAQItem[] = [
@@ -43,7 +43,7 @@ const FAQ: FAQItem[] = [
   {
     question: "Comment trouver un photographe événementiel autour de moi à Orléans ou Tours ?",
     answer:
-      "Splice se déplace sur votre lieu d'événement à Orléans, à Tours et dans tout le Centre-Val de Loire. Vous pouvez nous retrouver via notre fiche établissement et notre page de contact, ou demander un devis en ligne pour vérifier notre disponibilité à la date souhaitée.",
+      "Splice Studio se déplace sur votre lieu d'événement à Orléans, à Tours et dans tout le Centre-Val de Loire. Vous pouvez nous retrouver via notre fiche établissement et notre page de contact, ou demander un devis en ligne pour vérifier notre disponibilité à la date souhaitée.",
   },
 ];
 
@@ -57,7 +57,7 @@ export function generateMetadata(): Metadata {
       title: TITLE,
       description: DESCRIPTION,
       url,
-      siteName: "Splice",
+      siteName: "Splice Studio",
       locale: "fr_FR",
       type: "website",
     },
@@ -106,7 +106,7 @@ export default function PhotographeEvenementielPage() {
                 Saisir l&apos;instant.<br />Documenter l&apos;impact.
               </h1>
               <p className="mt-6 text-base leading-relaxed text-white/70">
-                Splice couvre vos événements professionnels à Orléans, à Tours et dans tout le Centre-Val de Loire. Séminaires, soirées d&apos;entreprise, salons ou inaugurations : nous captons les temps forts avec élégance et vous livrons un reportage photo haute définition sous 7 à 14 jours, complété d&apos;un aftermovie vidéo dynamique.
+                Splice Studio couvre vos événements professionnels à Orléans, à Tours et dans tout le Centre-Val de Loire. Séminaires, soirées d&apos;entreprise, salons ou inaugurations : nous captons les temps forts avec élégance et vous livrons un reportage photo haute définition sous 7 à 14 jours, complété d&apos;un aftermovie vidéo dynamique.
               </p>
             </div>
             
@@ -133,7 +133,7 @@ export default function PhotographeEvenementielPage() {
           <div className="mb-12 flex items-center gap-3">
             <span className="h-[1px] w-8 bg-[#16a34a]" />
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#16a34a]">
-              Pourquoi choisir Splice
+              Pourquoi choisir Splice Studio
             </span>
           </div>
 

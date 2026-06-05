@@ -502,7 +502,7 @@ export function Step2PackParticulier() {
 
       {/* Bannière */}
       <fieldset className="mt-6">
-        <legend className="font-bold text-white">Bannière Splice</legend>
+        <legend className="font-bold text-white">Bannière Splice Studio</legend>
         <div className="mt-2 grid gap-2 md:grid-cols-3">
           {(Object.keys(BANNIERE_SPLICE) as BanniereSize[]).map((b) => {
             const info = BANNIERE_SPLICE[b];

@@ -212,7 +212,7 @@ export const OPTIONS_A_LA_CARTE: OptionALaCarte[] = [
   { key: "banniere", label: "Bannière Deepframe", price: 15, unit: "/ mois" },
 ];
 
-// ─── Bannière Splice ───────────────────────────────────────────
+// ─── Bannière Splice Studio ───────────────────────────────────────────
 
 export type BanniereSize = "PETITE" | "MOYENNE" | "GRANDE";
 

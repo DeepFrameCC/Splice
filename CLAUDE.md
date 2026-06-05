@@ -1,6 +1,6 @@
-# CLAUDE.md — Splice (projet)
+# CLAUDE.md — Splice Studio (projet)
 
-Ce fichier décrit **uniquement les modules spécifiques au projet Splice**. Les compétences (skills), les sous-agents et les bonnes pratiques transverses sont définis dans le `CLAUDE.md` global (`~/.claude/CLAUDE.md`) et s'appliquent à toutes les sessions — ne pas les dupliquer ici.
+Ce fichier décrit **uniquement les modules spécifiques au projet Splice Studio**. Les compétences (skills), les sous-agents et les bonnes pratiques transverses sont définis dans le `CLAUDE.md` global (`~/.claude/CLAUDE.md`) et s'appliquent à toutes les sessions — ne pas les dupliquer ici.
 
 ## Commands
 
@@ -25,7 +25,7 @@ npm run cf-typegen   # Generate Cloudflare Env interface types
 
 ## Architecture
 
-**Splice** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
+**Splice Studio** is a Next.js 15 App Router application for a French audiovisual production company based in **Orléans (45), France**. Legal status: **auto-entrepreneur** (franchise TVA, art. 293 B CGI).
 
 The platform handles: public showcase, client authentication (CLIENT / TEAM / ADMIN), quote wizard, payment via Stripe, PDF invoices, electronic contracts, and a full admin dashboard.
 
@@ -52,7 +52,7 @@ The platform handles: public showcase, client authentication (CLIENT / TEAM / AD
 
 ### Charte visuelle "Cinéma Studio"
 
-Splice a déjà sa direction artistique. Utiliser les skills design globaux (`ui-ux-pro-max`, `impeccable`, `emil-design-eng`) comme référence/checklist **sans écraser les tokens existants** :
+Splice Studio a déjà sa direction artistique. Utiliser les skills design globaux (`ui-ux-pro-max`, `impeccable`, `emil-design-eng`) comme référence/checklist **sans écraser les tokens existants** :
 - Couleurs : `#0E0E22`, `#6B8779`, `#F36B1F`
 - Fonts : Fraunces, Inter, JetBrains Mono (et Anton/Poppins selon contexte)
 - Register `impeccable` : `brand` (production audiovisuelle = design IS the product)
@@ -118,9 +118,9 @@ All mutations use `"use server"`:
 - Global setup: `lib/gsap.ts` avec `gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVG, Flip)`
 - (Voir bonnes pratiques GSAP transverses dans `~/.claude/CLAUDE.md`.)
 
-## Routing projet (application des sous-agents au code Splice)
+## Routing projet (application des sous-agents au code Splice Studio)
 
-Les sous-agents et skills sont définis globalement. Voici comment ils s'appliquent aux fichiers Splice.
+Les sous-agents et skills sont définis globalement. Voici comment ils s'appliquent aux fichiers Splice Studio.
 
 ### Routing table (decision tree)
 
@@ -137,14 +137,14 @@ Les sous-agents et skills sont définis globalement. Voici comment ils s'appliqu
 | Migration Prisma destructive | `devops-quality` (plan) | → `backend-api` (code consommateur) — requires user validation |
 | Bug TypeScript | l'agent owner du fichier en question | — |
 
-### Chaining examples (Splice)
+### Chaining examples (Splice Studio)
 
 - Nouvelle page `/services/[slug]` SEO-optimisée → `seo-performance` (metadata, JSON-LD) + `design-frontend` (UI) + `backend-api` (data fetch)
 - Tunnel devis avec paiement Stripe → `backend-api` (Server Action, Stripe, Resend) + `design-frontend` (Wizard UI) + `security` (validation Zod, rate limit) + `devops-quality` (error boundary)
 - Animation hero landing → `gsap-animations` + `design-frontend` + `seo-performance` (vérifier LCP)
 - Refonte tarifs → `backend-api` (`lib/pricing.ts`) + `design-frontend` (PricingSection) + `seo-performance` (metadata)
 
-### Marketing skills — mapping Splice
+### Marketing skills — mapping Splice Studio
 
 - Copy des pages services / landing → `copywriting` + `cro`
 - Emails devis/onboarding/relance → `emails`
@@ -154,7 +154,7 @@ Les sous-agents et skills sont définis globalement. Voici comment ils s'appliqu
 - Avis clients → `customer-research`
 - Lancement nouveau service → `launch` + `directory-submissions`
 
-### Design skills — cas Splice
+### Design skills — cas Splice Studio
 
 - Refonte composant (`components/services/*`, `components/devis/*`, `components/home/*`) → `ui-ux-pro-max` + `design-frontend`
 - Polish transitions tunnel devis (`components/devis/Wizard.tsx`, `Steps.tsx`) → `emil-design-eng` → `design-frontend`
@@ -216,7 +216,7 @@ Homepage videos served from R2 bucket `galerie` via `media.splicestudio.fr/video
 *   Utiliser des ancres de lien sémantiques et descriptives (ex: "expert en montage vidéo à Orléans" au lieu de "cliquez ici").
 
 ### Off-Page SEO & Netlinking Guidelines
-Pour développer le profil d'autorité (backlinks) de Splice (objectif : rattraper IOA/48 et Mstream/65 RD), l'équipe doit prioriser les actions suivantes :
+Pour développer le profil d'autorité (backlinks) de Splice Studio (objectif : rattraper IOA/48 et Mstream/65 RD), l'équipe doit prioriser les actions suivantes :
 1.  **Annuaires Locaux** : Inscrire l'établissement dans les annuaires régionaux qualitatifs (Loiret 45 et Indre-et-Loire 37).
 2.  **Relations Presse régionales** : Proposer des dossiers/communiqués lors de projets phares (ex: couverture de grands événements à Orléans/Tours) aux rédactions locales (*La République du Centre*, *La Nouvelle République*).
 3.  **Backlinks Clients** : Demander systématiquement l'ajout d'un lien d'attribution "Réalisation : Splice Studio" sur les sites des clients réguliers ou institutionnels ayant commandé des vidéos.

@@ -9,9 +9,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Équipe",
   description:
-    "Découvrez les portfolios de Louisia et Tracy, les deux fondateurs de Splice.",
+    "Découvrez les portfolios de Louisia et Tracy, les deux fondateurs de Splice Studio.",
   openGraph: {
-    title: "L'équipe Splice",
+    title: "L'équipe Splice Studio",
     description:
       "Photographe et monteur. Deux regards, une seule direction créative.",
   },
@@ -170,7 +170,7 @@ export default function EquipePage() {
               letterSpacing: "-0.035em",
             }}
           >
-            Deux <em className="italic font-bold text-df-gold">artisans</em>
+            Deux <em className="italic font-bold text-df-gold">artisans</em>{" "}
             <br />
             de l&apos;image.
           </h1>

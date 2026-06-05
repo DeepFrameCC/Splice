@@ -208,7 +208,7 @@ export async function POST(req: NextRequest) {
     try {
       await sendMail({
         to: devis.emailContact,
-        subject: `Splice — Paiement confirmé · Devis n°${devis.numero}`,
+        subject: `Splice Studio — Paiement confirmé · Devis n°${devis.numero}`,
         html: `
           <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
             <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
@@ -218,7 +218,7 @@ export async function POST(req: NextRequest) {
             <p style="margin-top:20px">
               <a href="${APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
             </p>
-            <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+            <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
           </div>`,
       });
     } catch (e) {
@@ -282,7 +282,7 @@ export async function POST(req: NextRequest) {
       try {
         await sendMail({
           to: invoice.customer_email,
-          subject: `Splice — Facture ${factureNumero} (abonnement)`,
+          subject: `Splice Studio — Facture ${factureNumero} (abonnement)`,
           html: `
             <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
               <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
@@ -291,7 +291,7 @@ export async function POST(req: NextRequest) {
               <p style="margin-top:20px">
                 <a href="${APP_URL}/profil/factures" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mes factures</a>
               </p>
-              <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+              <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
             </div>`,
         });
       } catch (e) {
@@ -323,12 +323,12 @@ export async function POST(req: NextRequest) {
           if (targets.length) {
             await sendMail({
               to: targets,
-              subject: `Splice — Échec de prélèvement d'abonnement`,
+              subject: `Splice Studio — Échec de prélèvement d'abonnement`,
               html: `
                 <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
                   <h2 style="color:#F36B1F">Prélèvement échoué</h2>
-                  <p>Le prélèvement d'un abonnement Splice a échoué. Le client est invité à mettre à jour son moyen de paiement depuis son espace.</p>
-                  <p style="font-size:12px;color:#777;margin-top:30px">Splice · ${MAIL_CONTACT}</p>
+                  <p>Le prélèvement d'un abonnement Splice Studio a échoué. Le client est invité à mettre à jour son moyen de paiement depuis son espace.</p>
+                  <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
                 </div>`,
             });
           }

@@ -1,6 +1,6 @@
 import type { PDFDocument, PDFFont, PDFPage, rgb, StandardFonts } from "pdf-lib";
 
-/* ── Couleurs Splice ─────────────────────────────────────────────── */
+/* ── Couleurs Splice Studio ─────────────────────────────────────────────── */
 export const PDF_COLORS = {
   orange: "#F36B1F",
   orangeDark: "#C4550A",
@@ -115,8 +115,8 @@ export async function createPdfContext(): Promise<PdfContext> {
 
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
-  pdf.setTitle("Splice");
-  pdf.setProducer("Splice");
+  pdf.setTitle("Splice Studio");
+  pdf.setProducer("Splice Studio");
 
   let fonts: PdfFonts;
   const fontBytes = await loadFontBytes();

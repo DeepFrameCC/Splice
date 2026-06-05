@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "Tarifs transparents, zéro surprise. Abonnements vidéo dès 45 €/mois, Pack Particulier dès 29 €. Options à la carte, recyclage multi-réseaux inclus.",
   openGraph: {
-    title: "Tarifs — Splice",
+    title: "Tarifs — Splice Studio",
     description: "Abonnements vidéo dès 45 €/mois, packs photo à la carte.",
   },
   twitter: { card: "summary_large_image" },

@@ -1,6 +1,6 @@
 # Checklist : 10 points à vérifier avant de tourner votre vidéo
 
-*Offert par Splice — studio vidéo & photo à Orléans et Tours.*
+*Offert par Splice Studio — studio vidéo & photo à Orléans et Tours.*
 
 Une vidéo ratée, c'est presque toujours une préparation bâclée. Voici les 10 points
 qu'on vérifie avant chaque tournage. Cochez-les et le jour J se passe bien.

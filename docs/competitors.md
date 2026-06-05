@@ -29,11 +29,11 @@
 ### Autres (à profiler si besoin)
 Pokka Prod (vidéaste + drone + photo), VB Presta (~15 ans, montage/motion), Digital Craft, Denux, VideastePro (événementiel/mariage).
 
-## Le wedge Splice (insight actionnable)
+## Le wedge Splice Studio (insight actionnable)
 
-Les deux leaders locaux (IOA, McFly) ont **exactement la même faille** : prix opaques + zéro preuve sociale + ton corporate froid orienté grands comptes. Splice peut gagner les **PME/TPE** sur 4 axes qu'ils ne couvrent pas :
+Les deux leaders locaux (IOA, McFly) ont **exactement la même faille** : prix opaques + zéro preuve sociale + ton corporate froid orienté grands comptes. Splice Studio peut gagner les **PME/TPE** sur 4 axes qu'ils ne couvrent pas :
 
-| Axe | Eux | Splice |
+| Axe | Eux | Splice Studio |
 |---|---|---|
 | **Prix** | « devis sur mesure » opaque | packs dès 15 €/29 €, abonnements dès 45 €/mois affichés |
 | **Preuve sociale** | aucun avis | page `/avis` + vrais visages (Tracy, Louisia) |

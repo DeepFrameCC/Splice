@@ -238,7 +238,7 @@ export default function PricingSection() {
 
         {/* Bannières */}
         <h3 className="mt-10 text-center font-display text-xl uppercase tracking-tight text-white">
-          Bannière Splice
+          Bannière Splice Studio
         </h3>
         <div className="mx-auto mt-4 grid max-w-3xl gap-3 md:grid-cols-3">
           {(Object.keys(BANNIERE_SPLICE) as BanniereSize[]).map((key) => {

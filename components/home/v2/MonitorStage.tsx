@@ -51,7 +51,7 @@ export default function MonitorStage({ src, poster, captions, format, tagLine }:
             playsInline
             preload={poster ? "none" : "metadata"}
             onError={() => setAutoplayFailed(true)}
-            aria-label="Aperçu studio Splice en lecture"
+            aria-label="Aperçu studio Splice Studio en lecture"
           >
             <track kind="captions" srcLang="fr" src={captions} label="Français" default />
           </video>

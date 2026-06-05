@@ -1,6 +1,6 @@
 # Template : votre brief vidéo prêt à remplir
 
-*Offert par Splice. Remplissez-le, envoyez-le, on vous fait un devis précis sous 24 h.*
+*Offert par Splice Studio. Remplissez-le, envoyez-le, on vous fait un devis précis sous 24 h.*
 
 > Plus c'est précis, plus le devis est juste. Pas besoin de tout savoir : mettez ce que
 > vous avez, on complète ensemble.

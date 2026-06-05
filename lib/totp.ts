@@ -2,7 +2,7 @@ import { TOTP, Secret } from "otpauth";
 import * as QRCode from "qrcode";
 import { encrypt, decrypt } from "./encryption";
 
-const ISSUER = "Splice";
+const ISSUER = "Splice Studio";
 const DIGITS = 6;
 const PERIOD = 30;
 const ALGORITHM = "SHA1";

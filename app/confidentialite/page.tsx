@@ -5,7 +5,7 @@ import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
-  description: "Politique de confidentialité et protection des données personnelles — Splice, conformément au RGPD.",
+  description: "Politique de confidentialité et protection des données personnelles — Splice Studio, conformément au RGPD.",
 };
 
 export default function Confidentialite() {
@@ -20,7 +20,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">1. Responsable du traitement</h2>
             <ul className="mt-3 space-y-1">
-              <li><strong>Dénomination :</strong> Splice (micro-entreprise)</li>
+              <li><strong>Dénomination :</strong> Splice Studio (micro-entreprise)</li>
               <li><strong>Siège :</strong> 84 Boulevard Alexandre Martin, 45000 Orléans</li>
               <li><strong>Email :</strong> contact.splicestudio@gmail.com</li>
             </ul>
@@ -37,7 +37,7 @@ export default function Confidentialite() {
             <p>Type de projet, description du besoin, lieu de tournage, dates souhaitées, budget envisagé. Ces données sont liées à votre compte utilisateur.</p>
 
             <h3 className="mt-4 font-bold text-white">2.3. Paiement</h3>
-            <p>Les informations de paiement (carte bancaire) sont collectées et traitées directement par notre prestataire de paiement Stripe. Splice ne stocke jamais vos données bancaires.</p>
+            <p>Les informations de paiement (carte bancaire) sont collectées et traitées directement par notre prestataire de paiement Stripe. Splice Studio ne stocke jamais vos données bancaires.</p>
 
             <h3 className="mt-4 font-bold text-white">2.4. Navigation</h3>
             <p>Données de connexion (adresse IP, type de navigateur, pages visitées, date et heure de connexion) via les cookies essentiels au fonctionnement du site.</p>
@@ -77,6 +77,8 @@ export default function Confidentialite() {
               <li><strong>Stripe Inc.</strong> — traitement des paiements (États-Unis, certifié conforme RGPD)</li>
               <li><strong>Resend Inc.</strong> — envoi d&apos;emails transactionnels (États-Unis, clauses contractuelles types)</li>
               <li><strong>Neon Inc.</strong> — hébergement de la base de données PostgreSQL</li>
+              <li><strong>Google LLC</strong> — Google Tag Manager, gestionnaire de balises analytiques (États-Unis, clauses contractuelles types) — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">politique de confidentialité</a></li>
+              <li><strong>Plausible Insights OÜ</strong> — Plausible Analytics, statistiques de fréquentation anonymes (Estonie, UE) — <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">politique de confidentialité</a></li>
             </ul>
             <p className="mt-2">Aucune donnée n&apos;est vendue ou cédée à des tiers à des fins commerciales.</p>
           </div>
@@ -113,7 +115,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">7. Sécurité</h2>
             <p>
-              Splice met en oeuvre des mesures techniques et organisationnelles appropriées pour protéger
+              Splice Studio met en oeuvre des mesures techniques et organisationnelles appropriées pour protéger
               vos données : chiffrement des mots de passe (Argon2id), connexions HTTPS, en-têtes de
               sécurité stricts (CSP, HSTS), authentification 2FA TOTP optionnelle, chiffrement AES-256-GCM
               des secrets sensibles au repos, accès restreint à la base de données, journalisation des
@@ -146,7 +148,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="text-lg font-bold text-white">10. Modifications</h2>
             <p>
-              Splice se réserve le droit de modifier la présente politique de confidentialité à tout moment.
+              Splice Studio se réserve le droit de modifier la présente politique de confidentialité à tout moment.
               La date de dernière mise à jour est indiquée en haut de cette page. Nous vous invitons à la
               consulter régulièrement.
             </p>

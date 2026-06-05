@@ -110,10 +110,10 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     try {
       await sendMail({
         to: d.email,
-        subject: "Splice — Vérifiez votre adresse email",
+        subject: "Splice Studio — Vérifiez votre adresse email",
         html: `
           <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
-            <h2 style="color:#F36B1F">Bienvenue sur Splice !</h2>
+            <h2 style="color:#F36B1F">Bienvenue sur Splice Studio !</h2>
             <p>Cliquez ci-dessous pour vérifier votre email (valable 24h) :</p>
             <p style="margin-top:20px">
               <a href="${verifyLink}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Vérifier mon email</a>
@@ -254,7 +254,7 @@ export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
     const link = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
     await sendMail({
       to: email,
-      subject: "Réinitialisation de votre mot de passe Splice",
+      subject: "Réinitialisation de votre mot de passe Splice Studio",
       html: `<p>Cliquez sur ce lien (valable 1h) :</p><p><a href="${link}" style="background:#F36B1F;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none">Réinitialiser</a></p>`
     });
   }

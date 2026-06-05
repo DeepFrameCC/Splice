@@ -20,7 +20,7 @@ export function ServiceReassurance() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-df-gold">Nos Engagements</p>
           <h2 id="reassurance-h2" className="mt-1 text-3xl font-extrabold tracking-tight text-white">
-            Garanties Splice
+            Garanties Splice Studio
           </h2>
         </div>
         <div className="h-px flex-1 bg-white/[0.08] mx-8 hidden md:block" />
