@@ -728,6 +728,20 @@ async function main() {
     console.log(`[seed-galerie] Cleaned up ${deletedLocal.count} legacy local media entries to prevent duplicates.`);
   }
 
+  // Clean up any old .jpg or .jpeg R2 photo entries to prevent broken images
+  const deletedOldPhotos = await prisma.media.deleteMany({
+    where: {
+      type: MediaType.PHOTO,
+      OR: [
+        { url: { endsWith: ".jpg" } },
+        { url: { endsWith: ".jpeg" } }
+      ]
+    }
+  });
+  if (deletedOldPhotos.count > 0) {
+    console.log(`[seed-galerie] Cleaned up ${deletedOldPhotos.count} legacy R2 .jpg photo entries.`);
+  }
+
   let inserted = 0;
   let updated = 0;
 
