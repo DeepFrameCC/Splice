@@ -93,6 +93,7 @@ const MEDIAS: MediaSeed[] = [
     type: MediaType.VIDEO,
     filename: "Luxury Edit (Par Tracy).mp4",
     folder: "videos",
+    thumbnailFilename: "thumb_porsche_orléans.png",
     title: "Luxury Edit",
     description: "Montage premium signe Tracy.",
     category: "automobile",
