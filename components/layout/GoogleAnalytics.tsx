@@ -1,7 +1,6 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useState } from "react";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID; // GA4 : G-XXXXXXX
 // Conteneur Tag Manager Splice Studio. ID public (visible dans le HTML) — sûr à
@@ -19,31 +18,6 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
  * exist. GTM takes precedence when both are set (it can drive GA4 itself).
  */
 export default function GoogleAnalytics() {
-  const [consented, setConsented] = useState(false);
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("df_consent");
-      if (raw && JSON.parse(raw).analytics === true) setConsented(true);
-    } catch {
-      // no consent = no analytics
-    }
-
-    function handleStorage(e: StorageEvent) {
-      if (e.key === "df_consent" && e.newValue) {
-        try {
-          setConsented(JSON.parse(e.newValue).analytics === true);
-        } catch {
-          // ignore malformed consent
-        }
-      }
-    }
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
-
-  if (!consented) return null;
-
   if (GTM_ID) {
     return (
       <Script id="gtm-init" strategy="afterInteractive">
