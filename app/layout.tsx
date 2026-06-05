@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
-import PlausibleScript from "@/components/layout/PlausibleScript";
 import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
 import AuthProvider from "@/components/layout/AuthProvider";
@@ -75,6 +74,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             gtag('config', 'G-JX89Q2TSTE');
           `
         }} />
+        {/* Privacy-friendly analytics by Plausible */}
+        <script async src="https://plausible.io/js/pa-Pzh3HsYmT0spJOYzp4A6P.js"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+            plausible.init();
+          `
+        }} />
         <link
           rel="preload"
           href="https://media.splicestudio.fr/thumb/thumb-interview-cklean-auto.jpg"
@@ -102,7 +109,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </AuthProvider>
         <ToasterClient />
         <CookieBanner />
-        <PlausibleScript />
         <GoogleAnalytics />
       </body>
     </html>
