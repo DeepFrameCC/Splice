@@ -62,6 +62,14 @@ export default function Lightbox({
 
   const isLiked = cur ? likesState[cur.id] ?? false : false;
 
+  const [aspectRatio, setAspectRatio] = useState<string>("16/9");
+
+  useEffect(() => {
+    if (cur) {
+      setAspectRatio(cur.type === "video" ? "16/9" : "4/3");
+    }
+  }, [i, cur]);
+
   const onLike = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -153,7 +161,7 @@ export default function Lightbox({
 
       {/* Slide stage */}
       <div className="pj-lb-stage">
-        <div className="pj-lb-frame">
+        <div className="pj-lb-frame" style={{ aspectRatio }}>
           {!stageSrc && cur.type !== "video" ? (
             <div className={`pj-slide-bg ${bgClass}`} />
           ) : cur.type === "video" ? (
@@ -162,6 +170,12 @@ export default function Lightbox({
               poster={cur.thumbnailUrl ?? undefined}
               controls
               autoPlay
+              onLoadedMetadata={(e) => {
+                const video = e.currentTarget;
+                if (video.videoWidth && video.videoHeight) {
+                  setAspectRatio(`${video.videoWidth}/${video.videoHeight}`);
+                }
+              }}
               className="absolute inset-0 w-full h-full object-contain bg-[#090918]"
             />
           ) : (
@@ -170,6 +184,12 @@ export default function Lightbox({
               alt={cur.caption || project.title}
               fill
               sizes="(max-width: 1280px) 100vw, 1280px"
+              onLoad={(e) => {
+                const img = e.currentTarget;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setAspectRatio(`${img.naturalWidth}/${img.naturalHeight}`);
+                }
+              }}
               className="object-contain"
               priority
             />
