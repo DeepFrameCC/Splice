@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -9,8 +9,19 @@ export default function BlogSearchBar() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
 
+  // Sync input value with URL search parameter
+  useEffect(() => {
+    const q = searchParams.get("q") || "";
+    setQuery(q);
+  }, [searchParams]);
+
   // Debounce search
   useEffect(() => {
+    const currentQ = searchParams.get("q") || "";
+    if (query.trim() === currentQ.trim()) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
       params.delete("page");
