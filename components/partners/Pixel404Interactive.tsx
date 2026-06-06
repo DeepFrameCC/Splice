@@ -556,7 +556,7 @@ export default function Pixel404Interactive() {
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-white mb-6">Pourquoi cette alliance locale ?</h2>
           <p className="text-base sm:text-lg leading-relaxed text-white/70">
-            Nous partageons avec Pixel 404 une valeur essentielle : la transparence envers nos clients, de l'écoute et du respect envers eux. Notre partenariat à Orléans valorise le savoir-faire local et assure aux deux entreprises une visibilité organique solide auprès d'une clientèle locale.
+            Nous partageons avec Pixel 404 une valeur essentielle : la transparence envers nos clients, de l&apos;écoute et du respect envers eux. Notre partenariat à Orléans valorise le savoir-faire local et assure aux deux entreprises une visibilité organique solide auprès d&apos;une clientèle locale.
           </p>
         </div>
       </section>

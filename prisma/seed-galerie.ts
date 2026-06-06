@@ -81,6 +81,7 @@ const MEDIAS: MediaSeed[] = [
     type: MediaType.VIDEO,
     filename: "BTS_DeepFrame.mp4",
     folder: "videos",
+    thumbnailFilename: "thumb-backstage-splice-studio.webp",
     title: "Backstage Splice Studio",
     description: "Coulisses de l'equipe Splice Studio.",
     category: "automobile",
