@@ -24,11 +24,12 @@ interface RibbonCell {
  * Order crafted for visual rhythm (alternate wide/tall/square).
  */
 const CDN = "https://media.splicestudio.fr";
+const PUBLIC_CDN = "https://cdn.splicestudio.fr";
 
 const ribbonCells: RibbonCell[] = [
-  { slug: "bistrot-orleans", poster: `${CDN}/thumb/thumb-bistrot-orleans.jpg`, tag: "Pub locale", label: "Pub locale — Bistrot Orléans", ratio: "9/16" },
+  { slug: "bistrot-orleans", poster: `${PUBLIC_CDN}/thumb/thumb-bistrot-orleans.webp`, tag: "Pub locale", label: "Pub locale — Bistrot Orléans", ratio: "9/16" },
   { slug: "porsche-hexlight", poster: "/photos/porsche-hexlight.webp", tag: "Shooting auto", label: "Shooting auto — Porsche Hexlight", ratio: "4/3" },
-  { slug: "interview-cklean-auto", poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`, tag: "Interview", label: "Interview — CK Clean Auto", ratio: "4/3" },
+  { slug: "interview-cklean-auto", poster: `${PUBLIC_CDN}/thumb/thumb-interview-cklean-auto.webp`, tag: "Interview", label: "Interview — CK Clean Auto", ratio: "4/3" },
   { slug: "porsche-studio", poster: "/photos/porsche-studio-1.webp", tag: "Shooting auto", label: "Shooting auto — Porsche Studio", ratio: "16/9" },
 ];
 

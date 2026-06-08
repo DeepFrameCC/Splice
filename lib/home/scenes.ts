@@ -27,6 +27,7 @@ export interface Scene {
 }
 
 const CDN = "https://media.splicestudio.fr";
+const PUBLIC_CDN = "https://cdn.splicestudio.fr";
 
 export const scenes: Scene[] = [
   {
@@ -37,7 +38,7 @@ export const scenes: Scene[] = [
     tc: "00:50",
     ratio: "4/3",
     src: `${CDN}/videos/${encodeURIComponent("Interview cklean auto.mp4")}`,
-    poster: `${CDN}/thumb/thumb-interview-cklean-auto.jpg`,
+    poster: `${PUBLIC_CDN}/thumb/thumb-interview-cklean-auto.webp`,
     captions: "/captions/ckcleanauto45-interview.vtt",
     format: "4K · 24fps",
   },
@@ -49,7 +50,7 @@ export const scenes: Scene[] = [
     tc: "02:00",
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Luxury Edit (Par Tracy).mp4")}`,
-    poster: `${CDN}/thumb/${encodeURIComponent("thumb_porsche_orléans.png")}`,
+    poster: `${PUBLIC_CDN}/thumb/thumb-porsche-orleans.webp`,
     captions: "/captions/luxury-edit.vtt",
     format: "4K · 24fps",
   },
@@ -61,7 +62,7 @@ export const scenes: Scene[] = [
     tc: "01:30",
     ratio: "9/16",
     src: `${CDN}/videos/${encodeURIComponent("Présentation (Par Louisia).mp4")}`,
-    poster: `${CDN}/thumb/thumb-presentation-louisia.jpg`,
+    poster: `${PUBLIC_CDN}/thumb/thumb-presentation-louisia.webp`,
     captions: "/captions/presentation-louisia.vtt",
     format: "4K · 24fps",
   },
@@ -73,7 +74,7 @@ export const scenes: Scene[] = [
     tc: "03:00",
     ratio: "16/9",
     src: `${CDN}/videos/${encodeURIComponent("Jeanne d'arc .mp4")}`,
-    poster: `${CDN}/photos/${encodeURIComponent("cathédrale.webp")}`,
+    poster: `${PUBLIC_CDN}/thumb/thumb-cathedrale.webp`,
     captions: "/captions/fetes-johanniques-orleans.vtt",
     format: "4K · 24fps",
   },
@@ -85,7 +86,7 @@ export const scenes: Scene[] = [
     tc: "00:00",
     ratio: "4/3",
     src: "",
-    poster: `${CDN}/photos/${encodeURIComponent("fille avec fleur.webp")}`,
+    poster: `${PUBLIC_CDN}/thumb/thumb-portrait-fleuri.webp`,
     captions: "",
     format: "HR · Photo",
     type: "photo",

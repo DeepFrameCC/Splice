@@ -94,8 +94,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         }} />
         <link
           rel="preload"
-          href="https://media.splicestudio.fr/thumb/thumb-interview-cklean-auto.jpg"
+          href="https://cdn.splicestudio.fr/thumb/thumb-interview-cklean-auto.webp"
           as="image"
+          type="image/webp"
           fetchPriority="high"
         />
         <JsonLd data={{
