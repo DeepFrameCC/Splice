@@ -171,20 +171,6 @@ export default async function ServicePage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      {faqItems.length > 0 && (
-        <JsonLd data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqItems.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }} />
-      )}
       
       <div className="df-site">
         <div className="df-root">

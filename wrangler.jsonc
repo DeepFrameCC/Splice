@@ -51,5 +51,8 @@
   },
   "observability": {
     "enabled": true
+  },
+  "triggers": {
+    "crons": ["*/4 * * * *"]
   }
 }

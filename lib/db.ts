@@ -24,13 +24,18 @@ export const getDb = cache((): PrismaClient => {
   }
   const cleanUrl = url.trim().replace(/^["']|["']$/g, "");
 
+  // Enforce an 8-second server-side statement timeout to prevent hanging
+  // queries from exhausting the Cloudflare Worker CPU budget and causing 504s.
+  const separator = cleanUrl.includes("?") ? "&" : "?";
+  const urlWithTimeout = `${cleanUrl}${separator}options=-c%20statement_timeout%3D8000`;
+
   // Dynamically set WebSocket constructor for Node.js CLI/server contexts
   if (typeof WebSocket === "undefined") {
     const ws = require("ws");
     neonConfig.webSocketConstructor = ws;
   }
 
-  const adapter = new PrismaNeon({ connectionString: cleanUrl });
+  const adapter = new PrismaNeon({ connectionString: urlWithTimeout });
   const prisma = new PrismaClient({ adapter });
 
   // Store in global singleton ONLY for hot reload safety in development.
