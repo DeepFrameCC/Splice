@@ -2689,15 +2689,76 @@ img { display: block; max-width: 100%; }
   }
 }
 
+.df-cs-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 20px;
+}
+
 .df-cs-drag-hint {
-  display: block;
-  margin-top: 16px;
   font-family: var(--font-sans), sans-serif;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.4);
+}
+
+.df-cs-slider-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.df-cs-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 0;
+}
+
+.df-cs-arrow:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.df-cs-arrow:active {
+  transform: scale(0.94);
+}
+
+.df-cs-arrow svg {
+  display: block;
+}
+
+.df-cs-progress-track {
+  height: 4px;
+  width: 140px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.df-cs-progress-bar {
+  height: 100%;
+  width: 40px;
+  background: var(--df-accent, #F36B1F);
+  border-radius: 999px;
+  transform: translateX(0);
+  will-change: transform;
+  transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

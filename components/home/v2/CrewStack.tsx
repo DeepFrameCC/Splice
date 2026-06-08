@@ -56,8 +56,52 @@ const sceneBySlug = Object.fromEntries(scenes.map((s) => [s.slug, s]));
 export default function CrewStack() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const drag = useRef({ down: false, startX: 0, scrollLeft: 0, moved: false });
   const reduced = useReducedMotion();
+
+  // Update scroll progress bar position (sliding handle)
+  const onScroll = React.useCallback(() => {
+    const el = trackRef.current;
+    const bar = progressRef.current;
+    if (!el || !bar) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 0) {
+      bar.style.transform = "translateX(0px)";
+      return;
+    }
+    const pct = el.scrollLeft / maxScroll;
+    const trackWidth = bar.parentElement?.clientWidth || 140;
+    const barWidth = bar.clientWidth || 40;
+    const maxTranslate = trackWidth - barWidth;
+    const tx = pct * maxTranslate;
+    bar.style.transform = `translateX(${Math.min(maxTranslate, Math.max(0, tx))}px)`;
+  }, []);
+
+  React.useEffect(() => {
+    onScroll();
+    window.addEventListener("resize", onScroll);
+    return () => window.removeEventListener("resize", onScroll);
+  }, [onScroll]);
+
+  // Click navigation for the gallery slider
+  const scrollDirection = (direction: "left" | "right") => {
+    const el = trackRef.current;
+    if (!el) return;
+    const cards = el.querySelectorAll(".df-cs-card");
+    const firstCard = cards[0];
+    if (!firstCard) return;
+    
+    // Find width of a single card
+    const cardWidth = firstCard.clientWidth;
+    const gap = 20; 
+    const scrollAmount = cardWidth + gap;
+    
+    el.scrollTo({
+      left: el.scrollLeft + (direction === "left" ? -scrollAmount : scrollAmount),
+      behavior: "smooth",
+    });
+  };
 
   // Glisser-déposer à la souris pour faire défiler (le tactile utilise le scroll natif).
   // On ne capture le pointeur QU'À partir du moment où un vrai drag démarre : sinon
@@ -151,6 +195,7 @@ export default function CrewStack() {
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerLeave={onPointerUp}
+          onScroll={onScroll}
         >
           {SERVICES.map((s) => {
             const media = sceneBySlug[s.mediaSlug];
@@ -186,9 +231,32 @@ export default function CrewStack() {
             );
           })}
         </div>
-        <span className="df-cs-drag-hint" aria-hidden="true">
-          ↔ Glissez pour explorer
-        </span>
+        <div className="df-cs-controls">
+          <span className="df-cs-drag-hint" aria-hidden="true">
+            ↔ Glissez pour explorer
+          </span>
+          <div className="df-cs-slider-nav">
+            <button
+              onClick={() => scrollDirection("left")}
+              className="df-cs-arrow"
+              aria-label="Défiler vers la gauche"
+              type="button"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            </button>
+            <div className="df-cs-progress-track" aria-hidden="true">
+              <div ref={progressRef} className="df-cs-progress-bar" />
+            </div>
+            <button
+              onClick={() => scrollDirection("right")}
+              className="df-cs-arrow"
+              aria-label="Défiler vers la droite"
+              type="button"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* ── Footer slim ── */}
