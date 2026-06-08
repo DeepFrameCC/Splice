@@ -1311,8 +1311,12 @@ img { display: block; max-width: 100%; }
   font-size: 12px; color: rgba(255,255,255,.6);
 }
 @media (max-width: 820px) {
-  .df-footer-top { grid-template-columns: repeat(2, 1fr); }
+  .df-footer-top { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .df-footer-bot { flex-direction: column; gap: 8px; }
+}
+@media (max-width: 600px) {
+  .df-footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .df-footer ul.df-footer-nav-grid { grid-template-columns: 1fr; gap: 8px; }
 }
 
 
