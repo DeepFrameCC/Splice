@@ -75,7 +75,7 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
   "montage-video": [
     { name: "Adobe Premiere Pro CC" },
     { name: "DaVinci Resolve Studio" },
-    { name: "After Effects" },
+    { name: "CapCut Pro" },
     { name: "Logic Pro X" },
     { name: "Adobe Audition CC" },
   ],
@@ -84,7 +84,7 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
     { name: "iPhone 14", detail: "B-roll et plans complémentaires" },
     { name: "Micro DJI", detail: "Son sans fil" },
     { name: "DaVinci Resolve Studio" },
-    { name: "After Effects" },
+    { name: "CapCut Pro" },
   ],
   "motion-design": [
     { name: "After Effects" },
@@ -127,7 +127,7 @@ const EQUIPMENT_BY_SERVICE: Record<string, { name: string; detail?: string }[]> 
     { name: "iPhone 14" },
     { name: "Micro DJI" },
     { name: "DaVinci Resolve Studio" },
-    { name: "After Effects" },
+    { name: "CapCut Pro" },
   ],
 };
 
@@ -156,7 +156,7 @@ export default async function ServicePage({ params }: PageProps) {
   const features = service.features as unknown as ServiceFeature[];
   const faqItems = service.faq as unknown as FAQItem[];
   const deliverables = (service.deliverables as unknown as ServiceDeliverable[]) ?? [];
-  
+
   const dbEquipment = (service.equipment as unknown as EquipmentItem[]) ?? [];
   const equipment = dbEquipment.length > 0 ? dbEquipment : (EQUIPMENT_BY_SERVICE[slug] ?? []);
 
@@ -171,11 +171,11 @@ export default async function ServicePage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      
+
       <div className="df-site">
         <div className="df-root">
           <main className="mx-auto max-w-7xl px-6 py-12 md:py-20">
-            
+
             {/* Breadcrumbs */}
             <div className="mb-8">
               <ServiceBreadcrumb serviceName={service.shortName} slug={slug} />
@@ -190,7 +190,7 @@ export default async function ServicePage({ params }: PageProps) {
                     Service professionnel
                   </span>
                 </div>
-                
+
                 <h1 className="font-display text-4xl uppercase tracking-tight text-white sm:text-5xl lg:text-6xl leading-[0.95]">
                   {service.name.split(" ").map((w, idx) => (
                     <span key={idx}>
@@ -199,7 +199,7 @@ export default async function ServicePage({ params }: PageProps) {
                     </span>
                   ))}
                 </h1>
-                
+
                 <p className="mt-6 text-base leading-relaxed text-white/60 md:text-lg">
                   {service.introParagraph}
                 </p>
@@ -276,8 +276,8 @@ export default async function ServicePage({ params }: PageProps) {
                             <span className="font-mono text-sm text-df-gold font-semibold select-none">
                               {(idx + 1).toString().padStart(2, "0")}.
                             </span>
-                            <h3 
-                              style={{ fontFamily: "var(--font-sans)" }} 
+                            <h3
+                              style={{ fontFamily: "var(--font-sans)" }}
                               className="text-lg md:text-xl font-medium text-white tracking-normal normal-case"
                             >
                               {feature.h3}
@@ -305,8 +305,8 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main grid gap-12 sm:grid-cols-2 w-full">
                       {deliverables.length > 0 && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Livrables inclus
@@ -326,8 +326,8 @@ export default async function ServicePage({ params }: PageProps) {
                       )}
                       {equipment.length > 0 && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Matériel &amp; Outils
@@ -362,8 +362,8 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main grid gap-12 sm:grid-cols-2 w-full">
                       {service.teamMembers.length > 0 && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Contacts dédiés
@@ -392,8 +392,8 @@ export default async function ServicePage({ params }: PageProps) {
                       )}
                       {service.zoneText && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Zone d&apos;intervention
@@ -420,14 +420,14 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main divide-y divide-white/[0.06] w-full">
                       {faqItems.map((item) => (
                         <details key={item.question} className="group py-5 first:pt-0 last:pb-0">
-                          <summary 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <summary
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="flex cursor-pointer items-center justify-between text-base md:text-lg font-medium text-white transition hover:text-df-gold select-none"
                           >
                             <span>{item.question}</span>
                             <span className="ml-4 shrink-0 text-df-gold/60 transition duration-300 group-open:rotate-45 font-mono text-base">+</span>
                           </summary>
-                          <div 
+                          <div
                             className="mt-4 text-sm md:text-base leading-relaxed text-white/50 pl-4 border-l border-df-gold/20 prose-splice font-light"
                             dangerouslySetInnerHTML={{ __html: item.answer }}
                           />
@@ -450,8 +450,8 @@ export default async function ServicePage({ params }: PageProps) {
                     <div className="df-frs-main space-y-12 w-full">
                       {relatedArticles.length > 0 && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Articles utiles
@@ -463,8 +463,8 @@ export default async function ServicePage({ params }: PageProps) {
                                 href={`/blog/${article.slug}`}
                                 className="group block border border-white/[0.04] bg-[#15152A] p-5 rounded-xl hover:border-df-gold/20 transition-all duration-300"
                               >
-                                <h4 
-                                  style={{ fontFamily: "var(--font-sans)" }} 
+                                <h4
+                                  style={{ fontFamily: "var(--font-sans)" }}
                                   className="text-base font-medium text-white group-hover:text-df-gold transition-colors leading-snug"
                                 >
                                   {article.title}
@@ -479,8 +479,8 @@ export default async function ServicePage({ params }: PageProps) {
                       )}
                       {relatedServices.length > 0 && (
                         <div>
-                          <h3 
-                            style={{ fontFamily: "var(--font-sans)" }} 
+                          <h3
+                            style={{ fontFamily: "var(--font-sans)" }}
                             className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6"
                           >
                             Services connexes
@@ -493,8 +493,8 @@ export default async function ServicePage({ params }: PageProps) {
                                 className="group block border border-white/[0.04] bg-[#15152A] p-5 rounded-xl hover:border-df-gold/20 transition-all duration-300"
                               >
                                 <div className="flex items-center justify-between">
-                                  <h4 
-                                    style={{ fontFamily: "var(--font-sans)" }} 
+                                  <h4
+                                    style={{ fontFamily: "var(--font-sans)" }}
                                     className="text-base font-medium text-white group-hover:text-df-gold transition-colors"
                                   >
                                     {rs.shortName}
@@ -528,8 +528,8 @@ export default async function ServicePage({ params }: PageProps) {
                     on s&apos;en occupe avec exigence.
                   </h2>
 
-                  <CtaTrackedLink 
-                    href="/devis" 
+                  <CtaTrackedLink
+                    href="/devis"
                     source="service_detail"
                     className="df-btn df-btn-primary df-btn-lg df-lf-cta"
                   >
