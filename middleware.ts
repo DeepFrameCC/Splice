@@ -19,6 +19,19 @@ const PRIVATE_API = [
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
+
+  // Fast-block WordPress scan bots to save CPU budget and prevent log spam
+  if (
+    pathname.startsWith("/wp-") ||
+    pathname.includes("/wp-admin") ||
+    pathname.includes("/wp-content") ||
+    pathname.includes("/wp-includes") ||
+    pathname.endsWith("/wp-login.php") ||
+    pathname.endsWith("/xmlrpc.php")
+  ) {
+    return new NextResponse("Blocked", { status: 403 });
+  }
+
   const role = (req.auth?.user as any)?.role as string | undefined;
 
   // API routes: only add noindex hint, skip CSP/nonce injection.
