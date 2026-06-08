@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
 import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
+import AmplitudeAnalytics from "@/components/layout/AmplitudeAnalytics";
 import JsonLd from "@/components/JsonLd";
 import AuthProvider from "@/components/layout/AuthProvider";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
@@ -128,6 +129,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ToasterClient />
         <CookieBanner />
         <GoogleAnalytics />
+        <AmplitudeAnalytics />
       </body>
     </html>
   );
