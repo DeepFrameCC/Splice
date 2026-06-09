@@ -229,7 +229,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     });
   } else {
     devisType = "PACK_PARTICULIER";
-    packLabel = "Pack Particulier";
+    packLabel = data.nbVideos === 99 ? "Test Production" : "Pack Particulier";
     quote = computePackParticulierQuote({
       nbVideos: data.nbVideos,
       nbPhotos: data.nbPhotos,
@@ -271,7 +271,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
       remarques: data.remarques ?? null,
       lines: quote.lines,
       totalHT: quote.totalHT,
-      acompteRate: ACOMPTE_RATE,
+      acompteRate: quote.totalHT <= 5 ? 100 : ACOMPTE_RATE,
       acompteAmount: quote.acompte,
     },
   });

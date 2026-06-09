@@ -355,7 +355,7 @@ export function Step2PackParticulier() {
       {/* Vidéos */}
       <fieldset className="mt-6">
         <legend className="font-bold text-white">Nombre de vidéos</legend>
-        <div className="mt-2 grid gap-2 grid-cols-2 md:grid-cols-4">
+        <div className="mt-2 grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
           {PACK_PARTICULIER_VIDEOS.map((v) => {
             const active = f.nbVideos === v.qty;
             return (

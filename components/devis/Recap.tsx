@@ -114,7 +114,7 @@ export default function Recap() {
               {f.mode === "PACK_PARTICULIER" && (
                 <div className="mt-2 space-y-1">
                   <div className="flex justify-between text-sm opacity-80">
-                    <span>Acompte 30 %</span>
+                    <span>Acompte {result.quote.totalHT <= 5 ? "100" : "30"} %</span>
                     <span>{result.quote.acompte} €</span>
                   </div>
                   <div className="flex justify-between text-sm opacity-80">

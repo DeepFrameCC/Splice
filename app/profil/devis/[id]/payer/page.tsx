@@ -11,7 +11,7 @@ export default async function PayerPage({ params }: { params: Promise<{ id: stri
 
   const devis = await db.devis.findUnique({ where: { id } });
   if (!devis || devis.userId !== userId) notFound();
-  if (devis.status !== "VALIDE") redirect(`/profil/devis/${id}`);
+  if (devis.status !== "VALIDE" && devis.pack !== "Test Production") redirect(`/profil/devis/${id}`);
   if (devis.acomptePaid) redirect(`/profil/devis/${id}?paye=1`);
 
   return (
