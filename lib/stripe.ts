@@ -5,7 +5,11 @@ let _stripe: Stripe | null | undefined;
 export function getStripe(): Stripe | null {
   if (_stripe !== undefined) return _stripe;
   _stripe = process.env.STRIPE_SECRET_KEY
-    ? new Stripe(process.env.STRIPE_SECRET_KEY)
+    ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+        // Cloudflare Workers n'a pas de client HTTP Node fonctionnel :
+        // sans fetch client, les appels API Stripe pendent indéfiniment.
+        httpClient: Stripe.createFetchHttpClient(),
+      })
     : null;
   return _stripe;
 }

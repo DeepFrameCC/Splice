@@ -50,9 +50,11 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
         }
 
         try {
-          const targetUrl = new URL(data.url);
-          if (targetUrl.protocol === "https:" && (targetUrl.hostname === "stripe.com" || targetUrl.hostname.endsWith(".stripe.com"))) {
-            console.log("[pay] Redirecting to Stripe:", targetUrl.hostname);
+          const targetUrl = new URL(data.url, window.location.origin);
+          const isStripe = targetUrl.protocol === "https:" && (targetUrl.hostname === "stripe.com" || targetUrl.hostname.endsWith(".stripe.com"));
+          const isSameOrigin = targetUrl.origin === window.location.origin;
+          if (isStripe || isSameOrigin) {
+            console.log("[pay] Redirecting to:", targetUrl.hostname);
             window.location.assign(data.url);
           } else {
             console.error("[SECURITY] Redirection suspecte bloquée:", targetUrl.hostname);

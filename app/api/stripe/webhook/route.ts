@@ -135,7 +135,15 @@ export async function POST(req: NextRequest) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    // constructEventAsync + SubtleCrypto : la variante synchrone n'est pas
+    // utilisable dans le runtime Cloudflare Workers.
+    event = await stripe.webhooks.constructEventAsync(
+      body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET,
+      undefined,
+      Stripe.createSubtleCryptoProvider()
+    );
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown";
     console.error("[webhook] Signature invalide:", message);
