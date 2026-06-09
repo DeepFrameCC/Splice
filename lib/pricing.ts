@@ -165,7 +165,6 @@ export const PACK_PARTICULIER_VIDEOS: PackVideoOption[] = [
   { qty: 2, label: "Pack Duo", price: 55 },
   { qty: 3, label: "Pack Trio", price: 79 },
   { qty: 4, label: "Pack Complet", price: 99, popular: true },
-  { qty: 99, label: "Test Production", price: 1 },
 ];
 
 export const PACK_PARTICULIER_PHOTOS: PackPhotoOption[] = [
@@ -361,7 +360,7 @@ export function computePackParticulierQuote(input: PackParticulierInput): Quote 
   }
 
   const totalHT = lines.reduce((s, l) => s + l.total, 0);
-  const acompte = totalHT <= 5 ? totalHT : Math.round((totalHT * ACOMPTE_RATE) / 100);
+  const acompte = Math.round((totalHT * ACOMPTE_RATE) / 100);
   const solde = totalHT - acompte;
 
   return { lines, totalHT, acompte, solde };

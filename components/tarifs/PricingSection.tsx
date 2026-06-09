@@ -143,7 +143,7 @@ export default function PricingSection() {
           <div className="rounded-2xl bg-white/[0.04] p-6 ring-1 ring-white/[0.08]">
             <h3 className="font-display text-xl uppercase tracking-tight text-white">Vidéos</h3>
             <ul className="mt-4 space-y-3">
-              {PACK_PARTICULIER_VIDEOS.filter((v) => v.qty !== 99).map((v) => (
+              {PACK_PARTICULIER_VIDEOS.map((v) => (
                 <li
                   key={v.qty}
                   className="flex items-center justify-between text-sm"

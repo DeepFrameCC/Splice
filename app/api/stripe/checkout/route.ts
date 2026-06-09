@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     console.log("[checkout] Looking up devis:", devisId);
     const devis = await db.devis.findUnique({ where: { id: devisId } });
     if (!devis || devis.userId !== userId) return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
-    if (devis.status !== "VALIDE" && devis.pack !== "Test Production") {
+    if (devis.status !== "VALIDE") {
       return NextResponse.json({ error: "Le devis n'est pas encore validé par Splice Studio" }, { status: 400 });
     }
 

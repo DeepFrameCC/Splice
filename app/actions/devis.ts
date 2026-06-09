@@ -229,7 +229,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     });
   } else {
     devisType = "PACK_PARTICULIER";
-    packLabel = data.nbVideos === 99 ? "Test Production" : "Pack Particulier";
+    packLabel = "Pack Particulier";
     quote = computePackParticulierQuote({
       nbVideos: data.nbVideos,
       nbPhotos: data.nbPhotos,

@@ -68,7 +68,7 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        {((devis.status === "VALIDE" || (devis.status === "ATTENTE" && devis.pack === "Test Production")) && !devis.acomptePaid && devis.acompteAmount > 0) && (
+        {(devis.status === "VALIDE" && !devis.acomptePaid && devis.acompteAmount > 0) && (
           <Link href={`/profil/devis/${devis.id}/payer`} className="btn-primary">
             <CreditCard className="h-5 w-5" /> Payer l&apos;acompte ({devis.acompteAmount} €)
           </Link>
