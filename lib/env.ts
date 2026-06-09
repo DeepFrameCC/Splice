@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 if (process.env.NEXT_PUBLIC_APP_URL) {
-  process.env.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL.trim();
+  process.env.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL.trim() as typeof process.env.NEXT_PUBLIC_APP_URL;
 }
 
 /**
