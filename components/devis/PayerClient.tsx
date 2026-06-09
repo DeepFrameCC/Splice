@@ -28,29 +28,45 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
     setError(null);
     start(async () => {
       try {
+        console.log("[pay] Starting payment request for devis:", devisId);
         const res = await fetch("/api/stripe/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ devisId })
         });
+        console.log("[pay] Response status:", res.status);
         const data = (await res.json()) as { error?: string; url?: string };
-        if (!res.ok) { setError(data.error ?? "Erreur"); return; }
-        if (data.url) {
-          try {
-            const targetUrl = new URL(data.url);
-            if (targetUrl.protocol === "https:" && (targetUrl.hostname === "stripe.com" || targetUrl.hostname.endsWith(".stripe.com"))) {
-              window.location.href = data.url;
-            } else {
-              console.error("[SECURITY] Redirection suspecte bloquée:", targetUrl.hostname);
-              setError("Erreur de sécurité : Redirection suspecte détectée.");
-            }
-          } catch {
-            setError("L'URL de paiement générée est invalide.");
-          }
+        console.log("[pay] Response data:", JSON.stringify(data));
+
+        if (!res.ok) {
+          setError(data.error ?? `Erreur ${res.status}`);
+          return;
         }
-      } catch (e: any) {
+
+        if (!data.url) {
+          console.error("[pay] No URL in successful response");
+          setError("Le serveur n'a pas retourné d'URL de paiement. Veuillez réessayer.");
+          return;
+        }
+
+        try {
+          const targetUrl = new URL(data.url);
+          if (targetUrl.protocol === "https:" && (targetUrl.hostname === "stripe.com" || targetUrl.hostname.endsWith(".stripe.com"))) {
+            console.log("[pay] Redirecting to Stripe:", targetUrl.hostname);
+            window.location.assign(data.url);
+          } else {
+            console.error("[SECURITY] Redirection suspecte bloquée:", targetUrl.hostname);
+            setError("Erreur de sécurité : Redirection suspecte détectée.");
+          }
+        } catch {
+          console.error("[pay] Invalid URL received:", data.url);
+          setError("L'URL de paiement générée est invalide.");
+        }
+      } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : "Erreur inconnue";
+        console.error("[pay] Fetch error:", msg);
         toast.error("Erreur de connexion");
-        setError("Impossible de contacter le serveur de paiement.");
+        setError(`Impossible de contacter le serveur de paiement: ${msg}`);
       }
     });
   };
