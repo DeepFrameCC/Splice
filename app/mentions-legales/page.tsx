@@ -10,6 +10,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/mentions-legales` },
 };
 
+/**
+ * Médiateur de la consommation (art. L.612-1 C. conso). À renseigner dès que
+ * l'adhésion à un organisme de médiation est finalisée (ex. CNPM, CM2C, AME
+ * Conso) — tant que la valeur est null, la page affiche un texte d'attente.
+ * Ne JAMAIS nommer un médiateur sans adhésion effective.
+ */
+const MEDIATEUR: { nom: string; site: string; adresse: string } | null = null;
+
 export default function MentionsLegales() {
   return (
     <>
@@ -107,10 +115,53 @@ export default function MentionsLegales() {
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-white">8. Droit applicable</h2>
+            <h2 className="text-lg font-bold text-white">8. Médiation de la consommation</h2>
             <p>
-              Les présentes mentions légales sont régies par le droit français. En cas de litige,
-              les tribunaux d&apos;Orléans seront seuls compétents.
+              Conformément aux articles L.612-1 et suivants du Code de la consommation, tout client
+              consommateur a le droit de recourir gratuitement à un médiateur de la consommation en vue
+              de la résolution amiable d&apos;un litige l&apos;opposant à Splice Studio.
+            </p>
+            <p className="mt-2">
+              Avant de saisir le médiateur, le client doit avoir tenté de résoudre le litige directement
+              auprès de Splice Studio par une réclamation écrite adressée à{" "}
+              <a href="mailto:contact.splicestudio@gmail.com" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
+                contact.splicestudio@gmail.com
+              </a>. La médiation ne peut être saisie que si cette réclamation n&apos;a pas abouti dans un délai
+              de deux mois, et au plus tard dans l&apos;année suivant la réclamation.
+            </p>
+            {MEDIATEUR ? (
+              <ul className="mt-3 space-y-1">
+                <li><strong>Organisme de médiation :</strong> {MEDIATEUR.nom}</li>
+                <li><strong>Site :</strong>{" "}
+                  <a href={MEDIATEUR.site} target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
+                    {MEDIATEUR.site}
+                  </a>
+                </li>
+                <li><strong>Adresse :</strong> {MEDIATEUR.adresse}</li>
+              </ul>
+            ) : (
+              <p className="mt-2">
+                Splice Studio finalise actuellement son adhésion auprès d&apos;un organisme de médiation de la
+                consommation ; l&apos;identité et les coordonnées du médiateur désigné seront publiées sur cette
+                page dès la désignation effective. Dans l&apos;intervalle, toute demande peut être adressée à
+                l&apos;adresse e-mail ci-dessus.
+              </p>
+            )}
+            <p className="mt-2">
+              Le client consommateur peut également recourir à la plateforme européenne de règlement en
+              ligne des litiges :{" "}
+              <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
+                ec.europa.eu/consumers/odr
+              </a>.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-bold text-white">9. Droit applicable</h2>
+            <p>
+              Les présentes mentions légales sont régies par le droit français. Tout litige avec un client
+              professionnel relève des tribunaux compétents d&apos;Orléans ; pour les clients consommateurs, la
+              juridiction compétente est déterminée conformément aux règles légales en vigueur.
             </p>
           </div>
         </section>
