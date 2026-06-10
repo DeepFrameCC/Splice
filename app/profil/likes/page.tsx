@@ -4,12 +4,14 @@ import { FOUNDER_HANDLE } from "@/lib/pricing";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { PageHeader, EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
 export default async function MesLikes() {
   const session = await auth();
-  const userId = session?.user?.id!;
+  const userId = session?.user?.id;
+  if (!userId) return null;
   const likes = await db.like.findMany({
     where: { userId },
     include: { media: { include: { monteur: { select: { pseudo: true } } } } },
@@ -18,16 +20,27 @@ export default async function MesLikes() {
 
   return (
     <div>
-      <h1 className="mb-2 font-display text-4xl uppercase tracking-tight text-df-gold">Mes likes / Inspirations</h1>
-      <p className="mb-6 text-white/60">Photos et vidéos sauvegardées avec leur estimation.</p>
+      <PageHeader
+        title="Mes inspirations"
+        subtitle="Les photos et vidéos que tu as likées, avec leur estimation et le matériel utilisé"
+      />
 
       {likes.length === 0 ? (
-        <p className="rounded-xl bg-white/5 ring-1 ring-white/10 p-6 text-center text-white/70">Likez des médias dans la galerie pour voir leur estimation et le matériel utilisé.</p>
+        <EmptyState
+          icon={Heart}
+          title="Aucune inspiration sauvegardée"
+          description="Parcours la galerie et like les réalisations qui te parlent : tu retrouves ici leur estimation de prix et le matériel utilisé pour les tourner."
+          action={
+            <Link href="/galerie" className="btn-primary">
+              Explorer la galerie
+            </Link>
+          }
+        />
       ) : (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {likes.map(({ media: m }) => (
-            <Link key={m.id} href={m.type === "VIDEO" ? `/videos/${m.id}` : `/photos`}
-              className="group overflow-hidden rounded-2xl bg-white/5 shadow-md ring-1 ring-white/10 transition hover:scale-[1.03] hover:ring-df-gold/40">
+            <Link key={m.id} href={`/galerie?media=${m.id}`}
+              className="group overflow-hidden rounded-2xl bg-df-surface ring-1 ring-white/[0.08] transition hover:ring-df-gold/40">
               {m.type === "PHOTO" ? (
                 <div className="relative aspect-square w-full">
                   <Image

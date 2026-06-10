@@ -27,15 +27,25 @@ export default async function ProfilLayout({ children }: { children: React.React
   let facturesCount = 0;
   let contratsCount = 0;
   let likesCount = 0;
+  let livraisonsCount = 0;
   let unreadCount = 0;
-  let recentNotifs: any[] = [];
+  let recentNotifs: Array<{
+    id: string;
+    type: string;
+    title: string;
+    message: string;
+    read: boolean;
+    href: string | null;
+    createdAt: Date;
+  }> = [];
 
   try {
-    const [dCount, fCount, cCount, lCount, uCount, notifs] = await Promise.all([
+    const [dCount, fCount, cCount, lCount, livCount, uCount, notifs] = await Promise.all([
       db.devis.count({ where: { userId: user.id } }),
       db.facture.count({ where: { userId: user.id } }),
       db.contrat.count({ where: { userId: user.id } }),
       db.like.count({ where: { userId: user.id } }),
+      db.livraison.count({ where: { userId: user.id } }),
       db.notification.count({ where: { userId: user.id, read: false } }),
       db.notification.findMany({
         where: { userId: user.id },
@@ -47,6 +57,7 @@ export default async function ProfilLayout({ children }: { children: React.React
     facturesCount = fCount;
     contratsCount = cCount;
     likesCount = lCount;
+    livraisonsCount = livCount;
     unreadCount = uCount;
     recentNotifs = notifs;
   } catch (e) {
@@ -83,7 +94,7 @@ export default async function ProfilLayout({ children }: { children: React.React
               <ProfilSidebar
                 userName={displayName}
                 isAdmin={isAdmin}
-                counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, likes: likesCount }}
+                counts={{ devis: devisCount, factures: facturesCount, contrats: contratsCount, likes: likesCount, livraisons: livraisonsCount }}
                 notificationBell={
                   <NotificationBell initialCount={unreadCount} recentNotifications={serializedNotifs} />
                 }
@@ -105,6 +116,7 @@ export default async function ProfilLayout({ children }: { children: React.React
                 { href: "/profil/devis", label: `Devis (${devisCount})` },
                 { href: "/profil/factures", label: `Factures (${facturesCount})` },
                 { href: "/profil/contrats", label: `Contrats (${contratsCount})` },
+                { href: "/profil/livraisons", label: `Livraisons (${livraisonsCount})` },
                 { href: "/profil/abonnement", label: "Abonnement" },
                 { href: "/profil/likes", label: `Likes (${likesCount})` },
                 { href: "/profil/parametres", label: "Paramètres" },

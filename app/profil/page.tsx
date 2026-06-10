@@ -3,142 +3,138 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import {
   Calculator,
-  AlertTriangle,
   FileText,
   Receipt,
-  Clapperboard,
+  FileSignature,
   Heart,
-  ArrowRight,
-  User,
   Mail,
   Phone,
   MapPin,
   CalendarDays,
 } from "lucide-react";
+import { Panel, SectionTitle, ErrorState, CountLink } from "@/components/dashboard/ui";
+
+export const dynamic = "force-dynamic";
 
 export default async function ProfilPage() {
   const session = await auth();
-  const userId = session?.user?.id!;
+  const userId = session?.user?.id;
+  if (!userId) return null;
 
-  let user: any = null;
-  let dbError = false;
-  let stats = { devis: 0, factures: 0, contrats: 0, likes: 0 };
+  let data: {
+    user: NonNullable<Awaited<ReturnType<typeof fetchUser>>>;
+    stats: { devis: number; factures: number; contrats: number; likes: number };
+  } | null = null;
 
   try {
-    const [u, devisCount, facturesCount, contratsCount, likesCount] = await Promise.all([
-      db.user.findUnique({ where: { id: userId }, include: { profile: true } }),
+    const [user, devis, factures, contrats, likes] = await Promise.all([
+      fetchUser(userId),
       db.devis.count({ where: { userId } }),
       db.facture.count({ where: { userId } }),
       db.contrat.count({ where: { userId } }),
       db.like.count({ where: { userId } }),
     ]);
-    user = u;
-    stats = { devis: devisCount, factures: facturesCount, contrats: contratsCount, likes: likesCount };
+    if (!user) return null;
+    data = { user, stats: { devis, factures, contrats, likes } };
   } catch (e) {
     console.error("[profil] DB error:", e);
-    dbError = true;
+    return <ErrorState />;
   }
 
-  if (dbError) {
-    return (
-      <div className="flex items-center gap-3 rounded-2xl bg-amber-500/10 p-6 text-amber-800 ring-1 ring-amber-200">
-        <AlertTriangle className="h-6 w-6 shrink-0" />
-        <div>
-          <p className="font-bold">Service temporairement indisponible</p>
-          <p className="text-sm">Merci de reessayer dans quelques instants.</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) return null;
-
+  const { user, stats } = data;
   const p = user.profile;
-  const displayName = p?.nomEntreprise ?? (`${p?.prenom ?? ""} ${p?.nom ?? ""}`.trim() || user.pseudo);
+  const fullName = `${p?.prenom ?? ""} ${p?.nom ?? ""}`.trim();
+  const displayName = p?.nomEntreprise || fullName || user.pseudo;
   const memberSince = user.createdAt
     ? new Date(user.createdAt).toLocaleDateString("fr-FR", { month: "long", year: "numeric" })
     : null;
 
-  const quickLinks = [
-    { label: "Mes devis",    href: "/profil/devis",    icon: FileText,     count: stats.devis,    color: "text-white/80 group-hover:text-df-gold" },
-    { label: "Mes factures", href: "/profil/factures",  icon: Receipt,      count: stats.factures, color: "text-white/80 group-hover:text-df-gold" },
-    { label: "Mes contrats", href: "/profil/contrats",  icon: Clapperboard, count: stats.contrats, color: "text-white/80 group-hover:text-df-gold" },
-    { label: "Mes likes",    href: "/profil/likes",     icon: Heart,        count: stats.likes,    color: "text-white/80 group-hover:text-df-gold" },
+  const shortcuts = [
+    { label: "Devis", href: "/profil/devis", icon: FileText, count: stats.devis },
+    { label: "Factures", href: "/profil/factures", icon: Receipt, count: stats.factures },
+    { label: "Contrats", href: "/profil/contrats", icon: FileSignature, count: stats.contrats },
+    { label: "Inspirations likées", href: "/profil/likes", icon: Heart, count: stats.likes },
+  ];
+
+  const info = [
+    { icon: Mail, label: "Email", value: user.email },
+    { icon: Phone, label: "Téléphone", value: p?.tel ?? "" },
+    {
+      icon: MapPin,
+      label: "Adresse",
+      value: [p?.adresse, p?.codePostal, p?.ville].filter(Boolean).join(" — "),
+    },
   ];
 
   return (
-    <div className="space-y-8">
-      {/* Profile header card */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-df-glauque to-[#0E0E22] p-6 text-white shadow-lg ring-1 ring-white/10 sm:p-8">
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/5 blur-3xl" />
-        <div className="relative flex flex-wrap items-center gap-5">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 text-2xl font-bold uppercase ring-2 ring-white/30 backdrop-blur-sm">
-            {(p?.prenom?.[0] ?? user.pseudo?.[0] ?? "U")}
-          </div>
-          <div className="flex-1">
-            <h1 className="font-display text-3xl uppercase tracking-tight">{displayName}</h1>
-            <p className="mt-0.5 text-sm text-white/70">@{user.pseudo}</p>
-            {memberSince && (
-              <p className="mt-1 flex items-center gap-1.5 text-xs text-white/50">
-                <CalendarDays className="h-3.5 w-3.5" />
-                Membre depuis {memberSince}
-              </p>
-            )}
-          </div>
+    <div className="space-y-6">
+      {/* Identité */}
+      <Panel className="flex flex-wrap items-center gap-5 p-6 sm:p-7">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-df-gold/15 text-2xl font-bold uppercase text-df-gold ring-1 ring-df-gold/25">
+          {p?.prenom?.[0] ?? user.pseudo?.[0] ?? "U"}
         </div>
-      </div>
-
-      {/* Quick stats */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {quickLinks.map((link) => {
-          const Icon = link.icon;
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="group rounded-2xl bg-white/5 p-4 shadow-md ring-1 ring-white/10 transition-all hover:-translate-y-1 hover:bg-white/10 hover:shadow-xl hover:ring-df-gold/40"
-            >
-              <div className="flex items-center justify-between">
-                <Icon className={`h-5 w-5 transition-colors ${link.color}`} />
-                <ArrowRight className="h-4 w-4 text-white/30 transition-colors group-hover:translate-x-0.5 group-hover:text-df-gold" />
-              </div>
-              <p className="mt-3 font-display text-2xl font-bold text-white transition-colors group-hover:text-df-gold">{link.count}</p>
-              <p className="text-xs text-white/60">{link.label}</p>
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Personal info */}
-      <div>
-        <h2 className="mb-4 font-display text-xl font-bold text-df-gold">Informations personnelles</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <InfoRow icon={Mail} label="Email" value={user.email} />
-          <InfoRow icon={User} label="Nom / Entreprise" value={p?.nomEntreprise ?? `${p?.prenom ?? ""} ${p?.nom ?? ""}`.trim()} />
-          <InfoRow icon={Phone} label="Telephone" value={p?.tel ?? ""} />
-          <InfoRow icon={MapPin} label="Adresse" value={[p?.adresse, p?.codePostal, p?.ville].filter(Boolean).join(" - ")} />
+        <div className="min-w-0 flex-1">
+          <h1 className="truncate font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            {displayName}
+          </h1>
+          <p className="mt-0.5 text-sm text-white/55">@{user.pseudo}</p>
+          {memberSince && (
+            <p className="mt-1.5 flex items-center gap-1.5 text-xs text-white/45">
+              <CalendarDays className="h-3.5 w-3.5" aria-hidden />
+              Membre depuis {memberSince}
+            </p>
+          )}
         </div>
-      </div>
-
-      {/* CTA */}
-      <div className="rounded-2xl bg-white/5 p-6 text-center ring-1 ring-white/10 sm:p-8">
-        <p className="text-white/70">Un nouveau projet en tete ?</p>
-        <Link href="/devis" className="mt-4 inline-flex items-center gap-2 rounded-full bg-df-gold px-6 py-3 font-bold text-white transition hover:scale-105 hover:bg-df-gold/90">
-          <Calculator className="h-5 w-5" /> Demander un devis
+        <Link
+          href="/devis"
+          className="inline-flex items-center gap-2 rounded-full bg-df-gold px-5 py-2.5 text-sm font-bold text-white transition hover:bg-df-gold/90"
+        >
+          <Calculator className="h-4 w-4" aria-hidden /> Demander un devis
         </Link>
+      </Panel>
+
+      <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr]">
+        {/* Raccourcis */}
+        <Panel className="p-6">
+          <SectionTitle>Mes documents</SectionTitle>
+          <div className="mt-4 space-y-2.5">
+            {shortcuts.map((s) => (
+              <CountLink key={s.href} href={s.href} icon={s.icon} label={s.label} count={s.count} />
+            ))}
+          </div>
+        </Panel>
+
+        {/* Coordonnées */}
+        <Panel className="p-6">
+          <SectionTitle
+            action={
+              <Link
+                href="/profil/parametres"
+                className="rounded-full bg-white/5 px-3 py-1.5 text-xs font-bold text-white/70 transition hover:bg-white/10 hover:text-white"
+              >
+                Modifier
+              </Link>
+            }
+          >
+            Coordonnées
+          </SectionTitle>
+          <dl className="mt-4 space-y-3">
+            {info.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="flex items-start gap-3 border-b border-white/[0.06] pb-3 last:border-0 last:pb-0">
+                <Icon className="mt-0.5 h-4 w-4 shrink-0 text-white/40" aria-hidden />
+                <div className="min-w-0">
+                  <dt className="text-xs font-medium uppercase tracking-wide text-white/45">{label}</dt>
+                  <dd className="mt-0.5 truncate font-semibold text-white">{value || "—"}</dd>
+                </div>
+              </div>
+            ))}
+          </dl>
+        </Panel>
       </div>
     </div>
   );
 }
 
-function InfoRow({ icon: Icon, label, value }: { icon: any; label: string; value: string }) {
-  return (
-    <div className="flex items-start gap-3 rounded-2xl bg-white/5 p-4 shadow-sm ring-1 ring-white/10 transition-colors hover:bg-white/10 hover:ring-df-gold/30">
-      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
-      <div>
-        <p className="text-xs uppercase tracking-wide text-df-gold/80">{label}</p>
-        <p className="mt-0.5 font-bold text-white">{value || "\u2014"}</p>
-      </div>
-    </div>
-  );
+function fetchUser(userId: string) {
+  return db.user.findUnique({ where: { id: userId }, include: { profile: true } });
 }

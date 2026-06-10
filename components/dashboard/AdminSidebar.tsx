@@ -19,6 +19,7 @@ import {
   ChevronRight,
   Newspaper,
   Clapperboard,
+  Package,
 } from "lucide-react";
 
 type Props = {
@@ -28,6 +29,7 @@ type Props = {
     devis: number;
     factures: number;
     contrats: number;
+    livraisons: number;
     utilisateurs: number;
     medias: number;
     avisEnAttente: number;
@@ -41,6 +43,7 @@ const navItems = [
   { href: "/admin/devis", label: "Devis", icon: FileText, countKey: "devis" as const },
   { href: "/admin/factures", label: "Factures", icon: Receipt, countKey: "factures" as const },
   { href: "/admin/contrats", label: "Contrats", icon: FileSignature, countKey: "contrats" as const },
+  { href: "/admin/livraisons", label: "Livraisons", icon: Package, countKey: "livraisons" as const },
   { href: "/admin/utilisateurs", label: "Utilisateurs", icon: Users, countKey: "utilisateurs" as const },
   { href: "/admin/medias", label: "Médias", icon: ImageIcon, countKey: "medias" as const },
   { href: "/admin/avis", label: "Avis", icon: MessageSquare, countKey: "avisEnAttente" as const },
@@ -83,23 +86,24 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-all ${
+              aria-current={active ? "page" : undefined}
+              className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-colors ${
                 active
-                  ? "bg-df-gold text-white shadow-lg shadow-df-gold/30"
-                  : "text-white/60 hover:bg-white/5 hover:text-white"
+                  ? "bg-df-gold text-white"
+                  : "text-white/65 hover:bg-white/5 hover:text-white"
               }`}
             >
               <item.icon
                 className={`h-5 w-5 shrink-0 ${
-                  active ? "text-df-gold" : "text-white/40 group-hover:text-df-gold"
+                  active ? "text-white" : "text-white/45 group-hover:text-df-gold"
                 }`}
               />
               <span className="flex-1">{item.label}</span>
               {count !== null && count > 0 && (
                 <span
-                  className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                  className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
                     active
-                      ? "bg-df-gold text-white"
+                      ? "bg-white/25 text-white"
                       : "bg-white/10 text-white/70"
                   }`}
                 >
@@ -107,7 +111,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
                 </span>
               )}
               {active && (
-                <ChevronRight className="h-4 w-4 text-df-gold" />
+                <ChevronRight className="h-4 w-4 text-white/90" />
               )}
             </Link>
           );

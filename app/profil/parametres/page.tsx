@@ -1,17 +1,19 @@
 ﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Settings, ShieldCheck } from "lucide-react";
+import { User, KeyRound, ShieldCheck } from "lucide-react";
 import ProfileForm from "@/components/dashboard/ProfileForm";
 import PasswordForm from "@/components/dashboard/PasswordForm";
 import TwoFactorSection from "@/components/dashboard/TwoFactorSection";
 import EmailVerificationBanner from "@/components/dashboard/EmailVerificationBanner";
 import RGPDSection from "@/components/dashboard/RGPDSection";
+import { PageHeader, Panel, SectionTitle } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
 export default async function ParametresPage() {
   const session = await auth();
-  const userId = session?.user?.id!;
+  const userId = session?.user?.id;
+  if (!userId) return null;
 
   const user = await db.user.findUnique({
     where: { id: userId },
@@ -21,64 +23,49 @@ export default async function ParametresPage() {
   if (!user) return null;
 
   return (
-    <div className="space-y-8">
-      <header>
-        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
-          Paramètres
-        </h1>
-        <p className="mt-1 text-sm text-white/40">
-          Gérez vos informations personnelles et la sécurité de votre compte
-        </p>
-      </header>
+    <div className="space-y-6">
+      <PageHeader
+        title="Paramètres"
+        subtitle="Tes informations personnelles et la sécurité de ton compte"
+      />
 
-      {/* Email Verification */}
       <EmailVerificationBanner verified={!!user.emailVerified} />
 
-      {/* Profile Section */}
-      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
-          <Settings className="h-5 w-5 text-white" />
-          Informations personnelles
-        </h2>
-        <ProfileForm
-          profile={{
-            prenom: user.profile?.prenom ?? "",
-            nom: user.profile?.nom ?? "",
-            nomEntreprise: user.profile?.nomEntreprise ?? "",
-            adresse: user.profile?.adresse ?? "",
-            codePostal: user.profile?.codePostal ?? "",
-            ville: user.profile?.ville ?? "",
-            tel: user.profile?.tel ?? "",
-            bio: user.profile?.bio ?? "",
-          }}
-        />
-      </section>
+      <Panel as="section" className="p-6">
+        <SectionTitle icon={User}>Informations personnelles</SectionTitle>
+        <div className="mt-6">
+          <ProfileForm
+            profile={{
+              prenom: user.profile?.prenom ?? "",
+              nom: user.profile?.nom ?? "",
+              nomEntreprise: user.profile?.nomEntreprise ?? "",
+              adresse: user.profile?.adresse ?? "",
+              codePostal: user.profile?.codePostal ?? "",
+              ville: user.profile?.ville ?? "",
+              tel: user.profile?.tel ?? "",
+              bio: user.profile?.bio ?? "",
+            }}
+          />
+        </div>
+      </Panel>
 
-      {/* Password Section */}
-      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
-          <Settings className="h-5 w-5 text-df-gold" />
-          Mot de passe
-        </h2>
-        <PasswordForm />
-      </section>
+      <Panel as="section" className="p-6">
+        <SectionTitle icon={KeyRound}>Mot de passe</SectionTitle>
+        <div className="mt-6">
+          <PasswordForm />
+        </div>
+      </Panel>
 
-      {/* 2FA Section */}
-      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
-        <TwoFactorSection
-          enabled={user.twoFactorEnabled}
-          email={user.email}
-        />
-      </section>
+      <Panel as="section" className="p-6">
+        <TwoFactorSection enabled={user.twoFactorEnabled} email={user.email} />
+      </Panel>
 
-      {/* RGPD Section */}
-      <section className="rounded-2xl bg-white/5 p-6 shadow-sm ring-1 ring-white/10">
-        <h2 className="mb-6 flex items-center gap-2 font-display text-xl font-bold text-white">
-          <ShieldCheck className="h-5 w-5 text-emerald-400" />
-          Vos données personnelles (RGPD)
-        </h2>
-        <RGPDSection />
-      </section>
+      <Panel as="section" className="p-6">
+        <SectionTitle icon={ShieldCheck}>Tes données personnelles (RGPD)</SectionTitle>
+        <div className="mt-6">
+          <RGPDSection />
+        </div>
+      </Panel>
     </div>
   );
 }

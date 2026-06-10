@@ -108,6 +108,9 @@ enum AuditAction {
   ADMIN_ACTION
   SETTINGS_UPDATED
   CONSENT_UPDATED
+  LIVRAISON_UPLOADED
+  LIVRAISON_DOWNLOADED
+  LIVRAISON_DELETED
 }
 
 enum NotificationType {
@@ -115,6 +118,7 @@ enum NotificationType {
   FACTURE_EMISE
   CONTRAT_SIGNE
   PAYMENT_CONFIRM
+  LIVRAISON_PRETE
   SYSTEM
 }
 
@@ -162,6 +166,7 @@ model User {
   consents      ConsentLog[]
   reviews       Review[]
   blogPosts     BlogPost[] @relation("BlogAuthor")
+  livraisons    Livraison[]
 
   @@index([email])
 }
@@ -317,6 +322,30 @@ model Devis {
   facture         Facture?
   contrat         Contrat?
   abonnement      Abonnement?
+  livraisons      Livraison[]
+}
+
+// ─── Livraisons (fichiers finaux remis au client via R2) ────
+// Métadonnées des objets stockés dans le bucket SPLICE_DELIVERIES.
+// Le binaire vit dans R2 ; la clé r2Key est préfixée par {userId}/ pour que
+// la route /api/deliveries/[...key] applique son ownership check (anti-IDOR).
+model Livraison {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  devisId     String?
+  devis       Devis?   @relation(fields: [devisId], references: [id], onDelete: SetNull)
+  titre       String
+  description String?
+  r2Key       String   @unique
+  fileName    String
+  contentType String
+  taille      Int      // octets
+  uploadedBy  String?  // id de l'admin/team ayant déposé le fichier
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+  @@index([devisId])
 }
 
 model Abonnement {

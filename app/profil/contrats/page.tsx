@@ -4,12 +4,14 @@ import Link from "next/link";
 import StatusPill from "@/components/dashboard/StatusPill";
 import ContratTimeline from "@/components/dashboard/ContratTimeline";
 import { FileText, Calendar, Building2 } from "lucide-react";
+import { PageHeader, EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
 export default async function MesContrats() {
   const session = await auth();
-  const userId = session?.user?.id!;
+  const userId = session?.user?.id;
+  if (!userId) return null;
   const contrats = await db.contrat.findMany({
     where: { userId },
     include: { devis: true },
@@ -18,37 +20,34 @@ export default async function MesContrats() {
 
   return (
     <div>
-      <header className="mb-8">
-        <h1 className="font-sans text-3xl font-extrabold tracking-tight text-white">Mes contrats</h1>
-        <p className="mt-1 text-sm text-white/60">
-          {contrats.length} contrat{contrats.length !== 1 ? "s" : ""}
-        </p>
-      </header>
+      <PageHeader
+        title="Mes contrats"
+        subtitle={contrats.length > 0 ? `${contrats.length} contrat${contrats.length !== 1 ? "s" : ""}` : undefined}
+      />
 
       {contrats.length === 0 ? (
-        <div className="rounded-2xl bg-white/5 p-10 text-center">
-          <FileText className="mx-auto h-10 w-10 text-white/30" />
-          <p className="mt-4 text-white/70">
-            Aucun contrat actif. Ils apparaitront apres paiement de l&apos;acompte.
-          </p>
-        </div>
+        <EmptyState
+          icon={FileText}
+          title="Aucun contrat actif"
+          description="Ton contrat de prestation se génère automatiquement après le paiement de l'acompte. Tu pourras le consulter et le télécharger ici."
+        />
       ) : (
         <ul className="space-y-4">
           {contrats.map((c) => (
             <li key={c.id}>
-              <div className="rounded-2xl bg-white/5 p-5 shadow-md ring-1 ring-white/10 transition hover:shadow-lg">
+              <div className="rounded-2xl bg-df-surface p-5 ring-1 ring-white/[0.08]">
                 {/* Header row */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="font-sans text-lg font-bold text-white">
                       Contrat n&deg;{c.numero}
                     </p>
-                    <p className="mt-0.5 flex items-center gap-1.5 text-sm text-white/50">
+                    <p className="mt-0.5 flex items-center gap-1.5 text-sm text-white/55">
                       <Building2 className="h-3.5 w-3.5" />
                       {c.devis.nomEntreprise || c.devis.nomContact}
                     </p>
                   </div>
-                  <StatusPill status={c.status as any} />
+                  <StatusPill status={c.status} />
                 </div>
 
                 {/* Timeline */}

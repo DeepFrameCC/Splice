@@ -27,6 +27,9 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   ADMIN_ACTION: "Action admin",
   SETTINGS_UPDATED: "Paramètres modifiés",
   CONSENT_UPDATED: "Consentement modifié",
+  LIVRAISON_UPLOADED: "Livraison déposée",
+  LIVRAISON_DOWNLOADED: "Livraison téléchargée",
+  LIVRAISON_DELETED: "Livraison supprimée",
 };
 
 const ACTION_VARIANT: Record<string, "default" | "destructive" | "success" | "gold" | "secondary"> = {
