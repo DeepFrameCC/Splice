@@ -64,9 +64,12 @@ export default function PricingSection() {
                 </li>
               ))}
               {FORMULE_BIENVENUE.excludedFeatures.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-white/55 line-through decoration-white/20">
-                  <X className="mt-0.5 h-4 w-4 shrink-0 text-white/45" />
-                  {f}
+                <li key={f} className="flex items-start gap-2 text-sm text-white/45">
+                  <X className="mt-0.5 h-4 w-4 shrink-0 text-red-400" aria-hidden />
+                  <span>
+                    {f}
+                    <span className="sr-only"> (non inclus)</span>
+                  </span>
                 </li>
               ))}
             </ul>

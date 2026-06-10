@@ -89,16 +89,14 @@ export default async function MesContrats() {
                     <FileText className="h-3.5 w-3.5" />
                     Voir le devis
                   </Link>
-                  {c.pdfUrl && (
-                    <a
-                      href={c.pdfUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full bg-df-blue px-4 py-1.5 text-xs font-bold text-white transition hover:bg-df-blue/90"
-                    >
-                      Telecharger le contrat
-                    </a>
-                  )}
+                  <a
+                    href={c.pdfUrl ?? `/api/contrat/${c.id}/pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-df-blue px-4 py-1.5 text-xs font-bold text-white transition hover:bg-df-blue/90"
+                  >
+                    Télécharger le contrat
+                  </a>
                 </div>
               </div>
             </li>

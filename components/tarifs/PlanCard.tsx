@@ -95,10 +95,13 @@ export default function PlanCard({
         {plan.excludedFeatures.map((feat) => (
           <li
             key={feat}
-            className="flex items-start gap-2 text-sm text-white/55 line-through decoration-white/20"
+            className="flex items-start gap-2 text-sm text-white/45"
           >
-            <X className="mt-0.5 h-4 w-4 shrink-0 text-white/45" />
-            {feat}
+            <X className="mt-0.5 h-4 w-4 shrink-0 text-red-400" aria-hidden />
+            <span>
+              {feat}
+              <span className="sr-only"> (non inclus)</span>
+            </span>
           </li>
         ))}
       </ul>

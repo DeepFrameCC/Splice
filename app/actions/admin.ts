@@ -2,7 +2,8 @@
 import { z } from "zod";
 import { auth, isAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { sendMail, MAIL_CONTACT } from "@/lib/mailer";
+import { sendMail, MAIL_CONTACT, MAIL_FOUNDERS, type MailAttachment } from "@/lib/mailer";
+import { buildDevisPdfBytes, bytesToBase64 } from "@/lib/pdf-documents";
 import { nextNumero } from "@/lib/numbering";
 import { revalidatePath } from "next/cache";
 import { audit } from "@/lib/audit";
@@ -43,18 +44,22 @@ export async function validerDevis(devisId: string) {
   // devis payant. L'acceptation reste manuelle : c'est l'admin qui décide ici.
   const isFree = result.totalHT === 0;
 
-  // Créer la facture (idempotent : devisId est unique)
-  const existingFacture = await db.facture.findUnique({ where: { devisId } });
-  if (!existingFacture) {
-    const factNum = await nextNumero("FACTURE");
-    await db.facture.create({
-      data: {
-        numero: `F-${factNum.numero}`,
-        devisId: result.id,
-        userId: result.userId,
-        status: isFree ? "PAYEE" : "EMISE",
-      },
-    });
+  // Créer la facture (idempotent : devisId est unique). Pas de facture pour
+  // un abonnement : chaque prélèvement Stripe génère la sienne via le webhook
+  // invoice.paid — en créer une ici la laisserait « EMISE » à jamais.
+  if (result.devisType !== "ABONNEMENT") {
+    const existingFacture = await db.facture.findUnique({ where: { devisId } });
+    if (!existingFacture) {
+      const factNum = await nextNumero("FACTURE");
+      await db.facture.create({
+        data: {
+          numero: `F-${factNum.numero}`,
+          devisId: result.id,
+          userId: result.userId,
+          status: isFree ? "PAYEE" : "EMISE",
+        },
+      });
+    }
   }
 
   // Créer le contrat (idempotent : devisId est unique)
@@ -76,9 +81,23 @@ export async function validerDevis(devisId: string) {
   // Statut en dernier.
   await db.devis.update({ where: { id: devisId }, data: { status: isFree ? "PAYE" : "VALIDE" } });
 
+  // PDF du devis joint à l'e-mail de validation, avec copie à Splice Studio
+  // (best-effort : l'e-mail part sans pièce jointe si la génération échoue).
+  let attachments: MailAttachment[] | undefined;
+  try {
+    const pdfBytes = await buildDevisPdfBytes(result);
+    attachments = [{ filename: `devis-${result.numero}.pdf`, content: bytesToBase64(pdfBytes) }];
+  } catch (e) {
+    console.error(`[validerDevis] PDF generation failed for devis ${result.numero}:`, e);
+  }
+  const bccSplice = MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT];
+  const isAbo = result.devisType === "ABONNEMENT";
+
   if (isFree) {
     await sendMail({
       to: result.emailContact,
+      bcc: bccSplice,
+      attachments,
       subject: `Splice Studio — Votre ${result.pack} n°${result.numero} est confirmée`,
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
@@ -95,15 +114,20 @@ export async function validerDevis(devisId: string) {
   } else {
     await sendMail({
       to: result.emailContact,
+      bcc: bccSplice,
+      attachments,
       subject: `Splice Studio — Votre devis n°${result.numero} est validé`,
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis validé !</h2>
         <p>Bonjour ${escapeHtml(result.nomContact)},</p>
-        <p>Votre devis <strong>n°${result.numero}</strong> d'un montant de <strong>${result.totalHT} €</strong> vient d'être validé par notre équipe.</p>
-        <p>Une facture et un contrat ont été générés automatiquement. Vous pouvez maintenant régler l'acompte de <strong>${result.acompteAmount} €</strong> pour confirmer votre prestation.</p>
+        <p>Votre devis <strong>n°${result.numero}</strong> d'un montant de <strong>${result.totalHT} €</strong> vient d'être validé par notre équipe. Vous le trouverez en pièce jointe de cet e-mail.</p>
+        ${isAbo
+          ? `<p>Votre contrat a été généré automatiquement. Vous pouvez maintenant activer votre abonnement : le prélèvement ${result.billingCycle === "ANNUEL" ? "annuel" : "mensuel"} démarre dès l'activation.</p>`
+          : `<p>Une facture et un contrat ont été générés automatiquement. Vous pouvez maintenant régler l'acompte de <strong>${result.acompteAmount} €</strong> pour confirmer votre prestation.</p>`
+        }
         <p style="margin-top:20px">
-          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Payer l'acompte</a>
+          <a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devisId}/payer" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">${isAbo ? "Activer mon abonnement" : "Payer l'acompte"}</a>
         </p>
         <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
       </div>`

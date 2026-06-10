@@ -15,7 +15,8 @@ import {
   LAUNCH_STATUS,
 } from "@/lib/pricing";
 import { nextNumero } from "@/lib/numbering";
-import { notifyFoundersNewDevis, sendMail, escapeHtml } from "@/lib/mailer";
+import { notifyFoundersNewDevis, sendMail, escapeHtml, type MailAttachment } from "@/lib/mailer";
+import { buildDevisPdfBytes, bytesToBase64 } from "@/lib/pdf-documents";
 import { Founder } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { devisLimiter, checkRateLimit } from "@/lib/rate-limit";
@@ -271,7 +272,8 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
       remarques: data.remarques ?? null,
       lines: quote.lines,
       totalHT: quote.totalHT,
-      acompteRate: quote.totalHT <= 5 ? 100 : ACOMPTE_RATE,
+      // Abonnement : pas d'acompte (prélèvement récurrent à 100 %).
+      acompteRate: devisType === "ABONNEMENT" ? 0 : quote.totalHT <= 5 ? 100 : ACOMPTE_RATE,
       acompteAmount: quote.acompte,
     },
   });
@@ -283,15 +285,31 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     });
   }
 
-  const founderMail = notifyFoundersNewDevis(devis.numero, {
-    client: data.nomEntreprise || data.nomContact,
-    total: devis.totalHT,
-    lieu: data.lieuTournage,
-    pack: packLabel,
-  });
+  // PDF du devis en pièce jointe (client + Splice Studio). Best-effort : si la
+  // génération échoue, les e-mails partent sans pièce jointe, le devis reste
+  // consultable depuis l'espace client.
+  let attachments: MailAttachment[] | undefined;
+  try {
+    const pdfBytes = await buildDevisPdfBytes(devis);
+    attachments = [{ filename: `devis-${devis.numero}.pdf`, content: bytesToBase64(pdfBytes) }];
+  } catch (e) {
+    console.error(`[submitDevis] PDF generation failed for devis ${devis.numero}:`, e);
+  }
+
+  const founderMail = notifyFoundersNewDevis(
+    devis.numero,
+    {
+      client: data.nomEntreprise || data.nomContact,
+      total: devis.totalHT,
+      lieu: data.lieuTournage,
+      pack: packLabel,
+    },
+    attachments,
+  );
 
   const clientMail = sendMail({
     to: data.emailContact,
+    attachments,
     subject: `Splice Studio — Demande de devis ${devis.numero} bien reçue`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
@@ -299,7 +317,9 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
         <p>Bonjour ${escapeHtml(data.nomContact)},</p>
         <p>Nous avons bien reçu votre demande de devis <strong>n°${devis.numero}</strong> pour un total estimatif de <strong>${devis.totalHT} €</strong>.</p>
         ${devis.totalHT > 0
-          ? `<p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>`
+          ? devisType === "ABONNEMENT"
+            ? `<p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite activer votre abonnement (prélèvement ${billingCycle === "ANNUEL" ? "annuel" : "mensuel"} de ${devis.totalHT} €).</p>`
+            : `<p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>`
           : `<p>Notre équipe revient vers vous sous 48h pour organiser votre prestation gratuite.</p>`
         }
         <p style="margin-top:20px"><a href="${process.env.NEXT_PUBLIC_APP_URL}/profil/devis/${devis.id}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon devis</a></p>

@@ -3,12 +3,34 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { nextNumero } from "@/lib/numbering";
-import { sendMail, MAIL_CONTACT, MAIL_FOUNDERS, escapeHtml } from "@/lib/mailer";
+import { sendMail, MAIL_CONTACT, MAIL_FOUNDERS, escapeHtml, type MailAttachment } from "@/lib/mailer";
+import { buildFacturePdfBytes, bytesToBase64 } from "@/lib/pdf-documents";
+import type { Devis, Facture } from "@prisma/client";
 import { audit } from "@/lib/audit";
 import { notify } from "@/lib/notifications";
 import type { AbonnementStatus } from "@prisma/client";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+
+const BCC_SPLICE = MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT];
+
+/** Facture PDF en pièce jointe e-mail — best-effort, jamais bloquant. */
+async function factureAttachment(
+  facture: Facture,
+  devis: Devis,
+): Promise<MailAttachment[] | undefined> {
+  try {
+    const bytes = await buildFacturePdfBytes({
+      facture,
+      devis,
+      paymentMethodLabel: "Payé par carte bancaire via Stripe",
+    });
+    return [{ filename: `facture-${facture.numero}.pdf`, content: bytesToBase64(bytes) }];
+  } catch (e) {
+    console.error(`[webhook] PDF generation failed for facture ${facture.numero}:`, e);
+    return undefined;
+  }
+}
 
 function mapSubStatus(status: Stripe.Subscription.Status): AbonnementStatus {
   switch (status) {
@@ -101,8 +123,11 @@ async function ensureAbonnement(params: {
         devisId: devis.id,
         userId: devis.userId,
         status: "A_VENIR",
+        dateDebut: new Date(),
       },
     });
+  } else if (!existingContrat.dateDebut) {
+    await db.contrat.update({ where: { id: existingContrat.id }, data: { dateDebut: new Date() } });
   }
 
   await audit({
@@ -184,24 +209,27 @@ export async function POST(req: NextRequest) {
       data: { acomptePaid: true, status: "PAYE", stripeSession: session.id },
     });
 
-    const existingFacture = await db.facture.findUnique({ where: { devisId } });
-    if (existingFacture) {
-      if (existingFacture.status !== "PAYEE") {
-        await db.facture.update({ where: { id: existingFacture.id }, data: { status: "PAYEE" } });
+    let facture = await db.facture.findUnique({ where: { devisId } });
+    if (facture) {
+      if (facture.status !== "PAYEE") {
+        facture = await db.facture.update({ where: { id: facture.id }, data: { status: "PAYEE" } });
       }
     } else {
       const fNum = await nextNumero("FACTURE");
-      await db.facture.create({
+      facture = await db.facture.create({
         data: { numero: `F-${fNum.numero}`, devisId, userId, status: "PAYEE", pdfUrl: null },
       });
     }
 
+    // Le contrat prend effet au paiement de l'acompte : on fixe dateDebut ici.
     const existingContrat = await db.contrat.findUnique({ where: { devisId } });
     if (!existingContrat) {
       const cNum = await nextNumero("CONTRAT");
       await db.contrat.create({
-        data: { numero: `C-${cNum.numero}`, annee: cNum.annee, sequence: cNum.sequence, devisId, userId, status: "A_VENIR", pdfUrl: null },
+        data: { numero: `C-${cNum.numero}`, annee: cNum.annee, sequence: cNum.sequence, devisId, userId, status: "A_VENIR", pdfUrl: null, dateDebut: new Date() },
       });
+    } else if (!existingContrat.dateDebut) {
+      await db.contrat.update({ where: { id: existingContrat.id }, data: { dateDebut: new Date() } });
     }
 
     await audit({ action: "PAYMENT_SUCCESS", userId, target: devisId, metadata: { stripeSession: session.id, amount: devis.acompteAmount } });
@@ -214,14 +242,17 @@ export async function POST(req: NextRequest) {
     });
 
     try {
+      const attachments = await factureAttachment(facture, devis);
       await sendMail({
         to: devis.emailContact,
+        bcc: BCC_SPLICE,
+        attachments,
         subject: `Splice Studio — Paiement confirmé · Devis n°${devis.numero}`,
         html: `
           <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
             <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
             <p>Bonjour ${escapeHtml(devis.nomContact)},</p>
-            <p>Votre acompte de <strong>${devis.acompteAmount} €</strong> pour le devis <strong>n°${devis.numero}</strong> a bien été réglé.</p>
+            <p>Votre acompte de <strong>${devis.acompteAmount} €</strong> pour le devis <strong>n°${devis.numero}</strong> a bien été réglé. Votre facture <strong>${facture.numero}</strong> est jointe à cet e-mail.</p>
             <p>Votre contrat est créé et votre prestation va être planifiée.</p>
             <p style="margin-top:20px">
               <a href="${APP_URL}/profil/devis/${devisId}" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mon espace</a>
@@ -259,7 +290,7 @@ export async function POST(req: NextRequest) {
 
     const fNum = await nextNumero("FACTURE");
     const factureNumero = `F-${fNum.numero}`;
-    await db.facture.create({
+    const facture = await db.facture.create({
       data: {
         numero: factureNumero,
         abonnementId: abo.id,
@@ -286,25 +317,30 @@ export async function POST(req: NextRequest) {
       href: "/profil/factures",
     });
 
-    if (invoice.customer_email) {
-      try {
+    try {
+      const aboDevis = await db.devis.findUnique({ where: { id: abo.devisId } });
+      const clientEmail = invoice.customer_email || aboDevis?.emailContact;
+      if (clientEmail) {
+        const attachments = aboDevis ? await factureAttachment(facture, aboDevis) : undefined;
         await sendMail({
-          to: invoice.customer_email,
+          to: clientEmail,
+          bcc: BCC_SPLICE,
+          attachments,
           subject: `Splice Studio — Facture ${factureNumero} (abonnement)`,
           html: `
             <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
               <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
               <p>Le prélèvement de votre abonnement (<strong>${montant} €</strong>) a bien été effectué.</p>
-              <p>Votre facture <strong>${factureNumero}</strong> est disponible dans votre espace.</p>
+              <p>Votre facture <strong>${factureNumero}</strong> est jointe à cet e-mail et disponible dans votre espace.</p>
               <p style="margin-top:20px">
                 <a href="${APP_URL}/profil/factures" style="background:#F36B1F;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Voir mes factures</a>
               </p>
               <p style="font-size:12px;color:#777;margin-top:30px">Splice Studio · ${MAIL_CONTACT}</p>
             </div>`,
         });
-      } catch (e) {
-        console.error("[webhook] email facture abonnement échoué:", e);
       }
+    } catch (e) {
+      console.error("[webhook] email facture abonnement échoué:", e);
     }
 
     return NextResponse.json({ received: true });

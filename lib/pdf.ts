@@ -219,7 +219,7 @@ function drawRectOutline(
 
 /* ── Page decorations ────────────────────────────────────────────── */
 
-function drawPageDecorations(page: PDFPage) {
+export function drawPageDecorations(page: PDFPage) {
   const C = getCache().C;
   // Top gradient bar (simplified as solid orange — pdf-lib has no gradients)
   drawRect(page, 0, 0, PAGE_W, 12, C.orange);
@@ -385,6 +385,34 @@ export function drawTotalsBlock(
   return soldeY + 30;
 }
 
+/**
+ * Variante des totaux pour les documents d'abonnement : pas d'acompte ni de
+ * solde, une seule ligne de prélèvement récurrent (ex. "PRELEVEMENT MENSUEL").
+ */
+export function drawTotalsBlockRecurrent(
+  page: PDFPage,
+  fonts: PdfFonts,
+  totals: { total: number; recurringLabel: string },
+  y: number,
+): number {
+  const C = getCache().C;
+  drawLine(page, 350, y, MARGIN_R, C.border);
+
+  // Total HT
+  drawText(page, "TOTAL HT :", 350, y + 8, fonts.bold, 10, C.ink, { maxWidth: 110, align: "right" });
+  drawText(page, euro(totals.total), 470, y + 6, fonts.bold, 12, C.ink, { maxWidth: 75, align: "right" });
+
+  // Recurring box (orange)
+  const orangeY = y + 30;
+  const orangeW = 200;
+  const orangeX = MARGIN_R - orangeW;
+  drawRect(page, orangeX, orangeY, orangeW, 20, C.orange);
+  drawText(page, `${totals.recurringLabel} :`, orangeX + 6, orangeY + 5, fonts.bold, 8, C.white);
+  drawText(page, euro(totals.total), orangeX + 136, orangeY + 5, fonts.bold, 8, C.white, { maxWidth: 58, align: "right" });
+
+  return orangeY + 28;
+}
+
 export function drawReglementBlock(
   page: PDFPage,
   fonts: PdfFonts,
@@ -458,4 +486,69 @@ export function drawMentionsLegales(
 /** Add a new page and return it (for multi-page documents) */
 export function addPage(pdf: PDFDocument): PDFPage {
   return pdf.addPage([PAGE_W, PAGE_H]);
+}
+
+/* ── Long-form text (contrats) ───────────────────────────────────── */
+
+export const PDF_LAYOUT = {
+  PAGE_W,
+  PAGE_H,
+  MARGIN_L,
+  MARGIN_R,
+  CONTENT_W,
+} as const;
+
+export function pdfColor(key: keyof typeof PDF_COLORS) {
+  return getCache().C[key];
+}
+
+/** Word-wraps a string to fit maxWidth at the given font/size. */
+export function wrapText(font: PDFFont, text: string, size: number, maxWidth: number): string[] {
+  const words = text.split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (font.widthOfTextAtSize(candidate, size) <= maxWidth) {
+      current = candidate;
+    } else {
+      if (current) lines.push(current);
+      current = word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+/**
+ * Draws a wrapped paragraph from a top-down Y position and returns the next
+ * top-down Y. Used by documents with long legal text (contrat).
+ */
+export function drawParagraph(
+  page: PDFPage,
+  fonts: PdfFonts,
+  text: string,
+  topY: number,
+  options?: {
+    x?: number;
+    size?: number;
+    bold?: boolean;
+    color?: keyof typeof PDF_COLORS;
+    maxWidth?: number;
+    lineGap?: number;
+  },
+): number {
+  const x = options?.x ?? MARGIN_L;
+  const size = options?.size ?? 8;
+  const font = options?.bold ? fonts.bold : fonts.main;
+  const color = pdfColor(options?.color ?? "text");
+  const maxWidth = options?.maxWidth ?? MARGIN_R - x;
+  const lineGap = options?.lineGap ?? 3;
+
+  let y = topY;
+  for (const line of wrapText(font, text, size, maxWidth)) {
+    drawText(page, line, x, y, font, size, color);
+    y += size + lineGap;
+  }
+  return y;
 }

@@ -48,7 +48,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Création de podcasts courts",
+      "Podcasts courts",
+      "Montage express",
     ],
   },
   PRO: {
@@ -72,7 +73,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Création de podcasts jusqu'à 4 / mois",
+      "Podcasts au-delà de 2 / mois",
+      "Montage express au-delà de 2 / mois",
     ],
   },
   PREMIUM_ABO: {
@@ -509,10 +511,11 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
   }
 
   const totalHT = lines.reduce((s, l) => s + l.total, 0);
-  const acompte = Math.round((totalHT * ACOMPTE_RATE) / 100);
-  const solde = totalHT - acompte;
 
-  return { lines, totalHT, acompte, solde };
+  // Pas d'acompte sur un abonnement : Stripe prélève 100 % du cycle à
+  // l'activation puis à chaque échéance. Le couple acompte/solde n'a de sens
+  // que pour les prestations ponctuelles.
+  return { lines, totalHT, acompte: 0, solde: 0 };
 }
 
 // ─── Formule Bienvenue quote ─────────────────────────────────────
