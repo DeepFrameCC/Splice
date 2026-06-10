@@ -6,6 +6,7 @@ import { z } from "zod";
 import { getDb } from "./db";
 import { authConfig } from "./auth.config";
 import { verifyTOTP } from "./totp";
+import { authLimiter, checkRateLimit, getClientIP } from "./rate-limit";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -22,6 +23,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: { email: {}, password: {}, totpCode: {} },
       async authorize(creds) {
+        // Rate limit au niveau du provider : protège aussi les POST directs sur
+        // /api/auth/callback/credentials qui contournent la Server Action loginAction.
+        // Bucket distinct (`authorize:{ip}`) pour ne pas doubler la consommation
+        // du bucket IP déjà utilisé par loginAction.
+        const ip = await getClientIP();
+        const rl = await checkRateLimit(authLimiter, `authorize:${ip}`);
+        if (!rl.success) return null;
+
         const parsed = loginSchema.safeParse(creds);
         if (!parsed.success) return null;
 

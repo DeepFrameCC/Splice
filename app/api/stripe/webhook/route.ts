@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { nextNumero } from "@/lib/numbering";
-import { sendMail, MAIL_CONTACT, MAIL_FOUNDERS } from "@/lib/mailer";
+import { sendMail, MAIL_CONTACT, MAIL_FOUNDERS, escapeHtml } from "@/lib/mailer";
 import { audit } from "@/lib/audit";
 import { notify } from "@/lib/notifications";
 import type { AbonnementStatus } from "@prisma/client";
@@ -220,7 +220,7 @@ export async function POST(req: NextRequest) {
         html: `
           <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
             <h2 style="color:#F36B1F">Paiement reçu ✓</h2>
-            <p>Bonjour ${devis.nomContact},</p>
+            <p>Bonjour ${escapeHtml(devis.nomContact)},</p>
             <p>Votre acompte de <strong>${devis.acompteAmount} €</strong> pour le devis <strong>n°${devis.numero}</strong> a bien été réglé.</p>
             <p>Votre contrat est créé et votre prestation va être planifiée.</p>
             <p style="margin-top:20px">

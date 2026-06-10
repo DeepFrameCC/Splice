@@ -8,6 +8,19 @@ function getResend() {
   return _resend;
 }
 
+/**
+ * Échappe le HTML d'une valeur issue d'une saisie utilisateur avant son
+ * interpolation dans le corps d'un e-mail (anti-injection HTML / phishing).
+ */
+export function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 // Hardcoded to the verified Resend domain — do not read from env to avoid
 // misconfiguration on Cloudflare Workers sending from an unverified domain.
 export const MAIL_FROM = "Splice Studio <noreply@splicestudio.fr>";
@@ -47,10 +60,10 @@ export const notifyFoundersNewDevis = (numero: string, payload: { client: string
     subject: `[Splice Studio] Nouveau devis ${numero} — ${payload.client}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22">
-        <h2 style="color:#F36B1F">Nouveau devis ${numero}</h2>
-        <p><strong>Client :</strong> ${payload.client}</p>
-        <p><strong>Pack :</strong> ${payload.pack}</p>
-        <p><strong>Lieu :</strong> ${payload.lieu}</p>
+        <h2 style="color:#F36B1F">Nouveau devis ${escapeHtml(numero)}</h2>
+        <p><strong>Client :</strong> ${escapeHtml(payload.client)}</p>
+        <p><strong>Pack :</strong> ${escapeHtml(payload.pack)}</p>
+        <p><strong>Lieu :</strong> ${escapeHtml(payload.lieu)}</p>
         <p><strong>Total HT :</strong> ${payload.total.toLocaleString("fr-FR")} €</p>
         <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/devis" style="background:#F36B1F;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold">Ouvrir l'admin</a>
       </div>`

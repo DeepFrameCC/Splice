@@ -83,7 +83,7 @@ export async function validerDevis(devisId: string) {
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">C'est confirmé !</h2>
-        <p>Bonjour ${result.nomContact},</p>
+        <p>Bonjour ${escapeHtml(result.nomContact)},</p>
         <p>Votre <strong>${result.pack}</strong> (devis n°${result.numero}) vient d'être validée par notre équipe. Comme cette prestation est offerte, il n'y a rien à régler.</p>
         <p>Nous revenons vers vous très vite pour caler les détails et la date de votre prestation.</p>
         <p style="margin-top:20px">
@@ -99,7 +99,7 @@ export async function validerDevis(devisId: string) {
       html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis validé !</h2>
-        <p>Bonjour ${result.nomContact},</p>
+        <p>Bonjour ${escapeHtml(result.nomContact)},</p>
         <p>Votre devis <strong>n°${result.numero}</strong> d'un montant de <strong>${result.totalHT} €</strong> vient d'être validé par notre équipe.</p>
         <p>Une facture et un contrat ont été générés automatiquement. Vous pouvez maintenant régler l'acompte de <strong>${result.acompteAmount} €</strong> pour confirmer votre prestation.</p>
         <p style="margin-top:20px">
@@ -142,7 +142,7 @@ export async function refuserDevis(devisId: string) {
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Devis non retenu</h2>
-        <p>Bonjour ${devis.nomContact},</p>
+        <p>Bonjour ${escapeHtml(devis.nomContact)},</p>
         <p>Après examen, votre devis <strong>n°${devis.numero}</strong> n'a malheureusement pas été retenu.</p>
         <p>N'hésitez pas à nous contacter pour en discuter ou faire une nouvelle demande.</p>
         <p style="font-size:12px;color:#777;margin-top:30px">Splice · contact.splicestudio@gmail.com</p>
@@ -194,7 +194,7 @@ export async function proposerAutreDate(devisId: string, message: string) {
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Une proposition de date</h2>
-        <p>Bonjour ${result.nomContact},</p>
+        <p>Bonjour ${escapeHtml(result.nomContact)},</p>
         <p>Au sujet de votre devis <strong>n°${result.numero}</strong> :</p>
         <div style="background:#f6f6f8;border-radius:8px;padding:16px;margin:16px 0;white-space:pre-wrap;line-height:1.6">${safe}</div>
         <p>Un doute sur nos disponibilités ? Écrivez-nous à <a href="mailto:${MAIL_CONTACT}" style="color:#F36B1F">${MAIL_CONTACT}</a>, on vous répond rapidement.</p>

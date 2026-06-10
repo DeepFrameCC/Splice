@@ -15,7 +15,7 @@ import {
   LAUNCH_STATUS,
 } from "@/lib/pricing";
 import { nextNumero } from "@/lib/numbering";
-import { notifyFoundersNewDevis, sendMail } from "@/lib/mailer";
+import { notifyFoundersNewDevis, sendMail, escapeHtml } from "@/lib/mailer";
 import { Founder } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { devisLimiter, checkRateLimit } from "@/lib/rate-limit";
@@ -296,7 +296,7 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
     html: `
       <div style="font-family:system-ui;color:#0E0E22;max-width:600px">
         <h2 style="color:#F36B1F">Merci pour votre demande</h2>
-        <p>Bonjour ${data.nomContact},</p>
+        <p>Bonjour ${escapeHtml(data.nomContact)},</p>
         <p>Nous avons bien reçu votre demande de devis <strong>n°${devis.numero}</strong> pour un total estimatif de <strong>${devis.totalHT} €</strong>.</p>
         ${devis.totalHT > 0
           ? `<p>Notre équipe revient vers vous sous 48h après validation interne. Vous pourrez ensuite régler l'acompte de ${devis.acompteAmount} € pour confirmer.</p>`
