@@ -17,7 +17,7 @@ const serverSchema = z.object({
   DIRECT_URL: z.string().url().optional(),
 
   // Auth
-  AUTH_SECRET: z.string().min(16, "AUTH_SECRET must be at least 16 characters"),
+  AUTH_SECRET: z.string().min(32, "AUTH_SECRET must be at least 32 characters (openssl rand -base64 32)"),
 
   // Encryption
   ENCRYPTION_KEY: isProduction

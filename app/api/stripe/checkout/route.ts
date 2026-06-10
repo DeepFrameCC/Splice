@@ -150,8 +150,12 @@ export async function POST(req: NextRequest) {
     console.log("[checkout] Session created:", checkoutSession.id, "url:", checkoutSession.url);
     return NextResponse.json({ url: checkoutSession.url });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Erreur interne du serveur";
+    // Détail loggé côté serveur ; message générique au client (pas de fuite
+    // d'internals Stripe/Prisma).
     console.error("[checkout] Unhandled error:", err);
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Une erreur est survenue lors de la préparation du paiement. Veuillez réessayer." },
+      { status: 500 },
+    );
   }
 }

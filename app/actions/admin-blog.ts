@@ -7,6 +7,7 @@ import { audit } from "@/lib/audit";
 import { blogPostFormSchema } from "@/lib/blog/types";
 import { ensureUniqueSlug } from "@/lib/blog/slug";
 import { calculateReadingTime } from "@/lib/blog/reading-time";
+import { sanitizeRichHtml } from "@/lib/sanitize/html";
 import { z } from "zod";
 
 async function requireAdmin(): Promise<string> {
@@ -25,14 +26,15 @@ export async function createBlogPost(formData: z.infer<typeof blogPostFormSchema
   const data = blogPostFormSchema.parse(formData);
 
   const slug = await ensureUniqueSlug(data.slug);
-  const readingTimeMin = data.content ? calculateReadingTime(data.content) : 1;
+  const content = data.content ? sanitizeRichHtml(data.content) : data.content;
+  const readingTimeMin = content ? calculateReadingTime(content) : 1;
 
   const post = await db.blogPost.create({
     data: {
       title: data.title,
       slug,
       excerpt: data.excerpt,
-      content: data.content,
+      content,
       coverImageUrl: data.coverImageUrl || null,
       coverImageAlt: data.coverImageAlt || null,
       metaTitle: data.metaTitle || null,
@@ -70,7 +72,8 @@ export async function updateBlogPost(
   const data = blogPostFormSchema.parse(formData);
 
   const slug = await ensureUniqueSlug(data.slug, postId);
-  const readingTimeMin = data.content ? calculateReadingTime(data.content) : 1;
+  const content = data.content ? sanitizeRichHtml(data.content) : data.content;
+  const readingTimeMin = content ? calculateReadingTime(content) : 1;
 
   const post = await db.blogPost.update({
     where: { id: postId },
@@ -78,7 +81,7 @@ export async function updateBlogPost(
       title: data.title,
       slug,
       excerpt: data.excerpt,
-      content: data.content,
+      content,
       coverImageUrl: data.coverImageUrl || null,
       coverImageAlt: data.coverImageAlt || null,
       metaTitle: data.metaTitle || null,

@@ -1,6 +1,7 @@
 "use server";
 import { z } from "zod";
 import { hashPassword, verifyPassword } from "@/lib/crypto/password";
+import { hashToken } from "@/lib/crypto/token";
 import { db } from "@/lib/db";
 import { signIn } from "@/lib/auth";
 import { sendMail } from "@/lib/mailer";
@@ -60,6 +61,9 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     const parsed = registerSchema.safeParse(Object.fromEntries(formData));
     if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Formulaire invalide" };
     const d = parsed.data;
+    // Normalise l'email comme loginAction (lowercase) : évite les comptes en
+    // casse mixte qui deviendraient inaccessibles à la connexion.
+    d.email = d.email.trim().toLowerCase();
 
     const turnstileRes = await verifyTurnstile(d["cf-turnstile-response"]);
     if (!turnstileRes.success) {
@@ -102,7 +106,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
     // Send verification email (fire-and-forget)
     const verifyToken = randomBytes(32).toString("hex");
     await db.emailVerification.create({
-      data: { email: d.email, token: verifyToken, expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) },
+      data: { email: d.email, token: await hashToken(verifyToken), expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) },
     });
     const verifyLink = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${verifyToken}`;
     
@@ -146,7 +150,7 @@ export async function registerAction(_prev: unknown, formData: FormData) {
       if (digest?.includes?.("NEXT_REDIRECT")) throw err;
     }
     console.error("[auth] Registration error:", err);
-    return { ok: false, error: `Erreur d'inscription : ${err?.message ?? String(err)}` };
+    return { ok: false, error: "Une erreur est survenue lors de l'inscription. Veuillez réessayer." };
   }
 }
 
@@ -208,7 +212,8 @@ export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
   if (user) {
     const token = randomBytes(32).toString("hex");
     await db.passwordReset.create({
-      data: { email, token, expiresAt: new Date(Date.now() + 1000 * 60 * 60) }
+      // Seul le digest est stocké ; le token en clair ne vit que dans l'email.
+      data: { email, token: await hashToken(token), expiresAt: new Date(Date.now() + 1000 * 60 * 60) }
     });
     const link = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
     await sendMail({
@@ -221,11 +226,16 @@ export async function forgotPasswordAction(_prev: unknown, formData: FormData) {
 }
 
 export async function resetPasswordAction(_prev: unknown, formData: FormData) {
+  // Rate limit par IP : empêche le brute-force des tokens de réinitialisation.
+  const rl = await checkRateLimit(authLimiter);
+  if (!rl.success) return { ok: false, error: rl.error };
+
   const token = formData.get("token") as string;
   const password = formData.get("password") as string;
   if (!token || !password || password.length < 8) return { ok: false, error: "Données invalides" };
 
-  const t = await db.passwordReset.findUnique({ where: { token } });
+  const tokenHash = await hashToken(token);
+  const t = await db.passwordReset.findUnique({ where: { token: tokenHash } });
   if (!t || t.expiresAt < new Date()) return { ok: false, error: "Lien expiré ou invalide" };
 
   const passwordHash = await hashPassword(password);
@@ -233,8 +243,12 @@ export async function resetPasswordAction(_prev: unknown, formData: FormData) {
   // est recyclée entre deux requêtes → "Transaction not found". Écritures séquentielles :
   // on change le mot de passe d'abord (opération critique), puis on supprime le token
   // (simple nettoyage ; il expire de toute façon au bout d'1h).
-  const user = await db.user.update({ where: { email: t.email }, data: { passwordHash } });
-  await db.passwordReset.delete({ where: { token } });
+  // passwordChangedAt invalide les JWT émis avant ce reset (cf. requireActiveUser).
+  const user = await db.user.update({
+    where: { email: t.email },
+    data: { passwordHash, passwordChangedAt: new Date() },
+  });
+  await db.passwordReset.delete({ where: { token: tokenHash } });
   await audit({ action: "PASSWORD_RESET", userId: user.id, target: t.email });
   redirect("/login?reset=1");
 }

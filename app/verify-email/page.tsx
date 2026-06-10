@@ -1,4 +1,5 @@
 ﻿import { db } from "@/lib/db";
+import { hashToken } from "@/lib/crypto/token";
 import { confirmEmailVerification } from "@/app/actions/email-verification";
 import Link from "next/link";
 import { CheckCircle, XCircle, MailCheck } from "lucide-react";
@@ -95,7 +96,7 @@ export default async function VerifyEmailPage({
   let tokenExpired = false;
   try {
     const record = await db.emailVerification.findUnique({
-      where: { token },
+      where: { token: await hashToken(token) },
       select: { expiresAt: true },
     });
     if (!record) tokenExists = false;

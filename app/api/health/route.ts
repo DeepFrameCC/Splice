@@ -34,26 +34,21 @@ export async function GET() {
     checks.database = "ok";
     checks.dbLatencyMs = Date.now() - dbStart;
   } catch (e) {
+    // Détail loggé côté serveur uniquement — jamais exposé dans la réponse
+    // publique (fuite d'internals DB).
+    console.error("[health] DB check failed:", e);
     checks.database = "error";
     checks.dbLatencyMs = Date.now() - dbStart;
-    checks.dbError = e instanceof Error ? e.message : String(e);
     healthy = false;
   }
-
-  // Optional dependencies: presence-only checks.
-  checks.stripe = process.env.STRIPE_SECRET_KEY ? "configured" : "missing";
-  checks.resend = process.env.RESEND_API_KEY ? "configured" : "missing";
-  checks.upstash = process.env.UPSTASH_REDIS_REST_URL ? "configured" : "missing";
 
   const status = healthy ? "healthy" : "degraded";
   const code = healthy ? 200 : 503;
 
+  // Réponse publique minimale : statut + latence DB. La configuration des
+  // intégrations (Stripe/Resend/Upstash) n'est pas divulguée sans authentification.
   return NextResponse.json(
-    {
-      status,
-      timestamp: new Date().toISOString(),
-      checks,
-    },
+    { status, timestamp: new Date().toISOString(), dbLatencyMs: checks.dbLatencyMs },
     { status: code },
   );
 }

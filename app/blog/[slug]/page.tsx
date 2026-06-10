@@ -12,6 +12,7 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
 import { buildBlogPostJsonLd, BASE_URL } from "@/lib/seo";
+import { sanitizeRichHtml } from "@/lib/sanitize/html";
 import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
@@ -177,7 +178,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.content ? (
                 <div
                   className="prose prose-lg prose-splice max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
                 />
               ) : (
                 <div className="rounded-2xl bg-white/5 p-8 text-center">

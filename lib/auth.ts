@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { verifyPassword } from "@/lib/crypto/password";
+import { verifyPassword, hashPassword, needsRehash } from "@/lib/crypto/password";
 import { z } from "zod";
 import { getDb } from "./db";
 import { authConfig } from "./auth.config";
@@ -38,10 +38,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const user = await prisma.user.findUnique({
           where: { email: parsed.data.email },
         });
-        if (!user) return null;
 
-        const ok = await verifyPassword(parsed.data.password, user.passwordHash);
-        if (!ok) return null;
+        // Toujours exécuter une vérification PBKDF2, même quand l'utilisateur
+        // n'existe pas, pour neutraliser l'oracle de timing (énumération de
+        // comptes). Le dummy hash a le même coût que les vrais hashes courants.
+        const DUMMY_HASH =
+          "pbkdf2$600000$00000000000000000000000000000000$0000000000000000000000000000000000000000000000000000000000000000";
+        const ok = await verifyPassword(parsed.data.password, user?.passwordHash ?? DUMMY_HASH);
+        if (!user || !ok) return null;
 
         // Enforce 2FA when enabled
         if (user.twoFactorEnabled && user.twoFactorSecret) {
@@ -51,12 +55,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!valid) return null;
         }
 
+        // Re-hash transparent vers le coût courant si le hash stocké est obsolète
+        // (migration progressive du parc 100k → 600k itérations). Best-effort.
+        if (needsRehash(user.passwordHash)) {
+          try {
+            const upgraded = await hashPassword(parsed.data.password);
+            await prisma.user.update({ where: { id: user.id }, data: { passwordHash: upgraded } });
+          } catch {
+            /* non bloquant : l'utilisateur sera ré-upgradé au prochain login */
+          }
+        }
+
         return {
           id: user.id,
           email: user.email,
           name: user.pseudo,
           role: user.role,
           twoFactorEnabled: user.twoFactorEnabled,
+          passwordChangedAt: user.passwordChangedAt ? user.passwordChangedAt.getTime() : null,
         };
       },
     }),

@@ -100,7 +100,8 @@ export async function changePasswordAction(_prev: unknown, formData: FormData) {
   if (!valid) return { ok: false, error: "Mot de passe actuel incorrect" };
 
   const newHash = await hashPassword(newPassword);
-  await db.user.update({ where: { id: userId }, data: { passwordHash: newHash } });
+  // passwordChangedAt invalide les autres sessions JWT (cf. requireActiveUser).
+  await db.user.update({ where: { id: userId }, data: { passwordHash: newHash, passwordChangedAt: new Date() } });
 
   await audit({ action: "PASSWORD_CHANGE", userId, target: userId });
   return { ok: true, message: "Mot de passe modifié" };

@@ -15,11 +15,15 @@ export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
-  // Allow Cloudflare Workers cron (no auth header) OR valid bearer token
-  const isCloudfareCron = request.headers.get("cf-worker") !== null;
-  const isValidBearer = cronSecret && authHeader === `Bearer ${cronSecret}`;
+  // Auth principale : Bearer CRON_SECRET. Le header `cf-worker` n'est PAS une
+  // garantie d'origine infalsifiable, donc il ne sert de fallback que tant
+  // qu'aucun secret n'est configuré (évite de casser le keep-alive avant la
+  // mise en place du secret). Dès que CRON_SECRET est défini, seul le Bearer
+  // valide est accepté.
+  const isValidBearer = !!cronSecret && authHeader === `Bearer ${cronSecret}`;
+  const allowHeaderFallback = !cronSecret && request.headers.get("cf-worker") !== null;
 
-  if (!isCloudfareCron && !isValidBearer) {
+  if (!isValidBearer && !allowHeaderFallback) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
@@ -35,11 +39,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("[keep-alive] DB ping failed:", error);
     return NextResponse.json(
-      {
-        status: "error",
-        dbLatencyMs: Date.now() - start,
-        error: error instanceof Error ? error.message : String(error),
-      },
+      { status: "error", dbLatencyMs: Date.now() - start },
       { status: 503 },
     );
   }

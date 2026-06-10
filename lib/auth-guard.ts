@@ -26,11 +26,22 @@ export async function requireActiveUser(): Promise<Session> {
 
   const dbUser = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, email: true },
+    select: { id: true, email: true, passwordChangedAt: true },
   });
 
   if (!dbUser || dbUser.email.endsWith(`@${DELETED_EMAIL_DOMAIN}`)) {
     redirect("/api/auth/force-logout");
+  }
+
+  // Invalide les sessions émises avant le dernier changement de mot de passe.
+  // Le JWT est stateless : sans ce contrôle, un token volé resterait valable
+  // jusqu'à 7 j même après un reset. Comparaison en ms (tolérance 1 s pour les
+  // écarts d'horloge entre l'émission du token et l'écriture DB).
+  if (dbUser.passwordChangedAt) {
+    const tokenIssuedFor = session.user.passwordChangedAt ?? 0;
+    if (dbUser.passwordChangedAt.getTime() > tokenIssuedFor + 1000) {
+      redirect("/api/auth/force-logout");
+    }
   }
 
   return session;

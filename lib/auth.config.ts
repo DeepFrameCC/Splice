@@ -14,6 +14,7 @@ export const authConfig = {
         token.id = user.id!;
         token.role = user.role;
         token.twoFactorEnabled = user.twoFactorEnabled;
+        token.passwordChangedAt = user.passwordChangedAt ?? null;
       }
       return token;
     },
@@ -22,6 +23,7 @@ export const authConfig = {
         session.user.id = token.id as string;
         session.user.role = token.role as import("@prisma/client").Role;
         session.user.twoFactorEnabled = token.twoFactorEnabled as boolean;
+        session.user.passwordChangedAt = (token.passwordChangedAt as number | null) ?? null;
       }
       return session;
     },

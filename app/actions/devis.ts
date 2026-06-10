@@ -68,11 +68,11 @@ const optionsSchema = z
 // ─── Shared contact fields ───────────────────────────────────────
 
 const contactFields = {
-  nomEntreprise: z.string().optional(),
-  nomContact: z.string().min(2),
-  emailContact: z.string().email(),
-  telContact: z.string().min(6),
-  lieuTournage: z.string().min(2),
+  nomEntreprise: z.string().max(200).optional(),
+  nomContact: z.string().min(2).max(120),
+  emailContact: z.string().email().max(200),
+  telContact: z.string().min(6).max(30),
+  lieuTournage: z.string().min(2).max(200),
   dateTournage: z
     .string()
     .min(1, "La date de tournage est requise")
@@ -93,7 +93,7 @@ const contactFields = {
       today.setHours(0, 0, 0, 0);
       return d >= today;
     }, "La date de tournage ne peut pas être dans le passé"),
-  remarques: z.string().optional(),
+  remarques: z.string().max(2000).optional(),
 };
 
 // ─── Abonnement schema ──────────────────────────────────────────

@@ -113,10 +113,9 @@ export async function submitContact(
     });
   } catch (err) {
     console.error("[contact] Erreur email fondateurs:", err);
-    const detail = err instanceof Error ? err.message : "Erreur inconnue";
     return {
       success: false,
-      error: `Une erreur est survenue lors de l'envoi. (${detail})`,
+      error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
     };
   }
 

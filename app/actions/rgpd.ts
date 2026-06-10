@@ -233,7 +233,7 @@ export async function exportMyData(): Promise<{
     console.error("[rgpd] Data export error:", err);
     return {
       success: false,
-      error: `Erreur lors de l'export des données : ${err?.message ?? String(err)}`,
+      error: "Erreur lors de l'export des données. Veuillez réessayer ou nous contacter.",
     };
   }
 }
@@ -320,7 +320,7 @@ export async function deleteMyAccount(
     console.error("[rgpd] Account deletion error:", err);
     return {
       success: false,
-      error: `Erreur lors de la suppression : ${err?.message ?? String(err)}`,
+      error: "Erreur lors de la suppression. Veuillez réessayer ou nous contacter.",
     };
   }
 }

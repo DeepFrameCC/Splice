@@ -142,6 +142,8 @@ model User {
   emailVerified DateTime?
   twoFactorEnabled Boolean @default(false)
   twoFactorSecret  String?
+  // Invalide les JWT émis avant un reset/changement de mot de passe (cf. requireActiveUser).
+  passwordChangedAt DateTime?
   hasUsedFormuleBienvenue Boolean @default(false)
   stripeCustomerId String?   @unique
   createdAt     DateTime  @default(now())

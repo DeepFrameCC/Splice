@@ -2,6 +2,7 @@
 
 import { randomBytes } from "crypto";
 import { redirect } from "next/navigation";
+import { hashToken } from "@/lib/crypto/token";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { sendMail } from "@/lib/mailer";
@@ -28,7 +29,7 @@ export async function sendVerificationEmail() {
   await db.emailVerification.create({
     data: {
       email: user.email,
-      token,
+      token: await hashToken(token), // seul le digest est stocké
       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24), // 24h
     },
   });
@@ -58,10 +59,11 @@ export async function sendVerificationEmail() {
 export async function verifyEmailToken(token: string) {
   if (!token) return { ok: false, error: "Token manquant" };
 
-  const record = await db.emailVerification.findUnique({ where: { token } });
+  const tokenHash = await hashToken(token);
+  const record = await db.emailVerification.findUnique({ where: { token: tokenHash } });
   if (!record) return { ok: false, error: "Lien invalide ou expiré" };
   if (record.expiresAt < new Date()) {
-    await db.emailVerification.delete({ where: { token } });
+    await db.emailVerification.delete({ where: { token: tokenHash } });
     return { ok: false, error: "Lien expiré. Demandez un nouvel envoi depuis votre profil." };
   }
 
@@ -73,7 +75,7 @@ export async function verifyEmailToken(token: string) {
     data: { emailVerified: new Date() },
   });
 
-  await db.emailVerification.delete({ where: { token } });
+  await db.emailVerification.delete({ where: { token: tokenHash } });
   await audit({ action: "EMAIL_VERIFIED", userId: user.id, target: record.email });
 
   return { ok: true, message: "Email vérifié avec succès" };

@@ -119,7 +119,7 @@ export async function anonymiserUtilisateur(userId: string): Promise<{ success: 
     console.error("[admin-clients] Anonymisation request error:", err);
     return {
       success: false,
-      error: `Erreur lors de l'anonymisation : ${err?.message ?? String(err)}`,
+      error: "Erreur lors de l'anonymisation. Veuillez réessayer.",
     };
   }
 }

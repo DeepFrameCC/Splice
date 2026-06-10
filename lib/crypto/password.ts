@@ -1,4 +1,7 @@
-const ITERATIONS = 100000;
+// OWASP 2023 recommends ≥ 600 000 iterations for PBKDF2-HMAC-SHA256.
+// The stored hash encodes its own iteration count, so existing 100k hashes keep
+// verifying; `needsRehash()` lets the login flow transparently upgrade them.
+const ITERATIONS = 600000;
 const HASH_NAME = "SHA-256";
 
 // Pure JS helpers to avoid global Node Buffer dependencies
@@ -72,5 +75,24 @@ export async function verifyPassword(plain: string, hash: string): Promise<boole
   );
 
   const currentHashHex = toHex(new Uint8Array(derivedBits));
-  return currentHashHex === hashHex;
+  return timingSafeEqualHex(currentHashHex, hashHex);
+}
+
+/**
+ * Returns true when a stored hash uses fewer iterations than the current
+ * target (or an unknown format) and should be re-hashed at the next login,
+ * while the user's plaintext password is briefly available.
+ */
+export function needsRehash(hash: string): boolean {
+  if (!hash.startsWith("pbkdf2$")) return true;
+  const iter = parseInt(hash.split("$")[1] || "0", 10);
+  return !iter || iter < ITERATIONS;
+}
+
+/** Constant-time hex string comparison (avoids a content-based timing oracle). */
+function timingSafeEqualHex(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
 }
