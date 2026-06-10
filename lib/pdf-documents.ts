@@ -8,11 +8,23 @@ import {
   drawTableHeader,
   drawTableRow,
   drawTotalsBlock,
+  drawTotalsBlockRecurrent,
   drawReglementBlock,
   drawMentionsLegales,
   addPage,
   safe,
 } from "@/lib/pdf";
+
+/** Mentions dédiées aux devis d'abonnement (pas d'acompte ni de solde). */
+const MENTIONS_ABONNEMENT = [
+  "TVA non applicable, art. 293 B du CGI.",
+  "Devis valable 30 jours à compter de sa date d'émission.",
+  "Abonnement à prélèvement récurrent via Stripe : 100 % du cycle (mensuel ou annuel) à l'activation, puis à chaque échéance.",
+  "Résiliable à tout moment depuis l'espace client ; la résiliation prend effet au terme de la période en cours, sans remboursement prorata.",
+  "Le tarif souscrit (y compris tarif de lancement) est maintenu tant que l'abonnement reste actif.",
+  "Le tarif inclut deux allers-retours de modifications mineures par vidéo. Toute modification supplémentaire sera facturée au tarif horaire de 50€/h.",
+  "Les droits d'auteur sur les images restent la propriété du chef de projet jusqu'au paiement de la période en cours.",
+];
 
 /**
  * Générateurs de documents PDF partagés entre les routes (téléchargement) et
@@ -109,21 +121,32 @@ export async function buildDevisPdfBytes(devis: Devis): Promise<Uint8Array> {
     }
   }
 
-  const afterTotals = drawTotalsBlock(currentPage, fonts, {
-    totalHT: devis.totalHT,
-    acompteRate: devis.acompteRate,
-    acompteAmount: devis.acompteAmount,
-    solde: devis.totalHT - devis.acompteAmount,
-  }, y + 8);
+  // Abonnement : prélèvement récurrent à 100 %, pas de blocs acompte/solde.
+  const isAbo = devis.devisType === "ABONNEMENT";
+  const cycleLabel = devis.billingCycle === "ANNUEL" ? "ANNUEL" : "MENSUEL";
+
+  const afterTotals = isAbo
+    ? drawTotalsBlockRecurrent(currentPage, fonts, {
+        total: devis.totalHT,
+        recurringLabel: `PRELEVEMENT ${cycleLabel}`,
+      }, y + 8)
+    : drawTotalsBlock(currentPage, fonts, {
+        totalHT: devis.totalHT,
+        acompteRate: devis.acompteRate,
+        acompteAmount: devis.acompteAmount,
+        solde: devis.totalHT - devis.acompteAmount,
+      }, y + 8);
 
   const afterReglement = drawReglementBlock(
     currentPage, fonts, afterTotals + 8,
     "DEVIS",
-    "Délais d'exécution : sous 14 jours après signature",
+    isAbo
+      ? "Contenus produits chaque mois selon la formule souscrite"
+      : "Délais d'exécution : sous 14 jours après signature",
   );
 
   const mentionsY = Math.min(afterReglement + 8, 720);
-  drawMentionsLegales(currentPage, fonts, MENTIONS_LEGALES, mentionsY);
+  drawMentionsLegales(currentPage, fonts, isAbo ? MENTIONS_ABONNEMENT : MENTIONS_LEGALES, mentionsY);
 
   return pdf.save();
 }
@@ -145,7 +168,16 @@ export async function buildFacturePdfBytes({
 }: FacturePdfParams): Promise<Uint8Array> {
   const isAbo = facture.abonnementId != null;
   const montant = facture.montant ?? devis.totalHT;
-  const lines = parseDevisLines(devis.lines);
+  const cycleLabel = devis.billingCycle === "ANNUEL" ? "annuel" : "mensuel";
+
+  // Facture de cycle d'abonnement : une ligne unique (le prélèvement de la
+  // période), pas la réimpression des lignes du devis d'origine.
+  const periode = isAbo && facture.periodeDebut && facture.periodeFin
+    ? `du ${facture.periodeDebut.toLocaleDateString("fr-FR")} au ${facture.periodeFin.toLocaleDateString("fr-FR")}`
+    : null;
+  const lines = isAbo
+    ? [{ label: `${devis.pack} — prélèvement ${cycleLabel}`, total: montant }]
+    : parseDevisLines(devis.lines);
 
   const { pdf, fonts, page } = await createPdfContext();
   let currentPage = page;
@@ -188,17 +220,22 @@ export async function buildFacturePdfBytes({
     }
   }
 
-  const afterTotals = drawTotalsBlock(currentPage, fonts, {
-    totalHT: montant,
-    acompteRate: isAbo ? 0 : devis.acompteRate,
-    acompteAmount: isAbo ? montant : devis.acompteAmount,
-    solde: isAbo ? 0 : devis.totalHT - devis.acompteAmount,
-  }, y + 8);
+  const afterTotals = isAbo
+    ? drawTotalsBlockRecurrent(currentPage, fonts, {
+        total: montant,
+        recurringLabel: `PRELEVEMENT ${cycleLabel.toUpperCase()}`,
+      }, y + 8)
+    : drawTotalsBlock(currentPage, fonts, {
+        totalHT: montant,
+        acompteRate: devis.acompteRate,
+        acompteAmount: devis.acompteAmount,
+        solde: devis.totalHT - devis.acompteAmount,
+      }, y + 8);
 
   const afterReglement = drawReglementBlock(
     currentPage, fonts, afterTotals + 8,
     "FACTURE",
-    "Règlement : à réception",
+    isAbo && periode ? `Période facturée : ${periode}` : "Règlement : à réception",
     paymentMethodLabel ?? null,
   );
 
@@ -207,7 +244,9 @@ export async function buildFacturePdfBytes({
     "Paiement à réception. Pas d'escompte consenti pour paiement anticipé.",
     "Pénalités de retard : 3 fois le taux d'intérêt légal exigibles le jour suivant la date d'échéance.",
     "Indemnité forfaitaire de 40 € pour frais de recouvrement en cas de retard de paiement (professionnels).",
-    "Les fichiers numériques restent la propriété exclusive de l'auteur jusqu'au paiement intégral du solde.",
+    isAbo
+      ? "Les droits d'auteur sur les images restent la propriété du chef de projet jusqu'au paiement de la période en cours."
+      : "Les fichiers numériques restent la propriété exclusive de l'auteur jusqu'au paiement intégral du solde.",
   ];
   const mentionsY = Math.min(afterReglement + 8, 720);
   drawMentionsLegales(currentPage, fonts, factureMentions, mentionsY);

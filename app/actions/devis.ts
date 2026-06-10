@@ -272,7 +272,8 @@ export async function submitDevis(payload: z.infer<typeof schema>) {
       remarques: data.remarques ?? null,
       lines: quote.lines,
       totalHT: quote.totalHT,
-      acompteRate: quote.totalHT <= 5 ? 100 : ACOMPTE_RATE,
+      // Abonnement : pas d'acompte (prélèvement récurrent à 100 %).
+      acompteRate: devisType === "ABONNEMENT" ? 0 : quote.totalHT <= 5 ? 100 : ACOMPTE_RATE,
       acompteAmount: quote.acompte,
     },
   });

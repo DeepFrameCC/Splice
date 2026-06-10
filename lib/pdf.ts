@@ -385,6 +385,34 @@ export function drawTotalsBlock(
   return soldeY + 30;
 }
 
+/**
+ * Variante des totaux pour les documents d'abonnement : pas d'acompte ni de
+ * solde, une seule ligne de prélèvement récurrent (ex. "PRELEVEMENT MENSUEL").
+ */
+export function drawTotalsBlockRecurrent(
+  page: PDFPage,
+  fonts: PdfFonts,
+  totals: { total: number; recurringLabel: string },
+  y: number,
+): number {
+  const C = getCache().C;
+  drawLine(page, 350, y, MARGIN_R, C.border);
+
+  // Total HT
+  drawText(page, "TOTAL HT :", 350, y + 8, fonts.bold, 10, C.ink, { maxWidth: 110, align: "right" });
+  drawText(page, euro(totals.total), 470, y + 6, fonts.bold, 12, C.ink, { maxWidth: 75, align: "right" });
+
+  // Recurring box (orange)
+  const orangeY = y + 30;
+  const orangeW = 200;
+  const orangeX = MARGIN_R - orangeW;
+  drawRect(page, orangeX, orangeY, orangeW, 20, C.orange);
+  drawText(page, `${totals.recurringLabel} :`, orangeX + 6, orangeY + 5, fonts.bold, 8, C.white);
+  drawText(page, euro(totals.total), orangeX + 136, orangeY + 5, fonts.bold, 8, C.white, { maxWidth: 58, align: "right" });
+
+  return orangeY + 28;
+}
+
 export function drawReglementBlock(
   page: PDFPage,
   fonts: PdfFonts,

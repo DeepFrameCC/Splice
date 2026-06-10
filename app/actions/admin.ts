@@ -44,18 +44,22 @@ export async function validerDevis(devisId: string) {
   // devis payant. L'acceptation reste manuelle : c'est l'admin qui décide ici.
   const isFree = result.totalHT === 0;
 
-  // Créer la facture (idempotent : devisId est unique)
-  const existingFacture = await db.facture.findUnique({ where: { devisId } });
-  if (!existingFacture) {
-    const factNum = await nextNumero("FACTURE");
-    await db.facture.create({
-      data: {
-        numero: `F-${factNum.numero}`,
-        devisId: result.id,
-        userId: result.userId,
-        status: isFree ? "PAYEE" : "EMISE",
-      },
-    });
+  // Créer la facture (idempotent : devisId est unique). Pas de facture pour
+  // un abonnement : chaque prélèvement Stripe génère la sienne via le webhook
+  // invoice.paid — en créer une ici la laisserait « EMISE » à jamais.
+  if (result.devisType !== "ABONNEMENT") {
+    const existingFacture = await db.facture.findUnique({ where: { devisId } });
+    if (!existingFacture) {
+      const factNum = await nextNumero("FACTURE");
+      await db.facture.create({
+        data: {
+          numero: `F-${factNum.numero}`,
+          devisId: result.id,
+          userId: result.userId,
+          status: isFree ? "PAYEE" : "EMISE",
+        },
+      });
+    }
   }
 
   // Créer le contrat (idempotent : devisId est unique)

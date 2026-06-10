@@ -5,7 +5,7 @@ import StatusPill from "@/components/dashboard/StatusPill";
 import { Download, CreditCard, CheckCircle } from "lucide-react";
 import Link from "next/link";
 
-export default async function DevisDetail({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paye?: string; nouveau?: string }> }) {
+export default async function DevisDetail({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paye?: string; nouveau?: string; abonne?: string }> }) {
   const { id } = await params;
   const sp = await searchParams;
   const session = await auth();
@@ -16,9 +16,21 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
   if (!devis || (devis.userId !== userId && !isAdmin)) notFound();
 
   const lines = devis.lines as { label: string; qty?: number; unit?: number; total: number }[];
+  const isAbo = devis.devisType === "ABONNEMENT";
+  const cycleLabel = devis.billingCycle === "ANNUEL" ? "an" : "mois";
 
   return (
     <div>
+      {sp.abonne === "1" && (
+        <div className="mb-6 flex items-center gap-3 rounded-2xl bg-emerald-500/10 p-4 text-emerald-400 ring-1 ring-emerald-500/20">
+          <CheckCircle className="h-6 w-6" />
+          <div>
+            <p className="font-bold text-white">Abonnement activé !</p>
+            <p className="text-sm">Votre abonnement est en place. Vos factures seront disponibles dans votre espace à chaque prélèvement.</p>
+          </div>
+        </div>
+      )}
+
       {sp.paye === "1" && (
         <div className="mb-6 flex items-center gap-3 rounded-2xl bg-emerald-500/10 p-4 text-emerald-400 ring-1 ring-emerald-500/20">
           <CheckCircle className="h-6 w-6" />
@@ -60,19 +72,29 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
           </tbody>
           <tfoot>
             <tr><td className="pt-4 font-bold text-white">Total HT</td><td className="pt-4 text-right font-sans text-xl font-bold text-df-gold">{devis.totalHT} €</td></tr>
-            <tr><td className="text-sm text-white/70">Acompte ({devis.acompteRate}%)</td><td className="text-right text-white/70">{devis.acompteAmount} €</td></tr>
-            <tr><td className="text-sm text-white/70">Solde à la livraison</td><td className="text-right text-white/70">{devis.totalHT - devis.acompteAmount} €</td></tr>
+            {isAbo ? (
+              <tr><td className="text-sm text-white/70">Prélèvement {devis.billingCycle === "ANNUEL" ? "annuel" : "mensuel"}</td><td className="text-right text-white/70">{devis.totalHT} € / {cycleLabel}</td></tr>
+            ) : (
+              <>
+                <tr><td className="text-sm text-white/70">Acompte ({devis.acompteRate}%)</td><td className="text-right text-white/70">{devis.acompteAmount} €</td></tr>
+                <tr><td className="text-sm text-white/70">Solde à la livraison</td><td className="text-right text-white/70">{devis.totalHT - devis.acompteAmount} €</td></tr>
+              </>
+            )}
           </tfoot>
         </table>
         <p className="mt-4 text-xs text-white/40">TVA non applicable, art. 293 B du CGI.</p>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        {(devis.status === "VALIDE" && !devis.acomptePaid && devis.acompteAmount > 0) && (
+        {devis.status === "VALIDE" && (isAbo ? (
+          <Link href={`/profil/devis/${devis.id}/payer`} className="btn-primary">
+            <CreditCard className="h-5 w-5" /> Activer mon abonnement ({devis.totalHT} €/{cycleLabel})
+          </Link>
+        ) : (!devis.acomptePaid && devis.acompteAmount > 0) ? (
           <Link href={`/profil/devis/${devis.id}/payer`} className="btn-primary">
             <CreditCard className="h-5 w-5" /> Payer l&apos;acompte ({devis.acompteAmount} €)
           </Link>
-        )}
+        ) : null)}
         <a href={`/api/devis/${devis.id}/pdf`} target="_blank" rel="noopener noreferrer" className="btn-secondary">
           <Download className="h-5 w-5" /> Télécharger le PDF
         </a>
