@@ -14,6 +14,7 @@ import {
   Shield,
   ChevronRight,
   Repeat,
+  Package,
 } from "lucide-react";
 
 type Props = {
@@ -24,6 +25,7 @@ type Props = {
     factures: number;
     contrats: number;
     likes: number;
+    livraisons: number;
   };
   notificationBell?: React.ReactNode;
 };
@@ -33,6 +35,7 @@ const navItems = [
   { href: "/profil/devis", label: "Mes devis", icon: FileText, countKey: "devis" as const },
   { href: "/profil/factures", label: "Mes factures", icon: Receipt, countKey: "factures" as const },
   { href: "/profil/contrats", label: "Mes contrats", icon: FileSignature, countKey: "contrats" as const },
+  { href: "/profil/livraisons", label: "Mes livraisons", icon: Package, countKey: "livraisons" as const },
   { href: "/profil/abonnement", label: "Mon abonnement", icon: Repeat, countKey: null },
   { href: "/profil/likes", label: "Mes likes", icon: Heart, countKey: "likes" as const },
   { href: "/profil/notifications", label: "Notifications", icon: Bell, countKey: null },
@@ -48,7 +51,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
   }
 
   return (
-    <aside className="flex h-full flex-col rounded-3xl bg-df-ink p-6 shadow-xl">
+    <aside className="flex h-full flex-col rounded-3xl bg-df-surface p-6 ring-1 ring-white/[0.08]">
       {/* Logo */}
       <div className="mb-8">
         <Link href="/profil" className="block">
@@ -69,30 +72,31 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-all ${
+              aria-current={active ? "page" : undefined}
+              className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold transition-colors ${
                 active
-                  ? "bg-gradient-to-r from-df-blue to-[#0E0E22] text-white shadow-lg shadow-df-blue/20 ring-1 ring-df-blue/30"
-                  : "text-white/60 hover:bg-white/5 hover:text-white"
+                  ? "bg-df-gold text-white"
+                  : "text-white/65 hover:bg-white/5 hover:text-white"
               }`}
             >
               <item.icon
                 className={`h-5 w-5 shrink-0 ${
-                  active ? "text-df-gold" : "text-white/40 group-hover:text-df-gold"
+                  active ? "text-white" : "text-white/45 group-hover:text-df-gold"
                 }`}
               />
               <span className="flex-1">{item.label}</span>
               {count !== null && count > 0 && (
                 <span
-                  className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                  className={`inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
                     active
-                      ? "bg-df-gold text-white"
+                      ? "bg-white/25 text-white"
                       : "bg-white/10 text-white/70"
                   }`}
                 >
                   {count}
                 </span>
               )}
-              {active && <ChevronRight className="h-4 w-4 text-df-gold" />}
+              {active && <ChevronRight className="h-4 w-4 text-white/90" />}
             </Link>
           );
         })}
@@ -114,7 +118,7 @@ export default function ProfilSidebar({ userName, isAdmin, counts, notificationB
 
       {/* User info + logout */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-df-blue to-[#0E0E22] text-sm font-bold text-white ring-1 ring-white/10">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-df-gold/15 text-sm font-bold uppercase text-df-gold ring-1 ring-df-gold/25">
           {userName.charAt(0).toUpperCase() || "U"}
         </div>
         <div className="min-w-0 flex-1">

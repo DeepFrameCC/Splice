@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import StatusPill from "@/components/dashboard/StatusPill";
 import { Download, CreditCard, CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { PageHeader, Panel } from "@/components/dashboard/ui";
 
 export default async function DevisDetail({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ paye?: string; nouveau?: string; abonne?: string }> }) {
   const { id } = await params;
@@ -51,15 +52,13 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
         </div>
       )}
 
-      <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-sans text-2xl font-bold tracking-tight text-df-gold">Devis n°{devis.numero}</h1>
-          <p className="text-sm text-white/60">Émis le {devis.createdAt.toLocaleDateString("fr-FR")}</p>
-        </div>
-        <StatusPill status={devis.status as any} />
-      </header>
+      <PageHeader
+        title={`Devis n°${devis.numero}`}
+        subtitle={`Émis le ${devis.createdAt.toLocaleDateString("fr-FR")}`}
+        action={<StatusPill status={devis.status} />}
+      />
 
-      <div className="rounded-3xl bg-white/5 p-6 shadow ring-1 ring-white/10">
+      <Panel className="p-6">
         <h2 className="font-bold text-white">Détail de la prestation</h2>
         <table className="mt-3 w-full text-sm">
           <tbody className="text-white/80">
@@ -82,8 +81,8 @@ export default async function DevisDetail({ params, searchParams }: { params: Pr
             )}
           </tfoot>
         </table>
-        <p className="mt-4 text-xs text-white/40">TVA non applicable, art. 293 B du CGI.</p>
-      </div>
+        <p className="mt-4 text-xs text-white/50">TVA non applicable, art. 293 B du CGI.</p>
+      </Panel>
 
       <div className="mt-6 flex flex-wrap gap-3">
         {devis.status === "VALIDE" && (isAbo ? (

@@ -27,6 +27,9 @@ const ACTION_LABELS: Record<AuditAction, string> = {
   ADMIN_ACTION: "Action admin",
   SETTINGS_UPDATED: "Paramètres modifiés",
   CONSENT_UPDATED: "Consentement modifié",
+  LIVRAISON_UPLOADED: "Livraison déposée",
+  LIVRAISON_DOWNLOADED: "Livraison téléchargée",
+  LIVRAISON_DELETED: "Livraison supprimée",
 };
 
 const ACTION_VARIANT: Record<string, "default" | "destructive" | "success" | "gold" | "secondary"> = {
@@ -98,7 +101,7 @@ export default async function AdminJournalPage({
           <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Journal d&apos;audit
           </h1>
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-white/55">
             {logs.length} actions enregistrées
           </p>
         </div>
@@ -125,12 +128,12 @@ export default async function AdminJournalPage({
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-white/[0.08] text-left">
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Date</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Action</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Utilisateur</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Cible</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Détails</th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">IP</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Date</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Action</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Utilisateur</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Cible</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Détails</th>
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">IP</th>
             </tr>
           </thead>
           <tbody>
@@ -178,7 +181,7 @@ export default async function AdminJournalPage({
                   </td>
                   <td className="max-w-[200px] px-5 py-3">
                     {log.metadata ? (
-                      <span className="truncate text-[11px] text-white/30">
+                      <span className="truncate text-[11px] text-white/55">
                         {JSON.stringify(log.metadata).slice(0, 60)}
                       </span>
                     ) : (
@@ -187,7 +190,7 @@ export default async function AdminJournalPage({
                   </td>
                   <td className="px-5 py-3">
                     {log.ipAddress ? (
-                      <div className="flex items-center gap-1.5 text-xs text-white/30">
+                      <div className="flex items-center gap-1.5 text-xs text-white/55">
                         <Globe className="h-3.5 w-3.5" />
                         {log.ipAddress}
                       </div>
@@ -204,7 +207,7 @@ export default async function AdminJournalPage({
         {logs.length === 0 && (
           <div className="px-6 py-12 text-center">
             <Shield className="mx-auto h-10 w-10 text-white/20" />
-            <p className="mt-4 text-sm text-white/30">Aucune action enregistrée.</p>
+            <p className="mt-4 text-sm text-white/55">Aucune action enregistrée.</p>
           </div>
         )}
       </div>

@@ -34,7 +34,12 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/galerie` },
 };
 
-export default async function GaleriePage() {
+export default async function GaleriePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ media?: string }>;
+}) {
+  const { media: initialMediaId } = await searchParams;
   let medias: Array<{
     id: string;
     type: "PHOTO" | "VIDEO";
@@ -109,6 +114,7 @@ export default async function GaleriePage() {
           likedIds={likedIds}
           isAuthed={isAuthed}
           toggleLike={toggleLike}
+          initialMediaId={initialMediaId ?? null}
         />
       </div>
       <Footer />

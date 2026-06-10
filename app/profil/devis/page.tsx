@@ -3,7 +3,8 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import StatusPill from "@/components/dashboard/StatusPill";
-import { FileText, Plus, Calendar } from "lucide-react";
+import { Plus, Calendar } from "lucide-react";
+import { PageHeader, EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -19,38 +20,34 @@ export default async function MesDevis() {
 
   return (
     <div>
-      <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="font-sans text-3xl font-extrabold tracking-tight text-df-gold">Mes devis</h1>
-          <p className="mt-1 text-sm text-white/60">
-            {devis.length} devis &middot; Ordre chronologique
-          </p>
-        </div>
-        <Link
-          href="/devis"
-          className="btn-primary"
-        >
-          <Plus className="h-4 w-4" /> Nouveau devis
-        </Link>
-      </header>
+      <PageHeader
+        title="Mes devis"
+        subtitle={devis.length > 0 ? `${devis.length} devis · du plus récent au plus ancien` : undefined}
+        action={
+          <Link href="/devis" className="btn-primary">
+            <Plus className="h-4 w-4" /> Nouveau devis
+          </Link>
+        }
+      />
 
       {devis.length === 0 ? (
-        <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-10 text-center">
-          <FileText className="mx-auto h-10 w-10 text-white/30" />
-          <p className="mt-4 text-white/70">
-            Aucun devis pour l&apos;instant.{" "}
-            <Link href="/devis" className="font-bold text-df-gold underline transition hover:text-white">
-              Lancer mon premier devis
+        <EmptyState
+          icon={Plus}
+          title="Aucun devis pour l'instant"
+          description="Décris ton projet en quelques minutes : on te renvoie une estimation chiffrée, sans engagement."
+          action={
+            <Link href="/devis" className="btn-primary">
+              <Plus className="h-4 w-4" /> Lancer mon premier devis
             </Link>
-          </p>
-        </div>
+          }
+        />
       ) : (
         <ul className="space-y-4">
           {devis.map((d) => (
             <li key={d.id}>
               <Link
                 href={`/profil/devis/${d.id}`}
-                className="group block rounded-2xl bg-white/5 p-5 shadow-md ring-1 ring-white/10 transition hover:bg-white/10 hover:shadow-lg hover:ring-df-gold/40"
+                className="group block rounded-2xl bg-df-surface p-5 ring-1 ring-white/[0.08] transition hover:ring-df-gold/40"
               >
                 {/* Header row */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
@@ -62,7 +59,7 @@ export default async function MesDevis() {
                       {d.nomEntreprise || d.nomContact}
                     </p>
                   </div>
-                  <StatusPill status={d.status as any} />
+                  <StatusPill status={d.status} />
                 </div>
 
                 {/* Details row */}

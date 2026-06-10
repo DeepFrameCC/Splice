@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Project, ProjectMedia, CATEGORIES, PROJECTS } from "./data";
 import MediaCarousel from "./MediaCarousel";
@@ -26,6 +26,8 @@ interface ProjetsClientProps {
   likedIds: string[];
   isAuthed: boolean;
   toggleLike: (mediaId: string) => Promise<{ liked: boolean }>;
+  /** Deep-link `?media=<id>` : ouvre la lightbox directement sur ce média. */
+  initialMediaId?: string | null;
 }
 
 // Map database categories to Projets v2 categories
@@ -145,11 +147,12 @@ function CategorySection({ category, projects, onOpen, priorityFirst = false }: 
 }
 
 /* ── Main ProjetsClient Component ─────────────────────────── */
-export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }: ProjetsClientProps) {
+export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike, initialMediaId = null }: ProjetsClientProps) {
   const [tab, setTab] = useState<"video" | "photo">("video");
   const [filter, setFilter] = useState("all");
   const [openProject, setOpenProject] = useState<Project | null>(null);
   const [openIdx, setOpenIdx] = useState(0);
+  const deepLinkConsumed = useRef(false);
 
   // Group database media items by groupKey or create standalones
   const allProjects = useMemo(() => {
@@ -269,6 +272,21 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike }
     setTab(t);
     setFilter("all");
   };
+
+  // Deep-link ?media=<id> : bascule sur le bon onglet et ouvre la lightbox
+  // sur le média visé (une seule fois, pas après fermeture manuelle).
+  useEffect(() => {
+    if (!initialMediaId || deepLinkConsumed.current) return;
+    for (const p of allProjects) {
+      const idx = p.medias.findIndex((m) => m.id === initialMediaId);
+      if (idx === -1) continue;
+      deepLinkConsumed.current = true;
+      setTab(p.medias[idx]!.type === "video" ? "video" : "photo");
+      setOpenProject(p);
+      setOpenIdx(idx);
+      return;
+    }
+  }, [initialMediaId, allProjects]);
 
   const handleOpen = (project: Project, idx = 0) => {
     setOpenProject(project);

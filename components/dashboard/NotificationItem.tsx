@@ -10,6 +10,7 @@ import {
   CreditCard,
   Info,
   Eye,
+  Package,
 } from "lucide-react";
 import type { NotificationType } from "@prisma/client";
 
@@ -18,6 +19,7 @@ const TYPE_CONFIG: Record<NotificationType, { icon: typeof FileText; color: stri
   FACTURE_EMISE: { icon: Receipt, color: "text-df-gold", bg: "bg-df-gold/10" },
   CONTRAT_SIGNE: { icon: FileSignature, color: "text-emerald-400", bg: "bg-emerald-500/10" },
   PAYMENT_CONFIRM: { icon: CreditCard, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+  LIVRAISON_PRETE: { icon: Package, color: "text-df-gold", bg: "bg-df-gold/10" },
   SYSTEM: { icon: Info, color: "text-white/50", bg: "bg-df-surface" },
 };
 

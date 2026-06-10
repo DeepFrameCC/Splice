@@ -2,6 +2,7 @@
 import { Star, MessageSquare, CheckCircle, Clock } from "lucide-react";
 import { ApprouverBtn, RejeterBtn, FeaturedToggle } from "@/components/dashboard/AvisActions";
 import { Badge } from "@/components/ui/badge";
+import { EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export default async function AdminAvisPage() {
         <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Avis clients
         </h1>
-        <p className="mt-1 text-sm text-white/40">
+        <p className="mt-1 text-sm text-white/55">
           {totalAvis} avis au total · {avisEnAttente.length} en attente · Note moyenne : {noteMoyenne}/5
         </p>
       </header>
@@ -71,7 +72,7 @@ export default async function AdminAvisPage() {
                           className={`h-3.5 w-3.5 ${i < a.note ? "fill-df-gold text-df-gold" : "text-df-ink/15"}`}
                         />
                       ))}
-                      <span className="ml-1.5 text-xs text-white/30">{a.note}/5</span>
+                      <span className="ml-1.5 text-xs text-white/55">{a.note}/5</span>
                     </div>
                   </div>
                   <span className="text-xs text-white/20">
@@ -96,20 +97,21 @@ export default async function AdminAvisPage() {
           Avis publiés ({avisApprouves.length})
         </h2>
         {avisApprouves.length === 0 ? (
-          <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
-            <MessageSquare className="mx-auto h-10 w-10 text-white/20" />
-            <p className="mt-4 text-sm text-white/30">Aucun avis publié pour le moment.</p>
-          </div>
+          <EmptyState
+            icon={MessageSquare}
+            title="Aucun avis publié"
+            description="Les avis que tu approuves apparaissent ici et sur le site public. Modère les avis en attente pour alimenter ta preuve sociale."
+          />
         ) : (
           <div className="overflow-x-auto rounded-2xl bg-df-surface shadow-sm ring-1 ring-white/[0.08]">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.08] text-left">
-                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Auteur</th>
-                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Note</th>
-                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Contenu</th>
-                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Date</th>
-                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/30">Actions</th>
+                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Auteur</th>
+                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Note</th>
+                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Contenu</th>
+                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Date</th>
+                  <th className="px-5 py-4 text-xs font-bold uppercase tracking-wider text-white/55">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +136,7 @@ export default async function AdminAvisPage() {
                     <td className="max-w-xs px-5 py-4 text-xs text-white/50">
                       <p className="line-clamp-2">{a.contenu}</p>
                     </td>
-                    <td className="px-5 py-4 text-xs text-white/30">
+                    <td className="px-5 py-4 text-xs text-white/55">
                       {a.createdAt.toLocaleDateString("fr-FR")}
                     </td>
                     <td className="px-5 py-4">

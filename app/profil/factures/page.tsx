@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import StatusPill from "@/components/dashboard/StatusPill";
 import { Receipt, Download, FileText, Calendar } from "lucide-react";
+import { PageHeader, EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -23,20 +24,17 @@ export default async function MesFactures() {
 
   return (
     <div>
-      <header className="mb-8">
-        <h1 className="font-sans text-3xl font-extrabold tracking-tight text-df-gold">Mes factures</h1>
-        <p className="mt-1 text-sm text-white/60">
-          {factures.length} facture{factures.length !== 1 ? "s" : ""}
-        </p>
-      </header>
+      <PageHeader
+        title="Mes factures"
+        subtitle={factures.length > 0 ? `${factures.length} facture${factures.length !== 1 ? "s" : ""}` : undefined}
+      />
 
       {factures.length === 0 ? (
-        <div className="rounded-2xl bg-white/5 p-10 text-center">
-          <Receipt className="mx-auto h-10 w-10 text-white/30" />
-          <p className="mt-4 text-white/70">
-            Vos factures s&apos;afficheront ici après paiement de l&apos;acompte.
-          </p>
-        </div>
+        <EmptyState
+          icon={Receipt}
+          title="Aucune facture pour l'instant"
+          description="Tes factures apparaissent ici dès le paiement de l'acompte d'un devis. Elles sont téléchargeables en PDF à tout moment."
+        />
       ) : (
         <ul className="space-y-4">
           {factures.map((f) => {
@@ -45,18 +43,18 @@ export default async function MesFactures() {
             const montant = f.montant ?? src?.totalHT ?? 0;
             return (
             <li key={f.id}>
-              <div className="rounded-2xl bg-white/5 p-5 shadow-md ring-1 ring-white/10 transition hover:shadow-lg">
+              <div className="rounded-2xl bg-df-surface p-5 ring-1 ring-white/[0.08]">
                 {/* Header row */}
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="font-sans text-lg font-bold text-white">
                       Facture n&deg;{f.numero}
                     </p>
-                    <p className="mt-0.5 text-sm text-white/50">
+                    <p className="mt-0.5 text-sm text-white/55">
                       {src?.nomEntreprise || src?.nomContact || "Abonnement"}
                     </p>
                   </div>
-                  <StatusPill status={f.status as any} />
+                  <StatusPill status={f.status} />
                 </div>
 
                 {/* Amounts */}

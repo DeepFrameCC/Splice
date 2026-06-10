@@ -41,7 +41,7 @@ export default async function AdminMediasPage() {
           <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Médias
           </h1>
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-white/55">
             {stats.total} médias — {stats.photos} photos, {stats.videos} vidéos · {stats.published} publiés, {stats.hidden} masqués
           </p>
         </div>
@@ -54,7 +54,7 @@ export default async function AdminMediasPage() {
           { label: "Photos", value: stats.photos, icon: ImageIcon, color: "text-white/70", bg: "bg-white/5" },
           { label: "Vidéos", value: stats.videos, icon: Video, color: "text-purple-600", bg: "bg-purple-500/10" },
           { label: "Publiés", value: stats.published, icon: Eye, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-          { label: "Masqués", value: stats.hidden, icon: EyeOff, color: "text-white/30", bg: "bg-white/5" },
+          { label: "Masqués", value: stats.hidden, icon: EyeOff, color: "text-white/55", bg: "bg-white/5" },
         ].map((s) => (
           <div key={s.label} className="rounded-2xl bg-df-surface p-4 shadow-sm ring-1 ring-white/[0.08]">
             <div className={`flex h-9 w-9 items-center justify-center rounded-xl ${s.bg}`}>
@@ -73,7 +73,7 @@ export default async function AdminMediasPage() {
       {medias.length === 0 ? (
         <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
           <ImageIcon className="mx-auto h-10 w-10 text-white/20" />
-          <p className="mt-4 text-sm text-white/30">Aucun média pour le moment.</p>
+          <p className="mt-4 text-sm text-white/55">Aucun média pour le moment.</p>
           <p className="mt-1 text-xs text-white/20">Utilisez le bouton &quot;Ajouter un média&quot; ci-dessus.</p>
         </div>
       ) : (
@@ -133,7 +133,7 @@ export default async function AdminMediasPage() {
               <div className="p-4">
                 <p className="truncate font-bold text-white">{m.title}</p>
                 <MediaDescriptionEdit mediaId={m.id} description={m.description} />
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-white/30">
+                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-white/55">
                   <span>{m.owner}</span>
                   {m.monteur && <span>· @{m.monteur.pseudo}</span>}
                   {m.category && <span>· {m.category}</span>}

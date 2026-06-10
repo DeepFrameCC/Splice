@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Repeat, Calendar, AlertTriangle, ArrowRight } from "lucide-react";
 import { SUBSCRIPTION_PLANS, type PlanId } from "@/lib/pricing";
 import AbonnementActions from "@/components/dashboard/AbonnementActions";
+import { PageHeader, EmptyState } from "@/components/dashboard/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -32,22 +33,22 @@ export default async function MonAbonnement() {
 
   return (
     <div>
-      <header className="mb-8">
-        <h1 className="font-sans text-3xl font-extrabold tracking-tight text-df-gold">Mon abonnement</h1>
-        <p className="mt-1 text-sm text-white/60">Gérez votre formule récurrente.</p>
-      </header>
+      <PageHeader title="Mon abonnement" subtitle="Ta formule récurrente et son suivi de facturation" />
 
       {abonnements.length === 0 ? (
-        <div className="rounded-2xl bg-white/5 p-10 text-center ring-1 ring-white/10">
-          <Repeat className="mx-auto h-10 w-10 text-white/30" />
-          <p className="mt-4 text-white/70">Vous n&apos;avez aucun abonnement actif.</p>
-          <Link
-            href="/tarifs"
-            className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-df-gold px-5 py-2.5 text-sm font-bold text-white transition hover:bg-df-blue-dark"
-          >
-            Découvrir nos formules <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+        <EmptyState
+          icon={Repeat}
+          title="Aucun abonnement actif"
+          description="Les formules récurrentes te donnent un volume de production régulier à tarif réduit. Découvre les offres adaptées à ton rythme."
+          action={
+            <Link
+              href="/tarifs"
+              className="inline-flex items-center gap-1.5 rounded-full bg-df-gold px-5 py-2.5 text-sm font-bold text-white transition hover:bg-df-gold/90"
+            >
+              Découvrir nos formules <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
+        />
       ) : (
         <ul className="space-y-5">
           {abonnements.map((abo) => {
@@ -60,7 +61,7 @@ export default async function MonAbonnement() {
 
             return (
               <li key={abo.id}>
-                <div className="rounded-2xl bg-white/5 p-6 shadow-md ring-1 ring-white/10">
+                <div className="rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08]">
                   {/* Header */}
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
