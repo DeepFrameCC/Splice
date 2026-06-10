@@ -2,21 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
-import { FOUNDER_LABEL } from "@/lib/pricing";
 import type Stripe from "stripe";
-import {
-  createPdfContext,
-  drawHeader,
-  drawInfoBlock,
-  drawPartiesBlock,
-  drawTableHeader,
-  drawTableRow,
-  drawTotalsBlock,
-  drawReglementBlock,
-  drawMentionsLegales,
-  addPage,
-  safe,
-} from "@/lib/pdf";
+import { buildFacturePdfBytes } from "@/lib/pdf-documents";
 
 export const dynamic = "force-dynamic";
 
@@ -59,8 +46,6 @@ export async function GET(
   if (!devis) {
     return NextResponse.json({ error: "Devis introuvable" }, { status: 404 });
   }
-  const isAbo = facture.abonnementId != null;
-  const montant = facture.montant ?? devis.totalHT;
 
   /* ── Payment method via Stripe API ───────────────────────────────── */
   let paymentMethodLabel: string | null = null;
@@ -97,113 +82,14 @@ export async function GET(
     }
   }
 
-  /* ── Parse lines safely ──────────────────────────────────────────── */
-  let lines: { label: string; qty?: number; unit?: number; total: number }[] = [];
-  try {
-    const raw = devis.lines;
-    if (Array.isArray(raw)) {
-      lines = raw as typeof lines;
-    } else if (typeof raw === "string") {
-      lines = JSON.parse(raw);
-    }
-  } catch (err) {
-    console.error("[facture-pdf] Failed to parse lines JSON:", err);
-    lines = [];
-  }
-
   /* ── Generate PDF ────────────────────────────────────────────────── */
   try {
-    const { pdf, fonts, page } = await createPdfContext();
-    let currentPage = page;
-
-    /* ── Header ──────────────────────────────────────────────────── */
-    drawHeader(currentPage, fonts, "FACTURE");
-
-    /* ── Info block (date, numero) ───────────────────────────────── */
-    const dateStr = facture.createdAt.toLocaleDateString("fr-FR");
-    const echeanceDate = new Date(facture.createdAt);
-    echeanceDate.setDate(echeanceDate.getDate() + 30);
-    const echeanceStr = echeanceDate.toLocaleDateString("fr-FR");
-
-    drawInfoBlock(currentPage, fonts, {
-      date: dateStr,
-      echeance: echeanceStr,
-      numero: safe(facture.numero),
-      docType: "FACTURE",
-    });
-
-    /* ── Prestataire / Destinataire ──────────────────────────────── */
-    const chefLabel =
-      devis.chefDeProjet && FOUNDER_LABEL[devis.chefDeProjet]
-        ? FOUNDER_LABEL[devis.chefDeProjet]
-        : safe(devis.chefDeProjet, "Non assigne");
-
-    const destinataireLines = [
-      devis.nomEntreprise || "",
-      devis.nomContact,
-      devis.telContact,
-      devis.emailContact,
-      facture.user?.profile?.adresse,
-      [facture.user?.profile?.codePostal, facture.user?.profile?.ville]
-        .filter(Boolean)
-        .join(" "),
-      devis.dateTournage ? `date du tournage: ${devis.dateTournage.toLocaleDateString("fr-FR")}` : "",
-      devis.remarques ? `Remarques specifiques: ${devis.remarques}` : "",
-    ].filter(Boolean) as string[];
-
-    const afterParties = drawPartiesBlock(
-      currentPage, fonts,
-      {
-        entreprise: `Girault Louisia (${chefLabel})`,
-        adresse: "84 Boulevard Alexandre Martin, 45000 Orléans",
-        email: "contact.splicestudio@gmail.com",
-        siret: "10461962200012",
-      },
-      destinataireLines,
-    );
-
-    /* ── Table ───────────────────────────────────────────────────── */
-    const tableTop = Math.max(afterParties, 220);
-    drawTableHeader(currentPage, fonts, tableTop);
-
-    let y = tableTop + 28;
-    for (const line of lines) {
-      y = drawTableRow(currentPage, fonts, line, y);
-      if (y > 680) {
-        currentPage = addPage(pdf);
-        y = 50;
-      }
-    }
-
-    /* ── Totals ──────────────────────────────────────────────────── */
-    const afterTotals = drawTotalsBlock(currentPage, fonts, {
-      totalHT: montant,
-      acompteRate: isAbo ? 0 : devis.acompteRate,
-      acompteAmount: isAbo ? montant : devis.acompteAmount,
-      solde: isAbo ? 0 : devis.totalHT - devis.acompteAmount,
-    }, y + 8);
-
-    /* ── Reglement ───────────────────────────────────────────────── */
-    const afterReglement = drawReglementBlock(
-      currentPage, fonts, afterTotals + 8,
-      "FACTURE",
-      "Règlement : à réception",
+    const pdfBytes = await buildFacturePdfBytes({
+      facture,
+      devis,
+      profile: facture.user?.profile ?? null,
       paymentMethodLabel,
-    );
-
-    /* ── Mentions legales ────────────────────────────────────────── */
-    const factureMentions = [
-      "TVA non applicable, art. 293 B du CGI.",
-      "Paiement à réception. Pas d'escompte consenti pour paiement anticipé.",
-      "Pénalités de retard : 3 fois le taux d'intérêt légal exigibles le jour suivant la date d'échéance.",
-      "Indemnité forfaitaire de 40 € pour frais de recouvrement en cas de retard de paiement (professionnels).",
-      "Les fichiers numériques restent la propriété exclusive de l'auteur jusqu'au paiement intégral du solde.",
-    ];
-    const mentionsY = Math.min(afterReglement + 8, 720);
-    drawMentionsLegales(currentPage, fonts, factureMentions, mentionsY);
-
-    /* ── Serialize ───────────────────────────────────────────────── */
-    const pdfBytes = await pdf.save();
+    });
 
     return new NextResponse(pdfBytes.buffer as ArrayBuffer, {
       status: 200,

@@ -1,5 +1,5 @@
 # Résumé — Splice Studio
-Dernière mise à jour : 2026-06-05
-Stack : Next.js, TypeScript, Neon/PostgreSQL, Vercel, Stripe
+Dernière mise à jour : 2026-06-10
+Stack : Next.js, TypeScript, Neon/PostgreSQL, Cloudflare Workers, Stripe
 État : production
-Prochaine action : [à remplir]
+Prochaine action : faire relire le contrat PDF (lib/contrat-pdf.ts) par un professionnel du droit ; décider du traitement des devis/factures d'abonnement (acompte 30 % incohérent avec le prélèvement récurrent à 100 %)

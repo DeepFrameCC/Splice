@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { Calendar } from "lucide-react";
+import { Calendar, FileText } from "lucide-react";
 import StatusPill from "@/components/dashboard/StatusPill";
 import ContratStatusSelect from "@/components/dashboard/ContratStatusSelect";
 import DataTable from "@/components/dashboard/DataTable";
@@ -96,6 +96,22 @@ const columns: ColumnDef<ContratRow, unknown>[] = [
     enableSorting: false,
     cell: ({ row }) => (
       <ContratStatusSelect contratId={row.original.id} current={row.original.status} />
+    ),
+  },
+  {
+    id: "pdf",
+    header: "PDF",
+    enableSorting: false,
+    cell: ({ row }) => (
+      <a
+        href={`/api/contrat/${row.original.id}/pdf`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 rounded-full bg-white/5 px-3 py-1 text-xs font-bold text-white transition hover:bg-white/10"
+      >
+        <FileText className="h-3.5 w-3.5" />
+        Contrat
+      </a>
     ),
   },
 ];

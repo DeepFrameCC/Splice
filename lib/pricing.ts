@@ -48,7 +48,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Création de podcasts courts",
+      "Podcasts courts",
+      "Montage express",
     ],
   },
   PRO: {
@@ -72,7 +73,8 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
       "Options à la carte disponibles",
     ],
     excludedFeatures: [
-      "Création de podcasts jusqu'à 4 / mois",
+      "Podcasts au-delà de 2 / mois",
+      "Montage express au-delà de 2 / mois",
     ],
   },
   PREMIUM_ABO: {

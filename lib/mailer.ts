@@ -28,7 +28,17 @@ export const MAIL_REPLY_TO = "contact.splicestudio@gmail.com";
 export const MAIL_CONTACT = "contact.splicestudio@gmail.com";
 export const MAIL_FOUNDERS = (process.env.MAIL_FOUNDERS ?? "").split(",").map((s) => s.trim()).filter(Boolean);
 
-export async function sendMail(opts: { to: string | string[]; subject: string; html: string; replyTo?: string; bcc?: string | string[] }) {
+/** Pièce jointe Resend : contenu encodé en base64 (compatible Workers). */
+export type MailAttachment = { filename: string; content: string };
+
+export async function sendMail(opts: {
+  to: string | string[];
+  subject: string;
+  html: string;
+  replyTo?: string;
+  bcc?: string | string[];
+  attachments?: MailAttachment[];
+}) {
   const resend = getResend();
   if (!resend) {
     // Best-effort : ne jamais bloquer un appelant si la clé est absente/mal
@@ -53,10 +63,15 @@ export async function sendMail(opts: { to: string | string[]; subject: string; h
   }
 }
 
-export const notifyFoundersNewDevis = (numero: string, payload: { client: string; total: number; lieu: string; pack: string }) =>
+export const notifyFoundersNewDevis = (
+  numero: string,
+  payload: { client: string; total: number; lieu: string; pack: string },
+  attachments?: MailAttachment[],
+) =>
   sendMail({
     to: MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT],
     replyTo: MAIL_CONTACT,
+    attachments,
     subject: `[Splice Studio] Nouveau devis ${numero} — ${payload.client}`,
     html: `
       <div style="font-family:system-ui;color:#0E0E22">
