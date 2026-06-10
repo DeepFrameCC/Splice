@@ -49,7 +49,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }));
 
   return (
-    <div className="min-h-screen bg-df-night">
+    <div className="min-h-screen bg-df-night admin-root">
       {/* Topbar */}
       <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-df-ink/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 md:px-6">

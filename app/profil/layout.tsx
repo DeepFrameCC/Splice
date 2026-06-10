@@ -79,7 +79,7 @@ export default async function ProfilLayout({ children }: { children: React.React
   return (
     <>
       <NavWrapper />
-      <div className="bg-[#0E0E22] text-white" style={{ paddingTop: "calc(80px + 2rem)" }}>
+      <div className="bg-[#0E0E22] text-white dashboard-root" style={{ paddingTop: "calc(80px + 2rem)" }}>
         <section className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-[1440px] gap-8 px-4 py-6 md:grid-cols-[280px_1fr] md:px-6 md:py-8">
           {/* Retour au site — full-width above the grid */}
           <div className="col-span-full">
