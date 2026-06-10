@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { LogOut, Loader2 } from "lucide-react";
-import { logoutAction } from "@/app/actions/auth";
 
 type Variant = "pill" | "menu" | "icon";
 
@@ -19,38 +18,21 @@ interface LogoutButtonProps {
 /**
  * Logout control used everywhere (profil sidebar, admin sidebar, nav dropdown).
  *
- * Why client-side + hard navigation instead of a `<form action={logoutAction}>`
- * that redirects server-side:
- *  - The old flow redirected to "/" from inside the Server Action. That forced
- *    a re-render of the *current* protected route, whose layout calls auth() →
- *    now null → redirect("/login") (and on /admin, an extra "/profil" hop). The
- *    competing redirects surfaced as a transient error.
- *  - Redirecting to "/" also re-mounted the homepage cinematic intro
- *    (LandingAnimations), producing the brief black screen.
- *
- * Here we clear the session via the action (no redirect), keep a full-screen
- * overlay up the whole time, then do a single hard navigation to "/". One clean
- * transition, no flash, no error.
+ * Why a hard navigation to /api/logout instead of the logoutAction Server
+ * Action: on Cloudflare Workers, cookie deletion emitted through `cookies()`
+ * inside a Server Action does not reliably reach the browser for `__Secure-`
+ * prefixed Auth.js cookies — the session survived and the user stayed logged
+ * in. The /api/logout route writes raw Set-Cookie headers on a 302 response,
+ * which the browser applies unconditionally during the navigation.
  */
 export function LogoutButton({ variant = "pill" }: LogoutButtonProps) {
-  const [pending, startTransition] = useTransition();
   const [leaving, setLeaving] = useState(false);
-  const busy = pending || leaving;
+  const busy = leaving;
 
   function handleLogout() {
     if (busy) return;
     setLeaving(true);
-    startTransition(async () => {
-      try {
-        await logoutAction();
-      } catch (err) {
-        // Even if the action throws, the cookies are almost certainly cleared;
-        // navigate home regardless so the user is never stuck.
-        console.error("[logout] action failed, navigating home anyway", err);
-      } finally {
-        window.location.assign("/");
-      }
-    });
+    window.location.assign("/api/logout");
   }
 
   const iconSize = variant === "menu" ? "h-4 w-4" : variant === "icon" ? "h-4 w-4" : "h-3 w-3";
