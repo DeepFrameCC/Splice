@@ -28,8 +28,8 @@ export default async function AdminBlogPage({ searchParams }: Props) {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-2xl uppercase tracking-tight text-white">Articles</h1>
-          <p className="text-sm text-white/50">{total} article{total !== 1 ? "s" : ""}</p>
+          <h1 className="font-display text-3xl font-bold tracking-tight text-white lg:text-4xl">Articles</h1>
+          <p className="mt-1 text-sm text-white/55">{total} article{total !== 1 ? "s" : ""}</p>
         </div>
         <Link
           href="/admin/blog/nouveau"

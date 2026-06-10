@@ -42,7 +42,7 @@ export default async function AdminUtilisateursPage() {
         <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Utilisateurs
         </h1>
-        <p className="mt-1 text-sm text-white/40">
+        <p className="mt-1 text-sm text-white/55">
           {stats.total} utilisateur{stats.total > 1 ? "s" : ""} — {stats.clients} clients, {stats.team} équipe, {stats.admins} admin{stats.admins > 1 ? "s" : ""}
         </p>
       </header>

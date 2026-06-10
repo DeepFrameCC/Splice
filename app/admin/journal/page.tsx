@@ -101,7 +101,7 @@ export default async function AdminJournalPage({
           <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Journal d&apos;audit
           </h1>
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-white/55">
             {logs.length} actions enregistrées
           </p>
         </div>

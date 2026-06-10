@@ -125,7 +125,7 @@ export default async function AdminStatsPage() {
           <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
             Statistiques
           </h1>
-          <p className="mt-1 text-sm text-white/40">
+          <p className="mt-1 text-sm text-white/55">
             Analyse de performance — {currentYear}
           </p>
         </div>

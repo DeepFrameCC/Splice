@@ -22,7 +22,7 @@ export default async function AdminAvisPage() {
         <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Avis clients
         </h1>
-        <p className="mt-1 text-sm text-white/40">
+        <p className="mt-1 text-sm text-white/55">
           {totalAvis} avis au total · {avisEnAttente.length} en attente · Note moyenne : {noteMoyenne}/5
         </p>
       </header>

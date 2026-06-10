@@ -38,7 +38,7 @@ export default async function AdminContratsPage({
         <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Contrats
         </h1>
-        <p className="mt-1 text-sm text-white/40">
+        <p className="mt-1 text-sm text-white/55">
           {contrats.length} contrat{contrats.length > 1 ? "s" : ""} au total
         </p>
       </header>
@@ -46,7 +46,7 @@ export default async function AdminContratsPage({
       {contrats.length === 0 ? (
         <div className="rounded-2xl bg-df-surface p-12 text-center shadow-sm ring-1 ring-white/[0.08]">
           <FileSignature className="mx-auto h-10 w-10 text-white/20" />
-          <p className="mt-4 text-sm text-white/40">Aucun contrat.</p>
+          <p className="mt-4 text-sm text-white/55">Aucun contrat.</p>
         </div>
       ) : (
         <ContratsTable data={rows} initialStatus={statusParam} />

@@ -36,7 +36,7 @@ export default async function AdminEquipePage() {
         <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
           Équipe
         </h1>
-        <p className="mt-1 text-sm text-white/40">
+        <p className="mt-1 text-sm text-white/55">
           Gestion des rôles et accès — {teamMembers.length} membre{teamMembers.length > 1 ? "s" : ""}
         </p>
       </header>

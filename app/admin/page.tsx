@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { resolvePackLabel } from "@/lib/pricing";
 import StatusPill from "@/components/dashboard/StatusPill";
 import CAChart from "@/components/dashboard/CAChart";
+import { PageHeader, Panel, EmptyState } from "@/components/dashboard/ui";
 import {
   FileText,
   Receipt,
@@ -131,48 +132,32 @@ export default async function AdminDashboard() {
     {
       label: "CA mois",
       value: `${caMoisMontant.toLocaleString("fr-FR")} €`,
-      sub: MONTH_LABELS[currentMonth],
+      sub: MONTH_LABELS[currentMonth] ?? "",
       icon: TrendingUp,
-      color: "text-emerald-400",
-      bgIcon: "bg-emerald-500/10",
     },
     {
       label: "CA YTD",
       value: `${caYTDMontant.toLocaleString("fr-FR")} €`,
       sub: `${devisValides} devis validés`,
       icon: Receipt,
-      color: "text-df-gold",
-      bgIcon: "bg-df-gold/10",
     },
     {
       label: "Taux conversion",
       value: `${tauxConversion}%`,
       sub: `${totalDevis} devis total`,
       icon: FileSignature,
-      color: "text-purple-600",
-      bgIcon: "bg-purple-500/10",
     },
     {
       label: "Panier moyen",
       value: `${panierMoyen.toLocaleString("fr-FR")} €`,
       sub: `${totalFactures} factures · ${totalContrats} contrats`,
       icon: Users,
-      color: "text-amber-600",
-      bgIcon: "bg-amber-500/10",
     },
   ];
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="font-display text-3xl font-bold text-white lg:text-4xl">
-          Tableau de bord
-        </h1>
-        <p className="mt-1 text-sm text-white/40">
-          Vue d&apos;ensemble — {currentYear}
-        </p>
-      </div>
+      <PageHeader title="Tableau de bord" subtitle={`Vue d'ensemble — ${currentYear}`} />
 
       {/* Urgent banner */}
       {devisUrgents > 0 && (
@@ -195,22 +180,16 @@ export default async function AdminDashboard() {
         {kpis.map((kpi) => (
           <div
             key={kpi.label}
-            className="group relative overflow-hidden rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08] transition hover:ring-white/[0.15]"
+            className="rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08] transition hover:ring-white/[0.15]"
           >
-            <div className="flex items-start justify-between">
-              <div
-                className={`flex h-11 w-11 items-center justify-center rounded-xl ${kpi.bgIcon}`}
-              >
-                <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
-              </div>
+            <div className="flex items-center gap-2 text-white/55">
+              <kpi.icon className="h-4 w-4 text-df-gold" aria-hidden />
+              <p className="text-xs font-semibold uppercase tracking-wide">{kpi.label}</p>
             </div>
-            <p className="mt-4 font-display text-2xl font-bold text-white">
+            <p className="mt-3 font-display text-2xl font-bold tabular-nums text-white">
               {kpi.value}
             </p>
-            <p className="mt-0.5 text-sm font-semibold text-white/70">
-              {kpi.label}
-            </p>
-            <p className="mt-1 text-xs text-white/30">{kpi.sub}</p>
+            <p className="mt-1 text-xs text-white/45">{kpi.sub}</p>
           </div>
         ))}
       </div>
@@ -233,7 +212,7 @@ export default async function AdminDashboard() {
             </h2>
           </div>
           {topClients.length === 0 ? (
-            <p className="px-6 py-8 text-center text-sm text-white/30">
+            <p className="px-6 py-8 text-center text-sm text-white/45">
               Aucun client encore.
             </p>
           ) : (
@@ -245,7 +224,7 @@ export default async function AdminDashboard() {
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold text-white">{c.name}</p>
-                    <p className="text-xs text-white/30">
+                    <p className="text-xs text-white/45">
                       {c.count} devis · @{c.pseudo}
                     </p>
                   </div>
@@ -274,7 +253,7 @@ export default async function AdminDashboard() {
         </div>
 
         {recentDevis.length === 0 ? (
-          <p className="px-6 py-8 text-center text-sm text-white/30">
+          <p className="px-6 py-8 text-center text-sm text-white/45">
             Aucun devis pour le moment.
           </p>
         ) : (
@@ -299,9 +278,7 @@ export default async function AdminDashboard() {
                       <p className="truncate font-display text-sm font-bold text-white">
                         {d.numero}
                       </p>
-                      <StatusPill
-                        status={d.status as "ATTENTE" | "VALIDE" | "REFUSE" | "PAYE"}
-                      />
+                      <StatusPill status={d.status} />
                       {isUrgent && (
                         <span className="rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-600">
                           +48h
@@ -317,7 +294,7 @@ export default async function AdminDashboard() {
                     <p className="font-display text-sm font-bold text-white">
                       {d.totalHT.toLocaleString("fr-FR")} €
                     </p>
-                    <p className="flex items-center justify-end gap-1 text-[11px] text-white/30">
+                    <p className="flex items-center justify-end gap-1 text-[11px] text-white/45">
                       <Calendar className="h-3 w-3" />
                       {d.createdAt.toLocaleDateString("fr-FR")}
                     </p>
