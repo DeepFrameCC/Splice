@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Devis envoyé",
   description: "Votre demande de devis a bien été envoyée.",
+  robots: { index: false, follow: false },
 };
 
 export default async function ConfirmationPage({

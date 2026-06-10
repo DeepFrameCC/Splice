@@ -2,10 +2,12 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
+import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
   description: "Mentions légales du site Splice Studio — production audiovisuelle à Orléans et Tours.",
+  alternates: { canonical: `${BASE_URL}/mentions-legales` },
 };
 
 export default function MentionsLegales() {

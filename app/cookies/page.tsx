@@ -2,10 +2,12 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
+import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Politique de cookies",
   description: "Politique de cookies du site Splice Studio — informations sur les cookies utilisés et comment les gérer.",
+  alternates: { canonical: `${BASE_URL}/cookies` },
 };
 
 export default function Cookies() {

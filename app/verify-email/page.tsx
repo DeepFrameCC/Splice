@@ -3,8 +3,14 @@ import { confirmEmailVerification } from "@/app/actions/email-verification";
 import Link from "next/link";
 import { CheckCircle, XCircle, MailCheck } from "lucide-react";
 import VerifyEmailForm from "./VerifyEmailForm";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Vérification de l'email",
+  robots: { index: false, follow: false },
+};
 
 export default async function VerifyEmailPage({
   searchParams,

@@ -80,7 +80,18 @@ export function buildLocalBusinessJsonLd() {
       },
     ],
     priceRange: "€€",
-    sameAs: ["https://share.google/xs14h7WtSrIkYlfjS"],
+    areaServed: [
+      { "@type": "City", name: "Orléans" },
+      { "@type": "City", name: "Tours" },
+      { "@type": "AdministrativeArea", name: "Loiret" },
+      { "@type": "AdministrativeArea", name: "Indre-et-Loire" },
+      { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
+    ],
+    sameAs: [
+      "https://www.instagram.com/splice.cc/",
+      "https://www.facebook.com/Splicecc/",
+      "https://share.google/xs14h7WtSrIkYlfjS",
+    ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

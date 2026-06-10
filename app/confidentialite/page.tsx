@@ -2,10 +2,12 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { LEGAL_LAST_UPDATED } from "@/lib/legal-dates";
+import { BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description: "Politique de confidentialité et protection des données personnelles — Splice Studio, conformément au RGPD.",
+  alternates: { canonical: `${BASE_URL}/confidentialite` },
 };
 
 export default function Confidentialite() {

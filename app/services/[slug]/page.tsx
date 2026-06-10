@@ -11,6 +11,7 @@ import {
   getRelatedServices,
 } from "@/lib/services/queries";
 import { buildServiceJsonLd } from "@/lib/services/schema-service";
+import { SERVICES_LOCAL_SLUGS, VILLES } from "@/lib/services/local-seo";
 import { absoluteUrl } from "@/lib/seo";
 import type { ServiceFeature, FAQItem, ServiceDeliverable, EquipmentItem } from "@/lib/services/types";
 import { ServiceBreadcrumb } from "@/components/services/ServiceBreadcrumb";
@@ -167,6 +168,10 @@ export default async function ServicePage({ params }: PageProps) {
     getRelatedArticles(slug),
     getRelatedServices(relatedSlugs),
   ]);
+
+  // Maillage interne : pages locales service-ville (règle SEO projet —
+  // chaque page service lie ses déclinaisons locales, et inversement).
+  const hasLocalPages = (SERVICES_LOCAL_SLUGS as readonly string[]).includes(slug);
 
   return (
     <>
@@ -509,6 +514,37 @@ export default async function ServicePage({ params }: PageProps) {
                           </div>
                         </div>
                       )}
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {/* Maillage interne : pages locales (Orléans, Tours) */}
+              {hasLocalPages && (
+                <section className="df-frs border-t border-white/[0.06] pt-16" aria-label="Zones d'intervention">
+                  <div className="df-frs-grid max-w-none">
+                    <div className="df-frs-rail">
+                      <span className="df-frs-rail-num">N°07</span>
+                      <span className="df-frs-rail-line" />
+                      <span className="df-frs-rail-label">Zones d&apos;intervention</span>
+                    </div>
+                    <div className="df-frs-main w-full">
+                      <p className="text-sm text-white/50 font-light leading-relaxed max-w-3xl">
+                        Splice Studio se déplace dans tout le Centre-Val de Loire. Retrouvez le
+                        détail de cette prestation, les tarifs et les questions fréquentes pour
+                        votre ville :
+                      </p>
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        {VILLES.map((v) => (
+                          <Link
+                            key={v.slug}
+                            href={`/services/${slug}/${v.slug}`}
+                            className="rounded-full border border-white/[0.08] bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-white/70 transition hover:border-df-gold/30 hover:text-df-gold"
+                          >
+                            {service.shortName} à {v.name} ({v.departmentCode})
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </section>

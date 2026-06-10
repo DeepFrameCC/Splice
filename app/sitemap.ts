@@ -6,6 +6,7 @@ import { BASE_URL as base } from "@/lib/seo";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: base,                             lastModified: new Date(), changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${base}/services`,               lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${base}/galerie`,                lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${base}/photos`,                 lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${base}/equipe`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -52,9 +53,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     dynamicPages = [
-      ...(services.length > 0
-        ? [{ url: `${base}/services`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 }]
-        : []),
       ...services.map((s) => ({
         url: `${base}/services/${s.slug}`,
         lastModified: s.updatedAt,

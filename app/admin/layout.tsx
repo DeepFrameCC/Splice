@@ -6,6 +6,13 @@ import { ArrowLeft } from "lucide-react";
 import AdminSidebar from "@/components/dashboard/AdminSidebar";
 import NotificationBell from "@/components/dashboard/NotificationBell";
 import CommandSearch from "@/components/dashboard/CommandSearch";
+import type { Metadata } from "next";
+
+// Dashboard admin — jamais indexé.
+export const metadata: Metadata = {
+  title: "Administration",
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await requireActiveUser();

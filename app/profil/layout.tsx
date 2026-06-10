@@ -8,6 +8,13 @@ import NotificationBell from "@/components/dashboard/NotificationBell";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import { LogoutButton } from "@/components/dashboard/LogoutButton";
+import type { Metadata } from "next";
+
+// Espace client privé — jamais indexé.
+export const metadata: Metadata = {
+  title: "Mon espace",
+  robots: { index: false, follow: false },
+};
 
 export default async function ProfilLayout({ children }: { children: React.ReactNode }) {
   const session = await requireActiveUser();

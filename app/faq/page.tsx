@@ -2,6 +2,7 @@ import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import { BASE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -9,11 +10,14 @@ export const metadata: Metadata = {
   title: "FAQ — production vidéo Orléans & Tours",
   description:
     "Réponses à vos questions fréquentes sur nos services de production vidéo et photo à Orléans et Tours : tarifs, délais de livraison, formats livrés, shooting automobile, montage vidéo et plus.",
+  alternates: { canonical: `${BASE_URL}/faq` },
   openGraph: {
     title: "FAQ production audiovisuelle — Splice Studio",
     description:
       "Tout savoir sur les prestations audiovisuelles Splice Studio : tarifs, délais, formats, shooting photo & vidéo à Orléans et Tours.",
+    url: `${BASE_URL}/faq`,
   },
+  twitter: { card: "summary_large_image" },
 };
 
 const L = ({ href, children }: { href: string; children: ReactNode }) => (
