@@ -25,6 +25,8 @@ function getStoredConsent(): ConsentState | null {
 
 function storeConsent(consent: ConsentState) {
   localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
+  // GoogleAnalytics écoute cet événement pour (dé)charger les scripts sans reload.
+  window.dispatchEvent(new Event("df-consent-changed"));
 }
 
 export default function CookieBanner() {

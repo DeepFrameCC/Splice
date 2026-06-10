@@ -7,6 +7,7 @@ import ProjetsClient from "@/components/gallery/ProjetsClient";
 import GalerieAnimations from "@/components/gallery/GalerieAnimations";
 import { buildGalleryJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
 import type { Metadata } from "next";
 import "./projets.css";
 
@@ -82,14 +83,15 @@ export default async function GaleriePage() {
     likedIds = likes.map((l) => l.mediaId);
   } catch (e) {
     console.error("[galerie] DB error:", e);
-    const errMsg = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
     return (
       <div className="df-site">
         <NavWrapper />
-        <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 120, padding: "120px 40px" }}>
-          <pre style={{ color: "#ff6b6b", fontSize: 13, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
-            [DEBUG PROD] {errMsg}
-          </pre>
+        <div style={{ background: "#0E0E22", minHeight: "100vh", padding: "160px 40px", textAlign: "center" }}>
+          <p style={{ color: "#fff", fontSize: 18, fontWeight: 700 }}>La galerie est momentanément indisponible.</p>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, marginTop: 12 }}>
+            Réessayez dans quelques instants ou{" "}
+            <a href="/contact" style={{ color: "#F36B1F", textDecoration: "underline" }}>contactez-nous</a>.
+          </p>
         </div>
         <Footer />
       </div>
@@ -110,6 +112,7 @@ export default async function GaleriePage() {
         />
       </div>
       <Footer />
+      <StickyMobileCta source="sticky_galerie" label="Un projet ? Devis gratuit" />
     </div>
   );
 }

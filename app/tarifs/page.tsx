@@ -6,6 +6,7 @@ import { buildPricingJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
+import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
 
 export const metadata: Metadata = {
   title: "Tarifs vidéo & photo — Orléans & Tours",
@@ -51,6 +52,7 @@ export default function TarifsPage() {
         <PricingSection />
       </main>
       <Footer />
+      <StickyMobileCta source="sticky_tarifs" />
     </div>
   );
 }

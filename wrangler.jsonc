@@ -47,7 +47,8 @@
   "vars": {
     "NEXT_PUBLIC_APP_URL": "https://splicestudio.fr",
     "R2_PUBLIC_DOMAIN": "cdn.splicestudio.fr",
-    "NEXT_PUBLIC_GTM_ID": "GTM-KN98673M"
+    "NEXT_PUBLIC_GTM_ID": "GTM-KN98673M",
+    "NEXT_PUBLIC_GA_ID": "G-JX89Q2TSTE"
   },
   "observability": {
     "enabled": true
