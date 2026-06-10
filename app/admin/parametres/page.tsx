@@ -23,18 +23,18 @@ export default function AdminParametresPage() {
           <Package className="h-5 w-5 text-df-gold" />
           <div>
             <h2 className="font-display text-lg font-bold text-white">Tarifs des abonnements</h2>
-            <p className="text-xs text-white/30">Modifiez dans lib/pricing.ts</p>
+            <p className="text-xs text-white/55">Modifiez dans lib/pricing.ts</p>
           </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/[0.08] text-left">
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Plan</th>
-                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Mensuel</th>
-                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Annuel /mois</th>
-                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/30">Vidéos /mois</th>
-                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Tagline</th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">Plan</th>
+                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/55">Mensuel</th>
+                <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/55">Annuel /mois</th>
+                <th className="px-5 py-3 text-center text-xs font-bold uppercase tracking-wider text-white/55">Vidéos /mois</th>
+                <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">Tagline</th>
               </tr>
             </thead>
             <tbody>
@@ -137,7 +137,7 @@ export default function AdminParametresPage() {
           <FileText className="h-5 w-5 text-white/40" />
           <div>
             <h2 className="font-display text-lg font-bold text-white">Mentions légales devis/factures</h2>
-            <p className="text-xs text-white/30">Incluses automatiquement dans les PDFs</p>
+            <p className="text-xs text-white/55">Incluses automatiquement dans les PDFs</p>
           </div>
         </div>
         <div className="px-6 py-4">

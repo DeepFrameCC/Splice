@@ -135,7 +135,7 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
           )}
         </button>
 
-        <p className="mt-5 text-center text-[10px] leading-relaxed text-white/30">
+        <p className="mt-5 text-center text-[10px] leading-relaxed text-white/55">
           Paiement 100% sécurisé géré par notre prestataire de paiement agréé Stripe.<br />
           TVA non applicable, art. 293 B du CGI.
         </p>

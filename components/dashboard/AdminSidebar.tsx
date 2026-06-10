@@ -65,7 +65,7 @@ export default function AdminSidebar({ userName, userRole, counts }: Props) {
   }
 
   return (
-    <aside className="flex h-full flex-col rounded-3xl bg-df-ink p-6 shadow-xl">
+    <aside className="flex h-full flex-col rounded-3xl bg-df-surface p-6 ring-1 ring-white/[0.08]">
       {/* Logo */}
       <div className="mb-8">
         <Link href="/admin" className="block">

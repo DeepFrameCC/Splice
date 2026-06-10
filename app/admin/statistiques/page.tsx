@@ -168,7 +168,7 @@ export default async function AdminStatsPage() {
           {funnelData.length > 0 ? (
             <FunnelPieChart data={funnelData} />
           ) : (
-            <p className="py-12 text-center text-sm text-white/30">Pas de données.</p>
+            <p className="py-12 text-center text-sm text-white/55">Pas de données.</p>
           )}
         </div>
       </div>
@@ -187,7 +187,7 @@ export default async function AdminStatsPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-white">{p.label}</p>
-                  <p className="text-xs text-white/30">{p.count} devis</p>
+                  <p className="text-xs text-white/55">{p.count} devis</p>
                 </div>
                 <p className="font-display text-sm font-bold text-df-gold">
                   {p.value.toLocaleString("fr-FR")} €
@@ -195,7 +195,7 @@ export default async function AdminStatsPage() {
               </div>
             ))}
             {caByPack.length === 0 && (
-              <p className="px-6 py-8 text-center text-sm text-white/30">Aucune donnée.</p>
+              <p className="px-6 py-8 text-center text-sm text-white/55">Aucune donnée.</p>
             )}
           </div>
         </div>
@@ -212,7 +212,7 @@ export default async function AdminStatsPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold text-white">{c.label}</p>
-                  <p className="text-xs text-white/30">{c.count} devis</p>
+                  <p className="text-xs text-white/55">{c.count} devis</p>
                 </div>
                 <p className="font-display text-sm font-bold text-df-gold">
                   {c.value.toLocaleString("fr-FR")} €
@@ -220,7 +220,7 @@ export default async function AdminStatsPage() {
               </div>
             ))}
             {caByChef.length === 0 && (
-              <p className="px-6 py-8 text-center text-sm text-white/30">Aucune donnée.</p>
+              <p className="px-6 py-8 text-center text-sm text-white/55">Aucune donnée.</p>
             )}
           </div>
         </div>
@@ -244,7 +244,7 @@ export default async function AdminStatsPage() {
             </div>
           ))}
           {topClients.length === 0 && (
-            <p className="px-6 py-8 text-center text-sm text-white/30">Aucun client.</p>
+            <p className="px-6 py-8 text-center text-sm text-white/55">Aucun client.</p>
           )}
         </div>
       </div>

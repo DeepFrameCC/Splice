@@ -161,7 +161,7 @@ export default async function AdminComptabilitePage() {
           <h2 className="font-display text-lg font-bold text-white">
             Livre des recettes {currentYear}
           </h2>
-          <p className="mt-0.5 text-xs text-white/30">
+          <p className="mt-0.5 text-xs text-white/55">
             {recettesAnnee.length} encaissement{recettesAnnee.length > 1 ? "s" : ""} · TVA non applicable, art. 293 B du CGI
           </p>
         </div>
@@ -169,7 +169,7 @@ export default async function AdminComptabilitePage() {
         {recettesAnnee.length === 0 ? (
           <div className="px-6 py-12 text-center">
             <BookOpen className="mx-auto h-10 w-10 text-white/20" />
-            <p className="mt-4 text-sm text-white/30">Aucun encaissement enregistré en {currentYear}.</p>
+            <p className="mt-4 text-sm text-white/55">Aucun encaissement enregistré en {currentYear}.</p>
           </div>
         ) : (
           <>
@@ -177,12 +177,12 @@ export default async function AdminComptabilitePage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/[0.08] text-left">
-                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Date</th>
-                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">N° Facture</th>
-                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">N° Devis</th>
-                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Client</th>
-                    <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/30">Montant HT</th>
-                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/30">Mode</th>
+                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">Date</th>
+                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">N° Facture</th>
+                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">N° Devis</th>
+                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">Client</th>
+                    <th className="px-5 py-3 text-right text-xs font-bold uppercase tracking-wider text-white/55">Montant HT</th>
+                    <th className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white/55">Mode</th>
                   </tr>
                 </thead>
                 <tbody>

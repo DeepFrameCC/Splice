@@ -178,23 +178,23 @@ export default async function ClientDetailPage({
           </div>
           <div className="mt-4 space-y-1.5 text-xs text-white/60">
             <p className="flex items-center gap-2">
-              <Mail className="h-3.5 w-3.5 text-white/30" /> {user.email}
+              <Mail className="h-3.5 w-3.5 text-white/55" /> {user.email}
             </p>
             {user.profile?.tel && (
               <p className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 text-white/30" /> {user.profile.tel}
+                <Phone className="h-3.5 w-3.5 text-white/55" /> {user.profile.tel}
               </p>
             )}
             {user.profile?.ville && (
               <p className="flex items-center gap-2">
-                <MapPin className="h-3.5 w-3.5 text-white/30" /> {user.profile.ville}, {user.profile.codePostal}
+                <MapPin className="h-3.5 w-3.5 text-white/55" /> {user.profile.ville}, {user.profile.codePostal}
               </p>
             )}
             <p className="flex items-center gap-2">
-              <Calendar className="h-3.5 w-3.5 text-white/30" /> Inscrit le {user.createdAt.toLocaleDateString("fr-FR")}
+              <Calendar className="h-3.5 w-3.5 text-white/55" /> Inscrit le {user.createdAt.toLocaleDateString("fr-FR")}
             </p>
             <p className="flex items-center gap-2">
-              <Shield className="h-3.5 w-3.5 text-white/30" /> 2FA {user.twoFactorEnabled ? "activé" : "désactivé"}
+              <Shield className="h-3.5 w-3.5 text-white/55" /> 2FA {user.twoFactorEnabled ? "activé" : "désactivé"}
             </p>
           </div>
         </div>
@@ -259,7 +259,7 @@ export default async function ClientDetailPage({
                   </div>
                   <p className="mt-0.5 text-xs text-white/40">{item.sub}</p>
                 </div>
-                <span className="shrink-0 text-xs text-white/30">
+                <span className="shrink-0 text-xs text-white/55">
                   {item.date.toLocaleDateString("fr-FR")}
                 </span>
               </div>
