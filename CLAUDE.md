@@ -2,6 +2,91 @@
 
 Ce fichier décrit **uniquement les modules spécifiques au projet Splice Studio**. Les compétences (skills), les sous-agents et les bonnes pratiques transverses sont définis dans le `CLAUDE.md` global (`~/.claude/CLAUDE.md`) et s'appliquent à toutes les sessions — ne pas les dupliquer ici.
 
+## Protocole de raisonnement
+
+Appliquer cette méthode sur **toute** tâche, quelle que soit sa taille. L'objectif : zéro supposition, zéro affirmation non vérifiée.
+
+### 1. Comprendre avant d'agir
+- **Lire le code réel avant de répondre ou modifier.** Ne jamais raisonner depuis la mémoire de la stack ou des conventions supposées — Splice a ses propres invariants (numbering transactionnel, prix en euros entiers, Workers ≠ Node runtime).
+- Lancer les recherches indépendantes **en parallèle** (Glob + Grep + Read simultanés), pas en série.
+- Avant de toucher un fichier, identifier ses consommateurs (`Grep` sur les imports) : une modification de `lib/pricing.ts` ou `lib/numbering.ts` impacte devis, PDF, Stripe et emails.
+- Reformuler la demande en une phrase + critères de succès vérifiables. Si deux interprétations existent et changent le code produit, demander **avant** d'implémenter, pas après.
+
+### 2. Calibrer l'effort
+- Tâche triviale (typo, copy, valeur de config) → agir directement, pas de plan.
+- Tâche non triviale (logique métier, schéma Prisma, auth, paiement) → plan court d'abord : fichiers touchés, ordre des changements, risques, comment vérifier.
+- Score d'incertitude honnête : si une hypothèse n'est pas vérifiée dans le code, la marquer comme hypothèse — ou la vérifier maintenant. Ne jamais présenter une supposition comme un fait.
+
+### 3. Debug : cause racine, pas symptôme
+1. **Reproduire** (ou localiser la trace exacte : Sentry, logs Workers, erreur build).
+2. **Consulter la mémoire d'abord** : `memory/drafts/fix-*.md` et le vault générique — le bug a peut-être déjà été résolu (cf. section Connectome Vault).
+3. Formuler 2-3 hypothèses classées par probabilité, puis les **éliminer par la preuve** (lecture de code, log, test), pas par intuition.
+4. Corriger la cause racine. Si on ne corrige qu'un symptôme (contrainte de temps), le dire explicitement.
+5. Écrire la note `fix-*` dans le vault (format ci-dessous).
+
+### 4. Vérifier avant de déclarer terminé
+- Minimum systématique : `npm run lint` + `npm run test`. Si schéma Prisma, route, ou config touchés : `npm run build` (qui inclut `prisma generate`).
+- Rapporter les résultats **fidèlement** : un test qui échoue est annoncé avec sa sortie, jamais masqué ni contourné en désactivant le test.
+- « Ça devrait marcher » est interdit. Soit c'est vérifié, soit c'est dit comme non vérifié.
+
+### 5. Sobriété du code
+- Périmètre minimal : ne corriger que ce qui est demandé. Pas de refactor opportuniste, pas d'abstraction spéculative, pas de dépendance ajoutée sans justification.
+- Le code suit l'idiome du fichier hôte (nommage, densité de commentaires, patterns existants).
+- Compatibilité Workers obligatoire : pas d'API Node non supportée par le runtime Cloudflare (utiliser WebCrypto, pas `crypto` Node ; pas de `fs`).
+
+## Connectome Vault — mémoire active
+
+Connectome Vault est la bibliothèque de connaissances IA (skills, patterns, fixes, décisions). Deux niveaux :
+
+- **MCP `vault-splice`** — mémoire projet : dossier `memory/` de ce repo (`C:/Users/Windows/Splice/memory` en local).
+- **MCP `vault-generic`** — bibliothèque centrale : `C:/Users/Windows/connectome-vault/memory`.
+- Schéma mémoire actif : **v3.5**. Règle source : `.agent/rules/connectome.md`.
+
+### Début de session (obligatoire)
+1. `memory_get_summary` sur `vault-splice`.
+2. **Fallback sans MCP** (sessions distantes/CI) : lire directement `memory/summary.md` puis `memory/00-MOC-project.md`, et parcourir les titres de `memory/drafts/`.
+
+### Lecture — quand consulter le vault
+- Avant tout debug → chercher un `fix-*` existant dans `memory/drafts/` et `vault-generic`.
+- Avant toute décision d'architecture → vérifier les ADR existants (`decisions/`) pour ne pas contredire un choix acté.
+- Avant d'implémenter un pattern courant (upload R2, email Resend, webhook, cron) → chercher un patron `tech/` réutilisable dans `vault-generic`.
+
+### Écriture — quand enrichir le vault
+Écrire une note dans `memory/drafts/` à chaque : **bug corrigé** (`fix-*`), **pattern technique réutilisable**, **décision d'architecture (ADR)**, **leçon de prod** (incident, perf, SEO). Format v3.5 :
+
+```markdown
+---
+id: fix-<slug-court>
+title: "Titre descriptif"
+summary: "1-2 phrases : symptôme, cause racine, solution."
+type: fix            # fix | pattern | decision | feature
+coreprimary: fixes   # fixes | tech | decisions | design | product
+importance: 0.5      # 0.0-1.0
+status: draft
+schemaversion: "3.5"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+links: []
+---
+
+# Titre
+
+## Problématique
+(symptôme observé, contexte, message d'erreur exact)
+
+## Cause racine
+(le pourquoi réel, pas le symptôme)
+
+## Solution implémentée
+(étapes numérotées)
+
+## Fichiers modifiés / créés
+- chemin [NEW|MODIFY]
+```
+
+- **Enrichissement central** : tout patron `tech/`, correctif `fixes/` ou ADR `decisions/` **générique** (non spécifique à Splice) doit aussi être écrit comme draft dans `vault-generic` pour la bibliothèque commune.
+- Tenir `memory/summary.md` à jour (date, état, prochaine action) en fin de session significative.
+
 ## Commands
 
 ```bash
@@ -103,6 +188,12 @@ app/
 - **Quote numbering** (`lib/numbering.ts`): `nextNumero(type, tx)` — MUST be called inside `db.$transaction()`, never outside.
 - **Fiscal rule**: TVA non applicable, art. 293 B du CGI. Mention obligatoire sur devis et factures.
 - **Numbering**: Sequential, no gaps allowed (L123-22 Code commerce). Format: `{YYYY}_{seq:03d}`.
+
+### Pièges connus (issus du vault — détails dans `memory/drafts/`)
+
+- **Neon scale-to-zero → 504 sur Workers** : la DB en veille dépasse le budget d'exécution du Worker au réveil. Mitigé par le cron keep-alive (`app/api/cron/keep-alive/route.ts`, toutes les 4 min via `wrangler.jsonc`) et `statement_timeout` 8 s dans `lib/db.ts`. Ne pas supprimer ces garde-fous. → `fix-504-timeout-neon-galerie.md`
+- **CSP** : la CSP est définie dans `middleware.ts` — toute nouvelle origine (script analytics, pixel, domaine image) doit y être ajoutée (`img-src`, `connect-src`…), sinon blocage silencieux en prod. → `fix-csp-gtm-ga4.md`
+- **JSON-LD** : un seul schéma `FAQPage` par page — les doublons cassent les rich results. → `fix-duplicate-faqpage-schema.md`
 
 ### Server Actions
 
