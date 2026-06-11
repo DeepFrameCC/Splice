@@ -176,6 +176,35 @@ async function main() {
   const { blogContent } = await import("./blog-content");
   const adminUser = await db.user.findUnique({ where: { email: adminEmail } });
 
+  // ── Autrice du blog : Louisia (E-E-A-T) ────────────────────────────
+  // Mot de passe aléatoire : compte d'attribution, réinitialisable via
+  // "mot de passe oublié". Aucun credential en dur.
+  const louisiaEmail = process.env.LOUISIA_SEED_EMAIL ?? "by.louisia@splice.cc";
+  const louisiaPasswordHash = await hashPassword(crypto.randomUUID() + crypto.randomUUID());
+  const louisiaUser = await db.user.upsert({
+    where: { email: louisiaEmail },
+    update: { pseudo: "Louisia", role: "TEAM" },
+    create: {
+      email: louisiaEmail,
+      passwordHash: louisiaPasswordHash,
+      role: "TEAM",
+      pseudo: "Louisia",
+      emailVerified: new Date(),
+      profile: {
+        create: {
+          prenom: "Louisia",
+          nom: "Splice Studio",
+          adresse: "Orleans",
+          codePostal: "45000",
+          ville: "Orleans",
+          tel: "+33651109202",
+          age: 25,
+        },
+      },
+    },
+  });
+  console.log("Autrice blog:", louisiaUser.email);
+
   type BlogSeedPost = {
     slug: string;
     title: string;
@@ -306,7 +335,7 @@ async function main() {
       status: "PUBLISHED" as const,
       publishedAt: bp.publishedAt,
       parentServiceId: service.id,
-      authorId: adminUser?.id ?? null,
+      authorId: louisiaUser?.id ?? adminUser?.id ?? null,
       readingTimeMin: Math.max(3, Math.round((content.replace(/<[^>]*>/g, "").split(/\s+/).length) / 200)),
       metaTitle: bp.metaTitle ?? null,
       metaDescription: bp.metaDescription ?? null,
