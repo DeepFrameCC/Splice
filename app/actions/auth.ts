@@ -9,10 +9,7 @@ import { randomBytes } from "crypto";
 import { redirect } from "next/navigation";
 import { authLimiter, checkRateLimit } from "@/lib/rate-limit";
 import { audit } from "@/lib/audit";
-
-const pseudoRegex = /^[a-z0-9._]+$/;
-const formatPseudo = (raw: string) =>
-  raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9._]/g, ".").replace(/\.+/g, ".").replace(/^\.|\.$/g, "");
+import { pseudoRegex, formatPseudo } from "@/lib/auth-utils";
 
 const registerSchema = z.object({
   email: z.string().email("Email invalide"),
@@ -71,35 +68,39 @@ export async function registerAction(_prev: unknown, formData: FormData) {
       return { ok: false, error: `Captcha invalide (${errDetail})` };
     }
 
+    // Revalide après formatage : formatPseudo peut raccourcir la valeur brute
+    // (ex. "a__" → "a") alors que le min(3) Zod ne voit que l'entrée brute.
     const pseudo = formatPseudo(d.pseudo);
-    if (!pseudoRegex.test(pseudo)) return { ok: false, error: "Pseudo : minuscules, chiffres, points uniquement" };
+    if (pseudo.length < 3 || !pseudoRegex.test(pseudo)) {
+      return { ok: false, error: "Pseudo : min 3 caractères, minuscules, chiffres, points uniquement" };
+    }
 
     const exists = await db.user.findFirst({ where: { OR: [{ email: d.email }, { pseudo }] } });
     if (exists) return { ok: false, error: "Email ou pseudo déjà utilisé" };
 
     const passwordHash = await hashPassword(d.password);
 
-    // 1. Écriture séquentielle 1 : Créer l'utilisateur (évite la transaction automatique de Prisma)
-    const newUser = await db.user.create({
+    // Nested create : user + profil en UNE requête atomique. Pas de transaction
+    // interactive (interdite sur Workers + Neon, connexion recyclée), mais le
+    // nested write Prisma est atomique → plus d'utilisateur orphelin sans profil
+    // si la seconde écriture échoue.
+    await db.user.create({
       data: {
         email: d.email,
         passwordHash,
         pseudo,
-      },
-    });
-
-    // 2. Écriture séquentielle 2 : Créer le profil associé
-    await db.profile.create({
-      data: {
-        userId: newUser.id,
-        prenom: d.prenom ?? null,
-        nom: d.nom ?? null,
-        nomEntreprise: d.nomEntreprise ?? null,
-        adresse: d.adresse,
-        codePostal: d.codePostal ?? null,
-        ville: d.ville ?? null,
-        tel: d.tel,
-        age: d.age,
+        profile: {
+          create: {
+            prenom: d.prenom ?? null,
+            nom: d.nom ?? null,
+            nomEntreprise: d.nomEntreprise ?? null,
+            adresse: d.adresse,
+            codePostal: d.codePostal ?? null,
+            ville: d.ville ?? null,
+            tel: d.tel,
+            age: d.age,
+          },
+        },
       },
     });
 
