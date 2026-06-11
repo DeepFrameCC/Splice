@@ -11,7 +11,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>1. Ignorer les 3 premières secondes</h3>
 
-<p>Selon une étude Meta (2025), <strong>65 % des utilisateurs qui regardent les 3 premières secondes d'une vidéo la regardent pendant au moins 10 secondes</strong>. À l'inverse, un démarrage mou — logo animé, générique lent, plan d'attente — et votre audience scrolle sans remords.</p>
+<p>Selon une étude Meta (2025), <strong>65 % des utilisateurs qui regardent les 3 premières secondes d'une vidéo la regardent pendant au moins 10 secondes</strong>. À l'inverse, un démarrage mou, logo animé, générique lent, plan d'attente, et votre audience scrolle sans remords.</p>
 
 <p>Les erreurs classiques :</p>
 <ul>
@@ -47,7 +47,7 @@ export const blogContent: Record<string, string> = {
   <li>Des sous-titres placés dans les zones masquées par l'interface de l'application</li>
 </ul>
 
-<p><strong>La solution :</strong> intégrez les sous-titres dès le montage avec une police lisible (sans-serif, corps suffisant, fond semi-transparent ou ombre portée). Relisez-les systématiquement. Et placez-les dans la <em>safe zone</em> — cette zone centrale de l'écran qui n'est jamais recouverte par les boutons de l'application.</p>
+<p><strong>La solution :</strong> intégrez les sous-titres dès le montage avec une police lisible (sans-serif, corps suffisant, fond semi-transparent ou ombre portée). Relisez-les systématiquement. Et placez-les dans la <em>safe zone</em>, cette zone centrale de l'écran qui n'est jamais recouverte par les boutons de l'application.</p>
 
 <h3>4. Oublier le rythme et la dynamique</h3>
 
@@ -78,11 +78,11 @@ export const blogContent: Record<string, string> = {
 
 <h2>En résumé</h2>
 
-<p>Ces cinq erreurs — hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme — expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. La bonne nouvelle : elles se corrigent toutes avec un montage professionnel et une vraie réflexion en amont.</p>
+<p>Ces cinq erreurs, hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme, expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. La bonne nouvelle : elles se corrigent toutes avec un montage professionnel et une vraie réflexion en amont.</p>
 
 <p>Chez Splice Studio, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
 
-<p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h.</p>`,
+<p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h. Besoin d'un <a href="/services/montage-video/orleans">monteur vidéo à Orléans</a> ?</p>`,
 
   "guide-formats-video-2026": `<h2>Guide des formats vidéo en 2026 : TikTok, Instagram, YouTube, LinkedIn</h2>
 
@@ -98,7 +98,7 @@ export const blogContent: Record<string, string> = {
   <li><strong>Format recommandé :</strong> 9:16 (vertical plein écran)</li>
   <li><strong>Résolution :</strong> 1080 × 1920 px (Full HD vertical)</li>
   <li><strong>Durée optimale :</strong> 15 à 60 secondes (jusqu'à 10 min possible, mais le taux de complétion chute après 60 s)</li>
-  <li><strong>Codec :</strong> H.264 ou H.265 — MP4 ou MOV</li>
+  <li><strong>Codec :</strong> H.264 ou H.265, MP4 ou MOV</li>
   <li><strong>Taille max :</strong> 287 Mo (mobile), 500 Mo (desktop)</li>
   <li><strong>FPS :</strong> 30 ou 60 fps</li>
 </ul>
@@ -108,7 +108,7 @@ export const blogContent: Record<string, string> = {
 <p>La <strong>production TikTok pour entreprise</strong> obéit à des codes précis. L'algorithme de TikTok en 2026 favorise le <em>watch time</em> et le taux de complétion. D'après le rapport Hootsuite Social Trends 2026, les vidéos entre <strong>21 et 34 secondes</strong> affichent les meilleurs taux d'engagement pour les comptes professionnels.</p>
 
 <ul>
-  <li>Placez votre hook dans la première seconde — littéralement</li>
+  <li>Placez votre hook dans la première seconde, littéralement</li>
   <li>Utilisez du texte à l'écran dès le premier frame</li>
   <li>Respectez la <em>safe zone</em> : évitez les 150 px du bas et les 120 px du haut</li>
   <li>Privilégiez les musiques tendance de la bibliothèque TikTok</li>
@@ -120,10 +120,10 @@ export const blogContent: Record<string, string> = {
 <h3>Spécifications techniques par format</h3>
 
 <ul>
-  <li><strong>Reels :</strong> 9:16 — 1080 × 1920 px — 15 à 90 secondes — MP4 H.264</li>
-  <li><strong>Stories :</strong> 9:16 — 1080 × 1920 px — 15 secondes par segment</li>
-  <li><strong>Feed (carré) :</strong> 1:1 — 1080 × 1080 px — jusqu'à 60 secondes</li>
-  <li><strong>Feed (portrait) :</strong> 4:5 — 1080 × 1350 px — jusqu'à 60 secondes</li>
+  <li><strong>Reels :</strong> 9:16 · 1080 × 1920 px · 15 à 90 secondes · MP4 H.264</li>
+  <li><strong>Stories :</strong> 9:16 · 1080 × 1920 px · 15 secondes par segment</li>
+  <li><strong>Feed (carré) :</strong> 1:1 · 1080 × 1080 px · jusqu'à 60 secondes</li>
+  <li><strong>Feed (portrait) :</strong> 4:5 · 1080 × 1350 px · jusqu'à 60 secondes</li>
   <li><strong>Taille max :</strong> 650 Mo</li>
 </ul>
 
@@ -143,8 +143,8 @@ export const blogContent: Record<string, string> = {
 <h3>Spécifications techniques</h3>
 
 <ul>
-  <li><strong>YouTube Shorts :</strong> 9:16 — 1080 × 1920 px — max 60 secondes</li>
-  <li><strong>Vidéo standard :</strong> 16:9 — 1920 × 1080 px minimum (4K recommandé)</li>
+  <li><strong>YouTube Shorts :</strong> 9:16 · 1080 × 1920 px · max 60 secondes</li>
+  <li><strong>Vidéo standard :</strong> 16:9 · 1920 × 1080 px minimum (4K recommandé)</li>
   <li><strong>Codec :</strong> H.264 (VP9 pour 4K HDR)</li>
   <li><strong>FPS :</strong> 24, 25, 30 ou 60 fps</li>
   <li><strong>Taille max :</strong> 256 Go</li>
@@ -157,7 +157,7 @@ export const blogContent: Record<string, string> = {
 
 <ul>
   <li>Pour les Shorts : mêmes règles que TikTok</li>
-  <li>Investissez dans la miniature — elle influence <strong>jusqu'à 60 % du taux de clic</strong></li>
+  <li>Investissez dans la miniature, elle influence <strong>jusqu'à 60 % du taux de clic</strong></li>
   <li>Ajoutez des chapitres dans la description pour améliorer la rétention</li>
   <li>Exportez en 1080p minimum, 4K si justifié</li>
 </ul>
@@ -167,10 +167,10 @@ export const blogContent: Record<string, string> = {
 <h3>Spécifications techniques</h3>
 
 <ul>
-  <li><strong>Format recommandé :</strong> 1:1 ou 4:5 pour le feed — 16:9 pour les articles</li>
+  <li><strong>Format recommandé :</strong> 1:1 ou 4:5 pour le feed, 16:9 pour les articles</li>
   <li><strong>Résolution :</strong> 1080 × 1080 px ou 1080 × 1350 px</li>
   <li><strong>Durée optimale :</strong> 30 secondes à 3 minutes</li>
-  <li><strong>Codec :</strong> H.264 — MP4</li>
+  <li><strong>Codec :</strong> H.264, MP4</li>
   <li><strong>Taille max :</strong> 5 Go</li>
 </ul>
 
@@ -199,7 +199,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Chez Splice Studio, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
 
-<p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a> — nous vous répondons sous 48 h.</p>`,
+<p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a>, nous vous répondons sous 48 h. Faites appel à notre <a href="/services/montage-video/orleans">service de montage vidéo à Orléans</a>.</p>`,
 
   "film-corporate-roi-communication": `<h2>Pourquoi le film corporate est un investissement, pas une dépense</h2>
 
@@ -277,9 +277,9 @@ export const blogContent: Record<string, string> = {
 
 <h2>Investissez malin, mesurez vos résultats</h2>
 
-<p>Avec une approche structurée — objectif clair, production soignée, diffusion stratégique et suivi des résultats — même un investissement modeste peut générer un retour significatif.</p>
+<p>Avec une approche structurée, objectif clair, production soignée, diffusion stratégique et suivi des résultats, même un investissement modeste peut générer un retour significatif.</p>
 
-<p>Chez Splice Studio, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence.</p>`,
+<p>Chez Splice Studio, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence. Découvrez notre <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a>.</p>`,
 
   "interview-dirigeant-reussie-7-conseils": `<h2>Pourquoi l'interview vidéo de dirigeant est un atout stratégique</h2>
 
@@ -349,11 +349,11 @@ export const blogContent: Record<string, string> = {
 <ul>
   <li><strong>Extraits courts</strong> pour LinkedIn, Instagram Reels ou TikTok</li>
   <li><strong>Citations visuelles</strong> sur un visuel de marque</li>
-  <li><strong>Version sous-titrée</strong> (85 % des vidéos vues sans le son — Digiday)</li>
+  <li><strong>Version sous-titrée</strong> (85 % des vidéos vues sans le son, Digiday)</li>
   <li><strong>Podcast ou version audio</strong></li>
 </ul>
 
-<p>Un seul tournage peut produire <strong>10 à 15 contenus distincts</strong>. Nos packs sont conçus pour maximiser cette valeur — que ce soit une <strong>captation événementielle Tours</strong> ou une interview corporate.</p>
+<p>Un seul tournage peut produire <strong>10 à 15 contenus distincts</strong>. Nos packs sont conçus pour maximiser cette valeur, que ce soit une <strong>captation événementielle Tours</strong> ou une interview corporate.</p>
 
 <h2>Conseil 7 : Diffusez avec une vraie stratégie</h2>
 
@@ -370,11 +370,11 @@ export const blogContent: Record<string, string> = {
 
 <p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez Splice Studio, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
 
-<p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong></p>`,
+<p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong> Voir notre <a href="/services/interview-temoignage/orleans">service d'interview vidéo à Orléans</a>.</p>`,
 
   "motion-design-vs-prise-de-vue-reelle": `<h2>Motion design ou prise de vue réelle : deux approches, un même objectif</h2>
 
-<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl (2024), 91 % des entreprises utilisent la vidéo comme outil marketing — mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique.</p>
+<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl (2024), 91 % des entreprises utilisent la vidéo comme outil marketing, mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique.</p>
 
 <h2>Comprendre les deux formats</h2>
 
@@ -454,7 +454,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez Splice Studio, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
 
-<p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une recommandation personnalisée sous 24 heures.</p>`,
+<p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une recommandation personnalisée sous 24 heures. Découvrez notre <a href="/services/motion-design/orleans">studio de motion design à Orléans</a>.</p>`,
 
   "prix-video-entreprise-2026": `<h2>Combien coûte une vidéo d'entreprise en 2026 ?</h2>
 
@@ -473,7 +473,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Des fourchettes selon le type de film</h3>
 
-<p>Pour donner des ordres de grandeur — à affiner toujours selon le projet réel — voici comment se positionnent les principaux formats :</p>
+<p>Pour donner des ordres de grandeur, à affiner toujours selon le projet réel, voici comment se positionnent les principaux formats :</p>
 <ul>
   <li><strong>Interview ou témoignage</strong> : format léger, une demi-journée de tournage, montage simple. Budget d'entrée de gamme. {{à valider : fourchette de prix}}</li>
   <li><strong>Vidéo sociale courte (Reel, TikTok, format publicitaire)</strong> : tournage condensé, montage dynamique, sous-titres et déclinaisons. {{à valider : fourchette de prix}}</li>
@@ -485,7 +485,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Pourquoi un devis sur-mesure plutôt qu'un tarif fixe</h3>
 
-<p>Méfiez-vous des « packs vidéo » à prix fixe affichés sans cadrage : ils cachent presque toujours des limites (durée stricte, un seul format, retouches comptées). Un devis sérieux part de votre objectif — recruter, vendre, présenter, former — et dimensionne les moyens en conséquence. Une vidéo destinée à une campagne publicitaire n'a pas les mêmes contraintes qu'un film institutionnel diffusé en interne.</p>
+<p>Méfiez-vous des « packs vidéo » à prix fixe affichés sans cadrage : ils cachent presque toujours des limites (durée stricte, un seul format, retouches comptées). Un devis sérieux part de votre objectif, recruter, vendre, présenter, former, et dimensionne les moyens en conséquence. Une vidéo destinée à une campagne publicitaire n'a pas les mêmes contraintes qu'un film institutionnel diffusé en interne.</p>
 
 <h3>Comment optimiser votre budget vidéo</h3>
 
@@ -508,7 +508,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Produire en interne ou faire appel à un prestataire ?</h3>
 
-<p>Internaliser la vidéo peut sembler économique, mais suppose d'investir dans du matériel, des compétences et beaucoup de temps. Pour des besoins ponctuels ou exigeants, un prestataire reste souvent plus rentable : vous payez un résultat, pas une infrastructure. Pour un flux régulier de contenus simples, un modèle hybride — tournage léger en interne, <a href="/services/montage-video">montage professionnel</a> externalisé — offre un bon compromis entre coût et qualité.</p>
+<p>Internaliser la vidéo peut sembler économique, mais suppose d'investir dans du matériel, des compétences et beaucoup de temps. Pour des besoins ponctuels ou exigeants, un prestataire reste souvent plus rentable : vous payez un résultat, pas une infrastructure. Pour un flux régulier de contenus simples, un modèle hybride, tournage léger en interne, <a href="/services/montage-video">montage professionnel</a> externalisé, offre un bon compromis entre coût et qualité.</p>
 
 <h3>Questions fréquentes sur le prix d'une vidéo d'entreprise</h3>
 
@@ -518,7 +518,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Obtenir un devis précis</h3>
 
-<p>La meilleure façon de connaître le prix de votre vidéo, c'est de partir de votre besoin réel. <strong>Décrivez votre projet en quelques minutes</strong> et nous vous transmettons une estimation détaillée. <a href="/devis">Demandez votre devis gratuit</a> : réponse sous 24 heures, sans engagement, que vous soyez à Orléans, Tours ou ailleurs en France.</p>`,
+<p>La meilleure façon de connaître le prix de votre vidéo, c'est de partir de votre besoin réel. <strong>Décrivez votre projet en quelques minutes</strong> et nous vous transmettons une estimation détaillée. <a href="/devis">Demandez votre devis gratuit</a> : réponse sous 24 heures, sans engagement, que vous soyez à Orléans, Tours ou ailleurs en France. Estimez votre <a href="/services/production-corporate/orleans">film d'entreprise à Orléans</a>.</p>`,
 
   "reussir-shooting-photo-automobile": `<h2>Réussir un shooting photo automobile : le guide complet</h2>
 
@@ -529,7 +529,7 @@ export const blogContent: Record<string, string> = {
 <p>La carrosserie est une surface réfléchissante : elle ne capte pas la lumière, elle reflète tout ce qui l'entoure. C'est ce qui rend la photo automobile si exigeante. Une lumière dure (plein soleil de midi) crée des reflets violents et des ombres cassantes. À l'inverse, une lumière douce révèle les courbes et les volumes.</p>
 <ul>
   <li><strong>Privilégiez l'heure dorée</strong> (juste après le lever ou avant le coucher du soleil) pour une lumière chaude et enveloppante.</li>
-  <li><strong>Surveillez les reflets</strong> : ce qui se reflète dans la carrosserie doit être propre et intentionnel — un ciel dégagé, une façade graphique, jamais un parking encombré.</li>
+  <li><strong>Surveillez les reflets</strong> : ce qui se reflète dans la carrosserie doit être propre et intentionnel, un ciel dégagé, une façade graphique, jamais un parking encombré.</li>
   <li><strong>Le ciel couvert n'est pas un ennemi</strong> : il agit comme une immense boîte à lumière et adoucit les reflets, idéal pour les véhicules sombres.</li>
 </ul>
 
@@ -549,7 +549,7 @@ export const blogContent: Record<string, string> = {
   <li><strong>Hauteur de prise de vue</strong> : photographier à hauteur de phares (et non debout) donne de la présence au véhicule.</li>
   <li><strong>Focale</strong> : une focale légèrement longue limite les déformations de perspective sur la carrosserie.</li>
   <li><strong>Les trois-quarts avant</strong> restent l'angle signature : ils montrent la face et le profil en une seule image.</li>
-  <li><strong>Les détails comptent</strong> : jante, calandre, logo, intérieur — ces plans serrés enrichissent une série et nourrissent les réseaux sociaux.</li>
+  <li><strong>Les détails comptent</strong> : jante, calandre, logo, intérieur, ces plans serrés enrichissent une série et nourrissent les réseaux sociaux.</li>
 </ul>
 
 <h3>Préparer le véhicule</h3>
@@ -562,7 +562,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Photo statique ou en roulant : deux disciplines</h3>
 
-<p>Un shooting automobile complet combine souvent deux types de prises de vue. La <strong>photo statique</strong>, véhicule à l'arrêt, met l'accent sur le design et les finitions ; elle se maîtrise au studio comme en extérieur. La <strong>photo en roulant</strong> (ou « rig / panning ») restitue le mouvement et le dynamisme, mais exige du matériel spécifique, des autorisations et une attention de tous les instants à la sécurité. Définir en amont ce que vous voulez raconter — élégance ou performance — oriente le choix entre ces deux approches.</p>
+<p>Un shooting automobile complet combine souvent deux types de prises de vue. La <strong>photo statique</strong>, véhicule à l'arrêt, met l'accent sur le design et les finitions ; elle se maîtrise au studio comme en extérieur. La <strong>photo en roulant</strong> (ou « rig / panning ») restitue le mouvement et le dynamisme, mais exige du matériel spécifique, des autorisations et une attention de tous les instants à la sécurité. Définir en amont ce que vous voulez raconter, élégance ou performance, oriente le choix entre ces deux approches.</p>
 
 <h3>Les erreurs fréquentes à éviter</h3>
 <ul>
@@ -580,7 +580,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Faire appel à un photographe spécialisé</h3>
 
-<p>Le shooting automobile combine des compétences pointues : gestion des reflets, repérage, retouche spécifique. Faire appel à un <a href="/services/shooting-automobile">photographe spécialisé en automobile</a> garantit des images cohérentes, prêtes à valoriser votre stock ou votre marque. <a href="/devis">Demandez un devis gratuit</a> et discutons de votre projet — réponse sous 24 heures.</p>`,
+<p>Le shooting automobile combine des compétences pointues : gestion des reflets, repérage, retouche spécifique. Faire appel à un <a href="/services/shooting-automobile">photographe spécialisé en automobile</a> garantit des images cohérentes, prêtes à valoriser votre stock ou votre marque. <a href="/devis">Demandez un devis gratuit</a> et discutons de votre projet. Réponse sous 24 heures. Voir notre <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>.</p>`,
 
   "vlog-entreprise-definition-formats": `<h2>Vlog d'entreprise : définition, formats et exemples</h2>
 
@@ -588,7 +588,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Qu'est-ce qu'un vlog d'entreprise, exactement ?</h3>
 
-<p>Le terme « vlog » contracte « vidéo » et « blog ». Appliqué à l'entreprise, il désigne un contenu vidéo récurrent qui privilégie le naturel sur la perfection. Là où un film institutionnel cherche l'image léchée, le vlog assume une esthétique plus directe, portée par une voix humaine — un dirigeant, un collaborateur, un fil rouge.</p>
+<p>Le terme « vlog » contracte « vidéo » et « blog ». Appliqué à l'entreprise, il désigne un contenu vidéo récurrent qui privilégie le naturel sur la perfection. Là où un film institutionnel cherche l'image léchée, le vlog assume une esthétique plus directe, portée par une voix humaine, un dirigeant, un collaborateur, un fil rouge.</p>
 <p>Ses caractéristiques clés :</p>
 <ul>
   <li><strong>La régularité</strong> : un vlog vit par sa fréquence (hebdomadaire, mensuelle).</li>
@@ -647,7 +647,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Lancer votre vlog d'entreprise</h3>
 
-<p>Un vlog réussi commence par une stratégie claire : à qui parlez-vous, pour dire quoi, à quelle fréquence ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble un format de vlog tenable dans la durée — réponse sous 24 heures, où que vous soyez en France.</p>`,
+<p>Un vlog réussi commence par une stratégie claire : à qui parlez-vous, pour dire quoi, à quelle fréquence ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble un format de vlog tenable dans la durée. Réponse sous 24 heures, où que vous soyez en France. Découvrez notre <a href="/services/production-corporate/orleans">production corporate à Orléans</a>.</p>`,
 
   "formats-video-reseaux-sociaux-2026": `<h2>Formats vidéo pour les réseaux sociaux : le guide 2026</h2>
 
@@ -704,7 +704,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Confier la déclinaison à des professionnels</h3>
 
-<p>Un <a href="/services/montage-video">montage vidéo professionnel</a> transforme une captation unique en plusieurs formats natifs, et une stratégie de <a href="/services/pub-reseaux-sociaux">publicité sur les réseaux sociaux</a> garantit que le bon format atteint la bonne audience. <a href="/devis">Demandez un devis gratuit</a> : nous vous aidons à définir les formats les plus rentables pour vos objectifs — réponse sous 24 heures.</p>`,
+<p>Un <a href="/services/montage-video">montage vidéo professionnel</a> transforme une captation unique en plusieurs formats natifs, et une stratégie de <a href="/services/pub-reseaux-sociaux">publicité sur les réseaux sociaux</a> garantit que le bon format atteint la bonne audience. <a href="/devis">Demandez un devis gratuit</a> : nous vous aidons à définir les formats les plus rentables pour vos objectifs. Réponse sous 24 heures. Voir notre <a href="/services/pub-reseaux-sociaux/orleans">agence de pub vidéo réseaux sociaux à Orléans</a>.</p>`,
 
   "photographe-freelance-ou-agence": `<h2>Photographe freelance ou agence : comment choisir ?</h2>
 
@@ -728,7 +728,7 @@ export const blogContent: Record<string, string> = {
   <li><strong>La polyvalence</strong> : photo, vidéo, motion design, retouche sous un même toit.</li>
   <li><strong>La gestion de projet</strong> : coordination, planning, livrables cadrés.</li>
 </ul>
-<p>En contrepartie, l'agence implique parfois un budget d'entrée plus élevé et un cadre plus structuré — ce qui est justement un avantage pour les projets ambitieux.</p>
+<p>En contrepartie, l'agence implique parfois un budget d'entrée plus élevé et un cadre plus structuré, ce qui est justement un avantage pour les projets ambitieux.</p>
 
 <h3>Les bonnes questions à se poser</h3>
 
@@ -775,11 +775,11 @@ export const blogContent: Record<string, string> = {
 
 <h3>Faire le bon choix pour votre projet</h3>
 
-<p>Le bon partenaire est celui qui comprend votre objectif avant de parler matériel. <a href="/devis">Demandez un devis gratuit</a> : décrivez votre projet et nous vous dirons honnêtement quelle approche lui convient le mieux — réponse sous 24 heures.</p>`,
+<p>Le bon partenaire est celui qui comprend votre objectif avant de parler matériel. <a href="/devis">Demandez un devis gratuit</a> : décrivez votre projet et nous vous dirons honnêtement quelle approche lui convient le mieux. Réponse sous 24 heures. Découvrez notre <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>.</p>`,
 
   "preparer-evenement-entreprise-checklist": `<h2>Préparer un événement d'entreprise : la check-list photo/vidéo</h2>
 
-<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Une préparation méthodique — brief clair, repérage, planning des moments clés, logistique technique — fait toute la différence entre des images génériques et un reportage qui valorise vraiment votre événement. Voici la check-list complète à suivre, étape par étape.</p>
+<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Une préparation méthodique, brief clair, repérage, planning des moments clés, logistique technique, fait toute la différence entre des images génériques et un reportage qui valorise vraiment votre événement. Voici la check-list complète à suivre, étape par étape.</p>
 
 <h3>Avant l'événement : cadrer le besoin</h3>
 <ul>
@@ -842,5 +842,5 @@ export const blogContent: Record<string, string> = {
 
 <h3>S'entourer des bons professionnels</h3>
 
-<p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demandez un devis gratuit</a> et préparons ensemble la couverture de votre prochain événement — réponse sous 24 heures.</p>`,
+<p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demandez un devis gratuit</a> et préparons ensemble la couverture de votre prochain événement. Réponse sous 24 heures. Préparez votre événement avec notre <a href="/services/production-corporate/orleans">équipe vidéo à Orléans</a>.</p>`,
 };
