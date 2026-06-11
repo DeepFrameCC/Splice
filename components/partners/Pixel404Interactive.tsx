@@ -35,7 +35,7 @@ const PIXEL_404 = {
   hours: [
     { day: "Lundi", time: "14:00 – 19:00" },
     { day: "Mardi au Vendredi", time: "10:00 – 19:00" },
-    { day: "Samedi", time: "10:00 – 18:00" },
+    { day: "Samedi", time: "10:00 – 19:00" },
     { day: "Dimanche", time: "Fermé" }
   ],
   socials: [
