@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Équipe",
+  title: "Notre équipe — studio vidéo Orléans & Tours",
   description:
     "Découvrez les portfolios de Louisia et Tracy, les deux fondateurs de Splice Studio.",
   openGraph: {

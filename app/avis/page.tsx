@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Avis clients",
+  title: "Avis clients — production vidéo & photo Orléans & Tours",
   description: "Découvrez les avis de nos clients sur les prestations audiovisuelles Splice Studio.",
   openGraph: {
     title: "Avis clients — Splice Studio",

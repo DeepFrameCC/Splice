@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import { buildBreadcrumbJsonLd, BASE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Partenaires — Splice Studio",
+  title: "Partenaires — production audiovisuelle à Orléans",
   description:
     "Les structures locales avec qui Splice Studio travaille, dont Pixel 404, boutique gaming et pop culture.",
   alternates: { canonical: `${BASE_URL}/partenaires` },
