@@ -1,4 +1,4 @@
-import type { SubscriptionPlan, BillingCycle } from "@/lib/pricing";
+import { resolvePlanMonthlyPrice, type SubscriptionPlan, type BillingCycle } from "@/lib/pricing";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 
@@ -15,13 +15,7 @@ export default function PlanCard({
   useLaunchPrice,
   spotsLeft,
 }: PlanCardProps) {
-  const price = useLaunchPrice
-    ? cycle === "ANNUEL"
-      ? plan.launchAnnualMonthly
-      : plan.launchMonthly
-    : cycle === "ANNUEL"
-    ? plan.stdAnnualMonthly
-    : plan.stdMonthly;
+  const price = resolvePlanMonthlyPrice(plan, cycle, useLaunchPrice);
 
   const annualTotal = useLaunchPrice
     ? plan.launchAnnualTotal
@@ -74,6 +68,9 @@ export default function PlanCard({
         </p>
       )}
       {cycle === "MENSUEL" && (
+        <p className="mt-1 text-xs text-white/60">Engagement 3 mois minimum</p>
+      )}
+      {cycle === "SANS_ENGAGEMENT" && (
         <p className="mt-1 text-xs text-white/60">Sans engagement, résiliable à tout moment</p>
       )}
 

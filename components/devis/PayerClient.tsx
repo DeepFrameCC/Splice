@@ -95,7 +95,16 @@ export default function PayerClient({ devisId, numero, nomContact, nomEntreprise
           {isAbo ? (
             <>
               <Row label="Formule" value={pack} />
-              <Row label="Facturation" value={billingCycle === "ANNUEL" ? "Annuelle" : "Mensuelle"} />
+              <Row
+                label="Facturation"
+                value={
+                  billingCycle === "ANNUEL"
+                    ? "Annuelle"
+                    : billingCycle === "SANS_ENGAGEMENT"
+                    ? "Mensuelle, sans engagement"
+                    : "Mensuelle, engagement 3 mois"
+                }
+              />
               <div className="border-t border-white/[0.08] pt-3">
                 <Row label={`Montant / ${cycleLabel}`} value={`${totalHT} €`} bold />
               </div>

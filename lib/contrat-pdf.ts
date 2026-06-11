@@ -114,8 +114,12 @@ export async function buildContratPdfBytes(contrat: Contrat, devis: Devis): Prom
   /* ── Article 2 — Durée ────────────────────────────────────────── */
   article("Article 2 — Entrée en vigueur et durée");
   if (isAbo) {
+    const engagementClause =
+      devis.billingCycle === "MENSUEL"
+        ? `L'abonnement est souscrit avec un engagement minimum de 3 mois ; le Client peut résilier à l'issue de cette période d'engagement, depuis son espace client. `
+        : `Le Client peut résilier à tout moment depuis son espace client ; `;
     para(
-      `Le contrat prend effet à la date d'activation de l'abonnement par le Client et est conclu pour une période ${cycleLabel}, renouvelée tacitement à chaque échéance. Le Client peut résilier à tout moment depuis son espace client ; la résiliation prend effet au terme de la période en cours, déjà réglée, sans remboursement prorata. Le contrat demeure en vigueur jusqu'à la fin du dernier cycle souscrit et la livraison des contenus dus au titre de ce cycle (« fin du projet »).`,
+      `Le contrat prend effet à la date d'activation de l'abonnement par le Client et est conclu pour une période ${cycleLabel}, renouvelée tacitement à chaque échéance. ${engagementClause}la résiliation prend effet au terme de la période en cours, déjà réglée, sans remboursement prorata. Le contrat demeure en vigueur jusqu'à la fin du dernier cycle souscrit et la livraison des contenus dus au titre de ce cycle (« fin du projet »).`,
     );
   } else {
     para(

@@ -127,6 +127,35 @@ describe("computeAbonnementQuote", () => {
     expect(quote.totalHT).toBe(79);
   });
 
+  it("adds 20 € supplement for sans engagement (launch)", () => {
+    const quote = computeAbonnementQuote({ ...BASE_ABO_INPUT, billingCycle: "SANS_ENGAGEMENT" });
+    // STANDARD launch monthly 49 + 20 = 69
+    expect(quote.totalHT).toBe(49 + 20);
+    expect(quote.lines[0]?.label).toContain("Sans engagement");
+  });
+
+  it("adds 20 € supplement for sans engagement (standard price)", () => {
+    const quote = computeAbonnementQuote({
+      ...BASE_ABO_INPUT,
+      billingCycle: "SANS_ENGAGEMENT",
+      useLaunchPrice: false,
+    });
+    // STANDARD std monthly 79 + 20 = 99
+    expect(quote.totalHT).toBe(79 + 20);
+  });
+
+  it("labels the monthly base line as engagement 3 mois", () => {
+    const quote = computeAbonnementQuote(BASE_ABO_INPUT);
+    expect(quote.lines[0]?.label).toContain("Engagement 3 mois");
+  });
+
+  it("bills sans engagement monthly via Stripe (interval month)", () => {
+    const quote = computeAbonnementQuote({ ...BASE_ABO_INPUT, billingCycle: "SANS_ENGAGEMENT" });
+    const items = quoteToStripeLineItems(quote, "SANS_ENGAGEMENT");
+    expect(items[0]?.price_data.unit_amount).toBe(6900);
+    expect(items[0]?.price_data.recurring.interval).toBe("month");
+  });
+
   it("adds options per video count", () => {
     const quote = computeAbonnementQuote({
       ...BASE_ABO_INPUT,

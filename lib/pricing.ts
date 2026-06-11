@@ -3,7 +3,9 @@ import type { DureeTournage, DelaiLivraison, VilleDepart, Founder } from "@prism
 // ─── Plan IDs ─────────────────────────────────────────────────────
 
 export type PlanId = "STANDARD" | "PRO" | "PREMIUM_ABO";
-export type BillingCycle = "MENSUEL" | "ANNUEL";
+// MENSUEL = mensuel avec engagement minimum de 3 mois (tarif de base).
+// ANNUEL = annuel payé d'avance. SANS_ENGAGEMENT = base mensuelle + supplément, résiliable.
+export type BillingCycle = "MENSUEL" | "ANNUEL" | "SANS_ENGAGEMENT";
 export type DevisMode = "ABONNEMENT" | "PACK_PARTICULIER" | "FORMULE_BIENVENUE";
 
 // ─── Subscription Plans ───────────────────────────────────────────
@@ -104,6 +106,37 @@ export const PLAN_IDS: PlanId[] = ["STANDARD", "PRO", "PREMIUM_ABO"];
 
 // ─── Status de l'Offre de Lancement (5 places tous packs confondus) ──
 export const LAUNCH_STATUS = { complete: false, spotsLeft: 5 };
+
+// ─── Engagement & supplément sans engagement ──────────────────────
+// Durée d'engagement minimum pour le tarif mensuel de base.
+export const ENGAGEMENT_MOIS = 3;
+// Supplément mensuel facturé pour la formule sans engagement (résiliable à tout moment).
+export const SANS_ENGAGEMENT_SUPPLEMENT = 20;
+
+/**
+ * Prix mensuel affiché d'une formule selon le cycle de facturation :
+ * - ANNUEL → équivalent mensuel du forfait annuel ;
+ * - MENSUEL → base mensuelle (engagement 3 mois) ;
+ * - SANS_ENGAGEMENT → base mensuelle + supplément.
+ */
+export function resolvePlanMonthlyPrice(
+  plan: SubscriptionPlan,
+  cycle: BillingCycle,
+  useLaunchPrice: boolean,
+): number {
+  if (cycle === "ANNUEL") {
+    return useLaunchPrice ? plan.launchAnnualMonthly : plan.stdAnnualMonthly;
+  }
+  const baseMonthly = useLaunchPrice ? plan.launchMonthly : plan.stdMonthly;
+  return cycle === "SANS_ENGAGEMENT" ? baseMonthly + SANS_ENGAGEMENT_SUPPLEMENT : baseMonthly;
+}
+
+/** Libellé court d'un cycle de facturation (UI, PDF, devis). */
+export function billingCycleLabel(cycle: string | null): string {
+  if (cycle === "ANNUEL") return "Annuel";
+  if (cycle === "SANS_ENGAGEMENT") return "Sans engagement";
+  return `Engagement ${ENGAGEMENT_MOIS} mois`;
+}
 
 // ─── Formule Bienvenue (gratuite, nouveaux clients) ──────────────
 
@@ -436,31 +469,24 @@ export function computeAbonnementQuote(input: AbonnementInput): Quote {
     throw new PricingError("Le nombre de photos retouchées ne peut pas dépasser le nombre de photos JPG commandées.");
   }
 
-  // Monthly price
-  let monthlyPrice: number;
-  let lineLabel: string;
-
-  if (input.useLaunchPrice) {
-    if (input.billingCycle === "ANNUEL") {
-      monthlyPrice = plan.launchAnnualMonthly;
-      lineLabel = `${plan.label} — Annuel (offre de lancement)`;
-      lines.push({ label: lineLabel, total: plan.launchAnnualTotal });
+  // Tarif de la formule selon le cycle.
+  const launchSuffix = input.useLaunchPrice ? " (offre de lancement)" : "";
+  if (input.billingCycle === "ANNUEL") {
+    const annualTotal = input.useLaunchPrice ? plan.launchAnnualTotal : plan.stdAnnualTotal;
+    lines.push({ label: `${plan.label} — Annuel${launchSuffix}`, total: annualTotal });
+    if (input.useLaunchPrice) {
       lines.push({ label: `Économie : ${plan.launchAnnualSaving} € / an`, total: 0 });
-    } else {
-      monthlyPrice = plan.launchMonthly;
-      lineLabel = `${plan.label} — Mensuel (offre de lancement)`;
-      lines.push({ label: lineLabel, total: monthlyPrice });
     }
+  } else if (input.billingCycle === "SANS_ENGAGEMENT") {
+    lines.push({
+      label: `${plan.label} — Sans engagement${launchSuffix}`,
+      total: resolvePlanMonthlyPrice(plan, "SANS_ENGAGEMENT", input.useLaunchPrice),
+    });
   } else {
-    if (input.billingCycle === "ANNUEL") {
-      monthlyPrice = plan.stdAnnualMonthly;
-      lineLabel = `${plan.label} — Annuel`;
-      lines.push({ label: lineLabel, total: plan.stdAnnualTotal });
-    } else {
-      monthlyPrice = plan.stdMonthly;
-      lineLabel = `${plan.label} — Mensuel`;
-      lines.push({ label: lineLabel, total: monthlyPrice });
-    }
+    lines.push({
+      label: `${plan.label} — Engagement ${ENGAGEMENT_MOIS} mois${launchSuffix}`,
+      total: resolvePlanMonthlyPrice(plan, "MENSUEL", input.useLaunchPrice),
+    });
   }
 
   // Options à la carte

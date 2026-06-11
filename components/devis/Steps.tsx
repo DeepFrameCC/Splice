@@ -12,6 +12,7 @@ import {
   PRIX_KM,
   VILLE_DEPART_LABEL,
   LAUNCH_STATUS,
+  resolvePlanMonthlyPrice,
   type PlanId,
   type BillingCycle,
   type DevisMode,
@@ -220,7 +221,7 @@ export function Step2Abonnement() {
 
       {/* Billing toggle */}
       <div className="mt-6 flex items-center justify-center gap-3">
-        {(["MENSUEL", "ANNUEL"] as BillingCycle[]).map((bc) => (
+        {(["MENSUEL", "ANNUEL", "SANS_ENGAGEMENT"] as BillingCycle[]).map((bc) => (
           <button
             key={bc}
             type="button"
@@ -231,7 +232,7 @@ export function Step2Abonnement() {
                 : "bg-white/[0.06] text-white/60 hover:text-white"
             }`}
           >
-            {bc === "MENSUEL" ? "Mensuel" : "Annuel"}
+            {bc === "MENSUEL" ? "Mensuel" : bc === "ANNUEL" ? "Annuel" : "Sans engagement"}
             {bc === "ANNUEL" && (
               <span className="ml-1.5 text-[10px] font-bold text-emerald-400">
                 Économisez
@@ -248,13 +249,7 @@ export function Step2Abonnement() {
           const active = f.planId === id;
           const launchStatus = LAUNCH_STATUS;
           const usePlanLaunchPrice = !launchStatus.complete;
-          const price = usePlanLaunchPrice
-            ? f.billingCycle === "ANNUEL"
-              ? plan.launchAnnualMonthly
-              : plan.launchMonthly
-            : f.billingCycle === "ANNUEL"
-            ? plan.stdAnnualMonthly
-            : plan.stdMonthly;
+          const price = resolvePlanMonthlyPrice(plan, f.billingCycle, usePlanLaunchPrice);
 
           return (
             <button

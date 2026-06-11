@@ -101,7 +101,7 @@ const contactFields = {
 const abonnementSchema = z.object({
   mode: z.literal("ABONNEMENT"),
   planId: z.enum(["STANDARD", "PRO", "PREMIUM_ABO"]),
-  billingCycle: z.enum(["MENSUEL", "ANNUEL"]),
+  billingCycle: z.enum(["MENSUEL", "ANNUEL", "SANS_ENGAGEMENT"]),
   useLaunchPrice: z.coerce.boolean(),
   options: optionsSchema,
   // Unused fields (from form state, safe to ignore)
