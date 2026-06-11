@@ -75,7 +75,10 @@ export default function CkCleanAutoCaseStudyPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">
             Étude de cas · Shooting automobile
           </p>
-          <h1 className="mt-2 font-display text-4xl uppercase tracking-tight text-white md:text-5xl">
+          <h1
+            className="mt-2 font-display text-4xl uppercase tracking-tight text-white md:text-5xl"
+            style={{ textWrap: "balance" }}
+          >
             CK Clean Auto
           </h1>
           <p className="mt-3 text-white/70">
@@ -84,25 +87,25 @@ export default function CkCleanAutoCaseStudyPage() {
           </p>
         </header>
 
-        {/* ── Chiffres clés (placeholders) ─────────────────────────────── */}
-        <section className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {/* ── Chiffres clés ────────────────────────────────────────────── */}
+        {/* TODO: chiffre réel — renseigner chaque `value` avec la donnée du projet. */}
+        <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-white/[0.08] py-6 sm:grid-cols-4">
           {[
-            { label: "Durée du tournage", value: "/* TODO: chiffre réel */" },
-            { label: "Photos livrées", value: "/* TODO: chiffre réel */" },
-            { label: "Vidéos livrées", value: "/* TODO: chiffre réel */" },
-            { label: "Délai de livraison", value: "/* TODO: chiffre réel */" },
+            { label: "Durée du tournage", value: null },
+            { label: "Photos livrées", value: null },
+            { label: "Vidéos livrées", value: null },
+            { label: "Délai de livraison", value: null },
           ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl bg-df-surface p-4 ring-1 ring-white/[0.08]"
-            >
-              <div className="font-display text-2xl text-df-gold">{stat.value}</div>
-              <div className="mt-1 text-[11px] uppercase tracking-wide text-white/50">
+            <div key={stat.label}>
+              <dd className="font-display text-2xl text-df-gold">
+                {stat.value ?? <span className="text-white/30">à compléter</span>}
+              </dd>
+              <dt className="mt-1 text-[11px] uppercase tracking-wide text-white/50">
                 {stat.label}
-              </div>
+              </dt>
             </div>
           ))}
-        </section>
+        </dl>
 
         {/* ── Contexte ─────────────────────────────────────────────────── */}
         <section className="mt-12">
