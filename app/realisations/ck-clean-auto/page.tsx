@@ -88,13 +88,12 @@ export default function CkCleanAutoCaseStudyPage() {
         </header>
 
         {/* ── Chiffres clés ────────────────────────────────────────────── */}
-        {/* TODO: chiffre réel — renseigner chaque `value` avec la donnée du projet. */}
         <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-white/[0.08] py-6 sm:grid-cols-4">
           {[
-            { label: "Durée du tournage", value: null },
-            { label: "Photos livrées", value: null },
-            { label: "Vidéos livrées", value: null },
-            { label: "Délai de livraison", value: null },
+            { label: "Durée du tournage", value: "3 h" },
+            { label: "Photos livrées", value: "10" },
+            { label: "Vidéos livrées", value: "3" },
+            { label: "Délai de livraison", value: "3 jours" },
           ].map((stat) => (
             <div key={stat.label}>
               <dd className="font-display text-2xl text-df-gold">
