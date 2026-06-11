@@ -27,7 +27,7 @@ export function buildOrganizationJsonLd() {
       name: "Centre-Val de Loire, France",
     },
     sameAs: [
-      "https://www.instagram.com/splice.cc/",
+      "https://www.instagram.com/splice.studio.cc/",
       "https://www.facebook.com/Splicecc/",
       "https://share.google/xs14h7WtSrIkYlfjS",
     ],
@@ -90,7 +90,7 @@ export function buildLocalBusinessJsonLd() {
       { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
     ],
     sameAs: [
-      "https://www.instagram.com/splice.cc/",
+      "https://www.instagram.com/splice.studio.cc/",
       "https://www.facebook.com/Splicecc/",
       "https://share.google/xs14h7WtSrIkYlfjS",
     ],

@@ -21,7 +21,7 @@ export default function Footer() {
             <a href="https://www.facebook.com/Splicecc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Facebook">
               <Facebook size={18} />
             </a>
-            <a href="https://www.instagram.com/splice.cc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Instagram">
+            <a href="https://www.instagram.com/splice.studio.cc/" target="_blank" rel="noopener noreferrer" className="df-social-btn" aria-label="Instagram">
               <Instagram size={18} />
             </a>
           </div>
