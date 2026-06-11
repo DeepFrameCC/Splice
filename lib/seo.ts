@@ -16,7 +16,7 @@ export function buildOrganizationJsonLd() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: "Splice Studio",
-    alternateName: "Splice Studio",
+    alternateName: "Splice Studio Orléans",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
     description:
@@ -31,6 +31,7 @@ export function buildOrganizationJsonLd() {
       "https://www.facebook.com/Splicecc/",
       "https://share.google/xs14h7WtSrIkYlfjS",
     ],
+    founder: { "@id": `${BASE_URL}/equipe#louisia` },
     knowsAbout: [
       "Production audiovisuelle",
       "Vidéo publicitaire",
@@ -55,6 +56,7 @@ export function buildLocalBusinessJsonLd() {
     "@id": LOCALBUSINESS_ID,
     parentOrganization: { "@id": ORG_ID },
     name: "Splice Studio",
+    alternateName: "Splice Studio Orléans",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
     image: `${BASE_URL}/og-image.jpg`,
