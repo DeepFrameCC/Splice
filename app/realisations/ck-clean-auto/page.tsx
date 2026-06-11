@@ -11,7 +11,7 @@ export const revalidate = 86400;
 const PATH = "/realisations/ck-clean-auto";
 const TITLE = "Étude de cas — Shooting auto CK Clean Auto · Orléans";
 const DESCRIPTION =
-  "Étude de cas Splice Studio Orléans : shooting photo et vidéo automobile réalisé pour CK Clean Auto dans le Loiret. Contexte, livrables et résultats du projet.";
+  "Étude de cas Splice Studio Orléans : shooting photo et vidéo automobile réalisé pour CK Clean Auto dans le Loiret (45) à Saran. Contexte, livrables et résultats du projet.";
 
 // Le nœud Organization vit dans le @graph global (app/layout.tsx).
 const ORG_ID = `${BASE_URL}/#organization`;
@@ -110,10 +110,12 @@ export default function CkCleanAutoCaseStudyPage() {
         <section className="mt-12">
           <h2 className="font-display text-2xl text-white">Le contexte</h2>
           <p className="mt-3 leading-relaxed text-white/70">
-            {/* TODO: chiffre réel — décrire le besoin client : objectif (acquisition,
-                image de marque, réseaux sociaux), cible, contraintes de lieu/date. */}
-            CK Clean Auto souhaitait valoriser son activité de detailing automobile
-            auprès de sa clientèle locale. (Détails du brief à compléter.)
+            CK Clean Auto, spécialiste du detailing automobile dans le Loiret (45),
+            nous a confié la réalisation de vidéos promotionnelles. Sur place, nous
+            avons filmé la pose d&apos;un film de protection (PPF) sur une Porsche
+            Cayman S bleue, puis interviewé le propriétaire sur l&apos;histoire et le
+            parcours de son entreprise. Le but : présenter les services et les tarifs
+            du garage à ses futurs clients.
           </p>
         </section>
 
@@ -121,9 +123,18 @@ export default function CkCleanAutoCaseStudyPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl text-white">Les objectifs</h2>
           <ul className="mt-3 space-y-2 text-white/70">
-            <li>{/* TODO: chiffre réel */} Objectif 1 (à compléter)</li>
-            <li>{/* TODO: chiffre réel */} Objectif 2 (à compléter)</li>
-            <li>{/* TODO: chiffre réel */} Objectif 3 (à compléter)</li>
+            <li>
+              <strong className="font-semibold text-white">Promouvoir</strong> l&apos;entreprise
+              et son savoir-faire en detailing automobile.
+            </li>
+            <li>
+              <strong className="font-semibold text-white">Informer</strong> les clients
+              sur les services proposés et les tarifs.
+            </li>
+            <li>
+              <strong className="font-semibold text-white">Crédibiliser</strong> l&apos;expertise
+              du garage en montrant une pose de PPF et le parcours du propriétaire.
+            </li>
           </ul>
         </section>
 
@@ -131,10 +142,10 @@ export default function CkCleanAutoCaseStudyPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl text-white">Notre intervention &amp; les livrables</h2>
           <p className="mt-3 leading-relaxed text-white/70">
-            {/* TODO: chiffre réel — préciser le déroulé : repérage, shooting,
-                rolling shots, montage, étalonnage, formats livrés (9:16 / 16:9). */}
-            Shooting réalisé à Orléans avec notre setup léger (à détailler).
-            Voir le savoir-faire associé :{" "}
+            Nous avons monté les rushes sur DaVinci Resolve et livré les vidéos au
+            format MP4. La diffusion s&apos;est faite via un post collaboratif sur
+            Instagram, publié avec le compte de CK Clean Auto. Voir le savoir-faire
+            associé :{" "}
             <Link
               href="/services/shooting-automobile"
               className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
@@ -149,9 +160,7 @@ export default function CkCleanAutoCaseStudyPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl text-white">Les résultats</h2>
           <p className="mt-3 leading-relaxed text-white/70">
-            {/* TODO: chiffre réel — résultats chiffrés : vues, engagement, leads,
-                retours client. Ne rien publier tant que les chiffres ne sont pas fournis. */}
-            Résultats à compléter avec les données réelles du projet.
+            Les vidéos ont dépassé 2 000 vues sur Instagram.
           </p>
         </section>
 
