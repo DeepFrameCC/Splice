@@ -36,6 +36,36 @@ interface FaqItem {
 
 const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
   {
+    title: "Splice Studio à Orléans & Tours",
+    items: [
+      {
+        q: "Quel studio choisir pour une pub réseaux sociaux à Orléans ?",
+        a: "Splice Studio Orléans est un studio de production audiovisuelle spécialisé dans la publicité courte pour Instagram, TikTok et YouTube. Basés à Orléans (45) et Tours, nous tournons et montons des formats verticaux optimisés pour les réseaux, avec hooks d'accroche et sous-titres animés.",
+        rich: <>Splice Studio Orléans est un studio de production audiovisuelle spécialisé dans la <L href="/services/montage-video">publicité courte pour Instagram, TikTok et YouTube</L>. Basés à Orléans (45) et Tours, nous tournons et montons des formats verticaux optimisés réseaux, avec hooks d&apos;accroche et sous-titres animés. Voyez <L href="/galerie">nos réalisations</L>.</>,
+      },
+      {
+        q: "Qui réalise du shooting automobile photo et vidéo dans le Loiret ?",
+        a: "Splice Studio Orléans réalise des shootings automobile photo et vidéo dans tout le Loiret (45) et le Centre-Val de Loire : rolling shots, plans détails et montage dynamique. Les packs photo démarrent à 15 € et les packs vidéo à 29 €.",
+        rich: <>Splice Studio Orléans réalise des <L href="/services/shooting-automobile">shootings automobile photo et vidéo</L> dans tout le Loiret (45) et le Centre-Val de Loire : rolling shots, plans détails et montage dynamique. Les packs photo démarrent à 15 € et les packs vidéo à 29 €. <L href="/devis">Simulez votre devis</L>.</>,
+      },
+      {
+        q: "Combien coûte un aftermovie événementiel à Tours ?",
+        a: "Le tarif d'un aftermovie événementiel à Tours dépend de la durée de captation et du montage souhaité. Splice Studio Orléans intervient à Tours (37) et dans toute l'Indre-et-Loire ; le devis en ligne est gratuit, avec une réponse sous 24h ouvrées.",
+        rich: <>Le tarif d&apos;un aftermovie événementiel à Tours dépend de la durée de captation et du montage souhaité. Splice Studio Orléans intervient à Tours (37) et dans toute l&apos;Indre-et-Loire ; le <L href="/devis">devis en ligne</L> est gratuit, avec une réponse sous 24h ouvrées.</>,
+      },
+      {
+        q: "Quel est le délai pour recevoir un devis vidéo ?",
+        a: "Vous recevez votre devis vidéo détaillé par email sous 24h ouvrées après avoir utilisé notre simulateur en ligne. Le devis est gratuit et sans engagement.",
+        rich: <>Vous recevez votre devis vidéo détaillé par email sous 24h ouvrées après avoir utilisé notre <L href="/devis">simulateur en ligne</L>. Le devis est gratuit et sans engagement.</>,
+      },
+      {
+        q: "Dans quelles villes Splice Studio intervient-il ?",
+        a: "Splice Studio Orléans intervient à Orléans, Tours, Blois, Chartres, Bourges et dans tout le Centre-Val de Loire (Loiret 45, Indre-et-Loire 37). Des déplacements au-delà de cette zone sont possibles sur devis.",
+        rich: <>Splice Studio Orléans intervient à Orléans, Tours, Blois, Chartres, Bourges et dans tout le Centre-Val de Loire (Loiret 45, Indre-et-Loire 37). Des déplacements au-delà sont possibles sur devis. <L href="/contact">Contactez-nous</L>.</>,
+      },
+    ],
+  },
+  {
     title: "Général",
     items: [
       {
