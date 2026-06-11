@@ -17,14 +17,19 @@ const DESCRIPTION =
 const ORG_ID = `${BASE_URL}/#organization`;
 
 // Vidéos publiées sur Instagram (posts collaboratifs avec CK Clean Auto).
+const CDN_GALERIE = "https://media.splicestudio.fr/realisations/ck-clean-auto";
 const REELS = [
   {
-    url: "https://www.instagram.com/reel/DXKA6-YDUjO/",
-    name: "Vidéo promotionnelle CK Clean Auto (1)",
+    url: "https://www.instagram.com/reel/DW4AaU7DKRo/",
+    name: "Présentation : pose de film PPF sur Porsche Cayman S",
+    thumbnailUrl: `${CDN_GALERIE}/ck-clean-auto-ppf.webp`,
+    uploadDate: "2026-04-15",
   },
   {
-    url: "https://www.instagram.com/reel/DW4AaU7DKRo/",
-    name: "Vidéo promotionnelle CK Clean Auto (2)",
+    url: "https://www.instagram.com/reel/DXKA6-YDUjO/",
+    name: "Interview du propriétaire de CK Clean Auto",
+    thumbnailUrl: `${CDN_GALERIE}/ck-clean-auto-interview.webp`,
+    uploadDate: "2026-04-15",
   },
 ];
 
@@ -62,16 +67,17 @@ export default function CkCleanAutoCaseStudyPage() {
       name: "Orléans, Loiret, Centre-Val de Loire, France",
     },
     about: "Shooting photo et vidéo automobile pour le detailing automobile CK Clean Auto.",
+    datePublished: "2026-06-11",
+    image: `${CDN_GALERIE}/ck-clean-auto-ppf.webp`,
     video: REELS.map((reel) => ({
       "@type": "VideoObject",
       name: reel.name,
       description:
         "Detailing automobile CK Clean Auto à Saran (Loiret) par Splice Studio Orléans.",
       embedUrl: reel.url,
-      // TODO: chiffre réel — thumbnailUrl + uploadDate requis pour l'éligibilité aux rich results vidéo Google
+      thumbnailUrl: reel.thumbnailUrl,
+      uploadDate: reel.uploadDate,
     })),
-    // TODO: chiffre réel — datePublished (date de mise en ligne de l'étude de cas)
-    // TODO: chiffre réel — image / thumbnailUrl (URL R2 d'un visuel du projet)
   };
 
   return (
