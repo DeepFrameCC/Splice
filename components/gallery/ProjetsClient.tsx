@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, Fragment } from "react";
 import Link from "next/link";
 import { Project, ProjectMedia, CATEGORIES, PROJECTS } from "./data";
 import MediaCarousel from "./MediaCarousel";
@@ -377,13 +377,29 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike, 
           </div>
         ) : (
           CATEGORIES.map((cat) => (
-            <CategorySection
-              key={cat.id}
-              category={cat}
-              projects={groupedProjects.get(cat.id) || []}
-              onOpen={handleOpen}
-              priorityFirst={cat.id === firstCatWithProjects}
-            />
+            <Fragment key={cat.id}>
+              <CategorySection
+                category={cat}
+                projects={groupedProjects.get(cat.id) || []}
+                onOpen={handleOpen}
+                priorityFirst={cat.id === firstCatWithProjects}
+              />
+              {cat.id === "auto" && (groupedProjects.get("auto")?.length ?? 0) > 0 && (
+                <p
+                  className="mx-6 md:mx-auto"
+                  style={{ maxWidth: 720, textAlign: "center", margin: "0 auto 8px", padding: "0 24px 24px", color: "rgba(255,255,255,0.7)", fontSize: 14 }}
+                >
+                  Envie d&apos;un projet détaillé&nbsp;? Lisez notre{" "}
+                  <Link
+                    href="/realisations/ck-clean-auto"
+                    style={{ color: "#F36B1F", fontWeight: 600, textDecoration: "underline" }}
+                  >
+                    étude de cas shooting auto CK Clean Auto à Orléans
+                  </Link>
+                  .
+                </p>
+              )}
+            </Fragment>
           ))
         )}
       </main>
