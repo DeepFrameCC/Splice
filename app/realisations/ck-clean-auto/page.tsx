@@ -16,6 +16,18 @@ const DESCRIPTION =
 // Le nœud Organization vit dans le @graph global (app/layout.tsx).
 const ORG_ID = `${BASE_URL}/#organization`;
 
+// Vidéos publiées sur Instagram (posts collaboratifs avec CK Clean Auto).
+const REELS = [
+  {
+    url: "https://www.instagram.com/reel/DXKA6-YDUjO/",
+    name: "Vidéo promotionnelle CK Clean Auto (1)",
+  },
+  {
+    url: "https://www.instagram.com/reel/DW4AaU7DKRo/",
+    name: "Vidéo promotionnelle CK Clean Auto (2)",
+  },
+];
+
 export function generateMetadata(): Metadata {
   const url = absoluteUrl(PATH);
   return {
@@ -50,9 +62,16 @@ export default function CkCleanAutoCaseStudyPage() {
       name: "Orléans, Loiret, Centre-Val de Loire, France",
     },
     about: "Shooting photo et vidéo automobile pour le detailing automobile CK Clean Auto.",
+    video: REELS.map((reel) => ({
+      "@type": "VideoObject",
+      name: reel.name,
+      description:
+        "Detailing automobile CK Clean Auto à Saran (Loiret) par Splice Studio Orléans.",
+      embedUrl: reel.url,
+      // TODO: chiffre réel — thumbnailUrl + uploadDate requis pour l'éligibilité aux rich results vidéo Google
+    })),
     // TODO: chiffre réel — datePublished (date de mise en ligne de l'étude de cas)
     // TODO: chiffre réel — image / thumbnailUrl (URL R2 d'un visuel du projet)
-    // TODO: chiffre réel — si une vidéo existe, ajouter un nœud VideoObject dans `video`
   };
 
   return (
@@ -83,7 +102,7 @@ export default function CkCleanAutoCaseStudyPage() {
           </h1>
           <p className="mt-3 text-white/70">
             Shooting photo et vidéo automobile réalisé par Splice Studio Orléans pour{" "}
-            CK Clean Auto, spécialiste du detailing dans le Loiret (45).
+            CK Clean Auto, spécialiste du detailing dans le Loiret (45) à Saran.
           </p>
         </header>
 
@@ -162,6 +181,25 @@ export default function CkCleanAutoCaseStudyPage() {
           <p className="mt-3 leading-relaxed text-white/70">
             Les vidéos ont dépassé 2 000 vues sur Instagram.
           </p>
+        </section>
+
+        {/* ── Vidéos ───────────────────────────────────────────────────── */}
+        <section className="mt-10">
+          <h2 className="font-display text-2xl text-white">Les vidéos</h2>
+          <ul className="mt-3 space-y-2">
+            {REELS.map((reel) => (
+              <li key={reel.url}>
+                <a
+                  href={reel.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                >
+                  {reel.name} sur Instagram
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* ── CTA ──────────────────────────────────────────────────────── */}
