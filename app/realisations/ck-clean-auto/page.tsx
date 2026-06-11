@@ -16,19 +16,22 @@ const DESCRIPTION =
 // Le nœud Organization vit dans le @graph global (app/layout.tsx).
 const ORG_ID = `${BASE_URL}/#organization`;
 
+// Miniatures : vraies photos du chantier déjà présentes dans la galerie (R2).
+const THUMB_PPF = "https://media.splicestudio.fr/photos/travail%204%20porche.webp";
+const THUMB_INTERVIEW = "https://media.splicestudio.fr/photos/porche%20c%C3%B4t%C3%A9.webp";
+
 // Vidéos publiées sur Instagram (posts collaboratifs avec CK Clean Auto).
-const CDN_GALERIE = "https://media.splicestudio.fr/realisations/ck-clean-auto";
 const REELS = [
   {
     url: "https://www.instagram.com/reel/DW4AaU7DKRo/",
     name: "Présentation : pose de film PPF sur Porsche Cayman S",
-    thumbnailUrl: `${CDN_GALERIE}/ck-clean-auto-ppf.webp`,
+    thumbnailUrl: THUMB_PPF,
     uploadDate: "2026-04-15",
   },
   {
     url: "https://www.instagram.com/reel/DXKA6-YDUjO/",
     name: "Interview du propriétaire de CK Clean Auto",
-    thumbnailUrl: `${CDN_GALERIE}/ck-clean-auto-interview.webp`,
+    thumbnailUrl: THUMB_INTERVIEW,
     uploadDate: "2026-04-15",
   },
 ];
@@ -68,7 +71,7 @@ export default function CkCleanAutoCaseStudyPage() {
     },
     about: "Shooting photo et vidéo automobile pour le detailing automobile CK Clean Auto.",
     datePublished: "2026-06-11",
-    image: `${CDN_GALERIE}/ck-clean-auto-ppf.webp`,
+    image: THUMB_PPF,
     video: REELS.map((reel) => ({
       "@type": "VideoObject",
       name: reel.name,
