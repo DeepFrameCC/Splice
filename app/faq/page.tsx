@@ -164,11 +164,6 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         rich: <>Nos <L href="/services/shooting-automobile">shootings photo automobile</L> démarrent à 15 € pour un pack de 5 photos retouchées. Les packs vidéo automobile incluant rolling shots et montage débutent à 29 €. Nous intervenons pour les particuliers, concessions et garages. <L href="/devis">Simulez votre devis</L>.</>,
       },
       {
-        q: "Proposez-vous un service de motion design et animation graphique ?",
-        a: "Oui, nous créons des animations 2D/3D sur mesure : vidéos explicatives, intros animées, habillages graphiques et typographies animées. Nos animations motion design débutent à 29 € pour des habillages de montage, ou à 45 €/mois via nos abonnements.",
-        rich: <>Oui, nous créons des <L href="/services/motion-design">animations 2D/3D sur mesure</L> : vidéos explicatives, intros animées, habillages graphiques et typographies animées. Nos animations motion design débutent à 29 € pour des habillages de montage, ou à 45 €/mois via nos abonnements.</>,
-      },
-      {
         q: "Réalisez-vous des films corporate et vidéos institutionnelles ?",
         a: "Oui, le film corporate est l'une de nos spécialités. Nous gérons l'intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 7 à 14 jours.",
         rich: <>Oui, le <L href="/services/production-corporate">film corporate</L> est l&apos;une de nos spécialités. Nous gérons l&apos;intégralité du processus : écriture du script, tournage multi-caméras 4K, montage rythmé et étalonnage cinéma. Le délai moyen est de 7 à 14 jours. <L href="/devis">Estimez votre projet</L>.</>,
