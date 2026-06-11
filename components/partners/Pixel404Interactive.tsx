@@ -50,51 +50,51 @@ const PILLARS = [
     id: "pc",
     icon: Cpu,
     title: "PC Gaming sur-mesure",
-    tagline: "Performance brute sans concession",
-    desc: "De la station de streaming compacte au monstre de guerre refroidi par eau (custom watercooling), chaque machine est assemblée avec une rigueur chirurgicale, un câble management au millimètre et des tests de stabilité extrêmes sous charge.",
-    features: ["Sélection personnalisée des composants", "Câble management optimisé", "Tests de stabilité", "Garantie matériel et suivi technique"]
+    tagline: "Monté à la main, testé sous charge",
+    desc: "Du petit setup streaming au watercooling custom, l'équipe assemble chaque machine à la main. Composants choisis avec vous, câble management soigné, tests de stabilité sous charge avant que la tour quitte l'atelier.",
+    features: ["Composants choisis avec vous", "Câble management soigné", "Tests de stabilité sous charge", "Garantie matériel et suivi technique"]
   },
   {
     id: "rep",
     icon: Wrench,
-    title: "Clinique de Réparation",
-    tagline: "Diagnostics précis, soudures d'expert",
-    desc: "Une équipe spécialisée dans la réparation de consoles (PS5, Xbox Series, Switch) et de PC. Traitement des pannes complexes : ports HDMI arrachés, remplacement de puces de gestion d'alimentation, Joy-Con drift et oxydation.",
-    features: ["Remplacement de port HDMI de précision", "Nettoyage interne & métal liquide", "Réparation manettes PS4,PS5,Switch et Xbox"]
+    title: "Réparation consoles & PC",
+    tagline: "Diagnostic précis, micro-soudure",
+    desc: "L'équipe répare consoles (PS5, Xbox Series, Switch) et PC, y compris les pannes lourdes : port HDMI arraché, puce d'alimentation à remplacer, Joy-Con drift, oxydation.",
+    features: ["Remplacement de port HDMI", "Nettoyage interne & métal liquide", "Réparation manettes PS4, PS5, Switch et Xbox"]
   },
   {
     id: "tcg",
     icon: Flame,
     title: "Pokémon & Pop Culture",
-    tagline: "Le paradis des collectionneurs",
-    desc: "Distributeur officiel des plus grandes licences de cartes à collectionner. Un catalogue de displays scellés, de boosters rares, de cartes gradées et d'accessoires de protection haut de gamme (sleeves, binders, classeurs rigides).",
+    tagline: "Cartes scellées, gradées, japonaises",
+    desc: "Displays scellés, boosters, cartes gradées et accessoires de protection : sleeves, binders, classeurs rigides. Cartes Pokémon officielles, françaises et japonaises, et soirées d'ouverture entre joueurs.",
     features: ["Boosters & Displays Pokémon officiels", "Cartes TCG japonaises et françaises", "Accessoires Ultimate Guard & Ultra Pro", "Soirées d'échange et d'ouverture"]
   },
   {
     id: "room",
     icon: Gamepad2,
     title: "Gaming Room & Tests",
-    tagline: "Essayez avant d'adopter",
-    desc: "Un espace dédié pour tester les configs de jeu en conditions réelles, manipuler les périphériques (claviers mécaniques, souris ultra-légères, casques audio) et s'assurer que votre futur équipement correspond à votre gameplay.",
-    features: ["Écrans 360Hz et dalles OLED", "Périphériques haut de gamme en test", "Essais sur les derniers jeux compétitifs", "Conseils ergonomiques en direct"]
+    tagline: "Essayez avant d'acheter",
+    desc: "Testez les configs en conditions réelles avant d'acheter : claviers mécaniques, souris légères, casques, écrans haute fréquence. Vous comparez le matériel en main, vous tranchez.",
+    features: ["Écrans 360Hz et dalles OLED", "Périphériques en test libre", "Essais sur les derniers jeux compétitifs", "Conseils ergonomiques en direct"]
   }
 ];
 
 const COLLAB = [
   {
     icon: Video,
-    title: "Contenu Social & Reels Immersifs",
-    desc: "Production de vidéos verticales dynamiques au format ASMR (PC Building), et formats courts éducatifs pour valoriser l'expertise technique de l'équipe sur TikTok et Instagram."
+    title: "Contenu social & reels",
+    desc: "On filme des vidéos verticales pour TikTok et Instagram : ASMR de montage PC, formats courts qui montrent le travail de l'atelier."
   },
   {
     icon: Camera,
-    title: "Identité Visuelle & E-commerce",
-    desc: "Reportage photo complet au sein du magasin physique d'Orléans pour enrichir la fiche Google Business et prises de vue packshot précises et flatteuses des configurations assemblées pour leur vitrine en ligne."
+    title: "Photo boutique & packshots",
+    desc: "On photographie la boutique d'Orléans pour la fiche Google Business, et on shoote les configs assemblées en packshot pour la vitrine en ligne."
   },
   {
     icon: CalendarDays,
-    title: "Aftermovies & Captation d'Événements",
-    desc: "Unboxing de carte pokémon avec des influenceurs, collab avec des streamers. Création de vidéos récapitulatives rythmées capturant l'énergie de la communauté pop culture orléanaise."
+    title: "Aftermovies & captation d'événements",
+    desc: "Unboxing de cartes Pokémon avec des créateurs, captation aux côtés de streamers, aftermovies des temps forts de la communauté pop culture d'Orléans."
   }
 ];
 
@@ -122,19 +122,19 @@ export default function Pixel404Interactive() {
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="flex flex-col items-center text-center">
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#9500de]/40 bg-[#9500de]/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#b969ff] shadow-[0_0_15px_rgba(149,0,222,0.15)] mb-6 animate-pulse">
-              <Sparkles className="h-3.5 w-3.5" /> Collaboration Média officielle · Orléans
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#9500de]/40 bg-[#9500de]/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#b969ff] shadow-[0_0_15px_rgba(149,0,222,0.15)] mb-6">
+              <Sparkles className="h-3.5 w-3.5" /> Collaboration média officielle · Orléans
             </div>
 
-            {/* Glowing H1 Title */}
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-8xl leading-none">
-              <span className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">Pixel 404</span>
-              <span className="mx-3 text-transparent bg-clip-text bg-gradient-to-r from-[#9500de] to-[#F36B1F] font-light">×</span>
-              <span className="bg-gradient-to-r from-[#F36B1F] to-[#f9a06a] bg-clip-text text-transparent">Splice Studio</span>
+            {/* H1 Title : chaque marque garde sa couleur pleine (Pixel blanc, Splice orange) */}
+            <h1 className="text-4xl font-extrabold tracking-tight text-balance sm:text-6xl md:text-8xl leading-none">
+              <span className="text-[#F4F4F5]">Pixel 404</span>
+              <span className="mx-3 font-light text-white/40">×</span>
+              <span className="text-[#F36B1F]">Splice Studio</span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg text-white/60 leading-relaxed">
-              Quand l&apos;excellence technique du montage de pc et la passion du gaming rencontre la puissance créative des vidéo promotionnelle. Découvrez Pixel 404, le pilier de la culture tech à Orléans, mis en lumière par Splice Studio.
+              Pixel 404 assemble des PC sur-mesure, répare consoles et manettes, et vend les cartes Pokémon à Orléans. Splice Studio réalise leurs vidéos et leurs photos.
             </p>
 
             {/* Actions */}
@@ -167,9 +167,9 @@ export default function Pixel404Interactive() {
             <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-white/[0.06] bg-[#111119]/80 p-8 backdrop-blur-md relative overflow-hidden group hover:border-[#9500de]/20 transition-all duration-300">
               <div className="absolute top-0 right-0 h-32 w-32 bg-[#9500de]/5 rounded-bl-full pointer-events-none transition-all duration-300 group-hover:bg-[#9500de]/10" />
               <div>
-                <h2 className="text-2xl font-bold tracking-tight text-white mb-2">Le Hub Informatique & Geek d&apos;Orléans</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-white mb-2">L&apos;adresse informatique et gaming d&apos;Orléans</h2>
                 <p className="text-sm text-white/50 leading-relaxed mb-6">
-                  Situé en plein cœur d&apos;Orléans sur les boulevards, Pixel 404 est l&apos;adresse incontournable des joueurs occasionnels, des créatifs exigeants et des passionnés de culture nippone.
+                  Sur les boulevards d&apos;Orléans, Pixel 404 répare, assemble et vend tech gaming et cartes Pokémon. Joueurs du dimanche comme collectionneurs y trouvent leur compte.
                 </p>
 
                 <div className="space-y-4">
@@ -178,7 +178,7 @@ export default function Pixel404Interactive() {
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wider font-bold text-white/40">Adresse boutique</p>
+                      <p className="text-xs uppercase tracking-wider font-bold text-white/55">Adresse boutique</p>
                       <a
                         href="https://maps.google.com/?q=84+Boulevard+Alexandre+Martin+45000+Orleans"
                         target="_blank"
@@ -195,7 +195,7 @@ export default function Pixel404Interactive() {
                       <Phone className="h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wider font-bold text-white/40">Contact direct</p>
+                      <p className="text-xs uppercase tracking-wider font-bold text-white/55">Contact direct</p>
                       <p className="text-sm text-white mt-0.5">{PIXEL_404.phone} <span className="text-white/20 mx-2">|</span> {PIXEL_404.email}</p>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ export default function Pixel404Interactive() {
 
               {/* Social links */}
               <div className="mt-8 pt-6 border-t border-white/[0.05] flex flex-wrap gap-4 items-center">
-                <span className="text-xs uppercase tracking-wider font-bold text-white/40">Suivre l&apos;atelier :</span>
+                <span className="text-xs uppercase tracking-wider font-bold text-white/55">Suivre l&apos;atelier :</span>
                 <div className="flex gap-3">
                   {PIXEL_404.socials.map((s) => {
                     const Icon = s.icon;
@@ -270,7 +270,7 @@ export default function Pixel404Interactive() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold sm:text-5xl tracking-tight">Leurs Spécialités</h2>
             <p className="mt-4 text-white/50 max-w-xl mx-auto text-sm sm:text-base">
-              Pixel 404 ne fait pas du simple commerce. C&apos;est un espace de compétences expertes et de passionnés articulé autour de 4 piliers majeurs.
+              Quatre métiers sous le même toit, chacun tenu par des gens qui le pratiquent au quotidien.
             </p>
           </div>
 
@@ -349,20 +349,20 @@ export default function Pixel404Interactive() {
               </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">La Carte Collector : Splice Studio × Pixel 404</h2>
               <p className="mt-6 text-sm sm:text-base text-white/60 leading-relaxed">
-                Parce que Pixel 404 est un expert en cartes Pokémon et que nous créons leurs contenus visuels, nous avons conçu cette carte virtuelle exclusive. Elle symbolise notre partenariat : l&apos;alliance de la créativité et de la technicité.
+                Pixel 404 connaît les cartes Pokémon, on réalise leurs contenus : voici la nôtre, une carte collector du duo. Retournez-la pour voir ses stats.
               </p>
 
               <div className="mt-8 space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="h-6 w-6 rounded-full bg-[#9500de]/20 flex items-center justify-center text-[#b969ff] font-bold text-xs shrink-0 mt-0.5">1</div>
                   <p className="text-sm text-white/80">
-                    <strong className="text-white">Cliquez sur la carte</strong> pour la retourner et révéler ses compétences techniques et statistiques.
+                    <strong className="text-white">Cliquez sur la carte</strong> pour la retourner et voir ses statistiques.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="h-6 w-6 rounded-full bg-[#9500de]/20 flex items-center justify-center text-[#b969ff] font-bold text-xs shrink-0 mt-0.5">2</div>
                   <p className="text-sm text-white/80">
-                    Découvrez un design inspiré des cartes Pokémon Holo rares avec des effets de dégradés irisés.
+                    Un clin d&apos;œil aux cartes Holo rares, avec ses dégradés irisés.
                   </p>
                 </div>
               </div>
@@ -372,13 +372,23 @@ export default function Pixel404Interactive() {
             <div className="lg:col-span-5 flex justify-center">
               {/* Pokémon Card Container */}
               <div
-                className="w-[320px] h-[450px] relative cursor-pointer select-none"
+                role="button"
+                tabIndex={0}
+                aria-pressed={pokemonCardFlipped}
+                aria-label="Carte collector Splice Studio × Pixel 404 : appuyez pour la retourner"
+                className="w-[320px] h-[450px] relative cursor-pointer select-none rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#b969ff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080C]"
                 style={{ perspective: "1000px" }}
                 onClick={() => setPokemonCardFlipped(!pokemonCardFlipped)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setPokemonCardFlipped((f) => !f);
+                  }
+                }}
               >
                 {/* Inner Flip Box */}
                 <div
-                  className="w-full h-full relative transition-transform duration-700 ease-in-out"
+                  className="w-full h-full relative transition-transform duration-700 ease-in-out motion-reduce:transition-none"
                   style={{
                     transformStyle: "preserve-3d",
                     transform: pokemonCardFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
@@ -517,7 +527,7 @@ export default function Pixel404Interactive() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold sm:text-5xl tracking-tight">Dans l&apos;œil de Splice</h2>
             <p className="mt-4 text-white/50 max-w-2xl mx-auto text-sm sm:text-base">
-              Comment Splice Studio structure et sublime la communication de Pixel 404 à travers des contenus audiovisuels immersifs et stratégiques.
+              Ce que Splice Studio produit pour Pixel 404 : vidéos, photos et formats sociaux, du tournage en boutique au montage.
             </p>
           </div>
 
@@ -556,7 +566,7 @@ export default function Pixel404Interactive() {
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-white mb-6">Pourquoi cette alliance locale ?</h2>
           <p className="text-base sm:text-lg leading-relaxed text-white/70">
-            Nous partageons avec Pixel 404 une valeur essentielle : la transparence envers nos clients, de l&apos;écoute et du respect envers eux. Notre partenariat à Orléans valorise le savoir-faire local et assure aux deux entreprises une visibilité organique solide auprès d&apos;une clientèle locale.
+            On travaille avec Pixel 404 parce qu&apos;on traite les clients de la même façon : être clair sur ce qu&apos;on fait, écouter, tenir ses délais. Deux entreprises d&apos;Orléans qui s&apos;envoient des clients et se recommandent.
           </p>
         </div>
       </section>
@@ -570,13 +580,13 @@ export default function Pixel404Interactive() {
           <div className="relative grid gap-8 md:grid-cols-12 items-center">
             <div className="md:col-span-8">
               <span className="inline-block rounded-full bg-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-bold text-white uppercase tracking-wider mb-4">
-                Offre Client Privilège
+                Offre partenaire
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
                 Besoin d&apos;un diagnostic ou d&apos;une vidéo ?
               </h2>
               <p className="mt-3 text-sm sm:text-base text-white/95 leading-relaxed max-w-xl">
-                Présentez-vous de la part de Splice Studio chez Pixel 404 pour obtenir un <strong className="text-white">diagnostic matériel offert</strong> sur votre console ou votre PC. Et si vous avez un projet vidéo ou photo, nous vous accompagnons.
+                Dites que vous venez de la part de Splice Studio chez Pixel 404 : le <strong className="text-white">diagnostic de votre console ou PC est offert</strong>. Un projet vidéo ou photo en tête ? On en parle.
               </p>
             </div>
 
@@ -585,7 +595,7 @@ export default function Pixel404Interactive() {
                 href="/devis"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white hover:bg-white/90 px-6 py-3.5 text-sm font-bold text-[#08080C] transition hover:scale-105 active:scale-95 shadow-lg"
               >
-                Créer mon projet vidéo <ArrowRight className="h-4 w-4" />
+                Demander un devis <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={PIXEL_404.url}
