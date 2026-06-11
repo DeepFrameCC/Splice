@@ -193,6 +193,30 @@ export default function EquipePage() {
         </div>
       </section>
 
+      {/* ── Entity / About (E-E-A-T, déclaratif extractible) ─────────── */}
+      <section
+        data-anim="about"
+        className="mx-auto max-w-[1320px] px-6 pb-4 pt-6 md:px-10"
+      >
+        <div className="mx-auto max-w-[820px]">
+          <h2 className="text-white font-bold" style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(24px, 3.4vw, 36px)", letterSpacing: "-0.02em" }}>
+            Qui est Splice Studio&nbsp;?
+          </h2>
+          <p className="mt-4 text-[15.5px] leading-[1.65] text-white/75" style={{ textWrap: "pretty" }}>
+            Splice Studio est un studio de production audiovisuelle basé à Orléans et Tours,
+            spécialisé en publicités pour les réseaux sociaux, shooting automobile et films de marque.
+            Le studio est fondé par <strong className="font-semibold text-white">Louisia</strong>, photographe et voix-off,
+            et <strong className="font-semibold text-white">Tracy</strong>, monteur et motion designer.
+            Splice Studio Orléans intervient dans tout le Centre-Val de Loire (Loiret 45, Indre-et-Loire 37).
+          </p>
+          <p className="mt-3 text-[15.5px] leading-[1.65] text-white/75" style={{ textWrap: "pretty" }}>
+            L&apos;équipe couvre l&apos;ensemble de la chaîne : tournage, <Link href="/services/montage-video" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">montage vidéo</Link>,
+            motion design et retouche photo. Découvrez <Link href="/galerie" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">nos réalisations</Link> ou
+            <Link href="/devis" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"> demandez un devis</Link> en moins de 24&nbsp;h.
+          </p>
+        </div>
+      </section>
+
       {/* ── Team Grid ────────────────────────────────────────────────── */}
       <main className="mx-auto max-w-[1320px] px-6 pb-20 pt-12 md:px-10">
         <div className="mx-auto grid max-w-[940px] gap-[18px] lg:grid-cols-2">

@@ -158,8 +158,8 @@ export function buildBlogPostJsonLd(post: {
     ...(post.coverImageUrl ? { image: post.coverImageUrl } : {}),
     ...(post.parentService ? { articleSection: post.parentService.name } : {}),
     author: post.author
-      ? { "@type": "Person", name: post.author.pseudo }
-      : { "@type": "Organization", name: "Splice Studio" },
+      ? { "@type": "Person", name: post.author.pseudo, worksFor: { "@id": ORG_ID } }
+      : { "@type": "Organization", "@id": ORG_ID, name: "Splice Studio" },
     publisher: {
       "@type": "Organization",
       name: "Splice Studio",
