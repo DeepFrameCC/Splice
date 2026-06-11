@@ -109,6 +109,16 @@ export default async function GaleriePage({
       <NavWrapper />
       <GalerieAnimations />
       <div style={{ background: "#0E0E22", minHeight: "100vh", paddingTop: 80 }}>
+        <p style={{ textAlign: "center", padding: "20px 24px 0", margin: 0, color: "rgba(255,255,255,0.7)", fontSize: 14 }}>
+          Envie d&apos;un projet détaillé&nbsp;? Lisez notre{" "}
+          <a
+            href="/realisations/ck-clean-auto"
+            style={{ color: "#F36B1F", fontWeight: 600, textDecoration: "underline" }}
+          >
+            étude de cas shooting auto CK Clean Auto à Orléans
+          </a>
+          .
+        </p>
         <ProjetsClient
           medias={medias}
           likedIds={likedIds}

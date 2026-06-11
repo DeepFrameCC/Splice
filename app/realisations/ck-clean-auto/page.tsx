@@ -139,7 +139,14 @@ export default function CkCleanAutoCaseStudyPage() {
           <h2 className="font-display text-2xl text-white">Le contexte</h2>
           <p className="mt-3 leading-relaxed text-white/70">
             CK Clean Auto, spécialiste du detailing automobile dans le Loiret (45),
-            nous a confié la réalisation de vidéos promotionnelles. Sur place, nous
+            nous a confié la réalisation de{" "}
+            <Link
+              href="/services/pub-reseaux-sociaux/orleans"
+              className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+            >
+              vidéos promotionnelles pour les réseaux sociaux à Orléans
+            </Link>
+            . Sur place, nous
             avons filmé la pose d&apos;un film de protection (PPF) sur une Porsche
             Cayman S bleue, puis interviewé le propriétaire sur l&apos;histoire et le
             parcours de son entreprise. Le but : présenter les services et les tarifs
