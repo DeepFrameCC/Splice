@@ -51,6 +51,8 @@ interface MediaSeed {
   filename: string;
   folder: "videos" | "photos";
   thumbnailFilename?: string;
+  /** Full thumbnail/poster URL override (e.g. reuse an existing photo as a video poster). */
+  thumbnailUrlRaw?: string;
   title: string;
   description?: string;
   category: "automobile" | "evenement" | "portrait" | "urbain";
@@ -59,6 +61,10 @@ interface MediaSeed {
   materiel: string[];
   client?: string;
   duration?: string;
+  /** Groups several medias into a single gallery project (swipeable carousel). */
+  groupKey?: string;
+  /** Order within the group — the cover is groupOrder 0. */
+  groupOrder?: number;
 }
 
 const MEDIAS: MediaSeed[] = [
@@ -129,6 +135,19 @@ const MEDIAS: MediaSeed[] = [
     materiel: ["iPhone 14", "Sony ZV1"],
     client: "Ville d'Orleans",
     duration: "03:00",
+  },
+  {
+    type: MediaType.VIDEO,
+    filename: "NissanOrange.mp4",
+    folder: "videos",
+    // Poster : on reutilise la photo Nissan R32 orange deja en ligne.
+    thumbnailUrlRaw: `${CDN}/photos/NissanR32Orange1.webp`,
+    title: "Nissan R32 Orange",
+    description: "Montage automobile — Nissan Skyline R32 orange.",
+    category: "automobile",
+    owner: Founder.TY,
+    prixEstime: 1500,
+    materiel: ["iPhone 14", "Sony ZV1"],
   },
 
   // ═══ PHOTOS — AUTOMOBILE ══════════════════════════════════════════════
@@ -421,6 +440,44 @@ const MEDIAS: MediaSeed[] = [
     owner: Founder.LOUISIA,
     prixEstime: 250,
     materiel: ["Sony ZV1"],
+  },
+  // ── Serie Lotus Elise (Orleans) — groupee en un seul projet ───────────
+  {
+    type: MediaType.PHOTO,
+    filename: "lotus-elise-orleans-1.webp",
+    folder: "photos",
+    title: "Lotus Elise",
+    description: "Lotus Elise 2006 — roadster britannique, shooting a Orleans.",
+    category: "automobile",
+    owner: Founder.LOUISIA,
+    prixEstime: 250,
+    materiel: ["Sony ZV1"],
+    groupKey: "lotus-elise-orleans",
+    groupOrder: 0,
+  },
+  {
+    type: MediaType.PHOTO,
+    filename: "lotus-elise-orleans-2.webp",
+    folder: "photos",
+    title: "Lotus Elise — cockpit",
+    category: "automobile",
+    owner: Founder.LOUISIA,
+    prixEstime: 250,
+    materiel: ["Sony ZV1"],
+    groupKey: "lotus-elise-orleans",
+    groupOrder: 1,
+  },
+  {
+    type: MediaType.PHOTO,
+    filename: "lotus-elise-orleans-3.webp",
+    folder: "photos",
+    title: "Lotus Elise — moteur",
+    category: "automobile",
+    owner: Founder.LOUISIA,
+    prixEstime: 250,
+    materiel: ["Sony ZV1"],
+    groupKey: "lotus-elise-orleans",
+    groupOrder: 2,
   },
 
   // ═══ PHOTOS — EVENEMENT (Fetes Johanniques) ═══════════════════════════
@@ -733,7 +790,9 @@ async function main() {
 
   for (const m of MEDIAS) {
     const url = buildUrl(m.folder, m.filename);
-    const thumbnailUrl = m.thumbnailFilename
+    const thumbnailUrl = m.thumbnailUrlRaw
+      ? m.thumbnailUrlRaw
+      : m.thumbnailFilename
       ? buildUrl("thumb", m.thumbnailFilename)
       : null;
 
@@ -749,6 +808,8 @@ async function main() {
       client: m.client ?? null,
       duration: m.duration ?? null,
       published: true,
+      // Only set grouping when provided — leaves existing (ungrouped) media untouched.
+      ...(m.groupKey ? { groupKey: m.groupKey, groupOrder: m.groupOrder ?? 0 } : {}),
     };
 
     const existing = await prisma.media.findFirst({ where: { url } });
