@@ -199,7 +199,9 @@ export default function Lightbox({
                 position: "absolute",
                 left: 0,
                 right: 0,
-                bottom: 0,
+                // Lift the caption above the native video control bar so it never
+                // covers the volume / timeline / fullscreen controls.
+                bottom: cur.type === "video" ? 56 : 0,
                 padding: "32px 24px 16px",
                 background: "linear-gradient(to top, rgba(0,0,0,.7), transparent)",
                 color: "#fff",
@@ -207,6 +209,9 @@ export default function Lightbox({
                 fontSize: 14,
                 letterSpacing: "-0.005em",
                 zIndex: 2,
+                // Decorative overlay — never intercept clicks meant for the
+                // video controls underneath.
+                pointerEvents: "none",
               }}
             >
               {cur.caption}
