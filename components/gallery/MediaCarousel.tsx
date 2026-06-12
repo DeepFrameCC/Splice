@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ProjectMedia } from "./data";
+import { ProjectMedia, getThumbSrc } from "./data";
 
 interface MediaCarouselProps {
   medias: ProjectMedia[];
@@ -147,9 +147,13 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
         style={{ transform: `translateX(${-i * 100}%)` }}
       >
         {medias.map((m, idx) => {
-          const isVideoUrl = /\.(mp4|webm|mov|avi)$/i.test(m.url || "");
-          const thumbSrc = m.thumbnailUrl || (!isVideoUrl ? m.url : null);
+          const thumbSrc = getThumbSrc(m);
           const bgClass = `pj-g${m.g ?? 0}`;
+          // Only the current slide and its immediate neighbours load their image.
+          // Far slides keep the gradient placeholder so a card with many photos
+          // doesn't fire one request per slide on mount. Neighbours are preloaded
+          // so navigation shows the next slide instantly.
+          const inWindow = Math.abs(idx - i) <= 1;
           return (
             <div
               key={m.id || idx}
@@ -157,7 +161,7 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
               role="group"
               aria-label={`Média ${idx + 1} sur ${n}`}
             >
-              {!thumbSrc ? (
+              {!thumbSrc || !inWindow ? (
                 <div className={`pj-slide-bg ${bgClass}`} />
               ) : (
                 <Image

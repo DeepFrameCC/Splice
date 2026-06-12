@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useTransition } from "react";
 import Image from "next/image";
-import { Project } from "./data";
+import { Project, getThumbSrc } from "./data";
 import { Heart } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -112,8 +112,7 @@ export default function Lightbox({
 
   if (!cur) return null;
 
-  const isVideoUrl = /\.(mp4|webm|mov|avi)$/i.test(cur.url || "");
-  const stageSrc = cur.thumbnailUrl || (!isVideoUrl ? cur.url : null);
+  const stageSrc = getThumbSrc(cur);
   const bgClass = `pj-g${cur.g ?? 0}`;
 
   return (
@@ -247,8 +246,7 @@ export default function Lightbox({
         {n > 1 && (
           <div className="pj-lb-thumbs" role="tablist" aria-label="Vignettes">
             {project.medias.map((m, idx) => {
-              const isVidUrl = /\.(mp4|webm|mov|avi)$/i.test(m.url || "");
-              const thumbSrc = m.thumbnailUrl || (!isVidUrl ? m.url : null);
+              const thumbSrc = getThumbSrc(m);
               const thumbBgClass = `pj-g${m.g ?? 0}`;
               return (
                 <button
@@ -266,6 +264,7 @@ export default function Lightbox({
                         src={thumbSrc}
                         alt={`Média ${idx + 1}`}
                         fill
+                        sizes="72px"
                         className="object-cover"
                       />
                     </div>

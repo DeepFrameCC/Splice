@@ -14,9 +14,23 @@ import "./projets.css";
 async function getPublishedMedias() {
   return db.media.findMany({
     where: { published: true },
-    orderBy: [
-      { createdAt: "desc" },
-    ],
+    // Only the columns consumed by the client gallery — keeps the RSC→client
+    // payload small (drops owner, prixEstime, materiel, monteurId, etc.).
+    select: {
+      id: true,
+      type: true,
+      url: true,
+      thumbnailUrl: true,
+      title: true,
+      description: true,
+      category: true,
+      client: true,
+      duration: true,
+      createdAt: true,
+      groupKey: true,
+      groupOrder: true,
+    },
+    orderBy: [{ createdAt: "desc" }],
   });
 }
 

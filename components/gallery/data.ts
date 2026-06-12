@@ -22,6 +22,22 @@ export interface Project {
   medias: ProjectMedia[];
 }
 
+/** True when the URL points to a video file (used to pick a poster vs the file). */
+export function isVideoUrl(url: string | null | undefined): boolean {
+  return /\.(mp4|webm|mov|avi)$/i.test(url || "");
+}
+
+/**
+ * Resolves the image source to display for a media: its thumbnail if present,
+ * otherwise the media URL itself for photos (videos without a thumbnail fall
+ * back to a gradient placeholder, hence `null`).
+ */
+export function getThumbSrc(
+  media: Pick<ProjectMedia, "url" | "thumbnailUrl">,
+): string | null {
+  return media.thumbnailUrl || (!isVideoUrl(media.url) ? media.url : null);
+}
+
 export interface Category {
   id: string;
   label: string;
