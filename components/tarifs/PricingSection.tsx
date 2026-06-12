@@ -30,7 +30,7 @@ export default function PricingSection() {
       <section className="mt-16">
         <div className="text-center">
           <span className="inline-block rounded-full bg-df-gold/20 px-4 py-1 text-xs font-bold text-df-gold">
-            ⚡ Offre de lancement — 10 places disponibles par formule
+            ⚡ Offre de lancement — {LAUNCH_STATUS.spotsLeft} places disponibles par formule
           </span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-white">
             Nos abonnements

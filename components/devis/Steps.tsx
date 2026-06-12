@@ -321,7 +321,7 @@ export function Step2Abonnement() {
           <span className="text-sm font-bold text-white">
             Offre de lancement
             <span className="ml-1 text-xs font-normal text-white/50">
-              (10 places par formule)
+              ({launchStatus.spotsLeft} places par formule)
             </span>
           </span>
         </label>
