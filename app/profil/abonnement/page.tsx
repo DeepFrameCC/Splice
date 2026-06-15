@@ -55,9 +55,19 @@ export default async function MonAbonnement() {
             const planLabel = SUBSCRIPTION_PLANS[abo.plan as PlanId]?.label ?? abo.devis.pack;
             const cycleLabel = abo.billingCycle === "ANNUEL" ? "an" : "mois";
             const periodeFin = formatDate(abo.currentPeriodEnd);
+            // Fin effective si résiliation programmée : date ferme d'engagement
+            // (cancelAt) sinon fin de période courante.
+            const finEffective = formatDate(abo.cancelAt ?? abo.currentPeriodEnd);
             const badge = BADGE[abo.status] ?? { label: "En attente", cls: "bg-white/10 text-white/60" };
             const finProgrammee = abo.status === "ACTIVE" && abo.cancelAtPeriodEnd;
             const actionnable = abo.status === "ACTIVE" || abo.status === "PAST_DUE";
+            // Engagement minimum encore en cours (MENSUEL non résilié) : la résiliation
+            // sera programmée au terme de l'engagement, pas à la fin du mois.
+            const dansEngagement =
+              !abo.cancelAtPeriodEnd &&
+              abo.engagementEndsAt != null &&
+              new Date() < abo.engagementEndsAt;
+            const engagementFin = dansEngagement ? formatDate(abo.engagementEndsAt) : null;
 
             return (
               <li key={abo.id}>
@@ -92,17 +102,25 @@ export default async function MonAbonnement() {
                   ) : finProgrammee ? (
                     <p className="mt-4 flex items-center gap-1.5 text-sm text-amber-300">
                       <Calendar className="h-4 w-4" />
-                      {periodeFin ? `Se termine le ${periodeFin}, sans renouvellement.` : "Se termine à la fin de la période en cours."}
+                      {finEffective ? `Se termine le ${finEffective}, sans renouvellement.` : "Se termine à la fin de la période en cours."}
                     </p>
                   ) : abo.status === "ACTIVE" ? (
-                    <p className="mt-4 flex items-center gap-1.5 text-sm text-white/60">
-                      <Calendar className="h-4 w-4" />
-                      {periodeFin ? `Prochain prélèvement le ${periodeFin}.` : "Renouvellement automatique."}
-                    </p>
+                    <>
+                      <p className="mt-4 flex items-center gap-1.5 text-sm text-white/60">
+                        <Calendar className="h-4 w-4" />
+                        {periodeFin ? `Prochain prélèvement le ${periodeFin}.` : "Renouvellement automatique."}
+                      </p>
+                      {engagementFin && (
+                        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-white/40">
+                          <Calendar className="h-3.5 w-3.5" />
+                          Engagement minimum jusqu&apos;au {engagementFin}.
+                        </p>
+                      )}
+                    </>
                   ) : abo.status === "CANCELED" ? (
                     <p className="mt-4 flex items-center gap-1.5 text-sm text-white/40">
                       <Calendar className="h-4 w-4" />
-                      Abonnement résilié{periodeFin ? ` (terme : ${periodeFin})` : ""}.
+                      Abonnement résilié{finEffective ? ` (terme : ${finEffective})` : ""}.
                     </p>
                   ) : (
                     <p className="mt-4 text-sm text-white/40">En attente de confirmation du paiement…</p>
@@ -114,6 +132,7 @@ export default async function MonAbonnement() {
                       <AbonnementActions
                         abonnementId={abo.id}
                         periodeFin={periodeFin}
+                        engagementFin={engagementFin}
                         cancelAtPeriodEnd={abo.cancelAtPeriodEnd}
                       />
                     </div>

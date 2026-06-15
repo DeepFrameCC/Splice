@@ -22,15 +22,63 @@ async function getOwnedAbonnement(abonnementId: string) {
 }
 
 /**
- * Résilie l'abonnement à la fin de la période payée (cancel_at_period_end).
- * Le client garde l'accès jusqu'au terme, sans remboursement. L'état définitif
- * (CANCELED) reviendra via le webhook customer.subscription.deleted au terme ;
- * ici on reflète immédiatement cancelAtPeriodEnd pour l'UI.
+ * Résilie l'abonnement sans remboursement, le client gardant l'accès jusqu'au
+ * terme. Deux cas :
+ *  - cycle MENSUEL encore dans la période d'engagement (now < engagementEndsAt) :
+ *    on programme la fin via Stripe `cancel_at` = terme de l'engagement. Le client
+ *    reste facturé jusqu'à la fin des 3 mois fermes, puis l'abonnement s'arrête.
+ *  - sinon (engagement écoulé, ANNUEL prépayé, SANS_ENGAGEMENT) : fin à la période
+ *    courante via `cancel_at_period_end`.
+ * L'état définitif (CANCELED) reviendra via le webhook customer.subscription.deleted
+ * au terme ; ici on reflète immédiatement cancelAtPeriodEnd pour l'UI.
  */
 export async function resilierAbonnement(abonnementId: string) {
   const { userId, abo, stripe } = await getOwnedAbonnement(abonnementId);
 
   if (abo.status === "CANCELED") throw new Error("Cet abonnement est déjà résilié.");
+
+  const now = new Date();
+  const dansEngagement =
+    abo.billingCycle === "MENSUEL" &&
+    abo.engagementEndsAt != null &&
+    now < abo.engagementEndsAt;
+
+  if (dansEngagement) {
+    const cancelAtSec = Math.floor(abo.engagementEndsAt!.getTime() / 1000);
+    await stripe.subscriptions.update(abo.stripeSubscriptionId, { cancel_at: cancelAtSec });
+
+    await db.abonnement.update({
+      where: { id: abo.id },
+      data: { cancelAtPeriodEnd: true, cancelAt: abo.engagementEndsAt },
+    });
+
+    await audit({
+      action: "SUBSCRIPTION_CANCELED",
+      userId,
+      target: abo.id,
+      metadata: {
+        stripeSubscriptionId: abo.stripeSubscriptionId,
+        atEngagementEnd: true,
+        engagementEndsAt: abo.engagementEndsAt!.toISOString(),
+      },
+    });
+
+    const finLabel = abo.engagementEndsAt!.toLocaleDateString("fr-FR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+    await notify({
+      userId,
+      type: "SYSTEM",
+      title: "Résiliation programmée",
+      message: `Vous êtes engagé jusqu'au ${finLabel}. Votre abonnement reste actif et facturé jusqu'à cette date, puis prendra fin sans renouvellement.`,
+      href: "/profil/abonnement",
+    });
+
+    revalidatePath("/profil/abonnement");
+    return;
+  }
 
   const updated = await stripe.subscriptions.update(abo.stripeSubscriptionId, {
     cancel_at_period_end: true,
@@ -40,6 +88,7 @@ export async function resilierAbonnement(abonnementId: string) {
     where: { id: abo.id },
     data: {
       cancelAtPeriodEnd: true,
+      cancelAt: null,
       ...(updated.current_period_end && !isNaN(updated.current_period_end)
         ? { currentPeriodEnd: new Date(updated.current_period_end * 1000) }
         : {}),
@@ -75,9 +124,16 @@ export async function reactiverAbonnement(abonnementId: string) {
   if (abo.status !== "ACTIVE") throw new Error("Réactivation impossible pour cet abonnement.");
   if (!abo.cancelAtPeriodEnd) throw new Error("Cet abonnement n'est pas en cours de résiliation.");
 
-  await stripe.subscriptions.update(abo.stripeSubscriptionId, { cancel_at_period_end: false });
+  // Efface les deux mécanismes de fin : période courante ET date ferme d'engagement.
+  await stripe.subscriptions.update(abo.stripeSubscriptionId, {
+    cancel_at_period_end: false,
+    cancel_at: null,
+  });
 
-  await db.abonnement.update({ where: { id: abo.id }, data: { cancelAtPeriodEnd: false } });
+  await db.abonnement.update({
+    where: { id: abo.id },
+    data: { cancelAtPeriodEnd: false, cancelAt: null },
+  });
 
   await notify({
     userId,

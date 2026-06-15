@@ -8,9 +8,17 @@ import { buildFacturePdfBytes, bytesToBase64 } from "@/lib/pdf-documents";
 import type { Devis, Facture } from "@prisma/client";
 import { audit } from "@/lib/audit";
 import { notify } from "@/lib/notifications";
+import { ENGAGEMENT_MOIS } from "@/lib/pricing";
 import type { AbonnementStatus } from "@prisma/client";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
+
+/** Ajoute `months` mois calendaires à une date (copie, ne mute pas l'entrée). */
+function addMonths(date: Date, months: number): Date {
+  const d = new Date(date.getTime());
+  d.setMonth(d.getMonth() + months);
+  return d;
+}
 
 const BCC_SPLICE = MAIL_FOUNDERS.length ? MAIL_FOUNDERS : [MAIL_CONTACT];
 
@@ -84,6 +92,13 @@ async function ensureAbonnement(params: {
   if (!devis || !devis.userId) return null;
   const customerId = params.customerId || (typeof sub.customer === "string" ? sub.customer : sub.customer.id);
 
+  // Engagement minimum : seul le cycle MENSUEL impose ENGAGEMENT_MOIS mois fermes.
+  // ANNUEL est prépayé (engagement de fait) ; SANS_ENGAGEMENT est résiliable libre.
+  const cycle = devis.billingCycle ?? "MENSUEL";
+  const startSec = (sub.start_date && !isNaN(sub.start_date)) ? sub.start_date : null;
+  const engagementEndsAt =
+    cycle === "MENSUEL" && startSec ? addMonths(new Date(startSec * 1000), ENGAGEMENT_MOIS) : null;
+
   let aboId: string;
   try {
     const abo = await db.abonnement.create({
@@ -93,10 +108,11 @@ async function ensureAbonnement(params: {
         stripeSubscriptionId: params.subscriptionId,
         stripeCustomerId: customerId,
         plan: devis.planAbonnement ?? "STANDARD",
-        billingCycle: devis.billingCycle ?? "MENSUEL",
+        billingCycle: cycle,
         status: mapSubStatus(sub.status),
         currentPeriodEnd: (sub.current_period_end && !isNaN(sub.current_period_end)) ? new Date(sub.current_period_end * 1000) : null,
         cancelAtPeriodEnd: sub.cancel_at_period_end,
+        engagementEndsAt,
       },
     });
     aboId = abo.id;
@@ -391,12 +407,17 @@ export async function POST(req: NextRequest) {
     if (abo) {
       const periodEnd = sub.current_period_end ? new Date(sub.current_period_end * 1000) : null;
       const safePeriodEnd = (periodEnd && !isNaN(periodEnd.getTime())) ? periodEnd : undefined;
+      // Résiliation dans l'engagement : Stripe expose `cancel_at` (date ferme) sans
+      // `cancel_at_period_end`. On reflète les deux cas dans cancelAtPeriodEnd pour
+      // que l'UI affiche "résiliation programmée", et on stocke la date effective.
+      const cancelAt = sub.cancel_at ? new Date(sub.cancel_at * 1000) : null;
       await db.abonnement.update({
         where: { id: abo.id },
         data: {
           status: mapSubStatus(sub.status),
-          cancelAtPeriodEnd: sub.cancel_at_period_end,
+          cancelAtPeriodEnd: sub.cancel_at_period_end || !!sub.cancel_at,
           currentPeriodEnd: safePeriodEnd,
+          cancelAt: cancelAt && !isNaN(cancelAt.getTime()) ? cancelAt : null,
         },
       });
     }

@@ -357,10 +357,17 @@ model Abonnement {
   stripeSubscriptionId String           @unique
   stripeCustomerId     String
   plan                 String           // PlanId : STANDARD | PRO | PREMIUM_ABO
-  billingCycle         String           // MENSUEL | ANNUEL
+  billingCycle         String           // MENSUEL | ANNUEL | SANS_ENGAGEMENT
   status               AbonnementStatus @default(INCOMPLETE)
   currentPeriodEnd     DateTime?
   cancelAtPeriodEnd    Boolean          @default(false)
+  // MENSUEL uniquement : terme de l'engagement minimum (début + ENGAGEMENT_MOIS).
+  // Avant cette date, la résiliation est programmée au terme de l'engagement, pas
+  // à la fin du mois courant. Null pour ANNUEL/SANS_ENGAGEMENT (aucun blocage).
+  engagementEndsAt     DateTime?
+  // Date de résiliation programmée quand on utilise Stripe `cancel_at` (résiliation
+  // dans l'engagement). Null quand la fin suit la période courante (cancel_at_period_end).
+  cancelAt             DateTime?
   factures             Facture[]
   createdAt            DateTime         @default(now())
   updatedAt            DateTime         @updatedAt

@@ -8,10 +8,12 @@ import toast from "react-hot-toast";
 type Props = {
   abonnementId: string;
   periodeFin: string | null;
+  /** Terme de l'engagement minimum si encore en cours (MENSUEL), sinon null. */
+  engagementFin?: string | null;
   cancelAtPeriodEnd: boolean;
 };
 
-export default function AbonnementActions({ abonnementId, periodeFin, cancelAtPeriodEnd }: Props) {
+export default function AbonnementActions({ abonnementId, periodeFin, engagementFin, cancelAtPeriodEnd }: Props) {
   const [open, setOpen] = useState(false);
   const [pending, start] = useTransition();
 
@@ -62,9 +64,11 @@ export default function AbonnementActions({ abonnementId, periodeFin, cancelAtPe
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[min(92vw,28rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/10 bg-[#15152A] p-6 shadow-2xl">
           <Dialog.Title className="font-display text-lg text-white">Résilier votre abonnement ?</Dialog.Title>
           <Dialog.Description className="mt-2 text-sm text-white/60">
-            {periodeFin
-              ? `Votre abonnement restera actif jusqu'au ${periodeFin}, puis prendra fin sans renouvellement. Aucun remboursement de la période en cours.`
-              : "Votre abonnement restera actif jusqu'à la fin de la période en cours, puis prendra fin sans renouvellement. Aucun remboursement de la période en cours."}
+            {engagementFin
+              ? `Vous êtes engagé jusqu'au ${engagementFin}. Votre abonnement reste actif et facturé jusqu'à cette date, puis prendra fin sans renouvellement. Aucun remboursement.`
+              : periodeFin
+                ? `Votre abonnement restera actif jusqu'au ${periodeFin}, puis prendra fin sans renouvellement. Aucun remboursement de la période en cours.`
+                : "Votre abonnement restera actif jusqu'à la fin de la période en cours, puis prendra fin sans renouvellement. Aucun remboursement de la période en cours."}
           </Dialog.Description>
           <p className="mt-3 text-xs text-white/40">
             Vous pourrez réactiver à tout moment avant cette date.
