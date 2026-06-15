@@ -49,13 +49,13 @@ const CDN =
 interface MediaSeed {
   type: MediaType;
   filename: string;
-  folder: "videos" | "photos";
+  folder: "videos" | "photos" | "pixel404";
   thumbnailFilename?: string;
   /** Full thumbnail/poster URL override (e.g. reuse an existing photo as a video poster). */
   thumbnailUrlRaw?: string;
   title: string;
   description?: string;
-  category: "automobile" | "evenement" | "portrait" | "urbain";
+  category: "automobile" | "evenement" | "portrait" | "urbain" | "pub-sociaux";
   owner: Founder;
   prixEstime: number;
   materiel: string[];
@@ -68,6 +68,36 @@ interface MediaSeed {
 }
 
 const MEDIAS: MediaSeed[] = [
+  // ═══ VIDEOS — PUB SOCIAUX (collab Pixel 404, dossier R2 pixel404) ═════
+  {
+    type: MediaType.VIDEO,
+    filename: "laura-pokemon.mp4",
+    folder: "pixel404",
+    thumbnailUrlRaw: `${CDN}/pixel404/laura-pokemon-cover.webp`,
+    title: "Unboxing Pokemon — Laura",
+    description: "Unboxing de cartes Pokemon pour Pixel 404, magasin gaming a Orleans.",
+    category: "pub-sociaux",
+    owner: Founder.LOUISIA,
+    prixEstime: 400,
+    materiel: ["Sony ZV1", "DaVinci Resolve"],
+    client: "Pixel 404",
+    duration: "00:38",
+  },
+  {
+    type: MediaType.VIDEO,
+    filename: "peluche-pokemon.mp4",
+    folder: "pixel404",
+    thumbnailUrlRaw: `${CDN}/pixel404/peluche-pokemon-cover.webp`,
+    title: "Peluche Pokemon — Pixel 404",
+    description: "Format court vertical pour les reseaux de Pixel 404.",
+    category: "pub-sociaux",
+    owner: Founder.LOUISIA,
+    prixEstime: 250,
+    materiel: ["Sony ZV1", "DaVinci Resolve"],
+    client: "Pixel 404",
+    duration: "00:10",
+  },
+
   // ═══ VIDEOS ═══════════════════════════════════════════════════════════
   {
     type: MediaType.VIDEO,
