@@ -51,6 +51,23 @@ Objectif : capter les **25 mots-clés déclencheurs de People Also Ask** identif
 - **Angle PAA** : fourchettes, ce qui est inclus (retouche, livraison, droits).
 - **Liens internes** : [/photographe-orleans](/photographe-orleans) + [/services/photographie-professionnelle/orleans](/services/photographie-professionnelle/orleans) + [/tarifs](/tarifs).
 
+## Blocs éditoriaux (livrés — commit 86c54d8)
+
+Le template article supporte 4 encadrés d'expertise via classes CSS (`prose-splice`). Le libellé est injecté automatiquement par CSS, l'admin écrit seulement le contenu :
+
+```html
+<div class="callout callout-studio"><p>Votre conseil…</p></div>
+<div class="callout callout-warning"><p>L'erreur à éviter…</p></div>
+<div class="callout callout-key"><p>Le point clé…</p></div>
+<div class="callout callout-example"><p>Exemple concret…</p></div>
+```
+
+Libellés auto : « Conseil du studio » (gold), « Erreur fréquente » (ambre), « À retenir » (sage), « Exemple client » (neutre). Le sanitizer (`lib/sanitize/html.ts`) autorise `class` + `div`, donc le markup passe en prod.
+
+**Caveat à vérifier** : l'éditeur TipTap (`components/blog/editor/BlogEditor.tsx`) ne propose pas encore de bouton pour insérer ces blocs ; selon sa config, il peut filtrer les `<div class>` à la sauvegarde. À tester en insérant le HTML brut, ou à ajouter comme node custom TipTap (chantier séparé). Le rendu CSS, lui, est prêt.
+
+Aussi livré : H1 en font-display, eyebrow catégorie, drop-cap, cover ring+gradient, `mainEntityOfPage` sur `BlogPosting`, bloc « Aller plus loin » (service + page locale + tarifs + devis).
+
 ## Rappels techniques
 - FAQ d'article → un seul `FAQPage` par page (cf. [[fix-duplicate-faqpage-schema]]).
 - Chaque article = `BlogPosting` JSON-LD via `buildBlogPostJsonLd` (déjà en place dans `lib/seo.ts`), rattaché à son `parentService` pour le silo SEO.
