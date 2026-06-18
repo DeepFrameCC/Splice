@@ -49,17 +49,20 @@ export function buildOrganizationJsonLd() {
   };
 }
 
-export function buildLocalBusinessJsonLd() {
+export function buildLocalBusinessJsonLd(
+  rating?: { ratingValue: number; reviewCount: number } | null,
+) {
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@type": ["LocalBusiness", "ProfessionalService", "VideoProductionCompany"],
     "@id": LOCALBUSINESS_ID,
     parentOrganization: { "@id": ORG_ID },
     name: "Splice Studio",
     alternateName: "Splice Studio Orléans",
     url: BASE_URL,
     logo: `${BASE_URL}/logo-1.svg`,
-    image: `${BASE_URL}/og-image.jpg`,
+    image: [`${BASE_URL}/og-image.jpg`],
+    hasMap: "https://share.google/xs14h7WtSrIkYlfjS",
     telephone: "+33651109202",
     geo: { "@type": "GeoCoordinates", latitude: 47.9029, longitude: 1.9093 },
     description:
@@ -100,6 +103,17 @@ export function buildLocalBusinessJsonLd() {
       opens: "11:00",
       closes: "20:00",
     },
+    ...(rating && rating.reviewCount > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: rating.ratingValue,
+            bestRating: 5,
+            worstRating: 1,
+            reviewCount: rating.reviewCount,
+          },
+        }
+      : {}),
   };
 }
 
@@ -228,6 +242,25 @@ interface GalleryMediaForJsonLd {
   url: string;
   thumbnailUrl?: string | null;
   createdAt?: string;
+  duration?: string | null;
+}
+
+/**
+ * Convertit une durée stockée en base ("MM:SS" ou "HH:MM:SS") vers la durée
+ * ISO 8601 (PT#H#M#S) attendue par Schema.org `VideoObject`. Renvoie undefined
+ * si la chaîne est vide ou mal formée — critère clé pour le Video SERP Google.
+ */
+function toIso8601Duration(raw?: string | null): string | undefined {
+  if (!raw) return undefined;
+  const parts = raw.split(":").map((p) => Number.parseInt(p, 10));
+  if (parts.length < 1 || parts.length > 3 || parts.some((n) => Number.isNaN(n))) {
+    return undefined;
+  }
+  // Lecture depuis la droite : [secondes, minutes, heures]. Les valeurs par
+  // défaut garantissent un type `number` sous noUncheckedIndexedAccess.
+  const [s = 0, m = 0, h = 0] = [...parts].reverse();
+  const out = `PT${h ? `${h}H` : ""}${m ? `${m}M` : ""}${s ? `${s}S` : ""}`;
+  return out === "PT" ? undefined : out;
 }
 
 export function buildGalleryJsonLd(
@@ -256,6 +289,7 @@ export function buildGalleryJsonLd(
       const isVideo = m.type === "VIDEO";
       const thumb = m.thumbnailUrl || (isVideo ? `${BASE_URL}/og-image.jpg` : undefined);
       const desc = m.description || (isVideo ? `Vidéo de la galerie Splice Studio - ${m.title}` : undefined);
+      const iso = isVideo ? toIso8601Duration(m.duration) : undefined;
 
       return {
         "@type": isVideo ? "VideoObject" : "ImageObject",
@@ -263,7 +297,10 @@ export function buildGalleryJsonLd(
         ...(desc ? { description: desc } : {}),
         contentUrl: m.url,
         ...(thumb ? { thumbnailUrl: thumb } : {}),
-        ...(isVideo ? { uploadDate: m.createdAt || new Date().toISOString() } : {}),
+        // uploadDate dérivé de createdAt (déterministe) — pas de new Date() au
+        // rendu, qui changerait à chaque revalidation ISR.
+        ...(isVideo && m.createdAt ? { uploadDate: m.createdAt } : {}),
+        ...(iso ? { duration: iso } : {}),
       };
     }),
   };
@@ -338,6 +375,12 @@ export function buildAvisJsonLd(averageRating: number | null, reviewCount: numbe
   };
 }
 
+const PRICING_AREA_SERVED = [
+  { "@type": "City", name: "Orléans" },
+  { "@type": "City", name: "Tours" },
+  { "@type": "AdministrativeArea", name: "Centre-Val de Loire" },
+];
+
 export function buildPricingJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -354,13 +397,31 @@ export function buildPricingJsonLd() {
           "@type": "Offer",
           name: "Abonnement Vidéo",
           priceCurrency: "EUR",
-          description: "Abonnement mensuel vidéo pour les professionnels",
+          description: "Abonnement mensuel vidéo pour les professionnels (formule Standard dès 45 €/mois, Pro 99 €/mois, Premium 189 €/mois)",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "45",
+            priceCurrency: "EUR",
+            referenceQuantity: {
+              "@type": "QuantitativeValue",
+              value: 1,
+              unitCode: "MON",
+            },
+          },
+          areaServed: PRICING_AREA_SERVED,
         },
         {
           "@type": "Offer",
           name: "Pack Particulier",
           priceCurrency: "EUR",
-          description: "Pack photo/vidéo à la carte pour les particuliers",
+          description: "Pack photo/vidéo à la carte pour les particuliers (dès 29 € la vidéo, 15 € le pack photo)",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            price: "29",
+            priceCurrency: "EUR",
+            minPrice: "15",
+          },
+          areaServed: PRICING_AREA_SERVED,
         },
       ],
     },

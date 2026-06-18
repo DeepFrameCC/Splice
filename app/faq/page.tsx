@@ -108,6 +108,11 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         a: "Nous acceptons les paiements par carte bancaire via Stripe (paiement sécurisé en ligne) et par virement bancaire. Le paiement est simple, rapide et sécurisé.",
         rich: <>Nous acceptons les paiements par carte bancaire via Stripe (paiement sécurisé en ligne) et par virement bancaire. Le paiement est simple, rapide et sécurisé.</>,
       },
+      {
+        q: "Combien coûte un shooting photo professionnel à Orléans ?",
+        a: "Nos packs photo démarrent à 15 € pour 5 photos retouchées (shooting automobile). Une séance professionnelle complète — portraits corporate, packshots produits ou reportage métier à Orléans et Tours — est chiffrée selon la durée et le nombre de livrables. Le devis en ligne est gratuit et sans engagement.",
+        rich: <>Nos <L href="/services/photographie-professionnelle">packs photo</L> démarrent à 15 € pour 5 photos retouchées (shooting automobile). Une séance professionnelle complète — portraits corporate, packshots produits ou reportage métier à Orléans et Tours — est chiffrée selon la durée et le nombre de livrables. Le <L href="/devis">devis en ligne</L> est gratuit et sans engagement.</>,
+      },
     ],
   },
   {
@@ -153,6 +158,11 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         a: "Oui ! Nos vidéos sont montées et exportées spécifiquement pour les plateformes sociales : hooks d'accroche dès les premières secondes, sous-titres animés, formats natifs adaptés et compression optimale pour chaque réseau.",
         rich: <>Oui ! Nos vidéos sont montées et exportées spécifiquement pour les plateformes sociales : hooks d&apos;accroche dès les premières secondes, sous-titres animés, formats natifs adaptés et compression optimale. Découvrez des <L href="/galerie">exemples dans notre galerie</L>.</>,
       },
+      {
+        q: "Quel format vidéo pour des Reels Instagram ?",
+        a: "Pour des Reels Instagram, le format est le 9:16 vertical (1080×1920 px), valable aussi pour TikTok et YouTube Shorts. Nous livrons des vidéos courtes de 15 à 30 secondes avec une accroche dès la première seconde et des sous-titres animés pour le visionnage sans son.",
+        rich: <>Pour des Reels Instagram, le format est le 9:16 vertical (1080×1920 px), valable aussi pour TikTok et YouTube Shorts. Nous livrons des <L href="/services/pub-reseaux-sociaux">vidéos courtes de 15 à 30 secondes</L> avec une accroche dès la première seconde et des sous-titres animés pour le visionnage sans son.</>,
+      },
     ],
   },
   {
@@ -172,6 +182,16 @@ const FAQ_SECTIONS: { title: string; items: FaqItem[] }[] = [
         q: "Faites-vous des photos professionnelles pour entreprise ?",
         a: "Oui. Nous réalisons portraits corporate, reportages métier, packshots produits et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 7 à 14 jours.",
         rich: <>Oui. Nous réalisons <L href="/services/photographie-professionnelle">portraits corporate, reportages métier, packshots produits</L> et photos immobilier à Orléans et Tours. Les forfaits débutent à 15 € pour un pack de 5 photos retouchées, livrées sous 7 à 14 jours.</>,
+      },
+      {
+        q: "Qu'est-ce que le motion design ?",
+        a: "Le motion design, c'est l'animation graphique : textes, logos, icônes et illustrations mis en mouvement pour expliquer un message ou habiller une vidéo. Chez Splice Studio, nous créons des animations 2D et 3D calées sur votre charte — explainers, infographies animées, habillages — à Orléans, Tours et dans tout le Centre-Val de Loire.",
+        rich: <>Le motion design, c&apos;est l&apos;animation graphique : textes, logos, icônes et illustrations mis en mouvement pour expliquer un message ou habiller une vidéo. Nous créons des <L href="/services/motion-design">animations 2D et 3D</L> calées sur votre charte — explainers, infographies animées, habillages — à Orléans, Tours et dans tout le Centre-Val de Loire.</>,
+      },
+      {
+        q: "Quelle est la différence entre un aftermovie et un film d'entreprise ?",
+        a: "Un aftermovie résume l'ambiance d'un événement passé (concert, salon, soirée) en un montage court et rythmé. Un film d'entreprise est scénarisé en amont pour présenter une activité, un produit ou une marque. Le premier capte l'émotion d'un moment, le second construit un message durable.",
+        rich: <>Un aftermovie résume l&apos;ambiance d&apos;un événement passé (concert, salon, soirée) en un montage court et rythmé. Un <L href="/services/production-corporate">film d&apos;entreprise</L> est scénarisé en amont pour présenter une activité, un produit ou une marque. Le premier capte l&apos;émotion d&apos;un moment, le second construit un message durable.</>,
       },
     ],
   },
