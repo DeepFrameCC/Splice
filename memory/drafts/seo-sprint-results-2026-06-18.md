@@ -71,10 +71,33 @@ Chaque réponse avec maillage interne (liens vers /services/*, /devis).
 | `/faq` | ~22 Q | +4 Q PAA (motion design, reels, shooting photo, aftermovie) |
 | sitewide | LocalBusiness basique | +VideoProductionCompany +hasMap +image[] (+aggregateRating prêt) |
 
-## Reste à faire (sous validation)
+## Passe 2 (priorité décroissante) — FAIT
 
-1. **`aggregateRating` sitewide** : décision perf — fetch agrégat avis (`db.avis.aggregate`) caché dans `layout.tsx` avec try/catch, vs garder sur `/avis` seulement. Risque Neon 504 à arbitrer.
-2. **Landings géo** `/videaste-orleans` (pos 10, vol 150) + `/photographe-orleans` (vol 260) en standalone via `buildLandingJsonLd` (PAS dans `SERVICES_LOCAL_SLUGS`).
-3. **Route dynamique `/realisations/[slug]`** : VideoObject complet + description longue + breadcrumb + maillage. Vérifier CSP si embeds YouTube/Vimeo (R2 déjà couvert).
-4. **Sujets blog PAA** : note de suggestions pour l'admin.
-5. **Off-page** : Google Business Profile, netlinking local 45/37.
+Exécutée après validation « fais dans l'ordre de priorité ».
+
+### 6. Video SERP — route `/realisations/[slug]` ✅ (commit 67bbc5b)
+- Nouveau `lib/realisations.ts` : couche données (slug dérivé du titre, dedupe, cache, try/catch). Source = vidéos `Media` publiées.
+- Nouveau `app/realisations/[slug]/page.tsx` : `VideoObject` complet (`buildRealisationJsonLd` ajouté à `lib/seo.ts`) + breadcrumb + contexte par catégorie (véridique) + faits clés + maillage interne + réalisations liées. `generateStaticParams` + ISR + `dynamicParams`.
+- Lecteur `<video>` natif depuis R2 (`media-src` déjà dans CSP → **aucune modif CSP**).
+- Liens entrants : liste SSR crawlable ajoutée sur `/galerie` + entrées sitemap. `/realisations/ck-clean-auto` (statique) intact.
+- Build : 79 pages (+8 vidéos réelles).
+
+### 7. Local Pack + Reviews — `aggregateRating` sitewide ✅ (commit 66e3e79)
+- Nouveau `lib/avis-stats.ts` : `getAvisAggregate()` via `unstable_cache` (TTL 1h, KV) → la home reste **statique** (ISR 1h), pas de bascule en dynamique, charge Neon bornée. Dégrade en `null` si erreur.
+- Câblé dans `app/layout.tsx` → `buildLocalBusinessJsonLd(avisRating)`.
+- Vérifié : `/` toujours `○ Static`, aucune régression static→dynamic.
+
+### 8. Landings géo ✅ (commit 219a9ce)
+- `app/videaste-orleans/page.tsx` (cible « vidéaste orléans », vol 150, pos 10) — angle freelance/personne.
+- `app/photographe-orleans/page.tsx` (cible « photographe orléans », vol 260) — angle corporate/produit/Google Business (distinct de `/photographe-evenementiel`).
+- `buildLandingJsonLd` (un seul FAQPage), maillage interne (service+ville, tarifs, galerie, devis), entrées sitemap, liens dans le Footer sitewide (anti-orphelin).
+- Décision archi confirmée : standalone, **PAS** dans `SERVICES_LOCAL_SLUGS` (corrige le mauvais routage de la Mission 4a du prompt).
+
+### 9. Sujets blog PAA ✅
+- Note `blog-topics-seo-2026-06.md` (6 sujets, suggestions admin — non générés).
+
+## Reste à faire (hors code / décisions futures)
+
+1. **Rédaction des articles de blog** PAA (par l'admin) — cf. [[blog-topics-seo-2026-06]].
+2. **Off-page** : Google Business Profile (débloque Knowledge Panel + renforce Local Pack/Reviews), netlinking local 45/37, backlinks clients.
+3. **Embeds vidéo externes** (YouTube/Vimeo) : si un jour ajoutés sur `/realisations/[slug]`, ajouter `frame-src` youtube-nocookie/vimeo dans `middleware.ts`.
