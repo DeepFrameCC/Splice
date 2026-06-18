@@ -161,12 +161,15 @@ export function buildBlogPostJsonLd(post: {
   author?: { pseudo: string } | null;
   parentService?: { name: string } | null;
 }) {
+  const url = `${BASE_URL}/blog/${post.slug}`;
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    url: `${BASE_URL}/blog/${post.slug}`,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    inLanguage: "fr-FR",
     datePublished: post.publishedAt,
     ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
     ...(post.coverImageUrl ? { image: post.coverImageUrl } : {}),

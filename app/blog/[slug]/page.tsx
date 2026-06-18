@@ -11,6 +11,7 @@ import BlogAdminBar from "@/components/blog/BlogAdminBar";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
+import { SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
 import { buildBlogPostJsonLd, BASE_URL } from "@/lib/seo";
 import { sanitizeRichHtml } from "@/lib/sanitize/html";
 import { auth, isAdmin } from "@/lib/auth";
@@ -81,6 +82,11 @@ export default async function BlogPostPage({ params }: Props) {
     parentService: post.parentService,
   });
 
+  const parentService = post.parentService;
+  const parentServiceIsLocal =
+    !!parentService &&
+    (SERVICES_LOCAL_SLUGS as readonly string[]).includes(parentService.slug);
+
   const crumbs = [
     { name: "Accueil", href: "/" },
     { name: "Blog", href: "/blog" },
@@ -114,28 +120,27 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Breadcrumb */}
           <Breadcrumbs className="mb-6 text-sm text-white/50" items={crumbs} />
 
-          {/* Categories */}
+          {/* Category eyebrow */}
           {post.categories.length > 0 && (
-            <div className="mb-4 flex flex-wrap gap-2">
-              {post.categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/blog?cat=${cat.slug}`}
-                  className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 transition hover:bg-white/20 hover:text-white"
-                >
-                  {cat.name}
-                </Link>
+            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-[0.2em] text-df-gold">
+              {post.categories.map((cat, i) => (
+                <span key={cat.id} className="flex items-center gap-3">
+                  {i > 0 && <span aria-hidden className="text-white/20">/</span>}
+                  <Link href={`/blog?cat=${cat.slug}`} className="transition hover:text-white">
+                    {cat.name}
+                  </Link>
+                </span>
               ))}
             </div>
           )}
 
           {/* Title */}
-          <h1 className="font-sans text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-5xl leading-tight">
+          <h1 className="font-display text-4xl tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.05]">
             {post.title}
           </h1>
 
           {/* Excerpt / chapo */}
-          <p className="mt-5 text-lg leading-relaxed text-white/70 md:text-xl">
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
             {post.excerpt}
           </p>
 
@@ -150,7 +155,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Cover image */}
           {post.coverImageUrl && (
-            <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-white/5">
+            <figure className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/[0.08]">
               <Image
                 src={post.coverImageUrl}
                 alt={post.coverImageAlt || post.title}
@@ -159,7 +164,11 @@ export default async function BlogPostPage({ params }: Props) {
                 sizes="(max-width: 768px) 100vw, 900px"
                 priority
               />
-            </div>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-df-night/45 via-transparent to-transparent"
+              />
+            </figure>
           )}
         </header>
 
@@ -230,6 +239,56 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="mx-auto max-w-6xl px-6">
           <BlogRelatedPosts posts={relatedPosts} />
         </div>
+
+        {/* ─── Aller plus loin (maillage service + local) ── */}
+        {parentService && (
+          <nav
+            aria-label="Aller plus loin"
+            className="mx-auto mt-12 max-w-4xl px-6"
+          >
+            <div className="rounded-2xl border border-white/[0.08] bg-df-surface p-6">
+              <h2 className="font-display text-lg uppercase tracking-tight text-white">
+                Aller plus loin
+              </h2>
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                <li>
+                  <Link
+                    href={`/services/${parentService.slug}`}
+                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                  >
+                    {parentService.name} à Orléans et Tours
+                  </Link>
+                </li>
+                {parentServiceIsLocal && (
+                  <li>
+                    <Link
+                      href={`/services/${parentService.slug}/orleans`}
+                      className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                    >
+                      {parentService.name} à Orléans
+                    </Link>
+                  </li>
+                )}
+                <li>
+                  <Link
+                    href="/tarifs"
+                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                  >
+                    Nos tarifs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/devis"
+                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                  >
+                    Demander un devis gratuit
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        )}
       </article>
 
       <Footer />
