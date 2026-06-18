@@ -6,6 +6,7 @@ import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
 import AuthProvider from "@/components/layout/AuthProvider";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd, buildLocalBusinessJsonLd, BASE_URL } from "@/lib/seo";
+import { getAvisAggregate } from "@/lib/avis-stats";
 import "./globals.css";
 import "./prototype-styles.css";
 
@@ -61,6 +62,9 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Note moyenne des avis — mise en cache (TTL 1h) pour ne pas rendre toutes les
+  // pages dynamiques. Alimente l'aggregateRating sitewide du LocalBusiness.
+  const avisRating = await getAvisAggregate();
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <head>
@@ -71,7 +75,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           "@graph": [
             buildOrganizationJsonLd(),
             buildWebSiteJsonLd(),
-            buildLocalBusinessJsonLd(),
+            buildLocalBusinessJsonLd(avisRating),
           ].map(({ "@context": _unused, ...rest }) => rest),
         }} />
       </head>
