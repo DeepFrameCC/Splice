@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { VILLES, SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
+import { getAllRealisations } from "@/lib/realisations";
 import { BASE_URL as base } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -40,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let dynamicPages: MetadataRoute.Sitemap = [];
   try {
-    const [services, blogPosts] = await Promise.all([
+    const [services, blogPosts, realisations] = await Promise.all([
       db.service.findMany({
         where: { isPublished: true },
         select: { slug: true, updatedAt: true },
@@ -51,6 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         select: { slug: true, updatedAt: true },
         orderBy: { publishedAt: "desc" },
       }),
+      getAllRealisations(),
     ]);
 
     dynamicPages = [
@@ -63,6 +65,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...blogPosts.map((p) => ({
         url: `${base}/blog/${p.slug}`,
         lastModified: p.updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
+      ...realisations.map((r) => ({
+        url: `${base}/realisations/${r.slug}`,
+        lastModified: new Date(r.createdAt),
         changeFrequency: "monthly" as const,
         priority: 0.7,
       })),

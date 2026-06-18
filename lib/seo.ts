@@ -306,6 +306,43 @@ export function buildGalleryJsonLd(
   };
 }
 
+/**
+ * VideoObject complet pour une page réalisation `/realisations/[slug]`.
+ * Émet name, description, thumbnailUrl, contentUrl, uploadDate et duration
+ * (ISO 8601) — les champs attendus par Google pour le Video SERP.
+ */
+export function buildRealisationJsonLd(r: {
+  slug: string;
+  title: string;
+  description?: string | null;
+  url: string;
+  thumbnailUrl?: string | null;
+  createdAt?: string;
+  duration?: string | null;
+  category?: string | null;
+}) {
+  const pageUrl = `${BASE_URL}/realisations/${r.slug}`;
+  const iso = toIso8601Duration(r.duration);
+  const thumb = r.thumbnailUrl || `${BASE_URL}/og-image.jpg`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: r.title,
+    description: r.description || `Réalisation vidéo Splice Studio — ${r.title}.`,
+    thumbnailUrl: thumb,
+    contentUrl: r.url,
+    url: pageUrl,
+    ...(r.createdAt ? { uploadDate: r.createdAt } : {}),
+    ...(iso ? { duration: iso } : {}),
+    ...(r.category ? { genre: r.category } : {}),
+    publisher: {
+      "@type": "Organization",
+      name: "Splice Studio",
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/logo-1.svg` },
+    },
+  };
+}
+
 export function buildTeamJsonLd() {
   return {
     "@context": "https://schema.org",

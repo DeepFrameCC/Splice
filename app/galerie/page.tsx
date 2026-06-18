@@ -8,6 +8,8 @@ import GalerieAnimations from "@/components/gallery/GalerieAnimations";
 import { buildGalleryJsonLd, BASE_URL } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
+import { getAllRealisations } from "@/lib/realisations";
+import Link from "next/link";
 import type { Metadata } from "next";
 import "./projets.css";
 
@@ -70,6 +72,7 @@ export default async function GaleriePage({
   }> = [];
   let likedIds: string[] = [];
   let isAuthed = false;
+  let realisations: Awaited<ReturnType<typeof getAllRealisations>> = [];
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -100,6 +103,7 @@ export default async function GaleriePage({
       groupOrder: m.groupOrder,
     }));
     likedIds = likes.map((l) => l.mediaId);
+    realisations = await getAllRealisations();
   } catch (e) {
     console.error("[galerie] DB error:", e);
     return (
@@ -131,6 +135,30 @@ export default async function GaleriePage({
           initialMediaId={initialMediaId ?? null}
         />
       </div>
+      {realisations.length > 0 && (
+        <nav
+          aria-label="Pages réalisations vidéo"
+          style={{ background: "#0E0E22", padding: "0 40px 64px" }}
+        >
+          <div className="mx-auto max-w-6xl border-t border-white/[0.08] pt-10">
+            <h2 className="font-display text-xl uppercase tracking-tight text-white">
+              Nos réalisations vidéo en détail
+            </h2>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {realisations.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    href={`/realisations/${r.slug}`}
+                    className="text-sm text-white/60 underline underline-offset-2 transition hover:text-df-gold"
+                  >
+                    {r.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      )}
       <Footer />
       <StickyMobileCta source="sticky_galerie" label="Un projet ? Devis gratuit" />
     </div>
