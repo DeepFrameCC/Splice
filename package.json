@@ -18,6 +18,7 @@
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
     "seed:galerie": "tsx prisma/seed-galerie.ts",
+    "sync:blog": "tsx scripts/update-blog-content.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

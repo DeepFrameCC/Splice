@@ -5,13 +5,13 @@
 export const blogContent: Record<string, string> = {
   "5-erreurs-montage-video-reseaux-sociaux": `<h2>5 erreurs de montage qui plombent vos vidéos sur les réseaux sociaux</h2>
 
-<p>En 2026, la vidéo représente plus de <strong>82 % du trafic internet mondial</strong> selon Cisco. Pour les PME et TPE françaises, la <strong>production de Reels Instagram pour entreprise</strong> ou de contenus TikTok n'est plus un luxe : c'est un levier de croissance indispensable. Pourtant, de nombreuses entreprises sabotent leur visibilité en commettant des erreurs de montage évitables.</p>
+<p>En 2026, la vidéo représente plus de <strong>82 % du trafic internet mondial</strong> selon Cisco. Pour les PME et TPE françaises, la <strong>production de Reels Instagram pour entreprise</strong> ou de contenus TikTok est devenue un levier de croissance. Beaucoup d'entreprises perdent pourtant en visibilité à cause d'erreurs de montage évitables.</p>
 
 <p>Après avoir accompagné des dizaines d'entreprises en Centre-Val de Loire et partout en France, notre équipe a identifié les cinq erreurs les plus fréquentes en <strong>montage vidéo pour réseaux sociaux</strong>. Les voici, avec les solutions concrètes pour y remédier.</p>
 
 <h3>1. Ignorer les 3 premières secondes</h3>
 
-<p>Selon une étude Meta (2025), <strong>65 % des utilisateurs qui regardent les 3 premières secondes d'une vidéo la regardent pendant au moins 10 secondes</strong>. À l'inverse, un démarrage mou, logo animé, générique lent, plan d'attente, et votre audience scrolle sans remords.</p>
+<p>Selon une étude Meta (2025), <strong>65 % des utilisateurs qui regardent les 3 premières secondes d'une vidéo la regardent pendant au moins 10 secondes</strong>. À l'inverse, un démarrage mou (logo animé, générique lent, plan d'attente) fait fuir l'audience avant la troisième seconde.</p>
 
 <p>Les erreurs classiques :</p>
 <ul>
@@ -78,7 +78,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>En résumé</h2>
 
-<p>Ces cinq erreurs, hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme, expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. La bonne nouvelle : elles se corrigent toutes avec un montage professionnel et une vraie réflexion en amont.</p>
+<p>Ces cinq erreurs, hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme, expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. Elles se corrigent toutes avec un montage professionnel et une réflexion menée en amont.</p>
 
 <p>Chez Splice Studio, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
 
@@ -86,7 +86,7 @@ export const blogContent: Record<string, string> = {
 
   "guide-formats-video-2026": `<h2>Guide des formats vidéo en 2026 : TikTok, Instagram, YouTube, LinkedIn</h2>
 
-<p>Publier une vidéo en ligne sans maîtriser les spécifications techniques de chaque plateforme, c'est comme envoyer un courrier sans timbre : le message n'arrivera jamais à destination. En 2026, les <strong>formats vidéo</strong> évoluent vite, les algorithmes récompensent les contenus natifs, et les marques qui négligent ces détails perdent en visibilité.</p>
+<p>Sans les bonnes spécifications techniques, une vidéo s'affiche mal et touche moins de monde sur chaque plateforme. En 2026, les <strong>formats vidéo</strong> évoluent vite, les algorithmes récompensent les contenus natifs, et les marques qui négligent ces détails perdent en visibilité.</p>
 
 <p>Ce guide pratique rassemble toutes les dimensions, durées, codecs et bonnes pratiques par plateforme pour vous aider à optimiser votre <strong>contenu vidéo de startup en France</strong> comme celui d'une PME établie.</p>
 
@@ -108,7 +108,7 @@ export const blogContent: Record<string, string> = {
 <p>La <strong>production TikTok pour entreprise</strong> obéit à des codes précis. L'algorithme de TikTok en 2026 favorise le <em>watch time</em> et le taux de complétion. D'après le rapport Hootsuite Social Trends 2026, les vidéos entre <strong>21 et 34 secondes</strong> affichent les meilleurs taux d'engagement pour les comptes professionnels.</p>
 
 <ul>
-  <li>Placez votre hook dans la première seconde, littéralement</li>
+  <li>Placez votre hook dès la première seconde</li>
   <li>Utilisez du texte à l'écran dès le premier frame</li>
   <li>Respectez la <em>safe zone</em> : évitez les 150 px du bas et les 120 px du haut</li>
   <li>Privilégiez les musiques tendance de la bibliothèque TikTok</li>
@@ -176,7 +176,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Bonnes pratiques 2026</h3>
 
-<p>LinkedIn a enregistré une <strong>augmentation de 36 % du contenu vidéo partagé</strong> entre 2024 et 2026. Le <strong>contenu vidéo pour startup en France</strong> trouve sur LinkedIn un terrain particulièrement fertile pour le B2B.</p>
+<p>LinkedIn a enregistré une <strong>augmentation de 36 % du contenu vidéo partagé</strong> entre 2024 et 2026. Le <strong>contenu vidéo pour startup en France</strong> trouve sur LinkedIn un terrain fertile pour le B2B.</p>
 
 <ul>
   <li>Le format carré prend plus de place dans le feed mobile</li>
@@ -203,9 +203,9 @@ export const blogContent: Record<string, string> = {
 
   "film-corporate-roi-communication": `<h2>Pourquoi le film corporate est un investissement, pas une dépense</h2>
 
-<p>Dans un paysage digital saturé de contenus, le film corporate s'impose comme l'un des leviers de communication les plus performants pour les entreprises. Pourtant, la question revient systématiquement : <strong>combien coûte une vidéo de présentation, et surtout, quel retour sur investissement en attendre ?</strong></p>
+<p>Dans un paysage digital saturé de contenus, le film corporate s'impose comme l'un des leviers de communication les plus performants pour les entreprises. La question revient à chaque projet : <strong>combien coûte une vidéo de présentation, et quel retour sur investissement en attendre ?</strong></p>
 
-<p>Loin d'être un simple outil de prestige, le film d'entreprise génère des résultats mesurables. Voici les chiffres clés, les cas d'usage concrets et une méthode pour évaluer le <strong>film corporate ROI</strong> de vos projets vidéo.</p>
+<p>Le film d'entreprise génère des résultats mesurables. Cet article réunit les chiffres clés, des cas d'usage concrets et une méthode pour évaluer le <strong>film corporate ROI</strong> de vos projets vidéo.</p>
 
 <h2>Les chiffres qui prouvent l'efficacité de la vidéo d'entreprise</h2>
 
@@ -323,7 +323,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Conseil 4 : Investissez dans le son</h2>
 
-<p><strong>Une image moyenne avec un son impeccable reste regardable. Un son médiocre avec une image magnifique est immédiatement abandonné.</strong></p>
+<p>Le son prime sur l'image. Une image moyenne accompagnée d'un bon son reste regardable, alors qu'un son médiocre fait fermer la vidéo en quelques secondes, même avec une belle image.</p>
 
 <ul>
   <li>Utilisez un <strong>micro-cravate</strong> ou un micro directionnel</li>
@@ -368,7 +368,7 @@ export const blogContent: Record<string, string> = {
 
 <h2>Passez à l'action</h2>
 
-<p>L'interview vidéo de dirigeant est un format redoutablement efficace. Chez Splice Studio, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
+<p>L'interview vidéo de dirigeant est un format efficace. Chez Splice Studio, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
 
 <p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong> Voir notre <a href="/services/interview-temoignage/orleans">service d'interview vidéo à Orléans</a>.</p>`,
 
@@ -629,7 +629,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>Vlog d'entreprise et film corporate : quelles différences ?</h3>
 
-<p>On confond souvent les deux, alors qu'ils répondent à des logiques opposées et complémentaires. Le <strong>film corporate</strong> est un objet rare, très produit, à la durée de vie longue : il pose l'image de marque. Le <strong>vlog</strong>, lui, est un flux : plus brut, plus fréquent, il entretient la relation au quotidien. Le premier impressionne, le second fidélise. Les marques les plus efficaces utilisent les deux : un film fort en vitrine, un vlog régulier pour nourrir l'engagement.</p>
+<p>On confond souvent les deux, alors qu'ils répondent à des logiques opposées et complémentaires. Le <strong>film corporate</strong> est un objet rare, très produit, à la durée de vie longue : il pose l'image de marque. Le <strong>vlog</strong>, lui, est un flux : plus brut, plus fréquent, il entretient la relation au quotidien. Le film corporate installe l'image de marque, le vlog entretient la relation au quotidien. Les marques les plus efficaces utilisent les deux : un film fort en vitrine, un vlog régulier pour nourrir l'engagement.</p>
 
 <h3>Les erreurs qui tuent un vlog d'entreprise</h3>
 <ul>
@@ -779,7 +779,7 @@ export const blogContent: Record<string, string> = {
 
   "preparer-evenement-entreprise-checklist": `<h2>Préparer un événement d'entreprise : la check-list photo/vidéo</h2>
 
-<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Une préparation méthodique, brief clair, repérage, planning des moments clés, logistique technique, fait toute la différence entre des images génériques et un reportage qui valorise vraiment votre événement. Voici la check-list complète à suivre, étape par étape.</p>
+<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Une préparation méthodique, brief clair, repérage, planning des moments clés, logistique technique, fait toute la différence entre des images génériques et un reportage qui valorise votre événement. Voici la check-list complète à suivre, étape par étape.</p>
 
 <h3>Avant l'événement : cadrer le besoin</h3>
 <ul>
