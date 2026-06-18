@@ -80,7 +80,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Ces cinq erreurs, hook absent, format inadapté, sous-titres négligés, rythme plat et absence de stratégie multiplateforme, expliquent pourquoi tant de vidéos d'entreprise passent inaperçues malgré un contenu de qualité. Elles se corrigent toutes avec un montage professionnel et une réflexion menée en amont.</p>
 
-<p>Chez Splice Studio, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final, avec des packs à partir de <strong>140 €</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
+<p>Chez Splice Studio, nous accompagnons les PME, startups et indépendants de la prise de vue au montage final : vidéos à l'unité dès <strong>29 €</strong> et abonnements mensuels dès <strong>45 €/mois</strong>. Basés à Orléans et Tours, nous nous déplaçons partout en France.</p>
 
 <p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h. Besoin d'un <a href="/services/montage-video/orleans">monteur vidéo à Orléans</a> ?</p>`,
 
@@ -197,7 +197,7 @@ export const blogContent: Record<string, string> = {
 
 <p>C'est l'approche que nous appliquons chez Splice Studio dans <a href="/services/montage-video">notre service de montage vidéo</a>. Vous pouvez voir des exemples dans <a href="/galerie">nos réalisations</a>.</p>
 
-<p>Chez Splice Studio, basés à Orléans et Tours, nos packs démarrent à <strong>140 €</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
+<p>Chez Splice Studio, basés à Orléans et Tours, nos abonnements démarrent à <strong>45 €/mois</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
 
 <p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a>, nous vous répondons sous 48 h. Faites appel à notre <a href="/services/montage-video/orleans">service de montage vidéo à Orléans</a>.</p>`,
 
@@ -220,7 +220,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Les grandes agences parisiennes facturent couramment entre 5 000 et 30 000 euros. Mais une <strong>réalisation vidéo PME pas cher</strong> ne signifie pas une réalisation au rabais.</p>
 
-<p>Chez Splice Studio, nos <strong>packs démarrent à partir de 140 euros</strong> et notre pack Premium à partir de 850 euros couvre les projets les plus ambitieux. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
+<p>Chez Splice Studio, nos vidéos à l'unité démarrent à <strong>29 €</strong> et nos abonnements mensuels à <strong>45 €/mois</strong>, jusqu'à la formule Premium à 189 €/mois pour une présence quasi quotidienne. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
 
 <h2>Quatre cas d'usage à fort ROI pour les PME</h2>
 
@@ -416,7 +416,7 @@ export const blogContent: Record<string, string> = {
 
 <h3>2. Votre budget</h3>
 
-<p>En tant que <strong>boîte de production en Centre-Val de Loire</strong>, nous proposons des packs à partir de <strong>140 €</strong> jusqu'à <strong>850 €+</strong> pour le Premium. Les intros animées démarrent à <strong>100 €</strong>.</p>
+<p>En tant que <strong>boîte de production en Centre-Val de Loire</strong>, nous proposons des abonnements de <strong>45 à 189 €/mois</strong> et des vidéos à l'unité dès <strong>29 €</strong> ; les productions en motion design sont chiffrées sur <a href="/devis">devis</a> selon le temps d'animation.</p>
 
 <h3>3. Vos délais</h3>
 
@@ -475,10 +475,10 @@ export const blogContent: Record<string, string> = {
 
 <p>Pour donner des ordres de grandeur, à affiner toujours selon le projet réel, voici comment se positionnent les principaux formats :</p>
 <ul>
-  <li><strong>Interview ou témoignage</strong> : format léger, une demi-journée de tournage, montage simple. Budget d'entrée de gamme. {{à valider : fourchette de prix}}</li>
-  <li><strong>Vidéo sociale courte (Reel, TikTok, format publicitaire)</strong> : tournage condensé, montage dynamique, sous-titres et déclinaisons. {{à valider : fourchette de prix}}</li>
-  <li><strong>Film de marque ou film corporate</strong> : écriture, journée(s) de tournage, post-production soignée. Budget intermédiaire à élevé. {{à valider : fourchette de prix}}</li>
-  <li><strong>Production avec motion design ou animation</strong> : le coût dépend surtout du temps d'animation. {{à valider : fourchette de prix}}</li>
+  <li><strong>Interview ou témoignage</strong> : format léger, une demi-journée de tournage, montage simple. À l'unité, nos vidéos démarrent à 29 € via le <a href="/tarifs">Pack Particulier</a>.</li>
+  <li><strong>Vidéo sociale courte (Reel, TikTok, format publicitaire)</strong> : tournage condensé, montage dynamique, sous-titres et déclinaisons. Couverte par nos <a href="/tarifs">abonnements mensuels dès 45 €/mois</a> (2 vidéos sources recyclées multi-réseaux), ou à l'unité dès 29 €.</li>
+  <li><strong>Film de marque ou film corporate</strong> : écriture, journée(s) de tournage, post-production soignée. Production sur mesure, chiffrée au <a href="/devis">devis</a> selon l'ampleur du projet.</li>
+  <li><strong>Production avec motion design ou animation</strong> : le coût dépend surtout du temps d'animation, établi sur <a href="/devis">devis</a> ; le motion peut aussi s'ajouter en option de votre formule.</li>
 </ul>
 
 <p>Ces repères restent indicatifs : un même format peut doubler de budget selon l'exigence de réalisation. C'est pourquoi nous construisons chaque <a href="/services/production-corporate">production corporate</a> sur-mesure plutôt que sur catalogue.</p>
