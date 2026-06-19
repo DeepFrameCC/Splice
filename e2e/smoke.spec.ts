@@ -16,11 +16,6 @@ test.describe("Smoke tests — public pages", () => {
     await expect(page.locator("h1")).toContainText(/artisans/i);
   });
 
-  test("avis page loads", async ({ page }) => {
-    await page.goto("/avis");
-    await expect(page.locator("h1")).toContainText(/avis/i);
-  });
-
   test("contact page loads", async ({ page }) => {
     await page.goto("/contact");
     await expect(page.locator("h1")).toBeVisible();

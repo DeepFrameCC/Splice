@@ -80,8 +80,7 @@ export default auth((req) => {
     pathname.startsWith("/mentions-legales") ||
     pathname.startsWith("/confidentialite") ||
     pathname.startsWith("/cookies") ||
-    pathname.startsWith("/tarifs") ||
-    pathname.startsWith("/avis");
+    pathname.startsWith("/tarifs");
 
   const scriptSrc = isStaticRoute
     ? `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://js.stripe.com https://challenges.cloudflare.com https://plausible.io https://www.googletagmanager.com https://*.sentry.io`
