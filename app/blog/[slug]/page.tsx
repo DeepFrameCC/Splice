@@ -32,7 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return { title: "Article introuvable" };
 
-  const title = post.metaTitle || post.title;
+  // FIX: certains metaTitle seedés finissent déjà par " | Splice Studio" ;
+  // le template du layout racine (`%s | Splice Studio`) le rajoute, d'où des
+  // doublons "... | Splice Studio | Splice Studio". On retire le suffixe ici.
+  const rawTitle = post.metaTitle || post.title;
+  const title = rawTitle.replace(/\s*\|\s*Splice Studio\s*$/i, "").trim();
   const description = post.metaDescription || post.excerpt;
 
   return {

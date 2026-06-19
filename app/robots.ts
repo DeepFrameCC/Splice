@@ -18,32 +18,30 @@ const PRIVATE_PATHS = [
   "/verify-email",
 ];
 
+// GEO (Generative Engine Optimization) : crawlers IA + Googlebot autorisés
+// explicitement sur le contenu public. Un user-agent par bloc — certains
+// parsers (SEMrush) signalent comme invalide un seul bloc `rules` portant un
+// tableau de user-agents. Tous ont la même politique : allow "/" sauf privé.
+const ALLOWED_AGENTS = [
+  "*",
+  "Googlebot",
+  "Google-Extended",
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "anthropic-ai",
+  "PerplexityBot",
+  "Perplexity-User",
+];
+
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: PRIVATE_PATHS,
-      },
-      // GEO (Generative Engine Optimization) : autoriser explicitement les
-      // crawlers IA à lire le contenu public pour être cité par ChatGPT,
-      // Claude, Perplexity et les AI Overviews de Google.
-      {
-        userAgent: [
-          "GPTBot",
-          "OAI-SearchBot",
-          "ChatGPT-User",
-          "ClaudeBot",
-          "anthropic-ai",
-          "PerplexityBot",
-          "Perplexity-User",
-          "Google-Extended",
-        ],
-        allow: "/",
-        disallow: PRIVATE_PATHS,
-      },
-    ],
+    rules: ALLOWED_AGENTS.map((userAgent) => ({
+      userAgent,
+      allow: "/",
+      disallow: PRIVATE_PATHS,
+    })),
     sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }
