@@ -147,13 +147,6 @@ export default function MentionsLegales() {
                 l&apos;adresse e-mail ci-dessus.
               </p>
             )}
-            <p className="mt-2">
-              Le client consommateur peut également recourir à la plateforme européenne de règlement en
-              ligne des litiges :{" "}
-              <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-df-gold underline hover:text-df-gold/80 transition-colors">
-                ec.europa.eu/consumers/odr
-              </a>.
-            </p>
           </div>
 
           <div>

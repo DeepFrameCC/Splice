@@ -205,7 +205,7 @@ export async function buildContratPdfBytes(contrat: Contrat, devis: Devis): Prom
   /* ── Article 13 — Médiation ───────────────────────────────────── */
   article("Article 13 — Médiation de la consommation");
   para(
-    "Conformément aux articles L.612-1 et suivants du Code de la consommation, le Client consommateur peut, en cas de litige non résolu par une réclamation écrite préalable auprès du Prestataire, recourir gratuitement à un médiateur de la consommation. Les coordonnées du médiateur compétent sont disponibles dans les mentions légales du site splicestudio.fr ou sur demande. Le Client peut également utiliser la plateforme européenne de règlement en ligne des litiges : ec.europa.eu/consumers/odr.",
+    "Conformément aux articles L.612-1 et suivants du Code de la consommation, le Client consommateur peut, en cas de litige non résolu par une réclamation écrite préalable auprès du Prestataire, recourir gratuitement à un médiateur de la consommation. Les coordonnées du médiateur compétent sont disponibles dans les mentions légales du site splicestudio.fr ou sur demande.",
   );
 
   /* ── Article 14 — Droit applicable ────────────────────────────── */
