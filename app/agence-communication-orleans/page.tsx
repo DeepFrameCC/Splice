@@ -229,7 +229,7 @@ export default function AgenceCommunicationOrleansPage() {
                 La force d&apos;un studio,<br />la souplesse de freelances
               </h2>
               <p className="mt-6 text-sm leading-relaxed text-white/70">
-                Splice Studio réunit Louisia (directrice artistique &amp; photographe) et Tracy (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux.
+                Splice Studio réunit Louisia (directrice artistique &amp; photographe) et Tracy (réalisateur, monteur &amp; motion designer). Nous intervenons directement sans intermédiaire. Vous bénéficiez d&apos;une communication fluide, de délais réactifs et d&apos;une cohérence visuelle parfaite sur tous vos canaux. Découvrez nos <Link href="/galerie" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">réalisations</Link> et nos <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">tarifs</Link>.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="rounded-xl border border-white/[0.06] bg-df-surface p-4 text-center min-w-[140px]">

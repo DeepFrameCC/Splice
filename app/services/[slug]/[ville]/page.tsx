@@ -79,6 +79,9 @@ export default async function LocalServicePage({ params }: PageProps) {
   const intro = fillTemplate(data.introTemplate, ville);
   const localContent = getLocalPageContent(slug as LocalServiceSlug, villeSlug);
 
+  // Même service dans l'autre ville couverte — maillage croisé local.
+  const otherVille = VILLES.find((v) => v.slug !== villeSlug);
+
   const jsonLd = buildLocalServiceJsonLd({
     serviceName: data.serviceName,
     serviceSlug: slug,
@@ -191,19 +194,63 @@ export default async function LocalServicePage({ params }: PageProps) {
             </p>
           </section>
 
+          {/* Aller plus loin — maillage interne */}
+          <section className="mb-12">
+            <h2 className="text-xl font-semibold text-white md:text-2xl">
+              Aller plus loin
+            </h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              <li className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
+                <Link
+                  href={`/services/${slug}`}
+                  className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                >
+                  {data.serviceName} : la prestation complète
+                </Link>
+                <p className="mt-1 text-sm text-white/60">
+                  Détail de l&apos;offre, méthode et exemples de réalisations.
+                </p>
+              </li>
+              {otherVille && (
+                <li className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
+                  <Link
+                    href={`/services/${slug}/${otherVille.slug}`}
+                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                  >
+                    {data.shortName} à {otherVille.name}
+                  </Link>
+                  <p className="mt-1 text-sm text-white/60">
+                    La même prestation dans le {otherVille.department} ({otherVille.departmentCode}).
+                  </p>
+                </li>
+              )}
+              <li className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
+                <Link
+                  href="/tarifs"
+                  className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                >
+                  Nos tarifs
+                </Link>
+                <p className="mt-1 text-sm text-white/60">
+                  Packs et abonnements clairs, sans surprise.
+                </p>
+              </li>
+              <li className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4">
+                <Link
+                  href="/galerie"
+                  className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
+                >
+                  Nos réalisations
+                </Link>
+                <p className="mt-1 text-sm text-white/60">
+                  Photos et vidéos produites pour nos clients à {ville.name} et alentour.
+                </p>
+              </li>
+            </ul>
+          </section>
+
           {/* CTA */}
           <ServiceCTA variant="block" serviceName={data.shortName} />
-
-          {/* Link back to full service page */}
-          <p className="mt-12 text-center text-sm text-white/50">
-            Découvrez notre prestation complète sur la page{" "}
-            <Link
-              href={`/services/${slug}`}
-              className="text-df-gold hover:underline"
-            >
-              {data.serviceName}
-            </Link>
-          </p>
         </article>
       </main>
     </>
