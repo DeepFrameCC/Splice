@@ -188,7 +188,7 @@ export default function ProductionVideoToursPage() {
                 La réactivité d&apos;un vidéaste local
               </h2>
               <p className="mt-6 text-sm leading-relaxed text-white/70">
-                Basés en Centre-Val de Loire, nous nous déplaçons directement dans vos locaux à <strong>Tours, Joué-lès-Tours, Saint-Avertin, Chambray-lès-Tours</strong> et partout en Indre-et-Loire pour filmer vos équipes et vos réalisations. Pas d&apos;intermédiaires : vous échangez en direct avec Louisia et Tracy pour une cohérence parfaite et des délais respectés.
+                Basés en Centre-Val de Loire, nous nous déplaçons directement dans vos locaux à <strong>Tours, Joué-lès-Tours, Saint-Avertin, Chambray-lès-Tours</strong> et partout en Indre-et-Loire pour filmer vos équipes et vos réalisations. Pas d&apos;intermédiaires : vous échangez en direct avec Louisia et Tracy pour une cohérence parfaite et des délais respectés. Parcourez nos <Link href="/galerie" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">réalisations vidéo</Link> et nos <Link href="/tarifs" className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue">tarifs</Link>.
               </p>
             </div>
             
