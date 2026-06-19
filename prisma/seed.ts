@@ -173,7 +173,7 @@ async function main() {
   }
 
   // ── Blog Posts ──────────────────────────────────────────────────────
-  const { blogContent } = await import("./blog-content");
+  const { blogContent, blogMetaTitles } = await import("./blog-content");
   const adminUser = await db.user.findUnique({ where: { email: adminEmail } });
 
   // ── Autrice du blog : Louisia (E-E-A-T) ────────────────────────────
@@ -337,7 +337,7 @@ async function main() {
       parentServiceId: service.id,
       authorId: louisiaUser?.id ?? adminUser?.id ?? null,
       readingTimeMin: Math.max(3, Math.round((content.replace(/<[^>]*>/g, "").split(/\s+/).length) / 200)),
-      metaTitle: bp.metaTitle ?? null,
+      metaTitle: blogMetaTitles[bp.slug] ?? bp.metaTitle ?? null,
       metaDescription: bp.metaDescription ?? null,
       tags: bp.tags ?? [],
       coverImageAlt: bp.coverImageAlt ?? null,

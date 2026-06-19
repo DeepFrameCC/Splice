@@ -48,8 +48,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const service = await getServiceBySlug(slug);
   if (!service) return {};
   const url = absoluteUrl(`/services/${slug}`);
+  // FIX: service.metaTitle finit par " | Splice Studio" et le template du layout
+  // racine le rajoute → on retire le suffixe pour le <title> (évite le doublon
+  // "... | Splice Studio | Splice Studio" et raccourcit le titre).
+  const cleanTitle = service.metaTitle.replace(/\s*\|\s*Splice Studio\s*$/i, "").trim();
   return {
-    title: service.metaTitle,
+    title: cleanTitle,
     description: service.metaDescription,
     alternates: { canonical: url },
     openGraph: {

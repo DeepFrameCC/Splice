@@ -39,7 +39,7 @@ export default function LastFrame() {
           <a
             href="https://wa.me/33651109202"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="df-lf-meta-link"
           >
             WhatsApp

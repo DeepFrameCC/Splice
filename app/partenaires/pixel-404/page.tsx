@@ -6,7 +6,7 @@ import { buildBreadcrumbJsonLd, BASE_URL } from "@/lib/seo";
 import Pixel404Interactive from "@/components/partners/Pixel404Interactive";
 
 export const metadata: Metadata = {
-  title: "Pixel 404 × Splice Studio — partenaire gaming & pop culture à Orléans",
+  title: { absolute: "Pixel 404 × Splice Studio — gaming & pop culture Orléans" },
   description:
     "Splice Studio réalise les contenus vidéo et photo de Pixel 404, magasin informatique et gaming à Orléans (réparation consoles & PC, montage sur mesure, cartes Pokémon TCG).",
   alternates: { canonical: `${BASE_URL}/partenaires/pixel-404` },

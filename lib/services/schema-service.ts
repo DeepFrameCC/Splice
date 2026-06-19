@@ -265,6 +265,15 @@ export function buildLocalServiceJsonLd(opts: {
           "@id": ORG_ID,
           name: "Splice Studio",
           url: SITE_URL,
+          // FIX: Google exige un `address` sur LocalBusiness (sinon "A value for
+          // the address field is required" sur les 14 pages service × ville).
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: opts.ville.name,
+            postalCode: `${opts.ville.departmentCode}000`,
+            addressRegion: "Centre-Val de Loire",
+            addressCountry: "FR",
+          },
         },
         areaServed: {
           "@type": opts.ville.departmentCode ? "City" : "AdministrativeArea",

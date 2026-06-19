@@ -86,7 +86,7 @@ export default function ContactPage() {
           <a
             href="https://wa.me/33651109202"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow"
             className="group flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-df-surface p-6 transition hover:border-df-blue/30 hover:shadow-lg"
           >
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#25D366] text-white">

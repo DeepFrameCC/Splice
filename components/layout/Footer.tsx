@@ -34,10 +34,13 @@ export default function Footer() {
             <li><Link href="/videaste-orleans" className="hover:text-df-gold transition-colors">Vidéaste Orléans</Link></li>
             <li><Link href="/photographe-orleans" className="hover:text-df-gold transition-colors">Photographe Orléans</Link></li>
             <li><Link href="/photographe-evenementiel" className="hover:text-df-gold transition-colors">Photo événementiel</Link></li>
+            <li><Link href="/production-video-tours" className="hover:text-df-gold transition-colors">Production vidéo Tours</Link></li>
             <li><Link href="/tarifs" className="hover:text-df-gold transition-colors">Tarifs</Link></li>
             <li><Link href="/galerie" className="hover:text-df-gold transition-colors">Galerie</Link></li>
+            <li><Link href="/photos" className="hover:text-df-gold transition-colors">Photos</Link></li>
             <li><Link href="/blog" className="hover:text-df-gold transition-colors">Blog</Link></li>
             <li><Link href="/equipe" className="hover:text-df-gold transition-colors">Équipe</Link></li>
+            <li><Link href="/avis" className="hover:text-df-gold transition-colors">Avis clients</Link></li>
             <li><Link href="/partenaires" className="hover:text-df-gold transition-colors">Partenaires</Link></li>
             <li><Link href="/faq" className="hover:text-df-gold transition-colors">FAQ</Link></li>
           </ul>

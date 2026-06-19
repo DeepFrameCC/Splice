@@ -20,7 +20,7 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { Pool } from "@neondatabase/serverless";
 import ws from "ws";
-import { blogContent } from "../prisma/blog-content";
+import { blogContent, blogMetaTitles } from "../prisma/blog-content";
 
 // Minimal .env loader (tsx does not auto-populate env outside the Prisma CLI).
 try {
@@ -60,7 +60,9 @@ async function main() {
   let updated = 0;
   let missing = 0;
   for (const [slug, content] of Object.entries(blogContent)) {
-    const res = await db.blogPost.updateMany({ where: { slug }, data: { content } });
+    const data = { content };
+    if (blogMetaTitles[slug]) data.metaTitle = blogMetaTitles[slug];
+    const res = await db.blogPost.updateMany({ where: { slug }, data });
     if (res.count > 0) {
       updated += res.count;
       console.log("updated:", slug);

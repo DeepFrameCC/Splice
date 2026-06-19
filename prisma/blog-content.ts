@@ -844,3 +844,15 @@ export const blogContent: Record<string, string> = {
 
 <p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demandez un devis gratuit</a> et préparons ensemble la couverture de votre prochain événement. Réponse sous 24 heures. Préparez votre événement avec notre <a href="/services/production-corporate/orleans">équipe vidéo à Orléans</a>.</p>`,
 };
+
+/**
+ * Surcharges de metaTitle (≤ 60 car. une fois le suffixe « | Splice Studio »
+ * du layout ajouté) pour les articles dont le titre dépassait la limite SEO.
+ * Source unique : consommée par seed.ts et scripts/update-blog-content.js.
+ */
+export const blogMetaTitles: Record<string, string> = {
+  "5-erreurs-montage-video-reseaux-sociaux": "5 erreurs de montage vidéo réseaux sociaux",
+  "film-corporate-roi-communication": "Film corporate : quel ROI attendre ?",
+  "guide-formats-video-2026": "Formats vidéo 2026 : TikTok, Reels, YouTube",
+  "motion-design-vs-prise-de-vue-reelle": "Motion design ou prise de vue réelle ?",
+};
