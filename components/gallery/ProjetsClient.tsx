@@ -319,13 +319,7 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike, 
             </div>
           </div>
         </div>
-        <div className="pj-hero-mosaic hidden md:grid" aria-hidden="true">
-          <div className="pj-slide-bg pj-g0" />
-          <div className="pj-slide-bg pj-g1" />
-          <div className="pj-slide-bg pj-g4" />
-          <div className="pj-slide-bg pj-g3" />
-          <div className="pj-slide-bg pj-g5" />
-        </div>
+
       </section>
 
       {/* Tabs */}

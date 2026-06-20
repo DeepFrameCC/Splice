@@ -59,7 +59,7 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     label: "Pro",
     tagline: "Pour publier toutes les semaines",
     recommended: true,
-    videosPerMonth: 5,
+    videosPerMonth: 4,
     launchMonthly: 99,
     launchAnnualMonthly: 89,
     launchAnnualTotal: 1068,
@@ -68,7 +68,7 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     stdAnnualMonthly: 129,
     stdAnnualTotal: 1548,
     features: [
-      "5 vidéos sources / mois",
+      "4 vidéos sources / mois",
       "Recyclage multi-réseaux",
       "Podcasts courts (limité à 2 / mois)",
       "Option photo (+15 photos max / 3 packs)",
@@ -83,7 +83,7 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     id: "PREMIUM_ABO",
     label: "Premium",
     tagline: "Pour une présence quasi quotidienne",
-    videosPerMonth: 8,
+    videosPerMonth: 6,
     launchMonthly: 189,
     launchAnnualMonthly: 169,
     launchAnnualTotal: 2028,
@@ -92,7 +92,7 @@ export const SUBSCRIPTION_PLANS: Record<PlanId, SubscriptionPlan> = {
     stdAnnualMonthly: 249,
     stdAnnualTotal: 2988,
     features: [
-      "8 vidéos sources / mois",
+      "6 vidéos sources / mois",
       "Recyclage multi-réseaux",
       "Podcasts courts (limité à 4 / mois)",
       "Option photo (disponible sans limite)",
@@ -168,15 +168,15 @@ export interface NetworkVolume {
 }
 
 export const NETWORK_VOLUMES: NetworkVolume[] = [
-  { network: "Instagram – Reels", standard: "2 Reels", pro: "5 Reels", premium: "8 Reels" },
-  { network: "Instagram – Stories", standard: "4–6 stories", pro: "10–15 stories", premium: "20–25 stories" },
-  { network: "Instagram – Carrousels", standard: "1 carrousel", pro: "3 carrousels", premium: "4–6 carrousels" },
-  { network: "TikTok", standard: "2 TikToks", pro: "5 TikToks", premium: "8 TikToks" },
-  { network: "YouTube Shorts", standard: "2 Shorts", pro: "5 Shorts", premium: "8 Shorts" },
-  { network: "Facebook (posts/Reels)", standard: "2 posts", pro: "5 posts", premium: "8 posts" },
-  { network: "Pinterest (pins)", standard: "4 pins", pro: "10 pins", premium: "16 pins" },
-  { network: "Google – posts", standard: "2–4 posts", pro: "5–8 posts", premium: "10–12 posts" },
-  { network: "Google – photos", standard: "5–8 photos", pro: "10–15 photos", premium: "20 photos" },
+  { network: "Instagram – Reels", standard: "2 Reels", pro: "4 Reels", premium: "6 Reels" },
+  { network: "Instagram – Stories", standard: "4–6 stories", pro: "8–12 stories", premium: "16–20 stories" },
+  { network: "Instagram – Carrousels", standard: "1 carrousel", pro: "2 carrousels", premium: "3–4 carrousels" },
+  { network: "TikTok", standard: "2 TikToks", pro: "4 TikToks", premium: "6 TikToks" },
+  { network: "YouTube Shorts", standard: "2 Shorts", pro: "4 Shorts", premium: "6 Shorts" },
+  { network: "Facebook (posts/Reels)", standard: "2 posts", pro: "4 posts", premium: "6 posts" },
+  { network: "Pinterest (pins)", standard: "4 pins", pro: "8 pins", premium: "12 pins" },
+  { network: "Google – posts", standard: "2–4 posts", pro: "4–6 posts", premium: "8–10 posts" },
+  { network: "Google – photos", standard: "5–8 photos", pro: "8–12 photos", premium: "15–18 photos" },
 ];
 
 // ─── Pack Particulier ─────────────────────────────────────────────
