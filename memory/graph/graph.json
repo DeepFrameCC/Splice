@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "splice-studio",
-    "generatedat": "2026-06-11T22:35:06.024Z",
+    "generatedat": "2026-06-21T12:52:10.936Z",
     "nodecount": 4,
     "edgecount": 3,
     "metrics": {
@@ -25,6 +25,7 @@
         "coreprimary": "agent",
         "coresecondary": null,
         "summary": null,
+        "agent_summary": null,
         "importance": 0.5,
         "status": "active",
         "path": "memory/00-MOC-project.md",
@@ -51,6 +52,7 @@
         "coreprimary": "design",
         "coresecondary": null,
         "summary": "Principes de design, composants et palette de couleurs du projet Splice Studio.",
+        "agent_summary": null,
         "importance": 0.6,
         "status": "active",
         "path": "memory/design/design-system.md",
@@ -80,6 +82,7 @@
         "coreprimary": "product",
         "coresecondary": null,
         "summary": "Plateforme cloud de développement et d'orchestration pour applications distribuées.",
+        "agent_summary": null,
         "importance": 0.8,
         "status": "active",
         "path": "memory/product/product-vision.md",
@@ -109,6 +112,7 @@
         "coreprimary": "tech",
         "coresecondary": null,
         "summary": "Description de la stack technologique employée pour le développement de Splice Studio.",
+        "agent_summary": null,
         "importance": 0.9,
         "status": "active",
         "path": "memory/tech/tech-stack.md",

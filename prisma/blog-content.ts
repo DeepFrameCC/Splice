@@ -199,18 +199,18 @@ export const blogContent: Record<string, string> = {
 
 <p>Chez Splice Studio, basés à Orléans et Tours, nos abonnements démarrent à <strong>45 €/mois</strong> et incluent la déclinaison multiplateforme. Consultez <a href="/faq">notre FAQ</a> ou <a href="/contact">contactez-nous</a>.</p>
 
-<p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demandez votre devis gratuit</a>, nous vous répondons sous 48 h. Faites appel à notre <a href="/services/montage-video/orleans">service de montage vidéo à Orléans</a>.</p>`,
+<p><strong>Vous souhaitez des vidéos qui maximisent votre visibilité sur chaque plateforme ?</strong> <a href="/devis">Demander un devis</a>, nous vous répondons sous 48 h. Faites appel à notre <a href="/services/montage-video/orleans">service de montage vidéo à Orléans</a>.</p>`,
 
   "film-corporate-roi-communication": `<h2>Pourquoi le film corporate est un investissement, pas une dépense</h2>
 
-<p>Dans un paysage digital saturé de contenus, le film corporate s'impose comme l'un des leviers de communication les plus performants pour les entreprises. La question revient à chaque projet : <strong>combien coûte une vidéo de présentation, et quel retour sur investissement en attendre ?</strong></p>
+<p>Dans un paysage digital saturé de contenus, le film corporate s'impose comme l'un des leviers de communication les plus performants pour les PME. Selon l'étude de HubSpot, <strong>86 % des entreprises utilisent la vidéo comme outil de communication</strong> (contre seulement 61 % en 2016). Mais la question revient à chaque projet : <strong>combien coûte un film d'entreprise, et quel retour sur investissement en attendre ?</strong></p>
 
-<p>Le film d'entreprise génère des résultats mesurables. Cet article réunit les chiffres clés, des cas d'usage concrets et une méthode pour évaluer le <strong>film corporate ROI</strong> de vos projets vidéo.</p>
+<p>Le film d'entreprise génère des résultats mesurables. Cet article réunit les chiffres clés, des cas d'usage concrets et une méthode pour évaluer le <strong>film corporate ROI</strong> de vos projets vidéo à Orléans et Tours.</p>
 
 <h2>Les chiffres qui prouvent l'efficacité de la vidéo d'entreprise</h2>
 
 <ul>
-  <li><strong>87 % des professionnels du marketing</strong> affirment que la vidéo leur a permis d'augmenter directement leurs ventes (Wyzowl, 2024).</li>
+  <li><strong>87 % des professionnels du marketing</strong> affirment que la vidéo leur a permis d'augmenter directement leurs ventes (Wyzowl).</li>
   <li>Une page de vente intégrant une vidéo enregistre un <strong>taux de conversion supérieur de 80 %</strong> (EyeView Digital).</li>
   <li>Les contenus vidéo génèrent <strong>1 200 % de partages en plus</strong> que le texte et les images combinés (Demand Metric).</li>
   <li><strong>72 % des consommateurs</strong> préfèrent découvrir un produit ou un service à travers une vidéo (HubSpot).</li>
@@ -218,9 +218,19 @@ export const blogContent: Record<string, string> = {
 
 <h2>Combien coûte réellement un film corporate ?</h2>
 
-<p>Les grandes agences parisiennes facturent couramment entre 5 000 et 30 000 euros. Mais une <strong>réalisation vidéo PME pas cher</strong> ne signifie pas une réalisation au rabais.</p>
+<p>Les tarifs de référence sur le marché de la vidéo d'entreprise en 2025-2026 sont clairs : une vidéo corporate standard coûte généralement entre <strong>1 200 € et 15 000 € HT</strong> selon la complexité du projet (nombre de cadreurs, matériel de prise de vue, motion design additionnel). Environ 75 % des vidéos d'entreprise plus ambitieuses disposent d'un budget situé entre 5 000 € et 20 000 € HT. Cependant, il est possible de concevoir des formats simplifiés ou des packs récurrents très avantageux pour les PME régionales.</p>
 
-<p>Chez Splice Studio, nos vidéos à l'unité démarrent à <strong>29 €</strong> et nos abonnements mensuels à <strong>45 €/mois</strong>, jusqu'à la formule Premium à 189 €/mois pour une présence quasi quotidienne. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou <a href="/devis">demandez un devis</a> personnalisé.</p>
+<p>Chez Splice Studio, nos vidéos à l'unité démarrent à <strong>29 €</strong> et nos abonnements mensuels à <strong>45 €/mois</strong>, jusqu'à la formule Premium à 189 €/mois pour une présence quasi quotidienne. Découvrez le détail sur <a href="/services/production-corporate">notre service de production corporate</a>, ou utilisez notre simulateur pour <a href="/devis">Demander un devis</a> personnalisé.</p>
+
+<h2>Comment mesurer le ROI concrètement ?</h2>
+
+<p>Pour calculer le retour sur investissement de votre film d'entreprise, suivez ces indicateurs clés :</p>
+<ul>
+  <li><strong>Taux de conversion sur les landing pages :</strong> comparez le nombre de leads qualifiés générés avant et après l'intégration de la vidéo d'entreprise.</li>
+  <li><strong>Temps passé sur le site (dwell time) :</strong> une augmentation du temps de visite moyen de 80 % à 90 % signale à Google un contenu de haute valeur, renforçant votre SEO local.</li>
+  <li><strong>Taux de mémorisation du message :</strong> évaluez la qualité de vos premiers contacts (les prospects citent-ils spontanément des éléments montrés dans la vidéo ?).</li>
+  <li><strong>Taux de clic (CTR) dans vos emails :</strong> l'ajout du terme "vidéo" dans l'objet d'une campagne emailing booste le taux d'ouverture et le taux de clic.</li>
+</ul>
 
 <h2>Quatre cas d'usage à fort ROI pour les PME</h2>
 
@@ -240,147 +250,131 @@ export const blogContent: Record<string, string> = {
 
 <p>Les publications vidéo sur LinkedIn génèrent en moyenne <strong>5 fois plus d'engagement</strong> que les posts textuels (LinkedIn Business). Consultez <a href="/galerie">nos réalisations</a> pour des exemples concrets.</p>
 
-<h2>Comment mesurer le ROI de votre film corporate</h2>
+<h2>Comment calculer le ROI de votre film corporate</h2>
 
-<h3>Étape 1 : Identifiez votre objectif principal</h3>
+<p>Utilisez la formule standard :</p>
+<p class="font-mono bg-white/5 p-4 rounded-xl text-center text-df-gold my-4"><strong>ROI = (Revenus générés - Coût de production) / Coût de production × 100</strong></p>
 
-<ul>
-  <li><strong>Notoriété</strong> : vues, impressions, portée organique</li>
-  <li><strong>Engagement</strong> : taux de complétion, partages, commentaires</li>
-  <li><strong>Conversion</strong> : clics, demandes de devis, prises de rendez-vous</li>
-  <li><strong>Recrutement</strong> : candidatures après diffusion marque employeur</li>
-</ul>
-
-<h3>Étape 2 : Posez vos KPI avant le tournage</h3>
-
-<p>Fixez un volume cible réaliste : par exemple, 5 000 vues sur LinkedIn en 30 jours, ou 20 demandes de contact.</p>
-
-<h3>Étape 3 : Calculez le ROI simplifié</h3>
-
-<p><strong>ROI = (Revenus générés - Coût de production) / Coût de production × 100</strong></p>
-
-<p>Exemple : une vidéo à 850 euros génère 3 demandes de devis dont 1 se transforme en contrat de 4 000 euros. Le ROI est de <strong>370 %</strong>. Et la vidéo continuera de travailler les mois suivants.</p>
-
-<h3>Étape 4 : Suivez dans la durée</h3>
-
-<p>Un film corporate a une durée de vie de <strong>2 à 5 ans</strong>. Mesurez les résultats à 3, 6 et 12 mois.</p>
+<p>Exemple : une vidéo à 1 500 € HT génère 3 demandes de devis dont 1 se transforme en un contrat de 6 000 € HT. Le ROI immédiat est de <strong>300 %</strong>. En outre, ce contenu reste actif sur votre site pendant 2 à 3 ans, continuant de convertir à coût nul.</p>
 
 <h2>Trois erreurs qui plombent le ROI</h2>
 
 <ul>
   <li><strong>Ne pas définir de cible précise</strong> : un film qui parle à tout le monde ne parle à personne.</li>
-  <li><strong>Négliger la diffusion</strong> : prévoyez un plan multi-canal dès la pré-production.</li>
-  <li><strong>Vouloir tout dire en une seule vidéo</strong> : un message clair de 60 secondes sera toujours plus performant.</li>
+  <li><strong>Négliger la diffusion</strong> : prévoyez un plan multi-canal dès la pré-production (réseaux sociaux, site, prospection).</li>
+  <li><strong>Vouloir tout dire en une seule vidéo</strong> : préférez un format court et axé sur un seul message fort. Si vous hésitez sur le format graphique, consultez notre article <a href="/blog/motion-design-vs-prise-de-vue-reelle">motion design vs prise de vue réelle</a>.</li>
 </ul>
 
 <p>Consultez <a href="/faq">notre FAQ</a> ou échangez directement avec notre équipe.</p>
 
 <h2>Investissez malin, mesurez vos résultats</h2>
 
-<p>Avec une approche structurée, objectif clair, production soignée, diffusion stratégique et suivi des résultats, même un investissement modeste peut générer un retour significatif.</p>
+<p>Avec une approche structurée (objectif clair, production soignée, diffusion stratégique et suivi des résultats), même un investissement modeste peut générer un retour significatif.</p>
 
 <p>Chez Splice Studio, nous accompagnons les entreprises du Centre-Val de Loire et de toute la France. <strong><a href="/devis">Demandez votre devis gratuit</a></strong> et discutons ensemble du projet vidéo qui fera la différence. Découvrez notre <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a>.</p>`,
 
   "interview-dirigeant-reussie-7-conseils": `<h2>Pourquoi l'interview vidéo de dirigeant est un atout stratégique</h2>
 
-<p>L'<strong>interview vidéo dirigeant</strong> est devenue un format incontournable de la communication corporate. Elle humanise l'entreprise, rassure les prospects et renforce la crédibilité de la marque. Selon Wyzowl (2024), <strong>39 % des décideurs B2B contactent un fournisseur après avoir visionné une vidéo</strong> de ses dirigeants.</p>
+<p>L'<strong>interview vidéo de dirigeant</strong> et la <strong>vidéo témoignage client</strong> sont devenues des formats incontournables de la communication corporate. Ils humanisent la marque, rassurent les prospects et renforcent la crédibilité d'une PME. Selon Wyzowl, <strong>39 % des décideurs B2B contactent un fournisseur après avoir visionné une vidéo</strong> de ses dirigeants ou de ses clients satisfaits.</p>
 
-<p>Voici nos 7 conseils pour transformer une simple captation en un outil de communication puissant et authentique.</p>
+<p>Voici nos 8 conseils pour transformer une simple captation d'interview en un outil de communication puissant, authentique et optimisé pour le SEO local à Orléans et Tours.</p>
 
 <h2>Conseil 1 : Définissez un angle éditorial précis</h2>
 
 <p>Avant le tournage, posez-vous trois questions :</p>
-
 <ul>
   <li>Quel est le <strong>public cible</strong> de cette vidéo ?</li>
-  <li>Quel <strong>message clé</strong> doit ressortir ?</li>
-  <li>Quelle <strong>action</strong> attendez-vous du spectateur après le visionnage ?</li>
+  <li>Quel <strong>message clé</strong> doit ressortir de cet entretien ?</li>
+  <li>Quelle <strong>action (CTA)</strong> attendez-vous du spectateur après le visionnage ?</li>
 </ul>
 
-<p>Ce cadrage guide la rédaction des questions, le choix du décor et le ton. Consultez <a href="/services/production-corporate">notre service de production corporate</a> pour en savoir plus.</p>
+<p>Ce cadrage guide la rédaction des questions, le choix du décor et le ton. Consultez <a href="/services/production-corporate">nôtre service de production corporate</a> pour en savoir plus.</p>
 
-<h2>Conseil 2 : Préparez le dirigeant sans le scripter</h2>
+<h2>Conseil 2 : Préparez l'intervenant sans scripter ses réponses</h2>
 
-<p>Les vidéos perçues comme authentiques génèrent <strong>33 % d'engagement supplémentaire</strong> (Demand Metric).</p>
-
+<p>Les vidéos perçues comme authentiques génèrent <strong>33 % d'engagement supplémentaire</strong>. Pour un témoignage client ou un entretien de dirigeant :</p>
 <ul>
-  <li>Transmettez les <strong>thèmes</strong> 48 heures avant, pas les questions exactes</li>
-  <li>Prévoyez un <strong>échange de 15 minutes</strong> avant la captation</li>
-  <li>Encouragez les <strong>anecdotes concrètes</strong></li>
-  <li>Autorisez les <strong>reprises</strong> sans pression</li>
+  <li>Transmettez les <strong>thèmes généraux</strong> 48 heures avant, mais pas les questions exactes pour garder un ton naturel</li>
+  <li>Prévoyez un <strong>échange informel de 15 minutes</strong> avant la captation pour détendre le sujet</li>
+  <li>Encouragez les <strong>anecdotes vécues</strong> et les chiffres concrets</li>
+  <li>Autorisez les <strong>reprises de parole</strong> sans pression</li>
 </ul>
 
 <h2>Conseil 3 : Soignez le cadre et la lumière</h2>
 
 <p>Le décor communique autant que les mots.</p>
-
 <ul>
-  <li>Choisissez un lieu qui <strong>raconte quelque chose</strong> sur l'entreprise</li>
-  <li>Un léger <strong>flou d'arrière-plan</strong> concentre l'attention</li>
-  <li>Privilégiez la <strong>lumière naturelle</strong> complétée par un éclairage d'appoint</li>
-  <li>Que ce soit pour une <strong>photo corporate Orléans</strong> ou une vidéo à Tours, le repérage est indispensable</li>
+  <li>Choisissez un lieu qui <strong>raconte quelque chose</strong> sur votre activité (atelier, bureau lumineux)</li>
+  <li>Un léger <strong>flou d'arrière-plan (effet bokeh)</strong> concentre l'attention sur le visage du dirigeant</li>
+  <li>Privilégiez la <strong>lumière naturelle</strong> complétée par un éclairage d'appoint de type boîte à lumière</li>
+  <li>Que ce soit pour un portrait ou une vidéo d'équipe, le repérage est une étape indispensable</li>
 </ul>
 
 <h2>Conseil 4 : Investissez dans le son</h2>
 
-<p>Le son prime sur l'image. Une image moyenne accompagnée d'un bon son reste regardable, alors qu'un son médiocre fait fermer la vidéo en quelques secondes, même avec une belle image.</p>
-
+<p>Le son prime sur l'image. Une image moyenne avec un bon son reste regardable, alors qu'un son médiocre fait fermer la vidéo en quelques secondes, même avec une superbe image 4K.</p>
 <ul>
-  <li>Utilisez un <strong>micro-cravate</strong> ou un micro directionnel</li>
-  <li>Coupez les sources de bruit parasite</li>
-  <li>Enregistrez <strong>30 secondes de silence</strong> en début de captation</li>
+  <li>Utilisez un <strong>micro-cravate</strong> (HF ou filaire) ou un micro directionnel suspendu sur perche</li>
+  <li>Coupez les sources de bruit parasite (climatisation, ordinateurs, circulation)</li>
+  <li>Enregistrez <strong>30 secondes de silence</strong> (bruit ambiant) en début de captation pour le nettoyage audio au montage</li>
 </ul>
 
 <h2>Conseil 5 : Posez les bonnes questions (et dans le bon ordre)</h2>
 
-<h3>Structure recommandée</h3>
-
+<h3>Structure recommandée pour l'interview</h3>
 <ul>
-  <li><strong>Questions d'ouverture</strong> : "Pouvez-vous nous présenter votre parcours ?"</li>
-  <li><strong>Questions de fond</strong> : "Qu'est-ce qui différencie votre approche ?"</li>
-  <li><strong>Questions d'illustration</strong> : "Avez-vous un exemple concret ?"</li>
-  <li><strong>Question de clôture</strong> : "Quelle est votre ambition pour les 12 prochains mois ?"</li>
+  <li><strong>Questions d'ouverture</strong> : "Pouvez-vous nous présenter votre parcours et votre rôle ?"</li>
+  <li><strong>Questions de fond</strong> : "Quel problème majeur résolvez-vous au quotidien pour vos clients ?"</li>
+  <li><strong>Questions d'illustration</strong> : "Avez-vous un exemple concret de projet dont vous êtes fier ?"</li>
+  <li><strong>Question de clôture</strong> : "Quelle est votre vision pour les 12 prochains mois ?"</li>
 </ul>
 
-<p>Prévoyez <strong>8 à 12 questions</strong> pour une interview finale de 2 à 4 minutes après montage.</p>
+<p>Prévoyez <strong>8 à 12 questions</strong> pour obtenir une interview rythmée de 2 à 4 minutes après le montage.</p>
 
 <h2>Conseil 6 : Pensez multi-format dès le tournage</h2>
-
 <ul>
   <li><strong>Extraits courts</strong> pour LinkedIn, Instagram Reels ou TikTok</li>
-  <li><strong>Citations visuelles</strong> sur un visuel de marque</li>
-  <li><strong>Version sous-titrée</strong> (85 % des vidéos vues sans le son, Digiday)</li>
+  <li><strong>Citations visuelles</strong> à afficher en carrousel ou en visuels de marque</li>
+  <li><strong>Version sous-titrée</strong> (85 % des vidéos sur les réseaux sociaux sont lues sans le son)</li>
   <li><strong>Podcast ou version audio</strong></li>
 </ul>
 
-<p>Un seul tournage peut produire <strong>10 à 15 contenus distincts</strong>. Nos packs sont conçus pour maximiser cette valeur, que ce soit une <strong>captation événementielle Tours</strong> ou une interview corporate.</p>
+<p>Un seul tournage peut produire <strong>10 à 15 contenus distincts</strong>. Nos abonnements sont conçus pour maximiser cette valeur, que ce soit pour une interview corporate ou une captation événementielle.</p>
 
 <h2>Conseil 7 : Diffusez avec une vraie stratégie</h2>
-
-<p>Selon HubSpot, <strong>54 % des décideurs partagent des vidéos professionnelles</strong> chaque semaine.</p>
-
 <ul>
-  <li><strong>Votre site web</strong> : intégrez sur les pages stratégiques</li>
-  <li><strong>LinkedIn</strong> : publication native avec une accroche percutante</li>
-  <li><strong>Newsletter</strong> : le mot "vidéo" augmente le taux d'ouverture de 19 % (Syndacast)</li>
-  <li><strong>Présentation commerciale</strong> : intégrez des extraits dans vos decks</li>
+  <li><strong>Votre site web :</strong> intégrez l'interview sur les pages stratégiques pour rassurer</li>
+  <li><strong>LinkedIn :</strong> publication native (pas de lien externe direct) avec une accroche accrocheuse</li>
+  <li><strong>Newsletter :</strong> insérer une capture de la vidéo (le mot "vidéo" augmente le taux d'ouverture de 19 %)</li>
 </ul>
+
+<h2>Conseil 8 : Pensez au format court vertical pour les réseaux sociaux</h2>
+<p>Les habitudes de consommation évoluent : selon les données sectorielles (Branding Strategy Insider), les formats courts de moins de 60 secondes représentent désormais <strong>65 % de l'ensemble du contenu vidéo consommé</strong> en ligne. Il est donc indispensable de découper votre interview de dirigeant ou votre vidéo de témoignage client en micro-séquences verticales de 15 à 45 secondes, optimisées pour le défilement rapide sur LinkedIn, Reels et TikTok.</p>
+
+<h2>Avant / Après : ce que change un vidéaste professionnel</h2>
+<p>Beaucoup de PME tentent de réaliser leurs interviews en interne avec un smartphone. Voici l'impact d'un accompagnement professionnel :</p>
+<ul>
+  <li><strong>Prise de vue amateur :</strong> Lumière crue projetant des ombres marquées sur le visage, son résonnant avec bruit de fond, cadrage maladroit écrasant la stature du dirigeant.</li>
+  <li><strong>Prise de vue professionnelle :</strong> Éclairage trois points adoucissant les traits, micro-cravate haut de gamme isolant parfaitement la voix, caméra cinéma à grande ouverture pour isoler le sujet avec élégance, et un montage dynamique éliminant les hésitations (les "euh") pour projeter une image de confiance absolue.</li>
+</ul>
+
+<p>Pour en savoir plus sur l'alternative de formats dynamiques et décontractés, lisez notre guide sur le <a href="/blog/vlog-entreprise-definition-formats">vlog d'entreprise</a>.</p>
 
 <h2>Passez à l'action</h2>
 
-<p>L'interview vidéo de dirigeant est un format efficace. Chez Splice Studio, nous accompagnons les dirigeants à Orléans, Tours et dans toute la France. Découvrez <a href="/galerie">nos réalisations</a> ou consultez <a href="/contact">notre page de contact</a>.</p>
+<p>L'interview de dirigeant et le témoignage client sont des formats très rentables pour développer votre image. Chez Splice Studio, nous vous accompagnons de la préparation des questions au montage final à Orléans, Tours et dans toute la région Centre-Val de Loire.</p>
 
-<p><strong>Prêt à donner la parole à votre dirigeant ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble une interview vidéo qui porte vos messages.</strong> Voir notre <a href="/services/interview-temoignage/orleans">service d'interview vidéo à Orléans</a>.</p>`,
+<p><strong>Prêt à donner la parole à vos équipes et clients ? <a href="/devis">Demander un devis</a> et concevons ensemble une interview vidéo professionnelle.</strong> Découvrez notre <a href="/services/interview-temoignage/orleans">service d'interview vidéo à Orléans</a>.</p>`,
 
   "motion-design-vs-prise-de-vue-reelle": `<h2>Motion design ou prise de vue réelle : deux approches, un même objectif</h2>
 
-<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl (2024), 91 % des entreprises utilisent la vidéo comme outil marketing, mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique.</p>
+<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl, 91 % des entreprises utilisent la vidéo comme outil marketing, mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique pour optimiser leur communication à Orléans et Tours.</p>
 
 <h2>Comprendre les deux formats</h2>
 
 <h3>La prise de vue réelle : l'authenticité</h3>
 
-<p>Le tournage vidéo met en scène vos locaux, vos équipes, vos produits. Les vidéos avec des personnes réelles génèrent <strong>30 % d'engagement supplémentaire</strong> sur YouTube (Google/Ipsos). Idéal pour :</p>
+<p>Le tournage vidéo met en scène vos locaux, vos équipes, vos produits. Les vidéos avec des personnes réelles génèrent <strong>30 % d'engagement supplémentaire</strong> sur YouTube. De plus, selon les données de KabochArts (2026), les vidéos de témoignages clients retiennent l'attention jusqu'à la moitié de leur durée, et une vidéo intégrée dans un article de blog augmente l'engagement de plus de 40 %, renforçant la crédibilité de votre message. Idéal pour :</p>
 
 <ul>
   <li>Les <strong>témoignages clients</strong> et interviews</li>
@@ -391,18 +385,66 @@ export const blogContent: Record<string, string> = {
 
 <h3>Le motion design : la clarté</h3>
 
-<p>Les vidéos explicatives animées augmentent la <strong>compréhension du message de 74 %</strong> (Renderforest). Idéal pour :</p>
+<p>Les vidéos explicatives animées augmentent la <strong>compréhension du message de 74 %</strong>. Idéal pour :</p>
 
 <ul>
-  <li>Expliquer un <strong>processus complexe</strong></li>
+  <li>Expliquer un <strong>processus complexe</strong> ou un concept technique</li>
   <li>Créer des <strong>intros animées</strong> et logo reveals</li>
-  <li>Produire des <strong>contenus réseaux sociaux</strong> percutants</li>
+  <li>Produire des <strong>contenus réseaux sociaux</strong> percutants et colorés</li>
   <li>Illustrer des concepts <strong>abstraits</strong></li>
 </ul>
 
 <p>Consultez <a href="/galerie">nos réalisations</a> pour des exemples concrets.</p>
 
-<h2>Les 5 critères pour choisir</h2>
+<h2>Tableau comparatif : Motion Design vs Tournage Réel</h2>
+
+<div class="overflow-x-auto my-6">
+  <table class="min-w-full divide-y divide-white/10 text-sm text-white/80">
+    <thead>
+      <tr class="bg-white/5 text-white font-bold">
+        <th class="px-4 py-2 text-left">Critère</th>
+        <th class="px-4 py-2 text-left">Prise de vue réelle</th>
+        <th class="px-4 py-2 text-left">Motion design</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-white/10">
+      <tr>
+        <td class="px-4 py-2 font-semibold">Coût de départ</td>
+        <td class="px-4 py-2">Modéré à élevé (matériel, déplacements)</td>
+        <td class="px-4 py-2">Variable selon la complexité d'animation</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-semibold">Délai type</td>
+        <td class="px-4 py-2">2 à 4 semaines (tournage + post-prod)</td>
+        <td class="px-4 py-2">1 à 3 semaines (création graphique pure)</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-semibold">Impact principal</td>
+        <td class="px-4 py-2">Authenticité, émotion, relation humaine</td>
+        <td class="px-4 py-2">Clarté pédagogique, design moderne</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-semibold">Mise à jour</td>
+        <td class="px-4 py-2">Difficile (nécessite un nouveau tournage)</td>
+        <td class="px-4 py-2">Facile (modification des calques d'animation)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Quel format choisir selon votre budget ?</h2>
+
+<p>Le budget reste un critère décisif. En France, les tarifs de référence pour une vidéo en motion design de 60 secondes varient généralement entre <strong>1 500 € et 6 000 € HT</strong> selon la complexité des illustrations et la notoriété du studio. À titre de comparaison, un tournage corporate standard oscille souvent entre 1 200 € et 15 000 € HT.</p>
+
+<p>Pour optimiser votre investissement, posez-vous les questions suivantes :</p>
+<ul>
+  <li><strong>Budget &lt; 1 500 € HT :</strong> Privilégiez des formats de prise de vue réelle simples (ex. interviews de collaborateurs) ou des modèles hybrides avec habillage graphique léger. Nos formules à l'unité débutent à <strong>29 €</strong> pour les petits projets, et nos abonnements mensuels s'étendent de <strong>45 € à 189 €/mois</strong> pour lisser vos coûts de communication.</li>
+  <li><strong>Budget &gt; 1 500 € HT :</strong> Vous pouvez opter pour un motion design sur-mesure ou un film de marque haut de gamme avec scénarisation avancée.</li>
+</ul>
+
+<p>Pour en savoir plus sur la rentabilité de vos investissements vidéo, vous pouvez lire notre analyse sur le <a href="/blog/film-corporate-roi-communication">ROI d'un film corporate</a>.</p>
+
+<h2>Les 5 critères de décision</h2>
 
 <h3>1. La nature de votre message</h3>
 
@@ -416,35 +458,35 @@ export const blogContent: Record<string, string> = {
 
 <h3>2. Votre budget</h3>
 
-<p>En tant que <strong>boîte de production en Centre-Val de Loire</strong>, nous proposons des abonnements de <strong>45 à 189 €/mois</strong> et des vidéos à l'unité dès <strong>29 €</strong> ; les productions en motion design sont chiffrées sur <a href="/devis">devis</a> selon le temps d'animation.</p>
+<p>Comme indiqué plus haut, les productions en motion design sur-mesure sont chiffrées sur <a href="/devis">devis</a> selon le temps d'animation graphique nécessaire, tandis que la captation s'adapte facilement à des formules clés en main.</p>
 
 <h3>3. Vos délais</h3>
 
 <ul>
-  <li><strong>Tournage</strong> : 2 à 4 semaines</li>
-  <li><strong>Motion design pur</strong> : 1 à 3 semaines</li>
-  <li><strong>Urgence</strong> : le motion design offre plus de flexibilité</li>
+  <li><strong>Tournage</strong> : 2 à 4 semaines (planification du jour de tournage)</li>
+  <li><strong>Motion design pur</strong> : 1 à 3 semaines (processus d'illustration et d'animation)</li>
+  <li><strong>Urgence</strong> : le motion design offre parfois plus de flexibilité en éliminant les aléas météo ou de calendrier</li>
 </ul>
 
 <h3>4. La durée de vie du contenu</h3>
 
-<p>Une vidéo tournée avec des collaborateurs devient obsolète si l'équipe change. Un motion design se <strong>met à jour facilement</strong> sans re-tourner.</p>
+<p>Une vidéo tournée avec des collaborateurs devient obsolète si l'équipe change ou si vos locaux déménagent. Un motion design se <strong>met à jour facilement</strong> sans devoir reprogrammer un tournage coûteux.</p>
 
 <h3>5. Votre canal de diffusion</h3>
 
-<p>Les vidéos animées génèrent <strong>2,5 fois plus de partages</strong> sur LinkedIn (HubSpot). Sur Instagram et TikTok, la prise de vue réelle performe davantage.</p>
+<p>Les vidéos animées génèrent <strong>2,5 fois plus de partages</strong> sur LinkedIn (données HubSpot). Sur Instagram et TikTok, la prise de vue réelle performe davantage en raison de son authenticité naturelle.</p>
 
 <ul>
   <li><strong>LinkedIn, site web</strong> → motion design ou hybride</li>
   <li><strong>Instagram, TikTok, YouTube</strong> → prise de vue réelle ou hybride</li>
-  <li><strong>Salon professionnel</strong> → motion design en boucle</li>
+  <li><strong>Salon professionnel</strong> → motion design en boucle (très lisible sans son)</li>
 </ul>
 
 <h2>Le format hybride : le meilleur des deux mondes</h2>
 
 <ul>
   <li>Un <strong>film de marque tourné</strong> enrichi de <strong>titrages animés</strong></li>
-  <li>Une <strong>vidéo explicative animée</strong> intégrant des <strong>plans réels</strong></li>
+  <li>Une <strong>vidéo explicative animée</strong> intégrant des <strong>plans réels</strong> de vos produits</li>
   <li>Un <strong>aftermovie</strong> avec une intro animée percutante</li>
 </ul>
 
@@ -454,7 +496,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Il n'existe pas de réponse universelle. Le bon format dépend de votre message, de votre cible et de votre budget. Chez Splice Studio, nous vous aidons à identifier le format le plus efficace, que vous soyez à Orléans, Tours ou ailleurs en France.</p>
 
-<p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une recommandation personnalisée sous 24 heures. Découvrez notre <a href="/services/motion-design/orleans">studio de motion design à Orléans</a>.</p>`,
+<p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demander un devis</a> gratuit et recevez une recommandation personnalisée sous 24 heures. Découvrez aussi notre <a href="/services/motion-design/orleans">studio de motion design à Orléans</a>.</p>`,
 
   "prix-video-entreprise-2026": `<h2>Combien coûte une vidéo d'entreprise en 2026 ?</h2>
 
@@ -584,70 +626,79 @@ export const blogContent: Record<string, string> = {
 
   "vlog-entreprise-definition-formats": `<h2>Vlog d'entreprise : définition, formats et exemples</h2>
 
-<p>Un vlog d'entreprise est une série de vidéos régulières, au ton authentique et incarné, qui documente la vie, les coulisses ou l'expertise d'une organisation. Contrairement au film corporate ponctuel et très produit, le vlog mise sur la proximité et la régularité pour créer un lien durable avec une audience. Voici sa définition précise, ses formats les plus efficaces et des exemples concrets pour vous lancer.</p>
+<p>Un vlog d'entreprise est une série de vidéos régulières, au ton authentique et incarné, qui documente la vie, les coulisses ou l'expertise d'une organisation. Contrairement au film corporate ponctuel et très produit, le vlog mise sur la proximité et la régularité pour créer un lien de confiance durable avec une audience. Voici sa définition précise, ses formats les plus efficaces et des exemples concrets pour vous lancer à Orléans et Tours.</p>
 
 <h3>Qu'est-ce qu'un vlog d'entreprise, exactement ?</h3>
 
 <p>Le terme « vlog » contracte « vidéo » et « blog ». Appliqué à l'entreprise, il désigne un contenu vidéo récurrent qui privilégie le naturel sur la perfection. Là où un film institutionnel cherche l'image léchée, le vlog assume une esthétique plus directe, portée par une voix humaine, un dirigeant, un collaborateur, un fil rouge.</p>
 <p>Ses caractéristiques clés :</p>
 <ul>
-  <li><strong>La régularité</strong> : un vlog vit par sa fréquence (hebdomadaire, mensuelle).</li>
-  <li><strong>L'incarnation</strong> : une ou plusieurs personnes deviennent le visage du contenu.</li>
-  <li><strong>L'authenticité</strong> : le ton est conversationnel, loin du discours commercial figé.</li>
+  <li><strong>La régularité</strong> : un vlog vit par sa fréquence (hebdomadaire, bimensuelle, mensuelle).</li>
+  <li><strong>L'incarnation</strong> : une ou plusieurs personnes deviennent le visage de la marque.</li>
+  <li><strong>L'authenticité</strong> : le ton est spontané et conversationnel, loin du discours commercial figé.</li>
 </ul>
 
 <h3>Pourquoi lancer un vlog d'entreprise ?</h3>
 
-<p>Le vlog répond à une attente forte : les audiences veulent comprendre qui se cache derrière une marque. Bien mené, il sert plusieurs objectifs :</p>
+<p>Le vlog répond à une attente forte des utilisateurs qui veulent comprendre qui se cache derrière une marque. Selon les données de Meltwater, les internautes passent en moyenne <strong>5 fois plus de temps devant une vidéo</strong> que devant un contenu statique. Bien mené, le vlog sert plusieurs objectifs :</p>
 <ul>
-  <li><strong>Humaniser la marque</strong> en montrant les équipes et les coulisses.</li>
-  <li><strong>Démontrer une expertise</strong> en partageant des conseils ou un savoir-faire.</li>
-  <li><strong>Soutenir le recrutement</strong> en donnant à voir la culture d'entreprise.</li>
-  <li><strong>Nourrir les réseaux sociaux</strong> en continu, sans repartir de zéro à chaque publication.</li>
+  <li><strong>Humaniser la marque</strong> en montrant le quotidien de vos équipes à Orléans ou Tours.</li>
+  <li><strong>Démontrer une expertise</strong> en partageant des conseils pratiques liés à votre métier.</li>
+  <li><strong>Soutenir la marque employeur vidéo</strong> : en montrant la culture interne et l'ambiance de travail, vous facilitez vos recrutements auprès des RH.</li>
+  <li><strong>Améliorer la vidéo interne d'entreprise :</strong> le vlog peut servir d'outil de communication pour fédérer vos équipes réparties sur plusieurs sites.</li>
+  <li><strong>Nourrir vos réseaux sociaux</strong> en continu sans repartir de zéro.</li>
 </ul>
 
 <h3>Les formats de vlog les plus efficaces</h3>
 
 <p>Le vlog n'est pas un format unique. Plusieurs déclinaisons fonctionnent selon votre objectif :</p>
 <ul>
-  <li><strong>Le « behind the scenes »</strong> : les coulisses d'un projet, d'un événement, d'une fabrication.</li>
-  <li><strong>Le format expert / tutoriel</strong> : un collaborateur partage une astuce ou explique un concept de son métier.</li>
-  <li><strong>Le « day in the life »</strong> : une journée type d'un poste, idéal pour la marque employeur.</li>
-  <li><strong>Le carnet de bord</strong> : suivre l'avancée d'un projet sur plusieurs épisodes.</li>
+  <li><strong>Le « behind the scenes » (coulisses) :</strong> suivez la fabrication d'un produit, la préparation d'un séminaire d'entreprise ou les coulisses d'un tournage.</li>
+  <li><strong>Le format expert / tutoriel :</strong> un de vos collaborateurs partage une astuce métier ou explique un point technique simple.</li>
+  <li><strong>Le « day in the life » (vis ma vie) :</strong> une journée type d'un poste clé de l'entreprise, parfait pour valoriser vos collaborateurs et attirer de nouveaux talents.</li>
+  <li><strong>Le carnet de bord de projet :</strong> suivez l'avancement d'un chantier d'envergure, de l'écriture à la livraison finale.</li>
+</ul>
+
+<h3>Les tendances fortes du vlog d'entreprise en 2025-2026</h3>
+<p>Pour capter l'attention aujourd'hui, vous devez intégrer ces nouvelles tendances vidéo :</p>
+<ul>
+  <li><strong>Le podcasting vidéo (vodcast) :</strong> filmez vos échanges professionnels ou vos discussions d'experts et diffusez-les sous forme de courtes capsules vidéo sur LinkedIn et Spotify.</li>
+  <li><strong>La série de vidéos courtes verticales (TikTok / Reels) :</strong> des vlogs hyper-courts (15 à 45 secondes) capturés sur le vif avec des hooks sonores dynamiques et des transitions rythmées.</li>
+  <li><strong>Le contenu réactif (sauter sur les tendances) :</strong> réagir rapidement aux tendances sonores ou culturelles pour montrer le côté moderne et accessible de votre équipe.</li>
 </ul>
 
 <h3>Comment produire un vlog sans y passer ses journées</h3>
 
 <p>La principale crainte des entreprises est le temps. La solution tient dans la méthode :</p>
 <ul>
-  <li><strong>Tourner par lots</strong> : enregistrer plusieurs épisodes en une session pour tenir le rythme.</li>
-  <li><strong>Standardiser le format</strong> : un habillage, une structure et une durée constants accélèrent chaque production.</li>
-  <li><strong>Déléguer le montage</strong> : confier la post-production à un professionnel libère vos équipes et garantit une qualité régulière.</li>
+  <li><strong>Tourner par lots :</strong> enregistrez plusieurs épisodes en une seule session pour lisser votre production.</li>
+  <li><strong>Standardiser le format :</strong> un habillage graphique constant, une introduction courte et une structure définie accélèrent la phase de montage.</li>
+  <li><strong>Déléguer le montage :</strong> confier la post-production à un professionnel libère vos équipes et garantit une qualité visuelle régulière.</li>
 </ul>
 
 <p>C'est précisément le rôle d'un partenaire en <a href="/services/production-corporate">production corporate</a> : cadrer la ligne éditoriale, et d'un <a href="/services/montage-video">montage vidéo professionnel</a> : transformer des rushes bruts en épisodes rythmés et cohérents.</p>
 
 <h3>Vlog d'entreprise et film corporate : quelles différences ?</h3>
 
-<p>On confond souvent les deux, alors qu'ils répondent à des logiques opposées et complémentaires. Le <strong>film corporate</strong> est un objet rare, très produit, à la durée de vie longue : il pose l'image de marque. Le <strong>vlog</strong>, lui, est un flux : plus brut, plus fréquent, il entretient la relation au quotidien. Le film corporate installe l'image de marque, le vlog entretient la relation au quotidien. Les marques les plus efficaces utilisent les deux : un film fort en vitrine, un vlog régulier pour nourrir l'engagement.</p>
+<p>Le <strong>film corporate</strong> est un objet rare, très produit, à la durée de vie longue : il pose l'image de marque. Le <strong>vlog</strong>, lui, est un flux : plus brut, plus fréquent, il entretient la relation au quotidien. Les marques les plus performantes combinent les deux : un film de marque fort en vitrine pour convaincre, et un vlog régulier pour fidéliser.</p>
 
 <h3>Les erreurs qui tuent un vlog d'entreprise</h3>
 <ul>
-  <li><strong>Viser la perfection</strong> : un vlog trop léché perd son authenticité et devient impossible à tenir dans la durée.</li>
-  <li><strong>Manquer de régularité</strong> : un vlog publié au gré des disponibilités ne crée jamais d'habitude chez l'audience.</li>
-  <li><strong>Parler de soi en permanence</strong> : un bon vlog apporte de la valeur (conseils, coulisses, histoires) avant de vendre.</li>
-  <li><strong>Négliger le son</strong> : on pardonne une image imparfaite, jamais un son inaudible.</li>
+  <li><strong>Viser la perfection :</strong> un vlog trop poli perd son authenticité naturelle et devient impossible à tenir dans la durée.</li>
+  <li><strong>Manquer de régularité :</strong> un vlog publié au gré des disponibilités ne crée jamais d'habitude chez l'audience.</li>
+  <li><strong>Parler de soi en permanence :</strong> un bon vlog apporte d'abord de la valeur avant d'essayer de vendre.</li>
+  <li><strong>Négliger le son :</strong> on pardonne une image brute de smartphone, jamais un son inaudible ou saturé.</li>
 </ul>
 
 <h3>Questions fréquentes sur le vlog d'entreprise</h3>
 
-<p><strong>À quelle fréquence publier ?</strong> Mieux vaut un rythme tenable et régulier (par exemple mensuel) qu'une cadence ambitieuse abandonnée au bout de trois épisodes.</p>
-<p><strong>Faut-il un présentateur attitré ?</strong> Incarner le vlog par une ou deux personnes renforce le lien, mais une rotation des intervenants fonctionne aussi pour montrer la diversité des équipes.</p>
-<p><strong>Quel matériel pour démarrer ?</strong> Un smartphone récent et un bon micro suffisent pour se lancer ; la valeur ajoutée se joue surtout au <a href="/services/montage-video">montage</a>.</p>
+<p><strong>À quelle fréquence publier ?</strong> Mieux vaut un rythme tenable et régulier (par exemple mensuel) qu'une cadence hebdomadaire abandonnée au bout de trois épisodes.</p>
+<p><strong>Faut-il un présentateur attitré ?</strong> Incarner le vlog par une ou deux personnes renforce le lien d'attachement, mais faire participer différents collaborateurs montre la diversité de votre entreprise.</p>
+<p><strong>Quel matériel pour démarrer ?</strong> Un smartphone récent et un bon micro cravate sans fil suffisent pour démarrer ; la valeur ajoutée se crée au montage.</p>
 
 <h3>Lancer votre vlog d'entreprise</h3>
 
-<p>Un vlog réussi commence par une stratégie claire : à qui parlez-vous, pour dire quoi, à quelle fréquence ? <a href="/devis">Demandez un devis gratuit</a> et construisons ensemble un format de vlog tenable dans la durée. Réponse sous 24 heures, où que vous soyez en France. Découvrez notre <a href="/services/production-corporate/orleans">production corporate à Orléans</a>.</p>`,
+<p>Un vlog réussi commence par une stratégie claire et une bonne régularité. Pour structurer votre présence sur les plateformes et concevoir des contenus verticaux performants, découvrez nos services de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. <strong><a href="/devis">Demander un devis</a></strong> dès maintenant pour planifier un rendez-vous d'évaluation et lancer votre premier vlog d'entreprise. Réponse sous 24 heures.</p>`,
 
   "formats-video-reseaux-sociaux-2026": `<h2>Formats vidéo pour les réseaux sociaux : le guide 2026</h2>
 
@@ -777,16 +828,16 @@ export const blogContent: Record<string, string> = {
 
 <p>Le bon partenaire est celui qui comprend votre objectif avant de parler matériel. <a href="/devis">Demandez un devis gratuit</a> : décrivez votre projet et nous vous dirons honnêtement quelle approche lui convient le mieux. Réponse sous 24 heures. Découvrez notre <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>.</p>`,
 
-  "preparer-evenement-entreprise-checklist": `<h2>Préparer un événement d'entreprise : la check-list photo/vidéo</h2>
+  "preparer-evenement-entreprise-checklist": `<h2>Préparer un événement d'entreprise : la check-list photo/vidéo à Orléans</h2>
 
-<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Une préparation méthodique, brief clair, repérage, planning des moments clés, logistique technique, fait toute la différence entre des images génériques et un reportage qui valorise votre événement. Voici la check-list complète à suivre, étape par étape.</p>
+<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Que vous organisiez un séminaire au cœur d'Orléans, une conférence à Tours ou une soirée de gala dans un château de la Loire, une préparation méthodique (brief clair, repérage, planning des moments clés, logistique technique) fait toute la différence entre des images génériques et un reportage marquant. Voici notre check-list complète pour une <strong>couverture événement d'entreprise à Orléans</strong> réussie.</p>
 
 <h3>Avant l'événement : cadrer le besoin</h3>
 <ul>
-  <li><strong>Définir l'objectif</strong> : communication interne, relations presse, réseaux sociaux, archives ? Le livrable attendu oriente tout le reste.</li>
+  <li><strong>Définir l'objectif</strong> : communication interne, relations presse régionales, réseaux sociaux, archives ? Le livrable attendu oriente tout le reste.</li>
   <li><strong>Lister les moments incontournables</strong> : discours, temps forts, remises de prix, coulisses, interactions entre participants.</li>
   <li><strong>Identifier les personnes clés</strong> : intervenants, dirigeants, invités à ne pas manquer.</li>
-  <li><strong>Repérer le lieu</strong> : lumière disponible, points de vue, contraintes d'accès et d'alimentation électrique.</li>
+  <li><strong>Repérer le lieu</strong> : lumière disponible, points de vue, contraintes d'accès et d'alimentation électrique dans les salles d'Orléans ou de Tours.</li>
 </ul>
 
 <h3>La logistique technique</h3>
@@ -794,8 +845,8 @@ export const blogContent: Record<string, string> = {
 <p>Un événement ne se rejoue pas : la fiabilité technique est non négociable.</p>
 <ul>
   <li><strong>Prévoir le matériel de secours</strong> : second boîtier, batteries, cartes mémoire supplémentaires.</li>
-  <li><strong>Anticiper la lumière</strong> : les salles d'événement sont souvent sombres ; un éclairage d'appoint peut être nécessaire.</li>
-  <li><strong>Gérer le son pour la vidéo</strong> : capter proprement les prises de parole avec des micros dédiés, jamais le micro de la caméra seul.</li>
+  <li><strong>Anticiper la lumière</strong> : les salles de séminaires à Orléans sont souvent sombres ; un éclairage d'appoint est indispensable.</li>
+  <li><strong>Gérer le son pour la vidéo</strong> : capter proprement les prises de parole avec des micros cravates ou directionnels dédiés, jamais le micro de la caméra seul.</li>
   <li><strong>Planifier les déplacements</strong> du ou des opérateurs pour couvrir plusieurs zones sans manquer un temps fort.</li>
 </ul>
 
@@ -809,6 +860,16 @@ export const blogContent: Record<string, string> = {
   <li><strong>Un reportage complet</strong> retouché pour les archives et la communication.</li>
   <li><strong>Un aftermovie</strong> : un montage vidéo court qui restitue l'énergie de l'événement et prolonge sa portée.</li>
 </ul>
+
+<h3>Diffusion après l'événement : les formats réseaux sociaux qui fonctionnent</h3>
+<p>Pour rentabiliser la couverture photo et vidéo de votre événement d'entreprise à Orléans ou Tours, prévoyez des déclinaisons adaptées aux codes actuels des réseaux sociaux :</p>
+<ul>
+  <li><strong>Reels Instagram et TikTok (format vertical 9:16) :</strong> des séquences courtes de 15 à 30 secondes rythmées avec de la musique tendance, capturant l'ambiance générale.</li>
+  <li><strong>LinkedIn natif (format carré 1:1 ou vertical 4:5) :</strong> des témoignages courts ou des récapitulatifs d'interventions pour valoriser votre expertise B2B. Pour en savoir plus sur l'exercice de l'interview, lisez nos <a href="/blog/interview-dirigeant-reussie-7-conseils">7 conseils pour réussir une interview vidéo</a>.</li>
+  <li><strong>Carrousel récapitulatif :</strong> une sélection des 5 plus belles photos de l'événement avec des citations textuelles marquantes en superposition.</li>
+</ul>
+
+<p>Selon les données de Brightcove, la vidéo sociale génère jusqu'à <strong>1 200 % plus de partages</strong> que le texte et les images combinés. Il est donc capital d'inclure des formats vidéo courts et dynamiques dans votre plan de diffusion post-événement.</p>
 
 <h3>Le brief créatif : la pièce maîtresse</h3>
 
@@ -842,7 +903,131 @@ export const blogContent: Record<string, string> = {
 
 <h3>S'entourer des bons professionnels</h3>
 
-<p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demandez un devis gratuit</a> et préparons ensemble la couverture de votre prochain événement. Réponse sous 24 heures. Préparez votre événement avec notre <a href="/services/production-corporate/orleans">équipe vidéo à Orléans</a>.</p>`,
+<p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demander un devis</a> gratuit et préparons ensemble la couverture de votre prochain événement. Réponse sous 24 heures. Préparez votre événement avec notre <a href="/services/production-corporate/orleans">équipe vidéo à Orléans</a>.</p>`,
+
+  "prix-video-corporate-orleans-2026": `<h2>Combien coûte une vidéo corporate à Orléans en 2026 ?</h2>
+<p>Le budget d'une vidéo corporate est la première question que se posent les PME du Loiret avant de se lancer. À Orléans, les tarifs sont généralement plus compétitifs qu'à Paris (de 10% à 20% moins cher), mais dépendent des moyens techniques mobilisés. Cet article présente une grille de lecture claire pour comprendre la construction d'un devis vidéo.</p>
+<h3>Les ordres de grandeur par format</h3>
+<ul>
+  <li><strong>Interview de dirigeant ou témoignage client :</strong> format léger nécessitant une demi-journée de tournage. Comptez entre 800 € et 1 500 € HT.</li>
+  <li><strong>Vlog d'entreprise et Reels (pack de 4 vidéos) :</strong> tournage court et montage dynamique pour les réseaux sociaux. Comptez entre 600 € et 1 200 € HT.</li>
+  <li><strong>Film de marque cinématique :</strong> écriture de script, éclairage professionnel, deux cadreurs, voix-off et musique sous licence. Comptez entre 2 500 € et 7 000 € HT.</li>
+</ul>
+<p>Chez Splice Studio, nous privilégions la clarté. Vous pouvez louer nos services de montage à l'unité dès <strong>29 €</strong> ou choisir des abonnements mensuels de <strong>45 € à 189 €/mois</strong> pour lisser vos coûts. Si vous souhaitez estimer le tarif précis pour votre entreprise, utilisez notre simulateur pour <a href="/devis">Demander un devis</a> gratuit.</p>`,
+
+  "marque-employeur-video-orleans": `<h2>Vidéo de marque employeur à Orléans : comment attirer les bons profils</h2>
+<p>Dans les secteurs en tension comme la logistique, l'industrie et les services à Orléans, recruter est un défi permanent. La vidéo de marque employeur est devenue l'outil le plus puissant pour capter l'intérêt des candidats qualifiés sur LinkedIn et les réseaux sociaux. Selon les statistiques, les formats courts verticaux de moins de 60 secondes représentent 65 % de l'attention captée en recrutement.</p>
+<h3>Trois formats qui fonctionnent pour vos RH</h3>
+<ul>
+  <li><strong>Le portrait de poste en immersion :</strong> un collaborateur raconte sa journée type face caméra, montrant ses gestes et son environnement de travail réel.</li>
+  <li><strong>L'interview authentique des fondateurs :</strong> présenter la vision, l'ambiance interne et les perspectives d'évolution de l'entreprise sans discours figé.</li>
+  <li><strong>La vidéo des coulisses de l'atelier :</strong> montrer le matériel, la sécurité et le quotidien pour rassurer les futurs candidats.</li>
+</ul>
+<p>Pour en savoir plus sur l'authenticité de vos formats de communication B2B, lisez notre article sur l'exercice de l'<a href="/blog/interview-dirigeant-reussie-7-conseils">interview de dirigeant</a>. Vous pouvez également faire appel à notre service de <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a> pour réaliser vos vidéos de recrutement. <a href="/devis">Demander un devis</a> pour lancer votre campagne marque employeur.</p>`,
+
+  "aftermovie-seminaire-orleans": `<h2>Aftermovie de séminaire d'entreprise à Orléans : guide complet</h2>
+<p>Un séminaire d'entreprise est un moment fort de cohésion pour vos équipes. Capter cette énergie à travers un aftermovie professionnel permet de valoriser vos collaborateurs en interne et de soigner votre image de marque en externe. Orléans propose de superbes lieux de réception (châteaux de la Loire, centres de congrès) parfaits pour ces événements.</p>
+<h3>Les règles pour un aftermovie réussi</h3>
+<ul>
+  <li><strong>La discrétion du cadreur :</strong> pour capter des sourires sincères et des échanges authentiques, le vidéaste doit savoir se fondre dans la foule.</li>
+  <li><strong>Un montage rythmé :</strong> alterner des plans de discours avec des moments de complicité, le tout synchronisé sur une musique dynamique libre de droits.</li>
+  <li><strong>Le multi-format :</strong> décliner la vidéo principale en versions de 15 à 30 secondes pour diffuser immédiatement sur LinkedIn ou en interne.</li>
+</ul>
+<p>Pour organiser sereinement votre couverture média, consultez notre <a href="/blog/preparer-evenement-entreprise-checklist">check-list de préparation d'événement</a>. Pour votre captation et montage, découvrez notre service de <a href="/services/production-corporate">production corporate</a>. Contactez-nous pour <a href="/devis">Demander un devis</a> sous 24 heures.</p>`,
+
+  "reels-instagram-entreprise-orleans": `<h2>Réels Instagram pour PME à Orléans : ce qui marche vraiment</h2>
+<p>Les Reels Instagram sont le format organique le plus puissant pour toucher de nouveaux clients locaux sans budget publicitaire. Pour les commerçants, restaurateurs et créateurs basés à Orléans et Tours, c'est une vitrine incontournable. Les vidéos verticales courtes s'imposent car elles captent l'utilisateur dès les premières secondes.</p>
+<h3>La formule d'un Reel performant</h3>
+<ul>
+  <li><strong>Un hook percutant :</strong> une question ou un plan saisissant dans les 2 premières secondes pour retenir le swipe.</li>
+  <li><strong>Une ambiance locale :</strong> filmer des lieux identifiables à Orléans (place du Martroi, quais de Loire) pour renforcer la proximité avec votre cible locale.</li>
+  <li><strong>Un appel à l'action clair :</strong> inciter explicitement à s'abonner, visiter le site ou réserver.</li>
+</ul>
+<p>Pour structurer vos campagnes sur mobile, consultez notre offre de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. Vous pouvez également lire nos conseils sur le format <a href="/blog/vlog-entreprise-definition-formats">vlog d'entreprise</a>. Prêt à lancer vos Reels ? <a href="/devis">Demander un devis</a>.</p>`,
+
+  "video-temoignage-client-pme-centre-val-de-loire": `<h2>Témoignage client vidéo : pourquoi c'est votre meilleur outil commercial</h2>
+<p>La preuve sociale est le levier de conversion le plus efficace en marketing. Un témoignage client vidéo humanise votre PME en Centre-Val de Loire et instaure un niveau de confiance qu'aucun texte écrit ne peut égaler. Il permet de lever les objections des prospects hésitants en montrant la réussite concrète d'un de vos clients réels.</p>
+<h3>Les bonnes pratiques de l'entretien client</h3>
+<ul>
+  <li><strong>Ne pas scripter :</strong> laissez le client s'exprimer avec ses propres mots pour garantir l'authenticité de son avis.</li>
+  <li><strong>Se focaliser sur les résultats :</strong> demandez des chiffres ou des gains précis (temps gagné, chiffre d'affaires, confort d'utilisation).</li>
+  <li><strong>Illustrer avec des images :</strong> inserez des plans de coupe du client en train d'utiliser votre produit ou service.</li>
+</ul>
+<p>Pour préparer au mieux cet exercice, lisez notre guide complet avec nos <a href="/blog/interview-dirigeant-reussie-7-conseils">conseils pour réussir une interview vidéo</a>. Retrouvez des exemples sur notre <a href="/services/interview-temoignage/orleans">page d'interviews à Orléans</a>. <a href="/devis">Demander un devis</a> pour votre prochain témoignage client.</p>`,
+
+  "photographe-equipe-entreprise-orleans": `<h2>Photographe d'équipe à Orléans : préparer votre shooting corporate</h2>
+<p>Vos collaborateurs sont le premier visage de votre entreprise. Réaliser des portraits professionnels et des photos d'équipe soignées renforce la cohésion interne et crédibilise votre site web ou votre page LinkedIn. Un shooting corporate réussi à Orléans ou Tours demande une préparation simple mais rigoureuse.</p>
+<h3>Comment préparer le jour du shooting ?</h3>
+<ul>
+  <li><strong>Définir un dress code cohérent :</strong> harmoniser les couleurs ou le style (casual, formel) sans imposer un uniforme trop strict.</li>
+  <li><strong>Choisir le bon décor :</strong> valoriser vos locaux réels (atelier, bureaux lumineux) ou opter pour un arrière-plan neutre et épuré.</li>
+  <li><strong>Planifier un planning précis :</strong> prévoir des créneaux individuels de 15 minutes pour ne pas perturber l'activité de vos équipes.</li>
+</ul>
+<p>Pour comprendre les options possibles, découvrez notre service de <a href="/services/photographie-professionnelle">photographie professionnelle</a> et notre page dédiée au <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>. Pour bloquer une date de prise de vue, <a href="/devis">Demander un devis</a>.</p>`,
+
+  "video-linkedin-entreprise-b2b-centre-val-de-loire": `<h2>Contenu LinkedIn vidéo pour entreprise B2B : les formats gagnants en 2026</h2>
+<p>LinkedIn est le canal d'acquisition privilégié des entreprises B2B en Centre-Val de Loire. La vidéo native y génère en moyenne 5 fois plus d'engagement que le texte seul. En 2026, l'algorithme valorise le temps de visionnage et les contenus experts. Pour performer, vos vidéos doivent être adaptées aux codes mobiles professionnels.</p>
+<h3>Les formats gagnants pour LinkedIn</h3>
+<ul>
+  <li><strong>La capsule d'expertise :</strong> une vidéo courte de 1 à 2 minutes où vous expliquez un point précis de votre secteur d'activité, sous-titrée pour une lecture sans son.</li>
+  <li><strong>L'aftermovie et coulisses de projets :</strong> montrer la livraison d'un chantier ou le déroulé d'une signature de contrat locale à Orléans ou Tours.</li>
+  <li><strong>L'interview de dirigeant :</strong> un format de type face caméra pour poser votre vision du marché.</li>
+</ul>
+<p>Consultez nos réalisations sur notre page de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour réseaux sociaux</a> ou lisez notre article sur le <a href="/blog/film-corporate-roi-communication">ROI du film corporate</a>. Pour concevoir vos vidéos B2B, <a href="/devis">Demander un devis</a>.</p>`,
+
+  "brief-videaste-entreprise": `<h2>Comment briefer votre vidéaste avant un tournage : le guide pratique</h2>
+<p>Un mauvais brief débouche presque toujours sur un montage inadapté ou des jours de tournage perdus. Pour les PME à Orléans et Tours qui investissent dans la production vidéo, le brief créatif est le document de référence indispensable pour aligner le client et le prestataire audiovisuel.</p>
+<h3>Les 5 éléments clés de votre brief créatif</h3>
+<ul>
+  <li><strong>L'objectif :</strong> pourquoi réalisez-vous cette vidéo ? (générer des ventes, recruter, présenter une innovation).</li>
+  <li><strong>La cible :</strong> à qui s'adresse le message ? (particuliers locaux, DRH, revendeurs B2B).</li>
+  <li><strong>Les livrables :</strong> de quels formats avez-vous besoin ? (vidéo longue 16:9, versions courtes 9:16 pour Instagram Reels).</li>
+  <li><strong>Le ton et l'ambiance :</strong> dynamique, institutionnel, sobre, passionné.</li>
+  <li><strong>La logistique :</strong> date du tournage, lieux exacts dans le Loiret et autorisations de droit à l'image.</li>
+</ul>
+<p>Pour en savoir plus sur les étapes qui suivent, découvrez notre service de <a href="/services/production-corporate">production corporate</a> et notre article sur la <a href="/blog/preparer-evenement-entreprise-checklist">check-list événementielle</a>. Prêt à lancer votre projet ? <a href="/devis">Demander un devis</a>.</p>`,
+
+  "video-evenement-automobile-centre-val-de-loire": `<h2>Vidéo automobile et passion : comment valoriser un événement car culture</h2>
+<p>Les événements automobiles et rassemblements de voitures de passionnés (car culture) attirent un public nombreux et très engagé sur les réseaux sociaux en Centre-Val de Loire. Réaliser un aftermovie dynamique ou des vidéos courtes de type Reels permet de prolonger la portée de l'événement et de valoriser les véhicules présentés.</p>
+<h3>Filmer la passion automobile</h3>
+<ul>
+  <li><strong>Les plans de détail cinématiques :</strong> jantes, sorties d'échappement, reflets sur le covering, démarrage moteur, l'audio est aussi important que le visuel.</li>
+  <li><strong>Le mouvement :</strong> utiliser un stabilisateur ou filmer en roulant à basse vitesse pour restituer la dynamique des véhicules.</li>
+  <li><strong>L'ambiance humaine :</strong> filmer les échanges entre propriétaires et visiteurs pour transmettre la passion de la car culture.</li>
+</ul>
+<p>Pour vos séances photo et vidéo, découvrez notre offre de <a href="/services/shooting-automobile">shooting automobile professionnel</a>. Consultez aussi notre guide sur la <a href="/blog/reussir-shooting-photo-automobile">réussite d'un shooting photo automobile</a>. <a href="/devis">Demander un devis</a> pour couvrir votre prochain événement.</p>`,
+
+  "agence-video-tours-pme": `<h2>Agence vidéo à Tours : comment choisir son prestataire audiovisuel</h2>
+<p>Le tissu économique d'Indre-et-Loire regorge de PME dynamiques qui souhaitent développer leur communication. Pour réaliser vos vidéos, faut-il choisir un vidéaste indépendant ou une agence audiovisuelle locale à Tours ? Voici les critères pour faire le bon choix, adapté à vos objectifs commerciaux.</p>
+<h3>Les critères de choix essentiels</h3>
+<ul>
+  <li><strong>Le portfolio :</strong> examinez le style et la qualité des vidéos déjà réalisées, notamment sur des formats proches du vôtre (interviews, Aftermovies).</li>
+  <li><strong>La structure et la réactivité :</strong> une équipe structurée permet d'assurer un calendrier fiable et de gérer la post-production sans retard.</li>
+  <li><strong>Le prix et les droits :</strong> vérifiez que le devis détaille les étapes de correction, la musique sous licence et la cession des droits de diffusion.</li>
+</ul>
+<p>Splice Studio se déplace et réalise des tournages dans tout le bassin de Tours. Découvrez nos offres sur notre page de <a href="/services/production-corporate/orleans">production vidéo à Orléans et Tours</a> ou explorez notre <a href="/services/production-corporate">service de production corporate</a>. Pour échanger sur vos besoins, <a href="/devis">Demander un devis</a>.</p>`,
+
+  "motion-design-pme-orleans": `<h2>Motion design pour PME : 5 cas d'usage concrets à Orléans</h2>
+<p>Le motion design n'est pas réservé aux grandes marques. Les PME d'Orléans et Tours l'utilisent de plus en plus pour simplifier leurs messages, former leurs équipes ou dynamiser leurs campagnes publicitaires locales. Voici 5 cas d'usage concrets pour votre communication.</p>
+<h3>Les 5 applications de l'animation graphique</h3>
+<ul>
+  <li><strong>La vidéo explicative de produit :</strong> présenter le fonctionnement d'un logiciel ou d'un service complexe en 60 secondes.</li>
+  <li><strong>L'onboarding de nouveau salarié :</strong> harmoniser l'accueil de vos recrues RH à travers une vidéo animée didactique.</li>
+  <li><strong>L'habillage publicitaire sur les réseaux sociaux :</strong> animer votre logo ou des chiffres clés pour accrocher le regard sur mobile.</li>
+  <li><strong>La vidéo d'annonces corporatives :</strong> illustrer vos vœux ou vos bilans annuels de façon moderne et soignée.</li>
+  <li><strong>L'habillage graphique de tournages :</strong> intégrer des titrages animés élégants sur vos interviews d'entreprise.</li>
+</ul>
+<p>Pour en savoir plus sur les tarifs et délais, découvrez notre service de <a href="/services/motion-design">motion design</a> et notre article sur la comparaison entre <a href="/blog/motion-design-vs-prise-de-vue-reelle">motion design et prise de vue réelle</a>. <a href="/devis">Demander un devis</a>.</p>`,
+
+  "strategie-video-artisan-commercant-orleans": `<h2>Stratégie de contenu vidéo pour artisans et commerçants à Orléans</h2>
+<p>Pour les TPE, artisans et commerçants du Loiret, la vidéo est le meilleur moyen de se démarquer de la concurrence nationale et d'attirer des clients de proximité à Orléans. Mais produire du contenu régulier sans y passer ses journées demande de la méthode et un plan de route clair.</p>
+<h3>Un plan simple pour démarrer</h3>
+<ul>
+  <li><strong>1 Story par jour :</strong> partagez les coulisses de votre travail, un arrivage produit ou un conseil rapide capturé au smartphone.</li>
+  <li><strong>1 Reel ou TikTok par semaine :</strong> présentez un avant/après de votre réalisation (rénovation, plat, coiffure) avec une musique tendance.</li>
+  <li><strong>1 Vidéo de présentation par an :</strong> un film vitrine soigné pour votre fiche Google Business Profile et votre site.</li>
+</ul>
+<p>Pour optimiser votre fiche locale Google, découvrez notre service de <a href="/services/photographie-google-business">photo Google Business Profile</a> et nos offres de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. N'hésitez pas à nous solliciter pour <a href="/devis">Demander un devis</a> et lancer votre production de contenus.</p>`,
 };
 
 /**
@@ -855,4 +1040,16 @@ export const blogMetaTitles: Record<string, string> = {
   "film-corporate-roi-communication": "Film corporate : quel ROI attendre ?",
   "guide-formats-video-2026": "Formats vidéo 2026 : TikTok, Reels, YouTube",
   "motion-design-vs-prise-de-vue-reelle": "Motion design ou prise de vue réelle ?",
+  "prix-video-corporate-orleans-2026": "Prix vidéo corporate Orléans 2026",
+  "marque-employeur-video-orleans": "Vidéo marque employeur Orléans",
+  "aftermovie-seminaire-orleans": "Aftermovie séminaire Orléans",
+  "reels-instagram-entreprise-orleans": "Reels Instagram entreprise Orléans",
+  "video-temoignage-client-pme-centre-val-de-loire": "Témoignage client vidéo PME",
+  "photographe-equipe-entreprise-orleans": "Photographe équipe entreprise Orléans",
+  "video-linkedin-entreprise-b2b-centre-val-de-loire": "Vidéo LinkedIn B2B Centre-Val de Loire",
+  "brief-videaste-entreprise": "Briefer son vidéaste : guide",
+  "video-evenement-automobile-centre-val-de-loire": "Vidéo événement auto Centre-Val de Loire",
+  "agence-video-tours-pme": "Agence vidéo Tours PME",
+  "motion-design-pme-orleans": "Motion design PME Orléans",
+  "strategie-video-artisan-commercant-orleans": "Stratégie vidéo artisan Orléans",
 };
