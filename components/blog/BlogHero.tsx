@@ -16,7 +16,7 @@ export default function BlogHero({ articleCount, themeCount }: BlogHeroProps) {
             <span aria-hidden className="text-base leading-none">●</span>
             L&apos;Écho Créatif
           </p>
-          <h1 className="font-display text-4xl font-extrabold tracking-tight text-white md:text-6xl leading-[1.04]">
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-white md:text-6xl leading-[1.04]">
             Ressources &amp; <em className="not-italic text-df-gold">conseils</em>
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/65 leading-relaxed">
@@ -28,7 +28,7 @@ export default function BlogHero({ articleCount, themeCount }: BlogHeroProps) {
           <div className="flex shrink-0 gap-8">
             {articleCount != null && (
               <div className="text-left md:text-right">
-                <div className="font-display text-4xl font-extrabold leading-none text-white">
+                <div className="font-display text-4xl font-semibold leading-none text-white">
                   {articleCount}
                 </div>
                 <div className="mt-1 text-xs font-medium uppercase tracking-[0.08em] text-white/50">
@@ -38,7 +38,7 @@ export default function BlogHero({ articleCount, themeCount }: BlogHeroProps) {
             )}
             {themeCount != null && (
               <div className="text-left md:text-right">
-                <div className="font-display text-4xl font-extrabold leading-none text-white">
+                <div className="font-display text-4xl font-semibold leading-none text-white">
                   {themeCount}
                 </div>
                 <div className="mt-1 text-xs font-medium uppercase tracking-[0.08em] text-white/50">

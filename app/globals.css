@@ -107,14 +107,14 @@ select option {
 .prose-splice h2 {
   scroll-margin-top: 5rem;
   font-family: var(--font-display), serif;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.12;
 }
 .prose-splice h3 {
   scroll-margin-top: 5rem;
   font-family: var(--font-display), serif;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.01em;
 }
 /* Mot accentué dans un titre : <em> → italique orange (façon magazine) */
