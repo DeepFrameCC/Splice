@@ -905,25 +905,94 @@ export const blogContent: Record<string, string> = {
 
 <p>La couverture d'un événement demande réactivité, anticipation et maîtrise technique en conditions réelles. Découvrez notre approche dédiée à la <a href="/photographe-evenementiel">photographie et vidéo événementielle</a>, soutenue par notre savoir-faire en <a href="/services/production-corporate">production corporate</a> pour les livrables vidéo. <a href="/devis">Demander un devis</a> gratuit et préparons ensemble la couverture de votre prochain événement. Réponse sous 24 heures. Préparez votre événement avec notre <a href="/services/production-corporate/orleans">équipe vidéo à Orléans</a>.</p>`,
 
-  "prix-video-corporate-orleans-2026": `<h2>Combien coûte une vidéo corporate à Orléans en 2026 ?</h2>
-<p>Le budget d'une vidéo corporate est la première question que se posent les PME du Loiret avant de se lancer. À Orléans, les tarifs sont généralement plus compétitifs qu'à Paris (de 10% à 20% moins cher), mais dépendent des moyens techniques mobilisés. Cet article présente une grille de lecture claire pour comprendre la construction d'un devis vidéo.</p>
-<h3>Les ordres de grandeur par format</h3>
-<ul>
-  <li><strong>Interview de dirigeant ou témoignage client :</strong> format léger nécessitant une demi-journée de tournage. Comptez entre 800 € et 1 500 € HT.</li>
-  <li><strong>Vlog d'entreprise et Reels (pack de 4 vidéos) :</strong> tournage court et montage dynamique pour les réseaux sociaux. Comptez entre 600 € et 1 200 € HT.</li>
-  <li><strong>Film de marque cinématique :</strong> écriture de script, éclairage professionnel, deux cadreurs, voix-off et musique sous licence. Comptez entre 2 500 € et 7 000 € HT.</li>
-</ul>
-<p>Chez Splice Studio, nous privilégions la clarté. Vous pouvez louer nos services de montage à l'unité dès <strong>29 €</strong> ou choisir des abonnements mensuels de <strong>45 € à 189 €/mois</strong> pour lisser vos coûts. Si vous souhaitez estimer le tarif précis pour votre entreprise, utilisez notre simulateur pour <a href="/devis">Demander un devis</a> gratuit.</p>`,
+  "prix-video-corporate-orleans-2026": `<p>Le budget d'une vidéo corporate est la première question que se posent les PME du Loiret avant de se lancer. À Orléans, les tarifs restent plus accessibles qu'en Île-de-France (de 10 % à 20 % moins cher selon les prestataires régionaux), mais ils dépendent surtout des moyens techniques mobilisés : durée de tournage, nombre de cadreurs, complexité du montage et droits de diffusion. Ce guide donne une grille de lecture claire pour comprendre comment se construit un devis vidéo en 2026, sans mauvaise surprise.</p>
 
-  "marque-employeur-video-orleans": `<h2>Vidéo de marque employeur à Orléans : comment attirer les bons profils</h2>
-<p>Dans les secteurs en tension comme la logistique, l'industrie et les services à Orléans, recruter est un défi permanent. La vidéo de marque employeur est devenue l'outil le plus puissant pour capter l'intérêt des candidats qualifiés sur LinkedIn et les réseaux sociaux. Selon les statistiques, les formats courts verticaux de moins de 60 secondes représentent 65 % de l'attention captée en recrutement.</p>
-<h3>Trois formats qui fonctionnent pour vos RH</h3>
+<h2 id="sec-1">Ce qui fait varier le prix d'une vidéo d'entreprise</h2>
+<p>Il n'existe pas de tarif unique, parce qu'aucun film ne ressemble au précédent. Trois facteurs pèsent l'essentiel du budget.</p>
 <ul>
-  <li><strong>Le portrait de poste en immersion :</strong> un collaborateur raconte sa journée type face caméra, montrant ses gestes et son environnement de travail réel.</li>
-  <li><strong>L'interview authentique des fondateurs :</strong> présenter la vision, l'ambiance interne et les perspectives d'évolution de l'entreprise sans discours figé.</li>
-  <li><strong>La vidéo des coulisses de l'atelier :</strong> montrer le matériel, la sécurité et le quotidien pour rassurer les futurs candidats.</li>
+  <li><strong>L'ampleur du tournage :</strong> une demi-journée avec un cadreur sur un seul lieu n'a rien à voir avec deux jours, deux opérateurs et plusieurs sites. Le temps passé reste le premier poste de coût.</li>
+  <li><strong>Le niveau de post-production :</strong> un montage simple coûte beaucoup moins qu'un film avec étalonnage, motion design, sous-titrage soigné et habillage graphique.</li>
+  <li><strong>Les droits et la diffusion :</strong> une vidéo destinée à un usage web interne ne se facture pas comme un spot diffusé en publicité payante pendant un an.</li>
 </ul>
-<p>Pour en savoir plus sur l'authenticité de vos formats de communication B2B, lisez notre article sur l'exercice de l'<a href="/blog/interview-dirigeant-reussie-7-conseils">interview de dirigeant</a>. Vous pouvez également faire appel à notre service de <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a> pour réaliser vos vidéos de recrutement. <a href="/devis">Demander un devis</a> pour lancer votre campagne marque employeur.</p>`,
+<p>À titre de repère national, une vidéo corporate se situe le plus souvent entre <strong>1 200 € et 15 000 € HT</strong> selon la complexité, et environ trois quarts des projets ambitieux sont budgétés entre 5 000 € et 20 000 € HT (sources sectorielles 2025-2026, agences françaises de production). Ces fourchettes englobent des réalités très différentes, d'où l'importance de raisonner par type de film.</p>
+
+<h2 id="sec-2">Les ordres de grandeur par format à Orléans</h2>
+<p>Le tableau ci-dessous résume les fourchettes constatées en région Centre-Val de Loire pour les formats les plus demandés par les PME.</p>
+<table>
+  <thead>
+    <tr><th>Format</th><th>Tournage</th><th>Fourchette indicative</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Interview dirigeant / témoignage client</td><td>½ journée</td><td>800 € à 1 500 € HT</td></tr>
+    <tr><td>Vlog d'entreprise / pack Reels (4 vidéos)</td><td>½ à 1 journée</td><td>600 € à 1 200 € HT</td></tr>
+    <tr><td>Film de présentation d'entreprise</td><td>1 journée</td><td>1 500 € à 3 500 € HT</td></tr>
+    <tr><td>Film de marque cinématique</td><td>1 à 2 journées</td><td>2 500 € à 7 000 € HT</td></tr>
+    <tr><td>Aftermovie d'événement / séminaire</td><td>selon durée</td><td>900 € à 3 000 € HT</td></tr>
+  </tbody>
+</table>
+<p>Ces montants couvrent l'écriture, le tournage, le montage, une session de corrections et une musique sous licence. Méfiez-vous des devis anormalement bas : ils excluent souvent les retouches, les sous-titres ou la cession des droits, postes qui réapparaissent ensuite en supplément.</p>
+
+<h2 id="sec-3">Freelance, agence ou abonnement : quel modèle pour votre budget</h2>
+<p>Le coût dépend aussi du modèle de collaboration. Un freelance affiche un tarif d'entrée plus bas mais une capacité limitée. Une agence structurée garantit un calendrier fiable et une post-production sans retard. Pour les PME qui veulent publier régulièrement sans exploser leur budget, l'abonnement lisse la dépense sur l'année.</p>
+<p>Chez Splice Studio, nous privilégions la clarté tarifaire. Le montage à l'unité démarre à <strong>29 €</strong>, et nos abonnements mensuels vont de <strong>45 € à 189 €/mois</strong> : la formule Pro couvre 4 vidéos par mois, la formule Premium 6 vidéos par mois pour une présence quasi continue. Vous transformez ainsi un gros budget ponctuel en une charge mensuelle maîtrisée.</p>
+
+<h2 id="sec-4">Le prix n'est pas le coût : pensez retour sur investissement</h2>
+<p>Une vidéo bien conçue reste active sur votre site et vos réseaux pendant deux à trois ans. Rapporté à sa durée de vie, son coût réel par mois est faible. Pour mesurer concrètement ce que rapporte un film d'entreprise, lisez notre analyse détaillée du <a href="/blog/film-corporate-roi-communication">ROI du film corporate</a>, qui détaille les indicateurs à suivre (taux de conversion, temps passé sur le site, mémorisation du message).</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Quel budget minimum pour une première vidéo d'entreprise à Orléans ?</h3>
+<p>Pour un format léger (interview ou témoignage en demi-journée), comptez à partir de 800 € HT. Avec un abonnement mensuel, vous pouvez démarrer encore plus bas en lissant le coût.</p>
+<h3>Pourquoi deux devis peuvent-ils varier du simple au double ?</h3>
+<p>Parce qu'ils ne couvrent pas le même périmètre : nombre de cadreurs, jours de tournage, niveau de montage, sous-titres, motion design et droits de diffusion. Comparez toujours le détail, pas seulement le total.</p>
+<h3>Les tarifs sont-ils vraiment moins chers qu'à Paris ?</h3>
+<p>En province, les coûts de structure sont plus bas, ce qui se répercute sur les devis (souvent 10 % à 20 % de moins à qualité équivalente). C'est un avantage net pour les PME du Loiret et d'Indre-et-Loire.</p>
+
+<h2 id="sec-cta">Obtenez une estimation précise pour votre projet</h2>
+<p>Chaque entreprise a des besoins différents. Le plus simple reste d'obtenir un chiffrage adapté à votre format, votre durée et votre objectif. Découvrez notre <a href="/services/production-corporate">service de production corporate</a> et notre page dédiée à la <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a>, puis utilisez notre simulateur pour <a href="/devis">demander un devis gratuit</a>.</p>`,
+
+  "marque-employeur-video-orleans": `<p>Dans les secteurs en tension à Orléans, logistique, industrie, BTP, santé et services, recruter est devenu un défi permanent. Les annonces classiques ne suffisent plus : les candidats qualifiés veulent voir le quotidien réel d'un poste avant de postuler. La vidéo de marque employeur répond précisément à ce besoin. Elle montre, au lieu de promettre, et capte l'attention là où se trouvent les talents : LinkedIn, Instagram et les formats courts.</p>
+
+<h2 id="sec-1">Pourquoi la vidéo est devenue le format clé du recrutement</h2>
+<p>Le comportement des candidats a changé. Les formats courts de moins de 60 secondes représentent aujourd'hui une part majoritaire du contenu vidéo consommé en ligne (données Branding Strategy Insider), et la vidéo native génère nettement plus d'engagement que le texte seul sur les réseaux professionnels. Pour une marque employeur, cela se traduit par trois bénéfices concrets :</p>
+<ul>
+  <li><strong>Une portée organique élevée :</strong> une vidéo authentique se partage et touche des candidats passifs qui ne consultent pas les sites d'emploi.</li>
+  <li><strong>Une présélection naturelle :</strong> montrer le poste réel attire les bons profils et décourage les candidatures hors sujet.</li>
+  <li><strong>Une image cohérente :</strong> le même film alimente vos offres, votre page carrière, votre LinkedIn et vos écrans internes.</li>
+</ul>
+
+<h2 id="sec-2">Trois formats qui fonctionnent pour vos RH</h2>
+<h3>Le portrait de poste en immersion</h3>
+<p>Un collaborateur raconte sa journée type face caméra, en montrant ses gestes, ses outils et son environnement de travail réel. C'est le format le plus efficace pour les métiers manuels et techniques difficiles à recruter, parce qu'il lève les doutes du candidat sur le quotidien concret.</p>
+<h3>L'interview authentique des fondateurs</h3>
+<p>Présenter la vision, l'ambiance interne et les perspectives d'évolution, sans discours figé ni langue de bois. Pour réussir ce format, appliquez nos <a href="/blog/interview-dirigeant-reussie-7-conseils">conseils pour une interview vidéo de dirigeant</a> : préparer sans scripter, soigner le son et garder un ton naturel.</p>
+<h3>Les coulisses de l'atelier ou des bureaux</h3>
+<p>Montrer le matériel, les mesures de sécurité et l'esprit d'équipe rassure les futurs candidats et valorise vos conditions de travail. Ce format se décline facilement en versions courtes pour les réseaux sociaux.</p>
+
+<h2 id="sec-3">Du tournage à la diffusion : un seul film, plusieurs usages</h2>
+<p>Une captation bien pensée alimente toute votre stratégie de recrutement pendant des mois. Le tableau ci-dessous résume où diffuser chaque déclinaison.</p>
+<table>
+  <thead>
+    <tr><th>Canal</th><th>Format conseillé</th><th>Objectif</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Offres d'emploi / page carrière</td><td>Film 60-90 s 16:9</td><td>Rassurer et convertir le candidat</td></tr>
+    <tr><td>LinkedIn</td><td>Vidéo native 1-2 min sous-titrée</td><td>Portée organique, candidats passifs</td></tr>
+    <tr><td>Instagram / TikTok</td><td>Vertical 15-45 s</td><td>Notoriété employeur locale</td></tr>
+    <tr><td>Écrans internes / onboarding</td><td>Version longue</td><td>Fierté d'appartenance, intégration</td></tr>
+  </tbody>
+</table>
+<p>Pensez systématiquement au sous-titrage : une large majorité des vidéos sociales sont visionnées sans le son. Des sous-titres lisibles, placés haut, sont indispensables.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Combien de temps pour produire une vidéo de marque employeur ?</h3>
+<p>Pour un portrait de poste ou une interview, une demi-journée de tournage suffit, suivie d'environ une semaine de montage. Un seul tournage peut générer plusieurs déclinaisons courtes.</p>
+<h3>Faut-il filmer de vrais collaborateurs ou des acteurs ?</h3>
+<p>De vrais collaborateurs, toujours. L'authenticité est précisément ce qui rend ces vidéos crédibles aux yeux des candidats. Pensez simplement à recueillir l'autorisation de droit à l'image.</p>
+<h3>Cette vidéo fonctionne-t-elle pour une petite structure ?</h3>
+<p>Oui. Une TPE ou PME locale gagne souvent plus qu'un grand groupe, car la proximité et l'esprit d'équipe sont ses meilleurs arguments de recrutement.</p>
+
+<h2 id="sec-cta">Lancez votre campagne de recrutement vidéo</h2>
+<p>Faites appel à notre <a href="/services/production-corporate">service de production corporate</a> et à notre page <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a> pour concevoir vos vidéos de recrutement. Pour cadrer votre projet et obtenir un chiffrage, <a href="/devis">demandez un devis gratuit</a>.</p>`,
 
   "aftermovie-seminaire-orleans": `<h2>Aftermovie de séminaire d'entreprise à Orléans : guide complet</h2>
 <p>Un séminaire d'entreprise est un moment fort de cohésion pour vos équipes. Capter cette énergie à travers un aftermovie professionnel permet de valoriser vos collaborateurs en interne et de soigner votre image de marque en externe. Orléans propose de superbes lieux de réception (châteaux de la Loire, centres de congrès) parfaits pour ces événements.</p>
@@ -997,15 +1066,44 @@ export const blogContent: Record<string, string> = {
 </ul>
 <p>Pour vos séances photo et vidéo, découvrez notre offre de <a href="/services/shooting-automobile">shooting automobile professionnel</a>. Consultez aussi notre guide sur la <a href="/blog/reussir-shooting-photo-automobile">réussite d'un shooting photo automobile</a>. <a href="/devis">Demander un devis</a> pour couvrir votre prochain événement.</p>`,
 
-  "agence-video-tours-pme": `<h2>Agence vidéo à Tours : comment choisir son prestataire audiovisuel</h2>
-<p>Le tissu économique d'Indre-et-Loire regorge de PME dynamiques qui souhaitent développer leur communication. Pour réaliser vos vidéos, faut-il choisir un vidéaste indépendant ou une agence audiovisuelle locale à Tours ? Voici les critères pour faire le bon choix, adapté à vos objectifs commerciaux.</p>
-<h3>Les critères de choix essentiels</h3>
+  "agence-video-tours-pme": `<p>Le tissu économique d'Indre-et-Loire regorge de PME dynamiques qui veulent développer leur communication par la vidéo. Reste une question de départ : faut-il confier vos films à un vidéaste indépendant ou à une agence audiovisuelle locale à Tours ? Le bon choix dépend de votre volume de production, de vos délais et du niveau de finition attendu. Ce guide passe en revue les critères objectifs pour décider sans vous tromper.</p>
+
+<h2 id="sec-1">Freelance ou agence : ce qui change vraiment</h2>
+<p>Les deux options ont leur place. Le freelance offre un tarif d'entrée plus bas et une relation directe, mais une capacité et une polyvalence limitées (un seul opérateur, pas de remplacement en cas d'imprévu). L'agence mobilise une équipe, du matériel de secours et une chaîne de post-production complète, au prix d'un ticket d'entrée un peu plus élevé.</p>
+<table>
+  <thead>
+    <tr><th>Critère</th><th>Freelance</th><th>Agence locale</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Budget d'entrée</td><td>Plus bas</td><td>Modéré</td></tr>
+    <tr><td>Capacité (volume, multi-caméra)</td><td>Limitée</td><td>Élevée</td></tr>
+    <tr><td>Fiabilité du calendrier</td><td>Variable</td><td>Sécurisée</td></tr>
+    <tr><td>Post-production (montage, motion, étalonnage)</td><td>Selon profil</td><td>Intégrée</td></tr>
+    <tr><td>Continuité en cas d'imprévu</td><td>Risque</td><td>Backup assuré</td></tr>
+  </tbody>
+</table>
+
+<h2 id="sec-2">Les critères de choix essentiels</h2>
 <ul>
-  <li><strong>Le portfolio :</strong> examinez le style et la qualité des vidéos déjà réalisées, notamment sur des formats proches du vôtre (interviews, Aftermovies).</li>
-  <li><strong>La structure et la réactivité :</strong> une équipe structurée permet d'assurer un calendrier fiable et de gérer la post-production sans retard.</li>
-  <li><strong>Le prix et les droits :</strong> vérifiez que le devis détaille les étapes de correction, la musique sous licence et la cession des droits de diffusion.</li>
+  <li><strong>Le portfolio :</strong> examinez le style et la qualité des vidéos déjà réalisées, en priorité sur des formats proches du vôtre (interviews, aftermovies, films de marque). Un bon portfolio vaut mieux qu'un long discours commercial.</li>
+  <li><strong>La structure et la réactivité :</strong> une équipe organisée tient un calendrier fiable et gère la post-production sans retard. Demandez les délais de livraison moyens et le nombre de révisions incluses.</li>
+  <li><strong>Le prix et les droits :</strong> vérifiez que le devis détaille les corrections incluses, la musique sous licence et la cession des droits de diffusion. Un devis trop bas masque souvent ces postes.</li>
+  <li><strong>La proximité :</strong> un prestataire qui connaît le bassin de Tours se déplace vite, repère les lieux facilement et comprend votre marché local.</li>
 </ul>
-<p>Splice Studio se déplace et réalise des tournages dans tout le bassin de Tours. Découvrez nos offres sur notre page de <a href="/services/production-corporate/orleans">production vidéo à Orléans et Tours</a> ou explorez notre <a href="/services/production-corporate">service de production corporate</a>. Pour échanger sur vos besoins, <a href="/devis">Demander un devis</a>.</p>`,
+
+<h2 id="sec-3">Les questions à poser avant de signer</h2>
+<p>Avant d'arrêter votre choix, clarifiez quelques points qui évitent les mauvaises surprises. Combien de jours de tournage et de cadreurs sont prévus ? Combien de versions de montage sont comprises ? Qui détient les droits sur les images livrées ? Sous quel délai recevez-vous le film final ? Pour formaliser votre besoin et obtenir des devis comparables, appuyez-vous sur notre <a href="/blog/brief-videaste-entreprise">guide pour briefer votre vidéaste</a>. Et si la question du budget vous préoccupe, consultez notre article sur le <a href="/blog/prix-video-corporate-orleans-2026">prix d'une vidéo corporate en 2026</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Une agence d'Orléans peut-elle tourner à Tours ?</h3>
+<p>Oui. Tours et Orléans sont à moins d'une heure trente, et la plupart des prestataires régionaux couvrent les deux bassins. Splice Studio se déplace dans tout l'Indre-et-Loire.</p>
+<h3>Agence ou freelance pour une seule vidéo ponctuelle ?</h3>
+<p>Pour un besoin unique et simple, un freelance peut suffire. Dès que vous visez de la régularité, plusieurs formats ou un calendrier serré, l'agence sécurise le résultat.</p>
+<h3>Comment comparer deux devis honnêtement ?</h3>
+<p>Ramenez-les au même périmètre : jours de tournage, cadreurs, niveau de montage, sous-titres, droits. Le total le plus bas n'est pas toujours le moins cher au final.</p>
+
+<h2 id="sec-cta">Discutons de votre projet à Tours</h2>
+<p>Splice Studio réalise des tournages dans tout le bassin de Tours et d'Orléans. Découvrez notre <a href="/services/production-corporate">service de production corporate</a> et notre page <a href="/services/production-corporate/orleans">production vidéo à Orléans et Tours</a>. Pour échanger sur vos besoins, <a href="/devis">demandez un devis gratuit</a>.</p>`,
 
   "motion-design-pme-orleans": `<h2>Motion design pour PME : 5 cas d'usage concrets à Orléans</h2>
 <p>Le motion design n'est pas réservé aux grandes marques. Les PME d'Orléans et Tours l'utilisent de plus en plus pour simplifier leurs messages, former leurs équipes ou dynamiser leurs campagnes publicitaires locales. Voici 5 cas d'usage concrets pour votre communication.</p>

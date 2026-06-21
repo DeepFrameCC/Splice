@@ -21,6 +21,7 @@ import { PrismaNeon } from "@prisma/adapter-neon";
 import { Pool } from "@neondatabase/serverless";
 import ws from "ws";
 import { blogContent, blogMetaTitles } from "../prisma/blog-content";
+import { calculateReadingTime } from "../lib/blog/reading-time";
 
 // Minimal .env loader (tsx does not auto-populate env outside the Prisma CLI).
 try {
@@ -60,7 +61,7 @@ async function main() {
   let updated = 0;
   let missing = 0;
   for (const [slug, content] of Object.entries(blogContent)) {
-    const data = { content };
+    const data = { content, readingTimeMin: calculateReadingTime(content) };
     if (blogMetaTitles[slug]) data.metaTitle = blogMetaTitles[slug];
     const res = await db.blogPost.updateMany({ where: { slug }, data });
     if (res.count > 0) {
