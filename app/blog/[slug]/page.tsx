@@ -177,57 +177,45 @@ export default async function BlogPostPage({ params }: Props) {
           )}
         </header>
 
-        {/* ─── Content area with optional TOC ────────── */}
-        <div className="mx-auto mt-10 max-w-6xl px-6">
-          <div className="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
-            {/* Article body */}
-            <div className="mx-auto max-w-[700px] lg:mx-0">
-              {/* Mobile TOC */}
-              {post.content && (
-                <div className="mb-8 lg:hidden">
-                  <BlogTOC html={post.content} />
-                </div>
-              )}
-
-              {post.content ? (
-                <div
-                  className="prose prose-lg prose-splice max-w-none"
-                  dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
-                />
-              ) : (
-                <div className="rounded-2xl bg-white/5 p-8 text-center">
-                  <p className="text-white/60">
-                    Le contenu complet de cet article sera bientôt disponible.
-                  </p>
-                </div>
-              )}
-
-              {/* Tags */}
-              {post.tags.length > 0 && (
-                <div className="mt-10 flex flex-wrap gap-2 border-t border-white/10 pt-6">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/60"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
+        {/* ─── Reading column (colonne unique, façon magazine) ── */}
+        <div className="mx-auto mt-12 max-w-[720px] px-6">
+          {/* Sommaire (box numérotée) */}
+          {post.content && (
+            <div className="mb-12">
+              <BlogTOC html={post.content} />
             </div>
+          )}
 
-            {/* Desktop TOC sidebar */}
-            {post.content && (
-              <aside className="hidden lg:block">
-                <BlogTOC html={post.content} />
-              </aside>
-            )}
-          </div>
+          {post.content ? (
+            <div
+              className="prose prose-lg prose-splice max-w-none"
+              dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
+            />
+          ) : (
+            <div className="rounded-2xl bg-white/5 p-8 text-center">
+              <p className="text-white/60">
+                Le contenu complet de cet article sera bientôt disponible.
+              </p>
+            </div>
+          )}
+
+          {/* Tags */}
+          {post.tags.length > 0 && (
+            <div className="mt-10 flex flex-wrap gap-2 border-t border-white/10 pt-6">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/60"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ─── CTA ────────────────────────────────────── */}
-        <div className="mx-auto mt-16 max-w-4xl px-6">
+        <div className="mx-auto mt-16 max-w-[720px] px-6">
           <CtaBlock
             variant="primary"
             source="blog_article"

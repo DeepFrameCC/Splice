@@ -1,7 +1,6 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
-import { List } from "lucide-react";
 
 interface TOCItem {
   id: string;
@@ -33,7 +32,6 @@ function extractHeadings(html: string): TOCItem[] {
 
 export default function BlogTOC({ html }: BlogTOCProps) {
   const [activeId, setActiveId] = useState<string>("");
-  const [isOpen, setIsOpen] = useState(false);
   const headings = extractHeadings(html);
 
   useEffect(() => {
@@ -61,64 +59,34 @@ export default function BlogTOC({ html }: BlogTOCProps) {
   if (headings.length < 3) return null;
 
   return (
-    <>
-      {/* Desktop — sticky sidebar */}
-      <nav
-        className="hidden lg:block sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto"
-        aria-label="Table des matières"
-      >
-        <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-df-gold">
-          <List className="h-3.5 w-3.5" />
-          Sommaire
-        </p>
-        <ul className="space-y-1.5 border-l border-white/[0.08] text-sm">
-          {headings.map((h) => (
-            <li key={h.id}>
-              <a
-                href={`#${h.id}`}
-                className={`block border-l-2 py-1 transition ${
-                  h.level === 3 ? "pl-6" : "pl-4"
-                } ${
-                  activeId === h.id
-                    ? "border-df-gold font-medium text-white"
-                    : "border-transparent text-white/50 hover:border-white/10 hover:text-white/70"
-                }`}
-              >
-                {h.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Mobile — collapsible */}
-      <div className="lg:hidden rounded-xl border border-white/[0.08] bg-white/[0.04] p-4">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex w-full items-center justify-between text-sm font-bold text-white"
-        >
-          <span className="flex items-center gap-2">
-            <List className="h-4 w-4" />
-            Sommaire
-          </span>
-          <span className={`transition-transform ${isOpen ? "rotate-180" : ""}`}>▾</span>
-        </button>
-        {isOpen && (
-          <ul className="mt-3 space-y-1.5 border-l border-white/[0.08] text-sm">
-            {headings.map((h) => (
-              <li key={h.id}>
-                <a
-                  href={`#${h.id}`}
-                  onClick={() => setIsOpen(false)}
-                  className={`block py-1 text-white/50 hover:text-white ${h.level === 3 ? "pl-6" : "pl-4"}`}
-                >
-                  {h.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+    <nav
+      aria-label="Sommaire"
+      className="rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08] md:px-7"
+    >
+      <p className="mb-4 text-xs font-bold uppercase tracking-[0.12em] text-white/45">
+        Sommaire
+      </p>
+      <ol className="flex flex-col gap-3">
+        {headings.map((h, i) => (
+          <li key={h.id}>
+            <a
+              href={`#${h.id}`}
+              className={`flex gap-3 text-[15px] transition ${
+                h.level === 3 ? "pl-6" : ""
+              } ${
+                activeId === h.id
+                  ? "font-medium text-white"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              <span className="font-mono text-[13px] font-medium text-df-gold">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span>{h.text}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
