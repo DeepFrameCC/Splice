@@ -20,7 +20,7 @@ export default function BlogNewsletterCTA() {
       <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-df-gold">
         L&apos;Écho Créatif
       </p>
-      <h2 className="font-display text-2xl font-semibold tracking-tight text-white md:text-[26px] leading-tight">
+      <h2 className="font-sans text-2xl font-medium tracking-tight text-white md:text-[26px] leading-tight">
         Recevez nos guides production, un par mois.
       </h2>
       <p className="mt-2 max-w-lg text-white/60 leading-relaxed">

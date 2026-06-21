@@ -44,7 +44,7 @@ export default function BlogArticleCard({ post }: BlogArticleCardProps) {
           </span>
         )}
 
-        <h3 className="font-display text-xl font-semibold text-white transition-colors group-hover:text-df-gold line-clamp-2 leading-[1.25]">
+        <h3 className="font-sans text-xl font-medium text-white transition-colors group-hover:text-df-gold line-clamp-2 leading-[1.3]">
           {post.title}
         </h3>
 

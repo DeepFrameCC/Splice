@@ -22,7 +22,7 @@ export default function BlogFeaturedCard({ post }: BlogFeaturedCardProps) {
             </span>
           )}
 
-          <h2 className="font-display text-2xl font-semibold text-white transition-colors group-hover:text-df-gold md:text-3xl leading-[1.1]">
+          <h2 className="font-sans text-2xl font-medium text-white transition-colors group-hover:text-df-gold md:text-3xl leading-[1.15]">
             {post.title}
           </h2>
 

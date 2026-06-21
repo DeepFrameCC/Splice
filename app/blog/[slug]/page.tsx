@@ -140,12 +140,12 @@ export default async function BlogPostPage({ params }: Props) {
           )}
 
           {/* Title */}
-          <h1 className="font-display text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.04]">
+          <h1 className="font-sans text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.08]">
             {post.title}
           </h1>
 
           {/* Excerpt / chapo */}
-          <p className="mt-6 max-w-3xl font-display text-xl leading-relaxed text-white/65 md:text-2xl">
+          <p className="mt-6 max-w-3xl font-sans text-xl font-normal leading-relaxed text-white/65 md:text-2xl">
             {post.excerpt}
           </p>
 
