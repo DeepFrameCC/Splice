@@ -71,12 +71,18 @@ export default async function BlogPage({ searchParams }: Props) {
     <div className="df-site">
       <JsonLd data={buildBlogIndexJsonLd()} />
       <NavWrapper />
-      <BlogHero />
+      <BlogHero
+        articleCount={total}
+        themeCount={categories.filter((c) => c._count.posts > 0).length}
+      />
 
       <div className="mx-auto max-w-6xl px-6 py-12">
         {/* Featured post — only on unfiltered first page */}
         {!isFiltered && page === 1 && featuredPost && (
           <section className="mb-12">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.12em] text-white/45">
+              À la une
+            </p>
             <BlogFeaturedCard post={featuredPost} />
           </section>
         )}

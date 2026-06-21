@@ -122,34 +122,35 @@ export default async function BlogPostPage({ params }: Props) {
         {/* ─── Header ─────────────────────────────────── */}
         <header className="mx-auto max-w-4xl px-6">
           {/* Breadcrumb */}
-          <Breadcrumbs className="mb-6 text-sm text-white/50" items={crumbs} />
+          <Breadcrumbs className="mb-8 text-sm text-white/50" items={crumbs} />
 
-          {/* Category eyebrow */}
+          {/* Category pills */}
           {post.categories.length > 0 && (
-            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold uppercase tracking-[0.2em] text-df-gold">
-              {post.categories.map((cat, i) => (
-                <span key={cat.id} className="flex items-center gap-3">
-                  {i > 0 && <span aria-hidden className="text-white/20">/</span>}
-                  <Link href={`/blog?cat=${cat.slug}`} className="transition hover:text-white">
-                    {cat.name}
-                  </Link>
-                </span>
+            <div className="mb-6 flex flex-wrap items-center gap-2">
+              {post.categories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  href={`/blog?cat=${cat.slug}`}
+                  className="inline-block rounded-full border border-df-gold px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-df-gold transition hover:bg-df-gold hover:text-white"
+                >
+                  {cat.name}
+                </Link>
               ))}
             </div>
           )}
 
           {/* Title */}
-          <h1 className="font-display text-4xl tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.05]">
+          <h1 className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.04]">
             {post.title}
           </h1>
 
           {/* Excerpt / chapo */}
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
+          <p className="mt-6 max-w-3xl font-display text-xl leading-relaxed text-white/65 md:text-2xl">
             {post.excerpt}
           </p>
 
           {/* Author row */}
-          <div className="mt-6">
+          <div className="mt-7 border-t border-white/[0.08] pt-6">
             <BlogAuthorRow
               author={post.author}
               publishedAt={post.publishedAt}
@@ -190,7 +191,7 @@ export default async function BlogPostPage({ params }: Props) {
 
               {post.content ? (
                 <div
-                  className="prose prose-lg prose-splice max-w-none prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight"
+                  className="prose prose-lg prose-splice max-w-none"
                   dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
                 />
               ) : (

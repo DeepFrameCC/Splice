@@ -106,9 +106,51 @@ select option {
 }
 .prose-splice h2 {
   scroll-margin-top: 5rem;
+  font-family: var(--font-display), serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
 }
 .prose-splice h3 {
   scroll-margin-top: 5rem;
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+/* Mot accentué dans un titre : <em> → italique orange (façon magazine) */
+.prose-splice h2 em,
+.prose-splice h3 em {
+  font-style: italic;
+  color: var(--df-gold);
+}
+
+/* ── Tableaux (encadré arrondi, en-tête contrasté) ──────────────── */
+.prose-splice table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.prose-splice thead th {
+  background: var(--df-surface);
+  text-align: left;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.85rem 1.1rem;
+}
+.prose-splice tbody td {
+  padding: 0.85rem 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+}
+.prose-splice tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* ── Drop cap (touche magazine premium) ─────────────────────────────── */
