@@ -40,9 +40,7 @@ export default function BlogTOC({ html }: BlogTOCProps) {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveId(entry.target.id);
         }
       },
       { rootMargin: "-80px 0px -60% 0px" },
@@ -59,29 +57,16 @@ export default function BlogTOC({ html }: BlogTOCProps) {
   if (headings.length < 3) return null;
 
   return (
-    <nav
-      aria-label="Sommaire"
-      className="rounded-2xl bg-df-surface p-6 ring-1 ring-white/[0.08] md:px-7"
-    >
-      <p className="mb-4 text-xs font-bold uppercase tracking-[0.12em] text-white/45">
-        Sommaire
-      </p>
-      <ol className="flex flex-col gap-3">
+    <nav className="am-toc" aria-label="Sommaire">
+      <div className="am-toc__label">Sommaire</div>
+      <ol>
         {headings.map((h, i) => (
           <li key={h.id}>
             <a
               href={`#${h.id}`}
-              className={`flex gap-3 text-[15px] transition ${
-                h.level === 3 ? "pl-6" : ""
-              } ${
-                activeId === h.id
-                  ? "font-medium text-white"
-                  : "text-white/70 hover:text-white"
-              }`}
+              className={`${h.level === 3 ? "am-toc__l3" : ""} ${activeId === h.id ? "is-active" : ""}`}
             >
-              <span className="font-mono text-[13px] font-medium text-df-gold">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <span className="am-toc__num">{String(i + 1).padStart(2, "0")}</span>
               <span>{h.text}</span>
             </a>
           </li>

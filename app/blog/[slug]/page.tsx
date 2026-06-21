@@ -1,21 +1,40 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { Newsreader, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/JsonLd";
-import BlogAuthorRow from "@/components/blog/BlogAuthorRow";
-import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import BlogTOC from "@/components/blog/BlogTOC";
+import ArticleNewsletter from "@/components/blog/ArticleNewsletter";
 import BlogAdminBar from "@/components/blog/BlogAdminBar";
-import Breadcrumbs from "@/components/layout/Breadcrumbs";
-import { CtaBlock } from "@/components/marketing/CtaBlock";
 import { getPostBySlug, getRelatedPosts, getAllPublishedSlugs } from "@/lib/blog/queries";
 import { SERVICES_LOCAL_SLUGS } from "@/lib/services/local-seo";
 import { buildBlogPostJsonLd, BASE_URL } from "@/lib/seo";
 import { sanitizeRichHtml } from "@/lib/sanitize/html";
 import { auth, isAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
+import "./article-theme.css";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-news",
+  display: "swap",
+});
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-hanken",
+  display: "swap",
+});
+const plex = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex",
+  display: "swap",
+});
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -59,21 +78,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function initials(name?: string | null): string {
+  if (!name) return "SS";
+  const parts = name.trim().split(/\s+/).slice(0, 2);
+  const ini = parts.map((p) => p[0]?.toUpperCase() ?? "").join("");
+  return ini || "SS";
+}
+
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post || post.status !== "PUBLISHED") notFound();
 
-  // Check if current user is admin for inline actions
   const session = await auth();
   const userRole = session?.user?.role;
   const showAdminBar = isAdmin(userRole);
 
-  const relatedPosts = await getRelatedPosts(
-    post.id,
-    post.parentService?.slug,
-  );
+  const relatedPosts = await getRelatedPosts(post.id, post.parentService?.slug);
 
   const jsonLd = buildBlogPostJsonLd({
     title: post.title,
@@ -91,26 +113,21 @@ export default async function BlogPostPage({ params }: Props) {
     !!parentService &&
     (SERVICES_LOCAL_SLUGS as readonly string[]).includes(parentService.slug);
 
-  const crumbs = [
-    { name: "Accueil", href: "/" },
-    { name: "Blog", href: "/blog" },
-    ...(post.categories.length > 0
-      ? [{ name: post.categories[0]!.name, href: `/blog?cat=${post.categories[0]!.slug}` }]
-      : []),
-    { name: post.title, href: `/blog/${post.slug}` },
-  ];
+  const dateLabel = new Date(post.publishedAt).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div className="df-site">
       <NavWrapper />
-
       <JsonLd data={jsonLd} />
 
-      <article
-        className="pb-16"
-        style={{ paddingTop: "calc(80px + 2rem)" }}
+      <div
+        className={`article-mag ${newsreader.variable} ${hanken.variable} ${plex.variable}`}
+        style={{ paddingTop: "80px" }}
       >
-        {/* ─── Admin bar ──────────────────────────────── */}
         {showAdminBar && (
           <BlogAdminBar
             postId={post.id}
@@ -119,170 +136,174 @@ export default async function BlogPostPage({ params }: Props) {
           />
         )}
 
-        {/* ─── Header ─────────────────────────────────── */}
-        <header className="mx-auto max-w-4xl px-6">
-          {/* Breadcrumb */}
-          <Breadcrumbs className="mb-8 text-sm text-white/50" items={crumbs} />
+        <article>
+          {/* ── HERO ── */}
+          <section>
+            <div className="am-hero">
+              {/* Fil d'Ariane */}
+              <nav aria-label="Fil d'Ariane" className="am-crumbs">
+                <Link href="/">Accueil</Link>
+                <span className="am-sep">›</span>
+                <Link href="/blog">Blog</Link>
+                {post.categories[0] && (
+                  <>
+                    <span className="am-sep">›</span>
+                    <Link href={`/blog?cat=${post.categories[0].slug}`}>
+                      {post.categories[0].name}
+                    </Link>
+                  </>
+                )}
+                <span className="am-sep">›</span>
+                <span className="am-crumb-current">{post.title}</span>
+              </nav>
 
-          {/* Category pills */}
-          {post.categories.length > 0 && (
-            <div className="mb-6 flex flex-wrap items-center gap-2">
-              {post.categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/blog?cat=${cat.slug}`}
-                  className="inline-block rounded-full border border-df-gold px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-df-gold transition hover:bg-df-gold hover:text-white"
-                >
-                  {cat.name}
+              {post.categories[0] && (
+                <Link href={`/blog?cat=${post.categories[0].slug}`} className="am-pill">
+                  {post.categories[0].name}
                 </Link>
-              ))}
+              )}
+
+              <h1 className="am-title">{post.title}</h1>
+              <p className="am-chapo">{post.excerpt}</p>
+
+              <div className="am-author">
+                <div className="am-avatar">{initials(post.author?.pseudo)}</div>
+                <div style={{ flex: 1 }}>
+                  <div className="am-author-name">{post.author?.pseudo || "Splice Studio"}</div>
+                  <div className="am-author-meta">{dateLabel}</div>
+                </div>
+                <span className="am-read-time">⏱ {post.readingTimeMin} min de lecture</span>
+              </div>
             </div>
-          )}
 
-          {/* Title */}
-          <h1 className="font-sans text-4xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl leading-[1.08]">
-            {post.title}
-          </h1>
+            {/* Couverture pleine largeur */}
+            {post.coverImageUrl && (
+              <figure className="am-cover">
+                <Image
+                  src={post.coverImageUrl}
+                  alt={post.coverImageAlt || post.title}
+                  fill
+                  sizes="100vw"
+                  priority
+                />
+              </figure>
+            )}
+          </section>
 
-          {/* Excerpt / chapo */}
-          <p className="mt-6 max-w-3xl font-sans text-xl font-normal leading-relaxed text-white/65 md:text-2xl">
-            {post.excerpt}
-          </p>
+          {/* ── COLONNE DE LECTURE ── */}
+          <div className="am-read">
+            {post.content && <BlogTOC html={post.content} />}
 
-          {/* Author row */}
-          <div className="mt-7 border-t border-white/[0.08] pt-6">
-            <BlogAuthorRow
-              author={post.author}
-              publishedAt={post.publishedAt}
-              readingTimeMin={post.readingTimeMin}
-            />
+            {post.content ? (
+              <div
+                className="am-body"
+                dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
+              />
+            ) : (
+              <div className="am-toc" style={{ textAlign: "center" }}>
+                <p style={{ margin: 0 }}>Le contenu complet de cet article sera bientôt disponible.</p>
+              </div>
+            )}
+
+            {post.tags.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  marginTop: 40,
+                  paddingTop: 24,
+                  borderTop: "1px solid var(--hair)",
+                }}
+              >
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    style={{
+                      borderRadius: 100,
+                      border: "1px solid var(--hair)",
+                      padding: "4px 12px",
+                      fontSize: 12,
+                      color: "var(--muted)",
+                    }}
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Cover image */}
-          {post.coverImageUrl && (
-            <figure className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/[0.08]">
-              <Image
-                src={post.coverImageUrl}
-                alt={post.coverImageAlt || post.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-df-night/45 via-transparent to-transparent"
-              />
-            </figure>
-          )}
-        </header>
+          {/* ── NEWSLETTER ── */}
+          <div className="am-read" style={{ paddingTop: 52, paddingBottom: 0 }}>
+            <ArticleNewsletter />
+          </div>
 
-        {/* ─── Reading column (colonne unique, façon magazine) ── */}
-        <div className="mx-auto mt-12 max-w-[720px] px-6">
-          {/* Sommaire (box numérotée) */}
-          {post.content && (
-            <div className="mb-12">
-              <BlogTOC html={post.content} />
-            </div>
-          )}
-
-          {post.content ? (
-            <div
-              className="prose prose-lg prose-splice max-w-none"
-              dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(post.content) }}
-            />
-          ) : (
-            <div className="rounded-2xl bg-white/5 p-8 text-center">
-              <p className="text-white/60">
-                Le contenu complet de cet article sera bientôt disponible.
-              </p>
-            </div>
-          )}
-
-          {/* Tags */}
-          {post.tags.length > 0 && (
-            <div className="mt-10 flex flex-wrap gap-2 border-t border-white/10 pt-6">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/60"
+          {/* ── ALLER PLUS LOIN (maillage interne SEO) ── */}
+          {parentService && (
+            <nav aria-label="Aller plus loin" className="am-read" style={{ paddingTop: 32 }}>
+              <div className="am-more">
+                <h2>Aller plus loin</h2>
+                <ul
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    listStyle: "none",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "8px 24px",
+                    fontSize: 15,
+                  }}
                 >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* ─── CTA ────────────────────────────────────── */}
-        <div className="mx-auto mt-16 max-w-[720px] px-6">
-          <CtaBlock
-            variant="primary"
-            source="blog_article"
-            title="Un projet en tête ?"
-            subtitle="On vous accompagne de A à Z. Devis gratuit, sans engagement."
-            primaryHref="/devis"
-            primaryLabel="Demander un devis gratuit"
-            secondaryHref="/galerie"
-            secondaryLabel="Voir nos réalisations"
-          />
-        </div>
-
-        {/* ─── Related posts ──────────────────────────── */}
-        <div className="mx-auto max-w-6xl px-6">
-          <BlogRelatedPosts posts={relatedPosts} />
-        </div>
-
-        {/* ─── Aller plus loin (maillage service + local) ── */}
-        {parentService && (
-          <nav
-            aria-label="Aller plus loin"
-            className="mx-auto mt-12 max-w-4xl px-6"
-          >
-            <div className="rounded-2xl border border-white/[0.08] bg-df-surface p-6">
-              <h2 className="font-display text-lg uppercase tracking-tight text-white">
-                Aller plus loin
-              </h2>
-              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                <li>
-                  <Link
-                    href={`/services/${parentService.slug}`}
-                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
-                  >
-                    {parentService.name} à Orléans et Tours
-                  </Link>
-                </li>
-                {parentServiceIsLocal && (
                   <li>
-                    <Link
-                      href={`/services/${parentService.slug}/orleans`}
-                      className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
-                    >
-                      {parentService.name} à Orléans
+                    <Link href={`/services/${parentService.slug}`}>
+                      {parentService.name} à Orléans et Tours
                     </Link>
                   </li>
-                )}
-                <li>
-                  <Link
-                    href="/tarifs"
-                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
-                  >
-                    Nos tarifs
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/devis"
-                    className="font-semibold text-df-gold underline underline-offset-2 hover:text-df-blue"
-                  >
-                    Demander un devis gratuit
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        )}
-      </article>
+                  {parentServiceIsLocal && (
+                    <li>
+                      <Link href={`/services/${parentService.slug}/orleans`}>
+                        {parentService.name} à Orléans
+                      </Link>
+                    </li>
+                  )}
+                  <li><Link href="/tarifs">Nos tarifs</Link></li>
+                  <li><Link href="/devis">Demander un devis gratuit</Link></li>
+                </ul>
+              </div>
+            </nav>
+          )}
+
+          {/* ── À LIRE ENSUITE ── */}
+          {relatedPosts.length > 0 && (
+            <section className="am-related" style={{ marginTop: 68 }}>
+              <div className="am-related__inner">
+                <div className="am-related__label">À lire ensuite</div>
+                <div className="am-related__grid">
+                  {relatedPosts.slice(0, 3).map((rp) => (
+                    <Link key={rp.id} href={`/blog/${rp.slug}`}>
+                      <div className="am-rcard__img">
+                        {rp.coverImageUrl && (
+                          <Image
+                            src={rp.coverImageUrl}
+                            alt={rp.coverImageAlt || rp.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, 280px"
+                          />
+                        )}
+                      </div>
+                      {rp.categories[0] && (
+                        <div className="am-rcard__cat">{rp.categories[0].name}</div>
+                      )}
+                      <div className="am-rcard__title">{rp.title}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </article>
+      </div>
 
       <Footer />
     </div>
