@@ -3,9 +3,7 @@
  * Used by seed.ts to populate the `content` field on BlogPost.
  */
 export const blogContent: Record<string, string> = {
-  "5-erreurs-montage-video-reseaux-sociaux": `<h2>5 erreurs de montage qui plombent vos vidéos sur les réseaux sociaux</h2>
-
-<p>En 2026, la vidéo représente plus de <strong>82 % du trafic internet mondial</strong> selon Cisco. Pour les PME et TPE françaises, la <strong>production de Reels Instagram pour entreprise</strong> ou de contenus TikTok est devenue un levier de croissance. Beaucoup d'entreprises perdent pourtant en visibilité à cause d'erreurs de montage évitables.</p>
+  "5-erreurs-montage-video-reseaux-sociaux": `<p>En 2026, la vidéo représente plus de <strong>82 % du trafic internet mondial</strong> selon Cisco. Pour les PME et TPE françaises, la <strong>production de Reels Instagram pour entreprise</strong> ou de contenus TikTok est devenue un levier de croissance. Beaucoup d'entreprises perdent pourtant en visibilité à cause d'erreurs de montage évitables.</p>
 
 <p>Après avoir accompagné des dizaines d'entreprises en Centre-Val de Loire et partout en France, notre équipe a identifié les cinq erreurs les plus fréquentes en <strong>montage vidéo pour réseaux sociaux</strong>. Les voici, avec les solutions concrètes pour y remédier.</p>
 
@@ -84,9 +82,7 @@ export const blogContent: Record<string, string> = {
 
 <p><strong>Prêt à transformer vos vidéos en vrais outils de croissance ?</strong> <a href="/devis">Demandez un devis gratuit</a> et recevez une proposition adaptée à vos besoins sous 48 h. Besoin d'un <a href="/services/montage-video/orleans">monteur vidéo à Orléans</a> ?</p>`,
 
-  "guide-formats-video-2026": `<h2>Guide des formats vidéo en 2026 : TikTok, Instagram, YouTube, LinkedIn</h2>
-
-<p>Sans les bonnes spécifications techniques, une vidéo s'affiche mal et touche moins de monde sur chaque plateforme. En 2026, les <strong>formats vidéo</strong> évoluent vite, les algorithmes récompensent les contenus natifs, et les marques qui négligent ces détails perdent en visibilité.</p>
+  "guide-formats-video-2026": `<p>Sans les bonnes spécifications techniques, une vidéo s'affiche mal et touche moins de monde sur chaque plateforme. En 2026, les <strong>formats vidéo</strong> évoluent vite, les algorithmes récompensent les contenus natifs, et les marques qui négligent ces détails perdent en visibilité.</p>
 
 <p>Ce guide pratique rassemble toutes les dimensions, durées, codecs et bonnes pratiques par plateforme pour vous aider à optimiser votre <strong>contenu vidéo de startup en France</strong> comme celui d'une PME établie.</p>
 
@@ -366,9 +362,7 @@ export const blogContent: Record<string, string> = {
 
 <p><strong>Prêt à donner la parole à vos équipes et clients ? <a href="/devis">Demander un devis</a> et concevons ensemble une interview vidéo professionnelle.</strong> Découvrez notre <a href="/services/interview-temoignage/orleans">service d'interview vidéo à Orléans</a>.</p>`,
 
-  "motion-design-vs-prise-de-vue-reelle": `<h2>Motion design ou prise de vue réelle : deux approches, un même objectif</h2>
-
-<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl, 91 % des entreprises utilisent la vidéo comme outil marketing, mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique pour optimiser leur communication à Orléans et Tours.</p>
+  "motion-design-vs-prise-de-vue-reelle": `<p>Lorsqu'une entreprise décide d'investir dans la vidéo, une question revient systématiquement : faut-il opter pour un <strong>tournage classique</strong> ou pour une <strong>animation en motion design</strong> ? Selon Wyzowl, 91 % des entreprises utilisent la vidéo comme outil marketing, mais toutes ne choisissent pas le bon format. En tant qu'<strong>agence audiovisuelle dans le Loiret</strong>, nous accompagnons nos clients dans ce choix stratégique pour optimiser leur communication à Orléans et Tours.</p>
 
 <h2>Comprendre les deux formats</h2>
 
@@ -498,9 +492,7 @@ export const blogContent: Record<string, string> = {
 
 <p><strong>Vous hésitez entre motion design et tournage ?</strong> <a href="/devis">Demander un devis</a> gratuit et recevez une recommandation personnalisée sous 24 heures. Découvrez aussi notre <a href="/services/motion-design/orleans">studio de motion design à Orléans</a>.</p>`,
 
-  "prix-video-entreprise-2026": `<h2>Combien coûte une vidéo d'entreprise en 2026 ?</h2>
-
-<p>Le prix d'une vidéo d'entreprise en 2026 dépend avant tout de trois facteurs : l'ampleur du tournage (durée, nombre de lieux, taille de l'équipe), le niveau de finition en post-production (montage, étalonnage, motion design, sous-titres) et les droits de diffusion. Il n'existe donc pas de tarif unique, mais des fourchettes qui varient selon le type de film. Cet article détaille comment se construit un budget vidéo et comment obtenir un devis juste, sans mauvaise surprise.</p>
+  "prix-video-entreprise-2026": `<p>Le prix d'une vidéo d'entreprise en 2026 dépend avant tout de trois facteurs : l'ampleur du tournage (durée, nombre de lieux, taille de l'équipe), le niveau de finition en post-production (montage, étalonnage, motion design, sous-titres) et les droits de diffusion. Il n'existe donc pas de tarif unique, mais des fourchettes qui varient selon le type de film. Cet article détaille comment se construit un budget vidéo et comment obtenir un devis juste, sans mauvaise surprise.</p>
 
 <h3>Ce qui fait varier le prix d'une vidéo d'entreprise</h3>
 
@@ -562,9 +554,7 @@ export const blogContent: Record<string, string> = {
 
 <p>La meilleure façon de connaître le prix de votre vidéo, c'est de partir de votre besoin réel. <strong>Décrivez votre projet en quelques minutes</strong> et nous vous transmettons une estimation détaillée. <a href="/devis">Demandez votre devis gratuit</a> : réponse sous 24 heures, sans engagement, que vous soyez à Orléans, Tours ou ailleurs en France. Estimez votre <a href="/services/production-corporate/orleans">film d'entreprise à Orléans</a>.</p>`,
 
-  "reussir-shooting-photo-automobile": `<h2>Réussir un shooting photo automobile : le guide complet</h2>
-
-<p>Réussir un shooting photo automobile repose sur trois piliers : une lumière maîtrisée, un lieu qui met le véhicule en valeur et une exécution technique rigoureuse (réglages, angles, retouche). Que vous soyez concessionnaire, garage, loueur ou passionné, ce guide détaille les étapes pour obtenir des images de voiture professionnelles, exploitables sur un site, une annonce ou les réseaux sociaux.</p>
+  "reussir-shooting-photo-automobile": `<p>Réussir un shooting photo automobile repose sur trois piliers : une lumière maîtrisée, un lieu qui met le véhicule en valeur et une exécution technique rigoureuse (réglages, angles, retouche). Que vous soyez concessionnaire, garage, loueur ou passionné, ce guide détaille les étapes pour obtenir des images de voiture professionnelles, exploitables sur un site, une annonce ou les réseaux sociaux.</p>
 
 <h3>La lumière : l'élément décisif</h3>
 
@@ -624,9 +614,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Le shooting automobile combine des compétences pointues : gestion des reflets, repérage, retouche spécifique. Faire appel à un <a href="/services/shooting-automobile">photographe spécialisé en automobile</a> garantit des images cohérentes, prêtes à valoriser votre stock ou votre marque. <a href="/devis">Demandez un devis gratuit</a> et discutons de votre projet. Réponse sous 24 heures. Voir notre <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>.</p>`,
 
-  "vlog-entreprise-definition-formats": `<h2>Vlog d'entreprise : définition, formats et exemples</h2>
-
-<p>Un vlog d'entreprise est une série de vidéos régulières, au ton authentique et incarné, qui documente la vie, les coulisses ou l'expertise d'une organisation. Contrairement au film corporate ponctuel et très produit, le vlog mise sur la proximité et la régularité pour créer un lien de confiance durable avec une audience. Voici sa définition précise, ses formats les plus efficaces et des exemples concrets pour vous lancer à Orléans et Tours.</p>
+  "vlog-entreprise-definition-formats": `<p>Un vlog d'entreprise est une série de vidéos régulières, au ton authentique et incarné, qui documente la vie, les coulisses ou l'expertise d'une organisation. Contrairement au film corporate ponctuel et très produit, le vlog mise sur la proximité et la régularité pour créer un lien de confiance durable avec une audience. Voici sa définition précise, ses formats les plus efficaces et des exemples concrets pour vous lancer à Orléans et Tours.</p>
 
 <h3>Qu'est-ce qu'un vlog d'entreprise, exactement ?</h3>
 
@@ -700,9 +688,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Un vlog réussi commence par une stratégie claire et une bonne régularité. Pour structurer votre présence sur les plateformes et concevoir des contenus verticaux performants, découvrez nos services de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. <strong><a href="/devis">Demander un devis</a></strong> dès maintenant pour planifier un rendez-vous d'évaluation et lancer votre premier vlog d'entreprise. Réponse sous 24 heures.</p>`,
 
-  "formats-video-reseaux-sociaux-2026": `<h2>Formats vidéo pour les réseaux sociaux : le guide 2026</h2>
-
-<p>En 2026, le bon format vidéo pour les réseaux sociaux se résume à une question : sur quel écran et dans quel contexte votre audience va-t-elle regarder ? Le vertical 9:16 domine le mobile (Reels, TikTok, Shorts, Stories), le carré 1:1 et le 4:5 maximisent la surface dans les fils d'actualité, et le paysage 16:9 reste roi sur YouTube et en présentation. Ce guide explique quel ratio choisir selon votre objectif, et comment décliner une seule captation sur tous les réseaux.</p>
+  "formats-video-reseaux-sociaux-2026": `<p>En 2026, le bon format vidéo pour les réseaux sociaux se résume à une question : sur quel écran et dans quel contexte votre audience va-t-elle regarder ? Le vertical 9:16 domine le mobile (Reels, TikTok, Shorts, Stories), le carré 1:1 et le 4:5 maximisent la surface dans les fils d'actualité, et le paysage 16:9 reste roi sur YouTube et en présentation. Ce guide explique quel ratio choisir selon votre objectif, et comment décliner une seule captation sur tous les réseaux.</p>
 
 <h3>Les trois grands ratios à connaître</h3>
 <ul>
@@ -757,9 +743,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Un <a href="/services/montage-video">montage vidéo professionnel</a> transforme une captation unique en plusieurs formats natifs, et une stratégie de <a href="/services/pub-reseaux-sociaux">publicité sur les réseaux sociaux</a> garantit que le bon format atteint la bonne audience. <a href="/devis">Demandez un devis gratuit</a> : nous vous aidons à définir les formats les plus rentables pour vos objectifs. Réponse sous 24 heures. Voir notre <a href="/services/pub-reseaux-sociaux/orleans">agence de pub vidéo réseaux sociaux à Orléans</a>.</p>`,
 
-  "photographe-freelance-ou-agence": `<h2>Photographe freelance ou agence : comment choisir ?</h2>
-
-<p>Choisir entre un photographe freelance et une agence dépend surtout de l'ampleur de votre projet, de vos besoins de coordination et de votre exigence de régularité. Le freelance offre proximité et souplesse à coût souvent contenu ; l'agence apporte des moyens, une continuité de service et la capacité à gérer des productions complexes. Ce guide objectif vous aide à trancher selon votre situation réelle.</p>
+  "photographe-freelance-ou-agence": `<p>Choisir entre un photographe freelance et une agence dépend surtout de l'ampleur de votre projet, de vos besoins de coordination et de votre exigence de régularité. Le freelance offre proximité et souplesse à coût souvent contenu ; l'agence apporte des moyens, une continuité de service et la capacité à gérer des productions complexes. Ce guide objectif vous aide à trancher selon votre situation réelle.</p>
 
 <h3>Le photographe freelance : proximité et souplesse</h3>
 
@@ -828,9 +812,7 @@ export const blogContent: Record<string, string> = {
 
 <p>Le bon partenaire est celui qui comprend votre objectif avant de parler matériel. <a href="/devis">Demandez un devis gratuit</a> : décrivez votre projet et nous vous dirons honnêtement quelle approche lui convient le mieux. Réponse sous 24 heures. Découvrez notre <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>.</p>`,
 
-  "preparer-evenement-entreprise-checklist": `<h2>Préparer un événement d'entreprise : la check-list photo/vidéo à Orléans</h2>
-
-<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Que vous organisiez un séminaire au cœur d'Orléans, une conférence à Tours ou une soirée de gala dans un château de la Loire, une préparation méthodique (brief clair, repérage, planning des moments clés, logistique technique) fait toute la différence entre des images génériques et un reportage marquant. Voici notre check-list complète pour une <strong>couverture événement d'entreprise à Orléans</strong> réussie.</p>
+  "preparer-evenement-entreprise-checklist": `<p>Réussir la couverture photo et vidéo d'un événement d'entreprise se joue bien avant le jour J. Que vous organisiez un séminaire au cœur d'Orléans, une conférence à Tours ou une soirée de gala dans un château de la Loire, une préparation méthodique (brief clair, repérage, planning des moments clés, logistique technique) fait toute la différence entre des images génériques et un reportage marquant. Voici notre check-list complète pour une <strong>couverture événement d'entreprise à Orléans</strong> réussie.</p>
 
 <h3>Avant l'événement : cadrer le besoin</h3>
 <ul>
