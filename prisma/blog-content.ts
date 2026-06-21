@@ -994,77 +994,186 @@ export const blogContent: Record<string, string> = {
 <h2 id="sec-cta">Lancez votre campagne de recrutement vidéo</h2>
 <p>Faites appel à notre <a href="/services/production-corporate">service de production corporate</a> et à notre page <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a> pour concevoir vos vidéos de recrutement. Pour cadrer votre projet et obtenir un chiffrage, <a href="/devis">demandez un devis gratuit</a>.</p>`,
 
-  "aftermovie-seminaire-orleans": `<h2>Aftermovie de séminaire d'entreprise à Orléans : guide complet</h2>
-<p>Un séminaire d'entreprise est un moment fort de cohésion pour vos équipes. Capter cette énergie à travers un aftermovie professionnel permet de valoriser vos collaborateurs en interne et de soigner votre image de marque en externe. Orléans propose de superbes lieux de réception (châteaux de la Loire, centres de congrès) parfaits pour ces événements.</p>
-<h3>Les règles pour un aftermovie réussi</h3>
-<ul>
-  <li><strong>La discrétion du cadreur :</strong> pour capter des sourires sincères et des échanges authentiques, le vidéaste doit savoir se fondre dans la foule.</li>
-  <li><strong>Un montage rythmé :</strong> alterner des plans de discours avec des moments de complicité, le tout synchronisé sur une musique dynamique libre de droits.</li>
-  <li><strong>Le multi-format :</strong> décliner la vidéo principale en versions de 15 à 30 secondes pour diffuser immédiatement sur LinkedIn ou en interne.</li>
-</ul>
-<p>Pour organiser sereinement votre couverture média, consultez notre <a href="/blog/preparer-evenement-entreprise-checklist">check-list de préparation d'événement</a>. Pour votre captation et montage, découvrez notre service de <a href="/services/production-corporate">production corporate</a>. Contactez-nous pour <a href="/devis">Demander un devis</a> sous 24 heures.</p>`,
+  "aftermovie-seminaire-orleans": `<p>Un séminaire d'entreprise est un moment fort de cohésion. Capter cette énergie dans un aftermovie professionnel valorise vos collaborateurs en interne et soigne votre image en externe, bien après la fin de l'événement. Orléans et ses environs offrent des lieux parfaits pour ces rendez-vous : châteaux de la Loire, domaines, centres de congrès. Ce guide détaille comment préparer, tourner et diffuser un aftermovie qui prolonge l'impact de votre séminaire.</p>
 
-  "reels-instagram-entreprise-orleans": `<h2>Réels Instagram pour PME à Orléans : ce qui marche vraiment</h2>
-<p>Les Reels Instagram sont le format organique le plus puissant pour toucher de nouveaux clients locaux sans budget publicitaire. Pour les commerçants, restaurateurs et créateurs basés à Orléans et Tours, c'est une vitrine incontournable. Les vidéos verticales courtes s'imposent car elles captent l'utilisateur dès les premières secondes.</p>
-<h3>La formule d'un Reel performant</h3>
-<ul>
-  <li><strong>Un hook percutant :</strong> une question ou un plan saisissant dans les 2 premières secondes pour retenir le swipe.</li>
-  <li><strong>Une ambiance locale :</strong> filmer des lieux identifiables à Orléans (place du Martroi, quais de Loire) pour renforcer la proximité avec votre cible locale.</li>
-  <li><strong>Un appel à l'action clair :</strong> inciter explicitement à s'abonner, visiter le site ou réserver.</li>
-</ul>
-<p>Pour structurer vos campagnes sur mobile, consultez notre offre de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. Vous pouvez également lire nos conseils sur le format <a href="/blog/vlog-entreprise-definition-formats">vlog d'entreprise</a>. Prêt à lancer vos Reels ? <a href="/devis">Demander un devis</a>.</p>`,
+<h2 id="sec-1">Pourquoi investir dans un aftermovie de séminaire</h2>
+<p>L'aftermovie n'est pas un simple souvenir. C'est un contenu de communication réutilisable toute l'année. La vidéo sociale génère beaucoup plus de partages que le texte et l'image combinés (données Brightcove relayées par plusieurs études sectorielles), et un montage rythmé diffusé sur LinkedIn touche vos clients comme vos futurs candidats. En interne, il renforce le sentiment d'appartenance ; en externe, il prouve le dynamisme de votre entreprise.</p>
 
-  "video-temoignage-client-pme-centre-val-de-loire": `<h2>Témoignage client vidéo : pourquoi c'est votre meilleur outil commercial</h2>
-<p>La preuve sociale est le levier de conversion le plus efficace en marketing. Un témoignage client vidéo humanise votre PME en Centre-Val de Loire et instaure un niveau de confiance qu'aucun texte écrit ne peut égaler. Il permet de lever les objections des prospects hésitants en montrant la réussite concrète d'un de vos clients réels.</p>
-<h3>Les bonnes pratiques de l'entretien client</h3>
+<h2 id="sec-2">Les règles d'un aftermovie réussi</h2>
 <ul>
-  <li><strong>Ne pas scripter :</strong> laissez le client s'exprimer avec ses propres mots pour garantir l'authenticité de son avis.</li>
+  <li><strong>La discrétion du cadreur :</strong> pour capter des sourires sincères et des échanges spontanés, le vidéaste doit se fondre dans la foule plutôt que diriger la scène.</li>
+  <li><strong>Les plans à ne pas manquer :</strong> accueil, temps forts des prises de parole, ateliers, moments de complicité, soirée. Listez-les en amont avec l'organisateur.</li>
+  <li><strong>Un montage rythmé :</strong> alterner discours et moments de groupe, synchronisé sur une musique dynamique sous licence (jamais de musique non libre de droits, sous peine de blocage sur les plateformes).</li>
+  <li><strong>Le multi-format :</strong> livrer un film principal de 1 à 2 minutes, plus des versions verticales de 15 à 30 secondes pour LinkedIn, Instagram et les écrans internes.</li>
+</ul>
+
+<h2 id="sec-3">Préparer la captation en amont</h2>
+<p>Un bon aftermovie se joue avant le jour J. Communiquez le déroulé précis au vidéaste, identifiez les intervenants clés, repérez les lieux et la lumière, et recueillez les autorisations de droit à l'image des participants. Pour ne rien oublier, appuyez-vous sur notre <a href="/blog/preparer-evenement-entreprise-checklist">check-list de préparation d'événement</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Quel délai pour recevoir l'aftermovie ?</h3>
+<p>Comptez en général une à deux semaines après l'événement. Une version courte « teaser » peut être livrée sous 48 h pour publier à chaud.</p>
+<h3>Faut-il un ou deux cadreurs pour un séminaire ?</h3>
+<p>Pour un séminaire d'une journée avec plusieurs salles, deux opérateurs sécurisent la couverture. Un seul suffit pour un format plus intime.</p>
+
+<h2 id="sec-cta">Confiez-nous la captation de votre séminaire</h2>
+<p>Découvrez notre <a href="/services/production-corporate">service de production corporate</a> et notre page <a href="/services/production-corporate/orleans">production de films d'entreprise à Orléans</a>. Pour cadrer votre projet, <a href="/devis">demandez un devis gratuit</a> sous 24 heures.</p>`,
+
+  "reels-instagram-entreprise-orleans": `<p>Les Reels Instagram sont le format organique le plus puissant pour toucher de nouveaux clients locaux sans budget publicitaire. Pour les commerçants, restaurateurs, artisans et créateurs d'Orléans et de Tours, c'est devenu une vitrine incontournable. Les vidéos verticales courtes s'imposent parce qu'elles captent l'utilisateur dès les premières secondes, là où le scroll est le plus rapide. Voici ce qui fonctionne vraiment en 2026.</p>
+
+<h2 id="sec-1">Pourquoi les Reels priment pour une PME locale</h2>
+<p>L'algorithme d'Instagram pousse les Reels au-delà de vos abonnés, vers des utilisateurs susceptibles d'être intéressés. Pour un commerce de proximité, c'est une chance : une seule vidéo bien conçue peut toucher des milliers d'Orléanais sans publicité. Les formats courts de moins de 60 secondes représentent désormais la majorité du contenu vidéo consommé (données Branding Strategy Insider), et la plupart des vues se font sans le son, d'où l'importance des sous-titres.</p>
+
+<h2 id="sec-2">La formule d'un Reel performant</h2>
+<ul>
+  <li><strong>Un hook dans les 2 premières secondes :</strong> une question, un plan saisissant ou un résultat « avant/après » pour stopper le pouce.</li>
+  <li><strong>Une ambiance locale :</strong> filmer des lieux identifiables à Orléans (place du Martroi, quais de Loire, votre boutique) renforce la proximité avec votre cible.</li>
+  <li><strong>Des sous-titres lisibles :</strong> placés haut, ils captent les vues silencieuses, majoritaires sur mobile.</li>
+  <li><strong>Un appel à l'action clair :</strong> inviter explicitement à s'abonner, visiter le site ou réserver.</li>
+</ul>
+
+<h2 id="sec-3">Un rythme de publication tenable</h2>
+<p>La régularité bat la perfection. Mieux vaut un Reel solide par semaine que cinq vidéos bâclées puis plus rien. Pour les TPE et commerçants, nous détaillons un plan réaliste dans notre guide <a href="/blog/strategie-video-artisan-commercant-orleans">stratégie de contenu vidéo pour artisans et commerçants</a>. Le format Reel se rapproche aussi du <a href="/blog/vlog-entreprise-definition-formats">vlog d'entreprise</a>, utile pour varier vos contenus.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Quelle durée idéale pour un Reel d'entreprise ?</h3>
+<p>Entre 15 et 34 secondes pour la portée maximale. Au-delà, réservez le format aux contenus à forte valeur (tutoriel, coulisses détaillées).</p>
+<h3>Faut-il un matériel professionnel ?</h3>
+<p>Un smartphone récent suffit pour démarrer. La différence se fait surtout sur le cadrage, la lumière, le montage et le rythme, là où un accompagnement pro apporte le plus.</p>
+
+<h2 id="sec-cta">Lancez vos Reels avec une vraie stratégie</h2>
+<p>Découvrez notre offre de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a> pour structurer vos campagnes mobiles. Prêt à lancer vos Reels ? <a href="/devis">Demandez un devis gratuit</a>.</p>`,
+
+  "video-temoignage-client-pme-centre-val-de-loire": `<p>La preuve sociale est le levier de conversion le plus efficace en marketing. Un témoignage client vidéo humanise votre PME en Centre-Val de Loire et instaure une confiance qu'aucun texte écrit n'égale. Il lève les objections des prospects hésitants en montrant la réussite concrète d'un client réel, avec ses mots, son visage et ses chiffres. C'est souvent la vidéo au meilleur retour sur investissement qu'une entreprise puisse produire.</p>
+
+<h2 id="sec-1">Pourquoi le témoignage vidéo convertit mieux</h2>
+<p>Un prospect croit davantage un pair qu'une marque. Les avis vidéo convertissent nettement mieux que les avis textuels (jusqu'à 25 % selon BrightLocal), et une part importante des décideurs B2B contactent un fournisseur après avoir vu une vidéo de ses clients satisfaits (Wyzowl). Le témoignage agit comme une recommandation permanente, disponible 24h/24 sur votre site et vos réseaux.</p>
+
+<h2 id="sec-2">Les bonnes pratiques de l'entretien client</h2>
+<ul>
+  <li><strong>Ne pas scripter :</strong> laissez le client s'exprimer avec ses propres mots pour garantir l'authenticité.</li>
   <li><strong>Se focaliser sur les résultats :</strong> demandez des chiffres ou des gains précis (temps gagné, chiffre d'affaires, confort d'utilisation).</li>
-  <li><strong>Illustrer avec des images :</strong> inserez des plans de coupe du client en train d'utiliser votre produit ou service.</li>
+  <li><strong>Structurer le récit :</strong> problème de départ, solution apportée, résultat obtenu. Cette trame rend le message clair et mémorable.</li>
+  <li><strong>Illustrer avec des plans de coupe :</strong> montrer le client en train d'utiliser votre produit ou service ancre le propos dans le réel.</li>
 </ul>
-<p>Pour préparer au mieux cet exercice, lisez notre guide complet avec nos <a href="/blog/interview-dirigeant-reussie-7-conseils">conseils pour réussir une interview vidéo</a>. Retrouvez des exemples sur notre <a href="/services/interview-temoignage/orleans">page d'interviews à Orléans</a>. <a href="/devis">Demander un devis</a> pour votre prochain témoignage client.</p>`,
 
-  "photographe-equipe-entreprise-orleans": `<h2>Photographe d'équipe à Orléans : préparer votre shooting corporate</h2>
-<p>Vos collaborateurs sont le premier visage de votre entreprise. Réaliser des portraits professionnels et des photos d'équipe soignées renforce la cohésion interne et crédibilise votre site web ou votre page LinkedIn. Un shooting corporate réussi à Orléans ou Tours demande une préparation simple mais rigoureuse.</p>
-<h3>Comment préparer le jour du shooting ?</h3>
-<ul>
-  <li><strong>Définir un dress code cohérent :</strong> harmoniser les couleurs ou le style (casual, formel) sans imposer un uniforme trop strict.</li>
-  <li><strong>Choisir le bon décor :</strong> valoriser vos locaux réels (atelier, bureaux lumineux) ou opter pour un arrière-plan neutre et épuré.</li>
-  <li><strong>Planifier un planning précis :</strong> prévoir des créneaux individuels de 15 minutes pour ne pas perturber l'activité de vos équipes.</li>
-</ul>
-<p>Pour comprendre les options possibles, découvrez notre service de <a href="/services/photographie-professionnelle">photographie professionnelle</a> et notre page dédiée au <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>. Pour bloquer une date de prise de vue, <a href="/devis">Demander un devis</a>.</p>`,
+<h2 id="sec-3">Où diffuser vos témoignages</h2>
+<p>Un témoignage prend toute sa valeur multiplié sur vos canaux : page d'accueil et pages produits (pour rassurer au moment de la décision), LinkedIn en vidéo native, et extraits courts verticaux pour les réseaux sociaux. La même captation peut nourrir plusieurs formats. Pour réussir l'entretien, appliquez nos <a href="/blog/interview-dirigeant-reussie-7-conseils">conseils pour réussir une interview vidéo</a>.</p>
 
-  "video-linkedin-entreprise-b2b-centre-val-de-loire": `<h2>Contenu LinkedIn vidéo pour entreprise B2B : les formats gagnants en 2026</h2>
-<p>LinkedIn est le canal d'acquisition privilégié des entreprises B2B en Centre-Val de Loire. La vidéo native y génère en moyenne 5 fois plus d'engagement que le texte seul. En 2026, l'algorithme valorise le temps de visionnage et les contenus experts. Pour performer, vos vidéos doivent être adaptées aux codes mobiles professionnels.</p>
-<h3>Les formats gagnants pour LinkedIn</h3>
-<ul>
-  <li><strong>La capsule d'expertise :</strong> une vidéo courte de 1 à 2 minutes où vous expliquez un point précis de votre secteur d'activité, sous-titrée pour une lecture sans son.</li>
-  <li><strong>L'aftermovie et coulisses de projets :</strong> montrer la livraison d'un chantier ou le déroulé d'une signature de contrat locale à Orléans ou Tours.</li>
-  <li><strong>L'interview de dirigeant :</strong> un format de type face caméra pour poser votre vision du marché.</li>
-</ul>
-<p>Consultez nos réalisations sur notre page de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour réseaux sociaux</a> ou lisez notre article sur le <a href="/blog/film-corporate-roi-communication">ROI du film corporate</a>. Pour concevoir vos vidéos B2B, <a href="/devis">Demander un devis</a>.</p>`,
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Combien de temps dure un tournage de témoignage ?</h3>
+<p>Une demi-journée suffit généralement pour interviewer un ou deux clients et capter les plans de coupe nécessaires.</p>
+<h3>Comment convaincre un client de témoigner ?</h3>
+<p>Proposez un cadre simple et valorisant, mettez en avant la visibilité qu'il en retire, et limitez son temps d'engagement. Un bon vidéaste le met à l'aise dès les premières minutes.</p>
 
-  "brief-videaste-entreprise": `<h2>Comment briefer votre vidéaste avant un tournage : le guide pratique</h2>
-<p>Un mauvais brief débouche presque toujours sur un montage inadapté ou des jours de tournage perdus. Pour les PME à Orléans et Tours qui investissent dans la production vidéo, le brief créatif est le document de référence indispensable pour aligner le client et le prestataire audiovisuel.</p>
-<h3>Les 5 éléments clés de votre brief créatif</h3>
-<ul>
-  <li><strong>L'objectif :</strong> pourquoi réalisez-vous cette vidéo ? (générer des ventes, recruter, présenter une innovation).</li>
-  <li><strong>La cible :</strong> à qui s'adresse le message ? (particuliers locaux, DRH, revendeurs B2B).</li>
-  <li><strong>Les livrables :</strong> de quels formats avez-vous besoin ? (vidéo longue 16:9, versions courtes 9:16 pour Instagram Reels).</li>
-  <li><strong>Le ton et l'ambiance :</strong> dynamique, institutionnel, sobre, passionné.</li>
-  <li><strong>La logistique :</strong> date du tournage, lieux exacts dans le Loiret et autorisations de droit à l'image.</li>
-</ul>
-<p>Pour en savoir plus sur les étapes qui suivent, découvrez notre service de <a href="/services/production-corporate">production corporate</a> et notre article sur la <a href="/blog/preparer-evenement-entreprise-checklist">check-list événementielle</a>. Prêt à lancer votre projet ? <a href="/devis">Demander un devis</a>.</p>`,
+<h2 id="sec-cta">Donnez la parole à vos clients</h2>
+<p>Retrouvez des exemples sur notre <a href="/services/interview-temoignage/orleans">page d'interviews et témoignages à Orléans</a> et notre <a href="/services/production-corporate">service de production corporate</a>. <a href="/devis">Demandez un devis gratuit</a> pour votre prochain témoignage client.</p>`,
 
-  "video-evenement-automobile-centre-val-de-loire": `<h2>Vidéo automobile et passion : comment valoriser un événement car culture</h2>
-<p>Les événements automobiles et rassemblements de voitures de passionnés (car culture) attirent un public nombreux et très engagé sur les réseaux sociaux en Centre-Val de Loire. Réaliser un aftermovie dynamique ou des vidéos courtes de type Reels permet de prolonger la portée de l'événement et de valoriser les véhicules présentés.</p>
-<h3>Filmer la passion automobile</h3>
+  "photographe-equipe-entreprise-orleans": `<p>Vos collaborateurs sont le premier visage de votre entreprise. Des portraits professionnels et des photos d'équipe soignées renforcent la cohésion interne et crédibilisent votre site web, votre page LinkedIn et vos supports commerciaux. Un shooting corporate réussi à Orléans ou Tours ne s'improvise pas : il demande une préparation simple mais rigoureuse. Voici comment tout cadrer pour des images cohérentes et valorisantes.</p>
+
+<h2 id="sec-1">Pourquoi soigner ses photos d'équipe</h2>
+<p>À l'heure où prospects et candidats vérifient une entreprise en ligne avant tout contact, des visuels homogènes inspirent confiance. Des portraits dépareillés (selfies, photos de qualités inégales) envoient le signal inverse. Une série cohérente sert partout : page « équipe », signatures d'e-mail, profils LinkedIn, plaquette, presse. C'est un investissement qui se rentabilise sur plusieurs années.</p>
+
+<h2 id="sec-2">Comment préparer le jour du shooting</h2>
 <ul>
-  <li><strong>Les plans de détail cinématiques :</strong> jantes, sorties d'échappement, reflets sur le covering, démarrage moteur, l'audio est aussi important que le visuel.</li>
-  <li><strong>Le mouvement :</strong> utiliser un stabilisateur ou filmer en roulant à basse vitesse pour restituer la dynamique des véhicules.</li>
-  <li><strong>L'ambiance humaine :</strong> filmer les échanges entre propriétaires et visiteurs pour transmettre la passion de la car culture.</li>
+  <li><strong>Définir un dress code cohérent :</strong> harmoniser les couleurs ou le style (casual, formel) sans imposer un uniforme strict.</li>
+  <li><strong>Choisir le bon décor :</strong> valoriser vos locaux réels (atelier, bureaux lumineux) ou opter pour un fond neutre et épuré selon l'usage visé.</li>
+  <li><strong>Planifier des créneaux précis :</strong> prévoir 10 à 15 minutes par personne pour ne pas perturber l'activité des équipes.</li>
+  <li><strong>Anticiper les absents :</strong> prévoir une session de rattrapage pour garder une série homogène.</li>
 </ul>
-<p>Pour vos séances photo et vidéo, découvrez notre offre de <a href="/services/shooting-automobile">shooting automobile professionnel</a>. Consultez aussi notre guide sur la <a href="/blog/reussir-shooting-photo-automobile">réussite d'un shooting photo automobile</a>. <a href="/devis">Demander un devis</a> pour couvrir votre prochain événement.</p>`,
+
+<h2 id="sec-3">Portrait individuel ou photo de groupe</h2>
+<p>Les deux répondent à des besoins différents. Le portrait individuel sert LinkedIn et les signatures ; la photo de groupe raconte l'esprit d'équipe sur la page « à propos ». Le plus efficace est de combiner les deux lors d'une même session. Si vous hésitez sur le prestataire, notre guide <a href="/blog/photographe-freelance-ou-agence">photographe freelance ou agence</a> vous aide à choisir.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Combien de temps pour photographier une équipe de 20 personnes ?</h3>
+<p>Comptez environ une demi-journée en enchaînant des créneaux courts, plus les photos de groupe en fin de session.</p>
+<h3>Studio mobile ou lumière naturelle ?</h3>
+<p>Les deux fonctionnent. La lumière naturelle donne un rendu authentique dans vos locaux ; un studio mobile garantit un fond neutre parfaitement homogène. Le choix dépend de l'usage final.</p>
+
+<h2 id="sec-cta">Préparez votre shooting corporate</h2>
+<p>Découvrez notre <a href="/services/photographie-professionnelle">service de photographie professionnelle</a> et notre page <a href="/services/photographie-professionnelle/orleans">photographe professionnel à Orléans</a>. Pour bloquer une date, <a href="/devis">demandez un devis gratuit</a>.</p>`,
+
+  "video-linkedin-entreprise-b2b-centre-val-de-loire": `<p>LinkedIn est le canal d'acquisition privilégié des entreprises B2B en Centre-Val de Loire. La vidéo native y génère en moyenne cinq fois plus d'engagement que le texte seul (LinkedIn Business). En 2026, l'algorithme valorise le temps de visionnage et les contenus experts. Pour performer, vos vidéos doivent épouser les codes mobiles et professionnels de la plateforme. Voici les formats qui fonctionnent et comment les produire.</p>
+
+<h2 id="sec-1">Ce qui distingue LinkedIn d'Instagram</h2>
+<p>Le ton et le rythme ne sont pas les mêmes. Sur LinkedIn, l'audience cherche de la valeur métier, pas du divertissement pur. Les vidéos un peu plus longues (1 à 2 minutes) y trouvent leur place, à condition d'aller droit au but. Deux règles priment : la vidéo doit être en upload natif (pas un simple lien YouTube, pénalisé par l'algorithme) et systématiquement sous-titrée, car l'écrasante majorité des visionnages se font sans le son.</p>
+
+<h2 id="sec-2">Les formats gagnants pour LinkedIn</h2>
+<table>
+  <thead>
+    <tr><th>Format</th><th>Durée</th><th>Objectif</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Capsule d'expertise</td><td>1-2 min</td><td>Démontrer votre savoir-faire, générer des leads</td></tr>
+    <tr><td>Coulisses / livraison de projet</td><td>30-60 s</td><td>Preuve concrète, proximité</td></tr>
+    <tr><td>Interview de dirigeant</td><td>1-3 min</td><td>Vision, crédibilité, notoriété</td></tr>
+    <tr><td>Témoignage client</td><td>45-90 s</td><td>Preuve sociale, conversion</td></tr>
+  </tbody>
+</table>
+
+<h2 id="sec-3">Produire sans y passer ses semaines</h2>
+<p>Le secret est de tourner par lots : une demi-journée de captation peut alimenter plusieurs semaines de publication en découpant la matière en capsules. Pour structurer une interview qui se décline ensuite en extraits, suivez nos <a href="/blog/interview-dirigeant-reussie-7-conseils">conseils pour réussir une interview vidéo</a>. Et pour mesurer ce que rapporte cet effort, lisez notre analyse du <a href="/blog/film-corporate-roi-communication">ROI du film corporate</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Faut-il publier en vidéo verticale ou horizontale sur LinkedIn ?</h3>
+<p>Le format carré (1:1) ou légèrement vertical (4:5) occupe plus de hauteur dans le fil et performe bien. Le 16:9 reste valable pour les contenus longs et les interviews.</p>
+<h3>À quelle fréquence publier ?</h3>
+<p>Une à deux vidéos par mois suffisent si elles apportent une vraie valeur. La régularité et la qualité priment sur le volume.</p>
+
+<h2 id="sec-cta">Concevez vos vidéos B2B</h2>
+<p>Découvrez notre offre de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour réseaux sociaux</a> et notre <a href="/services/production-corporate">service de production corporate</a>. Pour lancer votre contenu LinkedIn, <a href="/devis">demandez un devis gratuit</a>.</p>`,
+
+  "brief-videaste-entreprise": `<p>Un mauvais brief débouche presque toujours sur un montage inadapté, des allers-retours sans fin ou des jours de tournage perdus. Pour les PME d'Orléans et de Tours qui investissent dans la production vidéo, le brief créatif est le document qui aligne le client et le prestataire avant la moindre prise de vue. Bien rédigé, il fait gagner du temps, de l'argent et garantit un résultat conforme à vos attentes. Voici comment le construire.</p>
+
+<h2 id="sec-1">Pourquoi le brief conditionne le résultat</h2>
+<p>La vidéo est un travail de traduction : vous avez une intention, le vidéaste la transforme en images. Sans cadre clair, chacun comble les vides avec ses propres hypothèses, et c'est là que naissent les déceptions. Le brief supprime cette zone grise. C'est aussi l'outil qui permet de comparer plusieurs devis sur une base identique.</p>
+
+<h2 id="sec-2">Les 5 éléments clés de votre brief créatif</h2>
+<ul>
+  <li><strong>L'objectif :</strong> pourquoi cette vidéo ? Générer des ventes, recruter, présenter une innovation, rassurer. Un objectif, pas cinq.</li>
+  <li><strong>La cible :</strong> à qui s'adresse le message ? Particuliers locaux, DRH, revendeurs B2B. Le ton et le vocabulaire en découlent.</li>
+  <li><strong>Les livrables :</strong> quels formats ? Vidéo longue 16:9, versions courtes 9:16 pour Reels, durée attendue, nombre de versions.</li>
+  <li><strong>Le ton et l'ambiance :</strong> dynamique, institutionnel, sobre, passionné. Citer deux ou trois vidéos de référence aide énormément.</li>
+  <li><strong>La logistique :</strong> date de tournage, lieux exacts, contraintes d'accès et autorisations de droit à l'image.</li>
+</ul>
+
+<h2 id="sec-3">Les erreurs de brief les plus coûteuses</h2>
+<p>Trois pièges reviennent souvent : vouloir tout dire en une seule vidéo (mieux vaut plusieurs formats ciblés), oublier de préciser où la vidéo sera diffusée (ce qui détermine le format et la durée), et négliger les droits sur la musique et les images. Un bon prestataire pose ces questions ; un bon brief y répond d'avance. Pour les projets événementiels, complétez avec notre <a href="/blog/preparer-evenement-entreprise-checklist">check-list de préparation d'événement</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Faut-il un brief même pour une petite vidéo ?</h3>
+<p>Oui. Même une page d'une demi-feuille évite les malentendus. Plus le projet est court, plus chaque détail compte.</p>
+<h3>Qui rédige le brief, le client ou le vidéaste ?</h3>
+<p>Idéalement, le client pose l'objectif et la cible, puis le vidéaste affine la partie technique et créative lors d'un échange. C'est un document co-construit.</p>
+
+<h2 id="sec-cta">Passez du brief au tournage</h2>
+<p>Découvrez notre <a href="/services/production-corporate">service de production corporate</a> et, si la question du budget se pose, notre article sur le <a href="/blog/prix-video-corporate-orleans-2026">prix d'une vidéo corporate</a>. Prêt à lancer votre projet ? <a href="/devis">demandez un devis gratuit</a>.</p>`,
+
+  "video-evenement-automobile-centre-val-de-loire": `<p>Les rassemblements de voitures de passionnés (car culture) attirent un public nombreux et très engagé sur les réseaux sociaux en Centre-Val de Loire. Une vidéo bien réalisée, aftermovie dynamique ou Reels courts, prolonge la portée de l'événement pendant des semaines et valorise chaque véhicule présenté. Ce guide détaille comment filmer la passion automobile pour des images qui claquent en ligne.</p>
+
+<h2 id="sec-1">Pourquoi la vidéo automobile cartonne en ligne</h2>
+<p>L'automobile est l'un des sujets les plus partagés sur les réseaux : le son d'un moteur, un reflet sur une carrosserie, un démarrage spectaculaire déclenchent l'engagement. Pour un organisateur, un club ou une marque locale, c'est un levier de visibilité puissant et peu coûteux. Le format vertical court (Reels, TikTok) capte les passionnés, l'aftermovie horizontal valorise l'événement dans son ensemble.</p>
+
+<h2 id="sec-2">Filmer la passion automobile</h2>
+<ul>
+  <li><strong>Les plans de détail cinématiques :</strong> jantes, sorties d'échappement, reflets sur le covering, démarrage moteur. L'audio compte autant que l'image, capturez le son réel.</li>
+  <li><strong>Le mouvement :</strong> stabilisateur, travelling à basse vitesse ou plan « rolling shot » pour restituer la dynamique des véhicules.</li>
+  <li><strong>La lumière :</strong> privilégier le début ou la fin de journée (heure dorée), où les carrosseries révèlent leurs lignes.</li>
+  <li><strong>L'ambiance humaine :</strong> filmer les échanges entre propriétaires et visiteurs transmet l'esprit de la car culture.</li>
+</ul>
+
+<h2 id="sec-3">De l'événement aux réseaux sociaux</h2>
+<p>Prévoyez le multi-format dès le tournage : un aftermovie principal de 1 à 2 minutes, plus une série de clips verticaux de 15 à 30 secondes pour publier à chaud. Une musique sous licence et un montage rythmé font toute la différence. Pour la partie photo, complétez avec notre guide <a href="/blog/reussir-shooting-photo-automobile">réussir un shooting photo automobile</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Drone obligatoire pour un rassemblement auto ?</h3>
+<p>Non, mais un plan aérien sublime l'ampleur d'un grand rassemblement. Il nécessite une autorisation de vol selon le lieu.</p>
+<h3>Peut-on filmer des véhicules en roulage ?</h3>
+<p>Oui, sur circuit ou route privatisée et sécurisée, avec un opérateur expérimenté. La sécurité prime toujours sur le plan.</p>
+
+<h2 id="sec-cta">Couvrez votre prochain événement auto</h2>
+<p>Découvrez notre offre de <a href="/services/shooting-automobile">shooting automobile professionnel</a>. <a href="/devis">Demandez un devis gratuit</a> pour couvrir votre prochain rassemblement en Centre-Val de Loire.</p>`,
 
   "agence-video-tours-pme": `<p>Le tissu économique d'Indre-et-Loire regorge de PME dynamiques qui veulent développer leur communication par la vidéo. Reste une question de départ : faut-il confier vos films à un vidéaste indépendant ou à une agence audiovisuelle locale à Tours ? Le bon choix dépend de votre volume de production, de vos délais et du niveau de finition attendu. Ce guide passe en revue les critères objectifs pour décider sans vous tromper.</p>
 
@@ -1105,27 +1214,61 @@ export const blogContent: Record<string, string> = {
 <h2 id="sec-cta">Discutons de votre projet à Tours</h2>
 <p>Splice Studio réalise des tournages dans tout le bassin de Tours et d'Orléans. Découvrez notre <a href="/services/production-corporate">service de production corporate</a> et notre page <a href="/services/production-corporate/orleans">production vidéo à Orléans et Tours</a>. Pour échanger sur vos besoins, <a href="/devis">demandez un devis gratuit</a>.</p>`,
 
-  "motion-design-pme-orleans": `<h2>Motion design pour PME : 5 cas d'usage concrets à Orléans</h2>
-<p>Le motion design n'est pas réservé aux grandes marques. Les PME d'Orléans et Tours l'utilisent de plus en plus pour simplifier leurs messages, former leurs équipes ou dynamiser leurs campagnes publicitaires locales. Voici 5 cas d'usage concrets pour votre communication.</p>
-<h3>Les 5 applications de l'animation graphique</h3>
-<ul>
-  <li><strong>La vidéo explicative de produit :</strong> présenter le fonctionnement d'un logiciel ou d'un service complexe en 60 secondes.</li>
-  <li><strong>L'onboarding de nouveau salarié :</strong> harmoniser l'accueil de vos recrues RH à travers une vidéo animée didactique.</li>
-  <li><strong>L'habillage publicitaire sur les réseaux sociaux :</strong> animer votre logo ou des chiffres clés pour accrocher le regard sur mobile.</li>
-  <li><strong>La vidéo d'annonces corporatives :</strong> illustrer vos vœux ou vos bilans annuels de façon moderne et soignée.</li>
-  <li><strong>L'habillage graphique de tournages :</strong> intégrer des titrages animés élégants sur vos interviews d'entreprise.</li>
-</ul>
-<p>Pour en savoir plus sur les tarifs et délais, découvrez notre service de <a href="/services/motion-design">motion design</a> et notre article sur la comparaison entre <a href="/blog/motion-design-vs-prise-de-vue-reelle">motion design et prise de vue réelle</a>. <a href="/devis">Demander un devis</a>.</p>`,
+  "motion-design-pme-orleans": `<p>Le motion design n'est pas réservé aux grandes marques. Les PME d'Orléans et de Tours l'utilisent de plus en plus pour clarifier un message complexe, former leurs équipes ou dynamiser leurs campagnes locales. L'animation graphique transforme une idée abstraite en images mémorables, sans tournage ni figurants. Voici cinq cas d'usage concrets, avec leurs ordres de prix, pour savoir si ce format est fait pour vous.</p>
 
-  "strategie-video-artisan-commercant-orleans": `<h2>Stratégie de contenu vidéo pour artisans et commerçants à Orléans</h2>
-<p>Pour les TPE, artisans et commerçants du Loiret, la vidéo est le meilleur moyen de se démarquer de la concurrence nationale et d'attirer des clients de proximité à Orléans. Mais produire du contenu régulier sans y passer ses journées demande de la méthode et un plan de route clair.</p>
-<h3>Un plan simple pour démarrer</h3>
+<h2 id="sec-1">Pourquoi le motion design séduit les PME</h2>
+<p>Une information animée se retient mieux qu'un texte. Le motion design permet d'expliquer un service complexe en 60 secondes, de rester cohérent avec votre charte graphique et d'éviter les contraintes d'un tournage (lieu, météo, disponibilité des intervenants). Il vieillit bien : une animation peut être mise à jour partiellement sans tout refaire.</p>
+
+<h2 id="sec-2">Les 5 applications concrètes</h2>
 <ul>
-  <li><strong>1 Story par jour :</strong> partagez les coulisses de votre travail, un arrivage produit ou un conseil rapide capturé au smartphone.</li>
-  <li><strong>1 Reel ou TikTok par semaine :</strong> présentez un avant/après de votre réalisation (rénovation, plat, coiffure) avec une musique tendance.</li>
-  <li><strong>1 Vidéo de présentation par an :</strong> un film vitrine soigné pour votre fiche Google Business Profile et votre site.</li>
+  <li><strong>La vidéo explicative de produit :</strong> présenter le fonctionnement d'un logiciel ou d'un service en 60 secondes.</li>
+  <li><strong>L'onboarding de nouveau salarié :</strong> harmoniser l'accueil de vos recrues avec une vidéo animée didactique.</li>
+  <li><strong>L'habillage publicitaire social :</strong> animer logo et chiffres clés pour accrocher le regard sur mobile.</li>
+  <li><strong>La vidéo d'annonce corporate :</strong> vœux, bilans annuels, lancement, illustrés de façon moderne.</li>
+  <li><strong>L'habillage de vos tournages :</strong> titrages animés élégants sur vos interviews et films d'entreprise.</li>
 </ul>
-<p>Pour optimiser votre fiche locale Google, découvrez notre service de <a href="/services/photographie-google-business">photo Google Business Profile</a> et nos offres de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. N'hésitez pas à nous solliciter pour <a href="/devis">Demander un devis</a> et lancer votre production de contenus.</p>`,
+
+<h2 id="sec-3">Combien ça coûte et combien de temps</h2>
+<p>À titre de repère, une animation de 60 secondes se situe généralement entre 1 500 € et 6 000 € HT selon le style (2D simple, illustré, 3D) et la complexité. Le délai varie de deux à cinq semaines, l'écriture et le storyboard représentant une part importante du travail. Pour savoir quand préférer l'animation au tournage, lisez notre comparatif <a href="/blog/motion-design-vs-prise-de-vue-reelle">motion design ou prise de vue réelle</a>.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Faut-il fournir un script et une charte graphique ?</h3>
+<p>Un brief clair et votre charte accélèrent le projet, mais nous pouvons aussi écrire le script et créer l'univers visuel de zéro.</p>
+<h3>Le motion design convient-il à une petite structure ?</h3>
+<p>Oui. Un format court et ciblé reste accessible et offre un rendu très professionnel, même pour une TPE.</p>
+
+<h2 id="sec-cta">Animez votre message</h2>
+<p>Découvrez notre <a href="/services/motion-design">service de motion design</a>. Pour cadrer votre projet et son budget, <a href="/devis">demandez un devis gratuit</a>.</p>`,
+
+  "strategie-video-artisan-commercant-orleans": `<p>Pour les TPE, artisans et commerçants du Loiret, la vidéo est le meilleur moyen de se démarquer de la concurrence nationale et d'attirer des clients de proximité à Orléans. Le problème n'est pas le talent : c'est le temps. Produire du contenu régulier sans y passer ses journées demande de la méthode, pas un studio. Voici un plan de route réaliste, pensé pour un emploi du temps déjà chargé.</p>
+
+<h2 id="sec-1">Pourquoi la vidéo locale fonctionne pour les TPE</h2>
+<p>Vos clients sont à quelques rues de vous, et ils décident souvent après avoir consulté votre fiche en ligne. Une vidéo authentique, tournée dans votre atelier ou votre boutique, crée un lien immédiat qu'aucune publicité nationale n'atteint. Les moteurs de recherche et les réseaux favorisent les comptes qui publient régulièrement : la constance envoie un signal de fraîcheur précieux pour votre visibilité locale.</p>
+
+<h2 id="sec-2">Un plan simple et tenable</h2>
+<table>
+  <thead>
+    <tr><th>Rythme</th><th>Format</th><th>Idée de contenu</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1 / jour</td><td>Story</td><td>Coulisses, arrivage, conseil rapide au smartphone</td></tr>
+    <tr><td>1 / semaine</td><td>Reel ou TikTok</td><td>Avant/après d'une réalisation, sur musique tendance</td></tr>
+    <tr><td>1 / an</td><td>Film de présentation</td><td>Vitrine soignée pour le site et Google Business Profile</td></tr>
+  </tbody>
+</table>
+<p>L'essentiel est de tenir le rythme hebdomadaire du Reel, le format à plus forte portée. Les Stories quotidiennes peuvent rester spontanées.</p>
+
+<h2 id="sec-3">Les outils et les bons réflexes</h2>
+<p>Un smartphone récent, un petit trépied et un micro-cravate d'entrée de gamme suffisent pour démarrer. Tournez à la lumière naturelle, sous-titrez systématiquement, et gardez un message par vidéo. Pour aller plus loin sur le format vedette, lisez nos conseils sur les <a href="/blog/reels-instagram-entreprise-orleans">Reels Instagram pour PME à Orléans</a>. Le film de présentation annuel, lui, mérite un rendu professionnel pour votre fiche locale.</p>
+
+<h2 id="sec-faq">Questions fréquentes</h2>
+<h3>Combien de temps consacrer à la vidéo par semaine ?</h3>
+<p>Une à deux heures suffisent en regroupant le tournage de plusieurs contenus en une seule session (batching).</p>
+<h3>Faut-il être à l'aise face caméra ?</h3>
+<p>Pas forcément. Montrer vos mains au travail, vos produits ou vos réalisations fonctionne très bien, sans jamais vous filmer en train de parler.</p>
+
+<h2 id="sec-cta">Lancez votre stratégie de contenu</h2>
+<p>Pour optimiser votre fiche locale, découvrez notre <a href="/services/photographie-google-business">photo Google Business Profile</a> et nos offres de <a href="/services/pub-reseaux-sociaux">publicité vidéo pour les réseaux sociaux</a>. <a href="/devis">Demandez un devis gratuit</a> pour lancer votre production de contenus.</p>`,
 };
 
 /**
