@@ -238,6 +238,30 @@ export function buildContactPageJsonLd() {
   };
 }
 
+
+/**
+ * Encode une URL de manière sécurisée pour les standards HTTP et l'indexation Google.
+ * Rend également les chemins relatifs absolus et évite le double encodage.
+ */
+export function safeEncodeUrl(url: string | null | undefined): string | undefined {
+  if (!url) return undefined;
+  
+  let absoluteUrlStr = url;
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    // Rend le chemin absolu s'il est relatif
+    absoluteUrlStr = `${BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+  }
+
+  try {
+    // Décodage préalable pour éviter de double-encoder les % ou autres caractères déjà encodés
+    const decoded = decodeURI(absoluteUrlStr);
+    // Encodage propre de l'URL entière
+    return encodeURI(decoded);
+  } catch {
+    return encodeURI(absoluteUrlStr);
+  }
+}
+
 interface GalleryMediaForJsonLd {
   type: string;
   title: string;
@@ -289,21 +313,17 @@ export function buildGalleryJsonLd(
   return {
     ...base,
     hasPart: medias.slice(0, 20).map((m) => {
-      const isVideo = m.type === "VIDEO";
-      const thumb = m.thumbnailUrl || (isVideo ? `${BASE_URL}/og-image.jpg` : undefined);
-      const desc = m.description || (isVideo ? `Vidéo de la galerie Splice Studio - ${m.title}` : undefined);
-      const iso = isVideo ? toIso8601Duration(m.duration) : undefined;
+      const thumb = m.thumbnailUrl || `${BASE_URL}/og-image.jpg`;
+      const desc = m.description || `Réalisation ${m.type === "VIDEO" ? "vidéo" : "photo"} Splice Studio - ${m.title}`;
+      const encodedThumb = safeEncodeUrl(thumb);
 
+      // On émet uniquement des ImageObject pour représenter les visuels/vignettes du portfolio.
+      // Cela évite que Google n'essaie d'indexer des vidéos sur la galerie (/galerie) et ne génère l'erreur "La vidéo n'est pas sur une page de lecture".
       return {
-        "@type": isVideo ? "VideoObject" : "ImageObject",
+        "@type": "ImageObject",
         name: m.title,
         ...(desc ? { description: desc } : {}),
-        contentUrl: m.url,
-        ...(thumb ? { thumbnailUrl: thumb } : {}),
-        // uploadDate dérivé de createdAt (déterministe) — pas de new Date() au
-        // rendu, qui changerait à chaque revalidation ISR.
-        ...(isVideo && m.createdAt ? { uploadDate: m.createdAt } : {}),
-        ...(iso ? { duration: iso } : {}),
+        ...(encodedThumb ? { url: encodedThumb } : {}),
       };
     }),
   };
@@ -326,14 +346,16 @@ export function buildRealisationJsonLd(r: {
 }) {
   const pageUrl = `${BASE_URL}/realisations/${r.slug}`;
   const iso = toIso8601Duration(r.duration);
-  const thumb = r.thumbnailUrl || `${BASE_URL}/og-image.jpg`;
+  const thumb = safeEncodeUrl(r.thumbnailUrl) || `${BASE_URL}/og-image.jpg`;
+  const contentUrl = safeEncodeUrl(r.url);
+  
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     name: r.title,
     description: r.description || `Réalisation vidéo Splice Studio — ${r.title}.`,
     thumbnailUrl: thumb,
-    contentUrl: r.url,
+    ...(contentUrl ? { contentUrl } : {}),
     url: pageUrl,
     ...(r.createdAt ? { uploadDate: r.createdAt } : {}),
     ...(iso ? { duration: iso } : {}),

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Project, getThumbSrc } from "./data";
 import { Heart } from "lucide-react";
 import toast from "react-hot-toast";
+import { safeEncodeUrl } from "@/lib/seo";
 
 interface LightboxProps {
   project: Project;
@@ -157,8 +158,8 @@ export default function Lightbox({
             <div className={`pj-slide-bg ${bgClass}`} />
           ) : cur.type === "video" ? (
             <video
-              src={cur.url}
-              poster={cur.thumbnailUrl ?? undefined}
+              src={safeEncodeUrl(cur.url)}
+              poster={safeEncodeUrl(cur.thumbnailUrl) ?? undefined}
               controls
               autoPlay
               onLoadedMetadata={(e) => {

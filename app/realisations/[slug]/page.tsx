@@ -5,7 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import NavWrapper from "@/components/layout/NavWrapper";
 import Footer from "@/components/layout/Footer";
-import { absoluteUrl, buildRealisationJsonLd } from "@/lib/seo";
+import { absoluteUrl, buildRealisationJsonLd, safeEncodeUrl } from "@/lib/seo";
 import {
   getAllRealisations,
   getRealisationBySlug,
@@ -118,8 +118,23 @@ export default async function RealisationPage({
           ]}
         />
 
-        {/* ── Hero ─────────────────────────────────────────────────────── */}
-        <header className="mt-6">
+        {/* ── Vidéo (Contenu Principal au-dessus de la ligne de flottaison) ── */}
+        <div className="mt-6 overflow-hidden rounded-2xl ring-1 ring-white/[0.08] shadow-2xl">
+          <video
+            id="video-player"
+            controls
+            preload="metadata"
+            playsInline
+            poster={safeEncodeUrl(r.thumbnailUrl) ?? undefined}
+            className="aspect-video w-full bg-black"
+          >
+            {r.url && <source src={safeEncodeUrl(r.url)} type="video/mp4" />}
+            Votre navigateur ne prend pas en charge la lecture vidéo.
+          </video>
+        </div>
+
+        {/* ── Hero / Titre & Description (sous la vidéo pour un layout de lecture vidéo classique) ── */}
+        <header className="mt-8 border-b border-white/[0.08] pb-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-df-gold">
             Réalisation vidéo · Splice Studio Orléans
           </p>
@@ -130,22 +145,9 @@ export default async function RealisationPage({
             {r.title}
           </h1>
           {r.description && (
-            <p className="mt-3 text-white/70">{r.description}</p>
+            <p className="mt-4 text-base leading-relaxed text-white/70">{r.description}</p>
           )}
         </header>
-
-        {/* ── Vidéo ────────────────────────────────────────────────────── */}
-        <div className="mt-8 overflow-hidden rounded-2xl ring-1 ring-white/[0.08]">
-          <video
-            controls
-            preload="metadata"
-            poster={r.thumbnailUrl ?? undefined}
-            className="aspect-video w-full bg-black"
-          >
-            <source src={r.url} type="video/mp4" />
-            Votre navigateur ne prend pas en charge la lecture vidéo.
-          </video>
-        </div>
 
         {/* ── Faits clés ───────────────────────────────────────────────── */}
         {facts.length > 0 && (
