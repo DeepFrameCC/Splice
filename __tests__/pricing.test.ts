@@ -162,8 +162,8 @@ describe("computeAbonnementQuote", () => {
       planId: "PRO",
       options: { voixOff: true },
     });
-    // PRO launch monthly 99 + voixOff 12 * 5 videos = 99 + 60 = 159
-    expect(quote.totalHT).toBe(99 + 12 * 5);
+    // PRO launch monthly 99 + voixOff 12 * 4 videos = 99 + 48 = 147
+    expect(quote.totalHT).toBe(99 + 12 * 4);
   });
 
   it("computes PRO annual with savings line", () => {
@@ -223,11 +223,11 @@ describe("computeAbonnementQuote — annualisation des options", () => {
       useLaunchPrice: true,
       options: { voixOff: true },
     });
-    // Base annuelle PRO lancement 1068 + voixOff (12 € × 12 mois × 5 vidéos = 720)
-    expect(quote.totalHT).toBe(1068 + 12 * 12 * 5);
+    // Base annuelle PRO lancement 1068 + voixOff (12 € × 12 mois × 4 vidéos = 576)
+    expect(quote.totalHT).toBe(1068 + 12 * 12 * 4);
     const voixOff = quote.lines.find((l) => l.label === "Voix off");
     expect(voixOff?.unit).toBe(12 * 12);
-    expect(voixOff?.total).toBe(12 * 12 * 5);
+    expect(voixOff?.total).toBe(12 * 12 * 4);
   });
 
   it("ne modifie pas les options en mensuel (facteur 1)", () => {
@@ -237,7 +237,7 @@ describe("computeAbonnementQuote — annualisation des options", () => {
       useLaunchPrice: true,
       options: { voixOff: true },
     });
-    expect(quote.totalHT).toBe(99 + 12 * 5);
+    expect(quote.totalHT).toBe(99 + 12 * 4);
   });
 });
 
