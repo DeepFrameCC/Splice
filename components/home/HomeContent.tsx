@@ -1,5 +1,3 @@
-"use client";
-
 import Nav from "@/components/layout/Nav";
 import ClientShell from "@/components/home/ClientShell";
 import FrameRoomEntry from "@/components/home/v2/FrameRoomEntry";
@@ -10,8 +8,13 @@ import TestimonialsSlider from "@/components/home/v2/TestimonialsSlider";
 import TrustSection from "@/components/home/v2/TrustSection";
 import LastFrame from "@/components/home/v2/LastFrame";
 import Link from "next/link";
-import { Facebook, Linkedin, Instagram } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import { StickyMobileCta } from "@/components/marketing/StickyMobileCta";
+
+// NOTE: Ce composant est intentionnellement un Server Component (pas de "use client").
+// Tous les sous-composants interactifs (FrameRoomEntry, SceneSelector, etc.) ont leur
+// propre "use client". Garder ce fichier côté serveur évite le BAILOUT_TO_CLIENT_SIDE_RENDERING
+// qui masquait le contenu à Googlebot lors du premier crawl.
 
 export default function HomeContent({ mediaCount }: { mediaCount: number }) {
   return (

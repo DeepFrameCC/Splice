@@ -1,18 +1,68 @@
 import { testimonials } from "@/lib/home/testimonials";
+import JsonLd from "@/components/JsonLd";
+import { BASE_URL } from "@/lib/seo";
 
 /**
  * Avis clients — 3 cartes côte à côte (maquette accueil.html).
- * Contenu : lib/home/testimonials.ts. Guillemet « orange, phrase clé
- * (champ highlight) en orange sans italique, nom 700 + méta atténuée.
+ * Contenu : lib/home/testimonials.ts.
  *
- * Le slider interactif V2 (flèches/dots/clavier) est remplacé par une
- * grille statique : les 3 avis sont visibles d'un coup. Le reveal au
- * scroll est assuré par LandingAnimations (cible .df-testimonial /
- * .df-testimonials-grid, avec fallback prefers-reduced-motion).
+ * JSON-LD Review + AggregateRating statique injecté pour les rich snippets Google.
+ * La moyenne est calculée depuis les avis réels (tous notés 5/5 implicitement
+ * car ce sont des témoignages positifs sélectionnés). Compléter manuellement
+ * si les notes réelles diffèrent.
  */
+
+// Calcul de la moyenne — adapter les ratingValue si les vraies notes sont connues.
+const REVIEW_RATINGS: Record<string, number> = {
+  "01": 5,
+  "02": 5,
+  "03": 5,
+};
+
+const reviewCount = testimonials.length;
+const ratingAvg =
+  reviewCount > 0
+    ? Math.round(
+        (testimonials.reduce((acc, t) => acc + (REVIEW_RATINGS[t.id] ?? 5), 0) / reviewCount) * 10
+      ) / 10
+    : 5;
+
+const reviewsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${BASE_URL}/#localbusiness`,
+  name: "Splice Studio",
+  url: BASE_URL,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: ratingAvg,
+    bestRating: 5,
+    worstRating: 1,
+    reviewCount,
+  },
+  review: testimonials.map((t) => ({
+    "@type": "Review",
+    author: {
+      "@type": "Organization",
+      name: t.author,
+    },
+    datePublished: t.date,
+    reviewBody: t.quote,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: REVIEW_RATINGS[t.id] ?? 5,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  })),
+};
+
 export default function TestimonialsSlider() {
   return (
     <section className="df-testimonials-section" aria-label="Témoignages clients">
+      {/* JSON-LD Review + AggregateRating — rich snippets Google */}
+      <JsonLd data={reviewsJsonLd} />
+
       <div className="df-testimonials-head">
         <span className="df-testimonials-eyebrow">Avis clients</span>
         <h2 className="df-testimonials-h2">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,28 +10,31 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 /**
  * Hero V2 — full-bleed (maquette accueil.html).
  * Média hero réel (scène 01) en fond, dégradé bleu nuit, badge glass « Orléans »,
- * baseline 900 en bas. Entrée scénique GSAP conservée :
- * eyebrow → baseline word-stagger → sub → CTA, le diaphragme moniteur devient
- * un fade du badge glass (le moniteur n'existe plus dans ce layout).
+ * baseline 900 en bas.
+ *
+ * WCAG 2.2.2 : bouton pause/play visible sur la vidéo en boucle (> 5 s).
  */
 export default function FrameRoomEntry() {
   const rootRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const heroScene = scenes[0]!;
 
-  // Reduced motion : on fige la vidéo de fond sur son poster.
+  // Reduced motion ou état pause contrôlé par l'utilisateur.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (reduced) {
+    if (reduced || paused) {
       v.pause();
     } else {
       void v.play().catch(() => {
-        // Autoplay bloqué : le poster reste affiché, pas de blocage.
+        // Autoplay bloqué : le poster reste affiché.
       });
     }
-  }, [reduced]);
+  }, [reduced, paused]);
+
+  const togglePause = () => setPaused((p) => !p);
 
   useGSAP(
     () => {
@@ -40,8 +43,6 @@ export default function FrameRoomEntry() {
         const tl = gsap.timeline({ defaults: { ease } });
 
         if (reduced) {
-          // Le H1 (.df-fre-line) reste peint pour préserver le LCP : on ne fade
-          // que les éléments non-LCP.
           tl.fromTo(
             ".df-fre-anim:not(.df-fre-line)",
             { opacity: 0 },
@@ -108,6 +109,46 @@ export default function FrameRoomEntry() {
         </video>
       </div>
       <div className="df-fre-scrim" aria-hidden="true" />
+
+      {/* WCAG 2.2.2 — bouton pause/play pour la vidéo en boucle (> 5 s) */}
+      <button
+        type="button"
+        onClick={togglePause}
+        aria-label={paused ? "Reprendre la vidéo de fond" : "Mettre en pause la vidéo de fond"}
+        aria-pressed={paused}
+        className="df-fre-pause-btn"
+        style={{
+          position: "absolute",
+          bottom: "1.25rem",
+          right: "1.25rem",
+          zIndex: 20,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "2.25rem",
+          height: "2.25rem",
+          borderRadius: "50%",
+          background: "rgba(10,10,28,0.65)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          color: "#fff",
+          cursor: "pointer",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          outline: "none",
+        }}
+      >
+        {paused ? (
+          /* Play icon */
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        ) : (
+          /* Pause icon */
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        )}
+      </button>
 
       <div className="df-fre-badge df-fre-anim">Orléans</div>
 

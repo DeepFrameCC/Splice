@@ -11,7 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/galerie`,                lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${base}/photos`,                 lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${base}/equipe`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/contact`,                lastModified: new Date(), changeFrequency: "yearly",  priority: 0.5 },
+    // contact: monthly (pas yearly) — la page est mise à jour régulièrement (horaires, email)
+    { url: `${base}/contact`,                lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/tarifs`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/partenaires`,           lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/partenaires/pixel-404`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },

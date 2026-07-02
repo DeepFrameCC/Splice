@@ -10,8 +10,6 @@ import { getAvisAggregate } from "@/lib/avis-stats";
 import "./globals.css";
 import "./prototype-styles.css";
 
-// Outfit (variable, 100-900) sert à la fois de display et de body — la
-// hiérarchie se fait par graisse/casse/letter-spacing, plus par famille.
 const display = localFont({
   src: "../public/fonts/Outfit-Variable.woff2",
   variable: "--font-display",
@@ -51,6 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    // Pas de compte @X officiel pour l'instant — décommenter quand créé :
+    // site: "@splicestudio",
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   icons: {
