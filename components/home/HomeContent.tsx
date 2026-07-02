@@ -45,7 +45,7 @@ function Footer() {
       <div className="df-footer-top">
         <div>
           <div className="df-footer-mark">
-            <span className="font-display text-lg font-bold tracking-wide text-white">SPL<span className="text-[#F36B1F]">ICE</span> STUDIO</span>
+            <span className="font-display text-[17px] font-extrabold tracking-[0.03em] text-white">SPL<span className="text-[#F36B1F]">ICE</span> STUDIO</span>
           </div>
           <p>Boîte de production audiovisuelle.<br />Orléans · Tours · partout en région.</p>
         </div>

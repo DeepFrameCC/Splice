@@ -53,88 +53,76 @@ const SERVICES: ServiceCard[] = [
 
 const sceneBySlug = Object.fromEntries(scenes.map((s) => [s.slug, s]));
 
+/**
+ * Carte bento avec tilt 3D + reflet (glare) + cartouche verre au survol.
+ * Transcription React du script data-tilt de la maquette accueil.html.
+ * Désactivé si prefers-reduced-motion (le contenu reste 100 % accessible :
+ * le cartouche verre s'affiche aussi au focus clavier via CSS).
+ */
+function TiltCard({
+  href,
+  ariaLabel,
+  className = "",
+  reduced,
+  children,
+}: {
+  href: string;
+  ariaLabel: string;
+  className?: string;
+  reduced: boolean;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  function onMouseMove(e: React.MouseEvent<HTMLAnchorElement>) {
+    const card = ref.current;
+    if (!card || reduced) return;
+    const r = card.getBoundingClientRect();
+    const px = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+    const py = Math.min(Math.max((e.clientY - r.top) / r.height, 0), 1);
+    card.style.transition = "transform 0.12s ease-out";
+    card.style.transform = `perspective(1100px) rotateX(${((0.5 - py) * 7).toFixed(2)}deg) rotateY(${((px - 0.5) * 7).toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+    const glare = card.querySelector<HTMLElement>("[data-glare]");
+    if (glare) {
+      glare.style.opacity = "1";
+      glare.style.background = `radial-gradient(460px circle at ${(px * 100).toFixed(1)}% ${(py * 100).toFixed(1)}%, rgba(255,255,255,0.18), rgba(255,255,255,0) 62%)`;
+    }
+    const glass = card.querySelector<HTMLElement>("[data-glassbg]");
+    if (glass) glass.style.opacity = "1";
+    const cap = card.querySelector<HTMLElement>("[data-caption]");
+    if (cap) cap.style.transform = "translateZ(42px)";
+  }
+
+  function onMouseLeave() {
+    const card = ref.current;
+    if (!card) return;
+    card.style.transition = "transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)";
+    card.style.transform = "perspective(1100px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+    const glare = card.querySelector<HTMLElement>("[data-glare]");
+    if (glare) glare.style.opacity = "0";
+    const glass = card.querySelector<HTMLElement>("[data-glassbg]");
+    if (glass) glass.style.opacity = "0";
+    const cap = card.querySelector<HTMLElement>("[data-caption]");
+    if (cap) cap.style.transform = "translateZ(0px)";
+  }
+
+  return (
+    <Link
+      ref={ref}
+      href={href}
+      aria-label={ariaLabel}
+      className={`df-bt-card ${className}`.trim()}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {children}
+    </Link>
+  );
+}
+
 export default function CrewStack() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const drag = useRef({ down: false, startX: 0, scrollLeft: 0, moved: false });
   const reduced = useReducedMotion();
-
-  // Update scroll progress bar position (sliding handle)
-  const onScroll = React.useCallback(() => {
-    const el = trackRef.current;
-    const bar = progressRef.current;
-    if (!el || !bar) return;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    if (maxScroll <= 0) {
-      bar.style.transform = "translateX(0px)";
-      return;
-    }
-    const pct = el.scrollLeft / maxScroll;
-    const trackWidth = bar.parentElement?.clientWidth || 140;
-    const barWidth = bar.clientWidth || 40;
-    const maxTranslate = trackWidth - barWidth;
-    const tx = pct * maxTranslate;
-    bar.style.transform = `translateX(${Math.min(maxTranslate, Math.max(0, tx))}px)`;
-  }, []);
-
-  React.useEffect(() => {
-    onScroll();
-    window.addEventListener("resize", onScroll);
-    return () => window.removeEventListener("resize", onScroll);
-  }, [onScroll]);
-
-  // Click navigation for the gallery slider
-  const scrollDirection = (direction: "left" | "right") => {
-    const el = trackRef.current;
-    if (!el) return;
-    const cards = el.querySelectorAll(".df-cs-card");
-    const firstCard = cards[0];
-    if (!firstCard) return;
-    
-    // Find width of a single card
-    const cardWidth = firstCard.clientWidth;
-    const gap = 20; 
-    const scrollAmount = cardWidth + gap;
-    
-    el.scrollTo({
-      left: el.scrollLeft + (direction === "left" ? -scrollAmount : scrollAmount),
-      behavior: "smooth",
-    });
-  };
-
-  // Glisser-déposer à la souris pour faire défiler (le tactile utilise le scroll natif).
-  // On ne capture le pointeur QU'À partir du moment où un vrai drag démarre : sinon
-  // le navigateur synthétise le `click` sur la piste capturée au lieu du <Link>,
-  // ce qui avale la navigation.
-  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    if (e.pointerType !== "mouse") return;
-    const el = trackRef.current;
-    if (!el) return;
-    drag.current = { down: true, startX: e.clientX, scrollLeft: el.scrollLeft, moved: false };
-  }
-  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (!drag.current.down) return;
-    const el = trackRef.current;
-    if (!el) return;
-    const dx = e.clientX - drag.current.startX;
-    // Seuil volontairement large : un clic avec micro-tremblement reste un clic.
-    if (!drag.current.moved && Math.abs(dx) > 8) {
-      drag.current.moved = true;
-      el.setPointerCapture(e.pointerId); // capture seulement une fois le drag confirmé
-    }
-    if (drag.current.moved) el.scrollLeft = drag.current.scrollLeft - dx;
-  }
-  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
-    drag.current.down = false;
-    if (trackRef.current?.hasPointerCapture?.(e.pointerId)) {
-      trackRef.current.releasePointerCapture(e.pointerId);
-    }
-  }
-  // Empêche la navigation si le clic était en fait un glissement.
-  function onCardClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    if (drag.current.moved) e.preventDefault();
-  }
 
   useGSAP(
     () => {
@@ -172,7 +160,7 @@ export default function CrewStack() {
       <div className="df-cs-head">
         <div className="df-cs-anim">
           <span className="df-cs-eyebrow">Services</span>
-          <h2 className="df-cs-h2" style={{ marginTop: "clamp(28px, 4vw, 48px)" }}>
+          <h2 className="df-cs-h2" style={{ marginTop: "clamp(24px, 3vw, 40px)" }}>
             <span className="sr-only">
               Nos services de production vidéo &amp; photographie professionnelle à Orléans &amp; Tours.{" "}
             </span>
@@ -186,85 +174,58 @@ export default function CrewStack() {
         </div>
       </div>
 
-      {/* ── Galerie draggable de services ── */}
-      <div className="df-cs-gallery-wrap df-cs-anim">
-        <div
-          ref={trackRef}
-          className="df-cs-gallery"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerUp}
-          onScroll={onScroll}
-        >
-          {SERVICES.map((s) => {
-            const media = sceneBySlug[s.mediaSlug];
-            return (
-              <Link
-                key={s.id}
-                href={s.href}
-                className="df-cs-card"
-                onClick={onCardClick}
-                draggable={false}
-                aria-label={`Voir le service ${s.name}`}
-              >
+      {/* ── Bento tilt 3D + cartouche verre ── */}
+      <div className="df-cs-bento df-cs-anim">
+        {SERVICES.map((s, i) => {
+          const media = sceneBySlug[s.mediaSlug];
+          return (
+            <TiltCard
+              key={s.id}
+              href={s.href}
+              ariaLabel={`Voir le service ${s.name}`}
+              className={i === 0 ? "df-bt-tall" : ""}
+              reduced={reduced}
+            >
+              <div className="df-bt-media">
                 {media && (
                   <Image
                     src={media.poster}
                     alt={s.name}
                     fill
-                    sizes="(max-width: 640px) 80vw, 380px"
-                    className="df-cs-card-img"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 420px"
+                    className="df-bt-img"
                     draggable={false}
                   />
                 )}
-                <div className="df-cs-card-veil" aria-hidden="true" />
-                <span className="df-cs-card-num">S/{s.id}</span>
-                <div className="df-cs-card-cap">
-                  <span className="df-cs-card-name">{s.name}</span>
-                  <span className="df-cs-card-desc">{s.desc}</span>
-                  <span className="df-cs-card-go">
-                    Voir le service <span aria-hidden="true">→</span>
-                  </span>
+                <div className="df-bt-veil" aria-hidden="true" />
+                <div className="df-bt-glare" data-glare aria-hidden="true" />
+              </div>
+              <div className="df-bt-cap" data-caption>
+                <div className="df-bt-glass" data-glassbg aria-hidden="true" />
+                <div className="df-bt-cap-inner">
+                  <span className="df-bt-num">{s.id}</span>
+                  <span className="df-bt-name">{s.name}</span>
+                  <span className="df-bt-desc">{s.desc}</span>
                 </div>
-              </Link>
-            );
-          })}
-        </div>
-        <div className="df-cs-controls">
-          <span className="df-cs-drag-hint" aria-hidden="true">
-            ↔ Glissez pour explorer
-          </span>
-          <div className="df-cs-slider-nav">
-            <button
-              onClick={() => scrollDirection("left")}
-              className="df-cs-arrow"
-              aria-label="Défiler vers la gauche"
-              type="button"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            </button>
-            <div className="df-cs-progress-track" aria-hidden="true">
-              <div ref={progressRef} className="df-cs-progress-bar" />
-            </div>
-            <button
-              onClick={() => scrollDirection("right")}
-              className="df-cs-arrow"
-              aria-label="Défiler vers la droite"
-              type="button"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
+              </div>
+            </TiltCard>
+          );
+        })}
+
+        {/* 5e tuile — lien vers tous les services */}
+        <TiltCard href="/services" ariaLabel="Voir tous les services" className="df-bt-more" reduced={reduced}>
+          <div className="df-bt-glare df-bt-glare-solo" data-glare aria-hidden="true" />
+          <span className="df-bt-plus" aria-hidden="true">+</span>
+          <div className="df-bt-more-row" data-caption>
+            <span className="df-bt-more-label">Voir tous<br />les services</span>
+            <span className="df-bt-more-arrow" aria-hidden="true">→</span>
           </div>
-        </div>
+        </TiltCard>
       </div>
 
       {/* ── Footer slim ── */}
       <div className="df-cs-foot df-cs-anim">
         <span className="df-cs-foot-meta">Studio audiovisuel · Orléans + Tours</span>
-        <Link href="/services" className="df-cs-foot-link">
-          Voir tous les services <span>→</span>
-        </Link>
       </div>
     </section>
   );

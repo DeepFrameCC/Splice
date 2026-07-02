@@ -48,6 +48,8 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
   // Badge label & styles
   const types = new Set(medias.map((m) => m.type));
   const badgeClass = types.size > 1 ? "mixed" : types.has("video") ? "video" : "photo";
+  // Cartes vidéo pures : format uniforme 16:10 (maquette) — photos en 4:3.
+  const isVideoOnly = types.has("video") && !types.has("photo");
   const badgeText =
     types.size > 1
       ? `Film + ${medias.filter((m) => m.type === "photo").length} photos`
@@ -123,7 +125,7 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
 
   return (
     <div
-      className="pj-media select-none"
+      className={`pj-media select-none${isVideoOnly ? " is-video" : ""}`}
       tabIndex={0}
       onKeyDown={onKey}
       onPointerDown={onPointerDown}
@@ -190,6 +192,11 @@ export default function MediaCarousel({ medias, projectTitle, onOpenLightbox, pr
         <div className="pj-play" aria-hidden="true">
           <PlayIcon />
         </div>
+      )}
+
+      {/* Durée — badge glass en bas à droite (vidéos) */}
+      {cur && cur.type === "video" && cur.duration && (
+        <span className="pj-dur">{cur.duration}</span>
       )}
 
       {/* Prev / next controls */}

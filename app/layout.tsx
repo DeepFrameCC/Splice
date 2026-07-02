@@ -10,22 +10,20 @@ import { getAvisAggregate } from "@/lib/avis-stats";
 import "./globals.css";
 import "./prototype-styles.css";
 
+// Outfit (variable, 100-900) sert à la fois de display et de body — la
+// hiérarchie se fait par graisse/casse/letter-spacing, plus par famille.
 const display = localFont({
-  src: "../public/fonts/Anton-Regular.woff2",
+  src: "../public/fonts/Outfit-Variable.woff2",
   variable: "--font-display",
   display: "swap",
-  weight: "400",
+  weight: "100 900",
 });
 
 const sans = localFont({
-  src: [
-    { path: "../public/fonts/Poppins-Regular.woff2", weight: "400", style: "normal" },
-    { path: "../public/fonts/Poppins-Italic.woff2", weight: "400", style: "italic" },
-    { path: "../public/fonts/Poppins-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../public/fonts/Poppins-BoldItalic.woff2", weight: "700", style: "italic" },
-  ],
+  src: "../public/fonts/Outfit-Variable.woff2",
   variable: "--font-sans",
   display: "swap",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {

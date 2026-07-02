@@ -2,19 +2,14 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 
 /**
- * LastFrame — cinematic CTA section.
- * End-card aesthetic: full-screen, cine corners, single CTA.
- * Replaces HomeFAQ + Quote + Pricing from V1.
+ * LastFrame — CTA final.
+ * Carte arrondie 28px fond #0A0A1C (maquette accueil.html) : H2 sentence-case,
+ * CTA orange, rangée de réassurance, contact.
  * RSC — no client interactivity needed.
  */
 export default function LastFrame() {
   return (
     <section className="df-lf" aria-label="Demander un devis Splice Studio">
-      {/* Cine corners */}
-      <div className="df-cine-corners df-lf-corners" aria-hidden="true">
-        <i /><i /><i /><i />
-      </div>
-
       <div className="df-lf-inner">
         <h2 className="df-lf-title">
           Votre projet, on s&apos;en occupe

@@ -45,41 +45,28 @@ Tous les neutrals sont **tintés vers l'orange brûlé** (chroma 0.005-0.015). J
 
 ## Typography
 
-**Display :** **Anton Regular** (Google Fonts OFL, local dans `public/fonts/Anton-Regular.ttf`) — condensed bold sans-serif. UN seul poids (400). Uppercase tracking-tight pour tous les titres.
+**Une seule famille : Outfit** (Google Fonts OFL, fonte **variable 100-900**, locale dans `public/fonts/Outfit-Variable.woff2`, chargée via `next/font/local` pour `--font-display` ET `--font-sans`). Anton et Poppins sont retirés. La hiérarchie se fait par **graisse, casse et letter-spacing**, plus par famille.
 
-**Body :** **Poppins** (4 fichiers locaux : Regular 400, Bold 700, Italic 400, BoldItalic 700). Italic-700 réservé à `<em>` orange.
+`globals.css` définit `.font-display { font-weight: 800 }` par défaut (couche components — un utilitaire `font-*` explicite garde la priorité) : Outfit 400 est maigre là où Anton 400 était visuellement lourd.
 
-**Pas de mono** — Poppins en `font-feature-settings: "tnum"` couvre les codes TC / chiffres tabulaires.
+**Pas de mono** — Outfit en `font-feature-settings: "tnum"` couvre les timecodes / chiffres tabulaires. (Exception : le thème éditorial des articles de blog, qui garde Newsreader/Hanken Grotesk/IBM Plex Mono.)
 
 ### Hierarchy (ratio ≥1.25)
 
-| Niveau | Font | Size | Weight | Tracking | Transform |
-|--------|------|------|--------|----------|-----------|
-| Hero h1 | Anton | `clamp(56px, 8vw, 124px)` | 400 | `-0.01em` | `uppercase` |
-| h1 standard | Anton | `clamp(40px, 5vw, 72px)` | 400 | `-0.005em` | `uppercase` |
-| h2 section | Anton | `clamp(36px, 4.6vw, 68px)` | 400 | `-0.005em` | `uppercase` |
-| h3 | Anton | `28px` desktop / `22px` mobile | 400 | `-0.005em` | `uppercase` |
-| h4 / sub | Anton | `20px` | 400 | `0em` | `uppercase` |
-| Body | Poppins | `15-17px` | 400 | normal | none |
-| Body large | Poppins | `18-20px` | 400 | normal | none |
-| Caption | Poppins | `13px` | 400 | normal | none |
-| Eyebrow | Poppins | `11-12px` | 700 | `0.16-0.18em` | `uppercase` |
-| Button | Poppins | `13-15px` | 700 | `-0.005em` | none |
+| Niveau | Size | Weight | Tracking | Transform |
+|--------|------|--------|----------|-----------|
+| Hero h1 | `clamp(44px, 9vw, 110px)` — 92-110px desktop | 900 | `-0.03em`, line-height 0.95 | `uppercase` |
+| h2 section | `46-52px` | 800 | `-0.025em` | `uppercase` |
+| Titres de cartes | `19-21px` | 700-800 | `-0.01em` | `uppercase` (contexte) |
+| Body | `13.5-17px` | 400-500 | normal | none |
+| Caption / méta | `13px` | 400-600 | normal | none |
+| Eyebrow | `11.5-12px` | 700 | `0.16-0.2em` | `uppercase` |
+| Button | `13-16px` | 700 | `-0.005em` | none |
+| Chiffres / timecodes | — | 600-800 | — | `font-feature-settings: "tnum"` |
 
-### Italic-orange convention (signature)
+### Convention mot accentué (signature)
 
-```css
-.df-root em {
-  font-family: var(--font-sans); /* Poppins italic */
-  font-style: italic;
-  font-weight: 700;
-  color: var(--df-accent); /* #F36B1F */
-  text-transform: none;
-  letter-spacing: -0.005em;
-}
-```
-
-Anton n'a pas d'italic — la convention italique-orange repose entièrement sur Poppins Italic 700. À utiliser avec parcimonie : 1-2 em par section maximum.
+Le mot accentué d'un titre (`<em>` ou `<span>`) est simplement **orange `#F36B1F`, sans italique** (`font-style: normal`). L'ancienne convention italique Poppins 700 disparaît avec Poppins. À utiliser avec parcimonie : 1-2 accents par section maximum.
 
 ### Line length
 
@@ -121,7 +108,7 @@ Très restreint — Splice Studio est dark, les shadows soft sur dark sont peu v
 - `--df-shadow-sm` : `0 1px 0 rgba(10,10,35,.04), 0 8px 24px -12px rgba(10,10,35,.10)`
 - `--df-shadow-md` : `0 1px 0 rgba(10,10,35,.06), 0 24px 60px -28px rgba(10,10,35,.18)`
 - CTA primary glow : `0 8px 22px -8px rgba(243,107,31,0.6)` (orange diffuse)
-- **PAS de glassmorphism par défaut** (interdit par impeccable bans). `backdrop-blur` uniquement sur Nav sticky (`14px saturate(160%)`).
+- **Glassmorphism cadré** : réservé aux badges/pills « glass » posés SUR un média (badge Orléans du hero, play button, compteur carrousel, durée, cartouche de carte au survol) et à la Nav sticky. Recette : `background: rgba(14,14,34,0.32-0.6)` + `backdrop-filter: blur(10-16px) saturate(150-160%)` + bordure `rgba(255,255,255,0.14-0.25)`. Jamais en fond de section ou de carte entière.
 
 ## Motion
 
@@ -174,7 +161,7 @@ Très restreint — Splice Studio est dark, les shadows soft sur dark sont peu v
 - Sticky top, `bg color-mix(in oklab, var(--bg-night) 88%, transparent)`
 - Backdrop-blur 14px (exception au ban glassmorphism — purposeful pour ne pas masquer le hero)
 - Border-bottom `var(--df-line)`
-- Logo Anton condensed, link CTA `df-btn-primary df-btn-sm`
+- Logo Outfit 900 « SPL{ICE orange} STUDIO », liens uppercase 12.5px 600, link CTA `df-btn-primary df-btn-sm`
 
 ### Showreel / VideoReel
 
@@ -198,8 +185,8 @@ Très restreint — Splice Studio est dark, les shadows soft sur dark sont peu v
 - `app/prototype-styles.css` — système tokens legacy + classes `df-*`
 - `app/globals.css` — Tailwind base + tokens globaux
 - `tailwind.config.ts` — tokens `df-*` namespace + `fontFamily.display/sans`
-- `app/layout.tsx` — chargement next/font/local (Anton + 4 Poppins)
-- `public/fonts/` — tous les fichiers TTF locaux
+- `app/layout.tsx` — chargement next/font/local (Outfit variable, display + sans)
+- `public/fonts/Outfit-Variable.woff2` — fonte unique du site (les woff2 Anton/Poppins restent en legacy)
 - `components/home/HomeContent.tsx` — référence visuelle landing
 - `components/layout/Nav.tsx` — nav pattern
 - `components/devis/Wizard.tsx` — pattern formulaire multi-step
@@ -214,7 +201,7 @@ Très restreint — Splice Studio est dark, les shadows soft sur dark sont peu v
 6. Grilles de cards identiques (icon + heading + text répété)
 7. Modal-first reflex
 8. Em dashes `—` en copy française (utiliser `,` `:` `;` `.` `()`)
-9. Italique sur `font-display` Anton (synthèse fake italic moche) → toujours via Poppins italic
+9. Italique sur les titres et les mots accentués — Outfit n'a pas d'italique ; l'accent est orange `font-style: normal`
 10. Animations sur layout properties (width/height/top/left/margin/padding)
 11. Bounce / elastic easings
 12. `useEffect` pour animations GSAP (toujours `useGSAP()`)

@@ -297,29 +297,33 @@ export default function ProjetsClient({ medias, likedIds, isAuthed, toggleLike, 
     <div className="df-root">
       {/* Hero */}
       <section className="pj-hero">
-        <div>
-          <div className="pj-eyebrow" data-anim="eyebrow">Portfolio</div>
+        <div className="pj-eyebrow" data-anim="eyebrow">
+          <span className="pj-eyebrow-line" aria-hidden="true" />
+          Portfolio · Orléans &amp; Tours
+        </div>
+        <div className="pj-hero-row">
           <h1 data-anim="hero-title">
             Ce qu&apos;on a tourné,
             <br />
             <em>ce qu&apos;on a shooté</em>.
           </h1>
-          <p data-anim="hero-meta">
-            Un échantillon de nos productions récentes. Filmer une voiture au crépuscule, raconter une marque, capter un événement, signer un portrait — pour chaque projet, une intention claire.
-          </p>
-          <div className="pj-hero-meta" data-anim="hero-meta">
-            <div>
-              <b>{allProjects.length}</b>projets
-            </div>
-            <div>
-              <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "video").length, 0)}</b>vidéos
-            </div>
-            <div>
-              <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "photo").length, 0)}</b>photos
+          <div className="pj-hero-aside">
+            <p data-anim="hero-meta">
+              Un échantillon de nos productions récentes. Filmer une voiture au crépuscule, raconter une marque, capter un événement, signer un portrait — pour chaque projet, une intention claire.
+            </p>
+            <div className="pj-hero-meta" data-anim="hero-meta">
+              <div>
+                <b>{allProjects.length}</b>projets
+              </div>
+              <div>
+                <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "video").length, 0)}</b>vidéos
+              </div>
+              <div>
+                <b>{allProjects.reduce((s, p) => s + p.medias.filter((m) => m.type === "photo").length, 0)}</b>photos
+              </div>
             </div>
           </div>
         </div>
-
       </section>
 
       {/* Tabs */}

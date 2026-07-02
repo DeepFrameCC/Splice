@@ -136,7 +136,7 @@ export default function Lightbox({
             onClick={onLike}
             disabled={pending}
             aria-label={isLiked ? "Retirer le like" : "Liker"}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 hover:scale-110 active:scale-95 disabled:opacity-50"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-[#0E0E22]/55 text-white backdrop-blur-[10px] transition hover:bg-white/15 hover:scale-110 active:scale-95 disabled:opacity-50 motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
             <Heart className={`h-5 w-5 ${isLiked ? "fill-[#F36B1F] text-[#F36B1F]" : "text-white/70"}`} />
           </button>

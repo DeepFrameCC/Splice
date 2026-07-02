@@ -196,12 +196,11 @@ export default function SceneSelector() {
       aria-roledescription="carousel"
       tabIndex={0}
     >
-      <h2 className="sr-only">Sélection de projets Splice Studio</h2>
       <div className="df-ss-head">
-        <span className="df-ss-eyebrow">
-          <span className="df-rec-dot" aria-hidden="true" />
-          Projet Réalisé
-        </span>
+        <div className="df-ss-head-text">
+          <span className="df-ss-eyebrow">Réalisations</span>
+          <h2 className="df-ss-h2">Nos dernières scènes</h2>
+        </div>
         <span className="df-ss-counter df-tc-live" aria-live="polite">
           Scene {String(index + 1).padStart(2, "0")} / {String(scenes.length).padStart(2, "0")}
         </span>
@@ -270,6 +269,12 @@ export default function SceneSelector() {
           <div className="df-cine-corners" aria-hidden="true">
             <i /><i /><i /><i />
           </div>
+
+          {/* Flèches rondes bas-droite (ghost + orange) */}
+          <div className="df-ss-arrows">
+            <SceneSelectorArrow direction="prev" onClick={goPrev} ariaLabel="Scène précédente" />
+            <SceneSelectorArrow direction="next" onClick={goNext} ariaLabel="Scène suivante" />
+          </div>
         </div>
 
         {/* Peek droite */}
@@ -281,12 +286,6 @@ export default function SceneSelector() {
         >
           <div className="df-ss-peek-img" style={{ backgroundImage: `url(${nextScene.poster})` }} />
         </button>
-
-        {/* Flèches flottantes */}
-        <div className="df-ss-arrows">
-          <SceneSelectorArrow direction="prev" onClick={goPrev} ariaLabel="Scène précédente" />
-          <SceneSelectorArrow direction="next" onClick={goNext} ariaLabel="Scène suivante" />
-        </div>
       </div>
 
       <SceneSelectorRail scenes={scenes} currentIndex={index} onSelect={goTo} />

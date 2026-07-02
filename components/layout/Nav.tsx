@@ -50,7 +50,7 @@ export default function Nav({ user: userProp }: NavProps) {
     <>
       <header className="df-nav w-full !flex !flex-row !flex-nowrap !items-center !justify-between">
         <Link href="/" className="df-logo-mark flex items-center shrink-0" aria-label="Splice Studio">
-          <span className="font-display text-lg font-bold tracking-wide text-white">SPL<span className="text-[#F36B1F]">ICE</span> STUDIO</span>
+          <span className="font-display text-lg font-black tracking-[0.05em] text-white">SPL<span className="text-[#F36B1F]">ICE</span> STUDIO</span>
         </Link>
 
         <nav className="df-nav-links" aria-label="Navigation principale">

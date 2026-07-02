@@ -136,7 +136,7 @@ export default function ProductionVideoOrleansPage() {
             {/* Card 1 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Video className="h-8 w-8" /></div>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Film Corporate &amp; Entreprise
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -150,7 +150,7 @@ export default function ProductionVideoOrleansPage() {
             {/* Card 2 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Film className="h-8 w-8" /></div>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Publicités Réseaux Sociaux
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -164,7 +164,7 @@ export default function ProductionVideoOrleansPage() {
             {/* Card 3 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Eye className="h-8 w-8" /></div>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Shooting Automobile &amp; Événements
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">

@@ -133,7 +133,7 @@ export default function VideasteOrleansPage() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Video className="h-8 w-8" /></div>
-              <h2 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h2 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Vidéos réseaux sociaux
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -146,7 +146,7 @@ export default function VideasteOrleansPage() {
 
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Film className="h-8 w-8" /></div>
-              <h2 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h2 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Films d&apos;entreprise
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -159,7 +159,7 @@ export default function VideasteOrleansPage() {
 
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <div className="text-df-gold"><Sparkles className="h-8 w-8" /></div>
-              <h2 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h2 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Motion design
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-white/60">

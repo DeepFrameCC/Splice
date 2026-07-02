@@ -91,7 +91,7 @@ export default function RegisterPage() {
           <h1 className="font-display text-4xl font-black leading-tight text-white">
             Créez votre espace,
             <br />
-            <em className="italic text-df-gold">lancez votre projet</em>.
+            <em className="not-italic text-df-gold">lancez votre projet</em>.
           </h1>
           <p className="mt-5 leading-relaxed text-white/60">
             Un compte suffit pour demander un devis, suivre vos projets et

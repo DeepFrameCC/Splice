@@ -53,7 +53,7 @@ export default function ContactPage() {
           >
             Parlons de
             <br />
-            <em className="italic text-df-gold">votre projet.</em>
+            <em className="not-italic text-df-gold">votre projet.</em>
           </h1>
           <p className="mt-5 max-w-xl text-white/70">
             Un brief, une idée, un délai qui presse — écrivez-nous. Nous lisons

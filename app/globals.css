@@ -45,9 +45,17 @@ select option {
     @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-df-gold px-6 py-3 font-bold text-df-gold transition hover:bg-df-gold hover:text-white;
   }
   .nav-link {
-    @apply font-display italic text-df-blue transition hover:text-df-gold;
+    @apply font-display text-df-blue transition hover:text-df-gold;
   }
   .nav-link-active { @apply text-df-gold; }
+
+  /* Outfit est une fonte variable : contrairement à Anton (mono-graisse,
+     visuellement lourde en 400), la famille display doit être grasse par
+     défaut. Un utilitaire font-* explicite sur l'élément garde la priorité
+     (couche utilities après components). */
+  .font-display {
+    font-weight: 800;
+  }
 
   .card-hover {
     @apply transition-transform duration-300 will-change-transform hover:scale-[1.04] hover:shadow-2xl;
@@ -117,10 +125,10 @@ select option {
   font-weight: 500;
   letter-spacing: -0.01em;
 }
-/* Mot accentué dans un titre : <em> → italique orange (façon magazine) */
+/* Mot accentué dans un titre : <em> → orange, sans italique (convention Outfit) */
 .prose-splice h2 em,
 .prose-splice h3 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--df-gold);
 }
 

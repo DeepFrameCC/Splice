@@ -170,7 +170,7 @@ export default function EquipePage() {
               letterSpacing: "-0.035em",
             }}
           >
-            Deux <em className="italic font-bold text-df-gold">artisans</em>{" "}
+            Deux <em className="not-italic font-bold text-df-gold">artisans</em>{" "}
             <br />
             de l&apos;image.
           </h1>
@@ -387,7 +387,7 @@ export default function EquipePage() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Une idée, un brief, une <em className="italic font-extrabold text-df-gold">envie</em>&nbsp;?
+              Une idée, un brief, une <em className="not-italic font-extrabold text-df-gold">envie</em>&nbsp;?
             </h2>
             <p className="mt-2.5 text-[15px] leading-[1.55] text-white/65">
               On répond en moins de 24&nbsp;h. Pré-devis gratuit, sans engagement.

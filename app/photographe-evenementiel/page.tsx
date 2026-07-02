@@ -143,7 +143,7 @@ export default function PhotographeEvenementielPage() {
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#16a34a]/10 text-[#16a34a]">
                 <Camera className="h-5 w-5" />
               </div>
-              <h3 className="font-display mt-4 text-lg font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display mt-4 text-lg font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Duo Photo &amp; Vidéo
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-white/60">
@@ -156,7 +156,7 @@ export default function PhotographeEvenementielPage() {
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#16a34a]/10 text-[#16a34a]">
                 <Zap className="h-5 w-5" />
               </div>
-              <h3 className="font-display mt-4 text-lg font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display mt-4 text-lg font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Discrétion &amp; Basse Lumière
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-white/60">
@@ -169,7 +169,7 @@ export default function PhotographeEvenementielPage() {
               <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#16a34a]/10 text-[#16a34a]">
                 <Zap className="h-5 w-5" />
               </div>
-              <h3 className="font-display mt-4 text-lg font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display mt-4 text-lg font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Livraison en 7 à 14 jours
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-white/60">
@@ -191,7 +191,7 @@ export default function PhotographeEvenementielPage() {
           <div className="grid gap-8 md:grid-cols-3">
             {/* Format 1 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-[#16a34a]/20">
-              <h3 className="font-display text-xl font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display text-xl font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Séminaires &amp; Conventions
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -212,7 +212,7 @@ export default function PhotographeEvenementielPage() {
 
             {/* Format 2 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-[#16a34a]/20">
-              <h3 className="font-display text-xl font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display text-xl font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Soirées, Lancements &amp; Galas
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -233,7 +233,7 @@ export default function PhotographeEvenementielPage() {
 
             {/* Format 3 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-[#16a34a]/20">
-              <h3 className="font-display text-xl font-medium uppercase text-white group-hover:text-[#16a34a] transition-colors">
+              <h3 className="font-display text-xl font-bold uppercase text-white group-hover:text-[#16a34a] transition-colors">
                 Mairies &amp; Vie Locale
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">

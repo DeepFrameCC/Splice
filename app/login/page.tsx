@@ -38,7 +38,7 @@ export default function LoginPage() {
           <h1 className="font-display text-4xl font-black leading-tight text-white">
             Suivez vos devis,
             <br />
-            <em className="italic text-df-gold">du brief au signé</em>.
+            <em className="not-italic text-df-gold">du brief au signé</em>.
           </h1>
           <p className="mt-5 leading-relaxed text-white/60">
             Connectez-vous pour accéder à vos devis, factures, contrats et

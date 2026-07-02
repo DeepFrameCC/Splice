@@ -131,7 +131,7 @@ export default function AgenceCommunicationOrleansPage() {
             {/* Card 1 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <span className="text-3xl font-light text-df-gold/30">01</span>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Production Vidéo &amp; Motion Design
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -153,7 +153,7 @@ export default function AgenceCommunicationOrleansPage() {
             {/* Card 2 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <span className="text-3xl font-light text-df-gold/30">02</span>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Photographie Professionnelle
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -175,7 +175,7 @@ export default function AgenceCommunicationOrleansPage() {
             {/* Card 3 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <span className="text-3xl font-light text-df-gold/30">03</span>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Social Media &amp; Publicités
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
@@ -197,7 +197,7 @@ export default function AgenceCommunicationOrleansPage() {
             {/* Card 4 */}
             <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-df-surface p-8 shadow-sm transition hover:border-df-gold/20">
               <span className="text-3xl font-light text-df-gold/30">04</span>
-              <h3 className="font-display mt-4 text-xl font-medium uppercase text-white group-hover:text-df-gold transition-colors">
+              <h3 className="font-display mt-4 text-xl font-bold uppercase text-white group-hover:text-df-gold transition-colors">
                 Événementiel, Mairies &amp; Collectivités
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
