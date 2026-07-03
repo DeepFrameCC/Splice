@@ -136,12 +136,12 @@ export default function Wizard({ isAuthenticated = false, canUseFormuleBienvenue
               <div className="hidden md:block">
                 <span
                   className={`text-sm font-bold ${
-                    f.step >= s.n ? "text-white" : "text-white/40"
+                    f.step >= s.n ? "text-white" : "text-white/70"
                   }`}
                 >
                   {s.label}
                 </span>
-                <span className="block text-[10px] text-white/40">{s.desc}</span>
+                <span className="block text-[10px] text-white/70">{s.desc}</span>
               </div>
               {i < STEP_META.length - 1 && (
                 <span

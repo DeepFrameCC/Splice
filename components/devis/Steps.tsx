@@ -72,7 +72,7 @@ export function Step1() {
                   : "border-white/10 hover:border-white/20 hover:bg-white/[0.04]"
               }`}
             >
-              <m.icon className={`h-8 w-8 ${active ? "text-df-gold" : "text-white/40"}`} />
+              <m.icon className={`h-8 w-8 ${active ? "text-df-gold" : "text-white/70"}`} />
               <div>
                 <p className="font-display text-xl uppercase tracking-tight text-white">{m.label}</p>
                 <p className="mt-1 text-sm text-white/60">{m.desc}</p>
@@ -119,7 +119,7 @@ export function Step1() {
             </div>
           </div>
           {bienvenueDisabled && (
-            <div className="flex items-center gap-2 text-xs text-white/40">
+            <div className="flex items-center gap-2 text-xs text-white/70">
               <Lock className="h-3.5 w-3.5" />
               {!isAuthenticated
                 ? "Connectez-vous pour bénéficier de cette offre"
@@ -287,7 +287,7 @@ export function Step2Abonnement() {
                   </span>
                 );
               })()}
-              <p className="mt-1.5 text-xs text-white/40">
+              <p className="mt-1.5 text-xs text-white/70">
                 {plan.videosPerMonth} vidéo{plan.videosPerMonth > 1 ? "s" : ""} source
                 {plan.videosPerMonth > 1 ? "s" : ""} / mois
               </p>
@@ -560,7 +560,7 @@ export function Step2FormuleBienvenue() {
         <div className="mt-4 text-3xl font-bold text-white">
           0 € <span className="text-sm font-normal text-white/50">gratuit</span>
         </div>
-        <p className="mt-1 text-xs text-white/40">
+        <p className="mt-1 text-xs text-white/70">
           Offre unique — 1 par client, places limitées.
         </p>
       </div>
@@ -598,7 +598,7 @@ function OptionsSection() {
     <fieldset className="mt-6">
       <legend className="font-bold text-white">Options à la carte</legend>
       {mode === "PACK_PARTICULIER" && maxVideos === 0 && (
-        <p className="mt-2 text-xs text-white/40">
+        <p className="mt-2 text-xs text-white/70">
           Sélectionnez d&apos;abord le nombre de vidéos pour pouvoir ajouter des options.
         </p>
       )}
@@ -816,7 +816,7 @@ export function Step3() {
             className="mt-1 w-full rounded-xl border-2 border-white/10 bg-white/[0.06] px-3 py-2 text-white placeholder:text-white/30 outline-none focus:border-df-glauque-500 focus:ring-2 focus:ring-df-glauque-500/20"
           />
           {!f.dateTournage ? (
-            <span className="mt-1 block text-xs text-white/40">
+            <span className="mt-1 block text-xs text-white/70">
               Sélectionnez la date prévue du tournage.
             </span>
           ) : new Date(f.dateTournage) < new Date(new Date().toDateString()) ? (

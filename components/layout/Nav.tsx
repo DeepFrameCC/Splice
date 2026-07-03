@@ -54,7 +54,7 @@ export default function Nav({ user: userProp }: NavProps) {
         </Link>
 
         <nav className="df-nav-links" aria-label="Navigation principale">
-          {NAV_LINKS.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
+          {NAV_LINKS.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
         </nav>
 
         <div className="df-nav-cta">
@@ -96,9 +96,9 @@ export default function Nav({ user: userProp }: NavProps) {
         <div className="df-drawer-inner">
           <div className="df-drawer-links">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+              <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
                 {l.label}
-              </a>
+              </Link>
             ))}
           </div>
           <div className="df-drawer-bottom">

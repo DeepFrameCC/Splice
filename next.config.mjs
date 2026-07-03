@@ -40,6 +40,15 @@ const nextConfig = {
         source: "/profil/:path*",
         headers: sensitiveAreaHeaders,
       },
+      {
+        source: "/media/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, immutable",
+          },
+        ],
+      },
     ];
   },
   // SEO Phase 2 — consolidation géo : les anciennes pages Loiret /

@@ -88,7 +88,7 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
             <div>
               <span className="block font-display text-3xl font-bold text-white">{count}</span>
               <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Photos &amp; Vidéos</span>
-              <span className="block mt-1 text-xs text-white/40">Présentes dans notre galerie de réalisations.</span>
+              <span className="block mt-1 text-xs text-white/70">Présentes dans notre galerie de réalisations.</span>
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
             <div>
               <span className="block font-display text-3xl font-bold text-white">24h</span>
               <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Réponse à votre demande</span>
-              <span className="block mt-1 text-xs text-white/40">Devis gratuit, sans engagement, 2 retours inclus.</span>
+              <span className="block mt-1 text-xs text-white/70">Devis gratuit, sans engagement, 2 retours inclus.</span>
             </div>
           </div>
 
@@ -112,7 +112,7 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
             <div>
               <span className="block font-display text-3xl font-bold text-white">Loiret &amp; 37</span>
               <span className="block mt-1 text-xs text-white/50 font-semibold uppercase tracking-wider">Intervention locale</span>
-              <span className="block mt-1 text-xs text-white/40">Présence physique à Orléans &amp; Tours.</span>
+              <span className="block mt-1 text-xs text-white/70">Présence physique à Orléans &amp; Tours.</span>
             </div>
           </div>
         </div>
@@ -145,13 +145,13 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
                       height={partner.logoHeight}
                       className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
                     />
-                    <span className="text-xs text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/70">({partner.location})</span>
                   </div>
                 ) : (
                   <>
                     <Award className="h-5 w-5 text-[#F36B1F]/70" />
                     <span className="text-sm font-bold text-white/80">{partner.name}</span>
-                    <span className="text-xs text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/70">({partner.location})</span>
                   </>
                 )}
               </div>
@@ -174,13 +174,13 @@ export default function TrustSection({ mediaCount }: { mediaCount: number }) {
                       height={partner.logoHeight}
                       className="h-8 w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
                     />
-                    <span className="text-xs text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/70">({partner.location})</span>
                   </div>
                 ) : (
                   <>
                     <Award className="h-5 w-5 text-[#F36B1F]/70" />
                     <span className="text-sm font-bold text-white/80">{partner.name}</span>
-                    <span className="text-xs text-white/40">({partner.location})</span>
+                    <span className="text-xs text-white/70">({partner.location})</span>
                   </>
                 )}
               </div>
