@@ -15,6 +15,17 @@ const buttonVariants = cva(
         secondary: "bg-df-surface text-white shadow-sm hover:bg-df-surface-alt",
         ghost: "text-white hover:bg-white/[0.06]",
         link: "text-df-gold underline-offset-4 hover:underline",
+        /* ── Variants "Swiss minimal" (thème clair, à utiliser sous .swiss) ──
+           Le fill orange porte du TEXTE INK (6.2:1) — jamais de blanc (2.8:1).
+           Focus ring = ring-ring (brand-ink, > 3:1). */
+        swiss:
+          "rounded-swiss-md bg-brand text-ink hover:bg-brand-hover active:bg-brand-hover focus-visible:ring-ring focus-visible:ring-offset-bg",
+        "swiss-outline":
+          "rounded-swiss-md border border-line-strong bg-surface text-ink hover:bg-surface-2 hover:border-ink active:bg-surface-2 focus-visible:ring-ring focus-visible:ring-offset-bg",
+        "swiss-ghost":
+          "rounded-swiss-md bg-transparent text-ink hover:bg-surface-2 active:bg-surface-2 focus-visible:ring-ring focus-visible:ring-offset-bg",
+        "swiss-link":
+          "text-brand-ink underline-offset-4 hover:underline focus-visible:ring-ring",
       },
       size: {
         default: "h-10 px-5 py-2",

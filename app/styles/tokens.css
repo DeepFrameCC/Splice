@@ -1,0 +1,113 @@
+/* ============================================================================
+   splicestudio — Design System "Swiss minimal" (Phase 1)
+   ----------------------------------------------------------------------------
+   Couche de tokens sémantiques (source de vérité : valeurs OKLCH).
+   ADDITIF : ne repeint PAS le site. Les variables sont déclarées sur :root
+   (donc résolvables partout par les utilitaires Tailwind sémantiques), mais
+   AUCUN fond clair n'est appliqué globalement. Le thème clair ne s'active que
+   sur un conteneur portant la classe `.swiss` (voir bas de fichier).
+
+   Le body reste dark (globals.css + df-*). La migration des pages se fera en
+   Phase ultérieure en enveloppant leur racine dans `.swiss`.
+
+   Contrastes WCAG vérifiés (script OKLCH -> sRGB -> ratio) :
+     ink/bg          16.75:1   (AAA)
+     muted/bg         5.46:1   (AA texte normal)
+     brand-ink/bg     5.23:1   (AA lien / petit texte)
+     ink/brand        6.16:1   (AA — texte ink sur bouton orange)
+     white/brand      2.81:1   (ECHEC -> ne jamais mettre de blanc sur brand)
+     success-ink/bg   5.97:1   (AA)   warning-ink/bg 5.49:1 (AA)
+     danger-ink/bg    6.12:1   (AA)
+   ============================================================================ */
+
+:root {
+  /* ---- Surfaces & fonds ---------------------------------------------------
+     Neutres TIÈDES : chroma minime (0.004–0.008) tiré vers l'orange (hue ~60). */
+  --color-bg: oklch(0.988 0.004 60);       /* #fdfaf8 — page, blanc cassé chaud   */
+  --color-surface: oklch(1 0 0);           /* #ffffff — cards, contraste sur bg   */
+  --color-surface-2: oklch(0.965 0.006 60);/* #f7f3ef — panneau creux / hover     */
+
+  /* ---- Texte -------------------------------------------------------------- */
+  --color-ink: oklch(0.22 0.012 55);       /* #1f1915 — texte principal (16.7:1)  */
+  --color-muted: oklch(0.515 0.02 55);     /* #71655d — texte secondaire (5.46:1) */
+
+  /* ---- Bordures ----------------------------------------------------------- */
+  --color-line: oklch(0.92 0.008 60);      /* #e9e3df — hairline discrète          */
+  --color-line-strong: oklch(0.86 0.01 60);/* #d6cdc6 — bordure visible (inputs)   */
+
+  /* ---- Marque (accent UNIQUE : orange #F36B1F) ---------------------------- */
+  --color-brand: oklch(0.704 0.176 45);      /* #f57531 — fill/accent (texte INK)  */
+  --color-brand-hover: oklch(0.645 0.17 43); /* #df6328 — hover du fill            */
+  --color-brand-ink: oklch(0.54 0.155 42);   /* #b54710 — TEXTE lien/petit (5.2:1) */
+  --color-brand-soft: oklch(0.965 0.03 55);  /* #ffefe1 — tint de fond doux        */
+
+  /* ---- Sémantiques (chaque teinte a une variante -ink AA pour le texte) --- */
+  --color-success: oklch(0.56 0.13 150);      /* #2d8949 — fill                    */
+  --color-success-ink: oklch(0.48 0.12 150);  /* #197037 — texte (5.97:1)          */
+  --color-warning: oklch(0.68 0.15 75);       /* #cd8800 — fill                    */
+  --color-warning-ink: oklch(0.52 0.12 65);   /* #975800 — texte (5.49:1)          */
+  --color-danger: oklch(0.575 0.205 27);      /* #d72e2d — fill                    */
+  --color-danger-ink: oklch(0.51 0.19 27);    /* #ba1e20 — texte (6.12:1)          */
+
+  /* ---- Focus ring : brand-ink (5.2:1 vs bg, > 3:1 requis non-texte) -------- */
+  --color-ring: var(--color-brand-ink);
+
+  /* ---- Rayons (UNE échelle Swiss, sobre) ---------------------------------- */
+  --radius-sm: 0.25rem;   /* 4px  — badges, inputs compacts */
+  --radius-md: 0.5rem;    /* 8px  — boutons, cards           */
+  --radius-lg: 0.75rem;   /* 12px — grands panneaux          */
+  --radius-full: 9999px;  /* pills, avatars                  */
+
+  /* ---- Ombres (discrètes, tintées ink — Swiss = bordures > ombres) -------- */
+  --shadow-sm: 0 1px 2px 0 rgba(31, 25, 21, 0.05);
+  --shadow-md: 0 4px 16px -4px rgba(31, 25, 21, 0.08);
+
+  /* ---- Espacement (grille 8pt) -------------------------------------------- */
+  --space-1: 0.25rem;   /* 4  */
+  --space-2: 0.5rem;    /* 8  */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.5rem;    /* 24 */
+  --space-6: 2rem;      /* 32 */
+  --space-8: 3rem;      /* 48 */
+  --space-10: 4rem;     /* 64 */
+  --space-12: 6rem;     /* 96 */
+  --space-section: clamp(4rem, 3rem + 5vw, 8rem);
+
+  /* ---- Échelle typographique (Outfit, tracking serré sur les titres) ------ */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.4rem + 2vw, 2.5rem);
+  --text-display: clamp(2.75rem, 1.8rem + 4.5vw, 4.5rem);
+}
+
+/* ============================================================================
+   Activation du thème clair Swiss — OPT-IN via `.swiss`
+   Enveloppe une page/section : <main className="swiss">…</main>
+   ============================================================================ */
+.swiss {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.swiss ::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-ink);
+}
+
+/* Liens texte par défaut dans le thème clair : brand-ink (AA 5.2:1), jamais
+   le brand pur qui échoue en petit texte. */
+.swiss a.swiss-link {
+  color: var(--color-brand-ink);
+  text-underline-offset: 3px;
+}
+.swiss a.swiss-link:hover {
+  text-decoration: underline;
+}

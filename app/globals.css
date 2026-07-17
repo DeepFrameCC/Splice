@@ -1,3 +1,8 @@
+/* Design System "Swiss minimal" — tokens sémantiques (Phase 1, additif).
+   Déclare les variables color, radius, shadow et space sur :root
+   et le thème clair opt-in `.swiss`. Ne repeint pas le body dark existant. */
+@import "./styles/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

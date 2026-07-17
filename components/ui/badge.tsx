@@ -13,6 +13,13 @@ const badgeVariants = cva(
         destructive: "bg-red-500/15 text-red-400",
         success: "bg-emerald-500/15 text-emerald-400",
         outline: "border border-white/20 text-white",
+        /* ── Variants "Swiss minimal" (thème clair) — textes -ink AA sur tints ── */
+        swiss: "border border-line bg-surface-2 text-ink",
+        "swiss-brand": "bg-brand-soft text-brand-ink",
+        "swiss-success": "bg-success/10 text-success-ink",
+        "swiss-warning": "bg-warning/10 text-warning-ink",
+        "swiss-danger": "bg-danger/10 text-danger-ink",
+        "swiss-outline": "border border-line-strong text-ink",
       },
     },
     defaultVariants: {

@@ -1,13 +1,26 @@
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("rounded-2xl bg-df-surface ring-1 ring-white/[0.08]", className)}
-      {...props}
-    />
+/* `default` = card dark existante (inchangée, compat pages actuelles).
+   `swiss`   = card thème clair (surface blanche, hairline, ombre discrète). */
+const cardVariants = cva("", {
+  variants: {
+    variant: {
+      default: "rounded-2xl bg-df-surface ring-1 ring-white/[0.08]",
+      swiss: "rounded-swiss-lg bg-surface border border-line shadow-swiss-sm",
+    },
+  },
+  defaultVariants: { variant: "default" },
+});
+
+export interface CardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant, ...props }, ref) => (
+    <div ref={ref} className={cn(cardVariants({ variant }), className)} {...props} />
   )
 );
 Card.displayName = "Card";
