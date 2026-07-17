@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "vault-splice": {
+      "type": "stdio",
+      "command": "C:\\Users\\tracy\\connectome-vault\\node_modules\\.bin\\tsx.cmd",
+      "args": [
+        "C:\\Users\\tracy\\connectome-vault\\src\\index.ts"
+      ],
+      "env": {
+        "PROJECT_PATH": "C:\\Dev\\Splice"
+      }
+    },
+    "vault-generic": {
+      "type": "stdio",
+      "command": "C:\\Users\\tracy\\connectome-vault\\node_modules\\.bin\\tsx.cmd",
+      "args": [
+        "C:\\Users\\tracy\\connectome-vault\\src\\index.ts"
+      ],
+      "env": {}
+    }
+  }
+}
