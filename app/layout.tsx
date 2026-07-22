@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import ToasterClient from "@/components/layout/ToasterClient";
 import CookieBanner from "@/components/layout/CookieBanner";
+import MaintenanceOverlay from "@/components/layout/MaintenanceOverlay";
 import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
 import AuthProvider from "@/components/layout/AuthProvider";
@@ -87,6 +88,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <AuthProvider>
           <main id="main-content" className="flex-1">{children}</main>
         </AuthProvider>
+        <MaintenanceOverlay />
         <ToasterClient />
         <CookieBanner />
         <GoogleAnalytics />
